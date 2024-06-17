@@ -1,0 +1,48 @@
+name: sample
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons:
+  connectivity_plus:
+  google_fonts: ^4.0.1
+  flutter_riverpod:
+  http:
+  shared_preferences:
+  intl:
+  skeletons:
+  firebase_core:
+  firebase_analytics:
+  firebase_messaging:
+  cached_network_image:
+  permission_handler:
+  url_launcher:
+  package_info_plus:
+  device_info_plus:
+  logger:
+  awesome_notifications:
+  flutter_svg: ^1.1.6
+  dropdown_search:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis:
+  flutter_launcher_icons:
+  flutter_native_splash:
+  change_app_package_name:
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/

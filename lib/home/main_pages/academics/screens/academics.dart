@@ -35,10 +35,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   onPressed: () {
                     ref.read(mainProvider.notifier).setNavString('Timetable');
                   },
-                  child: const Text(
+                  child: Text(
                     'Timetable',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -53,10 +55,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   onPressed: () {
                     ref.read(mainProvider.notifier).setNavString('Subjects');
                   },
-                  child: const Text(
+                  child: Text(
                     'Subjects',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -78,10 +82,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                         .read(mainProvider.notifier)
                         .setNavString('Internal Marks');
                   },
-                  child: const Text(
+                  child: Text(
                     'Internal Marks',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -96,10 +102,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   onPressed: () {
                     ref.read(mainProvider.notifier).setNavString('Attendance');
                   },
-                  child: const Text(
+                  child: Text(
                     'Attendance',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -121,10 +129,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                         .read(mainProvider.notifier)
                         .setNavString('Hour Attendance');
                   },
-                  child: const Text(
+                  child: Text(
                     'Hour Attendance',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -141,10 +151,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                         .read(mainProvider.notifier)
                         .setNavString('Cumulative Attendance');
                   },
-                  child: const Text(
+                  child: Text(
                     'Cumulative Attendance',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),
@@ -166,10 +178,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                         .read(mainProvider.notifier)
                         .setNavString('Exam Details');
                   },
-                  child: const Text(
+                  child: Text(
                     'Exam Details',
                     textAlign: TextAlign.center,
-                    style: TextStyles.fontStyle6,
+                    style: width > 400
+                        ? TextStyles.fontStyle6
+                        : TextStyles.fontStyle8,
                   ),
                 ),
               ),

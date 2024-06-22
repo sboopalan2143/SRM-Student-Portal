@@ -2,7 +2,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:flutter/material.dart';
 
 class TextStyles {
-  static const titleFontStyle = TextStyle(
+  static final titleFontStyle = TextStyle(
     fontSize: 25,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
@@ -17,7 +17,7 @@ class TextStyles {
     fontSize: 12,
   );
 
-  static const noSizePrimaryColorFontStyle = TextStyle(
+  static final noSizePrimaryColorFontStyle = TextStyle(
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
   );
@@ -27,25 +27,25 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const primaryColorTitleFontStyle = TextStyle(
+  static final primaryColorTitleFontStyle = TextStyle(
     fontSize: 23,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const lessSmallerPrimaryColorFontStyle = TextStyle(
+  static final lessSmallerPrimaryColorFontStyle = TextStyle(
     fontSize: 20,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallPrimaryColorFontStyle = TextStyle(
+  static final smallPrimaryColorFontStyle = TextStyle(
     fontSize: 18,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallerPrimaryColorFontStyle = TextStyle(
+  static final smallerPrimaryColorFontStyle = TextStyle(
     fontSize: 16,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
@@ -164,7 +164,7 @@ class TextStyles {
     fontWeight: FontWeight.w500,
   );
 
-  static const fontStyle9 = TextStyle(
+  static final fontStyle9 = TextStyle(
     fontSize: 35,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
@@ -194,7 +194,7 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle14 = TextStyle(
+  static final fontStyle14 = TextStyle(
     fontSize: 12,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.bold,
@@ -221,6 +221,12 @@ class TextStyles {
   static const fontStyle18 = TextStyle(
     fontSize: 14,
     color: AppColors.redColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const fontStyle19 = TextStyle(
+    fontSize: 8,
+    color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 }

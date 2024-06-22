@@ -69,7 +69,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
             ),
           ),
         ),
-        const Center(
+         Center(
           child: Text(
             '2nd Year, 4th Sem',
             style: TextStyles.smallPrimaryColorFontStyle,

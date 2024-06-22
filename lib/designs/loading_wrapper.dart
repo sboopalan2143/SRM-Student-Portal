@@ -24,7 +24,7 @@ class LoadingWrapper extends StatelessWidget {
                 color:
                     Theme.of(context).colorScheme.background.withOpacity(0.3),
               ),
-              const Center(
+              Center(
                 child:
                     CircularProgressIndicators.primaryColorProgressIndication,
               ),

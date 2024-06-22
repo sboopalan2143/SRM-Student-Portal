@@ -32,12 +32,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ),
                 elevation: 0,
                 color: AppColors.whiteColor,
-                child: const Padding(
-                  padding: EdgeInsets.all(25),
+                child:  Padding(
+                  padding: const EdgeInsets.all(25),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Fees Due for upcoming sem',
                         textAlign: TextAlign.center,
                         style: TextStyles.fontStyle8,
@@ -47,7 +47,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                         textAlign: TextAlign.center,
                         style: TextStyles.fontStyle9,
                       ),
-                      Text(
+                      const Text(
                         'Due Date: 08th June, 2024',
                         textAlign: TextAlign.center,
                         style: TextStyles.fontStyle8,
@@ -328,13 +328,17 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           ref.read(feesProvider.notifier).setFeesNavString(text);
         },
         child: text == provider.navFeesString
-            ? Text(
-                text,
-                style: TextStyles.fontStyle3,
+            ? FittedBox(
+                child: Text(
+                  text,
+                  style: TextStyles.fontStyle3,
+                ),
               )
-            : Text(
-                text,
-                style: TextStyles.smallerLightAshColorFontStyle,
+            : FittedBox(
+                child: Text(
+                  text,
+                  style: TextStyles.smallerLightAshColorFontStyle,
+                ),
               ),
       ),
     );

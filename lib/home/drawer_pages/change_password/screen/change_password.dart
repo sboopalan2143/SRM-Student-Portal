@@ -19,6 +19,8 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Card(
+        elevation: 0,
+        color: AppColors.whiteColor,
         child: Padding(
           padding: const EdgeInsets.all(40),
           child: Column(

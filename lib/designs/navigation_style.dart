@@ -6,17 +6,17 @@ class RouteDesign extends PageRouteBuilder<dynamic> {
           pageBuilder: (context, animation, secondaryAnimation) {
             return route;
           },
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: animation.drive(
-                Tween(
-                  begin: const Offset(1, 0),
-                  end: Offset.zero,
-                ),
-              ),
-              child: child,
-            );
-          },
+          // transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          //   return SlideTransition(
+          //     position: animation.drive(
+          //       Tween(
+          //         begin: const Offset(1, 0),
+          //         end: Offset.zero,
+          //       ),
+          //     ),
+          //     child: child,
+          //   );
+          // },
         );
 
   final Widget route;

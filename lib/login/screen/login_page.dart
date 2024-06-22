@@ -60,128 +60,134 @@ class _LoginPageState extends ConsumerState<LoginPage>
     return LoadingWrapper(
       isLoading: provider is LoginStateLoading,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.whiteColor,
         body: Container(
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/main.png'),
-              fit: BoxFit.cover,
+              image: AssetImage(
+                'assets/images/main.png',
+              ),
+              fit: BoxFit.none,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 100),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/mainpic1.png',
-                    width: MediaQuery.of(context).size.width - 150,
-                    // height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                const Center(
-                  child: Text(
-                    'Log in',
-                    style: TextStyles.smallerPrimaryColorFontStyle,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Username',
-                      style: TextStyles.fontStyle2,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 80),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height / 4 - 25),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/mainpic1.png',
+                      width: MediaQuery.of(context).size.width - 150,
+                      // height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(
-                      height: 5,
+                  ),
+                  const SizedBox(height: 40),
+                  Center(
+                    child: Text(
+                      'Log in',
+                      style: TextStyles.smallerPrimaryColorFontStyle,
                     ),
-                    SizedBox(
-                      height: 40,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Username',
                         style: TextStyles.fontStyle2,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.account_circle,
-                            color: AppColors.grey2,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          style: TextStyles.fontStyle2,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.account_circle,
+                              color: AppColors.grey2,
+                            ),
+                            hintText: 'Enter UserName',
+                            hintStyle: TextStyles.smallLightAshColorFontStyle,
+                            filled: true,
+                            fillColor: AppColors.secondaryColor,
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
-                          hintText: 'Enter UserName',
-                          hintStyle: TextStyles.smallLightAshColorFontStyle,
-                          filled: true,
-                          fillColor: AppColors.secondaryColor,
-                          contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Password',
-                      style: TextStyles.fontStyle2,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Password',
                         style: TextStyles.fontStyle2,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: AppColors.grey2,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          style: TextStyles.fontStyle2,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: AppColors.grey2,
+                            ),
+                            hintText: 'Enter Password',
+                            hintStyle: TextStyles.smallLightAshColorFontStyle,
+                            filled: true,
+                            fillColor: AppColors.secondaryColor,
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
-                          hintText: 'Enter Password',
-                          hintStyle: TextStyles.smallLightAshColorFontStyle,
-                          filled: true,
-                          fillColor: AppColors.secondaryColor,
-                          contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
+                    ],
                   ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ButtonDesign.buttonDesign(
-                        'Log In',
-                        AppColors.primaryColor,
-                        context,
-                        ref.read(mainProvider.notifier),
-                      ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ButtonDesign.buttonDesign(
+                          'Log In',
+                          AppColors.primaryColor,
+                          context,
+                          ref.read(mainProvider.notifier),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

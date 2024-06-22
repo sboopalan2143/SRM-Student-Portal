@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppColors {
-  static const Color primaryColor = Color(0xff236EDE);
+  static Color primaryColor = const Color(0xff236EDE);
 
-  static const Color secondaryColor = Color(0xffF3F9FD);
+  static Color secondaryColor = const Color(0xffF3F9FD);
 
   static const Color whiteColor = Color(0xffFFFFFF);
 
@@ -40,4 +43,33 @@ class AppColors {
   static const Color grey4 = Color(0xffA7A7A7);
 
   static const Color skeletonColor = Color(0xffE0E0E0);
+
+  static Future<void> setPrimaryColor(String color) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('primaryColor', color);
+    final parseColor = Color(
+      int.parse(
+        sharedPreferences
+            .getString('primaryColor')!
+            .replaceAll('#', '0xFF')
+            .toUpperCase(),
+      ),
+    );
+    primaryColor = parseColor;
+    log('primaryColor $primaryColor');
+  }
+
+  static Future<void> setSecondaryColor(String color) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('secondaryColor', color);
+    final parseColor = Color(
+      int.parse(
+        sharedPreferences
+            .getString('secondaryColor')!
+            .replaceAll('#', '0xFF')
+            .toUpperCase(),
+      ),
+    );
+    secondaryColor = parseColor;
+  }
 }

@@ -36,9 +36,11 @@ class ButtonDesign {
           provider.setNavString('Registration');
         }
       },
-      child: Text(
-        text,
-        style: TextStyles.fontStyle13,
+      child: FittedBox(
+        child: Text(
+          text,
+          style: TextStyles.fontStyle13,
+        ),
       ),
     );
   }

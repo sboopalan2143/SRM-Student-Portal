@@ -205,13 +205,17 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
               .setNotificationNavString(text);
         },
         child: text == provider.navNotificationString
-            ? Text(
-                text,
-                style: TextStyles.fontStyle13,
+            ? FittedBox(
+                child: Text(
+                  text,
+                  style: TextStyles.fontStyle13,
+                ),
               )
-            : Text(
-                text,
-                style: TextStyles.smallLightAshColorFontStyle,
+            : FittedBox(
+                child: Text(
+                  text,
+                  style: TextStyles.smallLightAshColorFontStyle,
+                ),
               ),
       ),
     );

@@ -237,6 +237,7 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
     required String text,
   }) {
     final provider = ref.watch(feesProvider);
+    final width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 40,
       child: ElevatedButton(
@@ -262,11 +263,15 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
         child: text == provider.navFeesString
             ? Text(
                 text,
-                style: TextStyles.fontStyle11,
+                style: width > 400
+                    ? TextStyles.fontStyle11
+                    : TextStyles.fontStyle19,
               )
             : Text(
                 text,
-                style: TextStyles.fontStyle11,
+                style: width > 400
+                    ? TextStyles.fontStyle11
+                    : TextStyles.fontStyle19,
               ),
       ),
     );

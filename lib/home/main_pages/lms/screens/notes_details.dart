@@ -18,7 +18,7 @@ class _NotesDetailsPageState extends ConsumerState<NotesDetailsPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const Text('C Introduction', style: TextStyles.titleFontStyle),
+             Text('C Introduction', style: TextStyles.titleFontStyle),
             const SizedBox(height: 20),
             Image.asset(
               'assets/images/cprogram.png',

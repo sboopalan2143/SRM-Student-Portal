@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class StatusBarNavigationBarDesigns {
-  static const statusBarNavigationBarDesign = SystemUiOverlayStyle(
+  static final statusBarNavigationBarDesign = SystemUiOverlayStyle(
     statusBarColor: AppColors.transparentColor,
     systemNavigationBarColor: AppColors.secondaryColor,
     systemNavigationBarDividerColor: AppColors.secondaryColor,

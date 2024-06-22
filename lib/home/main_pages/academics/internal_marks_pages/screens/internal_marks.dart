@@ -68,7 +68,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
             ),
           ),
         ),
-        const Center(
+         Center(
           child: Text(
             '2nd Year, 4th Sem',
             style: TextStyles.smallPrimaryColorFontStyle,

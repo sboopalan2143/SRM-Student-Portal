@@ -89,7 +89,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   ),
                 ],
               )
-            ],
+           , ],
           ),
           const SizedBox(height: 20),
           ListView.builder(
@@ -201,7 +201,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 onPressed: () {
                   ref.read(mainProvider.notifier).setNavString('View');
                 },
-                child: const Text(
+                child:  Text(
                   'View',
                   style: TextStyles.fontStyle14,
                 ),

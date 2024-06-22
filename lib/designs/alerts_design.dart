@@ -35,7 +35,7 @@ class Alerts {
                     if (!forcefully)
                       Expanded(
                         child: TextButton(
-                          child: const Text(
+                          child: Text(
                             'Skip',
                             style: TextStyles.smallerPrimaryColorFontStyle,
                           ),
@@ -103,7 +103,7 @@ class Alerts {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text(
+          child: Text(
             'Cancel',
             style: TextStyles.smallPrimaryColorFontStyle,
           ),
@@ -113,7 +113,7 @@ class Alerts {
             Navigator.pop(context);
             openAppSettings();
           },
-          child: const Text(
+          child: Text(
             'Update',
             style: TextStyles.smallPrimaryColorFontStyle,
           ),

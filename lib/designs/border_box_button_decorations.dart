@@ -76,7 +76,7 @@ class BorderBoxButtonDecorations {
     );
   }
 
-  static const backButton = Icon(
+  static final backButton = Icon(
     Icons.arrow_back_ios_rounded,
     size: 23,
     color: AppColors.primaryColor,

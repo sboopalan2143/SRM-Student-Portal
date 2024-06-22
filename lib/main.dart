@@ -12,9 +12,19 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/route/route_builder.dart';
 import 'package:sample/route/route_names.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  if (sharedPreferences.getString('primaryColor') != null) {
+    await AppColors.setPrimaryColor(
+      sharedPreferences.getString('primaryColor')!,
+    );
+    await AppColors.setSecondaryColor(
+      sharedPreferences.getString('secondaryColor')!,
+    );
+  }
 
   /// Handel firebase based on current platform
   // await Firebase.initializeApp(options: PlatformOptions.currentPlatform);
@@ -57,9 +67,9 @@ class _InitialState extends ConsumerState<Initial> {
       /// Navigate base on stored auth token for mobile and web
       initialRoute:
           // TokensManagement.authToken == '' ?
-           Routes.login ,
-          //  :
-          // Routes.home,
+          Routes.login,
+      //  :
+      // Routes.home,
       routes: RouteBuilder.routes,
 
       /// Navigate base on stored auth token only for mobile

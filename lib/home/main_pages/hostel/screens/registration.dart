@@ -342,7 +342,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 'I Agree and Continue to ',
                 style: TextStyles.fontStyle10,
               ),
-              const Text(
+               Text(
                 ' Terms and Conditions',
                 style: TextStyles.fontStyle14,
               ),

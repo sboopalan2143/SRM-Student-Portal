@@ -1,3 +1,6 @@
+// ignore_for_file: inference_failure_on_instance_creation
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +33,11 @@ import 'package:sample/home/main_pages/lms/screens/notes_details.dart';
 import 'package:sample/home/main_pages/lms/screens/online_assessment.dart';
 import 'package:sample/home/main_pages/lms/screens/questions.dart';
 import 'package:sample/home/main_pages/notification/screens/notification.dart';
+import 'package:sample/home/main_pages/theme.dart';
 import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/login/screen/login_page.dart';
 import 'package:sample/network/network_state.dart';
 import 'package:sample/notification.dart';
 
@@ -93,76 +98,101 @@ class _HomePageState extends ConsumerState<HomePage>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
-      appBar: AppBar(
-        leadingWidth: 40,
-        leading: IconButton(
-          onPressed: () {
-            if (ref.watch(mainProvider).navString == 'Timetable' ||
-                ref.watch(mainProvider).navString == 'Subjects' ||
-                ref.watch(mainProvider).navString == 'Internal Marks' ||
-                ref.watch(mainProvider).navString == 'Attendance' ||
-                ref.watch(mainProvider).navString == 'Hour Attendance' ||
-                ref.watch(mainProvider).navString == 'Cumulative Attendance' ||
-                ref.watch(mainProvider).navString == 'Exam Details') {
-              ref.read(mainProvider.notifier).setNavString('Academics');
-            } else if (ref.watch(mainProvider).navString ==
-                    'Online Assessment' ||
-                ref.watch(mainProvider).navString == 'Notes') {
-              ref.read(mainProvider.notifier).setNavString('LMS');
-            } else {
-              ref.read(mainProvider.notifier).setNavString('Home');
-              Navigator.of(context).push(
-                // ignore: inference_failure_on_instance_creation
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
-            }
-          },
-          icon:
-              const Icon(Icons.arrow_back_ios_new, color: AppColors.whiteColor),
-        ),
-        backgroundColor: AppColors.primaryColor,
-        title: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (provider.navString == 'Home')
-                const Text('Welcome User', style: TextStyles.fontStyle4),
-              if (provider.navString == 'Home') const SizedBox(height: 5),
-              if (provider.navString == 'Home')
-                const Text(
-                  "to SRM Student's Portal",
-                  style: TextStyles.fontStyle5,
-                ),
-              if (provider.navString == 'Home') const SizedBox(height: 20),
-              if (provider.navString != 'Home')
-                Text(
-                  provider.navString,
-                  style: provider.navString == 'Questions'
-                      ? TextStyles.fontStyle1
-                      : TextStyles.fontStyle4,
-                  overflow: TextOverflow.clip,
-                ),
-            ],
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              if (ref.watch(mainProvider).navString == 'Timetable' ||
+                  ref.watch(mainProvider).navString == 'Subjects' ||
+                  ref.watch(mainProvider).navString == 'Internal Marks' ||
+                  ref.watch(mainProvider).navString == 'Attendance' ||
+                  ref.watch(mainProvider).navString == 'Hour Attendance' ||
+                  ref.watch(mainProvider).navString ==
+                      'Cumulative Attendance' ||
+                  ref.watch(mainProvider).navString == 'Exam Details') {
+                ref.read(mainProvider.notifier).setNavString('Academics');
+              } else if (ref.watch(mainProvider).navString ==
+                      'Online Assessment' ||
+                  ref.watch(mainProvider).navString == 'Notes') {
+                ref.read(mainProvider.notifier).setNavString('LMS');
+              } else if (ref.watch(mainProvider).navString ==
+                  'C Programming Language') {
+                ref
+                    .read(mainProvider.notifier)
+                    .setNavString('Online Assessment');
+              } else if (ref.watch(mainProvider).navString ==
+                  'C Programming Language1') {
+                ref.read(mainProvider.notifier).setNavString('Notes');
+              } else if (ref.watch(mainProvider).navString ==
+                      'Leave Application' ||
+                  ref.watch(mainProvider).navString == 'Registration') {
+                ref.read(mainProvider.notifier).setNavString('Hostel');
+              } else if (ref.watch(mainProvider).navString ==
+                  'Grievance Entry') {
+                ref.read(mainProvider.notifier).setNavString('Grievances');
+              } else if (ref.watch(mainProvider).navString == 'Register') {
+                ref.read(mainProvider.notifier).setNavString('Transport');
+              } else if (ref.watch(mainProvider).navString == 'View') {
+                ref.read(mainProvider.notifier).setNavString('Library');
+              } else {
+                ref.read(mainProvider.notifier).setNavString('Home');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ),
+                );
+              }
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
           ),
-        ),
-        actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  _scaffoldKey.currentState?.openEndDrawer();
-                },
-                icon: const Icon(
-                  Icons.menu,
-                  size: 35,
-                  color: AppColors.whiteColor,
-                ),
-              ),
-            ],
+          backgroundColor: AppColors.primaryColor,
+          title: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (provider.navString == 'Home') const SizedBox(height: 20),
+                if (provider.navString == 'Home')
+                  const Text('Welcome Venkat', style: TextStyles.fontStyle4),
+                if (provider.navString == 'Home') const SizedBox(height: 5),
+                if (provider.navString == 'Home')
+                  const Text(
+                    "to SRM Student's Portal",
+                    style: TextStyles.fontStyle5,
+                  ),
+                if (provider.navString == 'Home') const SizedBox(height: 30),
+                if (provider.navString != 'Home')
+                  Text(
+                    provider.navString,
+                    style: provider.navString == 'Questions'
+                        ? TextStyles.fontStyle1
+                        : TextStyles.fontStyle4,
+                    overflow: TextOverflow.clip,
+                  ),
+              ],
+            ),
           ),
-        ],
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    _scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(child: _mainBody()),
       endDrawer: SizedBox(
@@ -176,22 +206,23 @@ class _HomePageState extends ConsumerState<HomePage>
               SizedBox(
                 height: 220,
                 child: DrawerHeader(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                   ),
                   child: Center(
-                      child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/profile.png',
-                        height: 100,
-                      ),
-                      const Text(
-                        'Welcome User',
-                        style: TextStyles.fontStyle3,
-                      ),
-                    ],
-                  )),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/profile.png',
+                          height: 100,
+                        ),
+                        const Text(
+                          'Welcome Venkat',
+                          style: TextStyles.fontStyle3,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               ListTile(
@@ -212,6 +243,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
                 onTap: () {
                   ref.read(mainProvider.notifier).setNavString('Home');
+                  Navigator.pop(context);
                 },
               ), //
               ListTile(
@@ -232,8 +264,31 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
                 onTap: () {
                   ref.read(mainProvider.notifier).setNavString('Profile');
+                  Navigator.pop(context);
                 },
               ),
+              ListTile(
+                title: const Row(
+                  children: [
+                    // SvgPicture.asset(
+                    //   'assets/images/profile.svg',
+                    //   height: 20,
+                    // ),
+                    // const SizedBox(
+                    //   width: 30,
+                    // ),
+                    Text(
+                      'Theme',
+                      style: TextStyles.fontStyle2,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  Navigator.pop(context);
+                },
+              ),
+
               ListTile(
                 title: const Row(
                   children: [
@@ -254,6 +309,7 @@ class _HomePageState extends ConsumerState<HomePage>
                   ref
                       .read(mainProvider.notifier)
                       .setNavString('Change Password');
+                  Navigator.pop(context);
                 },
               ),
 
@@ -277,6 +333,7 @@ class _HomePageState extends ConsumerState<HomePage>
                   ref
                       .read(mainProvider.notifier)
                       .setNavString('Terms & Conditions');
+                  Navigator.pop(context);
                 },
               ),
 
@@ -298,6 +355,11 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
                 onTap: () {
                   ref.read(mainProvider.notifier).setNavString('Logout');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -321,35 +383,45 @@ class _HomePageState extends ConsumerState<HomePage>
         if (provider.navString == 'Terms & Conditions')
           const TermsAndConditions(),
         if (provider.navString == 'Change Password') const ChangePassword(),
+        if (provider.navString == 'Theme') const ThemePage(),
+        //HomePage Navigations
+        //Academics
         if (provider.navString == 'Academics') const AcademicsPage(),
-        if (provider.navString == 'LMS') const LMSPage(),
-        if (provider.navString == 'Fees') const FeesPage(),
         if (provider.navString == 'Timetable') const TimeTablePage(),
         if (provider.navString == 'Subjects') const SubjectPage(),
-        if (provider.navString == 'Exam Details') const ExamDetailsPage(),
         if (provider.navString == 'Internal Marks') const InternalMarksPage(),
         if (provider.navString == 'Attendance') const AttendancePage(),
+        if (provider.navString == 'Hour Attendance') const HourAttendancePage(),
         if (provider.navString == 'Cumulative Attendance')
           const CumulativeAttendancePage(),
+        if (provider.navString == 'Exam Details') const ExamDetailsPage(),
+        //LMS
+        if (provider.navString == 'LMS') const LMSPage(),
         if (provider.navString == 'Online Assessment')
           const OnlineAssessmentPage(),
-        if (provider.navString == 'Notes') const NotesPage(),
-        if (provider.navString == 'Hostel') const HostelPage(),
-        if (provider.navString == 'Leave Application')
-          const LeaveApplicationPage(),
-        if (provider.navString == 'Registration') const RegistrationPage(),
-        if (provider.navString == 'Grievances') const GrievanceReportPage(),
-        if (provider.navString == 'Grievance Entry') const GrievanceEntryPage(),
-        if (provider.navString == 'Transport') const TransportTransactionPage(),
-        if (provider.navString == 'Register') const RegisterPage(),
-        if (provider.navString == 'Library') const LibraryPage(),
-        if (provider.navString == 'View') const ViewLibraryPage(),
-        if (provider.navString == 'Notification') const NotificationPage(),
         if (provider.navString == 'C Programming Language')
           const QuestionPage(),
         if (provider.navString == 'C Programming Language1')
           const NotesDetailsPage(),
-        if (provider.navString == 'Hour Attendance') const HourAttendancePage(),
+        if (provider.navString == 'Notes') const NotesPage(),
+        //Fees
+        if (provider.navString == 'Fees') const FeesPage(),
+        //Hostel
+        if (provider.navString == 'Hostel') const HostelPage(),
+        if (provider.navString == 'Leave Application')
+          const LeaveApplicationPage(),
+        if (provider.navString == 'Registration') const RegistrationPage(),
+        //Grievances
+        if (provider.navString == 'Grievances') const GrievanceReportPage(),
+        if (provider.navString == 'Grievance Entry') const GrievanceEntryPage(),
+        //Transport
+        if (provider.navString == 'Transport') const TransportTransactionPage(),
+        if (provider.navString == 'Register') const RegisterPage(),
+        //Library
+        if (provider.navString == 'Library') const LibraryPage(),
+        if (provider.navString == 'View') const ViewLibraryPage(),
+        //Notification
+        if (provider.navString == 'Notification') const NotificationPage(),
       ],
     );
   }
@@ -357,6 +429,7 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget _mainCards() {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    log('width $width');
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
@@ -369,7 +442,7 @@ class _HomePageState extends ConsumerState<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -388,10 +461,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Academics',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),
@@ -401,7 +476,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 width: width * 0.06,
               ),
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -420,10 +495,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'LMS',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                       // SizedBox(
                       //   height: height * 0.027,
@@ -441,7 +518,7 @@ class _HomePageState extends ConsumerState<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -460,10 +537,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Fees',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),
@@ -473,7 +552,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 width: width * 0.06,
               ),
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -492,10 +571,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Hostel',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),
@@ -510,7 +591,7 @@ class _HomePageState extends ConsumerState<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -531,10 +612,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Notification',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                       // SizedBox(
                       //   height: height * 0.027,
@@ -547,7 +630,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 width: width * 0.06,
               ),
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -566,10 +649,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Grievances',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),
@@ -584,7 +669,7 @@ class _HomePageState extends ConsumerState<HomePage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -603,10 +688,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Library',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),
@@ -616,7 +703,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 width: width * 0.06,
               ),
               SizedBox(
-                height: 160,
+                height: 140,
                 width: width * 0.40,
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -635,10 +722,12 @@ class _HomePageState extends ConsumerState<HomePage>
                       SizedBox(
                         height: height * 0.006,
                       ),
-                      const Text(
+                      Text(
                         'Transport',
                         textAlign: TextAlign.center,
-                        style: TextStyles.smallBlackColorFontStyle,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
                       ),
                     ],
                   ),

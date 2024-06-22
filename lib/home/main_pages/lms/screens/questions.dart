@@ -21,7 +21,7 @@ class _QuestionPageState extends ConsumerState<QuestionPage> {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
               children: [
-                const Text('Questions', style: TextStyles.titleFontStyle),
+                 Text('Questions', style: TextStyles.titleFontStyle),
                 const SizedBox(height: 20),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -102,16 +102,16 @@ class _QuestionPageState extends ConsumerState<QuestionPage> {
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 0,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child:  Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   children: [
                     Text(
                       'Explanation',
                       style: TextStyles.primaryColorTitleFontStyle,
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Dennis Ritchie is the father '
                       'of C Programming Language.'
                       'C programming language was ',

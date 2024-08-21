@@ -1,122 +1,98 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'package:sample/api_token_services/api_tokens_services.dart';
+
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
+import 'package:xml/xml.dart';
 
 class HttpService {
-  static Future<(int, Map<String, dynamic>)> initialGetApi({
-    required String url,
-  }) async {
+  static Future<(int, Map<String, dynamic>)> sendSoapRequest(
+    String apiType,
+    String encrptedData,
+  ) async {
     final logger = Logger();
-    try {
-      final response = await get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      } else {
-        logger.e(
-          'Url: $url\n'
-          'Response: ${response.body}',
-        );
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      }
-    } on SocketException {
-      logger.e(
-        'Url: $url\n'
-        'No Internet Connection',
-      );
-      return (0, {'message': 'No Internet Connection'});
-    }
-  }
-
-  static Future<(int, Map<String, dynamic>)> initialPostApi({
-    required String url,
-    required Object body,
-  }) async {
-    final logger = Logger();
-    try {
-      final response = await post(Uri.parse(url), body: body);
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      } else {
-        logger.e(
-          'Url: $url\n'
-          'Body: $body\n'
-          'Response: ${response.body}',
-        );
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      }
-    } on SocketException {
-      logger.e(
-        'Url: $url\n'
-        'No Internet Connection',
-      );
-      return (0, {'message': 'No Internet Connection'});
-    }
-  }
-
-  static Future<(int, Map<String, dynamic>)> getApi({
-    required String url,
-  }) async {
-    final logger = Logger();
-    try {
-      final response = await get(
-        Uri.parse(url),
-        headers: TokensManagement.headers,
-      );
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      } else {
-        logger.e(
-          'Url: $url\n'
-          'Response: ${response.body}',
-        );
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
-      }
-    } on SocketException {
-      logger.e(
-        'Url: $url\n'
-        'No Internet Connection',
-      );
-      return (0, {'message': 'No Internet Connection'});
-    }
-  }
-
-  static Future<(int, Map<String, dynamic>)> postApi({
-    required String url,
-    required Object body,
-  }) async {
-    final logger = Logger();
+    log('apiType>>>>$apiType');
+    log('encrypted dataaaaaaaaaaa>>>>$encrptedData');
+    // Define the SOAP envelope as a string
+    final soapRequest = '<?xml version="1.0" encoding="utf-8"?> '
+        '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" '
+        'xmlns:exam="http://ws.fipl.com/">'
+        '<soapenv:Body>'
+        '<exam:$apiType>'
+        '<EncryptedData i:type="d:string">$encrptedData</EncryptedData> '
+        '</exam:$apiType>'
+        '</soapenv:Body>'
+        '</soapenv:Envelope>';
+    log('main xml>>>>>>>$soapRequest');
     try {
       final response = await post(
-        Uri.parse(url),
-        headers: TokensManagement.headers,
-        body: body,
+        Uri.parse(
+          Api.mainUrl,
+        ),
+        headers: {
+          'Content-Type': 'text/xml',
+          'Accept': 'text/xml',
+        },
+        body: soapRequest,
       );
       if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
+        final document = XmlDocument.parse(response.body);
+        final jsonMap = _convertXmlElementToJson(document.rootElement);
+        log('end data>>>>>>>${json.encode(jsonMap)}');
+        log('response main>>>>>>>$jsonMap');
+        return (response.statusCode, jsonMap);
       } else {
-        logger.e(
-          'Url: $url\n'
-          'Body: $body\n'
-          'Response: ${response.body}',
-        );
-        final jsonResponse = json.decode(response.body);
-        return (response.statusCode, jsonResponse as Map<String, dynamic>);
+        log('Error');
+        log('Url: ${Api.mainUrl}');
+        log('Response: ${response.body}');
+        final document = XmlDocument.parse(response.body);
+        final jsonMap = _convertXmlElementToJson(document.rootElement);
+        log('end data>>>>>>>${json.encode(jsonMap)}');
+        return (response.statusCode, jsonMap);
       }
     } on SocketException {
       logger.e(
-        'Url: $url\n'
+        'Url: ${Api.mainUrl}\n'
         'No Internet Connection',
       );
       return (0, {'message': 'No Internet Connection'});
     }
+  }
+
+  static Map<String, dynamic> _convertXmlElementToJson(XmlElement element) {
+    final result = <String, dynamic>{};
+
+    // Add element attributes as key-value pairs
+    for (final attribute in element.attributes) {
+      result[attribute.name.local] = attribute.value;
+    }
+
+    // If the element has children, add them to the map
+    for (final node in element.children) {
+      if (node is XmlElement) {
+        final nodeName = node.name.local;
+
+        if (result.containsKey(nodeName)) {
+          // If the key already exists, convert it to a list
+          if (result[nodeName] is List) {
+            (result[nodeName] as List).add(_convertXmlElementToJson(node));
+          } else {
+            result[nodeName] = [
+              result[nodeName],
+              _convertXmlElementToJson(node)
+            ];
+          }
+        } else {
+          result[nodeName] = _convertXmlElementToJson(node);
+        }
+      } else if (node is XmlText) {
+        // Add text content as a key-value pair
+        result['#text'] = node.text;
+      }
+    }
+
+    return result;
   }
 }

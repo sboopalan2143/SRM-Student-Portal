@@ -38,7 +38,7 @@ import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/screen/login_page.dart';
-import 'package:sample/network/network_state.dart';
+import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -72,7 +72,7 @@ class _HomePageState extends ConsumerState<HomePage>
   }
 
   Future<void> _initialProcess() async {
-    await TokensManagement.getAuthToken();
+    // await TokensManagement.getAuthToken();
 
     /// Remove the command line after firebase setup
     // await TokensManagement.getPhoneToken();

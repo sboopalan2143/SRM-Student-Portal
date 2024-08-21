@@ -136,11 +136,11 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 children: [
                   Expanded(
                     child: ButtonDesign.buttonDesign(
-                      'Save',
-                      AppColors.primaryColor,
-                      context,
-                      ref.read(mainProvider.notifier),
-                    ),
+                        'Save',
+                        AppColors.primaryColor,
+                        context,
+                        ref.read(mainProvider.notifier),
+                        ref,),
                   ),
                 ],
               ),

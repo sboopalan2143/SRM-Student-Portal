@@ -32,7 +32,6 @@ void main() async {
   await Firebase.initializeApp(options: PlatformOptions.currentPlatform);
   await FirebaseMessaging.instance.requestPermission();
   await AppNotification.initializeNotification();
-  await TokensManagement.getAuthToken();
   SystemChrome.setSystemUIOverlayStyle(
     StatusBarNavigationBarDesigns.statusBarNavigationBarDesign,
   );

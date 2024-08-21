@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:sample/login/riverpod/login_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,67 +8,73 @@ final loginProvider = StateNotifierProvider<LoginProvider, LoginState>((ref) {
 
 class LoginState {
   const LoginState({
-    required this.phoneNumber,
+    required this.successMessage,
+    required this.errorMessage,
+    required this.userName,
     required this.password,
-    required this.obscure,
   });
 
-  final String phoneNumber;
-  final String password;
-  final bool obscure;
+  final String successMessage;
+  final String errorMessage;
+  final TextEditingController userName;
+  final TextEditingController password;
 
   LoginState copyWith({
-    String? phoneNumber,
-    String? password,
-    bool? obscure,
+    String? successMessage,
+    String? errorMessage,
+    TextEditingController? userName,
+    TextEditingController? password,
   }) =>
       LoginState(
-        phoneNumber: phoneNumber ?? this.phoneNumber,
+        successMessage: successMessage ?? this.successMessage,
+        errorMessage: errorMessage ?? this.errorMessage,
+        userName: userName ?? this.userName,
         password: password ?? this.password,
-        obscure: obscure ?? this.obscure,
       );
 }
 
 class LoginInitial extends LoginState {
-  const LoginInitial()
+  LoginInitial()
       : super(
-          phoneNumber: '',
-          password: '',
-          obscure: true,
+          successMessage: '',
+          errorMessage: '',
+          userName: TextEditingController(),
+          password: TextEditingController(),
         );
 }
 
 class LoginStateLoading extends LoginState {
   const LoginStateLoading({
-    required super.phoneNumber,
+    required super.successMessage,
+    required super.errorMessage,
+    required super.userName,
     required super.password,
-    required super.obscure,
   });
 }
 
 class LoginStateError extends LoginState {
   const LoginStateError({
-    required super.phoneNumber,
+    required super.successMessage,
+    required super.errorMessage,
+    required super.userName,
     required super.password,
-    required super.obscure,
-    required this.errorMessage,
   });
-
-  final String errorMessage;
 }
 
 class LoginStateSuccessful extends LoginState {
   const LoginStateSuccessful({
-    required super.phoneNumber,
+    required super.successMessage,
+    required super.errorMessage,
+    required super.userName,
     required super.password,
-    required super.obscure,
   });
 }
 
 class NoNetworkAvailable extends LoginState {
   const NoNetworkAvailable({
-    required super.phoneNumber,
+    required super.successMessage,
+    required super.errorMessage,
+    required super.userName,
     required super.password,
-    required super.obscure,
   });
 }

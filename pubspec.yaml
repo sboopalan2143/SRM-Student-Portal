@@ -3,7 +3,7 @@ name: sample
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: '>=3.2.1 <4.0.0'
 
 dependencies:
   flutter:
@@ -28,6 +28,9 @@ dependencies:
   awesome_notifications:
   flutter_svg: ^1.1.6
   dropdown_search:
+  xml:
+  encrypt:
+  hex:
 
 dev_dependencies:
   flutter_test:

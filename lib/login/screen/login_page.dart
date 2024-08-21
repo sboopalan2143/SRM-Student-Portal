@@ -7,7 +7,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/login/widget/button_design.dart';
-import 'package:sample/network/network_state.dart';
+import 'package:sample/network/riverpod/network_state.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -40,6 +40,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(loginProvider);
+    final providerRead = ref.read(loginProvider.notifier);
 
     /// Handle the network life cycle
     ref
@@ -110,6 +111,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                       SizedBox(
                         height: 40,
                         child: TextField(
+                          controller: provider.userName,
                           keyboardType: TextInputType.number,
                           style: TextStyles.fontStyle2,
                           decoration: InputDecoration(
@@ -145,6 +147,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                       SizedBox(
                         height: 40,
                         child: TextField(
+                          controller: provider.password,
                           keyboardType: TextInputType.number,
                           style: TextStyles.fontStyle2,
                           decoration: InputDecoration(
@@ -182,6 +185,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                           AppColors.primaryColor,
                           context,
                           ref.read(mainProvider.notifier),
+                          ref,
                         ),
                       ),
                     ],

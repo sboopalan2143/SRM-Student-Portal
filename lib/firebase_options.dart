@@ -39,11 +39,11 @@ class PlatformOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: '',
-    appId: '',
-    messagingSenderId: '',
-    projectId: '',
-    storageBucket: '',
+    apiKey: 'AIzaSyBaiv7VG0gsirmkt3Tumb4-PXXdALiP8sY',
+    appId: '1:822655759961:android:4400e54624f2c74a64a348',
+    messagingSenderId: '822655759961',
+    projectId: 'srm-student-portal-d1ae8',
+    storageBucket: 'srm-student-portal-d1ae8.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

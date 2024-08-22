@@ -37,14 +37,13 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
       // Encrypting for Data iteration 2
       setKey(state.strCommonKey, state.strCommonIV);
       strEncryptedData = encrypt(strData);
-      
     } catch (e) {
       print('$e');
     }
     return strEncryptedData;
   }
 
-  String getDecryptedData(String String_to_Decrypt) {
+  Map<String, dynamic> getDecryptedData(String String_to_Decrypt) {
     String strDecryptedData = "";
     try {
       setKey(state.strCommonKey, state.strCommonIV);
@@ -55,7 +54,8 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     } catch (e) {
       print('$e');
     }
-    return strDecryptedData;
+    final jsonResponse = json.decode(strDecryptedData);
+    return jsonResponse as Map<String, dynamic>;
   }
 
   bool setKey(String _keyString, String _ivString) {

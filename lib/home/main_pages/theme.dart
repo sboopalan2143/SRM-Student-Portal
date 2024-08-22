@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 
 class ThemePage extends ConsumerStatefulWidget {
   const ThemePage({super.key});

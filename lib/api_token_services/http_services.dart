@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -13,8 +12,7 @@ class HttpService {
     String encrptedData,
   ) async {
     final logger = Logger();
-    log('apiType>>>>$apiType');
-    log('encrypted dataaaaaaaaaaa>>>>$encrptedData');
+
     // Define the SOAP envelope as a string
     final soapRequest = '<?xml version="1.0" encoding="utf-8"?> '
         '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" '
@@ -25,7 +23,7 @@ class HttpService {
         '</exam:$apiType>'
         '</soapenv:Body>'
         '</soapenv:Envelope>';
-    log('main xml>>>>>>>$soapRequest');
+
     try {
       final response = await post(
         Uri.parse(
@@ -40,8 +38,7 @@ class HttpService {
       if (response.statusCode == 200) {
         final document = XmlDocument.parse(response.body);
         final jsonMap = _convertXmlElementToJson(document.rootElement);
-        log('end data>>>>>>>${json.encode(jsonMap)}');
-        log('response main>>>>>>>$jsonMap');
+
         return (response.statusCode, jsonMap);
       } else {
         log('Error');
@@ -49,7 +46,6 @@ class HttpService {
         log('Response: ${response.body}');
         final document = XmlDocument.parse(response.body);
         final jsonMap = _convertXmlElementToJson(document.rootElement);
-        log('end data>>>>>>>${json.encode(jsonMap)}');
         return (response.statusCode, jsonMap);
       }
     } on SocketException {

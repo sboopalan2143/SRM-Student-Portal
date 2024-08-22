@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/login/widget/button_design.dart';
 import 'package:sample/network/riverpod/network_state.dart';
@@ -40,7 +41,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(loginProvider);
-    final providerRead = ref.read(loginProvider.notifier);
 
     /// Handle the network life cycle
     ref
@@ -55,7 +55,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
           Alerts.errorAlert(context: context, message: next.errorMessage);
         } else if (next is LoginStateSuccessful) {
           /// Handle route to next page.
-          // Navigator.push(context, RouteDesign(route: HomePage()));
+          Navigator.push(context, RouteDesign(route: const HomePage()));
         }
       });
     return LoadingWrapper(

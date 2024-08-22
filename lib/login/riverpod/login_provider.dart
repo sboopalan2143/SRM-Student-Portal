@@ -21,17 +21,17 @@ class LoginProvider extends StateNotifier<LoginState> {
         studentData: LoginData.empty,
       );
 
+  void setData(LoginData data) {
+    state = state.copyWith(studentData: data);
+  }
+
   Future<void> login(EncryptionProvider encrypt) async {
-    log('username>>>${state.userName.text}');
-    log('password>>>${state.password.text}');
-    log('<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>');
     final data = encrypt.getEncryptedData(
       '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
     );
-    log('encrypted data>>>>>$data');
-    final response = await HttpService.sendSoapRequest('getStudentLogin', data);
 
-    log('$response');
+    final response = await HttpService.sendSoapRequest('getStudentLogin', data);
+    log('response>>>>>$response');
     if (response.$1 == 0) {
       state = NoNetworkAvailable(
         successMessage: '',
@@ -51,8 +51,9 @@ class LoginProvider extends StateNotifier<LoginState> {
       final studentLoginDetails = LoginResponseModel.fromJson(decryptedData);
       studentData = studentLoginDetails.data![0];
       state = state.copyWith(studentData: studentData);
-      log('status>>>>>>${studentLoginDetails.status}');
+
       if (studentLoginDetails.status == 'Success') {
+        log('${studentData.sid}');
         await TokensManagement.setStudentId(studentId: '${studentData.sid}');
 
         state = LoginStateSuccessful(
@@ -60,10 +61,10 @@ class LoginProvider extends StateNotifier<LoginState> {
           errorMessage: '',
           userName: TextEditingController(),
           password: TextEditingController(),
-          studentData: LoginData.empty,
+          studentData: state.studentData,
         );
-        disposeState();
-      } else if (response.$1 != 200) {
+        // disposeState();
+      } else if (studentLoginDetails.status != 'Success') {
         state = LoginStateError(
           successMessage: '',
           errorMessage: 'Error',
@@ -72,6 +73,14 @@ class LoginProvider extends StateNotifier<LoginState> {
           studentData: LoginData.empty,
         );
       }
+    } else if (response.$1 != 200) {
+      state = LoginStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        userName: state.userName,
+        password: state.password,
+        studentData: LoginData.empty,
+      );
     }
   }
 }

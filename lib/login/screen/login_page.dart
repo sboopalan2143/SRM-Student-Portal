@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +43,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(loginProvider);
+   
 
     /// Handle the network life cycle
     ref
@@ -58,6 +61,8 @@ class _LoginPageState extends ConsumerState<LoginPage>
 
           Navigator.push(context, RouteDesign(route: const HomePage()));
           Alerts.successAlert(context: context, message: next.successMessage);
+       
+          
         }
       });
     return LoadingWrapper(

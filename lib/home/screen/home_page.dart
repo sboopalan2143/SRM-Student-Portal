@@ -90,6 +90,7 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final provider = ref.watch(mainProvider);
     final providerLogin = ref.watch(loginProvider);
+    log('studentName_homepage>>>>${providerLogin.studentData.studentname!}');
     ref.listen(networkProvider, (previous, next) {
       if (previous!.connectivityResult == ConnectivityResult.none &&
           next.connectivityResult != ConnectivityResult.none) {

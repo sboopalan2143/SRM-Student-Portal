@@ -43,7 +43,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(loginProvider);
-   
 
     /// Handle the network life cycle
     ref
@@ -61,8 +60,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
 
           Navigator.push(context, RouteDesign(route: const HomePage()));
           Alerts.successAlert(context: context, message: next.successMessage);
-       
-          
         }
       });
     return LoadingWrapper(
@@ -119,7 +116,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
                         height: 40,
                         child: TextField(
                           controller: provider.userName,
-                          keyboardType: TextInputType.number,
                           style: TextStyles.fontStyle2,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
@@ -155,7 +151,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
                         height: 40,
                         child: TextField(
                           controller: provider.password,
-                          keyboardType: TextInputType.number,
                           style: TextStyles.fontStyle2,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(

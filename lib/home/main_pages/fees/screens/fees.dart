@@ -32,7 +32,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ),
                 elevation: 0,
                 color: AppColors.whiteColor,
-                child:  Padding(
+                child: Padding(
                   padding: const EdgeInsets.all(25),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

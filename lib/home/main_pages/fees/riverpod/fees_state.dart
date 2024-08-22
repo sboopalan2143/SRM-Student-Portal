@@ -37,6 +37,14 @@ class FeesInitial extends FeesState {
         );
 }
 
+class FeesStateLoading extends FeesState {
+  const FeesStateLoading({
+    required super.successMessage,
+    required super.errorMessage,
+    required super.navFeesString,
+  });
+}
+
 class FeesSuccessFull extends FeesState {
   const FeesSuccessFull({
     required super.successMessage,
@@ -47,6 +55,21 @@ class FeesSuccessFull extends FeesState {
 
 class FeesError extends FeesState {
   const FeesError({
+    required super.successMessage,
+    required super.errorMessage,
+    required super.navFeesString,
+  });
+}
+
+class FeesStateSuccessful extends FeesState {
+  const FeesStateSuccessful({
+    required super.successMessage,
+    required super.errorMessage, required super.navFeesString,
+  });
+}
+
+class NoNetworkAvailableFees extends FeesState {
+  const NoNetworkAvailableFees({
     required super.successMessage,
     required super.errorMessage,
     required super.navFeesString,

@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_provider.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 
 class HourAttendancePage extends ConsumerStatefulWidget {
@@ -17,6 +21,8 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(hourwiseProvider);
 
     return Column(
       children: [
@@ -80,65 +86,64 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                 ),
               ),
               const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  '3',
-                  style: TextStyles.fontStyle10,
-                ),
-              ),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     '3',
+              //     style: TextStyles.fontStyle10,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     '4',
+              //     style: TextStyles.fontStyle10,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     '5',
+              //     style: TextStyles.fontStyle10,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     '6',
+              //     style: TextStyles.fontStyle10,
+              //   ),
+              // ),
               const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  '4',
-                  style: TextStyles.fontStyle10,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  '5',
-                  style: TextStyles.fontStyle10,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  '6',
-                  style: TextStyles.fontStyle10,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  '7',
-                  style: TextStyles.fontStyle10,
-                ),
-              ),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     '7',
+              //     style: TextStyles.fontStyle10,
+              //   ),
+              // ),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          child: ListView.builder(
-            itemCount: 20,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
-            },
-          ),
-        ),
+        ListView.builder(
+          padding: const EdgeInsets.all(5),
+          itemCount: provider.listHourWiseData.length,
+          controller: _listController,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) => cardDesign(index),
+        )
       ],
     );
   }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(hourwiseProvider);
+    log('${provider.hourwiseData.attendancedate}');
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
@@ -161,67 +166,67 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
             children: [
               SizedBox(
                 width: width / 6,
-                child: const Text(
-                  '01-05-24',
+                child: Text(
+                  '${provider.listHourWiseData[index].attendancedate}',
                   style: TextStyles.fontStyle16,
                 ),
               ),
               const SizedBox(width: 10),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  '-',
-                  style: TextStyles.fontStyle18,
-                ),
-              ),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     '-',
+              //     style: TextStyles.fontStyle18,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     'P',
+              //     style: TextStyles.fontStyle17,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     'P',
+              //     style: TextStyles.fontStyle17,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11.5,
+              //   child: const Text(
+              //     'P',
+              //     style: TextStyles.fontStyle17,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     'A',
+              //     style: TextStyles.fontStyle18,
+              //   ),
+              // ),
+              // const SizedBox(width: 5),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     'A',
+              //     style: TextStyles.fontStyle18,
+              //   ),
+              // ),
               const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  'P',
-                  style: TextStyles.fontStyle17,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  'P',
-                  style: TextStyles.fontStyle17,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11.5,
-                child: const Text(
-                  'P',
-                  style: TextStyles.fontStyle17,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  'A',
-                  style: TextStyles.fontStyle18,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  'A',
-                  style: TextStyles.fontStyle18,
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 11,
-                child: const Text(
-                  'A',
-                  style: TextStyles.fontStyle18,
-                ),
-              ),
+              // SizedBox(
+              //   width: width / 11,
+              //   child: const Text(
+              //     'A',
+              //     style: TextStyles.fontStyle18,
+              //   ),
+              // ),
             ],
           ),
         ),

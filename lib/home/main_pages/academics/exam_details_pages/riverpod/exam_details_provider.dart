@@ -3,34 +3,31 @@ import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/login/model/login_response_model.dart';
 
-class FeesProvider extends StateNotifier<FeesState> {
-  FeesProvider() : super(FeesInitial());
+class ExamDetailsProvider extends StateNotifier<examDetailsState> {
+  ExamDetailsProvider() : super(examDetailsInitial());
 
-  void disposeState() => state = FeesInitial();
+  void disposeState() => state = examDetailsInitial();
 
-  void _setLoading() => state = FeesStateLoading(
+  void _setLoading() => state = examDetailsStateLoading(
         successMessage: '',
         errorMessage: '',
-        navFeesString: '',
       );
 
-  Future<void> getFeesDetails(EncryptionProvider encrypt) async {
+  Future<void> getexamDetailsDetails(EncryptionProvider encrypt) async {
     final data = encrypt.getEncryptedData(
       '<studentid>1828</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
     );
     log('encrypted data>>>>>$data');
-    final response =
-        await HttpService.sendSoapRequest('getFeePaidDetails', data);
+    final response = await HttpService.sendSoapRequest('getExamDetails', data);
 
     log('$response');
     if (response.$1 == 0) {
-      state = const NoNetworkAvailableFees(
+      state = const NoNetworkAvailableexamDetails(
         successMessage: '',
         errorMessage: '',
-        navFeesString: '',
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -43,19 +40,17 @@ class FeesProvider extends StateNotifier<FeesState> {
       final studentLoginDetails = LoginResponseModel.fromJson(decryptedData);
       studentData.addAll(studentLoginDetails.data!);
       if (studentLoginDetails.status == 'success') {
-        state = FeesStateSuccessful(
+        state = examDetailsStateSuccessful(
           successMessage: studentLoginDetails.status!,
           errorMessage: '',
-          navFeesString: '',
         );
       }
 
       disposeState();
     } else if (response.$1 != 200) {
-      state = const FeesError(
+      state = const examDetailsError(
         successMessage: '',
         errorMessage: 'Error',
-        navFeesString: '',
       );
     }
   }

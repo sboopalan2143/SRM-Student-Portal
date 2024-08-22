@@ -14,7 +14,7 @@ import 'package:sample/home/drawer_pages/terms_and_conditions/screens/terms_and_
 import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/screens/exam_details.dart';
-import 'package:sample/home/main_pages/academics/hour_attendance_pages/screens/hour_attendance.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';

@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/login/model/login_response_model.dart';
 
@@ -16,9 +18,12 @@ class ProfileProvider extends StateNotifier<ProfileState> {
         errorMessage: '',
       );
 
-  Future<void> getProfileDetails(EncryptionProvider encrypt) async {
-    final data = encrypt.getEncryptedData(
-      '<studentid>1828</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
+  Future<void> getProfileDetails(WidgetRef ref) async {
+    final providerRead = ref.read(encryptionProvider.notifier);
+    TokensManagement.getStudentId();
+    log('studentid profile${TokensManagement.studentId}');
+    final data = providerRead.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
     );
     log('encrypted data>>>>>$data');
     final response =
@@ -36,16 +41,8 @@ class ProfileProvider extends StateNotifier<ProfileState> {
           details['getStudentLoginResponse'] as Map<String, dynamic>;
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
-      final decryptedData = encrypt.getDecryptedData('$data');
+      final decryptedData = providerRead.getDecryptedData('$data');
       var studentData = <LoginData>[];
-      final studentLoginDetails = LoginResponseModel.fromJson(decryptedData);
-      studentData.addAll(studentLoginDetails.data!);
-      if (studentLoginDetails.status == 'success') {
-        state = ProfileStateSuccessful(
-          successMessage: studentLoginDetails.status!,
-          errorMessage: '',
-        );
-      }
 
       disposeState();
     } else if (response.$1 != 200) {

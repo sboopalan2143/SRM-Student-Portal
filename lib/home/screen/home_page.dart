@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
+import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/terms_and_conditions/screens/terms_and_conditions.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
@@ -223,8 +224,10 @@ class _HomePageState extends ConsumerState<HomePage>
                           'assets/images/profile.png',
                           height: 100,
                         ),
-                        const Text(
-                          'Welcome Venkat',
+                        Text(
+                          '${providerLogin.studentData.studentname}' == ''
+                              ? '-'
+                              : '${providerLogin.studentData.studentname}',
                           style: TextStyles.fontStyle3,
                         ),
                       ],
@@ -270,6 +273,7 @@ class _HomePageState extends ConsumerState<HomePage>
                   ],
                 ),
                 onTap: () {
+                  ref.read(profileProvider.notifier).getProfileDetails(ref);
                   ref.read(mainProvider.notifier).setNavString('Profile');
                   Navigator.pop(context);
                 },

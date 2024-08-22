@@ -36,6 +36,7 @@ import 'package:sample/home/main_pages/theme.dart';
 import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/login/screen/login_page.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
@@ -88,6 +89,7 @@ class _HomePageState extends ConsumerState<HomePage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(mainProvider);
+    final providerLogin = ref.watch(loginProvider);
     ref.listen(networkProvider, (previous, next) {
       if (previous!.connectivityResult == ConnectivityResult.none &&
           next.connectivityResult != ConnectivityResult.none) {
@@ -156,7 +158,12 @@ class _HomePageState extends ConsumerState<HomePage>
               children: [
                 if (provider.navString == 'Home') const SizedBox(height: 20),
                 if (provider.navString == 'Home')
-                  const Text('Welcome Venkat', style: TextStyles.fontStyle4),
+                  Text(
+                    '${providerLogin.studentData.studentname}' == ''
+                        ? '-'
+                        : '${providerLogin.studentData.studentname}',
+                    style: TextStyles.fontStyle4,
+                  ),
                 if (provider.navString == 'Home') const SizedBox(height: 5),
                 if (provider.navString == 'Home')
                   const Text(

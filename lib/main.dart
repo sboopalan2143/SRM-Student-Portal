@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/firebase_options.dart';
 // import 'package:sample/firebase_options.dart';
@@ -66,8 +67,7 @@ class _InitialState extends ConsumerState<Initial> {
 
       /// Navigate base on stored auth token for mobile and web
       initialRoute:
-          // TokensManagement.authToken == '' ?
-          Routes.login,
+          TokensManagement.studentId == '' ? Routes.login : Routes.home,
       //  :
       // Routes.home,
       routes: RouteBuilder.routes,

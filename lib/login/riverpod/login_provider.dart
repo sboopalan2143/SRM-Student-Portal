@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/login/model/login_response_model.dart';
@@ -17,6 +18,7 @@ class LoginProvider extends StateNotifier<LoginState> {
         errorMessage: '',
         userName: TextEditingController(),
         password: TextEditingController(),
+        studentData: LoginData.empty,
       );
 
   Future<void> login(EncryptionProvider encrypt) async {
@@ -36,6 +38,7 @@ class LoginProvider extends StateNotifier<LoginState> {
         errorMessage: '',
         userName: TextEditingController(),
         password: TextEditingController(),
+        studentData: LoginData.empty,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -44,26 +47,31 @@ class LoginProvider extends StateNotifier<LoginState> {
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      var studentData = <LoginData>[];
+      var studentData = LoginData.empty;
       final studentLoginDetails = LoginResponseModel.fromJson(decryptedData);
-      studentData.addAll(studentLoginDetails.data!);
-      if (studentLoginDetails.status == 'success') {
+      studentData = studentLoginDetails.data![0];
+      state = state.copyWith(studentData: studentData);
+      log('status>>>>>>${studentLoginDetails.status}');
+      if (studentLoginDetails.status == 'Success') {
+        await TokensManagement.setStudentId(studentId: '${studentData.sid}');
+
         state = LoginStateSuccessful(
           successMessage: studentLoginDetails.status!,
           errorMessage: '',
           userName: TextEditingController(),
           password: TextEditingController(),
+          studentData: LoginData.empty,
+        );
+        disposeState();
+      } else if (response.$1 != 200) {
+        state = LoginStateError(
+          successMessage: '',
+          errorMessage: 'Error',
+          userName: state.userName,
+          password: state.password,
+          studentData: LoginData.empty,
         );
       }
-
-      disposeState();
-    } else if (response.$1 != 200) {
-      state = LoginStateError(
-        successMessage: '',
-        errorMessage: 'Error',
-        userName: TextEditingController(),
-        password: TextEditingController(),
-      );
     }
   }
 }

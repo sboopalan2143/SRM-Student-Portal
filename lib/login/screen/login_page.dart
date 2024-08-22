@@ -55,7 +55,9 @@ class _LoginPageState extends ConsumerState<LoginPage>
           Alerts.errorAlert(context: context, message: next.errorMessage);
         } else if (next is LoginStateSuccessful) {
           /// Handle route to next page.
+
           Navigator.push(context, RouteDesign(route: const HomePage()));
+          Alerts.successAlert(context: context, message: next.successMessage);
         }
       });
     return LoadingWrapper(

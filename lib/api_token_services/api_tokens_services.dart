@@ -11,7 +11,8 @@ class AppIdVersion {
 }
 
 class Api {
-  static String mainUrl = 'https://mobileapp.erpsrm.com/srmstudentportal/StudentAndroid?wsdl/evarsitywebservice/StudentAndroid';
+  static String mainUrl =
+      'https://mobileapp.erpsrm.com/srmstudentportal/StudentAndroid?wsdl/evarsitywebservice/StudentAndroid';
 
   static String apiUrl = '$mainUrl/api/v1/';
 
@@ -19,7 +20,7 @@ class Api {
 }
 
 class TokensManagement {
-  static String authToken = '';
+  static String studentId = '';
 
   static Map<String, String> headers = {};
 
@@ -28,24 +29,16 @@ class TokensManagement {
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
 
-  // static Future<void> setAuthToken({required String authToken}) async {
-  //   final sharedPreferences = await SharedPreferences.getInstance();
-  //   await sharedPreferences.setString('authToken', authToken);
-  //   headers = {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $authToken',
-  //   };
-  // }
+  static Future<void> setStudentId({required String studentId}) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('studentId', studentId);
+  }
 
-  // static Future<void> getAuthToken() async {
-  //   final sharedPreferences = await SharedPreferences.getInstance();
-  //   final storedToken = sharedPreferences.getString('authToken');
-  //   authToken = storedToken ?? '';
-  //   headers = {
-  //     'Accept': 'application/json',
-  //     'Authorization': 'Bearer $authToken',
-  //   };
-  // }
+  static Future<void> getStudentId() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final storedId = sharedPreferences.getString('studentId');
+    studentId = storedId ?? '';
+  }
 
   /// Call this function on logout
   static Future<void> clearSharedPreference() async {

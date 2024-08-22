@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:sample/login/model/login_response_model.dart';
 import 'package:sample/login/riverpod/login_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,24 +13,28 @@ class LoginState {
     required this.errorMessage,
     required this.userName,
     required this.password,
+    required this.studentData,
   });
 
   final String successMessage;
   final String errorMessage;
   final TextEditingController userName;
   final TextEditingController password;
+  final LoginData studentData;
 
   LoginState copyWith({
     String? successMessage,
     String? errorMessage,
     TextEditingController? userName,
     TextEditingController? password,
+    LoginData? studentData,
   }) =>
       LoginState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         userName: userName ?? this.userName,
         password: password ?? this.password,
+        studentData: studentData ?? this.studentData,
       );
 }
 
@@ -40,6 +45,7 @@ class LoginInitial extends LoginState {
           errorMessage: '',
           userName: TextEditingController(),
           password: TextEditingController(),
+          studentData: LoginData.empty,
         );
 }
 
@@ -49,6 +55,7 @@ class LoginStateLoading extends LoginState {
     required super.errorMessage,
     required super.userName,
     required super.password,
+    required super.studentData,
   });
 }
 
@@ -58,6 +65,7 @@ class LoginStateError extends LoginState {
     required super.errorMessage,
     required super.userName,
     required super.password,
+    required super.studentData,
   });
 }
 
@@ -67,6 +75,7 @@ class LoginStateSuccessful extends LoginState {
     required super.errorMessage,
     required super.userName,
     required super.password,
+    required super.studentData,
   });
 }
 
@@ -76,5 +85,6 @@ class NoNetworkAvailable extends LoginState {
     required super.errorMessage,
     required super.userName,
     required super.password,
+    required super.studentData,
   });
 }

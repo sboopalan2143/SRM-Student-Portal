@@ -128,7 +128,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
                     ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-                        ref.read(encryptionProvider.notifier));
+                        ref.read(encryptionProvider.notifier),);
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Hour Attendance');

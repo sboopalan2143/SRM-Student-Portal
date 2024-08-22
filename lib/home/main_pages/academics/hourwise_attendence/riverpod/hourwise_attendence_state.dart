@@ -19,7 +19,7 @@ class hourwiseState {
   final String successMessage;
   final String errorMessage;
   final HourwiseData hourwiseData;
-  final  List<HourwiseData> listHourWiseData;
+  final List<HourwiseData> listHourWiseData;
 
   hourwiseState copyWith({
     String? successMessage,

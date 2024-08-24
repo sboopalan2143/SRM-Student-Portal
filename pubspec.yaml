@@ -31,6 +31,7 @@ dependencies:
   xml:
   encrypt:
   hex:
+  flutter_styled_toast:
 
 dev_dependencies:
   flutter_test:

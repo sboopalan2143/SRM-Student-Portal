@@ -1,8 +1,4 @@
 class ExamDetails {
-  String? status;
-  String? message;
-  List<ExamDetailsData>? data;
-
   ExamDetails({this.status, this.message, this.data});
 
   ExamDetails.fromJson(Map<String, dynamic> json) {
@@ -10,16 +6,19 @@ class ExamDetails {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <ExamDetailsData>[];
-      json['Data'].forEach((v) {
-        data!.add(new ExamDetailsData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(ExamDetailsData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<ExamDetailsData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Status'] = this.status;
-    data['Message'] = this.message;
+    final data = <String, dynamic>{};
+    data['Status'] = status;
+    data['Message'] = message;
     if (this.data != null) {
       data['Data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,18 +27,6 @@ class ExamDetails {
 }
 
 class ExamDetailsData {
-  String? result;
-  String? internal;
-  String? external;
-  String? grade;
-  String? semester;
-  String? monthyear;
-  String? marksobtained;
-  String? subjectcode;
-  String? credit;
-  String? subjectdesc;
-  String? attempts;
-
   ExamDetailsData(
       {this.result,
       this.internal,
@@ -51,7 +38,7 @@ class ExamDetailsData {
       this.subjectcode,
       this.credit,
       this.subjectdesc,
-      this.attempts});
+      this.attempts,});
 
   ExamDetailsData.fromJson(Map<String, dynamic> json) {
     result = json['result'] as String?;
@@ -66,20 +53,31 @@ class ExamDetailsData {
     subjectdesc = json['subjectdesc'] as String?;
     attempts = json['attempts'] as String?;
   }
+  String? result;
+  String? internal;
+  String? external;
+  String? grade;
+  String? semester;
+  String? monthyear;
+  String? marksobtained;
+  String? subjectcode;
+  String? credit;
+  String? subjectdesc;
+  String? attempts;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['result'] = this.result;
-    data['internal'] = this.internal;
-    data['external'] = this.external;
-    data['grade'] = this.grade;
-    data['semester'] = this.semester;
-    data['monthyear'] = this.monthyear;
-    data['marksobtained'] = this.marksobtained;
-    data['subjectcode'] = this.subjectcode;
-    data['credit'] = this.credit;
-    data['subjectdesc'] = this.subjectdesc;
-    data['attempts'] = this.attempts;
+    final data = <String, dynamic>{};
+    data['result'] = result;
+    data['internal'] = internal;
+    data['external'] = external;
+    data['grade'] = grade;
+    data['semester'] = semester;
+    data['monthyear'] = monthyear;
+    data['marksobtained'] = marksobtained;
+    data['subjectcode'] = subjectcode;
+    data['credit'] = credit;
+    data['subjectdesc'] = subjectdesc;
+    data['attempts'] = attempts;
     return data;
   }
 }

@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/login/model/login_response_model.dart';
 import 'package:sample/login/riverpod/login_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginProvider extends StateNotifier<LoginState> {
   LoginProvider() : super(LoginInitial());
@@ -27,6 +27,7 @@ class LoginProvider extends StateNotifier<LoginState> {
   }
 
   Future<void> login(EncryptionProvider encrypt) async {
+   
     final data = encrypt.getEncryptedData(
       '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
     );

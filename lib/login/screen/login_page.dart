@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_state.dart';
@@ -54,12 +53,12 @@ class _LoginPageState extends ConsumerState<LoginPage>
       })
       ..listen(loginProvider, (previous, next) {
         if (next is LoginStateError) {
-          Alerts.errorAlert(context: context, message: next.errorMessage);
+          _showToast(context, next.errorMessage, AppColors.redColor);
         } else if (next is LoginStateSuccessful) {
           /// Handle route to next page.
 
           Navigator.push(context, RouteDesign(route: const HomePage()));
-          Alerts.successAlert(context: context, message: next.successMessage);
+          _showToast(context, next.successMessage, AppColors.greenColor);
         }
       });
     return LoadingWrapper(
@@ -198,6 +197,22 @@ class _LoginPageState extends ConsumerState<LoginPage>
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 
 class SubjectPage extends ConsumerStatefulWidget {
@@ -16,7 +17,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
+    final provider = ref.watch(subjectProvider);
     return Column(
       children: [
         Padding(
@@ -79,7 +80,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: ListView.builder(
-            itemCount: 20,
+            itemCount: provider.subjectData.length,
             controller: _listController,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -92,9 +93,10 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   }
 
   Widget cardDesign(int index) {
+    final provider = ref.watch(subjectProvider);
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -114,11 +116,11 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
             children: [
               SizedBox(
                 width: width / 8,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '1',
+                      '${provider.subjectData[index][0]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],
@@ -127,11 +129,11 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 8,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '5456',
+                      '${provider.subjectData[index][1]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],
@@ -140,12 +142,12 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 2.3,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
                     Text(
-                      'C Programming Language',
+                      '${provider.subjectData[index][2]}',
                       style: TextStyles.fontStyle10,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -153,11 +155,10 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 8,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
                     Text(
-                      '03',
+                      '${provider.subjectData[index][3]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

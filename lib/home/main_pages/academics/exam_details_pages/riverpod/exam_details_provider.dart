@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
@@ -18,7 +19,7 @@ class ExamDetailsProvider extends StateNotifier<examDetailsState> {
 
   Future<void> getexamDetailsDetails(EncryptionProvider encrypt) async {
     final data = encrypt.getEncryptedData(
-      '<studentid>1828</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
     );
     log('encrypted data>>>>>$data');
     final response = await HttpService.sendSoapRequest('getExamDetails', data);

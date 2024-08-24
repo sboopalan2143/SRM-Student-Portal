@@ -6,7 +6,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
@@ -73,10 +75,10 @@ class _HomePageState extends ConsumerState<HomePage>
   }
 
   Future<void> _initialProcess() async {
-    // await TokensManagement.getAuthToken();
+    await TokensManagement.getStudentId();
 
     /// Remove the command line after firebase setup
-    // await TokensManagement.getPhoneToken();
+    await TokensManagement.getPhoneToken();
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -91,7 +93,6 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final provider = ref.watch(mainProvider);
     final providerLogin = ref.watch(loginProvider);
-    log('studentName_homepage>>>>${providerLogin.studentData.studentname!}');
     ref.listen(networkProvider, (previous, next) {
       if (previous!.connectivityResult == ConnectivityResult.none &&
           next.connectivityResult != ConnectivityResult.none) {
@@ -138,6 +139,8 @@ class _HomePageState extends ConsumerState<HomePage>
               } else if (ref.watch(mainProvider).navString == 'Register') {
                 ref.read(mainProvider.notifier).setNavString('Transport');
               } else if (ref.watch(mainProvider).navString == 'View') {
+                ref.read(mainProvider.notifier).setNavString('Library');
+              } else if (ref.watch(mainProvider).navString == 'Fees') {
                 ref.read(mainProvider.notifier).setNavString('Library');
               } else {
                 ref.read(mainProvider.notifier).setNavString('Home');
@@ -238,13 +241,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/profile.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Home',
                       style: TextStyles.fontStyle2,
@@ -259,13 +255,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/profile.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Profile',
                       style: TextStyles.fontStyle2,
@@ -273,7 +262,9 @@ class _HomePageState extends ConsumerState<HomePage>
                   ],
                 ),
                 onTap: () {
-                  ref.read(profileProvider.notifier).getProfileDetails(ref);
+                  ref
+                      .read(profileProvider.notifier)
+                      .getProfileDetails(ref.read(encryptionProvider.notifier));
                   ref.read(mainProvider.notifier).setNavString('Profile');
                   Navigator.pop(context);
                 },
@@ -281,13 +272,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/profile.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Theme',
                       style: TextStyles.fontStyle2,
@@ -303,13 +287,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/change_password.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Change Password',
                       style: TextStyles.fontStyle2,
@@ -327,13 +304,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/terms.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Terms & Conditions',
                       style: TextStyles.fontStyle2,
@@ -351,13 +321,6 @@ class _HomePageState extends ConsumerState<HomePage>
               ListTile(
                 title: const Row(
                   children: [
-                    // SvgPicture.asset(
-                    //   'assets/images/log_out.svg',
-                    //   height: 20,
-                    // ),
-                    // const SizedBox(
-                    //   width: 30,
-                    // ),
                     Text(
                       'Logout',
                       style: TextStyles.fontStyle2,
@@ -366,6 +329,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
                 onTap: () {
                   ref.read(mainProvider.notifier).setNavString('Logout');
+                  TokensManagement.clearSharedPreference();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const LoginPage(),

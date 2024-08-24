@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_provider.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_provider.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_provider.dart';
 
 final examDetailsProvider =
     StateNotifierProvider<ExamDetailsProvider, examDetailsState>((ref) {

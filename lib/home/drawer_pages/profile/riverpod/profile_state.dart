@@ -1,62 +1,72 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_provider.dart';
 
 final profileProvider =
-    StateNotifierProvider<ProfileProvider, ProfileState>((ref) {
+    StateNotifierProvider<ProfileProvider, ProfileDetailsState>((ref) {
   return ProfileProvider();
 });
 
-class ProfileState {
-  const ProfileState({
+class ProfileDetailsState {
+  const ProfileDetailsState({
     required this.successMessage,
     required this.errorMessage,
+    required this.profileData,
   });
 
   final String successMessage;
   final String errorMessage;
+  final ProfileDetails profileData;
 
-  ProfileState copyWith({
+  ProfileDetailsState copyWith({
     String? successMessage,
     String? errorMessage,
+    ProfileDetails? profileData,
   }) =>
-      ProfileState(
+      ProfileDetailsState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
+        profileData: profileData ?? this.profileData,
       );
 }
 
-class ProfileInitial extends ProfileState {
+class ProfileInitial extends ProfileDetailsState {
   ProfileInitial()
       : super(
           successMessage: '',
           errorMessage: '',
+          profileData: ProfileDetails.empty,
         );
 }
 
-class ProfileStateLoading extends ProfileState {
-  const ProfileStateLoading({
+class ProfileDetailsStateLoading extends ProfileDetailsState {
+  const ProfileDetailsStateLoading({
     required super.successMessage,
     required super.errorMessage,
+    required super.profileData,
   });
 }
 
-class ProfileStateError extends ProfileState {
-  const ProfileStateError({
+class ProfileDetailsStateError extends ProfileDetailsState {
+  const ProfileDetailsStateError({
     required super.successMessage,
     required super.errorMessage,
+    required super.profileData,
   });
 }
 
-class ProfileStateSuccessful extends ProfileState {
-  const ProfileStateSuccessful({
+class ProfileDetailsStateSuccessful extends ProfileDetailsState {
+  const ProfileDetailsStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
+    required super.profileData,
   });
 }
 
-class NoNetworkAvailableProfile extends ProfileState {
+class NoNetworkAvailableProfile extends ProfileDetailsState {
   const NoNetworkAvailableProfile({
     required super.successMessage,
     required super.errorMessage,
+    required super.profileData,
   });
 }

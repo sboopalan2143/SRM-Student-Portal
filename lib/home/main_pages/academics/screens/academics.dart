@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
 import '../../../riverpod/main_state.dart';
 
@@ -55,6 +56,8 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
+                    ref.read(subjectProvider.notifier).getSubjectDetails(
+                        ref.read(encryptionProvider.notifier));
                     ref.read(mainProvider.notifier).setNavString('Subjects');
                   },
                   child: Text(
@@ -128,7 +131,8 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
                     ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-                        ref.read(encryptionProvider.notifier),);
+                          ref.read(encryptionProvider.notifier),
+                        );
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Hour Attendance');

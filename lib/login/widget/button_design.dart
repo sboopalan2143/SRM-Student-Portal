@@ -36,7 +36,6 @@ class ButtonDesign {
               .read(loginProvider.notifier)
               .login(ref.read(encryptionProvider.notifier));
         }
-       
       },
       child: Text(
         text,

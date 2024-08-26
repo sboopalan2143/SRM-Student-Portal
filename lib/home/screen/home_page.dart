@@ -76,9 +76,17 @@ class _HomePageState extends ConsumerState<HomePage>
 
   Future<void> _initialProcess() async {
     await TokensManagement.getStudentId();
+    await ref.read(loginProvider.notifier).getAppVersion();
 
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
+    await TokensManagement.getAppDeviceInfo();
+    log('phone token ${TokensManagement.phoneToken}');
+    log('deviceId ${TokensManagement.deviceId}');
+    log('androidversion ${TokensManagement.androidVersion}');
+    log('appversion ${TokensManagement.appVersion}');
+    log('model ${TokensManagement.model}');
+    log('sdkversion ${TokensManagement.sdkVersion}');
   }
 
   Future<void> showNotification(RemoteMessage message) async {

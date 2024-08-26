@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
@@ -15,7 +18,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(profileProvider);
-
+    final base64Image =
+        '${provider.profileData.studentphoto}'; // shortened for brevity
+    final imageBytes = base64Decode(base64Image);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
@@ -35,8 +40,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Image.asset(
-                    'assets/images/profile.png',
+                  child: Image.memory(
+                    imageBytes,
                     fit: BoxFit.fill,
                   ),
                 ),

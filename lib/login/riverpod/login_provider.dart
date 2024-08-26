@@ -1,13 +1,17 @@
 import 'dart:developer';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/login/model/login_response_model.dart';
 import 'package:sample/login/riverpod/login_state.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 
 class LoginProvider extends StateNotifier<LoginState> {
   LoginProvider() : super(LoginInitial());
@@ -22,16 +26,50 @@ class LoginProvider extends StateNotifier<LoginState> {
         studentData: LoginData.empty,
       );
 
-  void setData(LoginData data) {
-    state = state.copyWith(studentData: data);
+  Future<void> getAppVersion() async {
+    final deviceInfo = DeviceInfoPlugin();
+    final packageInfo = await PackageInfo.fromPlatform();
+    //  final  flutterVersion = await FlutterVersion.instance;
+
+    final version = packageInfo.version;
+    log('version>>>$version');
+    final buildNumber = packageInfo.buildNumber;
+    log('buildnumber>>>$buildNumber');
+    // final flutterSdkVersion = flutterVersion.frameworkVersion;
+    var deviceId = '';
+    var androidVersion = '';
+    var model = '';
+    var androidSdkVersion = '';
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceId = androidInfo.id; // Unique ID on Android
+      androidVersion = androidInfo.version.release;
+      model = androidInfo.model;
+      androidSdkVersion = androidInfo.version.sdkInt.toString();
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+
+      deviceId = iosInfo.identifierForVendor!; // Unique ID on iOS
+      androidVersion = iosInfo.systemVersion;
+      model = iosInfo.utsname.machine;
+    }
+
+    await TokensManagement.setAppDeviceInfo(
+      deviceId: deviceId,
+      androidVersion: androidVersion,
+      model: model,
+      sdkVersion: androidSdkVersion,
+      appVersion: version,
+    );
   }
 
   Future<void> login(EncryptionProvider encrypt) async {
-   
+    log('enters here');
     final data = encrypt.getEncryptedData(
       '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
     );
-
+    log('gets here');
     final response = await HttpService.sendSoapRequest('getStudentLogin', data);
     log('response>>>>>$response');
     if (response.$1 == 0) {
@@ -58,7 +96,7 @@ class LoginProvider extends StateNotifier<LoginState> {
         if (studentLoginDetails.status == 'Success') {
           log('${studentData.sid}');
           await TokensManagement.setStudentId(studentId: '${studentData.sid}');
-
+          await getAppVersion();
           state = LoginStateSuccessful(
             successMessage: studentLoginDetails.status!,
             errorMessage: '',

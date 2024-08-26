@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/widget/button_design.dart';
 
@@ -16,6 +17,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
     with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(changePasswordProvider);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Card(
@@ -40,6 +42,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                   SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: provider.currentPassword,
                       keyboardType: TextInputType.number,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
@@ -75,6 +78,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                   SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: provider.newPassword,
                       keyboardType: TextInputType.number,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
@@ -110,6 +114,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                   SizedBox(
                     height: 40,
                     child: TextField(
+                      controller: provider.confirmPassword,
                       keyboardType: TextInputType.number,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
@@ -136,11 +141,12 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 children: [
                   Expanded(
                     child: ButtonDesign.buttonDesign(
-                        'Save',
-                        AppColors.primaryColor,
-                        context,
-                        ref.read(mainProvider.notifier),
-                        ref,),
+                      'Save',
+                      AppColors.primaryColor,
+                      context,
+                      ref.read(mainProvider.notifier),
+                      ref,
+                    ),
                   ),
                 ],
               ),

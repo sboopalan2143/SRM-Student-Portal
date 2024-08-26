@@ -22,6 +22,12 @@ class Api {
 class TokensManagement {
   static String studentId = '';
 
+  static String deviceId = '';
+  static String androidVersion = '';
+  static String model = '';
+  static String sdkVersion = '';
+  static String appVersion = '';
+
   static Map<String, String> headers = {};
 
   static String phoneToken = '';
@@ -32,6 +38,35 @@ class TokensManagement {
   static Future<void> setStudentId({required String studentId}) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('studentId', studentId);
+  }
+
+  static Future<void> setAppDeviceInfo({
+    required String deviceId,
+    required String androidVersion,
+    required String model,
+    required String sdkVersion,
+    required String appVersion,
+  }) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('deviceId', deviceId);
+    await sharedPreferences.setString('androidversion', androidVersion);
+    await sharedPreferences.setString('model', model);
+    await sharedPreferences.setString('sdkVersion', sdkVersion);
+    await sharedPreferences.setString('appversion', appVersion);
+  }
+
+  static Future<void> getAppDeviceInfo() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final storedDeviceId = sharedPreferences.getString('deviceId');
+    final storedAndroidVersion = sharedPreferences.getString('androidversion');
+    final storedModel = sharedPreferences.getString('model');
+    final storeSdkVersion = sharedPreferences.getString('sdkVersion');
+    final storedAppVersion = sharedPreferences.getString('appversion');
+    deviceId = storedDeviceId ?? '';
+    androidVersion = storedAndroidVersion ?? '';
+    model = storedModel ?? '';
+    sdkVersion = storeSdkVersion ?? '';
+    appVersion = storedAppVersion ?? '';
   }
 
   static Future<void> getStudentId() async {

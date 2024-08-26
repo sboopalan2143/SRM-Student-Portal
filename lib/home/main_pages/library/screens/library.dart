@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 
 class LibraryPage extends ConsumerStatefulWidget {
@@ -15,81 +16,142 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
 
   @override
   Widget build(BuildContext context) {
-    
+    final width = MediaQuery.of(context).size.width;
+    final provider = ref.watch(libraryProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Member Type',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Member code',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Policy Name',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Status',
-                    style: TextStyles.fontStyle10,
-                  ),
-                ],
+              SizedBox(
+                width: width / 2 - 100,
+                child: const Text(
+                  'Member Name',
+                  style: TextStyles.fontStyle10,
+                ),
               ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                ],
+              const Text(
+                ':',
+                style: TextStyles.fontStyle10,
               ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Students',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    '1023456',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Students CSE UG',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Active',
-                    style: TextStyles.fontStyle10,
-                  ),
-                ],
-              )
-           , ],
+              const SizedBox(width: 5),
+              SizedBox(
+                width: width / 2 - 100,
+                child: Text(
+                  '${provider.libraryMemberData.membername}' == ''
+                      ? '-'
+                      : '${provider.libraryMemberData.membername}',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width / 2 - 100,
+                child: const Text(
+                  'Member Code',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+              const Text(
+                ':',
+                style: TextStyles.fontStyle10,
+              ),
+              const SizedBox(width: 5),
+              SizedBox(
+                width: width / 2 - 100,
+                child: Text(
+                  '${provider.libraryMemberData.membercode}' == ''
+                      ? '-'
+                      : '${provider.libraryMemberData.membercode}',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width / 2 - 100,
+                child: const Text(
+                  'Member Type',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+              const Text(
+                ':',
+                style: TextStyles.fontStyle10,
+              ),
+              const SizedBox(width: 5),
+              SizedBox(
+                width: width / 2 - 100,
+                child: Text(
+                  '${provider.libraryMemberData.membertype}' == ''
+                      ? '-'
+                      : '${provider.libraryMemberData.membertype}',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width / 2 - 100,
+                child: const Text(
+                  'Policy Name',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+              const Text(
+                ':',
+                style: TextStyles.fontStyle10,
+              ),
+              const SizedBox(width: 5),
+              SizedBox(
+                width: width / 2 - 100,
+                child: Text(
+                  '${provider.libraryMemberData.policyname}' == ''
+                      ? '-'
+                      : '${provider.libraryMemberData.policyname}',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width / 2 - 100,
+                child: const Text(
+                  'Status',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+              const Text(
+                ':',
+                style: TextStyles.fontStyle10,
+              ),
+              const SizedBox(width: 5),
+              SizedBox(
+                width: width / 2 - 100,
+                child: Text(
+                  '${provider.libraryMemberData.status}' == ''
+                      ? '-'
+                      : '${provider.libraryMemberData.status}',
+                  style: TextStyles.fontStyle10,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           ListView.builder(
@@ -108,7 +170,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -201,7 +263,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 onPressed: () {
                   ref.read(mainProvider.notifier).setNavString('View');
                 },
-                child:  Text(
+                child: Text(
                   'View',
                   style: TextStyles.fontStyle14,
                 ),

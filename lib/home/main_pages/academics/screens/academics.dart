@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
@@ -182,6 +183,9 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
+                    ref.read(examDetailsProvider.notifier).getExamDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Exam Details');

@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 
 class ExamDetailsPage extends ConsumerStatefulWidget {
   const ExamDetailsPage({super.key});
@@ -18,7 +19,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-  
+    final provider = ref.watch(examDetailsProvider);
     return Column(
       children: [
         Padding(
@@ -69,7 +70,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
             ),
           ),
         ),
-         Center(
+        Center(
           child: Text(
             '2nd Year, 4th Sem',
             style: TextStyles.smallPrimaryColorFontStyle,
@@ -78,7 +79,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: provider.examDetailsData.length,
             controller: _listController,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -92,8 +93,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+    final provider = ref.watch(examDetailsProvider);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -109,78 +111,190 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Code',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Subject',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Result',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Subject Code',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].subjectcode}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].subjectcode}',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2 - 60,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '533658',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Subject Desc',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Data Structures',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].subjectdesc}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '10 June, 2024',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Semester',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Pass',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].semester}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].semester}',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Internal',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].internal}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].internal}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'External',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].external}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].external}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Grade',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].grade}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].grade}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 125,
+                    child: const Text(
+                      'Credit',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.examDetailsData[index].credit}' == ''
+                          ? '-'
+                          : '${provider.examDetailsData[index].credit}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

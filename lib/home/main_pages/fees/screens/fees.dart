@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/fees/Fees_model.dart/finance_response_model.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 
 class FeesPage extends ConsumerStatefulWidget {
@@ -17,7 +16,6 @@ class _FeesPageState extends ConsumerState<FeesPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
@@ -135,7 +133,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -156,7 +154,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               SizedBox(
                 width: width / 2 - 125,
                 child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       'Invoice ID',
@@ -178,7 +176,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ),
               ),
               const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     ':',
@@ -222,7 +220,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -251,8 +249,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -278,6 +278,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -290,6 +291,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
@@ -302,6 +304,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -314,6 +317,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
@@ -326,6 +330,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -338,6 +343,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
@@ -350,6 +356,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -362,6 +369,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
@@ -374,6 +382,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -386,6 +395,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
@@ -398,6 +408,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -410,6 +421,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(

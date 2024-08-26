@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/fees/Fees_model.dart/finance_response_model.dart';
+import 'package:sample/home/main_pages/fees/model.dart/finance_response_model.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_provider.dart';
 
 final feesProvider = StateNotifierProvider<FeesProvider, FeesState>((ref) {

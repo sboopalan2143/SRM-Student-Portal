@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_response_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
 
 final attendanceProvider =
@@ -10,22 +11,22 @@ class AttendanceState {
   const AttendanceState({
     required this.successMessage,
     required this.errorMessage,
-    // required this.attendanceData,
+    required this.attendanceData,
   });
 
   final String successMessage;
   final String errorMessage;
-  // final List<AttendanceData> attendanceData;
+  final List<SubjectAttendanceData> attendanceData;
 
   AttendanceState copyWith({
     String? successMessage,
     String? errorMessage,
-    // List<AttendanceData>? attendanceData,
+    List<SubjectAttendanceData>? attendanceData,
   }) =>
       AttendanceState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        // attendanceData: attendanceData ?? this.attendanceData,
+        attendanceData: attendanceData ?? this.attendanceData,
       );
 }
 
@@ -34,15 +35,15 @@ class AttendanceInitial extends AttendanceState {
       : super(
           successMessage: '',
           errorMessage: '',
-          // attendanceData: <AttendanceData>[],
+          attendanceData: <SubjectAttendanceData>[],
         );
 }
 
 class AttendanceStateLoading extends AttendanceState {
-  const AttendanceStateLoading({
+   AttendanceStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    // required super.attendanceData,
+    required super.attendanceData,
   });
 }
 
@@ -50,7 +51,7 @@ class AttendanceStateError extends AttendanceState {
   const AttendanceStateError({
     required super.successMessage,
     required super.errorMessage,
-    // required super.attendanceData,
+    required super.attendanceData,
   });
 }
 
@@ -58,7 +59,7 @@ class AttendanceStateSuccessful extends AttendanceState {
   const AttendanceStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    // required super.attendanceData,
+    required super.attendanceData,
   });
 }
 
@@ -66,6 +67,6 @@ class NoNetworkAvailableAttendance extends AttendanceState {
   const NoNetworkAvailableAttendance({
     required super.successMessage,
     required super.errorMessage,
-    // required super.attendanceData,
+    required super.attendanceData,
   });
 }

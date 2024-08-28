@@ -67,8 +67,7 @@ class _InitialState extends ConsumerState<Initial> {
 
       /// Navigate base on stored auth token for mobile and web
       initialRoute:
-          // TokensManagement.studentId == '' ? Routes.login :
-          Routes.home,
+          TokensManagement.studentId == '' ? Routes.login : Routes.home,
       //  :
       // Routes.home,
       routes: RouteBuilder.routes,

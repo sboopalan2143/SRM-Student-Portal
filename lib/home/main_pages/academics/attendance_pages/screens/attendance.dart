@@ -2,6 +2,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
 class AttendancePage extends ConsumerStatefulWidget {
   const AttendancePage({super.key});
@@ -17,6 +19,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(attendanceProvider);
     return Column(
       children: [
         Padding(
@@ -70,7 +73,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: provider.attendanceData.length,
             controller: _listController,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -84,6 +87,8 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(attendanceProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
@@ -169,31 +174,31 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 2 - 60,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '533658',
+                      '${provider.attendanceData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      'Data Structures',
+                      '${provider.attendanceData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '20',
+                      '${provider.attendanceData[index].total}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '19',
+                      '${provider.attendanceData[index].present}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '1',
+                      '${provider.attendanceData[index].absent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '90%',
+                      '${provider.attendanceData[index].presentpercentage}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

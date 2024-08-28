@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
 class InternalMarksPage extends ConsumerStatefulWidget {
   const InternalMarksPage({super.key});
@@ -18,6 +19,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(internalMarksProvider);
     return Column(
       children: [
         Padding(
@@ -68,7 +70,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
             ),
           ),
         ),
-         Center(
+        Center(
           child: Text(
             '2nd Year, 4th Sem',
             style: TextStyles.smallPrimaryColorFontStyle,
@@ -77,7 +79,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(
-            itemCount: 20,
+            itemCount: provider.internalMarkData.length,
             controller: _listController,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -91,6 +93,8 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(internalMarksProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
@@ -150,19 +154,19 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 2 - 60,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '533658',
+                      '${provider.internalMarkData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      'Data Structures',
+                      '${provider.internalMarkData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '99/100',
+                      '${provider.internalMarkData[index].sumofmarks}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],
@@ -174,6 +178,4 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
       ),
     );
   }
-
- 
-  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 
 class CumulativeAttendancePage extends ConsumerStatefulWidget {
   const CumulativeAttendancePage({super.key});
@@ -18,6 +19,7 @@ class _CumulativeAttendancePageState
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(cummulativeAttendanceProvider);
     return Column(
       children: [
         Padding(
@@ -57,7 +59,7 @@ class _CumulativeAttendancePageState
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: provider.cummulativeAttendanceData.length,
             controller: _listController,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -71,6 +73,8 @@ class _CumulativeAttendancePageState
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(cummulativeAttendanceProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -156,31 +160,31 @@ class _CumulativeAttendancePageState
               const SizedBox(width: 5),
               SizedBox(
                 width: width / 2 - 60,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'May, 2024',
+                      '${provider.cummulativeAttendanceData[index].attendancemonthyear}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      'Data Structures',
+                      '${provider.cummulativeAttendanceData[index].present}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '20',
+                      '${provider.cummulativeAttendanceData[index].absent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '19',
+                      '${provider.cummulativeAttendanceData[index].odpresent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '0',
+                      '${provider.cummulativeAttendanceData[index].odabsent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '0s',
+                      '${provider.cummulativeAttendanceData[index].medical}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

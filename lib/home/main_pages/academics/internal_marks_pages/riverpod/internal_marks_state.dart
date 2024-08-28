@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_marks_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_provider.dart';
 
 final internalMarksProvider =
@@ -7,26 +8,25 @@ final internalMarksProvider =
 });
 
 class InternalMarksState {
-  const InternalMarksState({
+  InternalMarksState({
     required this.successMessage,
     required this.errorMessage,
-    // required this.cummulativeAttendanceData,
+    required this.internalMarkData,
   });
 
   final String successMessage;
   final String errorMessage;
-  // final List<cummulativeAttendanceData> cummulativeAttendanceData;
+  final List<InternalMarkData> internalMarkData;
 
   InternalMarksState copyWith({
     String? successMessage,
     String? errorMessage,
-    // List<cummulativeAttendanceData>? cummulativeAttendanceData,
+    List<InternalMarkData>? internalMarkData,
   }) =>
       InternalMarksState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        // cummulativeAttendanceData: cummulativeAttendanceData
-        // ?? this.cummulativeAttendanceData,
+        internalMarkData: internalMarkData ?? this.internalMarkData,
       );
 }
 
@@ -35,38 +35,38 @@ class InternalMarksInitial extends InternalMarksState {
       : super(
           successMessage: '',
           errorMessage: '',
-          // cummulativeAttendanceData: <cummulativeAttendanceData>[],
+          internalMarkData: <InternalMarkData>[],
         );
 }
 
 class InternalMarksStateLoading extends InternalMarksState {
-  const InternalMarksStateLoading({
+  InternalMarksStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    // required super.cummulativeAttendanceData,
+    required super.internalMarkData,
   });
 }
 
 class InternalMarksStateError extends InternalMarksState {
-  const InternalMarksStateError({
+  InternalMarksStateError({
     required super.successMessage,
     required super.errorMessage,
-    // required super.cummulativeAttendanceData,
+    required super.internalMarkData,
   });
 }
 
 class InternalMarksStateSuccessful extends InternalMarksState {
-  const InternalMarksStateSuccessful({
+  InternalMarksStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    // required super.cummulativeAttendanceData,
+    required super.internalMarkData,
   });
 }
 
 class NoNetworkAvailableInternalMarks extends InternalMarksState {
-  const NoNetworkAvailableInternalMarks({
+  NoNetworkAvailableInternalMarks({
     required super.successMessage,
     required super.errorMessage,
-    // required super.cummulativeAttendanceData,
+    required super.internalMarkData,
   });
 }

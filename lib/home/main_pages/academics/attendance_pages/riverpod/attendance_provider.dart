@@ -5,6 +5,7 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_response_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_response_model.dart';
 // import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
@@ -14,10 +15,10 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
 
   void disposeState() => state = AttendanceInitial();
 
-  void _setLoading() => state = const AttendanceStateLoading(
+  void _setLoading() => state = AttendanceStateLoading(
         successMessage: '',
         errorMessage: '',
-        // attendanceData: <AttendanceData>[],
+        attendanceData: <SubjectAttendanceData>[],
       );
 
   Future<void> getAttendanceDetails(EncryptionProvider encrypt) async {
@@ -28,10 +29,10 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
     final response =
         await HttpService.sendSoapRequest('getSubjectwiseAttendance', data);
     if (response.$1 == 0) {
-      state = const NoNetworkAvailableAttendance(
+      state = NoNetworkAvailableAttendance(
         successMessage: '',
         errorMessage: '',
-        //  attendanceData: <AttendanceData>[],
+        attendanceData: state.attendanceData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -40,26 +41,33 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       final returnData = attendanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+
+      var attendanceData = state.attendanceData;
       log('decrypted>>>>>>>>$decryptedData');
 
       // var attendanceData = <dynamic>[];
       try {
         //change model
         final attendanceDataResponse =
-            SubjectResponseModel.fromJson(decryptedData);
-        // attendanceData = attendanceDataResponse.data!;
-// state = state.copyWith(attendanceData: attendanceData);
+            GetSubjectWiseAttedence.fromJson(decryptedData);
+        attendanceData = attendanceDataResponse.data!;
+        state = state.copyWith(attendanceData: attendanceData);
         if (attendanceDataResponse.status == 'Success') {
+          // final studentIdJson =
+          //     attendanceData.map((e) => e.toJson()).toList().toString();
+          // await TokensManagement.setStudentId(
+          //   studentId: studentIdJson,
+          // );
           state = AttendanceStateSuccessful(
             successMessage: attendanceDataResponse.status!,
             errorMessage: '',
-            // attendanceData: state.attendanceData,
+            attendanceData: state.attendanceData,
           );
         } else if (attendanceDataResponse.status != 'Success') {
           state = AttendanceStateError(
             successMessage: '',
             errorMessage: attendanceDataResponse.status!,
-            //  attendanceData: state.attendanceData,
+            attendanceData: state.attendanceData,
           );
         }
       } catch (e) {
@@ -67,14 +75,14 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         state = AttendanceStateError(
           successMessage: '',
           errorMessage: error.message!,
-          // attendanceData: state.attendanceData,
+          attendanceData: state.attendanceData,
         );
       }
     } else if (response.$1 != 200) {
-      state = const AttendanceStateError(
+      state = AttendanceStateError(
         successMessage: '',
         errorMessage: 'Error',
-        // attendanceData: state.attendanceData,
+        attendanceData: state.attendanceData,
       );
     }
   }

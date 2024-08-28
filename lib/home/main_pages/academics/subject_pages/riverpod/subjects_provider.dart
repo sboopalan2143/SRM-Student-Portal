@@ -32,6 +32,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
     );
     final response = await HttpService.sendSoapRequest('getSubjects', data);
     if (response.$1 == 0) {
+      log('test subject >> <studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>');
       state = const NoNetworkAvailableSubject(
         successMessage: '',
         errorMessage: '',

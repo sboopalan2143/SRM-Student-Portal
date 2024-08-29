@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +22,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(examDetailsProvider);
+    log('exam details---main page ${provider.examDetailsData.length}');
     return Column(
       children: [
         Padding(
@@ -114,7 +117,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
           child: Column(
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -140,7 +143,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -166,7 +169,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -192,7 +195,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -218,7 +221,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -244,7 +247,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,
@@ -270,7 +273,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 ],
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: width / 2 - 125,

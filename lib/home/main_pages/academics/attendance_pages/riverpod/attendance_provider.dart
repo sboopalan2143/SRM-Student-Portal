@@ -7,7 +7,6 @@ import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_response_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/model/subject_response_model.dart';
 // import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
 class AttendanceProvider extends StateNotifier<AttendanceState> {

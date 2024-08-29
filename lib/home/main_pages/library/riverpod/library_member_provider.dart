@@ -19,7 +19,6 @@ class LibraryMemberProvider extends StateNotifier<LibraryMemberState> {
       );
 
   Future<void> getLibraryMemberDetails(EncryptionProvider encrypt) async {
-    _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
     );
@@ -46,6 +45,7 @@ class LibraryMemberProvider extends StateNotifier<LibraryMemberState> {
             LibraryMemberResponseModel.fromJson(decryptedData);
         libraryMemberDetails = libraryMemberDataResponse.data![0];
         state = state.copyWith(libraryMemberData: libraryMemberDetails);
+        log('library ${libraryMemberDetails.membername}');
         if (libraryMemberDataResponse.status == 'Success') {
           state = LibraryMemberStateSuccessful(
             successMessage: libraryMemberDataResponse.status!,
@@ -133,6 +133,4 @@ class LibraryMemberProvider extends StateNotifier<LibraryMemberState> {
 //       );
 //     }
 //   }
-
-
 }

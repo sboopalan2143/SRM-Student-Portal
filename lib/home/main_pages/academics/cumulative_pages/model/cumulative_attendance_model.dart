@@ -1,7 +1,4 @@
 class GetCumulativeAttedence {
-  String? status;
-  String? message;
-  List<CumulativeAttendanceData>? data;
 
   GetCumulativeAttedence({this.status, this.message, this.data});
 
@@ -16,6 +13,9 @@ class GetCumulativeAttedence {
       });
     }
   }
+  String? status;
+  String? message;
+  List<CumulativeAttendanceData>? data;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -29,12 +29,6 @@ class GetCumulativeAttedence {
 }
 
 class CumulativeAttendanceData {
-  String? attendancemonthyear;
-  String? medical;
-  String? absent;
-  String? present;
-  String? odabsent;
-  String? odpresent;
 
   CumulativeAttendanceData(
       {this.attendancemonthyear,
@@ -52,6 +46,12 @@ class CumulativeAttendanceData {
     odabsent = json['odabsent'] as String?;
     odpresent = json['odpresent'] as String?;
   }
+  String? attendancemonthyear;
+  String? medical;
+  String? absent;
+  String? present;
+  String? odabsent;
+  String? odpresent;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

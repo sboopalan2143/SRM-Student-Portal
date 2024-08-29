@@ -27,6 +27,7 @@ import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
 import 'package:sample/home/main_pages/hostel/screens/registration.dart';
+import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/library/screens/view.dart';
 import 'package:sample/home/main_pages/lms/screens/lms.dart';
@@ -270,10 +271,21 @@ class _HomePageState extends ConsumerState<HomePage>
                   ],
                 ),
                 onTap: () {
-                  ref
-                      .read(profileProvider.notifier)
-                      .getProfileDetails(ref.read(encryptionProvider.notifier));
-                  ref.read(mainProvider.notifier).setNavString('Profile');
+                  try {
+                    ref.read(profileProvider.notifier).getProfileDetails(
+                          ref.read(
+                            encryptionProvider.notifier,
+                          ),
+                        );
+                    ref.read(mainProvider.notifier).setNavString('Profile');
+                  } catch (e) {
+                    TokensManagement.clearSharedPreference();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      RouteDesign(route: const LoginPage()),
+                      (route) => false,
+                    );
+                  }
                   Navigator.pop(context);
                 },
               ),
@@ -338,10 +350,10 @@ class _HomePageState extends ConsumerState<HomePage>
                 onTap: () {
                   ref.read(mainProvider.notifier).setNavString('Logout');
                   TokensManagement.clearSharedPreference();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    RouteDesign(route: const LoginPage()),
+                    (route) => false,
                   );
                 },
               ),
@@ -657,6 +669,9 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
+                    ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
                     ref.read(mainProvider.notifier).setNavString('Library');
                   },
                   child: Column(

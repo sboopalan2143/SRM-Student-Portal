@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
@@ -8,6 +9,7 @@ import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exa
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/login/screen/login_page.dart';
 
 import '../../../riverpod/main_state.dart';
 
@@ -60,8 +62,18 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(subjectProvider.notifier).getSubjectDetails(
-                        ref.read(encryptionProvider.notifier));
+                    try {
+                      ref.read(subjectProvider.notifier).getSubjectDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref.read(mainProvider.notifier).setNavString('Subjects');
                   },
                   child: Text(
@@ -87,11 +99,20 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref
-                        .read(internalMarksProvider.notifier)
-                        .getInternalMarksDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref
+                          .read(internalMarksProvider.notifier)
+                          .getInternalMarksDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Internal Marks');
@@ -114,9 +135,20 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(attendanceProvider.notifier).getAttendanceDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref
+                          .read(attendanceProvider.notifier)
+                          .getAttendanceDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref.read(mainProvider.notifier).setNavString('Attendance');
                   },
                   child: Text(
@@ -142,9 +174,18 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Hour Attendance');
@@ -167,11 +208,20 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref
-                        .read(cummulativeAttendanceProvider.notifier)
-                        .getCummulativeAttendanceDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref
+                          .read(cummulativeAttendanceProvider.notifier)
+                          .getCummulativeAttendanceDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Cumulative Attendance');
@@ -199,9 +249,18 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(examDetailsProvider.notifier).getExamDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref.read(examDetailsProvider.notifier).getExamDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Exam Details');

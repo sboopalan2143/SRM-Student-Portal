@@ -49,16 +49,17 @@ class HttpService {
         final jsonMap = _convertXmlElementToJson(document.rootElement);
         return (response.statusCode, jsonMap);
       }
-    } catch (e) {
-      return (0, {'message': '$e'});
-    }
-    // on SocketException {
-    //   logger.e(
-    //     'Url: ${Api.mainUrl}\n'
-    //     'No Internet Connection',
-    //   );
-    // return (0, {'message': 'No Internet Connection'});
+    } 
+    // catch (e) {
+    //   return (0, {'message': '$e'});
     // }
+    on SocketException {
+      logger.e(
+        'Url: ${Api.mainUrl}\n'
+        'No Internet Connection',
+      );
+    return (0, {'message': 'No Internet Connection'});
+    }
   }
 
   static Map<String, dynamic> _convertXmlElementToJson(XmlElement element) {

@@ -47,17 +47,18 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         final examDetailsResponse = ExamDetails.fromJson(decryptedData);
         examDetailsData = examDetailsResponse.data!;
         state = state.copyWith(examDetailsData: examDetailsData);
+        log('exam details ${examDetailsData.length}');
         if (examDetailsResponse.status == 'Success') {
           state = ExamDetailsStateSuccessful(
             successMessage: examDetailsResponse.status!,
             errorMessage: '',
-            examDetailsData: <ExamDetailsData>[],
+            examDetailsData: state.examDetailsData,
           );
         } else if (examDetailsResponse.status != 'Success') {
           state = ExamDetailsError(
             successMessage: '',
             errorMessage: examDetailsResponse.status!,
-            examDetailsData: <ExamDetailsData>[],
+            examDetailsData: state.examDetailsData,
           );
         }
       } catch (e) {

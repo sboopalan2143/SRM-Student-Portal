@@ -18,6 +18,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await TokensManagement.getStudentId();
+
+  // await TokensManagement.getPhoneToken();
+  // await TokensManagement.getAppDeviceInfo();
   final sharedPreferences = await SharedPreferences.getInstance();
   if (sharedPreferences.getString('primaryColor') != null) {
     await AppColors.setPrimaryColor(

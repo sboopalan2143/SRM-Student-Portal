@@ -120,7 +120,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Subject Code',
                       style: TextStyles.fontStyle10,
@@ -146,7 +146,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Subject Desc',
                       style: TextStyles.fontStyle10,
@@ -172,7 +172,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Semester',
                       style: TextStyles.fontStyle10,
@@ -198,7 +198,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Internal',
                       style: TextStyles.fontStyle10,
@@ -224,7 +224,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'External',
                       style: TextStyles.fontStyle10,
@@ -250,7 +250,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Grade',
                       style: TextStyles.fontStyle10,
@@ -276,7 +276,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 125,
+                    width: width / 2 - 100,
                     child: const Text(
                       'Credit',
                       style: TextStyles.fontStyle10,

@@ -669,9 +669,20 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(libraryProvider.notifier).getLibraryMemberDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    try {
+                      ref
+                          .read(libraryProvider.notifier)
+                          .getLibraryMemberDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref.read(mainProvider.notifier).setNavString('Library');
                   },
                   child: Column(

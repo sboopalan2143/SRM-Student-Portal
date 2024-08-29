@@ -21,7 +21,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             children: [
               SizedBox(
@@ -78,7 +78,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: ListView.builder(
             itemCount: provider.subjectData.length,
             controller: _listController,

@@ -7,13 +7,20 @@ import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-
 class HourwiseProvider extends StateNotifier<hourwiseState> {
   HourwiseProvider() : super(hourwiseInitial());
 
   void disposeState() => state = hourwiseInitial();
 
+  void _setLoading() => state = hourwiseStateLoading(
+        successMessage: '',
+        errorMessage: '',
+        listHourWiseData: <HourwiseData>[],
+        hourwiseData: HourwiseData.empty,
+      );
+
   Future<void> gethourwiseDetails(EncryptionProvider encrypt) async {
+    _setLoading();
     // await TokensManagement.getStudentId();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
@@ -34,24 +41,25 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
       log('hourwise response >>>> $response');
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final loginRes =
+      final hourwiseRes =
           details['getHourwiseAttendanceResponse'] as Map<String, dynamic>;
-      final returnData = loginRes['return'] as Map<String, dynamic>;
+      final returnData = hourwiseRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
       final listHourWiseData = state.listHourWiseData;
+      log('decrypted>>>>>>>>$decryptedData');
+
       try {
         final hourWiseDetails = HourwisePaidDetails.fromJson(decryptedData);
         listHourWiseData.addAll(hourWiseDetails.data!);
         state = state.copyWith(listHourWiseData: listHourWiseData);
 
         if (hourWiseDetails.status == 'Success') {
-          final studentIdJson =
-              listHourWiseData.map((e) => e.toJson()).toList().toString();
-          await TokensManagement.setStudentId(
-            studentId: studentIdJson,
-          );
+          // final studentIdJson =
+          //     listHourWiseData.map((e) => e.toJson()).toList().toString();
+          // await TokensManagement.setStudentId(
+          //   studentId: studentIdJson,
+          // );
 
           state = hourwiseStateSuccessful(
             successMessage: hourWiseDetails.status!,

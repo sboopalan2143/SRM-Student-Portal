@@ -1,7 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:sample/designs/colors.dart';
+import 'package:sample/designs/font_styles.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
 class InternalMarksPage extends ConsumerStatefulWidget {
@@ -96,7 +97,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
 
     final provider = ref.watch(internalMarksProvider);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -106,72 +107,118 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
                       'Code',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Subject',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Mark',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.internalMarkData[index].subjectcode}' == ''
+                          ? '-'
+                          : '${provider.internalMarkData[index].subjectcode}',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2 - 60,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${provider.internalMarkData[index].subjectcode}',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Subject',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.internalMarkData[index].subjectdesc}',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.internalMarkData[index].subjectdesc}' == ''
+                          ? '-'
+                          : '${provider.internalMarkData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.internalMarkData[index].sumofmarks}',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Mark',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
-              )
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.internalMarkData[index].sumofmarks}' == ''
+                          ? '-'
+                          : '${provider.internalMarkData[index].sumofmarks}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Max Marks',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.internalMarkData[index].sumofmaxmarks}' == ''
+                          ? '-'
+                          : '${provider.internalMarkData[index].sumofmaxmarks}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

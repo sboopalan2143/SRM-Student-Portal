@@ -1,7 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:sample/designs/colors.dart';
+import 'package:sample/designs/font_styles.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
 class AttendancePage extends ConsumerStatefulWidget {
@@ -89,9 +90,8 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
 
     final provider = ref.watch(attendanceProvider);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
-        // elevation: 0,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -100,109 +100,171 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 100,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
                       'Code',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Subject',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Total Hrs.',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Present Hrs.',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Absent Hrs.',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Percentage',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].subjectcode}' == ''
+                          ? '-'
+                          : '${provider.attendanceData[index].subjectcode}',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2 - 60,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${provider.attendanceData[index].subjectcode}',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Subject',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.attendanceData[index].subjectdesc}',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].subjectdesc}' == ''
+                          ? '-'
+                          : '${provider.attendanceData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.attendanceData[index].total}',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Total Hrs.',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.attendanceData[index].present}',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].total}' == ''
+                          ? '-'
+                          : '${provider.attendanceData[index].total}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.attendanceData[index].absent}',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Present Hrs.',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '${provider.attendanceData[index].presentpercentage}',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].present}' == ''
+                          ? '-'
+                          : '${provider.attendanceData[index].present}',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Absent Hrs.',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].absent}' == ''
+                          ? '-'
+                          : '${provider.attendanceData[index].absent}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 100,
+                    child: const Text(
+                      'Percentage',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.attendanceData[index].presentpercentage}' ==
+                              ''
+                          ? '-'
+                          : '${provider.attendanceData[index].presentpercentage}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

@@ -22,40 +22,40 @@ class _CumulativeAttendancePageState
     final provider = ref.watch(cummulativeAttendanceProvider);
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-          child: SizedBox(
-            height: 40,
-            child: TextField(
-              // controller: _searchIndividual,
-              // onChanged: (value) => readProvider.getOrderHistoryList(
-              //   1,
-              //   _searchIndividual.text,
-              // ),
-              keyboardType: TextInputType.text,
-              style: TextStyles.fontStyle14,
-              decoration: InputDecoration(
-                hintText: 'Search...',
-                hintStyle: TextStyles.smallLightAshColorFontStyle,
-                filled: true,
-                fillColor: AppColors.whiteColor,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide: const BorderSide(color: AppColors.grey2),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide: const BorderSide(color: AppColors.grey2),
-                ),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: AppColors.grey2,
-                ),
-              ),
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+        //   child: SizedBox(
+        //     height: 40,
+        //     child: TextField(
+        //       // controller: _searchIndividual,
+        //       // onChanged: (value) => readProvider.getOrderHistoryList(
+        //       //   1,
+        //       //   _searchIndividual.text,
+        //       // ),
+        //       keyboardType: TextInputType.text,
+        //       style: TextStyles.fontStyle14,
+        //       decoration: InputDecoration(
+        //         hintText: 'Search...',
+        //         hintStyle: TextStyles.smallLightAshColorFontStyle,
+        //         filled: true,
+        //         fillColor: AppColors.whiteColor,
+        //         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        //         enabledBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(7),
+        //           borderSide: const BorderSide(color: AppColors.grey2),
+        //         ),
+        //         focusedBorder: OutlineInputBorder(
+        //           borderRadius: BorderRadius.circular(7),
+        //           borderSide: const BorderSide(color: AppColors.grey2),
+        //         ),
+        //         prefixIcon: const Icon(
+        //           Icons.search,
+        //           color: AppColors.grey2,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(
@@ -96,7 +96,7 @@ class _CumulativeAttendancePageState
           child: Row(
             children: [
               SizedBox(
-                width: width / 2 - 100,
+                width: width / 2 - 80,
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

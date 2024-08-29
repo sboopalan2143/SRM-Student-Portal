@@ -3,14 +3,14 @@ name: sample
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.1 <4.0.0'
+  sdk: ">=3.2.1 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons:
   connectivity_plus:
-  google_fonts: 
+  google_fonts:
   flutter_riverpod:
   http:
   shared_preferences:
@@ -40,6 +40,25 @@ dev_dependencies:
   flutter_launcher_icons:
   flutter_native_splash:
   change_app_package_name:
+
+# flutter pub run flutter_launcher_icons
+flutter_icons:
+  #  image_path: "assets/images/Asset365 splash screen.png"
+  image_path: "assets/images/SRMLogo.png"
+  android: "launcher_icon"
+  ios: true
+
+# flutter pub run flutter_native_splash:create
+flutter_native_splash:
+  background_image: "assets/images/SRMLogo.png"
+  android: true
+  ios: true
+  android_12:
+    image: assets/images/SRMLogo.png
+
+    color: "#FFFFFF"
+
+    icon_background_color: "#FFFFFF"
 
 flutter:
   uses-material-design: true

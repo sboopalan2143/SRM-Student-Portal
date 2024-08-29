@@ -25,60 +25,60 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
     log('exam details---main page ${provider.examDetailsData.length}');
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.whiteColor,
-              borderRadius: BorderRadius.circular(7),
-              border: Border.all(
-                color: AppColors.grey2,
-              ),
-            ),
-            height: 40,
-            child: DropdownSearch<String>(
-              // dropdownButtonProps: DropdownButtonProps(
-              //   focusNode: widget.focusNodeC,
-              // ),
-              dropdownDecoratorProps: const DropDownDecoratorProps(
-                dropdownSearchDecoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                ),
-              ),
-              itemAsString: (item) => item,
-              items: name,
-              popupProps: const PopupProps.menu(
-                searchFieldProps: TextFieldProps(
-                  autofocus: true,
-                ),
-                constraints: BoxConstraints(maxHeight: 250),
-              ),
-              selectedItem: selectedValue,
-              onChanged: (value) {
-                // readProvider.selectCustomer(value!);
-                setState(() {
-                  selectedValue = value!;
-                });
-              },
-              dropdownBuilder: (BuildContext context, name) {
-                return Text(
-                  name!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.smallLightAshColorFontStyle,
-                );
-              },
-            ),
-          ),
-        ),
-        Center(
-          child: Text(
-            '2nd Year, 4th Sem',
-            style: TextStyles.smallPrimaryColorFontStyle,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: AppColors.whiteColor,
+        //       borderRadius: BorderRadius.circular(7),
+        //       border: Border.all(
+        //         color: AppColors.grey2,
+        //       ),
+        //     ),
+        //     height: 40,
+        //     child: DropdownSearch<String>(
+        //       // dropdownButtonProps: DropdownButtonProps(
+        //       //   focusNode: widget.focusNodeC,
+        //       // ),
+        //       dropdownDecoratorProps: const DropDownDecoratorProps(
+        //         dropdownSearchDecoration: InputDecoration(
+        //           border: InputBorder.none,
+        //           contentPadding:
+        //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        //         ),
+        //       ),
+        //       itemAsString: (item) => item,
+        //       items: name,
+        //       popupProps: const PopupProps.menu(
+        //         searchFieldProps: TextFieldProps(
+        //           autofocus: true,
+        //         ),
+        //         constraints: BoxConstraints(maxHeight: 250),
+        //       ),
+        //       selectedItem: selectedValue,
+        //       onChanged: (value) {
+        //         // readProvider.selectCustomer(value!);
+        //         setState(() {
+        //           selectedValue = value!;
+        //         });
+        //       },
+        //       dropdownBuilder: (BuildContext context, name) {
+        //         return Text(
+        //           name!,
+        //           maxLines: 1,
+        //           overflow: TextOverflow.ellipsis,
+        //           style: TextStyles.smallLightAshColorFontStyle,
+        //         );
+        //       },
+        //     ),
+        //   ),
+        // ),
+        // Center(
+        //   child: Text(
+        //     '2nd Year, 4th Sem',
+        //     style: TextStyles.smallPrimaryColorFontStyle,
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(

@@ -42,10 +42,24 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(mainProvider.notifier).setNavString('Timetable');
+                    try {
+                      ref.read(examDetailsProvider.notifier).getExamDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
+                    ref
+                        .read(mainProvider.notifier)
+                        .setNavString('Exam Details');
                   },
                   child: Text(
-                    'Timetable',
+                    'Exam Details',
                     textAlign: TextAlign.center,
                     style: width > 400
                         ? TextStyles.fontStyle6
@@ -243,37 +257,23 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                height: height * 0.15,
-                width: width * 0.40,
-                child: ElevatedButton(
-                  style: BorderBoxButtonDecorations.homePageButtonStyle,
-                  onPressed: () {
-                    try {
-                      ref.read(examDetailsProvider.notifier).getExamDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                    } catch (e) {
-                      TokensManagement.clearSharedPreference();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        RouteDesign(route: const LoginPage()),
-                        (route) => false,
-                      );
-                    }
-                    ref
-                        .read(mainProvider.notifier)
-                        .setNavString('Exam Details');
-                  },
-                  child: Text(
-                    'Exam Details',
-                    textAlign: TextAlign.center,
-                    style: width > 400
-                        ? TextStyles.fontStyle6
-                        : TextStyles.fontStyle8,
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: height * 0.15,
+              //   width: width * 0.40,
+              //   child: ElevatedButton(
+              //     style: BorderBoxButtonDecorations.homePageButtonStyle,
+              //     onPressed: () {
+              //       ref.read(mainProvider.notifier).setNavString('Timetable');
+              //     },
+              //     child: Text(
+              //       'Timetable',
+              //       textAlign: TextAlign.center,
+              //       style: width > 400
+              //           ? TextStyles.fontStyle6
+              //           : TextStyles.fontStyle8,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 width: width * 0.06,
               ),

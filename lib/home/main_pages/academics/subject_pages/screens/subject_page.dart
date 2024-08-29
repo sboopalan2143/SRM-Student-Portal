@@ -134,7 +134,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   children: [
                     Text(
                       '${provider.subjectData[index][1]}',
-                      style: TextStyles.fontStyle10,
+                      style: TextStyles.fontStyle10small,
                     ),
                   ],
                 ),
@@ -146,7 +146,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   children: [
                     Text(
                       '${provider.subjectData[index][2]}',
-                      style: TextStyles.fontStyle10,
+                      style: TextStyles.fontStyle10small,
                       textAlign: TextAlign.center,
                     ),
                   ],

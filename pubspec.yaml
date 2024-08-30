@@ -50,11 +50,11 @@ flutter_icons:
 
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:
-  background_image: "assets/images/SRMLogo.png"
+  background_image: "assets/images/SRMSplashLogo.png"
   android: true
   ios: true
   android_12:
-    image: assets/images/SRMLogo.png
+    image: assets/images/SRMSplashLogo.png
 
     color: "#FFFFFF"
 

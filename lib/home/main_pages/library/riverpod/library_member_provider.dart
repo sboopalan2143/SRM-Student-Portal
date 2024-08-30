@@ -23,7 +23,7 @@ class LibraryTransactionProvider
   Future<void> getLibraryMemberDetails(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     final response =
         await HttpService.sendSoapRequest('getLibraryTransaction', data);
@@ -31,7 +31,6 @@ class LibraryTransactionProvider
       state = NoNetworkAvailableLibraryMember(
         successMessage: '',
         errorMessage: '',
-        // libraryMemberData: LibraryMemberData.empty,
         libraryTransactionData: state.libraryTransactionData,
       );
     } else if (response.$1 == 200) {
@@ -45,14 +44,7 @@ class LibraryTransactionProvider
       var libraryTransactionData = state.libraryTransactionData;
       log('decrypted>>>>>>>>$decryptedData');
 
-      // var libraryMemberDetails = LibraryMemberData.empty;
       try {
-        // final libraryMemberDataResponse =
-        //     LibraryMemberResponseModel.fromJson(decryptedData);
-        // libraryTransactionData = libraryMemberDataResponse.data![0];
-        // state = state.copyWith(libraryMemberData: libraryTransactionData);
-        // log('library ${libraryTransactionData.membername}');
-
         final libraryTransactionDataResponse =
             GetLibraryTransaction.fromJson(decryptedData);
         libraryTransactionData = libraryTransactionDataResponse.data!;
@@ -67,7 +59,6 @@ class LibraryTransactionProvider
           state = LibraryTrancsactionStateError(
             successMessage: '',
             errorMessage: libraryTransactionDataResponse.status!,
-            // libraryMemberData: LibraryMemberData.empty,
             libraryTransactionData: state.libraryTransactionData,
           );
         }
@@ -76,7 +67,6 @@ class LibraryTransactionProvider
         state = LibraryTrancsactionStateError(
           successMessage: '',
           errorMessage: error.message!,
-          // libraryMemberData: LibraryMemberData.empty,
           libraryTransactionData: state.libraryTransactionData,
         );
       }
@@ -84,7 +74,6 @@ class LibraryTransactionProvider
       state = LibraryTrancsactionStateError(
         successMessage: '',
         errorMessage: 'Error',
-        // libraryMemberData: LibraryMemberData.empty,
         libraryTransactionData: state.libraryTransactionData,
       );
     }

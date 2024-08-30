@@ -1,6 +1,3 @@
-// ignore_for_file: inference_failure_on_instance_creation
-import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +18,7 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/in
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
 import 'package:sample/home/main_pages/academics/timetable_pages/screens/timetable.dart';
+import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievance_entry.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
@@ -82,12 +80,6 @@ class _HomePageState extends ConsumerState<HomePage>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
-    log('phone token ${TokensManagement.phoneToken}');
-    log('deviceId ${TokensManagement.deviceId}');
-    log('androidversion ${TokensManagement.androidVersion}');
-    log('appversion ${TokensManagement.appVersion}');
-    log('model ${TokensManagement.model}');
-    log('sdkversion ${TokensManagement.sdkVersion}');
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -114,57 +106,65 @@ class _HomePageState extends ConsumerState<HomePage>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
+          automaticallyImplyLeading: false,
           leadingWidth: 40,
-          leading: IconButton(
-            onPressed: () {
-              if (ref.watch(mainProvider).navString == 'Timetable' ||
-                  ref.watch(mainProvider).navString == 'Subjects' ||
-                  ref.watch(mainProvider).navString == 'Internal Marks' ||
-                  ref.watch(mainProvider).navString == 'Attendance' ||
-                  ref.watch(mainProvider).navString == 'Hour Attendance' ||
-                  ref.watch(mainProvider).navString ==
-                      'Cumulative Attendance' ||
-                  ref.watch(mainProvider).navString == 'Exam Details') {
-                ref.read(mainProvider.notifier).setNavString('Academics');
-              } else if (ref.watch(mainProvider).navString ==
-                      'Online Assessment' ||
-                  ref.watch(mainProvider).navString == 'Notes') {
-                ref.read(mainProvider.notifier).setNavString('LMS');
-              } else if (ref.watch(mainProvider).navString ==
-                  'C Programming Language') {
-                ref
-                    .read(mainProvider.notifier)
-                    .setNavString('Online Assessment');
-              } else if (ref.watch(mainProvider).navString ==
-                  'C Programming Language1') {
-                ref.read(mainProvider.notifier).setNavString('Notes');
-              } else if (ref.watch(mainProvider).navString ==
-                      'Leave Application' ||
-                  ref.watch(mainProvider).navString == 'Registration') {
-                ref.read(mainProvider.notifier).setNavString('Hostel');
-              } else if (ref.watch(mainProvider).navString ==
-                  'Grievance Entry') {
-                ref.read(mainProvider.notifier).setNavString('Grievances');
-              } else if (ref.watch(mainProvider).navString == 'Register') {
-                ref.read(mainProvider.notifier).setNavString('Transport');
-              } else if (ref.watch(mainProvider).navString == 'View') {
-                ref.read(mainProvider.notifier).setNavString('Library');
-              } else if (ref.watch(mainProvider).navString == 'Fees') {
-                ref.read(mainProvider.notifier).setNavString('Library');
-              } else {
-                ref.read(mainProvider.notifier).setNavString('Home');
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
+          leading: provider.navString == 'Home'
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    if (ref.watch(mainProvider).navString == 'Timetable' ||
+                        ref.watch(mainProvider).navString == 'Subjects' ||
+                        ref.watch(mainProvider).navString == 'Internal Marks' ||
+                        ref.watch(mainProvider).navString == 'Attendance' ||
+                        ref.watch(mainProvider).navString ==
+                            'Hour Attendance' ||
+                        ref.watch(mainProvider).navString ==
+                            'Cumulative Attendance' ||
+                        ref.watch(mainProvider).navString == 'Exam Details') {
+                      ref.read(mainProvider.notifier).setNavString('Academics');
+                    } else if (ref.watch(mainProvider).navString ==
+                            'Online Assessment' ||
+                        ref.watch(mainProvider).navString == 'Notes') {
+                      ref.read(mainProvider.notifier).setNavString('LMS');
+                    } else if (ref.watch(mainProvider).navString ==
+                        'C Programming Language') {
+                      ref
+                          .read(mainProvider.notifier)
+                          .setNavString('Online Assessment');
+                    } else if (ref.watch(mainProvider).navString ==
+                        'C Programming Language1') {
+                      ref.read(mainProvider.notifier).setNavString('Notes');
+                    } else if (ref.watch(mainProvider).navString ==
+                            'Leave Application' ||
+                        ref.watch(mainProvider).navString == 'Registration') {
+                      ref.read(mainProvider.notifier).setNavString('Hostel');
+                    } else if (ref.watch(mainProvider).navString ==
+                        'Grievance Entry') {
+                      ref
+                          .read(mainProvider.notifier)
+                          .setNavString('Grievances');
+                    } else if (ref.watch(mainProvider).navString ==
+                        'Register') {
+                      ref.read(mainProvider.notifier).setNavString('Transport');
+                    } else if (ref.watch(mainProvider).navString == 'View') {
+                      ref.read(mainProvider.notifier).setNavString('Library');
+                    } else if (ref.watch(mainProvider).navString == 'Fees') {
+                      ref.read(mainProvider.notifier).setNavString('Home');
+                    } else {
+                      ref.read(mainProvider.notifier).setNavString('Home');
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute<HomePage>(
+                          builder: (context) => const HomePage(),
+                        ),
+                      );
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: AppColors.whiteColor,
                   ),
-                );
-              }
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.whiteColor,
-            ),
-          ),
+                ),
           backgroundColor: AppColors.primaryColor,
           title: Center(
             child: Column(
@@ -218,10 +218,8 @@ class _HomePageState extends ConsumerState<HomePage>
       endDrawer: SizedBox(
         width: MediaQuery.of(context).size.width * 0.64,
         child: Drawer(
-          // backgroundColor: backgroundColor,
           child: ListView(
-            // ignore: use_named_constants
-            padding: const EdgeInsets.all(0),
+            padding: EdgeInsets.zero,
             children: [
               SizedBox(
                 height: 220,
@@ -424,7 +422,7 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget _mainCards() {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    log('width $width');
+
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Column(
@@ -521,6 +519,9 @@ class _HomePageState extends ConsumerState<HomePage>
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
                     ref.read(mainProvider.notifier).setNavString('Fees');
+                    ref
+                        .read(feesProvider.notifier)
+                        .setFeesNavString('Online Trans');
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

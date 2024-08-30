@@ -38,7 +38,7 @@ class FeesInitial extends FeesState {
       : super(
           successMessage: '',
           errorMessage: '',
-          navFeesString: 'Paid Details',
+          navFeesString: 'Online Trans',
           financeData: <FinanceData>[],
         );
 }

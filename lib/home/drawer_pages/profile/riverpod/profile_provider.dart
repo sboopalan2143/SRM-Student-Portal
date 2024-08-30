@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 
@@ -58,19 +59,12 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var profileDetails = ProfileDetails.empty;
-      // try {
+      try {
       final profileDataResponse = ProfileResponseModel.fromJson(decryptedData);
       profileDetails = profileDataResponse.data![0];
       state = state.copyWith(profileData: profileDetails);
 
       if (profileDataResponse.status == 'Success') {
-        // log('student photo${profileDataResponse.data![0].studentphoto!}');
-        // final image =
-        //     // base64Encode(
-        //     hexToBytes(profileDataResponse.data![0].studentphoto!
-        //         // )
-        //         );
-        // log('$image');
         state = ProfileDetailsStateSuccessful(
           successMessage: profileDataResponse.status!,
           errorMessage: '',
@@ -83,14 +77,14 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
           profileData: ProfileDetails.empty,
         );
       }
-      // } catch (e) {
-      //   final error = ErrorModel.fromJson(decryptedData);
-      //   state = ProfileDetailsStateError(
-      //     successMessage: '',
-      //     errorMessage: error.message!,
-      //     profileData: ProfileDetails.empty,
-      //   );
-      // }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData);
+        state = ProfileDetailsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          profileData: ProfileDetails.empty,
+        );
+      }
     } else if (response.$1 != 200) {
       state = ProfileDetailsStateError(
         successMessage: '',

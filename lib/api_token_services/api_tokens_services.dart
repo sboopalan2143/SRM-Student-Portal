@@ -35,9 +35,13 @@ class TokensManagement {
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
 
-  static Future<void> setStudentId({required String studentId}) async {
+  static Future<void> setLoginDetails({
+    required String studentId,
+    required String studentName,
+  }) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('studentId', studentId);
+    await sharedPreferences.setString('studentName', studentName);
   }
 
   static Future<void> setAppDeviceInfo({

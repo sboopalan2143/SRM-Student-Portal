@@ -7,6 +7,7 @@ import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+
 class HourwiseProvider extends StateNotifier<hourwiseState> {
   HourwiseProvider() : super(hourwiseInitial());
 
@@ -21,9 +22,8 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
 
   Future<void> gethourwiseDetails(EncryptionProvider encrypt) async {
     _setLoading();
-    // await TokensManagement.getStudentId();
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     log('Student ID>>> ${TokensManagement.studentId}');
     log('encrypted data>>>>>$data');

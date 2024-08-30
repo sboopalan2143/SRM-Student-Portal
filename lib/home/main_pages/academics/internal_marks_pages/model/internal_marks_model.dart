@@ -1,8 +1,4 @@
 class GetInternalMarkDetails {
-  String? status;
-  String? message;
-  List<InternalMarkData>? data;
-
   GetInternalMarkDetails({this.status, this.message, this.data});
 
   GetInternalMarkDetails.fromJson(Map<String, dynamic> json) {
@@ -10,14 +6,17 @@ class GetInternalMarkDetails {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <InternalMarkData>[];
-      json['Data'].forEach((v) {
-        data!.add(new InternalMarkData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(InternalMarkData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<InternalMarkData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['Status'] = status;
     data['Message'] = message;
     if (this.data != null) {
@@ -28,16 +27,12 @@ class GetInternalMarkDetails {
 }
 
 class InternalMarkData {
-  String? sumofmarks;
-  String? subjectcode;
-  String? sumofmaxmarks;
-  String? subjectdesc;
-
-  InternalMarkData(
-      {this.sumofmarks,
-      this.subjectcode,
-      this.sumofmaxmarks,
-      this.subjectdesc});
+  InternalMarkData({
+    this.sumofmarks,
+    this.subjectcode,
+    this.sumofmaxmarks,
+    this.subjectdesc,
+  });
 
   InternalMarkData.fromJson(Map<String, dynamic> json) {
     sumofmarks = json['sumofmarks'] as String?;
@@ -45,9 +40,13 @@ class InternalMarkData {
     sumofmaxmarks = json['sumofmaxmarks'] as String?;
     subjectdesc = json['subjectdesc'] as String?;
   }
+  String? sumofmarks;
+  String? subjectcode;
+  String? sumofmaxmarks;
+  String? subjectdesc;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['sumofmarks'] = sumofmarks;
     data['subjectcode'] = subjectcode;
     data['sumofmaxmarks'] = sumofmaxmarks;

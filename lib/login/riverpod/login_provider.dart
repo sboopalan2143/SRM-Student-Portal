@@ -95,7 +95,10 @@ class LoginProvider extends StateNotifier<LoginState> {
 
         if (studentLoginDetails.status == 'Success') {
           log('${studentData.sid}');
-          await TokensManagement.setStudentId(studentId: '${studentData.sid}');
+          await TokensManagement.setLoginDetails(
+            studentId: '${studentData.sid}',
+            studentName: '${studentData.studentname}',
+          );
           await getAppVersion();
           state = LoginStateSuccessful(
             successMessage: studentLoginDetails.status!,
@@ -104,7 +107,6 @@ class LoginProvider extends StateNotifier<LoginState> {
             password: TextEditingController(),
             studentData: state.studentData,
           );
-          // disposeState();
         } else if (studentLoginDetails.status != 'Success') {
           state = LoginStateError(
             successMessage: '',

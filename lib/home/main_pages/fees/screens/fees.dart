@@ -21,6 +21,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
       ref
           .read(feesProvider.notifier)
           .getFinanceDetails(ref.read(encryptionProvider.notifier));
+      ref
+          .read(feesProvider.notifier)
+          .getFeesPaidDetails(ref.read(encryptionProvider.notifier));
     });
   }
 
@@ -111,27 +114,49 @@ class _FeesPageState extends ConsumerState<FeesPage> {
         //     ],
         //   ),
         // ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: ListView.builder(
-            itemCount: provider.navFeesString == 'Paid Details'
-                ? 5
-                : provider.financeData.length,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return provider.navFeesString == 'Paid Details'
-                  ? cardDesign(index)
-                  : cardDesignTrans(index);
-            },
+        if (provider is FeesStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.financeData.isEmpty && provider is! FeesStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
           ),
-        ),
+        if (provider.financeData.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: ListView.builder(
+              itemCount: provider.navFeesString == 'Paid Details'
+                  ? provider.feespaidData.length
+                  : provider.financeData.length,
+              controller: _listController,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return provider.navFeesString == 'Paid Details'
+                    ? cardDesign(index)
+                    : cardDesignTrans(index);
+              },
+            ),
+          ),
       ],
     );
   }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(feesProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -143,83 +168,117 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Invoice ID',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Fees',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Amount',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Name',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feespaidData[index].membername}' == ''
+                          ? '-'
+                          : '${provider.feespaidData[index].membername}',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2 - 60,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'SRM021',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Code',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '25 May, 2024',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feespaidData[index].membercode}' == ''
+                          ? '-'
+                          : '${provider.feespaidData[index].membercode}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Semester Fees',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Type',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Rs. 5,000.00',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feespaidData[index].membertype}' == ''
+                          ? '-'
+                          : '${provider.feespaidData[index].membertype}',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feespaidData[index].status}' == ''
+                          ? '-'
+                          : '${provider.feespaidData[index].status}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

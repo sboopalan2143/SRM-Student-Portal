@@ -56,6 +56,28 @@ class _CumulativeAttendancePageState
         //     ),
         //   ),
         // ),
+        if (provider is CummulativeAttendanceStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.cummulativeAttendanceData.isEmpty &&
+            provider is! CummulativeAttendanceStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
+          ),
+        if (provider.cummulativeAttendanceData.isNotEmpty)
+          const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(

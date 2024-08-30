@@ -163,6 +163,26 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
           //   ],
           // ),
           // const SizedBox(height: 20),
+           if (provider is LibraryTrancsactionStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.libraryTransactionData.isEmpty && provider is! LibraryTrancsactionStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
+          ),
+        if (provider.libraryTransactionData.isNotEmpty)
           ListView.builder(
             itemCount: provider.libraryTransactionData.length,
             controller: _listController,

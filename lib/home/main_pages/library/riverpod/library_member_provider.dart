@@ -13,7 +13,7 @@ class LibraryTransactionProvider
 
   void disposeState() => state = LibraryMemberInitial();
 
-  void _setLoading() => state = LibraryTrancsactionState(
+  void _setLoading() => state = const LibraryTrancsactionStateLoading(
         successMessage: '',
         errorMessage: '',
         // libraryMemberData: LibraryMemberData.empty,

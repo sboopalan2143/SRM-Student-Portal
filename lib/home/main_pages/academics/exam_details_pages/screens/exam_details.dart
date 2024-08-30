@@ -79,6 +79,27 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
         //     style: TextStyles.smallPrimaryColorFontStyle,
         //   ),
         // ),
+        if (provider is ExamDetailsStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.examDetailsData.isEmpty &&
+            provider is! ExamDetailsStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
+          ),
+        if (provider.examDetailsData.isNotEmpty) const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
@@ -68,6 +69,27 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
         //     ),
         //   ),
         // ),
+        if (provider is AttendanceStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.attendanceData.isEmpty &&
+            provider is! AttendanceStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
+          ),
+        if (provider.attendanceData.isNotEmpty) const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: ListView.builder(

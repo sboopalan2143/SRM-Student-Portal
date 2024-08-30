@@ -14,7 +14,7 @@ class CummulativeAttendanceProvider
 
   void disposeState() => state = CummulativeAttendanceInitial();
 
-  void _setLoading() => state = CummulativeAttendanceState(
+  void _setLoading() => state = CummulativeAttendanceStateLoading(
         successMessage: '',
         errorMessage: '',
         cummulativeAttendanceData: state.cummulativeAttendanceData,

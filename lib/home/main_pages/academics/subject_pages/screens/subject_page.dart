@@ -77,6 +77,27 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
             ],
           ),
         ),
+        if (provider is SubjectStateLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.subjectData.isEmpty &&
+            provider is! SubjectStateLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle1,
+                ),
+              ),
+            ],
+          ),
+        if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           child: ListView.builder(

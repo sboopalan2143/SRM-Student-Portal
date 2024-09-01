@@ -3,9 +3,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
@@ -22,6 +24,7 @@ import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievance_entry.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
 import 'package:sample/home/main_pages/hostel/screens/registration.dart';
@@ -33,6 +36,7 @@ import 'package:sample/home/main_pages/lms/screens/notes.dart';
 import 'package:sample/home/main_pages/lms/screens/notes_details.dart';
 import 'package:sample/home/main_pages/lms/screens/online_assessment.dart';
 import 'package:sample/home/main_pages/lms/screens/questions.dart';
+import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/notification/screens/notification.dart';
 import 'package:sample/home/main_pages/theme.dart';
 import 'package:sample/home/main_pages/transport/screens/register.dart';
@@ -93,13 +97,24 @@ class _HomePageState extends ConsumerState<HomePage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(mainProvider);
-    final providerLogin = ref.watch(loginProvider);
-    ref.listen(networkProvider, (previous, next) {
-      if (previous!.connectivityResult == ConnectivityResult.none &&
-          next.connectivityResult != ConnectivityResult.none) {
-        /// Handle offline to online function calls
-      }
-    });
+    ref
+      ..listen(networkProvider, (previous, next) {
+        if (previous!.connectivityResult == ConnectivityResult.none &&
+            next.connectivityResult != ConnectivityResult.none) {
+          /// Handle offline to online function calls
+        }
+      })
+      ..listen(changePasswordProvider, (previous, next) {
+        if (next is ChangePasswordStateSuccessful) {
+          if (next.message == 'Password Changed Successfuly') {
+            _showToast(context, next.message, AppColors.greenColor);
+          } else {
+            _showToast(context, next.message, AppColors.redColor);
+          }
+        } else if (next is ChangePasswordStateError) {
+          _showToast(context, next.message, AppColors.redColor);
+        }
+      });
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
@@ -173,9 +188,9 @@ class _HomePageState extends ConsumerState<HomePage>
                 if (provider.navString == 'Home') const SizedBox(height: 20),
                 if (provider.navString == 'Home')
                   Text(
-                    '${providerLogin.studentData.studentname}' == ''
+                    TokensManagement.studentName == ''
                         ? '-'
-                        : '${providerLogin.studentData.studentname}',
+                        : TokensManagement.studentName,
                     style: TextStyles.fontStyle4,
                   ),
                 if (provider.navString == 'Home') const SizedBox(height: 5),
@@ -235,9 +250,9 @@ class _HomePageState extends ConsumerState<HomePage>
                           height: 100,
                         ),
                         Text(
-                          '${providerLogin.studentData.studentname}' == ''
+                          TokensManagement.studentName == ''
                               ? '-'
-                              : '${providerLogin.studentData.studentname}',
+                              : TokensManagement.studentName,
                           style: TextStyles.fontStyle3,
                         ),
                       ],
@@ -477,6 +492,11 @@ class _HomePageState extends ConsumerState<HomePage>
                     ref
                         .read(mainProvider.notifier)
                         .setNavString('Notification');
+                    ref
+                        .read(notificationProvider.notifier)
+                        .getNotificationDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -556,6 +576,9 @@ class _HomePageState extends ConsumerState<HomePage>
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
                     ref.read(mainProvider.notifier).setNavString('Hostel');
+                    ref.read(hostelProvider.notifier).getHostelDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -748,6 +771,22 @@ class _HomePageState extends ConsumerState<HomePage>
           // ),
         ],
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

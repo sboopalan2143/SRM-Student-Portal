@@ -1,8 +1,4 @@
 class FeesPaidDetails {
-  String? status;
-  String? message;
-  List<FeesPaidData>? data;
-
   FeesPaidDetails({this.status, this.message, this.data});
 
   FeesPaidDetails.fromJson(Map<String, dynamic> json) {
@@ -10,16 +6,19 @@ class FeesPaidDetails {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <FeesPaidData>[];
-      json['Data'].forEach((v) {
-        data!.add(new FeesPaidData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(FeesPaidData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<FeesPaidData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Status'] = this.status;
-    data['Message'] = this.message;
+    final data = <String, dynamic>{};
+    data['Status'] = status;
+    data['Message'] = message;
     if (this.data != null) {
       data['Data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,18 +27,13 @@ class FeesPaidDetails {
 }
 
 class FeesPaidData {
-  String? membercode;
-  String? membertype;
-  String? policyname;
-  String? membername;
-  String? status;
-
-  FeesPaidData(
-      {this.membercode,
-      this.membertype,
-      this.policyname,
-      this.membername,
-      this.status});
+  FeesPaidData({
+    this.membercode,
+    this.membertype,
+    this.policyname,
+    this.membername,
+    this.status,
+  });
 
   FeesPaidData.fromJson(Map<String, dynamic> json) {
     membercode = json['membercode'] as String?;
@@ -48,14 +42,19 @@ class FeesPaidData {
     membername = json['membername'] as String?;
     status = json['status'] as String?;
   }
+  String? membercode;
+  String? membertype;
+  String? policyname;
+  String? membername;
+  String? status;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['membercode'] = this.membercode;
-    data['membertype'] = this.membertype;
-    data['policyname'] = this.policyname;
-    data['membername'] = this.membername;
-    data['status'] = this.status;
+    final data = <String, dynamic>{};
+    data['membercode'] = membercode;
+    data['membertype'] = membertype;
+    data['policyname'] = policyname;
+    data['membername'] = membername;
+    data['status'] = status;
     return data;
   }
 }

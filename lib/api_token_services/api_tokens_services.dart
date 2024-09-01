@@ -21,6 +21,7 @@ class Api {
 
 class TokensManagement {
   static String studentId = '';
+  static String studentName = '';
 
   static String deviceId = '';
   static String androidVersion = '';
@@ -76,7 +77,9 @@ class TokensManagement {
   static Future<void> getStudentId() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     final storedId = sharedPreferences.getString('studentId');
+    final storedName = sharedPreferences.getString('studentName');
     studentId = storedId ?? '';
+    studentName = storedName ?? '';
   }
 
   /// Call this function on logout

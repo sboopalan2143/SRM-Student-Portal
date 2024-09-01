@@ -46,7 +46,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       log('decrypted>>>>>>>>$decryptedData');
       try {
         final internalMarksDataResponse =
-            GetInternalMarkDetails.fromJson(decryptedData);
+            GetInternalMarkDetails.fromJson(decryptedData.mapData!);
         internalMarkData = internalMarksDataResponse.data!;
         state = state.copyWith(internalMarkData: internalMarkData);
         if (internalMarksDataResponse.status == 'Success') {
@@ -63,7 +63,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = InternalMarksStateError(
           successMessage: '',
           errorMessage: error.message!,

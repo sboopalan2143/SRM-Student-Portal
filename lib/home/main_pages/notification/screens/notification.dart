@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 
@@ -18,6 +19,16 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(notificationProvider);
+
+    ref.listen(notificationProvider, (previous, next) {
+      if (next is NotificationError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is NotificationSuccessFull) {
+        /// Handle route to next page.
+
+        _showToast(context, next.successMessage, AppColors.greenColor);
+      }
+    });
     return Column(
       children: [
         Padding(
@@ -58,19 +69,40 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: ListView.builder(
-            itemCount: 20,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return provider.navNotificationString == 'From Staff'
-                  ? cardDesignStaff(index)
-                  : cardDesignCircular(index);
-            },
+        if (provider is NotificationLoading)
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Center(
+              child: CircularProgressIndicators.primaryColorProgressIndication,
+            ),
+          )
+        else if (provider.notificationData.isEmpty &&
+            provider is! NotificationLoading)
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height / 5),
+              const Center(
+                child: Text(
+                  'No List Added Yet!',
+                  style: TextStyles.fontStyle6,
+                ),
+              ),
+            ],
           ),
-        ),
+        if (provider.notificationData.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: ListView.builder(
+              itemCount: 20,
+              controller: _listController,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return provider.navNotificationString == 'From Staff'
+                    ? cardDesignStaff(index)
+                    : cardDesignCircular(index);
+              },
+            ),
+          ),
       ],
     );
   }
@@ -218,6 +250,22 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                 ),
               ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 
@@ -18,6 +20,16 @@ class _HostelPageState extends ConsumerState<HostelPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(hostelProvider);
+    ref.listen(hostelProvider, (previous, next) {
+      if (next is HostelStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is HostelStateSuccessful) {
+        /// Handle route to next page.
+
+        _showToast(context, next.successMessage, AppColors.greenColor);
+      }
+    });
     return Column(
       children: [
         Padding(
@@ -46,14 +58,36 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              ListView.builder(
-                itemCount: 20,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
+              if (provider is HostelStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.hospitalData.isEmpty &&
+                  provider is! HostelStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle6,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.hospitalData.isNotEmpty)
+                ListView.builder(
+                  itemCount: 20,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
             ],
           ),
         ),
@@ -144,6 +178,22 @@ class _HostelPageState extends ConsumerState<HostelPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

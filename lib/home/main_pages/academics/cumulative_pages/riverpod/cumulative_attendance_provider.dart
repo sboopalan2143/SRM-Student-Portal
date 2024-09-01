@@ -52,7 +52,7 @@ class CummulativeAttendanceProvider
         //change model
 
         final cummulativeAttendanceDataResponse =
-            GetCumulativeAttedence.fromJson(decryptedData);
+            GetCumulativeAttedence.fromJson(decryptedData.mapData!);
         cummulativeAttendanceData = cummulativeAttendanceDataResponse.data!;
         state = state.copyWith(
             cummulativeAttendanceData: cummulativeAttendanceData);
@@ -70,7 +70,7 @@ class CummulativeAttendanceProvider
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = CummulativeAttendanceStateError(
           successMessage: '',
           errorMessage: error.message!,

@@ -60,25 +60,26 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final decryptedData = encrypt.getDecryptedData('$data');
       var profileDetails = ProfileDetails.empty;
       try {
-      final profileDataResponse = ProfileResponseModel.fromJson(decryptedData);
-      profileDetails = profileDataResponse.data![0];
-      state = state.copyWith(profileData: profileDetails);
+        final profileDataResponse =
+            ProfileResponseModel.fromJson(decryptedData.mapData!);
+        profileDetails = profileDataResponse.data![0];
+        state = state.copyWith(profileData: profileDetails);
 
-      if (profileDataResponse.status == 'Success') {
-        state = ProfileDetailsStateSuccessful(
-          successMessage: profileDataResponse.status!,
-          errorMessage: '',
-          profileData: state.profileData,
-        );
-      } else if (profileDataResponse.status != 'Success') {
-        state = ProfileDetailsStateError(
-          successMessage: '',
-          errorMessage: profileDataResponse.status!,
-          profileData: ProfileDetails.empty,
-        );
-      }
+        if (profileDataResponse.status == 'Success') {
+          state = ProfileDetailsStateSuccessful(
+            successMessage: profileDataResponse.status!,
+            errorMessage: '',
+            profileData: state.profileData,
+          );
+        } else if (profileDataResponse.status != 'Success') {
+          state = ProfileDetailsStateError(
+            successMessage: '',
+            errorMessage: profileDataResponse.status!,
+            profileData: ProfileDetails.empty,
+          );
+        }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = ProfileDetailsStateError(
           successMessage: '',
           errorMessage: error.message!,

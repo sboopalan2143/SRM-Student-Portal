@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:encrypt/encrypt.dart';
@@ -23,51 +24,81 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
       );
 
   String getEncryptedData(String stringToEncrypt) {
-    String strEncryptedData = "";
+    var strEncryptedData = '';
     try {
       // Encrypting for Data iteration 1
       setKey(state.strPrivateKey, state.strPrivateIV);
-      print('length1 ${state.strPrivateKey.length}');
-      print('length2 ${state.strPrivateIV.length}');
-      print('length3 ${state.strCommonKey.length}');
-      print('length4 ${state.strCommonIV.length}');
+      log('length1 ${state.strPrivateKey.length}');
+      log('length2 ${state.strPrivateIV.length}');
+      log('length3 ${state.strCommonKey.length}');
+      log('length4 ${state.strCommonIV.length}');
 
-      String strData = encrypt(stringToEncrypt);
+      final strData = encrypt(stringToEncrypt);
       // log('first iteration>>>>>$strData');
       // Encrypting for Data iteration 2
       setKey(state.strCommonKey, state.strCommonIV);
       strEncryptedData = encrypt(strData);
     } catch (e) {
-      print('$e');
+      log('$e');
     }
     return strEncryptedData;
   }
 
-  Map<String, dynamic> getDecryptedData(String String_to_Decrypt) {
-    String strDecryptedData = "";
+  // Map<String, dynamic> getDecryptedData(String stringToDecrypt) {
+  //   var strDecryptedData = '';
+  //   try {
+  //     setKey(state.strCommonKey, state.strCommonIV);
+  //     final strDecryptedMData = decrypt(stringToDecrypt);
+
+  //     setKey(state.strPrivateKey, state.strPrivateIV);
+  //     strDecryptedData = decrypt(strDecryptedMData);
+  //   } catch (e) {
+  //     log('$e');
+  //   }
+  //   dynamic jsonResponse = '';
+  //   try {
+  //     jsonResponse = json.decode(strDecryptedData);
+  //     return jsonResponse as Map<String, dynamic>;
+  //   } catch (e) {
+  //     jsonResponse = strDecryptedData;
+  //     return jsonResponse as Map<String, dynamic>;
+  //   }
+  // }
+
+  DecryptedData getDecryptedData(String stringToDecrypt) {
+    var strDecryptedData = '';
+    Map<String, dynamic>? mapData;
+    String? stringData;
+
     try {
       setKey(state.strCommonKey, state.strCommonIV);
-      String strDecryptedMData = decrypt(String_to_Decrypt);
+      final strDecryptedMData = decrypt(stringToDecrypt);
 
       setKey(state.strPrivateKey, state.strPrivateIV);
       strDecryptedData = decrypt(strDecryptedMData);
     } catch (e) {
-      print('$e');
+      log('$e');
     }
-    final jsonResponse = json.decode(strDecryptedData);
-    return jsonResponse as Map<String, dynamic>;
+
+    try {
+      mapData = json.decode(strDecryptedData) as Map<String, dynamic>;
+    } catch (e) {
+      stringData = strDecryptedData;
+    }
+
+    return DecryptedData(mapData: mapData, stringData: stringData);
   }
 
-  bool setKey(String _keyString, String _ivString) {
-    if (_keyString.length != 32) {
+  bool setKey(String keyString, String ivString) {
+    if (keyString.length != 32) {
       return false;
     }
-    if (_ivString.length != 16) {
+    if (ivString.length != 16) {
       return false;
     }
     state = state.copyWith(
-      keyString: _keyString,
-      ivString: _ivString,
+      keyString: keyString,
+      ivString: ivString,
     );
 
     return true;
@@ -77,7 +108,7 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     final key = Key(const Utf8Encoder().convert(state.keyString));
     final iv = IV(const Utf8Encoder().convert(state.ivString));
 
-    final encrypter = Encrypter(AES(key, mode: AESMode.cbc, padding: 'PKCS7'));
+    final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
     final encrypted = encrypter.encrypt(stplaintxt, iv: iv);
 
     return HEX.encode(encrypted.bytes).toUpperCase();
@@ -87,7 +118,7 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     final key = Key(const Utf8Encoder().convert(state.keyString));
     final iv = IV(const Utf8Encoder().convert(state.ivString));
 
-    final encrypter = Encrypter(AES(key, mode: AESMode.cbc, padding: 'PKCS7'));
+    final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
 
     final encrypted = Encrypted(hexToBytes(stEncTxt));
 
@@ -101,11 +132,17 @@ Uint8List hexToBytes(String text) {
   final length = text.length;
   final data = Uint8List(length ~/ 2);
 
-  for (int i = 0; i < length; i += 2) {
+  for (var i = 0; i < length; i += 2) {
     final high = int.parse(text[i], radix: 16) << 4;
     final low = int.parse(text[i + 1], radix: 16);
     data[i ~/ 2] = (high + low).toUnsigned(8);
   }
 
   return data;
+}
+
+class DecryptedData {
+  DecryptedData({this.mapData, this.stringData});
+  final Map<String, dynamic>? mapData;
+  final String? stringData;
 }

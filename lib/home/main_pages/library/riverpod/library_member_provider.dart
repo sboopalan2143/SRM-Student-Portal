@@ -46,7 +46,7 @@ class LibraryTransactionProvider
 
       try {
         final libraryTransactionDataResponse =
-            GetLibraryTransaction.fromJson(decryptedData);
+            GetLibraryTransaction.fromJson(decryptedData.mapData!);
         libraryTransactionData = libraryTransactionDataResponse.data!;
         state = state.copyWith(libraryTransactionData: libraryTransactionData);
         if (libraryTransactionDataResponse.status == 'Success') {
@@ -63,7 +63,7 @@ class LibraryTransactionProvider
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = LibraryTrancsactionStateError(
           successMessage: '',
           errorMessage: error.message!,

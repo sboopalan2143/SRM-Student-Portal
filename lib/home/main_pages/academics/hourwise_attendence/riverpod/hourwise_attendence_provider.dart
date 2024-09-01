@@ -50,7 +50,8 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
       log('decrypted>>>>>>>>$decryptedData');
 
       try {
-        final hourWiseDetails = HourwisePaidDetails.fromJson(decryptedData);
+        final hourWiseDetails =
+            HourwisePaidDetails.fromJson(decryptedData.mapData!);
         listHourWiseData.addAll(hourWiseDetails.data!);
         state = state.copyWith(listHourWiseData: listHourWiseData);
 
@@ -77,7 +78,7 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = hourwiseError(
           successMessage: '',
           errorMessage: error.message!,

@@ -49,7 +49,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       var listData = <dynamic>[];
       try {
         final subjectDataResponse =
-            SubjectResponseModel.fromJson(decryptedData);
+            SubjectResponseModel.fromJson(decryptedData.mapData!);
         // subjectDetails = subjectDataResponse.data!;
 
         if (subjectDataResponse.status == 'Success') {
@@ -75,7 +75,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = SubjectStateError(
           successMessage: '',
           errorMessage: error.message!,

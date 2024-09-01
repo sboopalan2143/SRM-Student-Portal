@@ -49,7 +49,7 @@ class FeesProvider extends StateNotifier<FeesState> {
       final listData = <FinanceData>[];
       try {
         final financeDataResponse =
-            FinanceResponseModel.fromJson(decryptedData);
+            FinanceResponseModel.fromJson(decryptedData.mapData!);
         listData.addAll(financeDataResponse.data!);
         state = state.copyWith(financeData: listData);
         if (financeDataResponse.status == 'Success') {
@@ -70,7 +70,7 @@ class FeesProvider extends StateNotifier<FeesState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = FeesError(
           successMessage: '',
           errorMessage: error.message!,
@@ -117,7 +117,7 @@ class FeesProvider extends StateNotifier<FeesState> {
       log('decrypted>>>>>>>>$decryptedData');
 
       try {
-        final fessPaidDataResponse = FeesPaidDetails.fromJson(decryptedData);
+        final fessPaidDataResponse = FeesPaidDetails.fromJson(decryptedData.mapData!);
         feespaidData = fessPaidDataResponse.data!;
         state = state.copyWith(feespaidData: feespaidData);
         if (fessPaidDataResponse.status == 'Success') {
@@ -138,7 +138,7 @@ class FeesProvider extends StateNotifier<FeesState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = FeesError(
           successMessage: '',
           errorMessage: error.message!,

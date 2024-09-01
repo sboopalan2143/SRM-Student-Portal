@@ -9,29 +9,25 @@ final changePasswordProvider =
 
 class ChangePasswordState {
   const ChangePasswordState({
-    required this.successMessage,
-    required this.errorMessage,
+    required this.message,
     required this.currentPassword,
     required this.newPassword,
     required this.confirmPassword,
   });
 
-  final String successMessage;
-  final String errorMessage;
+  final String message;
   final TextEditingController currentPassword;
   final TextEditingController newPassword;
   final TextEditingController confirmPassword;
 
   ChangePasswordState copyWith({
-    String? successMessage,
-    String? errorMessage,
+    String? message,
     TextEditingController? currentPassword,
     TextEditingController? newPassword,
     TextEditingController? confirmPassword,
   }) =>
       ChangePasswordState(
-        successMessage: successMessage ?? this.successMessage,
-        errorMessage: errorMessage ?? this.errorMessage,
+        message: message ?? this.message,
         currentPassword: currentPassword ?? this.currentPassword,
         newPassword: newPassword ?? this.newPassword,
         confirmPassword: confirmPassword ?? this.confirmPassword,
@@ -41,8 +37,7 @@ class ChangePasswordState {
 class ChangePasswordInitial extends ChangePasswordState {
   ChangePasswordInitial()
       : super(
-          successMessage: '',
-          errorMessage: '',
+          message: '',
           currentPassword: TextEditingController(),
           newPassword: TextEditingController(),
           confirmPassword: TextEditingController(),
@@ -51,8 +46,7 @@ class ChangePasswordInitial extends ChangePasswordState {
 
 class ChangePasswordStateLoading extends ChangePasswordState {
   const ChangePasswordStateLoading({
-    required super.successMessage,
-    required super.errorMessage,
+    required super.message,
     required super.currentPassword,
     required super.newPassword,
     required super.confirmPassword,
@@ -61,8 +55,7 @@ class ChangePasswordStateLoading extends ChangePasswordState {
 
 class ChangePasswordStateError extends ChangePasswordState {
   const ChangePasswordStateError({
-    required super.successMessage,
-    required super.errorMessage,
+    required super.message,
     required super.currentPassword,
     required super.newPassword,
     required super.confirmPassword,
@@ -71,8 +64,7 @@ class ChangePasswordStateError extends ChangePasswordState {
 
 class ChangePasswordStateSuccessful extends ChangePasswordState {
   const ChangePasswordStateSuccessful({
-    required super.successMessage,
-    required super.errorMessage,
+    required super.message,
     required super.currentPassword,
     required super.newPassword,
     required super.confirmPassword,
@@ -81,8 +73,7 @@ class ChangePasswordStateSuccessful extends ChangePasswordState {
 
 class NoNetworkAvailableChangePassword extends ChangePasswordState {
   const NoNetworkAvailableChangePassword({
-    required super.successMessage,
-    required super.errorMessage,
+    required super.message,
     required super.currentPassword,
     required super.newPassword,
     required super.confirmPassword,

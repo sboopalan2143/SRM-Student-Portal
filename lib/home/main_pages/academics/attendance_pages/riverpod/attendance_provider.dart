@@ -49,7 +49,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       try {
         //change model
         final attendanceDataResponse =
-            GetSubjectWiseAttedence.fromJson(decryptedData);
+            GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
         attendanceData = attendanceDataResponse.data!;
         state = state.copyWith(attendanceData: attendanceData);
         if (attendanceDataResponse.status == 'Success') {
@@ -71,7 +71,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = AttendanceStateError(
           successMessage: '',
           errorMessage: error.message!,

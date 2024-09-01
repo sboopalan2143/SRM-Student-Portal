@@ -89,7 +89,8 @@ class LoginProvider extends StateNotifier<LoginState> {
       final decryptedData = encrypt.getDecryptedData('$data');
       var studentData = LoginData.empty;
       try {
-        final studentLoginDetails = LoginResponseModel.fromJson(decryptedData);
+        final studentLoginDetails =
+            LoginResponseModel.fromJson(decryptedData.mapData!);
         studentData = studentLoginDetails.data![0];
         state = state.copyWith(studentData: studentData);
 
@@ -117,7 +118,7 @@ class LoginProvider extends StateNotifier<LoginState> {
           );
         }
       } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData);
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = LoginStateError(
           successMessage: '',
           errorMessage: error.message!,

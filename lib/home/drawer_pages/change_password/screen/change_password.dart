@@ -43,7 +43,6 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                     height: 40,
                     child: TextField(
                       controller: provider.currentPassword,
-                      keyboardType: TextInputType.number,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
@@ -79,7 +78,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                     height: 40,
                     child: TextField(
                       controller: provider.newPassword,
-                      keyboardType: TextInputType.number,
+                      
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
@@ -115,7 +114,6 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                     height: 40,
                     child: TextField(
                       controller: provider.confirmPassword,
-                      keyboardType: TextInputType.number,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(

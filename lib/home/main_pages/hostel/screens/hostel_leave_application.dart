@@ -1,10 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-
-import '../../../../designs/_designs.dart';
 
 class LeaveApplicationPage extends ConsumerStatefulWidget {
   const LeaveApplicationPage({super.key});
@@ -54,7 +53,9 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
                           dropdownSearchDecoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
                           ),
                         ),
                         itemAsString: (item) => item,
@@ -114,7 +115,9 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
                           dropdownSearchDecoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
                           ),
                         ),
                         itemAsString: (item) => item,

@@ -1,10 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-
-import '../../../../designs/_designs.dart';
 
 class GrievanceEntryPage extends ConsumerStatefulWidget {
   const GrievanceEntryPage({super.key});

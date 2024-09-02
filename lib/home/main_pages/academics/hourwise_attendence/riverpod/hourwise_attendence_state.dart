@@ -3,12 +3,12 @@ import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_mo
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_provider.dart';
 
 final hourwiseProvider =
-    StateNotifierProvider<HourwiseProvider, hourwiseState>((ref) {
+    StateNotifierProvider<HourwiseProvider, HourwiseState>((ref) {
   return HourwiseProvider();
 });
 
-class hourwiseState {
-  const hourwiseState({
+class HourwiseState {
+  const HourwiseState({
     required this.successMessage,
     required this.errorMessage,
     required this.hourwiseData,
@@ -20,13 +20,13 @@ class hourwiseState {
   final HourwiseData hourwiseData;
   final List<HourwiseData> listHourWiseData;
 
-  hourwiseState copyWith({
+  HourwiseState copyWith({
     String? successMessage,
     String? errorMessage,
     HourwiseData? hourwiseData,
     List<HourwiseData>? listHourWiseData,
   }) =>
-      hourwiseState(
+      HourwiseState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         hourwiseData: hourwiseData ?? this.hourwiseData,
@@ -34,8 +34,8 @@ class hourwiseState {
       );
 }
 
-class hourwiseInitial extends hourwiseState {
-  hourwiseInitial()
+class HourwiseInitial extends HourwiseState {
+  HourwiseInitial()
       : super(
           successMessage: '',
           errorMessage: '',
@@ -44,8 +44,8 @@ class hourwiseInitial extends hourwiseState {
         );
 }
 
-class hourwiseStateLoading extends hourwiseState {
-  const hourwiseStateLoading({
+class HourwiseStateLoading extends HourwiseState {
+  const HourwiseStateLoading({
     required super.successMessage,
     required super.errorMessage,
     required super.hourwiseData,
@@ -53,8 +53,8 @@ class hourwiseStateLoading extends hourwiseState {
   });
 }
 
-class hourwiseSuccessFull extends hourwiseState {
-  const hourwiseSuccessFull({
+class HourwiseSuccessFull extends HourwiseState {
+  const HourwiseSuccessFull({
     required super.successMessage,
     required super.errorMessage,
     required super.hourwiseData,
@@ -62,8 +62,8 @@ class hourwiseSuccessFull extends hourwiseState {
   });
 }
 
-class hourwiseError extends hourwiseState {
-  const hourwiseError({
+class HourwiseError extends HourwiseState {
+  const HourwiseError({
     required super.successMessage,
     required super.errorMessage,
     required super.hourwiseData,
@@ -71,8 +71,8 @@ class hourwiseError extends hourwiseState {
   });
 }
 
-class hourwiseStateSuccessful extends hourwiseState {
-  const hourwiseStateSuccessful({
+class HourwiseStateSuccessful extends HourwiseState {
+  const HourwiseStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
     required super.hourwiseData,
@@ -80,7 +80,7 @@ class hourwiseStateSuccessful extends hourwiseState {
   });
 }
 
-class NoNetworkAvailablehourwise extends hourwiseState {
+class NoNetworkAvailablehourwise extends HourwiseState {
   const NoNetworkAvailablehourwise({
     required super.successMessage,
     required super.errorMessage,

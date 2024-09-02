@@ -1,4 +1,3 @@
-// ignore_for_file: inference_failure_on_instance_creation, use_build_context_synchronously
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

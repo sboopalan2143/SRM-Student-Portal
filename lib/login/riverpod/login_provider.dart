@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -10,21 +12,19 @@ import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/login/model/login_response_model.dart';
 import 'package:sample/login/riverpod/login_state.dart';
-import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform;
 
 class LoginProvider extends StateNotifier<LoginState> {
   LoginProvider() : super(LoginInitial());
 
   void disposeState() => state = LoginInitial();
 
-  void _setLoading() => state = LoginStateLoading(
-        successMessage: '',
-        errorMessage: '',
-        userName: TextEditingController(),
-        password: TextEditingController(),
-        studentData: LoginData.empty,
-      );
+  // void _setLoading() => state = LoginStateLoading(
+  //       successMessage: '',
+  //       errorMessage: '',
+  //       userName: TextEditingController(),
+  //       password: TextEditingController(),
+  //       studentData: LoginData.empty,
+  //     );
 
   Future<void> getAppVersion() async {
     final deviceInfo = DeviceInfoPlugin();

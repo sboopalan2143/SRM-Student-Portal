@@ -3,7 +3,8 @@
 // import 'package:skeletons/skeletons.dart';
 
 // class Skeleton {
-//   static Widget cardLoading({required double height, required double width}) {
+//   static Widget cardLoading({required double height, required double
+// width}) {
 //     return SkeletonItem(
 //       child: SkeletonAvatar(
 //         style: SkeletonAvatarStyle(

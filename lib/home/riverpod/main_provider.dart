@@ -12,4 +12,6 @@ class MainProvider extends StateNotifier<MainState> {
     state = state.copyWith(navString: text);
     log(state.navString);
   }
+  
+  
 }

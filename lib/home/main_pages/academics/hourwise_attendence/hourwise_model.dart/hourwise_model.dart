@@ -27,14 +27,15 @@ class HourwisePaidDetails {
 }
 
 class HourwiseData {
-  HourwiseData(
-      {this.h1,
-      this.h3,
-      this.h5,
-      this.attendancedate,
-      this.h6,
-      this.h7,
-      this.h2});
+  HourwiseData({
+    this.h1,
+    this.h3,
+    this.h5,
+    this.attendancedate,
+    this.h6,
+    this.h7,
+    this.h2,
+  });
 
   HourwiseData.fromJson(Map<String, dynamic> json) {
     h1 = json['h1'] as String?;
@@ -54,7 +55,7 @@ class HourwiseData {
   String? h2;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['h1'] = h1;
     data['h3'] = h3;
     data['h5'] = h5;

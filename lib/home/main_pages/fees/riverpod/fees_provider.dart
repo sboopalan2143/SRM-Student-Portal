@@ -54,7 +54,7 @@ class FeesProvider extends StateNotifier<FeesState> {
         state = state.copyWith(financeData: listData);
         if (financeDataResponse.status == 'Success') {
           state = FeesStateSuccessful(
-            successMessage: financeDataResponse.message!,
+            successMessage: financeDataResponse.status!,
             errorMessage: '',
             navFeesString: state.navFeesString,
             financeData: state.financeData,
@@ -63,7 +63,8 @@ class FeesProvider extends StateNotifier<FeesState> {
         } else if (financeDataResponse.status != 'Success') {
           state = FeesError(
             successMessage: '',
-            errorMessage: financeDataResponse.message!,
+            errorMessage:
+                '''${financeDataResponse.status!}, ${financeDataResponse.message!}''',
             navFeesString: state.navFeesString,
             financeData: <FinanceData>[],
             feespaidData: <FeesPaidData>[],
@@ -114,15 +115,16 @@ class FeesProvider extends StateNotifier<FeesState> {
       final decryptedData = encrypt.getDecryptedData('$data');
 
       var feespaidData = state.feespaidData;
-      log('decrypted>>>>>>>>$decryptedData');
+      log('decrypted>>>>>>>>${decryptedData.mapData}');
 
       try {
-        final fessPaidDataResponse = FeesPaidDetails.fromJson(decryptedData.mapData!);
+        final fessPaidDataResponse =
+            FeesPaidDetails.fromJson(decryptedData.mapData!);
         feespaidData = fessPaidDataResponse.data!;
         state = state.copyWith(feespaidData: feespaidData);
         if (fessPaidDataResponse.status == 'Success') {
           state = FeesStateSuccessful(
-            successMessage: fessPaidDataResponse.message!,
+            successMessage: fessPaidDataResponse.status!,
             errorMessage: '',
             navFeesString: state.navFeesString,
             financeData: state.financeData,
@@ -131,7 +133,8 @@ class FeesProvider extends StateNotifier<FeesState> {
         } else if (fessPaidDataResponse.status != 'Success') {
           state = FeesError(
             successMessage: '',
-            errorMessage: fessPaidDataResponse.message!,
+            errorMessage:
+                '''${fessPaidDataResponse.status!}, ${fessPaidDataResponse.message!}''',
             navFeesString: state.navFeesString,
             financeData: <FinanceData>[],
             feespaidData: state.feespaidData,

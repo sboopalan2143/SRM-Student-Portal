@@ -8,12 +8,12 @@ import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 
-class HourwiseProvider extends StateNotifier<hourwiseState> {
-  HourwiseProvider() : super(hourwiseInitial());
+class HourwiseProvider extends StateNotifier<HourwiseState> {
+  HourwiseProvider() : super(HourwiseInitial());
 
-  void disposeState() => state = hourwiseInitial();
+  void disposeState() => state = HourwiseInitial();
 
-  void _setLoading() => state = hourwiseStateLoading(
+  void _setLoading() => state = HourwiseStateLoading(
         successMessage: '',
         errorMessage: '',
         listHourWiseData: <HourwiseData>[],
@@ -62,7 +62,7 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
           //   studentId: studentIdJson,
           // );
 
-          state = hourwiseStateSuccessful(
+          state = HourwiseStateSuccessful(
             successMessage: hourWiseDetails.status!,
             errorMessage: '',
             hourwiseData: state.hourwiseData,
@@ -70,16 +70,17 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
           );
           // disposeState();
         } else if (hourWiseDetails.status != 'Success') {
-          state = hourwiseError(
+          state = HourwiseError(
             successMessage: '',
-            errorMessage: 'Error',
+            errorMessage:
+                '''${hourWiseDetails.status!}, ${hourWiseDetails.message!}''',
             hourwiseData: state.hourwiseData,
             listHourWiseData: state.listHourWiseData,
           );
         }
       } catch (e) {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
-        state = hourwiseError(
+        state = HourwiseError(
           successMessage: '',
           errorMessage: error.message!,
           hourwiseData: state.hourwiseData,
@@ -87,7 +88,7 @@ class HourwiseProvider extends StateNotifier<hourwiseState> {
         );
       }
     } else if (response.$1 != 200) {
-      state = hourwiseError(
+      state = HourwiseError(
         successMessage: '',
         errorMessage: 'Error',
         hourwiseData: state.hourwiseData,

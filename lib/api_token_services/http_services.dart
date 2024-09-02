@@ -83,7 +83,7 @@ class HttpService {
             result[nodeName] = [
               result[nodeName],
               _convertXmlElementToJson(node)
-            ];
+            ,];
           }
         } else {
           result[nodeName] = _convertXmlElementToJson(node);

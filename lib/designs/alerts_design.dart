@@ -1,7 +1,7 @@
-import 'package:sample/app_version_checker.dart';
-import 'package:sample/designs/_designs.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sample/app_version_checker.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Alerts {

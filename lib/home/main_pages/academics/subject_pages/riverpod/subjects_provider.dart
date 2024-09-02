@@ -46,7 +46,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       final decryptedData = encrypt.getDecryptedData('$data');
       log('decrypted>>>>>>>>$decryptedData');
 
-      var listData = <dynamic>[];
+      final listData = <dynamic>[];
       try {
         final subjectDataResponse =
             SubjectResponseModel.fromJson(decryptedData.mapData!);
@@ -70,7 +70,8 @@ class SubjectProvider extends StateNotifier<SubjectState> {
         } else if (subjectDataResponse.status != 'Success') {
           state = SubjectStateError(
             successMessage: '',
-            errorMessage: subjectDataResponse.status!,
+            errorMessage:
+                '''${subjectDataResponse.status!}, ${subjectDataResponse.message!}''',
             subjectData: <dynamic>[],
           );
         }

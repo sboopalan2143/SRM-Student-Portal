@@ -12,16 +12,16 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
 
   void disposeState() => state = EncryptionInitial();
 
-  void _setLoading() => state = EncryptionLoading(
-        successMessage: '',
-        errorMessage: '',
-        keyString: '',
-        ivString: '',
-        strCommonKey: state.strCommonKey,
-        strCommonIV: state.strCommonIV,
-        strPrivateKey: state.strPrivateKey,
-        strPrivateIV: state.strPrivateIV,
-      );
+  // void _setLoading() => state = EncryptionLoading(
+  //       successMessage: '',
+  //       errorMessage: '',
+  //       keyString: '',
+  //       ivString: '',
+  //       strCommonKey: state.strCommonKey,
+  //       strCommonIV: state.strCommonIV,
+  //       strPrivateKey: state.strPrivateKey,
+  //       strPrivateIV: state.strPrivateIV,
+  //     );
 
   String getEncryptedData(String stringToEncrypt) {
     var strEncryptedData = '';
@@ -122,7 +122,7 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
 
     final encrypted = Encrypted(hexToBytes(stEncTxt));
 
-    final decrypted = encrypter.decrypt((encrypted), iv: iv);
+    final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
     return decrypted;
   }

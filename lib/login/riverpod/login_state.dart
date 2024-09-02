@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/login/model/login_response_model.dart';
 import 'package:sample/login/riverpod/login_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginProvider = StateNotifierProvider<LoginProvider, LoginState>((ref) {
   return LoginProvider();

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +86,21 @@ class _HomePageState extends ConsumerState<HomePage>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    try {
+      await ref.read(profileProvider.notifier).getProfileDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+    } catch (e) {
+      await TokensManagement.clearSharedPreference();
+      // ignore: use_build_context_synchronously
+      await Navigator.pushAndRemoveUntil(
+        context,
+        RouteDesign(route: const LoginPage()),
+        (route) => false,
+      );
+    }
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -97,6 +114,10 @@ class _HomePageState extends ConsumerState<HomePage>
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(mainProvider);
+    final providerProfile = ref.watch(profileProvider);
+    final base64Image =
+        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
+    final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -244,10 +265,17 @@ class _HomePageState extends ConsumerState<HomePage>
                   ),
                   child: Center(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/profile.png',
-                          height: 100,
+                        CircleAvatar(
+                          backgroundColor: AppColors.primaryColor,
+                          // height: 100,
+                          // width: 100,
+                          radius: 35,
+                          child: Image.memory(
+                            imageBytes,
+                            // fit: BoxFit.fill,
+                          ),
                         ),
                         Text(
                           TokensManagement.studentName == ''
@@ -707,7 +735,8 @@ class _HomePageState extends ConsumerState<HomePage>
           //       child: ElevatedButton(
           //         style: BorderBoxButtonDecorations.homePageButtonStyle,
           //         onPressed: () {
-          //           ref.read(mainProvider.notifier).setNavString('Grievances');
+          //           ref.read(mainProvider.notifier).setNavString
+          // ('Grievances');
           //         },
           //         child: Column(
           //           mainAxisAlignment: MainAxisAlignment.center,
@@ -742,7 +771,8 @@ class _HomePageState extends ConsumerState<HomePage>
           //       child: ElevatedButton(
           //         style: BorderBoxButtonDecorations.homePageButtonStyle,
           //         onPressed: () {
-          //           ref.read(mainProvider.notifier).setNavString('Transport');
+          //           ref.read(mainProvider.notifier).setNavString
+          // ('Transport');
           //         },
           //         child: Column(
           //           mainAxisAlignment: MainAxisAlignment.center,

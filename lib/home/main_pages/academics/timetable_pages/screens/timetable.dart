@@ -26,7 +26,7 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -107,7 +107,7 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
                             ],
                           ),
                         )
-                      ],
+                      ,],
                     ),
                   ),
                 ),
@@ -183,7 +183,7 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -226,7 +226,7 @@ class _TimeTablePageState extends ConsumerState<TimeTablePage> {
                   ],
                 ),
               )
-            ],
+            ,],
           ),
         ),
       ),

@@ -1,10 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-
-import '../../../../designs/_designs.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({super.key});
@@ -112,7 +111,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                           dropdownSearchDecoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
                           ),
                         ),
                         itemAsString: (item) => item,
@@ -172,7 +173,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                           dropdownSearchDecoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                              horizontal: 20,
+                              vertical: 5,
+                            ),
                           ),
                         ),
                         itemAsString: (item) => item,
@@ -342,7 +345,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                 'I Agree and Continue to ',
                 style: TextStyles.fontStyle10,
               ),
-               Text(
+              Text(
                 ' Terms and Conditions',
                 style: TextStyles.fontStyle14,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
@@ -23,7 +24,14 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
     final width = MediaQuery.of(context).size.width;
 
     final provider = ref.watch(hourwiseProvider);
-
+    ref.listen(hourwiseProvider, (previous, next) {
+      if (next is HourwiseError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } 
+      // else if (next is HourwiseStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         const SizedBox(height: 20),
@@ -103,7 +111,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
             ],
           ),
         ),
-        if (provider is hourwiseStateLoading)
+        if (provider is HourwiseStateLoading)
           Padding(
             padding: const EdgeInsets.only(top: 100),
             child: Center(
@@ -111,7 +119,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
             ),
           )
         else if (provider.listHourWiseData.isEmpty &&
-            provider is! hourwiseStateLoading)
+            provider is! HourwiseStateLoading)
           Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height / 5),
@@ -132,7 +140,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: LoadingWrapper(
-              isLoading: provider is hourwiseStateLoading,
+              isLoading: provider is HourwiseStateLoading,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -221,7 +229,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
             ),
           ),
         )
-      ],
+      ,],
     );
   }
 
@@ -261,6 +269,22 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                 style: TextStyles.fontStyle11,
               ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -1,5 +1,5 @@
-import 'package:sample/designs/_designs.dart';
 import 'package:flutter/material.dart';
+import 'package:sample/designs/_designs.dart';
 
 class BorderBoxButtonDecorations {
   static final primaryBorderRadius = BorderRadius.circular(10);

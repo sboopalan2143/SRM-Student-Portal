@@ -1,6 +1,6 @@
-import 'package:sample/designs/_designs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sample/designs/_designs.dart';
 
 class StatusBarNavigationBarDesigns {
   static final statusBarNavigationBarDesign = SystemUiOverlayStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
@@ -18,6 +19,14 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(libraryProvider);
+    ref.listen(libraryProvider, (previous, next) {
+      if (next is LibraryTrancsactionStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is LibraryTrancsactionStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
@@ -163,34 +172,36 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
           //   ],
           // ),
           // const SizedBox(height: 20),
-           if (provider is LibraryTrancsactionStateLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Center(
-              child: CircularProgressIndicators.primaryColorProgressIndication,
-            ),
-          )
-        else if (provider.libraryTransactionData.isEmpty && provider is! LibraryTrancsactionStateLoading)
-          Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 5),
-              const Center(
-                child: Text(
-                  'No List Added Yet!',
-                  style: TextStyles.fontStyle1,
-                ),
+          if (provider is LibraryTrancsactionStateLoading)
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(
+                child:
+                    CircularProgressIndicators.primaryColorProgressIndication,
               ),
-            ],
-          ),
-        if (provider.libraryTransactionData.isNotEmpty)
-          ListView.builder(
-            itemCount: provider.libraryTransactionData.length,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
-            },
-          ),
+            )
+          else if (provider.libraryTransactionData.isEmpty &&
+              provider is! LibraryTrancsactionStateLoading)
+            Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height / 5),
+                const Center(
+                  child: Text(
+                    'No List Added Yet!',
+                    style: TextStyles.fontStyle1,
+                  ),
+                ),
+              ],
+            ),
+          if (provider.libraryTransactionData.isNotEmpty)
+            ListView.builder(
+              itemCount: provider.libraryTransactionData.length,
+              controller: _listController,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return cardDesign(index);
+              },
+            ),
         ],
       ),
     );
@@ -240,7 +251,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                       '${provider.libraryTransactionData[index].membername}' ==
                               ''
                           ? '-'
-                          : '${provider.libraryTransactionData[index].membername}',
+                          : '''${provider.libraryTransactionData[index].membername}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -267,7 +278,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                       '${provider.libraryTransactionData[index].membercode}' ==
                               ''
                           ? '-'
-                          : '${provider.libraryTransactionData[index].membercode}',
+                          : '''${provider.libraryTransactionData[index].membercode}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -294,7 +305,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                       '${provider.libraryTransactionData[index].membertype}' ==
                               ''
                           ? '-'
-                          : '${provider.libraryTransactionData[index].membertype}',
+                          : '''${provider.libraryTransactionData[index].membertype}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -404,30 +415,38 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
     //               crossAxisAlignment: CrossAxisAlignment.start,
     //               children: [
     //                 Text(
-    //                   '${provider.libraryTransactionData[index].membername}' ==
+    //                   '${provider.libraryTransactionData[index].membername}'
+    // ==
     //                           ''
     //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].membername}',
+    //                       : '${provider.libraryTransactionData[index].
+    // membername}',
     //                   style: TextStyles.fontStyle10,
     //                 ),
     //                 Text(
-    //                   '${provider.libraryTransactionData[index].membercode}' ==
+    //                   '${provider.libraryTransactionData[index].membercode}'
+    // ==
     //                           ''
     //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].membercode}',
+    //                       : '${provider.libraryTransactionData[index].
+    // membercode}',
     //                   style: TextStyles.fontStyle10,
     //                 ),
     //                 Text(
-    //                   '${provider.libraryTransactionData[index].membertype}' ==
+    //                   '${provider.libraryTransactionData[index].membertype}'
+    // ==
     //                           ''
     //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].membertype}',
+    //                       : '${provider.libraryTransactionData[index].
+    // membertype}',
     //                   style: TextStyles.fontStyle10,
     //                 ),
     //                 Text(
-    //                   '${provider.libraryTransactionData[index].status}' == ''
+    //                   '${provider.libraryTransactionData[index].status}'
+    //== ''
     //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].status}',
+    //                       : '${provider.libraryTransactionData[index]
+    // .status}',
     //                   style: TextStyles.fontStyle10,
     //                 ),
     //               ],
@@ -447,5 +466,21 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
     //     ),
     //   ),
     // );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
+    );
   }
 }

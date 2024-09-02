@@ -51,7 +51,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -122,12 +122,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                      '''Lorem Ipsum is simply dummy text of the printing and typesetting industry.''',
                       style: TextStyles.fontStyle10,
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

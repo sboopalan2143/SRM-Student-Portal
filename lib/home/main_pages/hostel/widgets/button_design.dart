@@ -1,12 +1,6 @@
-// ignore_for_file: avoid_dynamic_calls
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
-
-// import 'package:uuid/uuid.dart' show Uuid;
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -15,7 +9,6 @@ class ButtonDesign {
     BuildContext context,
     MainProvider provider,
   ) {
-    // const uuid = Uuid();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(

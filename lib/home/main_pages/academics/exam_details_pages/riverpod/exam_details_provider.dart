@@ -44,7 +44,8 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
 
       var examDetailsData = <ExamDetailsData>[];
       try {
-        final examDetailsResponse = ExamDetails.fromJson(decryptedData.mapData!);
+        final examDetailsResponse =
+            ExamDetails.fromJson(decryptedData.mapData!);
         examDetailsData = examDetailsResponse.data!;
         state = state.copyWith(examDetailsData: examDetailsData);
         log('exam details ${examDetailsData.length}');
@@ -57,7 +58,8 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         } else if (examDetailsResponse.status != 'Success') {
           state = ExamDetailsError(
             successMessage: '',
-            errorMessage: examDetailsResponse.status!,
+            errorMessage:
+                '''${examDetailsResponse.status!}, ${examDetailsResponse.message!}''',
             examDetailsData: state.examDetailsData,
           );
         }

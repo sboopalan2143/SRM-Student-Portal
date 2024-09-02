@@ -58,7 +58,8 @@ class LibraryTransactionProvider
         } else if (libraryTransactionDataResponse.status != 'Success') {
           state = LibraryTrancsactionStateError(
             successMessage: '',
-            errorMessage: libraryTransactionDataResponse.status!,
+            errorMessage:
+                '''${libraryTransactionDataResponse.status!}, ${libraryTransactionDataResponse.message!}''',
             libraryTransactionData: state.libraryTransactionData,
           );
         }

@@ -42,6 +42,15 @@ class SettingInitial extends MainState {
         );
 }
 
+class SettingLoading extends MainState {
+  const SettingLoading({
+    required super.successMessage,
+    required super.errorMessage,
+    required super.navString,
+    required super.subNavString,
+  });
+}
+
 class SettingSuccessFull extends MainState {
   const SettingSuccessFull({
     required super.successMessage,
@@ -53,6 +62,15 @@ class SettingSuccessFull extends MainState {
 
 class SettingError extends MainState {
   const SettingError({
+    required super.successMessage,
+    required super.errorMessage,
+    required super.navString,
+    required super.subNavString,
+  });
+}
+
+class NoNetworkAvailablePhoto extends MainState {
+  const NoNetworkAvailablePhoto({
     required super.successMessage,
     required super.errorMessage,
     required super.navString,

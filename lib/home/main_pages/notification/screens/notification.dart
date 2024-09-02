@@ -223,7 +223,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
             Radius.circular(20),
-          )),
+          ),),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: text == provider.navNotificationString

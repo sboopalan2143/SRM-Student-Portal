@@ -53,9 +53,10 @@ class HostelProvider extends StateNotifier<HostelState> {
           );
         } else if (hostelDataResponse.status != 'Success') {
           state = HostelStateError(
-              successMessage: '',
-              errorMessage: hostelDataResponse.status!,
-              hospitalData: <dynamic>[]);
+            successMessage: '',
+            errorMessage: hostelDataResponse.status!,
+            hospitalData: <dynamic>[],
+          );
         }
       } catch (e) {
         final error = ErrorModel.fromJson(decryptedData.mapData!);

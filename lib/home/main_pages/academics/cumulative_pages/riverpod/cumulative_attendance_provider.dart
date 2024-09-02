@@ -55,7 +55,7 @@ class CummulativeAttendanceProvider
             GetCumulativeAttedence.fromJson(decryptedData.mapData!);
         cummulativeAttendanceData = cummulativeAttendanceDataResponse.data!;
         state = state.copyWith(
-            cummulativeAttendanceData: cummulativeAttendanceData);
+            cummulativeAttendanceData: cummulativeAttendanceData,);
         if (cummulativeAttendanceDataResponse.status == 'Success') {
           state = CummulativeAttendanceStateSuccessful(
             successMessage: cummulativeAttendanceDataResponse.status!,
@@ -65,7 +65,8 @@ class CummulativeAttendanceProvider
         } else if (cummulativeAttendanceDataResponse.status != 'Success') {
           state = CummulativeAttendanceStateError(
             successMessage: '',
-            errorMessage: cummulativeAttendanceDataResponse.status!,
+            errorMessage:
+                '''${cummulativeAttendanceDataResponse.status!}, ${cummulativeAttendanceDataResponse.message!}''',
             cummulativeAttendanceData: state.cummulativeAttendanceData,
           );
         }

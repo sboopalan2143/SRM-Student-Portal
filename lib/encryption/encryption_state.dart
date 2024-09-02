@@ -57,10 +57,10 @@ class EncryptionInitial extends EncryptionState {
           errorMessage: '',
           keyString: '',
           ivString: '',
-          strCommonKey: r"z6pAt3DxKhJO7M5PqWgnfVxaPvgpIS2A",
-          strCommonIV: r"FwK6GxkSJ759yH8w",
-          strPrivateKey: "G9ywTgT6G7DbPOLgFPi2qGCvZLR4s2TB",
-          strPrivateIV: "nQi5qc7K1Js4KYIq",
+          strCommonKey: 'z6pAt3DxKhJO7M5PqWgnfVxaPvgpIS2A',
+          strCommonIV: 'FwK6GxkSJ759yH8w',
+          strPrivateKey: 'G9ywTgT6G7DbPOLgFPi2qGCvZLR4s2TB',
+          strPrivateIV: 'nQi5qc7K1Js4KYIq',
         );
 }
 

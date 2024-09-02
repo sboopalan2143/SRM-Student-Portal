@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
@@ -32,6 +33,14 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(feesProvider);
+    ref.listen(feesProvider, (previous, next) {
+      if (next is FeesError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is FeesStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         // Padding(
@@ -128,7 +137,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               const Center(
                 child: Text(
                   'No List Added Yet!',
-                  style: TextStyles.fontStyle1,
+                  style: TextStyles.fontStyle6,
                 ),
               ),
             ],
@@ -514,7 +523,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
             Radius.circular(20),
-          )),
+          ),),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: text == provider.navFeesString
@@ -539,6 +548,22 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 ),
               ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

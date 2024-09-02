@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/font_styles.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
 class InternalMarksPage extends ConsumerStatefulWidget {
@@ -13,12 +14,20 @@ class InternalMarksPage extends ConsumerStatefulWidget {
 
 class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   final ScrollController _listController = ScrollController();
-  List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
-  String selectedValue = 'Select Year/Sem';
+  // List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
+  // String selectedValue = 'Select Year/Sem';
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(internalMarksProvider);
+    ref.listen(internalMarksProvider, (previous, next) {
+      if (next is InternalMarksStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is InternalMarksStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         // Padding(
@@ -221,6 +230,22 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

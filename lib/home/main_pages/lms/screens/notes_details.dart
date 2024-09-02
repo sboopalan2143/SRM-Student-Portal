@@ -18,7 +18,7 @@ class _NotesDetailsPageState extends ConsumerState<NotesDetailsPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-             Text('C Introduction', style: TextStyles.titleFontStyle),
+            Text('C Introduction', style: TextStyles.titleFontStyle),
             const SizedBox(height: 20),
             Image.asset(
               'assets/images/cprogram.png',
@@ -60,7 +60,7 @@ class _NotesDetailsPageState extends ConsumerState<NotesDetailsPage> {
             const Text(
               'It is one of the most popular programming languages in the world'
               ' If you know C, you will have no problem learning other popular '
-              ' programming languages such as Java, Python, C++, C#, etc, as the '
+              ''' programming languages such as Java, Python, C++, C#, etc, as the '''
               ' syntax is similar C is very fast, compared to other programming'
               ' languages, like Java and Python ',
               style: TextStyles.fontStyle16,
@@ -79,7 +79,7 @@ class _NotesDetailsPageState extends ConsumerState<NotesDetailsPage> {
             const Text(
               'It is one of the most popular programming languages in the world'
               ' If you know C, you will have no problem learning other popular '
-              ' programming languages such as Java, Python, C++, C#, etc, as the '
+              ''' programming languages such as Java, Python, C++, C#, etc, as the '''
               ' syntax is similar C is very fast, compared to other programming'
               ' languages, like Java and Python ',
               style: TextStyles.fontStyle16,

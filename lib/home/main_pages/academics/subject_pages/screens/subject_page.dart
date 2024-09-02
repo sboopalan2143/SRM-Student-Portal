@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
@@ -18,6 +19,14 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(subjectProvider);
+    ref.listen(subjectProvider, (previous, next) {
+      if (next is SubjectStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is SubjectStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         Padding(
@@ -228,6 +237,22 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 style: TextStyles.fontStyle11,
               ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -58,7 +58,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
         } else if (internalMarksDataResponse.status != 'Success') {
           state = InternalMarksStateError(
             successMessage: '',
-            errorMessage: internalMarksDataResponse.status!,
+            errorMessage: '''${internalMarksDataResponse.status!}, ${internalMarksDataResponse.message!}''',
             internalMarkData: state.internalMarkData,
           );
         }

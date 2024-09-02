@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
+import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
@@ -19,6 +21,14 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(attendanceProvider);
+    ref.listen(attendanceProvider, (previous, next) {
+      if (next is AttendanceStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is AttendanceStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         // Padding(
@@ -279,7 +289,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                       '${provider.attendanceData[index].presentpercentage}' ==
                               ''
                           ? '-'
-                          : '${provider.attendanceData[index].presentpercentage}',
+                          : '''${provider.attendanceData[index].presentpercentage}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -289,6 +299,22 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

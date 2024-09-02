@@ -1,8 +1,6 @@
-import 'dart:developer';
-
-// import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 
@@ -16,13 +14,20 @@ class ExamDetailsPage extends ConsumerStatefulWidget {
 
 class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   final ScrollController _listController = ScrollController();
-  List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
-  String selectedValue = 'Select Year/Sem';
+  // List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
+  // String selectedValue = 'Select Year/Sem';
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(examDetailsProvider);
-    log('exam details---main page ${provider.examDetailsData.length}');
+    ref.listen(examDetailsProvider, (previous, next) {
+      if (next is ExamDetailsError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      //  else if (next is ExamDetailsStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         // Padding(
@@ -323,6 +328,22 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

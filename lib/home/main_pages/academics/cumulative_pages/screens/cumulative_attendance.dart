@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 
@@ -14,12 +15,20 @@ class CumulativeAttendancePage extends ConsumerStatefulWidget {
 class _CumulativeAttendancePageState
     extends ConsumerState<CumulativeAttendancePage> {
   final ScrollController _listController = ScrollController();
-  List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
-  String selectedValue = 'Select Year/Sem';
+  // List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
+  // String selectedValue = 'Select Year/Sem';
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(cummulativeAttendanceProvider);
+    ref.listen(cummulativeAttendanceProvider, (previous, next) {
+      if (next is CummulativeAttendanceStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      }
+      // else if (next is CummulativeAttendanceStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
+    });
     return Column(
       children: [
         // Padding(
@@ -186,7 +195,7 @@ class _CumulativeAttendancePageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.cummulativeAttendanceData[index].attendancemonthyear}',
+                      '''${provider.cummulativeAttendanceData[index].attendancemonthyear}''',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
@@ -211,11 +220,27 @@ class _CumulativeAttendancePageState
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -66,7 +66,8 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         } else if (attendanceDataResponse.status != 'Success') {
           state = AttendanceStateError(
             successMessage: '',
-            errorMessage: attendanceDataResponse.status!,
+            errorMessage:
+                '''${attendanceDataResponse.status!},${attendanceDataResponse.message!}''',
             attendanceData: state.attendanceData,
           );
         }

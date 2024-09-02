@@ -9,9 +9,8 @@ import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exa
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/screen/login_page.dart';
-
-import '../../../riverpod/main_state.dart';
 
 class AcademicsPage extends ConsumerStatefulWidget {
   const AcademicsPage({super.key});
@@ -263,7 +262,8 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
               //   child: ElevatedButton(
               //     style: BorderBoxButtonDecorations.homePageButtonStyle,
               //     onPressed: () {
-              //       ref.read(mainProvider.notifier).setNavString('Timetable');
+              //       ref.read(mainProvider.notifier).setNavString
+              // ('Timetable');
               //     },
               //     child: Text(
               //       'Timetable',

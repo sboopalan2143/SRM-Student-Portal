@@ -1,11 +1,11 @@
-class GrievanceType {
+class GrievanceTypeModel {
   String? status;
   String? message;
   List<GrievanceData>? data;
 
-  GrievanceType({this.status, this.message, this.data});
+  GrievanceTypeModel({this.status, this.message, this.data});
 
-  GrievanceType.fromJson(Map<String, dynamic> json) {
+  GrievanceTypeModel.fromJson(Map<String, dynamic> json) {
     status = json['Status']as String?;
     message = json['Message']as String?;
     if (json['Data'] != null) {

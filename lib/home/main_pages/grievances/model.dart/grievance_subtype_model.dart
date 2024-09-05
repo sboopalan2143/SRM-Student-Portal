@@ -1,8 +1,4 @@
 class GrievanceSubTypeModel {
-  String? status;
-  String? message;
-  List<GrievanceSubTypeData>? data;
-
   GrievanceSubTypeModel({this.status, this.message, this.data});
 
   GrievanceSubTypeModel.fromJson(Map<String, dynamic> json) {
@@ -10,16 +6,20 @@ class GrievanceSubTypeModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <GrievanceSubTypeData>[];
+      // ignore: avoid_dynamic_calls
       json['Data'].forEach((v) {
-        data!.add(new GrievanceSubTypeData.fromJson(v as Map<String, dynamic>));
+        data!.add(GrievanceSubTypeData.fromJson(v as Map<String, dynamic>));
       });
     }
   }
+  String? status;
+  String? message;
+  List<GrievanceSubTypeData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Status'] = this.status;
-    data['Message'] = this.message;
+    final data = <String, dynamic>{};
+    data['Status'] = status;
+    data['Message'] = message;
     if (this.data != null) {
       data['Data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,9 +28,6 @@ class GrievanceSubTypeModel {
 }
 
 class GrievanceSubTypeData {
-  String? grievancesubcategorydesc;
-  String? grievancesubcategoryid;
-
   GrievanceSubTypeData(
       {this.grievancesubcategorydesc, this.grievancesubcategoryid});
 
@@ -38,11 +35,18 @@ class GrievanceSubTypeData {
     grievancesubcategorydesc = json['grievancesubcategorydesc'] as String?;
     grievancesubcategoryid = json['grievancesubcategoryid'] as String?;
   }
+  String? grievancesubcategorydesc;
+  String? grievancesubcategoryid;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['grievancesubcategorydesc'] = this.grievancesubcategorydesc;
-    data['grievancesubcategoryid'] = this.grievancesubcategoryid;
+    final data = <String, dynamic>{};
+    data['grievancesubcategorydesc'] = grievancesubcategorydesc;
+    data['grievancesubcategoryid'] = grievancesubcategoryid;
     return data;
   }
+
+  static final empty = GrievanceSubTypeData(
+    grievancesubcategorydesc: 'Grievance Subtype',
+    grievancesubcategoryid: '',
+  );
 }

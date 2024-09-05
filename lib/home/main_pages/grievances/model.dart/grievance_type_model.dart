@@ -1,25 +1,25 @@
 class GrievanceTypeModel {
+  GrievanceTypeModel({this.status, this.message, this.data});
+
+  GrievanceTypeModel.fromJson(Map<String, dynamic> json) {
+    status = json['Status'] as String?;
+    message = json['Message'] as String?;
+    if (json['Data'] != null) {
+      data = <GrievanceData>[];
+      // ignore: inference_failure_on_untyped_parameter
+      json['Data'].forEach((v) {
+        data!.add(GrievanceData.fromJson(v as Map<String, dynamic>));
+      });
+    }
+  }
   String? status;
   String? message;
   List<GrievanceData>? data;
 
-  GrievanceTypeModel({this.status, this.message, this.data});
-
-  GrievanceTypeModel.fromJson(Map<String, dynamic> json) {
-    status = json['Status']as String?;
-    message = json['Message']as String?;
-    if (json['Data'] != null) {
-      data = <GrievanceData>[];
-      json['Data'].forEach((v) {
-        data!.add(new GrievanceData.fromJson(v as Map<String, dynamic>));
-      });
-    }
-  }
-
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Status'] = this.status;
-    data['Message'] = this.message;
+    final data = <String, dynamic>{};
+    data['Status'] = status;
+    data['Message'] = message;
     if (this.data != null) {
       data['Data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,20 +28,24 @@ class GrievanceTypeModel {
 }
 
 class GrievanceData {
-  String? grievancetype;
-  String? grievancetypeid;
-
   GrievanceData({this.grievancetype, this.grievancetypeid});
 
   GrievanceData.fromJson(Map<String, dynamic> json) {
-    grievancetype = json['grievancetype']as String?;
-    grievancetypeid = json['grievancetypeid']as String?;
+    grievancetype = json['grievancetype'] as String?;
+    grievancetypeid = json['grievancetypeid'] as String?;
   }
+  String? grievancetype;
+  String? grievancetypeid;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['grievancetype'] = this.grievancetype;
-    data['grievancetypeid'] = this.grievancetypeid;
+    final data = <String, dynamic>{};
+    data['grievancetype'] = grievancetype;
+    data['grievancetypeid'] = grievancetypeid;
     return data;
   }
+
+  static final empty = GrievanceData(
+    grievancetype: 'Grievance Type',
+    grievancetypeid: '',
+  );
 }

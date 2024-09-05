@@ -742,6 +742,16 @@ class _HomePageState extends ConsumerState<HomePage>
                           .getGrievanceCategoryDetails(
                             ref.read(encryptionProvider.notifier),
                           );
+                      ref
+                          .read(grievanceProvider.notifier)
+                          .getGrievanceSubTypeDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      ref
+                          .read(grievanceProvider.notifier)
+                          .getGrievanceTypeDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
                     } catch (e) {
                       TokensManagement.clearSharedPreference();
                       Navigator.pushAndRemoveUntil(

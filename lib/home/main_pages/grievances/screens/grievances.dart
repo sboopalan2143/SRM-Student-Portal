@@ -32,6 +32,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   AppColors.primaryColor,
                   context,
                   ref.read(mainProvider.notifier),
+                  ref,
                 ),
               ),
               const SizedBox(height: 10),

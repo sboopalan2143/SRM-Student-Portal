@@ -24,6 +24,7 @@ import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_p
 import 'package:sample/home/main_pages/academics/timetable_pages/screens/timetable.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
+import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievance_entry.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
@@ -639,40 +640,40 @@ class _HomePageState extends ConsumerState<HomePage>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // SizedBox(
-              //   height: 140,
-              //   width: width * 0.40,
-              //   child: ElevatedButton(
-              //     style: BorderBoxButtonDecorations.homePageButtonStyle,
-              //     onPressed: () {
-              //       ref.read(mainProvider.notifier).setNavString('LMS');
-              //     },
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-              //         SizedBox(
-              //           child: Image.asset(
-              //             'assets/images/LMS.png',
-              //             height: 80,
-              //           ),
-              //         ),
-              //         SizedBox(
-              //           height: height * 0.006,
-              //         ),
-              //         Text(
-              //           'LMS',
-              //           textAlign: TextAlign.center,
-              //           style: width > 400
-              //               ? TextStyles.smallBlackColorFontStyle
-              //               : TextStyles.smallerBlackColorFontStyle,
-              //         ),
-              //         // SizedBox(
-              //         //   height: height * 0.027,
-              //         // ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              SizedBox(
+                height: 140,
+                width: width * 0.40,
+                child: ElevatedButton(
+                  style: BorderBoxButtonDecorations.homePageButtonStyle,
+                  onPressed: () {
+                    ref.read(mainProvider.notifier).setNavString('LMS');
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        child: Image.asset(
+                          'assets/images/LMS.png',
+                          height: 80,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.006,
+                      ),
+                      Text(
+                        'LMS',
+                        textAlign: TextAlign.center,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
+                      ),
+                      // SizedBox(
+                      //   height: height * 0.027,
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(
                 width: width * 0.06,
               ),
@@ -726,79 +727,90 @@ class _HomePageState extends ConsumerState<HomePage>
           SizedBox(
             height: height * 0.025,
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     SizedBox(
-          //       height: 140,
-          //       width: width * 0.40,
-          //       child: ElevatedButton(
-          //         style: BorderBoxButtonDecorations.homePageButtonStyle,
-          //         onPressed: () {
-          //           ref.read(mainProvider.notifier).setNavString
-          // ('Grievances');
-          //         },
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: <Widget>[
-          //             SizedBox(
-          //               child: Image.asset(
-          //                 'assets/images/grievances.png',
-          //                 height: 80,
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               height: height * 0.006,
-          //             ),
-          //             Text(
-          //               'Grievances',
-          //               textAlign: TextAlign.center,
-          //               style: width > 400
-          //                   ? TextStyles.smallBlackColorFontStyle
-          //                   : TextStyles.smallerBlackColorFontStyle,
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-
-          //     SizedBox(
-          //       width: width * 0.06,
-          //     ),
-          //     SizedBox(
-          //       height: 140,
-          //       width: width * 0.40,
-          //       child: ElevatedButton(
-          //         style: BorderBoxButtonDecorations.homePageButtonStyle,
-          //         onPressed: () {
-          //           ref.read(mainProvider.notifier).setNavString
-          // ('Transport');
-          //         },
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: <Widget>[
-          //             SizedBox(
-          //               child: Image.asset(
-          //                 'assets/images/transport.png',
-          //                 height: 80,
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               height: height * 0.006,
-          //             ),
-          //             Text(
-          //               'Transport',
-          //               textAlign: TextAlign.center,
-          //               style: width > 400
-          //                   ? TextStyles.smallBlackColorFontStyle
-          //                   : TextStyles.smallerBlackColorFontStyle,
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 140,
+                width: width * 0.40,
+                child: ElevatedButton(
+                  style: BorderBoxButtonDecorations.homePageButtonStyle,
+                  onPressed: () {
+                    try {
+                      ref
+                          .read(grievanceProvider.notifier)
+                          .getGrievanceCategoryDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
+                    ref.read(mainProvider.notifier).setNavString('Grievances');
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        child: Image.asset(
+                          'assets/images/grievances.png',
+                          height: 80,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.006,
+                      ),
+                      Text(
+                        'Grievances',
+                        textAlign: TextAlign.center,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: width * 0.06,
+              ),
+              SizedBox(
+                height: 140,
+                width: width * 0.40,
+                child: ElevatedButton(
+                  style: BorderBoxButtonDecorations.homePageButtonStyle,
+                  onPressed: () {
+                    ref.read(mainProvider.notifier).setNavString('Transport');
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        child: Image.asset(
+                          'assets/images/transport.png',
+                          height: 80,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.006,
+                      ),
+                      Text(
+                        'Transport',
+                        textAlign: TextAlign.center,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

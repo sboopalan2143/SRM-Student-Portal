@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 
@@ -17,6 +18,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(grievanceProvider);
     return Column(
       children: [
         Padding(
@@ -34,7 +36,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
               ),
               const SizedBox(height: 10),
               ListView.builder(
-                itemCount: 20,
+                itemCount: provider.grievanceCaregoryData.length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -50,6 +52,8 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(grievanceProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -61,72 +65,67 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Type',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Description',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Name',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceCaregoryData[index].grievancekcategoryid}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.grievanceCaregoryData[index].grievancekcategoryid}''',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 1.6 - 80,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '25 May, 2024',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Code',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Management',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceCaregoryData[index].grievancekcategory}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.grievanceCaregoryData[index].grievancekcategory}''',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '''Lorem Ipsum is simply dummy text of the printing and typesetting industry.''',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

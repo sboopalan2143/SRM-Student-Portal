@@ -8,7 +8,6 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_m
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 
 class GrievanceEntryPage extends ConsumerStatefulWidget {

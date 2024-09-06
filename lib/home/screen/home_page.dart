@@ -42,6 +42,7 @@ import 'package:sample/home/main_pages/lms/screens/questions.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/notification/screens/notification.dart';
 import 'package:sample/home/main_pages/theme.dart';
+import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/riverpod/main_state.dart';
@@ -794,6 +795,25 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
+                    try {
+                      ref
+                          .read(transportProvider.notifier)
+                          .getTransportStatusDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      ref
+                          .read(transportProvider.notifier)
+                          .saveTransportstatusDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    } catch (e) {
+                      TokensManagement.clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        RouteDesign(route: const LoginPage()),
+                        (route) => false,
+                      );
+                    }
                     ref.read(mainProvider.notifier).setNavString('Transport');
                   },
                   child: Column(

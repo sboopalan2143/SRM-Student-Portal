@@ -1,3 +1,6 @@
+analyzer:
+  errors:
+    noop_primitive_operations: ignore
 include: package:very_good_analysis/analysis_options.yaml
 
 linter:

@@ -1,6 +1,9 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 
@@ -18,6 +21,7 @@ class _TransportTransactionPageState
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(transportProvider);
     return Column(
       children: [
         Padding(
@@ -31,11 +35,12 @@ class _TransportTransactionPageState
                   AppColors.primaryColor,
                   context,
                   ref.read(mainProvider.notifier),
+                  ref,
                 ),
               ),
               const SizedBox(height: 10),
               ListView.builder(
-                itemCount: 20,
+                itemCount: provider.grievanceTransportStatusData.length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -51,6 +56,8 @@ class _TransportTransactionPageState
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(transportProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -62,86 +69,187 @@ class _TransportTransactionPageState
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tran. ID',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Bus Route',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Price',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Office id',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].officeid}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.grievanceTransportStatusData[index].officeid}''',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 1.6 - 80,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'SRM0190',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Academicyear id',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '21 May, 2024',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].academicyearid}' ==
+                              ''
+                          ? '-'
+                          : ''
+                              '${provider.grievanceTransportStatusData[index].academicyearid}'
+                              '',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '2B - Thiruvanmiyur',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Application fees',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Rs. 500.00',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].applicationfee}' ==
+                              ''
+                          ? '-'
+                          : ''
+                              '${provider.grievanceTransportStatusData[index].applicationfee}'
+                              '',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
-              )
-            ,],
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Regconfig',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].regconfig}' ==
+                              ''
+                          ? '-'
+                          : ''
+                              '${provider.grievanceTransportStatusData[index].regconfig}'
+                              '',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Transport status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].transportstatus}' ==
+                              ''
+                          ? '-'
+                          : ''
+                              '${provider.grievanceTransportStatusData[index].transportstatus}'
+                              '',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.grievanceTransportStatusData[index].status}' ==
+                              ''
+                          ? '-'
+                          : ''
+                              '${provider.grievanceTransportStatusData[index].status}'
+                              '',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

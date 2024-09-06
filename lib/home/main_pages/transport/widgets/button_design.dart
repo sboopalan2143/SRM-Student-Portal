@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
 
 class ButtonDesign {
@@ -8,6 +11,7 @@ class ButtonDesign {
     Color color,
     BuildContext context,
     MainProvider provider,
+    WidgetRef ref,
   ) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -21,9 +25,16 @@ class ButtonDesign {
         backgroundColor: AppColors.primaryColor,
         shadowColor: Colors.transparent,
       ),
-      onPressed: () {
+      onPressed: () async {
         if (text == 'Register') {
           provider.setNavString('Register');
+        }
+        if (text == 'Submit') {
+          await ref
+              .read(transportProvider.notifier)
+              .saveTransportstatusDetails(ref.read(
+                encryptionProvider.notifier,
+              ));
         }
       },
       child: Text(

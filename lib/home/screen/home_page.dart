@@ -690,6 +690,11 @@ class _HomePageState extends ConsumerState<HomePage>
                           .getLibraryMemberDetails(
                             ref.read(encryptionProvider.notifier),
                           );
+                      ref
+                          .read(libraryProvider.notifier)
+                          .saveLibrartBookSearchDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
                     } catch (e) {
                       TokensManagement.clearSharedPreference();
                       Navigator.pushAndRemoveUntil(
@@ -804,6 +809,9 @@ class _HomePageState extends ConsumerState<HomePage>
                       ref
                           .read(transportProvider.notifier)
                           .saveTransportstatusDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      ref.read(transportProvider.notifier).getRouteIdDetails(
                             ref.read(encryptionProvider.notifier),
                           );
                     } catch (e) {

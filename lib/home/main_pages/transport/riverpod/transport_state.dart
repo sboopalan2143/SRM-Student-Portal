@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/transport/model/route_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_status.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_provider.dart';
 
@@ -19,6 +20,8 @@ class TransportState {
     required this.busrouteId,
     required this.controllerId,
     required this.officeId,
+    required this.routeDetailsDataList,
+    required this.selectedRouteDetailsDataList,
   });
 
   final String successMessage;
@@ -31,6 +34,9 @@ class TransportState {
   final TextEditingController controllerId;
   final TextEditingController officeId;
 
+  final List<RouteDetailsData> routeDetailsDataList;
+  final RouteDetailsData selectedRouteDetailsDataList;
+
   TransportState copyWith({
     String? successMessage,
     String? errorMessage,
@@ -41,6 +47,8 @@ class TransportState {
     TextEditingController? busrouteId,
     TextEditingController? controllerId,
     TextEditingController? officeId,
+    List<RouteDetailsData>? routeDetailsDataList,
+    RouteDetailsData? selectedRouteDetailsDataList,
   }) =>
       TransportState(
         successMessage: successMessage ?? this.successMessage,
@@ -53,6 +61,9 @@ class TransportState {
         busrouteId: busrouteId ?? this.busrouteId,
         controllerId: controllerId ?? this.controllerId,
         officeId: officeId ?? this.officeId,
+        routeDetailsDataList: routeDetailsDataList ?? this.routeDetailsDataList,
+        selectedRouteDetailsDataList:
+            selectedRouteDetailsDataList ?? this.selectedRouteDetailsDataList,
       );
 }
 
@@ -68,6 +79,8 @@ class TransportInitial extends TransportState {
           busrouteId: TextEditingController(),
           controllerId: TextEditingController(),
           officeId: TextEditingController(),
+          routeDetailsDataList: <RouteDetailsData>[],
+          selectedRouteDetailsDataList: RouteDetailsData.empty,
         );
 }
 
@@ -82,6 +95,8 @@ class TransportStateLoading extends TransportState {
     required super.busrouteId,
     required super.controllerId,
     required super.officeId,
+    required super.routeDetailsDataList,
+    required super.selectedRouteDetailsDataList,
   });
 }
 
@@ -96,6 +111,8 @@ class TransportStateError extends TransportState {
     required super.busrouteId,
     required super.controllerId,
     required super.officeId,
+    required super.routeDetailsDataList,
+    required super.selectedRouteDetailsDataList,
   });
 }
 
@@ -110,6 +127,8 @@ class TransportStateSuccessful extends TransportState {
     required super.busrouteId,
     required super.controllerId,
     required super.officeId,
+    required super.routeDetailsDataList,
+    required super.selectedRouteDetailsDataList,
   });
 }
 
@@ -124,5 +143,7 @@ class NoNetworkAvailableTransport extends TransportState {
     required super.busrouteId,
     required super.controllerId,
     required super.officeId,
+    required super.routeDetailsDataList,
+    required super.selectedRouteDetailsDataList,
   });
 }

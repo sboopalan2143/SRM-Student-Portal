@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
@@ -13,11 +14,14 @@ class LibraryTransactionProvider
 
   void disposeState() => state = LibraryMemberInitial();
 
-  void _setLoading() => state = const LibraryTrancsactionStateLoading(
+  void _setLoading() => state = LibraryTrancsactionStateLoading(
         successMessage: '',
         errorMessage: '',
         // libraryMemberData: LibraryMemberData.empty,
         libraryTransactionData: <LibraryTransactionData>[],
+        studentId: TextEditingController(),
+        officeid: TextEditingController(),
+        filter: TextEditingController(),
       );
 
   Future<void> getLibraryMemberDetails(EncryptionProvider encrypt) async {
@@ -32,6 +36,9 @@ class LibraryTransactionProvider
         successMessage: '',
         errorMessage: '',
         libraryTransactionData: state.libraryTransactionData,
+        studentId: TextEditingController(),
+        officeid: TextEditingController(),
+        filter: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -54,6 +61,9 @@ class LibraryTransactionProvider
             successMessage: libraryTransactionDataResponse.status!,
             errorMessage: '',
             libraryTransactionData: state.libraryTransactionData,
+            studentId: TextEditingController(),
+            officeid: TextEditingController(),
+            filter: TextEditingController(),
           );
         } else if (libraryTransactionDataResponse.status != 'Success') {
           state = LibraryTrancsactionStateError(
@@ -61,6 +71,9 @@ class LibraryTransactionProvider
             errorMessage:
                 '''${libraryTransactionDataResponse.status!}, ${libraryTransactionDataResponse.message!}''',
             libraryTransactionData: state.libraryTransactionData,
+            studentId: TextEditingController(),
+            officeid: TextEditingController(),
+            filter: TextEditingController(),
           );
         }
       } catch (e) {
@@ -69,6 +82,9 @@ class LibraryTransactionProvider
           successMessage: '',
           errorMessage: error.message!,
           libraryTransactionData: state.libraryTransactionData,
+          studentId: TextEditingController(),
+          officeid: TextEditingController(),
+          filter: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -76,6 +92,64 @@ class LibraryTransactionProvider
         successMessage: '',
         errorMessage: 'Error',
         libraryTransactionData: state.libraryTransactionData,
+        studentId: TextEditingController(),
+        officeid: TextEditingController(),
+        filter: TextEditingController(),
+      );
+    }
+  }
+
+  Future<void> saveLibrartBookSearchDetails(EncryptionProvider encrypt) async {
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><officeid>${state.officeid.text}</officeid><filter>${state.filter.text}</filter>',
+    );
+    final response = await HttpService.sendSoapRequest('getBookSearch', data);
+
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLibraryMember(
+        successMessage: '',
+        errorMessage: '',
+        libraryTransactionData: state.libraryTransactionData,
+        studentId: TextEditingController(),
+        officeid: TextEditingController(),
+        filter: TextEditingController(),
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final saveGrievanceRes =
+          details['getBookSearchResponse'] as Map<String, dynamic>;
+      final returnData = saveGrievanceRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+      log('Status >>>> ${decryptedData.mapData!['Status']}');
+
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = LibraryTrancsactionStateSuccessful(
+          successMessage: '',
+          errorMessage: '',
+          libraryTransactionData: state.libraryTransactionData,
+          studentId: TextEditingController(),
+          officeid: TextEditingController(),
+          filter: TextEditingController(),
+        );
+      } else {
+        state = LibraryTrancsactionStateError(
+          successMessage: '',
+          errorMessage: 'Error',
+          libraryTransactionData: state.libraryTransactionData,
+          studentId: TextEditingController(),
+          officeid: TextEditingController(),
+          filter: TextEditingController(),
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LibraryTrancsactionStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        libraryTransactionData: state.libraryTransactionData,
+        studentId: TextEditingController(),
+        officeid: TextEditingController(),
+        filter: TextEditingController(),
       );
     }
   }

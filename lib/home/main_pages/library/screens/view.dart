@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/library/riverpod/library_member_provider.dart';
+import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:sample/home/main_pages/library/widgets/button_design.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 
 class ViewLibraryPage extends ConsumerStatefulWidget {
   const ViewLibraryPage({super.key});
@@ -15,91 +19,155 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column(
-        children: [
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+    final provider = ref.watch(libraryProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            'Book Search',
+          ),
+        ),
+        backgroundColor: Colors.blueAccent, // Custom color for AppBar
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
             children: [
+              const SizedBox(height: 40),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Member Type',
-                    style: TextStyles.fontStyle10,
+                  const Text(
+                    'Student ID',
+                    style: TextStyles.fontStyle2,
                   ),
-                  Text(
-                    'Member code',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(
+                    height: 5,
                   ),
-                  Text(
-                    'Policy Name',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Status',
-                    style: TextStyles.fontStyle10,
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                      controller: provider.studentId,
+                      style: TextStyles.fontStyle2,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Student ID',
+                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        filled: true,
+                        fillColor: AppColors.secondaryColor,
+                        contentPadding: const EdgeInsets.all(10),
+                        enabledBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(width: 10),
+              const SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const Text(
+                    'Office id',
+                    style: TextStyles.fontStyle2,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(
+                    height: 5,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                      controller: provider.officeid,
+                      style: TextStyles.fontStyle2,
+                      decoration: InputDecoration(
+                        hintText: 'Office id',
+                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        filled: true,
+                        fillColor: AppColors.secondaryColor,
+                        contentPadding: const EdgeInsets.all(10),
+                        enabledBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(width: 10),
+              const SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Students',
-                    style: TextStyles.fontStyle10,
+                  const Text(
+                    'filter',
+                    style: TextStyles.fontStyle2,
                   ),
-                  Text(
-                    '1023456',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(
+                    height: 5,
                   ),
-                  Text(
-                    'Students CSE UG',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    'Active',
-                    style: TextStyles.fontStyle10,
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                      controller: provider.filter,
+                      style: TextStyles.fontStyle2,
+                      decoration: InputDecoration(
+                        hintText: 'filter',
+                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        filled: true,
+                        fillColor: AppColors.secondaryColor,
+                        contentPadding: const EdgeInsets.all(10),
+                        enabledBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                      ),
+                    ),
                   ),
                 ],
-              )
-            ,],
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  // ElevatedButton(
+                  //   onPressed: () {},
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding:const EdgeInsets.symmetric(
+                  //         horizontal: 30,
+                  //         vertical: 15,), // Adjusts the button size
+                  //     backgroundColor:
+                  //         AppColors.primaryColor, // Button background color
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius:
+                  //           BorderRadius.circular(30), // Rounded corners
+                  //     ),
+                  //     elevation: 5, // Adds shadow for elevation
+                  //   ),
+                  //   child:const Text(
+                  //     'Submit',
+                  //     style: TextStyle(
+                  //       fontSize: 18, // Font size for the text
+                  //       fontWeight: FontWeight.bold, // Bold text
+                  //       color: Colors.white, // Text color
+                  //     ),
+                  //   ),
+                  // )
+
+                  Expanded(
+                    child: ButtonDesign.buttonDesign(
+                      'Submit',
+                      AppColors.primaryColor,
+                      context,
+                      ref.read(mainProvider.notifier),
+                      ref,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          ListView.builder(
-            itemCount: 20,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

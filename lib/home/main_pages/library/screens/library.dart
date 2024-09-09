@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:sample/home/main_pages/library/screens/view.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
 class LibraryPage extends ConsumerStatefulWidget {
@@ -32,6 +35,28 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            RouteDesign(route: const ViewLibraryPage()));
+                      },
+                      child: const Text(
+                        'Book Search',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   children: [

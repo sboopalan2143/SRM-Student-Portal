@@ -814,6 +814,9 @@ class _HomePageState extends ConsumerState<HomePage>
                       ref.read(transportProvider.notifier).getRouteIdDetails(
                             ref.read(encryptionProvider.notifier),
                           );
+                       ref.read(transportProvider.notifier).getBorderIdDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );    
                     } catch (e) {
                       TokensManagement.clearSharedPreference();
                       Navigator.pushAndRemoveUntil(

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_status.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_provider.dart';
@@ -22,6 +23,8 @@ class TransportState {
     required this.officeId,
     required this.routeDetailsDataList,
     required this.selectedRouteDetailsDataList,
+    required this.borderpointDataList,
+    required this.selectedborderpointDataList,
   });
 
   final String successMessage;
@@ -36,6 +39,8 @@ class TransportState {
 
   final List<RouteDetailsData> routeDetailsDataList;
   final RouteDetailsData selectedRouteDetailsDataList;
+  final List<BorderPointData> borderpointDataList;
+  final BorderPointData selectedborderpointDataList;
 
   TransportState copyWith({
     String? successMessage,
@@ -49,6 +54,8 @@ class TransportState {
     TextEditingController? officeId,
     List<RouteDetailsData>? routeDetailsDataList,
     RouteDetailsData? selectedRouteDetailsDataList,
+    List<BorderPointData>? borderpointDataList,
+    BorderPointData? selectedborderpointDataList,
   }) =>
       TransportState(
         successMessage: successMessage ?? this.successMessage,
@@ -64,6 +71,10 @@ class TransportState {
         routeDetailsDataList: routeDetailsDataList ?? this.routeDetailsDataList,
         selectedRouteDetailsDataList:
             selectedRouteDetailsDataList ?? this.selectedRouteDetailsDataList,
+        borderpointDataList:
+            borderpointDataList ?? this.borderpointDataList,
+        selectedborderpointDataList:
+            selectedborderpointDataList ?? this.selectedborderpointDataList,
       );
 }
 
@@ -81,6 +92,8 @@ class TransportInitial extends TransportState {
           officeId: TextEditingController(),
           routeDetailsDataList: <RouteDetailsData>[],
           selectedRouteDetailsDataList: RouteDetailsData.empty,
+          borderpointDataList: <BorderPointData>[],
+          selectedborderpointDataList: BorderPointData.empty,
         );
 }
 
@@ -97,6 +110,8 @@ class TransportStateLoading extends TransportState {
     required super.officeId,
     required super.routeDetailsDataList,
     required super.selectedRouteDetailsDataList,
+    required super.borderpointDataList,
+    required super.selectedborderpointDataList,
   });
 }
 
@@ -113,6 +128,8 @@ class TransportStateError extends TransportState {
     required super.officeId,
     required super.routeDetailsDataList,
     required super.selectedRouteDetailsDataList,
+    required super.borderpointDataList,
+    required super.selectedborderpointDataList,
   });
 }
 
@@ -129,6 +146,8 @@ class TransportStateSuccessful extends TransportState {
     required super.officeId,
     required super.routeDetailsDataList,
     required super.selectedRouteDetailsDataList,
+    required super.borderpointDataList,
+    required super.selectedborderpointDataList,
   });
 }
 
@@ -145,5 +164,7 @@ class NoNetworkAvailableTransport extends TransportState {
     required super.officeId,
     required super.routeDetailsDataList,
     required super.selectedRouteDetailsDataList,
+    required super.borderpointDataList,
+    required super.selectedborderpointDataList,
   });
 }

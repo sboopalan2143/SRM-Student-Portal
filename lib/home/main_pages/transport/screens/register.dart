@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_model.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
@@ -94,6 +95,36 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             ],
           ),
           const SizedBox(height: 10),
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     const Text(
+          //       'Boardingpoint ID',
+          //       style: TextStyles.fontStyle2,
+          //     ),
+          //     const SizedBox(
+          //       height: 5,
+          //     ),
+          //     SizedBox(
+          //       height: 40,
+          //       child: TextField(
+          //         controller: provider.boardingpointId,
+          //         style: TextStyles.fontStyle2,
+          //         decoration: InputDecoration(
+          //           hintText: 'Enter Boardingpoint ID',
+          //           hintStyle: TextStyles.smallLightAshColorFontStyle,
+          //           filled: true,
+          //           fillColor: AppColors.secondaryColor,
+          //           contentPadding: const EdgeInsets.all(10),
+          //           enabledBorder:
+          //               BorderBoxButtonDecorations.loginTextFieldStyle,
+          //           focusedBorder:
+          //               BorderBoxButtonDecorations.loginTextFieldStyle,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -104,22 +135,41 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               const SizedBox(
                 height: 5,
               ),
-              SizedBox(
-                height: 40,
-                child: TextField(
-                  controller: provider.boardingpointId,
-                  style: TextStyles.fontStyle2,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Boardingpoint ID',
-                    hintStyle: TextStyles.smallLightAshColorFontStyle,
-                    filled: true,
-                    fillColor: AppColors.secondaryColor,
-                    contentPadding: const EdgeInsets.all(10),
-                    enabledBorder:
-                        BorderBoxButtonDecorations.loginTextFieldStyle,
-                    focusedBorder:
-                        BorderBoxButtonDecorations.loginTextFieldStyle,
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(
+                    color: AppColors.grey2,
                   ),
+                ),
+                height: 40,
+                child: DropdownSearch<BorderPointData>(
+                  dropdownDecoratorProps: const DropDownDecoratorProps(
+                    dropdownSearchDecoration: InputDecoration(
+                      // border: BorderRadius.circular(10),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                    ),
+                  ),
+                  itemAsString: (item) => item.boardingpointname!,
+                  items: provider.borderpointDataList,
+                  popupProps: const PopupProps.menu(
+                    constraints: BoxConstraints(maxHeight: 250),
+                  ),
+                  selectedItem: provider.selectedborderpointDataList,
+                  onChanged: (value) {
+                    readProvider.setBorderRoute(
+                      value!,
+                    );
+                  },
+                  dropdownBuilder: (BuildContext context, borderpoint) {
+                    return Text(
+                      '''  ${borderpoint?.boardingpointname}''',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  },
                 ),
               ),
             ],

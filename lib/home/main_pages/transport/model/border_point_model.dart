@@ -6,9 +6,9 @@ class BorderPointModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <BorderPointData>[];
-      json['Data'].forEach((v) {
-        data!.add(new BorderPointData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(BorderPointData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
   String? status;

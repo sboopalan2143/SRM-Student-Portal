@@ -4,6 +4,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class FeesPage extends ConsumerStatefulWidget {
   const FeesPage({super.key});
@@ -14,6 +16,7 @@ class FeesPage extends ConsumerStatefulWidget {
 
 class _FeesPageState extends ConsumerState<FeesPage> {
   final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -21,10 +24,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(feesProvider.notifier)
-          .getFinanceDetails(ref.read(encryptionProvider.notifier));
+          .getFeesPaidDetails(ref.read(encryptionProvider.notifier));
       ref
           .read(feesProvider.notifier)
-          .getFeesPaidDetails(ref.read(encryptionProvider.notifier));
+          .getFinanceDetails(ref.read(encryptionProvider.notifier));
     });
   }
 
@@ -41,124 +44,181 @@ class _FeesPageState extends ConsumerState<FeesPage> {
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
     });
-    return Column(
-      children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 40),
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: <Widget>[
-        //       SizedBox(height: height * 0.02),
-        //       Card(
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(20),
-        //         ),
-        //         elevation: 0,
-        //         color: AppColors.whiteColor,
-        //         child: Padding(
-        //           padding: const EdgeInsets.all(25),
-        //           child: Column(
-        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //             children: [
-        //               const Text(
-        //                 'Fees Due for upcoming sem',
-        //                 textAlign: TextAlign.center,
-        //                 style: TextStyles.fontStyle8,
-        //               ),
-        //               Text(
-        //                 'Rs. 5,000.00',
-        //                 textAlign: TextAlign.center,
-        //                 style: TextStyles.fontStyle9,
-        //               ),
-        //               const Text(
-        //                 'Due Date: 08th June, 2024',
-        //                 textAlign: TextAlign.center,
-        //                 style: TextStyles.fontStyle8,
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(
-        //         height: height * 0.04,
-        //       ),
-        Container(
-          height: 45,
-          width: width - 40,
-          decoration: BoxDecoration(
-            color: AppColors.grey1,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            border: Border.all(
-              color: AppColors.grey1,
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const HomePage(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.center,
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'FEES',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
               children: [
-                Expanded(
-                  child: navContainerDesign(
-                    text: 'Paid Details',
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: navContainerDesign(
-                    text: 'Online Trans',
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
             ),
-          ),
+          ],
         ),
-        SizedBox(
-          height: height * 0.02,
-        ),
-        //       const Text(
-        //         '2023 - 2024    Total: Rs. 15,000.00',
-        //         textAlign: TextAlign.center,
-        //         style: TextStyles.fontStyle7,
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        if (provider is FeesStateLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Center(
-              child: CircularProgressIndicators.primaryColorProgressIndication,
-            ),
-          )
-        else if (provider.financeData.isEmpty && provider is! FeesStateLoading)
-          Column(
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 5),
-              const Center(
-                child: Text(
-                  'No List Added Yet!',
-                  style: TextStyles.fontStyle6,
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 40),
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: <Widget>[
+              //       SizedBox(height: height * 0.02),
+              //       Card(
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(20),
+              //         ),
+              //         elevation: 0,
+              //         color: AppColors.whiteColor,
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(25),
+              //           child: Column(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               const Text(
+              //                 'Fees Due for upcoming sem',
+              //                 textAlign: TextAlign.center,
+              //                 style: TextStyles.fontStyle8,
+              //               ),
+              //               Text(
+              //                 'Rs. 5,000.00',
+              //                 textAlign: TextAlign.center,
+              //                 style: TextStyles.fontStyle9,
+              //               ),
+              //               const Text(
+              //                 'Due Date: 08th June, 2024',
+              //                 textAlign: TextAlign.center,
+              //                 style: TextStyles.fontStyle8,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: height * 0.04,
+              //       ),
+              Container(
+                height: 45,
+                width: width - 40,
+                decoration: BoxDecoration(
+                  color: AppColors.grey1,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
+                    color: AppColors.grey1,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: navContainerDesign(
+                          text: 'Paid Details',
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: navContainerDesign(
+                          text: 'Online Trans',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              //       const Text(
+              //         '2023 - 2024    Total: Rs. 15,000.00',
+              //         textAlign: TextAlign.center,
+              //         style: TextStyles.fontStyle7,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              if (provider is FeesStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.financeData.isEmpty &&
+                  provider is! FeesStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle6,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.financeData.isNotEmpty)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: ListView.builder(
+                    itemCount: provider.navFeesString == 'Paid Details'
+                        ? provider.feespaidData.length
+                        : provider.financeData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return provider.navFeesString == 'Paid Details'
+                          ? cardDesign(index)
+                          : cardDesignTrans(index);
+                    },
+                  ),
+                ),
             ],
           ),
-        if (provider.financeData.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: ListView.builder(
-              itemCount: provider.navFeesString == 'Paid Details'
-                  ? provider.feespaidData.length
-                  : provider.financeData.length,
-              controller: _listController,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return provider.navFeesString == 'Paid Details'
-                    ? cardDesign(index)
-                    : cardDesignTrans(index);
-              },
-            ),
-          ),
-      ],
+        ),
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -521,9 +581,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           //   color: AppColors.whiteColor,
           // ),
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: text == provider.navFeesString

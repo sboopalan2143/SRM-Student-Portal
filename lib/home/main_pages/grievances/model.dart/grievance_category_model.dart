@@ -6,9 +6,9 @@ class GrievanceCategory {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <GrievanceCategoryData>[];
-      json['Data'].forEach((dynamic v) {
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add(GrievanceCategoryData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
   String? status;

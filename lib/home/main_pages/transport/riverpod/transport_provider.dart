@@ -224,7 +224,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = TransportStateError(
           successMessage: '',
-          errorMessage: 'Error',
+          errorMessage: error.message!,
           grievanceTransportStatusData: state.grievanceTransportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
@@ -339,7 +339,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = TransportStateError(
           successMessage: '',
-          errorMessage: 'Error',
+          errorMessage: error.message!,
           grievanceTransportStatusData: state.grievanceTransportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),

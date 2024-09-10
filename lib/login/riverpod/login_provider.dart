@@ -95,12 +95,10 @@ class LoginProvider extends StateNotifier<LoginState> {
         state = state.copyWith(studentData: studentData);
 
         if (studentLoginDetails.status == 'Success') {
-          log('ID >>>> ${studentData.sid}');
-
-          log('semesterid >>>> ${studentData.semesterid}');
           await TokensManagement.setLoginDetails(
             studentId: '${studentData.sid}',
             studentName: '${studentData.studentname}',
+            semesterId: '${studentData.semesterid}',
           );
           await getAppVersion();
           state = LoginStateSuccessful(

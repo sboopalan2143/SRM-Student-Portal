@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/view.dart';
-import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
 class LibraryPage extends ConsumerStatefulWidget {
@@ -17,6 +18,17 @@ class LibraryPage extends ConsumerStatefulWidget {
 
 class _LibraryPageState extends ConsumerState<LibraryPage> {
   final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,205 +42,256 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
     });
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            RouteDesign(route: const ViewLibraryPage()));
-                      },
-                      child: const Text(
-                        'Book Search',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const HomePage(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: const Text(
-          //         'Member Name',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //     const Text(
-          //       ':',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     const SizedBox(width: 5),
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: Text(
-          //         // '${provider.libraryMemberData.membername}' == ''
-          //         //     ? '-'
-          //         //     : '${provider.libraryMemberData.membername}',
-
-          //         '',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: const Text(
-          //         'Member Code',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //     const Text(
-          //       ':',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     const SizedBox(width: 5),
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: Text(
-          //         // '${provider.libraryMemberData.membercode}' == ''
-          //         //     ? '-'
-          //         //     : '${provider.libraryMemberData.membercode}',
-
-          //         '',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: const Text(
-          //         'Member Type',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //     const Text(
-          //       ':',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     const SizedBox(width: 5),
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: Text(
-          //         // '${provider.libraryMemberData.membertype}' == ''
-          //         //     ? '-'
-          //         //     : '${provider.libraryMemberData.membertype}',
-
-          //         '',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: const Text(
-          //         'Policy Name',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //     const Text(
-          //       ':',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     const SizedBox(width: 5),
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: Text(
-          //         // '${provider.libraryMemberData.policyname}' == ''
-          //         //     ? '-'
-          //         //     : '${provider.libraryMemberData.policyname}',
-
-          //         '',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: const Text(
-          //         'Status',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //     const Text(
-          //       ':',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     const SizedBox(width: 5),
-          //     SizedBox(
-          //       width: width / 2 - 100,
-          //       child: Text(
-          //         // '${provider.libraryMemberData.status}' == ''
-          //         //     ? '-'
-          //         //     : '${provider.libraryMemberData.status}',
-          //         '',
-          //         style: TextStyles.fontStyle10,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(height: 20),
-          if (provider is LibraryTrancsactionStateLoading)
-            Padding(
-              padding: const EdgeInsets.only(top: 100),
-              child: Center(
-                child:
-                    CircularProgressIndicators.primaryColorProgressIndication,
-              ),
-            )
-          else if (provider.libraryTransactionData.isEmpty &&
-              provider is! LibraryTrancsactionStateLoading)
-            Column(
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'LIBRARY',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height / 5),
-                const Center(
-                  child: Text(
-                    'No List Added Yet!',
-                    style: TextStyles.fontStyle1,
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
             ),
-          if (provider.libraryTransactionData.isNotEmpty)
-            ListView.builder(
-              itemCount: provider.libraryTransactionData.length,
-              controller: _listController,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return cardDesign(index);
-              },
-            ),
-        ],
+          ],
+        ),
       ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            RouteDesign(route: const ViewLibraryPage()),
+                          );
+                        },
+                        child: const Text(
+                          'Book Search',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: const Text(
+            //         'Member Name',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //     const Text(
+            //       ':',
+            //       style: TextStyles.fontStyle10,
+            //     ),
+            //     const SizedBox(width: 5),
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: Text(
+            //         // '${provider.libraryMemberData.membername}' == ''
+            //         //     ? '-'
+            //         //     : '${provider.libraryMemberData.membername}',
+
+            //         '',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: const Text(
+            //         'Member Code',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //     const Text(
+            //       ':',
+            //       style: TextStyles.fontStyle10,
+            //     ),
+            //     const SizedBox(width: 5),
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: Text(
+            //         // '${provider.libraryMemberData.membercode}' == ''
+            //         //     ? '-'
+            //         //     : '${provider.libraryMemberData.membercode}',
+
+            //         '',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: const Text(
+            //         'Member Type',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //     const Text(
+            //       ':',
+            //       style: TextStyles.fontStyle10,
+            //     ),
+            //     const SizedBox(width: 5),
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: Text(
+            //         // '${provider.libraryMemberData.membertype}' == ''
+            //         //     ? '-'
+            //         //     : '${provider.libraryMemberData.membertype}',
+
+            //         '',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: const Text(
+            //         'Policy Name',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //     const Text(
+            //       ':',
+            //       style: TextStyles.fontStyle10,
+            //     ),
+            //     const SizedBox(width: 5),
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: Text(
+            //         // '${provider.libraryMemberData.policyname}' == ''
+            //         //     ? '-'
+            //         //     : '${provider.libraryMemberData.policyname}',
+
+            //         '',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: const Text(
+            //         'Status',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //     const Text(
+            //       ':',
+            //       style: TextStyles.fontStyle10,
+            //     ),
+            //     const SizedBox(width: 5),
+            //     SizedBox(
+            //       width: width / 2 - 100,
+            //       child: Text(
+            //         // '${provider.libraryMemberData.status}' == ''
+            //         //     ? '-'
+            //         //     : '${provider.libraryMemberData.status}',
+            //         '',
+            //         style: TextStyles.fontStyle10,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(height: 20),
+            if (provider is LibraryTrancsactionStateLoading)
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              )
+            else if (provider.libraryTransactionData.isEmpty &&
+                provider is! LibraryTrancsactionStateLoading)
+              Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height / 5),
+                  const Center(
+                    child: Text(
+                      'No List Added Yet!',
+                      style: TextStyles.fontStyle1,
+                    ),
+                  ),
+                ],
+              ),
+            if (provider.libraryTransactionData.isNotEmpty)
+              ListView.builder(
+                itemCount: provider.libraryTransactionData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardDesign(index);
+                },
+              ),
+          ],
+        ),
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 

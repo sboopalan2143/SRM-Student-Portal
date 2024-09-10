@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:sample/home/main_pages/academics/screens/academics.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class InternalMarksPage extends ConsumerStatefulWidget {
   const InternalMarksPage({super.key});
@@ -14,8 +17,16 @@ class InternalMarksPage extends ConsumerStatefulWidget {
 
 class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   final ScrollController _listController = ScrollController();
-  // List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
-  // String selectedValue = 'Select Year/Sem';
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,74 +39,125 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
     });
-    return Column(
-      children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-        //   child: Container(
-        //     decoration: BoxDecoration(
-        //       color: AppColors.whiteColor,
-        //       borderRadius: BorderRadius.circular(7),
-        //       border: Border.all(
-        //         color: AppColors.grey2,
-        //       ),
-        //     ),
-        //     height: 40,
-        //     child: DropdownSearch<String>(
-        //       // dropdownButtonProps: DropdownButtonProps(
-        //       //   focusNode: widget.focusNodeC,
-        //       // ),
-        //       dropdownDecoratorProps: const DropDownDecoratorProps(
-        //         dropdownSearchDecoration: InputDecoration(
-        //           border: InputBorder.none,
-        //           contentPadding:
-        //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        //         ),
-        //       ),
-        //       itemAsString: (item) => item,
-        //       items: name,
-        //       popupProps: const PopupProps.menu(
-        //         searchFieldProps: TextFieldProps(
-        //           autofocus: true,
-        //         ),
-        //         constraints: BoxConstraints(maxHeight: 250),
-        //       ),
-        //       selectedItem: selectedValue,
-        //       onChanged: (value) {
-        //         // readProvider.selectCustomer(value!);
-        //         setState(() {
-        //           selectedValue = value!;
-        //         });
-        //       },
-        //       dropdownBuilder: (BuildContext context, name) {
-        //         return Text(
-        //           name!,
-        //           maxLines: 1,
-        //           overflow: TextOverflow.ellipsis,
-        //           style: TextStyles.smallLightAshColorFontStyle,
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
-        // Center(
-        //   child: Text(
-        //     '2nd Year, 4th Sem',
-        //     style: TextStyles.smallPrimaryColorFontStyle,
-        //   ),
-        // ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: ListView.builder(
-            itemCount: provider.internalMarkData.length,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const AcademicsPage(),
+                ),
+              );
             },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
           ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'INTERNAL MARKS',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       color: AppColors.whiteColor,
+            //       borderRadius: BorderRadius.circular(7),
+            //       border: Border.all(
+            //         color: AppColors.grey2,
+            //       ),
+            //     ),
+            //     height: 40,
+            //     child: DropdownSearch<String>(
+            //       // dropdownButtonProps: DropdownButtonProps(
+            //       //   focusNode: widget.focusNodeC,
+            //       // ),
+            //       dropdownDecoratorProps: const DropDownDecoratorProps(
+            //         dropdownSearchDecoration: InputDecoration(
+            //           border: InputBorder.none,
+            //           contentPadding:
+            //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            //         ),
+            //       ),
+            //       itemAsString: (item) => item,
+            //       items: name,
+            //       popupProps: const PopupProps.menu(
+            //         searchFieldProps: TextFieldProps(
+            //           autofocus: true,
+            //         ),
+            //         constraints: BoxConstraints(maxHeight: 250),
+            //       ),
+            //       selectedItem: selectedValue,
+            //       onChanged: (value) {
+            //         // readProvider.selectCustomer(value!);
+            //         setState(() {
+            //           selectedValue = value!;
+            //         });
+            //       },
+            //       dropdownBuilder: (BuildContext context, name) {
+            //         return Text(
+            //           name!,
+            //           maxLines: 1,
+            //           overflow: TextOverflow.ellipsis,
+            //           style: TextStyles.smallLightAshColorFontStyle,
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
+            // Center(
+            //   child: Text(
+            //     '2nd Year, 4th Sem',
+            //     style: TextStyles.smallPrimaryColorFontStyle,
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: ListView.builder(
+                itemCount: provider.internalMarkData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardDesign(index);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 

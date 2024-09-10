@@ -1,5 +1,4 @@
 class getTransportRegistrationStatusModel {
-
   getTransportRegistrationStatusModel({this.status, this.message, this.data});
 
   getTransportRegistrationStatusModel.fromJson(Map<String, dynamic> json) {
@@ -7,9 +6,9 @@ class getTransportRegistrationStatusModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <TransportStatusData>[];
-      json['Data'].forEach((v) {
-        data!.add(new TransportStatusData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(TransportStatusData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
   String? status;
@@ -17,7 +16,7 @@ class getTransportRegistrationStatusModel {
   List<TransportStatusData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['Status'] = status;
     data['Message'] = message;
     if (this.data != null) {
@@ -28,14 +27,14 @@ class getTransportRegistrationStatusModel {
 }
 
 class TransportStatusData {
-
-  TransportStatusData(
-      {this.transportstatus,
-      this.applicationfee,
-      this.officeid,
-      this.regconfig,
-      this.academicyearid,
-      this.status,});
+  TransportStatusData({
+    this.transportstatus,
+    this.applicationfee,
+    this.officeid,
+    this.regconfig,
+    this.academicyearid,
+    this.status,
+  });
 
   TransportStatusData.fromJson(Map<String, dynamic> json) {
     transportstatus = json['transportstatus'] as String?;

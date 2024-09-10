@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/main_pages/lms/screens/lms.dart';
+import 'package:sample/home/main_pages/lms/screens/notes_details.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class NotesPage extends ConsumerStatefulWidget {
   const NotesPage({super.key});
@@ -13,26 +15,83 @@ class NotesPage extends ConsumerStatefulWidget {
 
 class _NotesPageState extends ConsumerState<NotesPage> {
   final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Center(
-          child: Text('Select Topic', style: TextStyles.alertContentStyle),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: ListView.builder(
-            itemCount: 20,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const LMSPage(),
+                ),
+              );
             },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'NOTES',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: [
+              const Center(
+                child:
+                    Text('Select Topic', style: TextStyles.alertContentStyle),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: ListView.builder(
+                  itemCount: 20,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -42,9 +101,12 @@ class _NotesPageState extends ConsumerState<NotesPage> {
       padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
-          ref
-              .read(mainProvider.notifier)
-              .setNavString('C Programming Language1');
+          Navigator.push(
+            context,
+            RouteDesign(
+              route: const NotesDetailsPage(),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -87,8 +149,8 @@ class _NotesPageState extends ConsumerState<NotesPage> {
                       ),
                     ],
                   ),
-                )
-              ,],
+                ),
+              ],
             ),
           ),
         ),

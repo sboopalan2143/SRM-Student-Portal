@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
 
 class ButtonDesign {
@@ -27,7 +28,12 @@ class ButtonDesign {
       ),
       onPressed: () async {
         if (text == 'Register') {
-          provider.setNavString('Register');
+          await Navigator.push(
+                context,
+                RouteDesign(
+                  route: const TransportRegisterPage(),
+                ),
+              );
         }
         if (text == 'Submit') {
           await ref

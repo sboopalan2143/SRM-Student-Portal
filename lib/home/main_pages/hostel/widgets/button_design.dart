@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
+import 'package:sample/home/main_pages/hostel/screens/registration.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
     String text,
     Color color,
     BuildContext context,
-    MainProvider provider,
+    WidgetRef ref,
   ) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -23,10 +27,25 @@ class ButtonDesign {
       ),
       onPressed: () {
         if (text == 'Leave Application') {
-          provider.setNavString('Leave Application');
+          Navigator.push(
+            context,
+            RouteDesign(
+              route: const LeaveApplicationPage(),
+            ),
+          );
         }
         if (text == 'Registration') {
-          provider.setNavString('Registration');
+         Navigator.push(
+            context,
+            RouteDesign(
+              route: const RegistrationPage(),
+            ),
+          );
+        }
+        if (text == 'Submit') {
+          ref
+              .read(hostelProvider.notifier)
+              .hostelRegister(ref.read(encryptionProvider.notifier));
         }
       },
       child: FittedBox(

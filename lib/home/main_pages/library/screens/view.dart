@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_provider.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/library/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class ViewLibraryPage extends ConsumerStatefulWidget {
   const ViewLibraryPage({super.key});
@@ -15,19 +16,57 @@ class ViewLibraryPage extends ConsumerStatefulWidget {
 }
 
 class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
-  final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(libraryProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Book Search',
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const LibraryPage(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
           ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'BOOK SEARCH',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        backgroundColor: Colors.blueAccent, // Custom color for AppBar
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -169,6 +208,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
           ),
         ),
       ),
+      endDrawer: const DrawerDesign(),
     );
   }
 

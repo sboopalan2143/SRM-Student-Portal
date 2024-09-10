@@ -22,6 +22,7 @@ class Api {
 class TokensManagement {
   static String studentId = '';
   static String studentName = '';
+  static String semesterId = '';
 
   static String deviceId = '';
   static String androidVersion = '';
@@ -39,10 +40,12 @@ class TokensManagement {
   static Future<void> setLoginDetails({
     required String studentId,
     required String studentName,
+    required String semesterId,
   }) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('studentId', studentId);
     await sharedPreferences.setString('studentName', studentName);
+    await sharedPreferences.setString('semesterId', semesterId);
   }
 
   static Future<void> setAppDeviceInfo({
@@ -78,8 +81,10 @@ class TokensManagement {
     final sharedPreferences = await SharedPreferences.getInstance();
     final storedId = sharedPreferences.getString('studentId');
     final storedName = sharedPreferences.getString('studentName');
+    final storedSemId = sharedPreferences.getString('semesterId');
     studentId = storedId ?? '';
     studentName = storedName ?? '';
+    semesterId = storedSemId ?? '';
   }
 
   /// Call this function on logout

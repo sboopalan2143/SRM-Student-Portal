@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class SubjectPage extends ConsumerStatefulWidget {
   const SubjectPage({super.key});
@@ -14,6 +16,17 @@ class SubjectPage extends ConsumerStatefulWidget {
 
 class _SubjectPageState extends ConsumerState<SubjectPage> {
   final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(subjectProvider.notifier).getSubjectDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,98 +40,154 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
     });
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: [
-              SizedBox(
-                width: width / 8,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Sem',
-                      style: TextStyles.fontStyle12,
-                    ),
-                  ],
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const AcademicsPage(),
                 ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 8,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Code',
-                      style: TextStyles.fontStyle12,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2.3,
-                child: const Column(
-                  children: [
-                    Text(
-                      'Subject',
-                      style: TextStyles.fontStyle12,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 8,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Credit',
-                      style: TextStyles.fontStyle12,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        if (provider is SubjectStateLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Center(
-              child: CircularProgressIndicators.primaryColorProgressIndication,
-            ),
-          )
-        else if (provider.subjectData.isEmpty &&
-            provider is! SubjectStateLoading)
-          Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 5),
-              const Center(
-                child: Text(
-                  'No List Added Yet!',
-                  style: TextStyles.fontStyle1,
-                ),
-              ),
-            ],
-          ),
-        if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          child: ListView.builder(
-            itemCount: provider.subjectData.length,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
+              );
             },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'SUBJECTS',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: width / 8,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Sem',
+                            style: TextStyles.fontStyle12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 8,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Code',
+                            style: TextStyles.fontStyle12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2.3,
+                      child: const Column(
+                        children: [
+                          Text(
+                            'Subject',
+                            style: TextStyles.fontStyle12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 8,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Credit',
+                            style: TextStyles.fontStyle12,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (provider is SubjectStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.subjectData.isEmpty &&
+                  provider is! SubjectStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.subjectData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -197,45 +266,6 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget navContainerDesign({
-    required String text,
-  }) {
-    final provider = ref.watch(feesProvider);
-    return SizedBox(
-      height: 40,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          // side: BorderSide(
-          //   color: AppColors.whiteColor,
-          // ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-          elevation: 0,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          backgroundColor: text == provider.navFeesString
-              ? AppColors.primaryColor
-              : AppColors.grey1,
-          shadowColor: Colors.transparent,
-        ),
-        onPressed: () {
-          ref.read(feesProvider.notifier).setFeesNavString(text);
-        },
-        child: text == provider.navFeesString
-            ? Text(
-                text,
-                style: TextStyles.fontStyle11,
-              )
-            : Text(
-                text,
-                style: TextStyles.fontStyle11,
-              ),
       ),
     );
   }

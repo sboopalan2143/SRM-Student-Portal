@@ -6,9 +6,9 @@ class TransportRequestRoutes {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <RouteDetailsData>[];
-      json['Data'].forEach((v) {
-        data!.add(new RouteDetailsData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(RouteDetailsData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
   String? status;
@@ -27,18 +27,17 @@ class TransportRequestRoutes {
 }
 
 class RouteDetailsData {
-  String? busrouteid;
-  String? busroutename;
-
   RouteDetailsData({this.busrouteid, this.busroutename});
 
   RouteDetailsData.fromJson(Map<String, dynamic> json) {
     busrouteid = json['busrouteid'] as String?;
     busroutename = json['busroutename'] as String?;
   }
+  String? busrouteid;
+  String? busroutename;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['busrouteid'] = busrouteid;
     data['busroutename'] = busroutename;
     return data;

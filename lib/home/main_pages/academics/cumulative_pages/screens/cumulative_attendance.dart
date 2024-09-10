@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:sample/home/main_pages/academics/screens/academics.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class CumulativeAttendancePage extends ConsumerStatefulWidget {
   const CumulativeAttendancePage({super.key});
@@ -15,8 +18,18 @@ class CumulativeAttendancePage extends ConsumerStatefulWidget {
 class _CumulativeAttendancePageState
     extends ConsumerState<CumulativeAttendancePage> {
   final ScrollController _listController = ScrollController();
-  // List<String> name = ['Select Year/Sem', 'one', 'two', 'three'];
-  // String selectedValue = 'Select Year/Sem';
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(cummulativeAttendanceProvider.notifier)
+          .getCummulativeAttendanceDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,76 +42,126 @@ class _CumulativeAttendancePageState
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
     });
-    return Column(
-      children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-        //   child: SizedBox(
-        //     height: 40,
-        //     child: TextField(
-        //       // controller: _searchIndividual,
-        //       // onChanged: (value) => readProvider.getOrderHistoryList(
-        //       //   1,
-        //       //   _searchIndividual.text,
-        //       // ),
-        //       keyboardType: TextInputType.text,
-        //       style: TextStyles.fontStyle14,
-        //       decoration: InputDecoration(
-        //         hintText: 'Search...',
-        //         hintStyle: TextStyles.smallLightAshColorFontStyle,
-        //         filled: true,
-        //         fillColor: AppColors.whiteColor,
-        //         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        //         enabledBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(7),
-        //           borderSide: const BorderSide(color: AppColors.grey2),
-        //         ),
-        //         focusedBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(7),
-        //           borderSide: const BorderSide(color: AppColors.grey2),
-        //         ),
-        //         prefixIcon: const Icon(
-        //           Icons.search,
-        //           color: AppColors.grey2,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        if (provider is CummulativeAttendanceStateLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Center(
-              child: CircularProgressIndicators.primaryColorProgressIndication,
-            ),
-          )
-        else if (provider.cummulativeAttendanceData.isEmpty &&
-            provider is! CummulativeAttendanceStateLoading)
-          Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 5),
-              const Center(
-                child: Text(
-                  'No List Added Yet!',
-                  style: TextStyles.fontStyle1,
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const AcademicsPage(),
                 ),
-              ),
-            ],
-          ),
-        if (provider.cummulativeAttendanceData.isNotEmpty)
-          const SizedBox(height: 5),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: ListView.builder(
-            itemCount: provider.cummulativeAttendanceData.length,
-            controller: _listController,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return cardDesign(index);
+              );
             },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
           ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'CUMMULATIVE ATTENDANCE',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
+      body: Column(
+        children: [
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+          //   child: SizedBox(
+          //     height: 40,
+          //     child: TextField(
+          //       // controller: _searchIndividual,
+          //       // onChanged: (value) => readProvider.getOrderHistoryList(
+          //       //   1,
+          //       //   _searchIndividual.text,
+          //       // ),
+          //       keyboardType: TextInputType.text,
+          //       style: TextStyles.fontStyle14,
+          //       decoration: InputDecoration(
+          //         hintText: 'Search...',
+          //         hintStyle: TextStyles.smallLightAshColorFontStyle,
+          //         filled: true,
+          //         fillColor: AppColors.whiteColor,
+          //         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          //         enabledBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(7),
+          //           borderSide: const BorderSide(color: AppColors.grey2),
+          //         ),
+          //         focusedBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(7),
+          //           borderSide: const BorderSide(color: AppColors.grey2),
+          //         ),
+          //         prefixIcon: const Icon(
+          //           Icons.search,
+          //           color: AppColors.grey2,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          if (provider is CummulativeAttendanceStateLoading)
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(
+                child:
+                    CircularProgressIndicators.primaryColorProgressIndication,
+              ),
+            )
+          else if (provider.cummulativeAttendanceData.isEmpty &&
+              provider is! CummulativeAttendanceStateLoading)
+            Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height / 5),
+                const Center(
+                  child: Text(
+                    'No List Added Yet!',
+                    style: TextStyles.fontStyle1,
+                  ),
+                ),
+              ],
+            ),
+          if (provider.cummulativeAttendanceData.isNotEmpty)
+            const SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: ListView.builder(
+              itemCount: provider.cummulativeAttendanceData.length,
+              controller: _listController,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return cardDesign(index);
+              },
+            ),
+          ),
+        ],
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 

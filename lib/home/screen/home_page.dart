@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,42 +8,17 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
-import 'package:sample/home/drawer_pages/terms_and_conditions/screens/terms_and_conditions.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/screens/exam_details.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
-import 'package:sample/home/main_pages/academics/timetable_pages/screens/timetable.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
-import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/grievances/screens/grievance_entry.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
-import 'package:sample/home/main_pages/hostel/screens/registration.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
-import 'package:sample/home/main_pages/library/screens/view.dart';
 import 'package:sample/home/main_pages/lms/screens/lms.dart';
-import 'package:sample/home/main_pages/lms/screens/notes.dart';
-import 'package:sample/home/main_pages/lms/screens/notes_details.dart';
-import 'package:sample/home/main_pages/lms/screens/online_assessment.dart';
-import 'package:sample/home/main_pages/lms/screens/questions.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/notification/screens/notification.dart';
-import 'package:sample/home/main_pages/theme.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
-import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/login/screen/login_page.dart';
 import 'package:sample/network/riverpod/network_state.dart';
@@ -115,11 +88,6 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(mainProvider);
-    final providerProfile = ref.watch(profileProvider);
-    final base64Image =
-        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
-    final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -145,94 +113,12 @@ class _HomePageState extends ConsumerState<HomePage>
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
           automaticallyImplyLeading: false,
-          leadingWidth: 40,
-          leading: provider.navString == 'Home'
-              ? const SizedBox()
-              : IconButton(
-                  onPressed: () {
-                    if (ref.watch(mainProvider).navString == 'Timetable' ||
-                        ref.watch(mainProvider).navString == 'Subjects' ||
-                        ref.watch(mainProvider).navString == 'Internal Marks' ||
-                        ref.watch(mainProvider).navString == 'Attendance' ||
-                        ref.watch(mainProvider).navString ==
-                            'Hour Attendance' ||
-                        ref.watch(mainProvider).navString ==
-                            'Cumulative Attendance' ||
-                        ref.watch(mainProvider).navString == 'Exam Details') {
-                      ref.read(mainProvider.notifier).setNavString('Academics');
-                    } else if (ref.watch(mainProvider).navString ==
-                            'Online Assessment' ||
-                        ref.watch(mainProvider).navString == 'Notes') {
-                      ref.read(mainProvider.notifier).setNavString('LMS');
-                    } else if (ref.watch(mainProvider).navString ==
-                        'C Programming Language') {
-                      ref
-                          .read(mainProvider.notifier)
-                          .setNavString('Online Assessment');
-                    } else if (ref.watch(mainProvider).navString ==
-                        'C Programming Language1') {
-                      ref.read(mainProvider.notifier).setNavString('Notes');
-                    } else if (ref.watch(mainProvider).navString ==
-                            'Leave Application' ||
-                        ref.watch(mainProvider).navString == 'Registration') {
-                      ref.read(mainProvider.notifier).setNavString('Hostel');
-                    } else if (ref.watch(mainProvider).navString ==
-                        'Grievance Entry') {
-                      ref
-                          .read(mainProvider.notifier)
-                          .setNavString('Grievances');
-                    } else if (ref.watch(mainProvider).navString ==
-                        'Register') {
-                      ref.read(mainProvider.notifier).setNavString('Transport');
-                    } else if (ref.watch(mainProvider).navString == 'View') {
-                      ref.read(mainProvider.notifier).setNavString('Library');
-                    } else if (ref.watch(mainProvider).navString == 'Fees') {
-                      ref.read(mainProvider.notifier).setNavString('Home');
-                    } else {
-                      ref.read(mainProvider.notifier).setNavString('Home');
-
-                      Navigator.of(context).push(
-                        MaterialPageRoute<HomePage>(
-                          builder: (context) => const HomePage(),
-                        ),
-                      );
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    color: AppColors.whiteColor,
-                  ),
-                ),
           backgroundColor: AppColors.primaryColor,
-          title: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (provider.navString == 'Home') const SizedBox(height: 20),
-                if (provider.navString == 'Home')
-                  Text(
-                    TokensManagement.studentName == ''
-                        ? '-'
-                        : TokensManagement.studentName,
-                    style: TextStyles.fontStyle4,
-                  ),
-                if (provider.navString == 'Home') const SizedBox(height: 5),
-                if (provider.navString == 'Home')
-                  const Text(
-                    "to SRM Student's Portal",
-                    style: TextStyles.fontStyle5,
-                  ),
-                if (provider.navString == 'Home') const SizedBox(height: 30),
-                if (provider.navString != 'Home')
-                  Text(
-                    provider.navString,
-                    style: provider.navString == 'Questions'
-                        ? TextStyles.fontStyle1
-                        : TextStyles.fontStyle4,
-                    overflow: TextOverflow.clip,
-                  ),
-              ],
-            ),
+          centerTitle: true,
+          title: const Text(
+            'HOME',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
           ),
           actions: [
             Row(
@@ -253,213 +139,18 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
       ),
       body: SingleChildScrollView(child: _mainBody()),
-      endDrawer: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.64,
-        child: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              SizedBox(
-                height: 220,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: AppColors.primaryColor,
-                          // height: 100,
-                          // width: 100,
-                          radius: 35,
-                          child: Image.memory(
-                            imageBytes,
-                            // fit: BoxFit.fill,
-                          ),
-                        ),
-                        Text(
-                          TokensManagement.studentName == ''
-                              ? '-'
-                              : TokensManagement.studentName,
-                          style: TextStyles.fontStyle3,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              ListTile(
-                title: const Row(
-                  children: [
-                    Text(
-                      'Home',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  ref.read(mainProvider.notifier).setNavString('Home');
-                  Navigator.pop(context);
-                },
-              ), //
-              ListTile(
-                title: const Row(
-                  children: [
-                    Text(
-                      'Profile',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  try {
-                    ref.read(profileProvider.notifier).getProfileDetails(
-                          ref.read(
-                            encryptionProvider.notifier,
-                          ),
-                        );
-                    ref.read(mainProvider.notifier).setNavString('Profile');
-                  } catch (e) {
-                    TokensManagement.clearSharedPreference();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      RouteDesign(route: const LoginPage()),
-                      (route) => false,
-                    );
-                  }
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: const Row(
-                  children: [
-                    Text(
-                      'Theme',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  ref.read(mainProvider.notifier).setNavString('Theme');
-                  Navigator.pop(context);
-                },
-              ),
-
-              ListTile(
-                title: const Row(
-                  children: [
-                    Text(
-                      'Change Password',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  ref
-                      .read(mainProvider.notifier)
-                      .setNavString('Change Password');
-                  Navigator.pop(context);
-                },
-              ),
-
-              // ListTile(
-              //   title: const Row(
-              //     children: [
-              //       Text(
-              //         'Terms & Conditions',
-              //         style: TextStyles.fontStyle2,
-              //       ),
-              //     ],
-              //   ),
-              //   onTap: () {
-              //     ref
-              //         .read(mainProvider.notifier)
-              //         .setNavString('Terms & Conditions');
-              //     Navigator.pop(context);
-              //   },
-              // ),
-
-              ListTile(
-                title: const Row(
-                  children: [
-                    Text(
-                      'Logout',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  ref.read(mainProvider.notifier).setNavString('Logout');
-                  TokensManagement.clearSharedPreference();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    RouteDesign(route: const LoginPage()),
-                    (route) => false,
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 
   Widget _mainBody() {
-    final provider = ref.watch(mainProvider);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(
           height: 10,
         ),
-        if (provider.navString == 'Home') _mainCards(),
-        if (provider.navString == 'Profile') const ProfilePage(),
-        if (provider.navString == 'Terms & Conditions')
-          const TermsAndConditions(),
-        if (provider.navString == 'Change Password') const ChangePassword(),
-        if (provider.navString == 'Theme') const ThemePage(),
-        //HomePage Navigations
-        //Academics
-        if (provider.navString == 'Academics') const AcademicsPage(),
-        if (provider.navString == 'Timetable') const TimeTablePage(),
-        if (provider.navString == 'Subjects') const SubjectPage(),
-        if (provider.navString == 'Internal Marks') const InternalMarksPage(),
-        if (provider.navString == 'Attendance') const AttendancePage(),
-        if (provider.navString == 'Hour Attendance') const HourAttendancePage(),
-        if (provider.navString == 'Cumulative Attendance')
-          const CumulativeAttendancePage(),
-        if (provider.navString == 'Exam Details') const ExamDetailsPage(),
-        //LMS
-        if (provider.navString == 'LMS') const LMSPage(),
-        if (provider.navString == 'Online Assessment')
-          const OnlineAssessmentPage(),
-        if (provider.navString == 'C Programming Language')
-          const QuestionPage(),
-        if (provider.navString == 'C Programming Language1')
-          const NotesDetailsPage(),
-        if (provider.navString == 'Notes') const NotesPage(),
-        //Fees
-        if (provider.navString == 'Fees') const FeesPage(),
-        //Hostel
-        if (provider.navString == 'Hostel') const HostelPage(),
-        if (provider.navString == 'Leave Application')
-          const LeaveApplicationPage(),
-        if (provider.navString == 'Registration') const RegistrationPage(),
-        //Grievances
-        if (provider.navString == 'Grievances') const GrievanceReportPage(),
-        if (provider.navString == 'Grievance Entry') const GrievanceEntryPage(),
-        //Transport
-        if (provider.navString == 'Transport') const TransportTransactionPage(),
-        if (provider.navString == 'Register') const RegisterPage(),
-        //Library
-        if (provider.navString == 'Library') const LibraryPage(),
-        if (provider.navString == 'View') const ViewLibraryPage(),
-        //Notification
-        if (provider.navString == 'Notification') const NotificationPage(),
+        _mainCards(),
       ],
     );
   }
@@ -485,7 +176,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(mainProvider.notifier).setNavString('Academics');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const AcademicsPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -519,14 +215,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref
-                        .read(mainProvider.notifier)
-                        .setNavString('Notification');
-                    ref
-                        .read(notificationProvider.notifier)
-                        .getNotificationDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const NotificationPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -547,9 +241,6 @@ class _HomePageState extends ConsumerState<HomePage>
                             ? TextStyles.smallBlackColorFontStyle
                             : TextStyles.smallerBlackColorFontStyle,
                       ),
-                      // SizedBox(
-                      //   height: height * 0.027,
-                      // ),
                     ],
                   ),
                 ),
@@ -568,10 +259,15 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(mainProvider.notifier).setNavString('Fees');
                     ref
                         .read(feesProvider.notifier)
                         .setFeesNavString('Online Trans');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const FeesPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -605,10 +301,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(mainProvider.notifier).setNavString('Hostel');
-                    ref.read(hostelProvider.notifier).getHostelDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const HostelPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -647,7 +345,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    ref.read(mainProvider.notifier).setNavString('LMS');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const LMSPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -684,26 +387,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    try {
-                      ref
-                          .read(libraryProvider.notifier)
-                          .getLibraryMemberDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      ref
-                          .read(libraryProvider.notifier)
-                          .saveLibrartBookSearchDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                    } catch (e) {
-                      TokensManagement.clearSharedPreference();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        RouteDesign(route: const LoginPage()),
-                        (route) => false,
-                      );
-                    }
-                    ref.read(mainProvider.notifier).setNavString('Library');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const LibraryPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -742,31 +431,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    try {
-                      ref
-                          .read(grievanceProvider.notifier)
-                          .getGrievanceCategoryDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      ref
-                          .read(grievanceProvider.notifier)
-                          .getGrievanceSubTypeDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      ref
-                          .read(grievanceProvider.notifier)
-                          .getGrievanceTypeDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                    } catch (e) {
-                      TokensManagement.clearSharedPreference();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        RouteDesign(route: const LoginPage()),
-                        (route) => false,
-                      );
-                    }
-                    ref.read(mainProvider.notifier).setNavString('Grievances');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const GrievanceReportPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -800,32 +470,12 @@ class _HomePageState extends ConsumerState<HomePage>
                 child: ElevatedButton(
                   style: BorderBoxButtonDecorations.homePageButtonStyle,
                   onPressed: () {
-                    try {
-                      ref
-                          .read(transportProvider.notifier)
-                          .getTransportStatusDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      ref
-                          .read(transportProvider.notifier)
-                          .saveTransportstatusDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      ref.read(transportProvider.notifier).getRouteIdDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                       ref.read(transportProvider.notifier).getBorderIdDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );    
-                    } catch (e) {
-                      TokensManagement.clearSharedPreference();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        RouteDesign(route: const LoginPage()),
-                        (route) => false,
-                      );
-                    }
-                    ref.read(mainProvider.notifier).setNavString('Transport');
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const TransportTransactionPage(),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

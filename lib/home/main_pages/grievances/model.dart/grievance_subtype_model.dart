@@ -7,9 +7,9 @@ class GrievanceSubTypeModel {
     if (json['Data'] != null) {
       data = <GrievanceSubTypeData>[];
       // ignore: avoid_dynamic_calls
-      json['Data'].forEach((v) {
+     for (final v in json['Data'] as List<dynamic>) {
         data!.add(GrievanceSubTypeData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
   String? status;

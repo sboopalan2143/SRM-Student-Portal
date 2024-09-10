@@ -4,6 +4,8 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
 
 class GrievanceReportPage extends ConsumerStatefulWidget {
   const GrievanceReportPage({super.key});
@@ -15,14 +17,61 @@ class GrievanceReportPage extends ConsumerStatefulWidget {
 
 class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(grievanceProvider);
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          leadingWidth: 40,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                RouteDesign(
+                  route: const HomePage(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+          title: const Text(
+            'GRIEVANCES',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 35,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
@@ -47,7 +96,8 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
             ],
           ),
         ),
-      ],
+      ),
+      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -64,7 +114,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
+              // spreadRadius: 2,
               blurRadius: 7,
               offset: const Offset(0, 3),
             ),

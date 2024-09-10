@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/studetwise_grievance_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_provider.dart';
 
 final grievanceProvider =
@@ -24,6 +25,7 @@ class GrievanceState {
     required this.studentname,
     required this.subject,
     required this.description,
+    required this.studentwisegrievanceData,
   });
 
   final String successMessage;
@@ -39,6 +41,7 @@ class GrievanceState {
   final TextEditingController studentname;
   final TextEditingController subject;
   final TextEditingController description;
+  final List<StudentWiseData> studentwisegrievanceData;
 
   GrievanceState copyWith({
     String? successMessage,
@@ -53,6 +56,7 @@ class GrievanceState {
     TextEditingController? studentname,
     TextEditingController? subject,
     TextEditingController? description,
+    List<StudentWiseData>? studentwisegrievanceData,
   }) =>
       GrievanceState(
         successMessage: successMessage ?? this.successMessage,
@@ -71,6 +75,8 @@ class GrievanceState {
         studentname: studentname ?? this.studentname,
         subject: subject ?? this.subject,
         description: description ?? this.description,
+        studentwisegrievanceData:
+            studentwisegrievanceData ?? this.studentwisegrievanceData,
       );
 }
 
@@ -89,6 +95,7 @@ class GrievanceInitial extends GrievanceState {
           studentname: TextEditingController(),
           subject: TextEditingController(),
           description: TextEditingController(),
+          studentwisegrievanceData: <StudentWiseData>[],
         );
 }
 
@@ -106,6 +113,7 @@ class GrievanceStateLoading extends GrievanceState {
     required super.studentname,
     required super.subject,
     required super.description,
+    required super.studentwisegrievanceData,
   });
 }
 
@@ -123,6 +131,7 @@ class GrievanceStateError extends GrievanceState {
     required super.studentname,
     required super.subject,
     required super.description,
+    required super.studentwisegrievanceData,
   });
 }
 
@@ -140,6 +149,7 @@ class GrievanceStateSuccessful extends GrievanceState {
     required super.studentname,
     required super.subject,
     required super.description,
+    required super.studentwisegrievanceData,
   });
 }
 
@@ -157,5 +167,6 @@ class NoNetworkAvailableGrievance extends GrievanceState {
     required super.studentname,
     required super.subject,
     required super.description,
+    required super.studentwisegrievanceData,
   });
 }

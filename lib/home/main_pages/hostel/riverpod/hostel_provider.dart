@@ -13,16 +13,16 @@ class HostelProvider extends StateNotifier<HostelState> {
 
   void disposeState() => state = HostelInitial();
 
-  void _setLoading() => state =  HostelStateLoading(
-    successMessage: '',
-    errorMessage: '',
-    hospitalData: <dynamic>[],
-    academicYearId: TextEditingController(),
-    roomTypeId: TextEditingController(),
-    hostelId: TextEditingController(),
-    controllerId: TextEditingController(),
-    officeId: TextEditingController(),
-  );
+  void _setLoading() => state = HostelStateLoading(
+        successMessage: '',
+        errorMessage: '',
+        hospitalData: <dynamic>[],
+        academicYearId: TextEditingController(),
+        roomTypeId: TextEditingController(),
+        hostelId: TextEditingController(),
+        controllerId: TextEditingController(),
+        officeId: TextEditingController(),
+      );
 
   Future<void> getHostelDetails(EncryptionProvider encrypt) async {
     _setLoading();
@@ -30,9 +30,9 @@ class HostelProvider extends StateNotifier<HostelState> {
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
     );
     final response =
-    await HttpService.sendSoapRequest('getHostelDetails', data);
+        await HttpService.sendSoapRequest('getHostelDetails', data);
     if (response.$1 == 0) {
-      state =  NoNetworkAvailableHostel(
+      state = NoNetworkAvailableHostel(
         successMessage: '',
         errorMessage: '',
         hospitalData: <dynamic>[],
@@ -45,7 +45,7 @@ class HostelProvider extends StateNotifier<HostelState> {
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final hostelRes =
-      details['getHostelDetailsResponse'] as Map<String, dynamic>;
+          details['getHostelDetailsResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -53,7 +53,7 @@ class HostelProvider extends StateNotifier<HostelState> {
 //change model
       try {
         final hostelDataResponse =
-        LibraryMemberResponseModel.fromJson(decryptedData.mapData!);
+            LibraryMemberResponseModel.fromJson(decryptedData.mapData!);
         // hostelDetails = hostelDataResponse.data![0];
         // state = state.copyWith(libraryMemberData: libraryMemberDetails);
         if (hostelDataResponse.status == 'Success') {
@@ -66,7 +66,6 @@ class HostelProvider extends StateNotifier<HostelState> {
             hostelId: TextEditingController(),
             controllerId: TextEditingController(),
             officeId: TextEditingController(),
-
           );
         } else if (hostelDataResponse.status != 'Success') {
           state = HostelStateError(
@@ -78,7 +77,6 @@ class HostelProvider extends StateNotifier<HostelState> {
             hostelId: TextEditingController(),
             controllerId: TextEditingController(),
             officeId: TextEditingController(),
-
           );
         }
       } catch (e) {
@@ -92,11 +90,10 @@ class HostelProvider extends StateNotifier<HostelState> {
           hostelId: TextEditingController(),
           controllerId: TextEditingController(),
           officeId: TextEditingController(),
-
         );
       }
     } else if (response.$1 != 200) {
-      state =  HostelStateError(
+      state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
         hospitalData: <dynamic>[],
@@ -105,13 +102,13 @@ class HostelProvider extends StateNotifier<HostelState> {
         hostelId: TextEditingController(),
         controllerId: TextEditingController(),
         officeId: TextEditingController(),
-
       );
     }
   }
 
   Future<void> hostelRegister(EncryptionProvider encrypt) async {
-    log('body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicYearId.text}</academicyearid><roomtypeid>${state.roomTypeId.text}</roomtypeid><hostelid>${state.hostelId.text}</hostelid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
+    log(
+      'body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicYearId.text}</academicyearid><roomtypeid>${state.roomTypeId.text}</roomtypeid><hostelid>${state.hostelId.text}</hostelid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicYearId.text}</academicyearid><roomtypeid>${state.roomTypeId.text}</roomtypeid><hostelid>${state.hostelId.text}</hostelid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
@@ -132,14 +129,13 @@ class HostelProvider extends StateNotifier<HostelState> {
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final hostelRegisterRes =
-      details['getRegisterResponse'] as Map<String, dynamic>;
+          details['getRegisterResponse'] as Map<String, dynamic>;
       final returnData = hostelRegisterRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       log('data>>>>>$data');
       final decryptedData = encrypt.getDecryptedData('$data');
       log('status>>>>>>>>${decryptedData.mapData!['Status']}');
-      if(decryptedData.mapData!['Status']=='Success'){
-
+      if (decryptedData.mapData!['Status'] == 'Success') {
         state = HostelStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
           errorMessage: '',
@@ -150,7 +146,7 @@ class HostelProvider extends StateNotifier<HostelState> {
           controllerId: TextEditingController(),
           officeId: TextEditingController(),
         );
-      }else{
+      } else {
         state = HostelStateError(
           successMessage: '',
           errorMessage: '${decryptedData.mapData!['Status']}',
@@ -162,7 +158,136 @@ class HostelProvider extends StateNotifier<HostelState> {
           officeId: state.officeId,
         );
       }
+    } else if (response.$1 != 200) {
+      state = HostelStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        hospitalData: state.hospitalData,
+        academicYearId: state.academicYearId,
+        roomTypeId: state.roomTypeId,
+        hostelId: state.hostelId,
+        controllerId: state.controllerId,
+        officeId: state.officeId,
+      );
+    }
+  }
 
+  Future<void> gethostel(EncryptionProvider encrypt) async {
+    log(
+      'body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicYearId.text}</academicyearid><roomtypeid>${state.roomTypeId.text}</roomtypeid><hostelid>${state.hostelId.text}</hostelid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
+    );
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>',
+    );
+    final response = await HttpService.sendSoapRequest('getHostel', data);
+
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableHostel(
+        successMessage: '',
+        errorMessage: '',
+        hospitalData: <dynamic>[],
+        academicYearId: TextEditingController(),
+        roomTypeId: TextEditingController(),
+        hostelId: TextEditingController(),
+        controllerId: TextEditingController(),
+        officeId: TextEditingController(),
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final hostelRes = details['getHostelResponse'] as Map<String, dynamic>;
+      final returnData = hostelRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      log('data>>>>>$data');
+      final decryptedData = encrypt.getDecryptedData('$data');
+      log('status>>>>>>>>${decryptedData.mapData!['Status']}');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = HostelStateSuccessful(
+          successMessage: '${decryptedData.mapData!['Status']}',
+          errorMessage: '',
+          hospitalData: <dynamic>[],
+          academicYearId: TextEditingController(),
+          roomTypeId: TextEditingController(),
+          hostelId: TextEditingController(),
+          controllerId: TextEditingController(),
+          officeId: TextEditingController(),
+        );
+      } else {
+        state = HostelStateError(
+          successMessage: '',
+          errorMessage: '${decryptedData.mapData!['Status']}',
+          hospitalData: state.hospitalData,
+          academicYearId: state.academicYearId,
+          roomTypeId: state.roomTypeId,
+          hostelId: state.hostelId,
+          controllerId: state.controllerId,
+          officeId: state.officeId,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = HostelStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        hospitalData: state.hospitalData,
+        academicYearId: state.academicYearId,
+        roomTypeId: state.roomTypeId,
+        hostelId: state.hostelId,
+        controllerId: state.controllerId,
+        officeId: state.officeId,
+      );
+    }
+  }
+
+  Future<void> getRoomType(EncryptionProvider encrypt) async {
+    log(
+      'body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicYearId.text}</academicyearid><roomtypeid>${state.roomTypeId.text}</roomtypeid><hostelid>${state.hostelId.text}</hostelid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
+    );
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid><hostelid>${state.hostelId.text}</hostelid>',
+    );
+    final response = await HttpService.sendSoapRequest('getRoomType', data);
+
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableHostel(
+        successMessage: '',
+        errorMessage: '',
+        hospitalData: <dynamic>[],
+        academicYearId: TextEditingController(),
+        roomTypeId: TextEditingController(),
+        hostelId: TextEditingController(),
+        controllerId: TextEditingController(),
+        officeId: TextEditingController(),
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final hostelRes = details['getRoomTypeResponse'] as Map<String, dynamic>;
+      final returnData = hostelRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      log('data>>>>>$data');
+      final decryptedData = encrypt.getDecryptedData('$data');
+      log('status>>>>>>>>${decryptedData.mapData!['Status']}');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = HostelStateSuccessful(
+          successMessage: '${decryptedData.mapData!['Status']}',
+          errorMessage: '',
+          hospitalData: <dynamic>[],
+          academicYearId: TextEditingController(),
+          roomTypeId: TextEditingController(),
+          hostelId: TextEditingController(),
+          controllerId: TextEditingController(),
+          officeId: TextEditingController(),
+        );
+      } else {
+        state = HostelStateError(
+          successMessage: '',
+          errorMessage: '${decryptedData.mapData!['Status']}',
+          hospitalData: state.hospitalData,
+          academicYearId: state.academicYearId,
+          roomTypeId: state.roomTypeId,
+          hostelId: state.hostelId,
+          controllerId: state.controllerId,
+          officeId: state.officeId,
+        );
+      }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',

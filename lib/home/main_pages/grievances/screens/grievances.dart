@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
@@ -18,6 +20,16 @@ class GrievanceReportPage extends ConsumerStatefulWidget {
 class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(grievanceProvider.notifier).getStudentWisrGrievanceDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +97,31 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 ),
               ),
               const SizedBox(height: 10),
+              if (provider is CummulativeAttendanceStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.studentwisegrievanceData.isEmpty &&
+                  provider is! CummulativeAttendanceStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.studentwisegrievanceData.isNotEmpty)
+                const SizedBox(height: 5),
               ListView.builder(
-                itemCount: provider.grievanceCaregoryData.length,
+                itemCount: provider.studentwisegrievanceData.length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -130,7 +165,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Name',
+                      'Grievance id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -142,10 +177,10 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceCaregoryData[index].grievancekcategoryid}' ==
+                      '${provider.studentwisegrievanceData[index].grievanceid}' ==
                               ''
                           ? '-'
-                          : '''${provider.grievanceCaregoryData[index].grievancekcategoryid}''',
+                          : '''${provider.studentwisegrievanceData[index].grievanceid}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -157,7 +192,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Code',
+                      'Grievance category',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -169,10 +204,171 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceCaregoryData[index].grievancekcategory}' ==
+                      '${provider.studentwisegrievanceData[index].grievancecategory}' ==
                               ''
                           ? '-'
-                          : '''${provider.grievanceCaregoryData[index].grievancekcategory}''',
+                          : '''${provider.studentwisegrievanceData[index].grievancecategory}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance desc',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancedesc}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancedesc}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance time',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancetime}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancetime}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance type',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancetype}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancetype}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'subject',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].subject}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].subject}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].status}' == ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].status}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Active status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].activestatus}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].activestatus}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

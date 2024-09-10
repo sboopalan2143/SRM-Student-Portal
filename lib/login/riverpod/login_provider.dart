@@ -71,7 +71,7 @@ class LoginProvider extends StateNotifier<LoginState> {
     );
     log('gets here');
     final response = await HttpService.sendSoapRequest('getStudentLogin', data);
-    log('response>>>>>$response');
+    log('response >>>>> $response');
     if (response.$1 == 0) {
       state = NoNetworkAvailable(
         successMessage: '',
@@ -93,6 +93,7 @@ class LoginProvider extends StateNotifier<LoginState> {
             LoginResponseModel.fromJson(decryptedData.mapData!);
         studentData = studentLoginDetails.data![0];
         state = state.copyWith(studentData: studentData);
+        log('SudentData >>>>> ${studentData.courseid}');
 
         if (studentLoginDetails.status == 'Success') {
           await TokensManagement.setLoginDetails(

@@ -35,7 +35,7 @@ class ButtonDesign {
           );
         }
         if (text == 'Registration') {
-         Navigator.push(
+          Navigator.push(
             context,
             RouteDesign(
               route: const RegistrationPage(),
@@ -46,6 +46,12 @@ class ButtonDesign {
           ref
               .read(hostelProvider.notifier)
               .hostelRegister(ref.read(encryptionProvider.notifier));
+          ref
+              .read(hostelProvider.notifier)
+              .gethostel(ref.read(encryptionProvider.notifier));
+          ref
+              .read(hostelProvider.notifier)
+              .getRoomType(ref.read(encryptionProvider.notifier));
         }
       },
       child: FittedBox(

@@ -8,6 +8,7 @@ import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/studetwise_grievance_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 
 class GrievanceProvider extends StateNotifier<GrievanceState> {
@@ -30,6 +31,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
 
   Future<void> getGrievanceCategoryDetails(EncryptionProvider encrypt) async {
@@ -56,6 +58,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -90,6 +93,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         } else if (grievanceCaregoryDataResponse.status != 'Success') {
           state = GrievanceStateError(
@@ -108,6 +112,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
       } catch (e) {
@@ -127,6 +132,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
         );
       }
     } else if (response.$1 != 200) {
@@ -145,6 +151,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     }
   }
@@ -178,6 +185,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -211,6 +219,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         } else if (grievanceSubTypeCResponse.status != 'Success') {
           state = GrievanceStateError(
@@ -229,6 +238,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
       } catch (e) {
@@ -248,6 +258,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
         );
       }
     } else if (response.$1 != 200) {
@@ -266,6 +277,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     }
   }
@@ -299,6 +311,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -332,6 +345,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         } else if (grievanceTypeCResponse.status != 'Success') {
           state = GrievanceStateError(
@@ -350,6 +364,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
       } catch (e) {
@@ -369,6 +384,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
         );
       }
     } else if (response.$1 != 200) {
@@ -387,6 +403,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     }
   }
@@ -419,6 +436,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -445,6 +463,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
         );
       } else {
         state = GrievanceStateError(
@@ -462,6 +481,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
         );
       }
     } else if (response.$1 != 200) {
@@ -480,6 +500,130 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
+      );
+    }
+  }
+
+  Future<void> getStudentWisrGrievanceDetails(
+      EncryptionProvider encrypt) async {
+    _setLoading();
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getStudentWiseGrievances', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableGrievance(
+        successMessage: '',
+        errorMessage: '',
+        grievanceSubType: state.grievanceSubType,
+        grievanceCaregoryData: state.grievanceCaregoryData,
+        grievanceType: state.grievanceType,
+        selectedgrievanceCaregoryDataList:
+            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList:
+            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        description: TextEditingController(),
+        studentId: TextEditingController(),
+        studentname: TextEditingController(),
+        subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final studetwisegrievanceTypeRes =
+          details['getStudentWiseGrievancesResponse'] as Map<String, dynamic>;
+      final returnData =
+          studetwisegrievanceTypeRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var studentwisegrievanceData = state.studentwisegrievanceData;
+      log('decrypted studentwise>>>>>>>>$decryptedData');
+
+      try {
+        final studetwisegrievanceResponse =
+            GetStudentWiseGrievancesMmodel.fromJson(decryptedData.mapData!);
+        studentwisegrievanceData = studetwisegrievanceResponse.data!;
+        state =
+            state.copyWith(studentwisegrievanceData: studentwisegrievanceData);
+        if (studetwisegrievanceResponse.status == 'Success') {
+          state = GrievanceStateSuccessful(
+            successMessage: studetwisegrievanceResponse.status!,
+            errorMessage: '',
+            grievanceCaregoryData: state.grievanceCaregoryData,
+            grievanceSubType: state.grievanceSubType,
+            grievanceType: state.grievanceType,
+            selectedgrievanceCaregoryDataList:
+                state.selectedgrievanceCaregoryDataList,
+            selectedgrievanceSubTypeDataList:
+                state.selectedgrievanceSubTypeDataList,
+            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+            description: TextEditingController(),
+            studentId: TextEditingController(),
+            studentname: TextEditingController(),
+            subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
+          );
+        } else if (studetwisegrievanceResponse.status != 'Success') {
+          state = GrievanceStateError(
+            successMessage: '',
+            errorMessage:
+                '''${studetwisegrievanceResponse.status!}, ${studetwisegrievanceResponse.message!}''',
+            grievanceCaregoryData: state.grievanceCaregoryData,
+            grievanceSubType: state.grievanceSubType,
+            grievanceType: state.grievanceType,
+            selectedgrievanceCaregoryDataList:
+                state.selectedgrievanceCaregoryDataList,
+            selectedgrievanceSubTypeDataList:
+                state.selectedgrievanceSubTypeDataList,
+            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+            description: TextEditingController(),
+            studentId: TextEditingController(),
+            studentname: TextEditingController(),
+            subject: TextEditingController(),
+            studentwisegrievanceData: state.studentwisegrievanceData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = GrievanceStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          grievanceCaregoryData: state.grievanceCaregoryData,
+          grievanceSubType: state.grievanceSubType,
+          grievanceType: state.grievanceType,
+          selectedgrievanceCaregoryDataList:
+              state.selectedgrievanceCaregoryDataList,
+          selectedgrievanceSubTypeDataList:
+              state.selectedgrievanceSubTypeDataList,
+          selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+          description: TextEditingController(),
+          studentId: TextEditingController(),
+          studentname: TextEditingController(),
+          subject: TextEditingController(),
+          studentwisegrievanceData: state.studentwisegrievanceData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = GrievanceStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        grievanceCaregoryData: state.grievanceCaregoryData,
+        grievanceSubType: state.grievanceSubType,
+        grievanceType: state.grievanceType,
+        selectedgrievanceCaregoryDataList:
+            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList:
+            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        description: TextEditingController(),
+        studentId: TextEditingController(),
+        studentname: TextEditingController(),
+        subject: TextEditingController(),
+        studentwisegrievanceData: state.studentwisegrievanceData,
       );
     }
   }

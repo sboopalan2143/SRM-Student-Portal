@@ -11,6 +11,7 @@ import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart'
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class GrievanceEntryPage extends ConsumerStatefulWidget {
@@ -48,8 +49,14 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
     ref.listen(grievanceProvider, (previous, next) {
       if (next is GrievanceStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is GrievanceStateError) {
+      } else if (next is GrievanceStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
+        Navigator.push(
+          context,
+          RouteDesign(
+            route: const HomePage(),
+          ),
+        );
       }
     });
 
@@ -104,37 +111,6 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
         child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Student ID',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.studentId,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Student ID',
-                      hintStyle: TextStyles.smallLightAshColorFontStyle,
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

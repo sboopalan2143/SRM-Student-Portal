@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
@@ -19,19 +20,17 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   void _setLoading() => state = GrievanceStateLoading(
         successMessage: '',
         errorMessage: '',
-        grievanceCaregoryData: state.grievanceCaregoryData,
-        grievanceSubType: state.grievanceSubType,
-        grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        grievanceCaregoryData: <GrievanceCategoryData>[],
+        grievanceSubType: <GrievanceSubTypeData>[],
+        grievanceType: <GrievanceData>[],
+        selectedgrievanceCaregoryDataList: GrievanceCategoryData.empty,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeData.empty,
+        selectedgrievanceTypeDataList: GrievanceData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
-        studentwisegrievanceData: state.studentwisegrievanceData,
+        studentwisegrievanceData: <StudentWiseData>[],
       );
 
   Future<void> getGrievanceCategoryDetails(EncryptionProvider encrypt) async {
@@ -78,23 +77,6 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         state = state.copyWith(grievanceCaregoryData: grievanceCaregoryData);
 
         if (grievanceCaregoryDataResponse.status == 'Success') {
-          state = GrievanceStateSuccessful(
-            successMessage: grievanceCaregoryDataResponse.status!,
-            errorMessage: '',
-            grievanceCaregoryData: state.grievanceCaregoryData,
-            grievanceSubType: state.grievanceSubType,
-            grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-            description: TextEditingController(),
-            studentId: TextEditingController(),
-            studentname: TextEditingController(),
-            subject: TextEditingController(),
-            studentwisegrievanceData: state.studentwisegrievanceData,
-          );
         } else if (grievanceCaregoryDataResponse.status != 'Success') {
           state = GrievanceStateError(
             successMessage: '',
@@ -204,23 +186,6 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType = grievanceSubTypeCResponse.data!;
         state = state.copyWith(grievanceSubType: grievanceSubType);
         if (grievanceSubTypeCResponse.status == 'Success') {
-          state = GrievanceStateSuccessful(
-            successMessage: grievanceSubTypeCResponse.status!,
-            errorMessage: '',
-            grievanceCaregoryData: state.grievanceCaregoryData,
-            grievanceSubType: state.grievanceSubType,
-            grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-            description: TextEditingController(),
-            studentId: TextEditingController(),
-            studentname: TextEditingController(),
-            subject: TextEditingController(),
-            studentwisegrievanceData: state.studentwisegrievanceData,
-          );
         } else if (grievanceSubTypeCResponse.status != 'Success') {
           state = GrievanceStateError(
             successMessage: '',
@@ -330,23 +295,6 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceType = grievanceTypeCResponse.data!;
         state = state.copyWith(grievanceType: grievanceType);
         if (grievanceTypeCResponse.status == 'Success') {
-          state = GrievanceStateSuccessful(
-            successMessage: grievanceTypeCResponse.status!,
-            errorMessage: '',
-            grievanceCaregoryData: state.grievanceCaregoryData,
-            grievanceSubType: state.grievanceSubType,
-            grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-            description: TextEditingController(),
-            studentId: TextEditingController(),
-            studentname: TextEditingController(),
-            subject: TextEditingController(),
-            studentwisegrievanceData: state.studentwisegrievanceData,
-          );
         } else if (grievanceTypeCResponse.status != 'Success') {
           state = GrievanceStateError(
             successMessage: '',
@@ -415,6 +363,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   }
 
   Future<void> saveGrievanceDetails(EncryptionProvider encrypt) async {
+    log('{<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${state.studentname.text}</username><subjectdesc>${state.description.text}</subjectdesc>}');
+
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${state.studentname.text}</username><subjectdesc>${state.description.text}</subjectdesc>',
     );
@@ -432,10 +382,10 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-        description: TextEditingController(),
-        studentId: TextEditingController(),
-        studentname: TextEditingController(),
-        subject: TextEditingController(),
+        description: state.description,
+        studentId: state.studentId,
+        studentname: state.studentname,
+        subject: state.subject,
         studentwisegrievanceData: state.studentwisegrievanceData,
       );
     } else if (response.$1 == 200) {
@@ -550,23 +500,6 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         state =
             state.copyWith(studentwisegrievanceData: studentwisegrievanceData);
         if (studetwisegrievanceResponse.status == 'Success') {
-          state = GrievanceStateSuccessful(
-            successMessage: studetwisegrievanceResponse.status!,
-            errorMessage: '',
-            grievanceCaregoryData: state.grievanceCaregoryData,
-            grievanceSubType: state.grievanceSubType,
-            grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-            description: TextEditingController(),
-            studentId: TextEditingController(),
-            studentname: TextEditingController(),
-            subject: TextEditingController(),
-            studentwisegrievanceData: state.studentwisegrievanceData,
-          );
         } else if (studetwisegrievanceResponse.status != 'Success') {
           state = GrievanceStateError(
             successMessage: '',

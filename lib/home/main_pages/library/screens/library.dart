@@ -37,10 +37,9 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
     ref.listen(libraryProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is LibraryTrancsactionStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
       }
-      // else if (next is LibraryTrancsactionStateSuccessful) {
-      //   _showToast(context, next.successMessage, AppColors.greenColor);
-      // }
     });
     return Scaffold(
       key: scaffoldKey,
@@ -430,130 +429,6 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
         ),
       ),
     );
-
-    // Padding(
-    //   padding: const EdgeInsets.only(bottom: 8),
-    //   child: Container(
-    //     decoration: BoxDecoration(
-    //       color: Colors.white,
-    //       borderRadius: const BorderRadius.all(Radius.circular(20)),
-    //       boxShadow: [
-    //         BoxShadow(
-    //           color: Colors.grey.withOpacity(0.2),
-    //           spreadRadius: 5,
-    //           blurRadius: 7,
-    //           offset: const Offset(0, 3), // changes position of shadow
-    //         ),
-    //       ],
-    //     ),
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(20),
-    //       child: Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           SizedBox(
-    //             width: width / 2 - 100,
-    //             child: const Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   'Member Name',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Member Code',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Member Type',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Status',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           const Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //             ],
-    //           ),
-    //           const SizedBox(width: 5),
-    //           SizedBox(
-    //             width: width / 2 - 60,
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   '${provider.libraryTransactionData[index].membername}'
-    // ==
-    //                           ''
-    //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].
-    // membername}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.libraryTransactionData[index].membercode}'
-    // ==
-    //                           ''
-    //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].
-    // membercode}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.libraryTransactionData[index].membertype}'
-    // ==
-    //                           ''
-    //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index].
-    // membertype}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.libraryTransactionData[index].status}'
-    //== ''
-    //                       ? '-'
-    //                       : '${provider.libraryTransactionData[index]
-    // .status}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           TextButton(
-    //             onPressed: () {
-    //               ref.read(mainProvider.notifier).setNavString('View');
-    //             },
-    //             child: Text(
-    //               'View',
-    //               style: TextStyles.fontStyle14,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   void _showToast(BuildContext context, String message, Color color) {

@@ -18,17 +18,17 @@ class TrasportProvider extends StateNotifier<TransportState> {
   void _setLoading() => state = TransportStateLoading(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        grievanceTransportStatusData: <TransportStatusData>[],
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
         busrouteId: TextEditingController(),
         controllerId: TextEditingController(),
         officeId: TextEditingController(),
-        routeDetailsDataList: state.routeDetailsDataList,
-        selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-        borderpointDataList: state.borderpointDataList,
-        selectedborderpointDataList: state.selectedborderpointDataList,
+        routeDetailsDataList: <RouteDetailsData>[],
+        selectedRouteDetailsDataList: RouteDetailsData.empty,
+        borderpointDataList: <BorderPointData>[],
+        selectedborderpointDataList: BorderPointData.empty,
       );
 
   Future<void> getTransportStatusDetails(EncryptionProvider encrypt) async {
@@ -379,6 +379,9 @@ class TrasportProvider extends StateNotifier<TransportState> {
   }
 
   Future<void> saveTransportstatusDetails(EncryptionProvider encrypt) async {
+    log(
+      '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicyearId.text}</academicyearid><boardingpointid>${state.boardingpointId.text}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList}</busrouteid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid>',
+    );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicyearId.text}</academicyearid><boardingpointid>${state.boardingpointId.text}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList}</busrouteid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid>',
     );

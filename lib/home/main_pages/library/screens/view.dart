@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/library/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class ViewLibraryPage extends ConsumerStatefulWidget {
@@ -16,11 +18,25 @@ class ViewLibraryPage extends ConsumerStatefulWidget {
 }
 
 class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
+  final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(libraryProvider);
+    ref.listen(libraryProvider, (previous, next) {
+      if (next is LibraryTrancsactionStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is LibraryTrancsactionStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
+        Navigator.push(
+          context,
+          RouteDesign(
+            route: const HomePage(),
+          ),
+        );
+      }
+    });
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
@@ -73,68 +89,6 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             children: [
-              const SizedBox(height: 40),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Student ID',
-                    style: TextStyles.fontStyle2,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: TextField(
-                      controller: provider.studentId,
-                      style: TextStyles.fontStyle2,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Student ID',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Office id',
-                    style: TextStyles.fontStyle2,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: TextField(
-                      controller: provider.officeid,
-                      style: TextStyles.fontStyle2,
-                      decoration: InputDecoration(
-                        hintText: 'Office id',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(height: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,30 +123,6 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
               const SizedBox(height: 40),
               Row(
                 children: [
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding:const EdgeInsets.symmetric(
-                  //         horizontal: 30,
-                  //         vertical: 15,), // Adjusts the button size
-                  //     backgroundColor:
-                  //         AppColors.primaryColor, // Button background color
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius:
-                  //           BorderRadius.circular(30), // Rounded corners
-                  //     ),
-                  //     elevation: 5, // Adds shadow for elevation
-                  //   ),
-                  //   child:const Text(
-                  //     'Submit',
-                  //     style: TextStyle(
-                  //       fontSize: 18, // Font size for the text
-                  //       fontWeight: FontWeight.bold, // Bold text
-                  //       color: Colors.white, // Text color
-                  //     ),
-                  //   ),
-                  // )
-
                   Expanded(
                     child: ButtonDesign.buttonDesign(
                       'Submit',
@@ -204,6 +134,46 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   ),
                 ],
               ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (provider is LibraryTrancsactionStateLoading)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: Center(
+                          child: CircularProgressIndicators
+                              .primaryColorProgressIndication,
+                        ),
+                      )
+                    else if (provider.libraryTransactionData.isEmpty &&
+                        provider is! LibraryTrancsactionStateLoading)
+                      Column(
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height / 5),
+                          const Center(
+                            child: Text(
+                              'No List Added Yet!',
+                              style: TextStyles.fontStyle1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (provider.libraryTransactionData.isNotEmpty)
+                      ListView.builder(
+                        itemCount: 2,
+                        controller: _listController,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return cardDesign(index);
+                        },
+                      ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -214,6 +184,8 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(libraryProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -225,149 +197,145 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tran. ID',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Acc.no',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Issue Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Book',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Due Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Return',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Status',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Fine',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Price',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Name',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      'text',
+                      // '${provider.libraryTransactionData[index].membername}' ==
+                      //         ''
+                      //     ? '-'
+                      //     : '''${provider.libraryTransactionData[index].membername}''',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 1.6 - 20,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'SRM0200',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Code',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '1020200',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      'text',
+                      // '${provider.libraryTransactionData[index].membercode}' ==
+                      //         ''
+                      //     ? '-'
+                      //     : '''${provider.libraryTransactionData[index].membercode}''',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '25 May, 2024',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Member Type',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Data Structures',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      'text',
+                      // '${provider.libraryTransactionData[index].membertype}' ==
+                      //         ''
+                      //     ? '-'
+                      //     : '''${provider.libraryTransactionData[index].membertype}''',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      '25 May, 2024',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Status',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Not returned',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: const Text(
+                      'text',
+                      // '${provider.libraryTransactionData[index].status}' == ''
+                      //     ? '-'
+                      //     : '${provider.libraryTransactionData[index].status}',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Books in hand',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      '0',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      ' Rs. 50.00',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

@@ -57,14 +57,14 @@ class LibraryTransactionProvider
         libraryTransactionData = libraryTransactionDataResponse.data!;
         state = state.copyWith(libraryTransactionData: libraryTransactionData);
         if (libraryTransactionDataResponse.status == 'Success') {
-          state = LibraryTrancsactionStateSuccessful(
-            successMessage: libraryTransactionDataResponse.status!,
-            errorMessage: '',
-            libraryTransactionData: state.libraryTransactionData,
-            studentId: TextEditingController(),
-            officeid: TextEditingController(),
-            filter: TextEditingController(),
-          );
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
         } else if (libraryTransactionDataResponse.status != 'Success') {
           state = LibraryTrancsactionStateError(
             successMessage: '',
@@ -100,8 +100,10 @@ class LibraryTransactionProvider
   }
 
   Future<void> saveLibrartBookSearchDetails(EncryptionProvider encrypt) async {
+    log( '<studentid>${TokensManagement.studentId}</studentid><officeid>${4}</officeid><filter>${state.filter.text}</filter>',
+   );
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><officeid>${state.officeid.text}</officeid><filter>${state.filter.text}</filter>',
+      '<studentid>${TokensManagement.studentId}</studentid><officeid>${4}</officeid><filter>${state.filter.text}</filter>',
     );
     final response = await HttpService.sendSoapRequest('getBookSearch', data);
 
@@ -125,7 +127,7 @@ class LibraryTransactionProvider
 
       if (decryptedData.mapData!['Status'] == 'Success') {
         state = LibraryTrancsactionStateSuccessful(
-          successMessage: '',
+          successMessage: 'Success',
           errorMessage: '',
           libraryTransactionData: state.libraryTransactionData,
           studentId: TextEditingController(),

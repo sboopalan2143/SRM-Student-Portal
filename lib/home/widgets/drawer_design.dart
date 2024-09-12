@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
+import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/login/screen/login_page.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
@@ -70,8 +73,12 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 ],
               ),
               onTap: () {
-                ref.read(mainProvider.notifier).setNavString('Home');
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const HomePage(),
+                  ),
+                );
               },
             ), //
             ListTile(
@@ -84,22 +91,12 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 ],
               ),
               onTap: () {
-                try {
-                  ref.read(profileProvider.notifier).getProfileDetails(
-                        ref.read(
-                          encryptionProvider.notifier,
-                        ),
-                      );
-                  ref.read(mainProvider.notifier).setNavString('Profile');
-                } catch (e) {
-                  TokensManagement.clearSharedPreference();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    RouteDesign(route: const LoginPage()),
-                    (route) => false,
-                  );
-                }
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ProfilePage(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -112,8 +109,12 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 ],
               ),
               onTap: () {
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               },
             ),
 
@@ -127,8 +128,12 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 ],
               ),
               onTap: () {
-                ref.read(mainProvider.notifier).setNavString('Change Password');
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ChangePassword(),
+                  ),
+                );
               },
             ),
 

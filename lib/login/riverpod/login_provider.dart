@@ -94,7 +94,7 @@ class LoginProvider extends StateNotifier<LoginState> {
             LoginResponseModel.fromJson(decryptedData.mapData!);
         studentData = studentLoginDetails.data![0];
         state = state.copyWith(studentData: studentData);
-        log('SudentData >>>>> ${studentData.courseid}');
+        log('SudentData >>>>> ${studentData.officeid}');
 
         if (studentLoginDetails.status == 'Success') {
           await TokensManagement.setLoginDetails(

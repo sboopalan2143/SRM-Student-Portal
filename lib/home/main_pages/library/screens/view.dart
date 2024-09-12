@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/library/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class ViewLibraryPage extends ConsumerStatefulWidget {
@@ -21,6 +21,16 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  //   @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //      ref.read(libraryProvider.notifier).saveLibrartBookSearchDetails(
+  //               ref.read(encryptionProvider.notifier),
+  //             );
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(libraryProvider);
@@ -29,12 +39,6 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
-        Navigator.push(
-          context,
-          RouteDesign(
-            route: const HomePage(),
-          ),
-        );
       }
     });
     return Scaffold(
@@ -164,7 +168,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                       ),
                     if (provider.libraryTransactionData.isNotEmpty)
                       ListView.builder(
-                        itemCount: 2,
+                        itemCount: provider.librarysearchData.length,
                         controller: _listController,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
@@ -185,8 +189,10 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
 
+    final provider = ref.watch(libraryProvider);
+
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -210,7 +216,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Name',
+                      'Accession number',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -221,12 +227,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: const Text(
-                      'text',
-                      // '${provider.libraryTransactionData[index].membername}' ==
-                      //         ''
-                      //     ? '-'
-                      //     : '''${provider.libraryTransactionData[index].membername}''',
+                    child: Text(
+                      // 'text',
+                      '${provider.librarysearchData[index].accessionnumber}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].accessionnumber}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -238,7 +244,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Code',
+                      'Author name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -249,12 +255,11 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: const Text(
-                      'text',
-                      // '${provider.libraryTransactionData[index].membercode}' ==
-                      //         ''
-                      //     ? '-'
-                      //     : '''${provider.libraryTransactionData[index].membercode}''',
+                    child: Text(
+                      // 'text',
+                      '${provider.librarysearchData[index].authorname}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].authorname}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -266,7 +271,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Type',
+                      'Book Number',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -277,12 +282,10 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: const Text(
-                      'text',
-                      // '${provider.libraryTransactionData[index].membertype}' ==
-                      //         ''
-                      //     ? '-'
-                      //     : '''${provider.libraryTransactionData[index].membertype}''',
+                    child: Text(
+                      '${provider.librarysearchData[index].booknumber}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].booknumber}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -294,7 +297,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Status',
+                      'Publisher Name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -305,11 +308,193 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].publishername}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].publishername}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
                     child: const Text(
-                      'text',
-                      // '${provider.libraryTransactionData[index].status}' == ''
-                      //     ? '-'
-                      //     : '${provider.libraryTransactionData[index].status}',
+                      'Title',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].title}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].title}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Borrow',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].borrow}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].borrow}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Classification Nmber',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].classificationNumber}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].classificationNumber}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Department',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].department}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].department}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Edition',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].edition}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].edition}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Inhand',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].inhand}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].inhand}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Availability',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.librarysearchData[index].availability}' == ''
+                          ? '-'
+                          : '''${provider.librarysearchData[index].availability}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/library/model/liberary_search.dart';
 import 'package:sample/home/main_pages/library/model/library_transaction_response_model.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_provider.dart';
 
@@ -17,6 +18,7 @@ class LibraryTrancsactionState {
     required this.studentId,
     required this.officeid,
     required this.filter,
+    required this.librarysearchData,
   });
 
   final String successMessage;
@@ -25,6 +27,7 @@ class LibraryTrancsactionState {
   final TextEditingController studentId;
   final TextEditingController officeid;
   final TextEditingController filter;
+  final List<BookSearchData> librarysearchData;
 
   LibraryTrancsactionState copyWith({
     String? successMessage,
@@ -33,6 +36,7 @@ class LibraryTrancsactionState {
     TextEditingController? studentId,
     TextEditingController? officeid,
     TextEditingController? filter,
+    List<BookSearchData>? librarysearchData,
   }) =>
       LibraryTrancsactionState(
         successMessage: successMessage ?? this.successMessage,
@@ -42,6 +46,7 @@ class LibraryTrancsactionState {
         studentId: studentId ?? this.studentId,
         officeid: officeid ?? this.officeid,
         filter: filter ?? this.filter,
+        librarysearchData: librarysearchData ?? this.librarysearchData,
       );
 }
 
@@ -54,6 +59,7 @@ class LibraryMemberInitial extends LibraryTrancsactionState {
           studentId: TextEditingController(),
           officeid: TextEditingController(),
           filter: TextEditingController(),
+          librarysearchData: <BookSearchData>[],
         );
 }
 
@@ -65,6 +71,7 @@ class LibraryTrancsactionStateLoading extends LibraryTrancsactionState {
     required super.studentId,
     required super.officeid,
     required super.filter,
+    required super.librarysearchData,
   });
 }
 
@@ -76,6 +83,7 @@ class LibraryTrancsactionStateError extends LibraryTrancsactionState {
     required super.studentId,
     required super.officeid,
     required super.filter,
+    required super.librarysearchData,
   });
 }
 
@@ -87,6 +95,19 @@ class LibraryTrancsactionStateSuccessful extends LibraryTrancsactionState {
     required super.studentId,
     required super.officeid,
     required super.filter,
+    required super.librarysearchData,
+  });
+}
+
+class LibraryTrancsactionStateclear extends LibraryTrancsactionState {
+  const LibraryTrancsactionStateclear({
+    required super.successMessage,
+    required super.errorMessage,
+    required super.libraryTransactionData,
+    required super.studentId,
+    required super.officeid,
+    required super.filter,
+    required super.librarysearchData,
   });
 }
 
@@ -98,5 +119,6 @@ class NoNetworkAvailableLibraryMember extends LibraryTrancsactionState {
     required super.studentId,
     required super.officeid,
     required super.filter,
+    required super.librarysearchData,
   });
 }

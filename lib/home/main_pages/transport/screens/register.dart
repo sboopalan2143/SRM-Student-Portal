@@ -27,9 +27,6 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(transportProvider.notifier).getBorderIdDetails(
-            ref.read(encryptionProvider.notifier),
-          );
       ref.read(transportProvider.notifier).getRouteIdDetails(
             ref.read(encryptionProvider.notifier),
           );
@@ -195,6 +192,86 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
+                  'Busroute ID',
+                  style: TextStyles.fontStyle2,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                      color: AppColors.grey2,
+                    ),
+                  ),
+                  height: 40,
+                  child: DropdownSearch<RouteDetailsData>(
+                    dropdownDecoratorProps: const DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        // border: BorderRadius.circular(10),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                      ),
+                    ),
+                    itemAsString: (item) => item.busroutename!,
+                    items: provider.routeDetailsDataList,
+                    popupProps: const PopupProps.menu(
+                      constraints: BoxConstraints(maxHeight: 250),
+                    ),
+                    selectedItem: provider.selectedRouteDetailsDataList,
+                    onChanged: (value) {
+                      readProvider.setsubtype(
+                          value!, ref.read(encryptionProvider.notifier));
+                    },
+                    dropdownBuilder: (BuildContext context, routedetails) {
+                      return Text(
+                        '''  ${routedetails?.busroutename}''',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 10),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     const Text(
+            //       'Busroute ID',
+            //       style: TextStyles.fontStyle2,
+            //     ),
+            //     const SizedBox(
+            //       height: 5,
+            //     ),
+            //     SizedBox(
+            //       height: 40,
+            //       child: TextField(
+            //         controller: provider.busrouteId,
+            //         style: TextStyles.fontStyle2,
+            //         decoration: InputDecoration(
+            //           hintText: 'Enter Busroute ID',
+            //           hintStyle: TextStyles.smallLightAshColorFontStyle,
+            //           filled: true,
+            //           fillColor: AppColors.secondaryColor,
+            //           contentPadding: const EdgeInsets.all(10),
+            //           enabledBorder:
+            //               BorderBoxButtonDecorations.loginTextFieldStyle,
+            //           focusedBorder:
+            //               BorderBoxButtonDecorations.loginTextFieldStyle,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
                   'Boardingpoint ID',
                   style: TextStyles.fontStyle2,
                 ),
@@ -240,86 +317,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     const Text(
-            //       'Busroute ID',
-            //       style: TextStyles.fontStyle2,
-            //     ),
-            //     const SizedBox(
-            //       height: 5,
-            //     ),
-            //     SizedBox(
-            //       height: 40,
-            //       child: TextField(
-            //         controller: provider.busrouteId,
-            //         style: TextStyles.fontStyle2,
-            //         decoration: InputDecoration(
-            //           hintText: 'Enter Busroute ID',
-            //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-            //           filled: true,
-            //           fillColor: AppColors.secondaryColor,
-            //           contentPadding: const EdgeInsets.all(10),
-            //           enabledBorder:
-            //               BorderBoxButtonDecorations.loginTextFieldStyle,
-            //           focusedBorder:
-            //               BorderBoxButtonDecorations.loginTextFieldStyle,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Busroute ID',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: AppColors.grey2,
-                    ),
-                  ),
-                  height: 40,
-                  child: DropdownSearch<RouteDetailsData>(
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        // border: BorderRadius.circular(10),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(bottom: 2, top: 2),
-                      ),
-                    ),
-                    itemAsString: (item) => item.busroutename!,
-                    items: provider.routeDetailsDataList,
-                    popupProps: const PopupProps.menu(
-                      constraints: BoxConstraints(maxHeight: 250),
-                    ),
-                    selectedItem: provider.selectedRouteDetailsDataList,
-                    onChanged: (value) {
-                      readProvider.setsubtype(
-                        value!,
-                      );
-                    },
-                    dropdownBuilder: (BuildContext context, routedetails) {
-                      return Text(
-                        '''  ${routedetails?.busroutename}''',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+
             const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

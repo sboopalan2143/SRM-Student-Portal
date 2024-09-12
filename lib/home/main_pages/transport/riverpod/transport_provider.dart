@@ -166,10 +166,10 @@ class TrasportProvider extends StateNotifier<TransportState> {
         busrouteId: TextEditingController(),
         controllerId: TextEditingController(),
         officeId: TextEditingController(),
-        routeDetailsDataList: state.routeDetailsDataList,
-        selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-        borderpointDataList: state.borderpointDataList,
-        selectedborderpointDataList: state.selectedborderpointDataList,
+        routeDetailsDataList: <RouteDetailsData>[],
+        selectedRouteDetailsDataList: RouteDetailsData.empty,
+        borderpointDataList: <BorderPointData>[],
+        selectedborderpointDataList: BorderPointData.empty,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -200,8 +200,8 @@ class TrasportProvider extends StateNotifier<TransportState> {
             officeId: TextEditingController(),
             routeDetailsDataList: state.routeDetailsDataList,
             selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-            borderpointDataList: state.borderpointDataList,
-            selectedborderpointDataList: state.selectedborderpointDataList,
+            borderpointDataList: <BorderPointData>[],
+            selectedborderpointDataList: BorderPointData.empty,
           );
         } else if (routeResponse.status != 'Success') {
           state = TransportStateError(
@@ -214,10 +214,10 @@ class TrasportProvider extends StateNotifier<TransportState> {
             busrouteId: TextEditingController(),
             controllerId: TextEditingController(),
             officeId: TextEditingController(),
-            routeDetailsDataList: state.routeDetailsDataList,
-            selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-            borderpointDataList: state.borderpointDataList,
-            selectedborderpointDataList: state.selectedborderpointDataList,
+            routeDetailsDataList: <RouteDetailsData>[],
+            selectedRouteDetailsDataList: RouteDetailsData.empty,
+            borderpointDataList: <BorderPointData>[],
+            selectedborderpointDataList: BorderPointData.empty,
           );
         }
       } catch (e) {
@@ -232,10 +232,10 @@ class TrasportProvider extends StateNotifier<TransportState> {
           busrouteId: TextEditingController(),
           controllerId: TextEditingController(),
           officeId: TextEditingController(),
-          routeDetailsDataList: state.routeDetailsDataList,
-          selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-          borderpointDataList: state.borderpointDataList,
-          selectedborderpointDataList: state.selectedborderpointDataList,
+          routeDetailsDataList: <RouteDetailsData>[],
+          selectedRouteDetailsDataList: RouteDetailsData.empty,
+          borderpointDataList: <BorderPointData>[],
+          selectedborderpointDataList: BorderPointData.empty,
         );
       }
     } else if (response.$1 != 200) {
@@ -249,24 +249,29 @@ class TrasportProvider extends StateNotifier<TransportState> {
         busrouteId: TextEditingController(),
         controllerId: TextEditingController(),
         officeId: TextEditingController(),
-        routeDetailsDataList: state.routeDetailsDataList,
-        selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-        borderpointDataList: state.borderpointDataList,
-        selectedborderpointDataList: state.selectedborderpointDataList,
+        routeDetailsDataList: <RouteDetailsData>[],
+        selectedRouteDetailsDataList: RouteDetailsData.empty,
+        borderpointDataList: <BorderPointData>[],
+        selectedborderpointDataList: BorderPointData.empty,
       );
     }
   }
 
-  void setsubtype(RouteDetailsData data) {
+  void setsubtype(RouteDetailsData data, EncryptionProvider encrypt) {
     state = state.copyWith(
       selectedRouteDetailsDataList: data,
     );
+    getBorderIdDetails(encrypt);
   }
 
   Future<void> getBorderIdDetails(EncryptionProvider encrypt) async {
-    _setLoading();
+    // _setLoading();
+    log(
+      '<studentid>${TokensManagement.studentId}</studentid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid>',
+    );
+    // _setLoading();
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid>',
     );
     final response =
         await HttpService.sendSoapRequest('getRouteBoardingPoint', data);
@@ -283,8 +288,8 @@ class TrasportProvider extends StateNotifier<TransportState> {
         officeId: TextEditingController(),
         routeDetailsDataList: state.routeDetailsDataList,
         selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-        borderpointDataList: state.borderpointDataList,
-        selectedborderpointDataList: state.selectedborderpointDataList,
+        borderpointDataList: <BorderPointData>[],
+        selectedborderpointDataList: BorderPointData.empty,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -331,8 +336,8 @@ class TrasportProvider extends StateNotifier<TransportState> {
             officeId: TextEditingController(),
             routeDetailsDataList: state.routeDetailsDataList,
             selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-            borderpointDataList: state.borderpointDataList,
-            selectedborderpointDataList: state.selectedborderpointDataList,
+            borderpointDataList: <BorderPointData>[],
+            selectedborderpointDataList: BorderPointData.empty,
           );
         }
       } catch (e) {
@@ -349,8 +354,8 @@ class TrasportProvider extends StateNotifier<TransportState> {
           officeId: TextEditingController(),
           routeDetailsDataList: state.routeDetailsDataList,
           selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-          borderpointDataList: state.borderpointDataList,
-          selectedborderpointDataList: state.selectedborderpointDataList,
+          borderpointDataList: <BorderPointData>[],
+          selectedborderpointDataList: BorderPointData.empty,
         );
       }
     } else if (response.$1 != 200) {
@@ -366,8 +371,8 @@ class TrasportProvider extends StateNotifier<TransportState> {
         officeId: TextEditingController(),
         routeDetailsDataList: state.routeDetailsDataList,
         selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
-        borderpointDataList: state.borderpointDataList,
-        selectedborderpointDataList: state.selectedborderpointDataList,
+        borderpointDataList: <BorderPointData>[],
+        selectedborderpointDataList: BorderPointData.empty,
       );
     }
   }

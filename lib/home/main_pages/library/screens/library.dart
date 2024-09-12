@@ -101,6 +101,17 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(9),
+                            ),
+                          ),
+                          elevation: 0,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          backgroundColor: AppColors.primaryColor,
+                          shadowColor: Colors.transparent,
+                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -109,6 +120,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                         },
                         child: const Text(
                           'Book Search',
+                          style: TextStyles.fontStyle13,
                         ),
                       ),
                     ),

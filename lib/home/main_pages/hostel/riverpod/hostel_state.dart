@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_register_model.dart';
+import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
 
 final hostelProvider =
@@ -11,42 +13,39 @@ class HostelState {
   const HostelState({
     required this.successMessage,
     required this.errorMessage,
-    required this.hospitalData,
-    required this.academicYearId,
-    required this.roomTypeId,
-    required this.hostelId,
-    required this.controllerId,
-    required this.officeId,
+    required this.hostelData,
+    required this.selectedHostelData,
+    required this.roomTypeData,
+    required this.selectedRoomTypeData,
+    required this.hostelRegisterDetails,
   });
 
   final String successMessage;
   final String errorMessage;
-  final List<dynamic> hospitalData;
-  final TextEditingController academicYearId;
-  final TextEditingController roomTypeId;
-  final TextEditingController hostelId;
-  final TextEditingController controllerId;
-  final TextEditingController officeId;
+  final List<HostelData> hostelData;
+  final HostelData selectedHostelData;
+  final List<RoomTypeData> roomTypeData;
+  final RoomTypeData selectedRoomTypeData;
+  final HostelRegisterData? hostelRegisterDetails;
 
   HostelState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<dynamic>? hospitalData,
-    TextEditingController? academicYearId,
-    TextEditingController? roomTypeId,
-    TextEditingController? hostelId,
-    TextEditingController? controllerId,
-    TextEditingController? officeId,
+    List<HostelData>? hostelData,
+    HostelData? selectedHostelData,
+    List<RoomTypeData>? roomTypeData,
+    RoomTypeData? selectedRoomTypeData,
+    HostelRegisterData? hostelRegisterDetails,
   }) =>
       HostelState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        hospitalData: hospitalData ?? this.hospitalData,
-        academicYearId: academicYearId ?? this.academicYearId,
-        roomTypeId: roomTypeId ?? this.roomTypeId,
-        hostelId: hostelId ?? this.hostelId,
-        controllerId: controllerId ?? this.controllerId,
-        officeId: officeId ?? this.officeId,
+        hostelData: hostelData ?? this.hostelData,
+        selectedHostelData: selectedHostelData ?? this.selectedHostelData,
+        roomTypeData: roomTypeData ?? this.roomTypeData,
+        selectedRoomTypeData: selectedRoomTypeData ?? this.selectedRoomTypeData,
+        hostelRegisterDetails:
+            hostelRegisterDetails ?? this.hostelRegisterDetails,
       );
 }
 
@@ -55,12 +54,11 @@ class HostelInitial extends HostelState {
       : super(
           successMessage: '',
           errorMessage: '',
-          hospitalData: <dynamic>[],
-          academicYearId: TextEditingController(),
-          roomTypeId: TextEditingController(),
-          hostelId: TextEditingController(),
-          controllerId: TextEditingController(),
-          officeId: TextEditingController(),
+          hostelData: <HostelData>[],
+          selectedHostelData: HostelData.empty,
+          roomTypeData: <RoomTypeData>[],
+          selectedRoomTypeData: RoomTypeData.empty,
+          hostelRegisterDetails: HostelRegisterData.empty,
         );
 }
 
@@ -68,12 +66,11 @@ class HostelStateLoading extends HostelState {
   const HostelStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    required super.hospitalData,
-    required super.academicYearId,
-    required super.roomTypeId,
-    required super.hostelId,
-    required super.controllerId,
-    required super.officeId,
+    required super.hostelData,
+    required super.selectedHostelData,
+    required super.roomTypeData,
+    required super.selectedRoomTypeData,
+    required super.hostelRegisterDetails,
   });
 }
 
@@ -81,12 +78,11 @@ class HostelStateError extends HostelState {
   const HostelStateError({
     required super.successMessage,
     required super.errorMessage,
-    required super.hospitalData,
-    required super.academicYearId,
-    required super.roomTypeId,
-    required super.hostelId,
-    required super.controllerId,
-    required super.officeId,
+    required super.hostelData,
+    required super.selectedHostelData,
+    required super.roomTypeData,
+    required super.selectedRoomTypeData,
+    required super.hostelRegisterDetails,
   });
 }
 
@@ -94,12 +90,11 @@ class HostelStateSuccessful extends HostelState {
   const HostelStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    required super.hospitalData,
-    required super.academicYearId,
-    required super.roomTypeId,
-    required super.hostelId,
-    required super.controllerId,
-    required super.officeId,
+    required super.hostelData,
+    required super.selectedHostelData,
+    required super.roomTypeData,
+    required super.selectedRoomTypeData,
+    required super.hostelRegisterDetails,
   });
 }
 
@@ -107,11 +102,10 @@ class NoNetworkAvailableHostel extends HostelState {
   const NoNetworkAvailableHostel({
     required super.successMessage,
     required super.errorMessage,
-    required super.hospitalData,
-    required super.academicYearId,
-    required super.roomTypeId,
-    required super.hostelId,
-    required super.controllerId,
-    required super.officeId,
+    required super.hostelData,
+    required super.selectedHostelData,
+    required super.roomTypeData,
+    required super.selectedRoomTypeData,
+    required super.hostelRegisterDetails,
   });
 }

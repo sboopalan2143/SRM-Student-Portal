@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/screen/home_page.dart';
@@ -23,9 +22,9 @@ class _HostelPageState extends ConsumerState<HostelPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(hostelProvider.notifier).getHostelDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      // ref.read(hostelProvider.notifier).getHostelRegisterDetails(
+      //       ref.read(encryptionProvider.notifier),
+      //     );
     });
   }
 
@@ -123,7 +122,7 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.hospitalData.isEmpty &&
+                else if (provider.hostelData.isEmpty &&
                     provider is! HostelStateLoading)
                   Column(
                     children: [
@@ -136,7 +135,7 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                       ),
                     ],
                   ),
-                if (provider.hospitalData.isNotEmpty)
+                if (provider.hostelData.isNotEmpty)
                   ListView.builder(
                     itemCount: 20,
                     controller: _listController,

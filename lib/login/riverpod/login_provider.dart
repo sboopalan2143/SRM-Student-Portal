@@ -87,6 +87,7 @@ class LoginProvider extends StateNotifier<LoginState> {
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('login response >>>>> ${decryptedData.mapData}');
       var studentData = LoginData.empty;
       try {
         final studentLoginDetails =
@@ -100,6 +101,7 @@ class LoginProvider extends StateNotifier<LoginState> {
             studentId: '${studentData.sid}',
             studentName: '${studentData.studentname}',
             semesterId: '${studentData.semesterid}',
+            officeId: '${studentData.officeid}',
           );
           await getAppVersion();
           state = LoginStateSuccessful(

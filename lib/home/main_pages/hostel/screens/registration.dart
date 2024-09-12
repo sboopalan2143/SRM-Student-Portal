@@ -1,8 +1,11 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
@@ -18,8 +21,26 @@ class RegistrationPage extends ConsumerStatefulWidget {
 
 class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(hostelProvider.notifier).getHostelRegisterDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      ref.read(hostelProvider.notifier).gethostel(
+            ref.read(encryptionProvider.notifier),
+          );
+      // ref.read(hostelProvider.notifier).getRoomType(
+      //       ref.read(encryptionProvider.notifier),
+      //     );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(hostelProvider);
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -29,7 +50,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
     });
-    final provider = ref.watch(hostelProvider);
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
@@ -77,393 +98,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        child: Column(
-          children: [
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     const Text(
-            //       'Select Hostel',
-            //       style: TextStyles.fontStyle2,
-            //     ),
-            //     const SizedBox(
-            //       height: 5,
-            //     ),
-            //     Container(
-            //       decoration: BoxDecoration(
-            //         color: AppColors.whiteColor,
-            //         borderRadius: BorderRadius.circular(7),
-            //         border: Border.all(
-            //           color: AppColors.grey2,
-            //         ),
-            //       ),
-            //       height: 40,
-            //       child: DropdownSearch<String>(
-            //         // dropdownButtonProps: DropdownButtonProps(
-            //         //   focusNode: widget.focusNodeC,
-            //         // ),
-            //         dropdownDecoratorProps: const DropDownDecoratorProps(
-            //           dropdownSearchDecoration: InputDecoration(
-            //             border: InputBorder.none,
-            //             contentPadding:
-            //                 EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            //           ),
-            //         ),
-            //         itemAsString: (item) => item,
-            //         items: name,
-            //         popupProps: const PopupProps.menu(
-            //           searchFieldProps: TextFieldProps(
-            //             autofocus: true,
-            //           ),
-            //           constraints: BoxConstraints(maxHeight: 250),
-            //         ),
-            //         selectedItem: selectedValue,
-            //         onChanged: (value) {
-            //           // readProvider.selectCustomer(value!);
-            //           setState(() {
-            //             selectedValue = value!;
-            //           });
-            //         },
-            //         dropdownBuilder: (BuildContext context, name) {
-            //           return Text(
-            //             name!,
-            //             maxLines: 1,
-            //             overflow: TextOverflow.ellipsis,
-            //             style: TextStyles.smallLightAshColorFontStyle,
-            //           );
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 20),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           const Text(
-            //             'FromDate',
-            //             style: TextStyles.fontStyle2,
-            //           ),
-            //           const SizedBox(
-            //             height: 5,
-            //           ),
-            //           Container(
-            //             decoration: BoxDecoration(
-            //               color: AppColors.whiteColor,
-            //               borderRadius: BorderRadius.circular(7),
-            //               border: Border.all(
-            //                 color: AppColors.grey2,
-            //               ),
-            //             ),
-            //             height: 40,
-            //             child: DropdownSearch<String>(
-            //               // dropdownButtonProps: DropdownButtonProps(
-            //               //   focusNode: widget.focusNodeC,
-            //               // ),
-            //               dropdownDecoratorProps: const DropDownDecoratorProps(
-            //                 dropdownSearchDecoration: InputDecoration(
-            //                   border: InputBorder.none,
-            //                   contentPadding: EdgeInsets.symmetric(
-            //                     horizontal: 20,
-            //                     vertical: 5,
-            //                   ),
-            //                 ),
-            //               ),
-            //               itemAsString: (item) => item,
-            //               items: name,
-            //               popupProps: const PopupProps.menu(
-            //                 searchFieldProps: TextFieldProps(
-            //                   autofocus: true,
-            //                 ),
-            //                 constraints: BoxConstraints(maxHeight: 250),
-            //               ),
-            //               selectedItem: selectedValue,
-            //               onChanged: (value) {
-            //                 // readProvider.selectCustomer(value!);
-            //                 setState(() {
-            //                   selectedValue = value!;
-            //                 });
-            //               },
-            //               dropdownBuilder: (BuildContext context, name) {
-            //                 return Text(
-            //                   name!,
-            //                   maxLines: 1,
-            //                   overflow: TextOverflow.ellipsis,
-            //                   style: TextStyles.smallLightAshColorFontStyle,
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     const SizedBox(width: 10),
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           const Text(
-            //             'ToDate',
-            //             style: TextStyles.fontStyle2,
-            //           ),
-            //           const SizedBox(
-            //             height: 5,
-            //           ),
-            //           Container(
-            //             decoration: BoxDecoration(
-            //               color: AppColors.whiteColor,
-            //               borderRadius: BorderRadius.circular(7),
-            //               border: Border.all(
-            //                 color: AppColors.grey2,
-            //               ),
-            //             ),
-            //             height: 40,
-            //             child: DropdownSearch<String>(
-            //               // dropdownButtonProps: DropdownButtonProps(
-            //               //   focusNode: widget.focusNodeC,
-            //               // ),
-            //               dropdownDecoratorProps: const DropDownDecoratorProps(
-            //                 dropdownSearchDecoration: InputDecoration(
-            //                   border: InputBorder.none,
-            //                   contentPadding: EdgeInsets.symmetric(
-            //                     horizontal: 20,
-            //                     vertical: 5,
-            //                   ),
-            //                 ),
-            //               ),
-            //               itemAsString: (item) => item,
-            //               items: name,
-            //               popupProps: const PopupProps.menu(
-            //                 searchFieldProps: TextFieldProps(
-            //                   autofocus: true,
-            //                 ),
-            //                 constraints: BoxConstraints(maxHeight: 250),
-            //               ),
-            //               selectedItem: selectedValue,
-            //               onChanged: (value) {
-            //                 // readProvider.selectCustomer(value!);
-            //                 setState(() {
-            //                   selectedValue = value!;
-            //                 });
-            //               },
-            //               dropdownBuilder: (BuildContext context, name) {
-            //                 return Text(
-            //                   name!,
-            //                   maxLines: 1,
-            //                   overflow: TextOverflow.ellipsis,
-            //                   style: TextStyles.smallLightAshColorFontStyle,
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Academic Year',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.academicYearId,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: KeyboardRule.numberInputRule,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Room Type',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.roomTypeId,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: KeyboardRule.numberInputRule,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Hostel',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.hostelId,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: KeyboardRule.numberInputRule,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Controller',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.controllerId,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: KeyboardRule.numberInputRule,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Office',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.officeId,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: KeyboardRule.numberInputRule,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20,
-                  width: 30,
-                  child: Checkbox(
-                    side: const BorderSide(color: AppColors.grey, width: 2),
-                    checkColor: AppColors.whiteColor,
-                    value: false,
-                    onChanged: (bool? value) {},
-                  ),
-                ),
-                const SizedBox(width: 5),
-                const Text(
-                  'I Agree and Continue to ',
-                  style: TextStyles.fontStyle10,
-                ),
-                Text(
-                  ' Terms and Conditions',
-                  style: TextStyles.fontStyle14,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: ButtonDesign.buttonDesign(
-                    'Submit',
-                    AppColors.primaryColor,
-                    context,
-                    ref,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      body: provider.hostelRegisterDetails!.regconfig == '1' &&
+              provider.hostelRegisterDetails!.status == '0'
+          ? registrationForm()
+          : Text(''),
       endDrawer: const DrawerDesign(),
     );
   }
@@ -481,6 +119,142 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         bottomLeft: Radius.circular(15),
       ),
       toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
+    );
+  }
+
+  Widget registrationForm() {
+    final provider = ref.watch(hostelProvider);
+    final providerRead = ref.read(hostelProvider.notifier);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Hostel',
+                style: TextStyles.fontStyle2,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                height: 40,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                      color: AppColors.grey2,
+                    ),
+                  ),
+                  height: 40,
+                  child: DropdownSearch<HostelData>(
+                    dropdownDecoratorProps: const DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 5,
+                        ),
+                      ),
+                    ),
+                    itemAsString: (item) => item.hostelname!,
+                    items: provider.hostelData,
+                    popupProps: const PopupProps.menu(
+                      searchFieldProps: TextFieldProps(
+                        autofocus: true,
+                      ),
+                      constraints: BoxConstraints(maxHeight: 250),
+                    ),
+                    selectedItem: provider.selectedHostelData,
+                    onChanged: (value) {
+                      providerRead.setHostelValue(value!);
+                    },
+                    dropdownBuilder: (BuildContext context, name) {
+                      return Text(
+                        name!.hostelname!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.smallLightAshColorFontStyle,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Room Type',
+                style: TextStyles.fontStyle2,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                height: 40,
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: KeyboardRule.numberInputRule,
+                  style: TextStyles.fontStyle2,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.whiteColor,
+                    contentPadding: const EdgeInsets.all(10),
+                    enabledBorder:
+                        BorderBoxButtonDecorations.loginTextFieldStyle,
+                    focusedBorder:
+                        BorderBoxButtonDecorations.loginTextFieldStyle,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+                width: 30,
+                child: Checkbox(
+                  side: const BorderSide(color: AppColors.grey, width: 2),
+                  checkColor: AppColors.whiteColor,
+                  value: false,
+                  onChanged: (bool? value) {},
+                ),
+              ),
+              const SizedBox(width: 5),
+              const Text(
+                'I Agree and Continue to ',
+                style: TextStyles.fontStyle10,
+              ),
+              Text(
+                ' Terms and Conditions',
+                style: TextStyles.fontStyle14,
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                child: ButtonDesign.buttonDesign(
+                  'Submit',
+                  AppColors.primaryColor,
+                  context,
+                  ref,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

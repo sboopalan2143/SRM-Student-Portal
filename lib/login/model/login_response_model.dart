@@ -30,6 +30,7 @@ class LoginData {
   LoginData({
     this.semesterid,
     this.officename,
+    this.officeid,
     this.studentname,
     this.program,
     this.courseid,
@@ -40,6 +41,7 @@ class LoginData {
   LoginData.fromJson(Map<String, dynamic> json) {
     semesterid = json['semesterid'] as String?;
     officename = json['officename'] as String?;
+    officeid = json['officeid'] as int?;
     studentname = json['studentname'] as String?;
     program = json['program'] as String?;
     courseid = json['courseid'] as String?;
@@ -48,6 +50,7 @@ class LoginData {
   }
   String? semesterid;
   String? officename;
+  int? officeid;
   String? studentname;
   String? program;
   String? courseid;
@@ -58,6 +61,7 @@ class LoginData {
     final data = <String, dynamic>{};
     data['semesterid'] = semesterid;
     data['officename'] = officename;
+    data['officeid'] = officeid;
     data['studentname'] = studentname;
     data['program'] = program;
     data['courseid'] = courseid;

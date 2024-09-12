@@ -41,7 +41,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
   Future<void> getProfileDetails(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     final response =
         await HttpService.sendSoapRequest('getPersonalDetails', data);

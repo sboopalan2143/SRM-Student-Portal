@@ -23,6 +23,7 @@ class TokensManagement {
   static String studentId = '';
   static String studentName = '';
   static String semesterId = '';
+  static String officeId = '';
 
   static String deviceId = '';
   static String androidVersion = '';
@@ -41,11 +42,13 @@ class TokensManagement {
     required String studentId,
     required String studentName,
     required String semesterId,
+    required String officeId,
   }) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('studentId', studentId);
     await sharedPreferences.setString('studentName', studentName);
     await sharedPreferences.setString('semesterId', semesterId);
+    await sharedPreferences.setString('officeId', officeId);
   }
 
   static Future<void> setAppDeviceInfo({
@@ -82,9 +85,11 @@ class TokensManagement {
     final storedId = sharedPreferences.getString('studentId');
     final storedName = sharedPreferences.getString('studentName');
     final storedSemId = sharedPreferences.getString('semesterId');
+    final storedoffId = sharedPreferences.getString('officeId');
     studentId = storedId ?? '';
     studentName = storedName ?? '';
     semesterId = storedSemId ?? '';
+    officeId = storedoffId ?? '';
   }
 
   /// Call this function on logout

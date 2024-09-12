@@ -185,7 +185,6 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
 
-    final provider = ref.watch(libraryProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -222,7 +221,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: Text(
+                    child: const Text(
                       'text',
                       // '${provider.libraryTransactionData[index].membername}' ==
                       //         ''
@@ -250,7 +249,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: Text(
+                    child: const Text(
                       'text',
                       // '${provider.libraryTransactionData[index].membercode}' ==
                       //         ''
@@ -278,7 +277,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   const SizedBox(width: 5),
                   SizedBox(
                     width: width / 2 - 60,
-                    child: Text(
+                    child: const Text(
                       'text',
                       // '${provider.libraryTransactionData[index].membertype}' ==
                       //         ''

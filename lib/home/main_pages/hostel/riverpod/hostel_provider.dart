@@ -246,25 +246,41 @@ class HostelProvider extends StateNotifier<HostelState> {
       final hostelRes = details['getRoomTypeResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
-      log('data>>>>>$data');
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('status>>>>>>>>${decryptedData.mapData!['Status']}');
-      if (decryptedData.mapData!['Status'] == 'Success') {
-        state = HostelStateSuccessful(
-          successMessage: '${decryptedData.mapData!['Status']}',
-          errorMessage: '',
-          hostelData: state.hostelData,
-          selectedHostelData: state.selectedHostelData,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: state.hostelRegisterDetails,
-        );
-      } else {
+      var roomType = <RoomTypeData>[];
+      try {
+        final roomTypeDataResponse =
+            RoomTypeData.fromJson(decryptedData.mapData!);
+
+        // state = state.copyWith(roomTypeData: roomTypeDataResponse);
+        if (decryptedData.mapData!['Status'] == 'Success') {
+          state = HostelStateSuccessful(
+            successMessage: '${decryptedData.mapData!['Status']}',
+            errorMessage: '',
+            hostelData: state.hostelData,
+            selectedHostelData: state.selectedHostelData,
+            roomTypeData: <RoomTypeData>[],
+            selectedRoomTypeData: RoomTypeData.empty,
+            hostelRegisterDetails: state.hostelRegisterDetails,
+          );
+        } else {
+          state = HostelStateError(
+            successMessage: '',
+            errorMessage: '${decryptedData.mapData!['Status']}',
+            hostelData: state.hostelData,
+            selectedHostelData: state.selectedHostelData,
+            roomTypeData: <RoomTypeData>[],
+            selectedRoomTypeData: RoomTypeData.empty,
+            hostelRegisterDetails: state.hostelRegisterDetails,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = HostelStateError(
           successMessage: '',
-          errorMessage: '${decryptedData.mapData!['Status']}',
+          errorMessage: error.message!,
           hostelData: state.hostelData,
-          selectedHostelData: state.selectedHostelData,
+          selectedHostelData: HostelData.empty,
           roomTypeData: <RoomTypeData>[],
           selectedRoomTypeData: RoomTypeData.empty,
           hostelRegisterDetails: state.hostelRegisterDetails,

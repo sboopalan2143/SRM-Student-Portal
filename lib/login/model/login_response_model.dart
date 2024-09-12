@@ -41,7 +41,7 @@ class LoginData {
   LoginData.fromJson(Map<String, dynamic> json) {
     semesterid = json['semesterid'] as String?;
     officename = json['officename'] as String?;
-    officeid = json['officeid'] as int?;
+    officeid = json['officeid'] as String?;
     studentname = json['studentname'] as String?;
     program = json['program'] as String?;
     courseid = json['courseid'] as String?;
@@ -50,7 +50,7 @@ class LoginData {
   }
   String? semesterid;
   String? officename;
-  int? officeid;
+  String? officeid;
   String? studentname;
   String? program;
   String? courseid;
@@ -73,7 +73,7 @@ class LoginData {
   static final empty = LoginData(
     semesterid: '',
     officename: '',
-    officeid: 0,
+    officeid: '',
     studentname: '',
     program: '',
     courseid: '',

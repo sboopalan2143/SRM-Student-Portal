@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_model.dart';
+import 'package:sample/home/main_pages/transport/model/transport_after_register_model.dart';
+import 'package:sample/home/main_pages/transport/model/transport_register_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_status.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_provider.dart';
 
@@ -14,7 +16,7 @@ class TransportState {
   const TransportState({
     required this.successMessage,
     required this.errorMessage,
-    required this.transportStatusData,
+    required this.grievanceTransportStatusData,
     required this.studentId,
     required this.academicyearId,
     required this.boardingpointId,
@@ -25,27 +27,30 @@ class TransportState {
     required this.selectedRouteDetailsDataList,
     required this.borderpointDataList,
     required this.selectedborderpointDataList,
+    required this.transportRegisterDetails,
+    required this.transportAfterRegisterDetails,
   });
 
   final String successMessage;
   final String errorMessage;
-  final List<TransportStatusData> transportStatusData;
+  final List<TransportStatusData> grievanceTransportStatusData;
   final TextEditingController studentId;
   final TextEditingController academicyearId;
   final TextEditingController boardingpointId;
   final TextEditingController busrouteId;
   final TextEditingController controllerId;
   final TextEditingController officeId;
-
   final List<RouteDetailsData> routeDetailsDataList;
   final RouteDetailsData selectedRouteDetailsDataList;
   final List<BorderPointData> borderpointDataList;
   final BorderPointData selectedborderpointDataList;
+  final TransportRegisterData? transportRegisterDetails;
+  final TransportAfterRegisterData? transportAfterRegisterDetails;
 
   TransportState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<TransportStatusData>? transportStatusData,
+    List<TransportStatusData>? grievanceTransportStatusData,
     TextEditingController? studentId,
     TextEditingController? academicyearId,
     TextEditingController? boardingpointId,
@@ -56,12 +61,14 @@ class TransportState {
     RouteDetailsData? selectedRouteDetailsDataList,
     List<BorderPointData>? borderpointDataList,
     BorderPointData? selectedborderpointDataList,
+    TransportRegisterData? transportRegisterDetails,
+    TransportAfterRegisterData? transportAfterRegisterDetails,
   }) =>
       TransportState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        transportStatusData:
-            transportStatusData ?? this.transportStatusData,
+        grievanceTransportStatusData:
+            grievanceTransportStatusData ?? this.grievanceTransportStatusData,
         studentId: studentId ?? this.studentId,
         academicyearId: academicyearId ?? this.academicyearId,
         boardingpointId: boardingpointId ?? this.boardingpointId,
@@ -71,10 +78,13 @@ class TransportState {
         routeDetailsDataList: routeDetailsDataList ?? this.routeDetailsDataList,
         selectedRouteDetailsDataList:
             selectedRouteDetailsDataList ?? this.selectedRouteDetailsDataList,
-        borderpointDataList:
-            borderpointDataList ?? this.borderpointDataList,
+        borderpointDataList: borderpointDataList ?? this.borderpointDataList,
         selectedborderpointDataList:
             selectedborderpointDataList ?? this.selectedborderpointDataList,
+        transportRegisterDetails:
+            transportRegisterDetails ?? this.transportRegisterDetails,
+        transportAfterRegisterDetails:
+            transportAfterRegisterDetails ?? this.transportAfterRegisterDetails,
       );
 }
 
@@ -83,7 +93,7 @@ class TransportInitial extends TransportState {
       : super(
           successMessage: '',
           errorMessage: '',
-          transportStatusData: <TransportStatusData>[],
+          grievanceTransportStatusData: <TransportStatusData>[],
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -94,6 +104,8 @@ class TransportInitial extends TransportState {
           selectedRouteDetailsDataList: RouteDetailsData.empty,
           borderpointDataList: <BorderPointData>[],
           selectedborderpointDataList: BorderPointData.empty,
+          transportRegisterDetails: TransportRegisterData.empty,
+          transportAfterRegisterDetails: TransportAfterRegisterData.empty,
         );
 }
 
@@ -101,7 +113,7 @@ class TransportStateLoading extends TransportState {
   const TransportStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    required super.transportStatusData,
+    required super.grievanceTransportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -112,6 +124,8 @@ class TransportStateLoading extends TransportState {
     required super.selectedRouteDetailsDataList,
     required super.borderpointDataList,
     required super.selectedborderpointDataList,
+    required super.transportRegisterDetails,
+    required super.transportAfterRegisterDetails,
   });
 }
 
@@ -119,7 +133,7 @@ class TransportStateError extends TransportState {
   const TransportStateError({
     required super.successMessage,
     required super.errorMessage,
-    required super.transportStatusData,
+    required super.grievanceTransportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -130,6 +144,8 @@ class TransportStateError extends TransportState {
     required super.selectedRouteDetailsDataList,
     required super.borderpointDataList,
     required super.selectedborderpointDataList,
+    required super.transportRegisterDetails,
+    required super.transportAfterRegisterDetails,
   });
 }
 
@@ -137,7 +153,7 @@ class TransportStateSuccessful extends TransportState {
   const TransportStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    required super.transportStatusData,
+    required super.grievanceTransportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -148,6 +164,8 @@ class TransportStateSuccessful extends TransportState {
     required super.selectedRouteDetailsDataList,
     required super.borderpointDataList,
     required super.selectedborderpointDataList,
+    required super.transportRegisterDetails,
+    required super.transportAfterRegisterDetails,
   });
 }
 
@@ -155,7 +173,7 @@ class NoNetworkAvailableTransport extends TransportState {
   const NoNetworkAvailableTransport({
     required super.successMessage,
     required super.errorMessage,
-    required super.transportStatusData,
+    required super.grievanceTransportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -166,5 +184,7 @@ class NoNetworkAvailableTransport extends TransportState {
     required super.selectedRouteDetailsDataList,
     required super.borderpointDataList,
     required super.selectedborderpointDataList,
+    required super.transportRegisterDetails,
+    required super.transportAfterRegisterDetails,
   });
 }

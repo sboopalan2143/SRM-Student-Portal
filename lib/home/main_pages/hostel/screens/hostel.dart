@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/screen/home_page.dart';
@@ -22,9 +23,9 @@ class _HostelPageState extends ConsumerState<HostelPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // ref.read(hostelProvider.notifier).getHostelRegisterDetails(
-      //       ref.read(encryptionProvider.notifier),
-      //     );
+      ref.read(hostelProvider.notifier).getHostelDetails(
+            ref.read(encryptionProvider.notifier),
+          );
     });
   }
 
@@ -122,7 +123,7 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.hostelData.isEmpty &&
+                else if (provider.gethostelData.isEmpty &&
                     provider is! HostelStateLoading)
                   Column(
                     children: [
@@ -135,9 +136,9 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                       ),
                     ],
                   ),
-                if (provider.hostelData.isNotEmpty)
+                if (provider.gethostelData.isNotEmpty)
                   ListView.builder(
-                    itemCount: 20,
+                    itemCount: provider.gethostelData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -155,6 +156,8 @@ class _HostelPageState extends ConsumerState<HostelPage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(hostelProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -166,71 +169,143 @@ class _HostelPageState extends ConsumerState<HostelPage> {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Row(
+          child: Column(
             children: [
-              SizedBox(
-                width: width / 2 - 125,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Location',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Gender',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    Text(
-                      'Facilities',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ],
-                ),
-              ),
-              const Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Academic year',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.gethostelData[index].academicyear}' == ''
+                          ? '-'
+                          : '''${provider.gethostelData[index].academicyear}''',
+                      style: TextStyles.fontStyle10,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2 - 20,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Perungalathur, Chennai',
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Alloted date',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Gents',
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.gethostelData[index].alloteddate}' == ''
+                          ? '-'
+                          : '''${provider.gethostelData[index].alloteddate}''',
                       style: TextStyles.fontStyle10,
                     ),
-                    Text(
-                      'Food, Parking, AC',
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Hostel name',
                       style: TextStyles.fontStyle10,
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.gethostelData[index].hostelname}' == ''
+                          ? '-'
+                          : '''${provider.gethostelData[index].hostelname}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Room name',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.gethostelData[index].roomname}' == ''
+                          ? '-'
+                          : '${provider.gethostelData[index].roomname}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Room type',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.gethostelData[index].roomtype}' == ''
+                          ? '-'
+                          : '${provider.gethostelData[index].roomtype}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

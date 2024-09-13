@@ -126,53 +126,6 @@ class LibraryTransactionProvider
     );
     final response = await HttpService.sendSoapRequest('getBookSearch', data);
 
-    // if (response.$1 == 0) {
-    //   state = NoNetworkAvailableLibraryMember(
-    //     successMessage: '',
-    //     errorMessage: '',
-    //     libraryTransactionData: state.libraryTransactionData,
-    //     studentId: TextEditingController(),
-    //     officeid: TextEditingController(),
-    //     filter: TextEditingController(),
-    //   );
-    // } else if (response.$1 == 200) {
-    //   final details = response.$2['Body'] as Map<String, dynamic>;
-    //   final saveGrievanceRes =
-    //       details['getBookSearchResponse'] as Map<String, dynamic>;
-    //   final returnData = saveGrievanceRes['return'] as Map<String, dynamic>;
-    //   final data = returnData['#text'];
-    //   final decryptedData = encrypt.getDecryptedData('$data');
-    //   log('Status >>>> ${decryptedData.mapData!['Status']}');
-
-    //   if (decryptedData.mapData!['Status'] == 'Success') {
-    //     state = LibraryTrancsactionStateSuccessful(
-    //       successMessage: 'Success',
-    //       errorMessage: '',
-    //       libraryTransactionData: state.libraryTransactionData,
-    //       studentId: TextEditingController(),
-    //       officeid: TextEditingController(),
-    //       filter: TextEditingController(),
-    //     );
-    //   } else {
-    //     state = LibraryTrancsactionStateError(
-    //       successMessage: '',
-    //       errorMessage: 'Error',
-    //       libraryTransactionData: state.libraryTransactionData,
-    //       studentId: TextEditingController(),
-    //       officeid: TextEditingController(),
-    //       filter: TextEditingController(),
-    //     );
-    //   }
-    // } else if (response.$1 != 200) {
-    //   state = LibraryTrancsactionStateError(
-    //     successMessage: '',
-    //     errorMessage: 'Error',
-    //     libraryTransactionData: state.libraryTransactionData,
-    //     studentId: TextEditingController(),
-    //     officeid: TextEditingController(),
-    //     filter: TextEditingController(),
-    //   );
-    // }
 
     if (response.$1 == 0) {
       state = NoNetworkAvailableLibraryMember(

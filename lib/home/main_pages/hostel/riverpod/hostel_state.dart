@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/main_pages/hostel/model/get_hostel_details_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
@@ -20,6 +21,7 @@ class HostelState {
     required this.selectedRoomTypeData,
     required this.hostelRegisterDetails,
     required this.hostelAfterRegisterDetails,
+    required this.gethostelData,
   });
 
   final String successMessage;
@@ -30,6 +32,7 @@ class HostelState {
   final RoomTypeData selectedRoomTypeData;
   final HostelRegisterData? hostelRegisterDetails;
   final HostelAfterRegisterData? hostelAfterRegisterDetails;
+  final List<GetHostelData> gethostelData;
 
   HostelState copyWith({
     String? successMessage,
@@ -40,6 +43,7 @@ class HostelState {
     RoomTypeData? selectedRoomTypeData,
     HostelRegisterData? hostelRegisterDetails,
     HostelAfterRegisterData? hostelAfterRegisterDetails,
+    List<GetHostelData>? gethostelData,
   }) =>
       HostelState(
         successMessage: successMessage ?? this.successMessage,
@@ -52,6 +56,7 @@ class HostelState {
             hostelRegisterDetails ?? this.hostelRegisterDetails,
         hostelAfterRegisterDetails:
             hostelAfterRegisterDetails ?? this.hostelAfterRegisterDetails,
+        gethostelData: gethostelData ?? this.gethostelData,
       );
 }
 
@@ -66,6 +71,7 @@ class HostelInitial extends HostelState {
           selectedRoomTypeData: RoomTypeData.empty,
           hostelRegisterDetails: HostelRegisterData.empty,
           hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          gethostelData: <GetHostelData>[],
         );
 }
 
@@ -79,6 +85,7 @@ class HostelStateLoading extends HostelState {
     required super.selectedRoomTypeData,
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
+    required super.gethostelData,
   });
 }
 
@@ -92,6 +99,7 @@ class HostelStateError extends HostelState {
     required super.selectedRoomTypeData,
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
+    required super.gethostelData,
   });
 }
 
@@ -105,6 +113,7 @@ class HostelStateSuccessful extends HostelState {
     required super.selectedRoomTypeData,
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
+    required super.gethostelData,
   });
 }
 
@@ -118,5 +127,6 @@ class NoNetworkAvailableHostel extends HostelState {
     required super.selectedRoomTypeData,
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
+    required super.gethostelData,
   });
 }

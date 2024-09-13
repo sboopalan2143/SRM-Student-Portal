@@ -62,12 +62,12 @@ class HostelRegisterData {
     return data;
   }
 
-  static final empty= HostelRegisterData(
-   applnfeeamount:'',
-   controllerid:'',
-   regconfig:'',
-   academicyearid:'',
-   cautiondepositamt:'',
-   status:'',
+  static final empty = HostelRegisterData(
+    applnfeeamount: '',
+    controllerid: '',
+    regconfig: '',
+    academicyearid: '',
+    cautiondepositamt: '',
+    status: '',
   );
 }

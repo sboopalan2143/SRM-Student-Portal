@@ -68,6 +68,6 @@ class RoomTypeData {
     roomtypeid: '',
     cautiondepositfee: '',
     hostelstatus: '',
-    roomtypename: '',
+    roomtypename: 'Select RoomType',
   );
 }

@@ -14,7 +14,7 @@ class TransportState {
   const TransportState({
     required this.successMessage,
     required this.errorMessage,
-    required this.grievanceTransportStatusData,
+    required this.transportStatusData,
     required this.studentId,
     required this.academicyearId,
     required this.boardingpointId,
@@ -29,7 +29,7 @@ class TransportState {
 
   final String successMessage;
   final String errorMessage;
-  final List<TransportStatusData> grievanceTransportStatusData;
+  final List<TransportStatusData> transportStatusData;
   final TextEditingController studentId;
   final TextEditingController academicyearId;
   final TextEditingController boardingpointId;
@@ -45,7 +45,7 @@ class TransportState {
   TransportState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<TransportStatusData>? grievanceTransportStatusData,
+    List<TransportStatusData>? transportStatusData,
     TextEditingController? studentId,
     TextEditingController? academicyearId,
     TextEditingController? boardingpointId,
@@ -60,8 +60,8 @@ class TransportState {
       TransportState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        grievanceTransportStatusData:
-            grievanceTransportStatusData ?? this.grievanceTransportStatusData,
+        transportStatusData:
+            transportStatusData ?? this.transportStatusData,
         studentId: studentId ?? this.studentId,
         academicyearId: academicyearId ?? this.academicyearId,
         boardingpointId: boardingpointId ?? this.boardingpointId,
@@ -83,7 +83,7 @@ class TransportInitial extends TransportState {
       : super(
           successMessage: '',
           errorMessage: '',
-          grievanceTransportStatusData: <TransportStatusData>[],
+          transportStatusData: <TransportStatusData>[],
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -101,7 +101,7 @@ class TransportStateLoading extends TransportState {
   const TransportStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    required super.grievanceTransportStatusData,
+    required super.transportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -119,7 +119,7 @@ class TransportStateError extends TransportState {
   const TransportStateError({
     required super.successMessage,
     required super.errorMessage,
-    required super.grievanceTransportStatusData,
+    required super.transportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -137,7 +137,7 @@ class TransportStateSuccessful extends TransportState {
   const TransportStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    required super.grievanceTransportStatusData,
+    required super.transportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,
@@ -155,7 +155,7 @@ class NoNetworkAvailableTransport extends TransportState {
   const NoNetworkAvailableTransport({
     required super.successMessage,
     required super.errorMessage,
-    required super.grievanceTransportStatusData,
+    required super.transportStatusData,
     required super.studentId,
     required super.academicyearId,
     required super.boardingpointId,

@@ -101,7 +101,7 @@ class _TransportTransactionPageState
                 ),
                 const SizedBox(height: 10),
                 ListView.builder(
-                  itemCount: provider.grievanceTransportStatusData.length,
+                  itemCount: provider.transportStatusData.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -158,10 +158,9 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].officeid}' ==
-                              ''
+                      '${provider.transportStatusData[index].officeid}' == ''
                           ? '-'
-                          : '''${provider.grievanceTransportStatusData[index].officeid}''',
+                          : '''${provider.transportStatusData[index].officeid}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -185,11 +184,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].academicyearid}' ==
+                      '${provider.transportStatusData[index].academicyearid}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].academicyearid}'
+                              '${provider.transportStatusData[index].academicyearid}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -214,11 +213,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].applicationfee}' ==
+                      '${provider.transportStatusData[index].applicationfee}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].applicationfee}'
+                              '${provider.transportStatusData[index].applicationfee}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -243,11 +242,10 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].regconfig}' ==
-                              ''
+                      '${provider.transportStatusData[index].regconfig}' == ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].regconfig}'
+                              '${provider.transportStatusData[index].regconfig}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -272,11 +270,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].transportstatus}' ==
+                      '${provider.transportStatusData[index].transportstatus}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].transportstatus}'
+                              '${provider.transportStatusData[index].transportstatus}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -301,11 +299,10 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].status}' ==
-                              ''
+                      '${provider.transportStatusData[index].status}' == ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].status}'
+                              '${provider.transportStatusData[index].status}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),

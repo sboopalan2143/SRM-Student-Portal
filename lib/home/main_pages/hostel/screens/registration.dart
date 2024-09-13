@@ -2,10 +2,10 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
+import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
@@ -33,7 +33,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             ref.read(encryptionProvider.notifier),
           );
       // ref.read(hostelProvider.notifier).getRoomType(
-      //       ref.read(encryptionProvider.notifier),
+      //       ref.read(
+      //         encryptionProvider.notifier,
+      //       ),
+      //       0,
       //     );
     });
   }
@@ -41,6 +44,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(hostelProvider);
+    final width = MediaQuery.of(context).size.width;
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -98,10 +102,268 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           ],
         ),
       ),
-      body: provider.hostelRegisterDetails!.regconfig == '1' &&
-              provider.hostelRegisterDetails!.status == '0'
-          ? registrationForm()
-          : Text(''),
+      body: provider is HostelStateLoading
+          ? Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(
+                child:
+                    CircularProgressIndicators.primaryColorProgressIndication,
+              ),
+            )
+          : provider.hostelRegisterDetails!.status == '1' &&
+                  provider is! HostelStateLoading
+              ? Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No Data!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Hostel',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.hostel}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Hostel Fee Amount',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Registration Date',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Caution Deposit Amount',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Room Type',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Active Status',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'Mess Fee Amount',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2 - 80,
+                                child: const Text(
+                                  'App In-Fee Amount',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                              const Text(
+                                ':',
+                                style: TextStyles.fontStyle10,
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: width / 2 - 60,
+                                child: Text(
+                                  '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
+                                  style: TextStyles.fontStyle10,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
       endDrawer: const DrawerDesign(),
     );
   }
@@ -170,7 +432,8 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     ),
                     selectedItem: provider.selectedHostelData,
                     onChanged: (value) {
-                      providerRead.setHostelValue(value!);
+                      providerRead.setHostelValue(
+                          value!, ref.read(encryptionProvider.notifier));
                     },
                     dropdownBuilder: (BuildContext context, name) {
                       return Text(
@@ -198,49 +461,76 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
               ),
               SizedBox(
                 height: 40,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: KeyboardRule.numberInputRule,
-                  style: TextStyles.fontStyle2,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppColors.whiteColor,
-                    contentPadding: const EdgeInsets.all(10),
-                    enabledBorder:
-                        BorderBoxButtonDecorations.loginTextFieldStyle,
-                    focusedBorder:
-                        BorderBoxButtonDecorations.loginTextFieldStyle,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                      color: AppColors.grey2,
+                    ),
+                  ),
+                  height: 40,
+                  child: DropdownSearch<RoomTypeData>(
+                    dropdownDecoratorProps: const DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 5,
+                        ),
+                      ),
+                    ),
+                    itemAsString: (item) => item.roomtypename!,
+                    items: provider.roomTypeData,
+                    popupProps: const PopupProps.menu(
+                      searchFieldProps: TextFieldProps(
+                        autofocus: true,
+                      ),
+                      constraints: BoxConstraints(maxHeight: 250),
+                    ),
+                    selectedItem: provider.selectedRoomTypeData,
+                    onChanged: (value) {
+                      providerRead.setRoomTypeValue(value!);
+                    },
+                    dropdownBuilder: (BuildContext context, name) {
+                      return Text(
+                        name!.roomtypename!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.smallLightAshColorFontStyle,
+                      );
+                    },
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-                width: 30,
-                child: Checkbox(
-                  side: const BorderSide(color: AppColors.grey, width: 2),
-                  checkColor: AppColors.whiteColor,
-                  value: false,
-                  onChanged: (bool? value) {},
-                ),
-              ),
-              const SizedBox(width: 5),
-              const Text(
-                'I Agree and Continue to ',
-                style: TextStyles.fontStyle10,
-              ),
-              Text(
-                ' Terms and Conditions',
-                style: TextStyles.fontStyle14,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     SizedBox(
+          //       height: 20,
+          //       width: 30,
+          //       child: Checkbox(
+          //         side: const BorderSide(color: AppColors.grey, width: 2),
+          //         checkColor: AppColors.whiteColor,
+          //         value: false,
+          //         onChanged: (bool? value) {},
+          //       ),
+          //     ),
+          //     const SizedBox(width: 5),
+          //     const Text(
+          //       'I Agree and Continue to ',
+          //       style: TextStyles.fontStyle10,
+          //     ),
+          //     Text(
+          //       ' Terms and Conditions',
+          //       style: TextStyles.fontStyle14,
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 20),
           Row(
             children: [
               Expanded(

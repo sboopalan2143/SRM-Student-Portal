@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
 import 'package:sample/home/main_pages/hostel/screens/registration.dart';
 
@@ -41,9 +43,9 @@ class ButtonDesign {
           );
         }
         if (text == 'Submit') {
-          // ref
-          //     .read(hostelProvider.notifier)
-          //     .hostelRegister(ref.read(encryptionProvider.notifier));
+          ref
+              .read(hostelProvider.notifier)
+              .hostelRegister(ref.read(encryptionProvider.notifier));
         }
       },
       child: FittedBox(

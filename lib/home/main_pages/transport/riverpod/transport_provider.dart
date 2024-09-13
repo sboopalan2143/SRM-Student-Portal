@@ -18,7 +18,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
   void _setLoading() => state = TransportStateLoading(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: <TransportStatusData>[],
+        transportStatusData: <TransportStatusData>[],
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -45,7 +45,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = NoNetworkAvailableTransport(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -59,30 +59,30 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final grievanceTransportStatusDataRes =
+      final transportStatusDataRes =
           details['getTransportRegistrationStatusResponse']
               as Map<String, dynamic>;
       final returnData =
-          grievanceTransportStatusDataRes['return'] as Map<String, dynamic>;
+          transportStatusDataRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
-      var grievanceTransportStatusData = state.grievanceTransportStatusData;
+      var transportStatusData = state.transportStatusData;
       log('decrypted >>>>>>>> $decryptedData');
 
       try {
         final transportdataResponse = getTransportRegistrationStatusModel
             .fromJson(decryptedData.mapData!);
-        grievanceTransportStatusData = transportdataResponse.data!;
+        transportStatusData = transportdataResponse.data!;
         state = state.copyWith(
-          grievanceTransportStatusData: grievanceTransportStatusData,
+          transportStatusData: transportStatusData,
         );
 
         if (transportdataResponse.status == 'Success') {
           state = TransportStateSuccessful(
             successMessage: '',
             errorMessage: '',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -98,7 +98,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           state = TransportStateError(
             successMessage: '',
             errorMessage: '',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -116,7 +116,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         state = TransportStateError(
           successMessage: '',
           errorMessage: error.message!,
-          grievanceTransportStatusData: state.grievanceTransportStatusData,
+          transportStatusData: state.transportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -133,7 +133,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = TransportStateError(
         successMessage: '',
         errorMessage: 'Error',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -159,7 +159,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = NoNetworkAvailableTransport(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -191,7 +191,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           state = TransportStateSuccessful(
             successMessage: '',
             errorMessage: '',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -207,7 +207,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           state = TransportStateError(
             successMessage: '',
             errorMessage: 'Error',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -225,7 +225,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         state = TransportStateError(
           successMessage: '',
           errorMessage: error.message!,
-          grievanceTransportStatusData: state.grievanceTransportStatusData,
+          transportStatusData: state.transportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -242,7 +242,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = TransportStateError(
         successMessage: '',
         errorMessage: 'Error',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -279,7 +279,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = NoNetworkAvailableTransport(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -311,7 +311,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           state = TransportStateSuccessful(
             successMessage: '',
             errorMessage: '',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -327,7 +327,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           state = TransportStateError(
             successMessage: '',
             errorMessage: 'Error',
-            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportStatusData: state.transportStatusData,
             studentId: TextEditingController(),
             academicyearId: TextEditingController(),
             boardingpointId: TextEditingController(),
@@ -345,7 +345,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         state = TransportStateError(
           successMessage: '',
           errorMessage: error.message!,
-          grievanceTransportStatusData: state.grievanceTransportStatusData,
+          transportStatusData: state.transportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -362,7 +362,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = TransportStateError(
         successMessage: '',
         errorMessage: 'Error',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -397,7 +397,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = NoNetworkAvailableTransport(
         successMessage: '',
         errorMessage: '',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),
@@ -422,7 +422,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         state = TransportStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
           errorMessage: '',
-          grievanceTransportStatusData: state.grievanceTransportStatusData,
+          transportStatusData: state.transportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -438,7 +438,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         state = TransportStateError(
           successMessage: '',
           errorMessage: '${decryptedData.mapData!['Status']}',
-          grievanceTransportStatusData: state.grievanceTransportStatusData,
+          transportStatusData: state.transportStatusData,
           studentId: TextEditingController(),
           academicyearId: TextEditingController(),
           boardingpointId: TextEditingController(),
@@ -455,7 +455,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       state = TransportStateError(
         successMessage: '',
         errorMessage: 'Error',
-        grievanceTransportStatusData: state.grievanceTransportStatusData,
+        transportStatusData: state.transportStatusData,
         studentId: TextEditingController(),
         academicyearId: TextEditingController(),
         boardingpointId: TextEditingController(),

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/fees/model.dart/feespaidmodel.dart';
 import 'package:sample/home/main_pages/fees/model.dart/finance_response_model.dart';
+import 'package:sample/home/main_pages/fees/model.dart/get_fees_details.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_provider.dart';
 
 final feesProvider = StateNotifierProvider<FeesProvider, FeesState>((ref) {
@@ -13,28 +14,28 @@ class FeesState {
     required this.errorMessage,
     required this.navFeesString,
     required this.financeData,
-    required this.feespaidData,
+    required this.feesDetailsData,
   });
 
   final String successMessage;
   final String errorMessage;
   final String navFeesString;
   final List<FinanceData> financeData;
-  final List<FeesPaidData> feespaidData;
+  final List<GetFeesData> feesDetailsData;
 
   FeesState copyWith({
     String? successMessage,
     String? errorMessage,
     String? navFeesString,
     List<FinanceData>? financeData,
-    List<FeesPaidData>? feespaidData,
+    List<GetFeesData>? feesDetailsData,
   }) =>
       FeesState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         navFeesString: navFeesString ?? this.navFeesString,
         financeData: financeData ?? this.financeData,
-        feespaidData: feespaidData ?? this.feespaidData,
+        feesDetailsData: feesDetailsData ?? this.feesDetailsData,
       );
 }
 
@@ -45,7 +46,7 @@ class FeesInitial extends FeesState {
           errorMessage: '',
           navFeesString: 'Online Trans',
           financeData: <FinanceData>[],
-          feespaidData: <FeesPaidData>[],
+          feesDetailsData: <GetFeesData>[],
         );
 }
 
@@ -55,7 +56,7 @@ class FeesStateLoading extends FeesState {
     required super.errorMessage,
     required super.navFeesString,
     required super.financeData,
-    required super.feespaidData,
+    required super.feesDetailsData, 
   });
 }
 
@@ -65,7 +66,7 @@ class FeesSuccessFull extends FeesState {
     required super.errorMessage,
     required super.navFeesString,
     required super.financeData,
-    required super.feespaidData,
+    required super.feesDetailsData,
   });
 }
 
@@ -75,7 +76,7 @@ class FeesError extends FeesState {
     required super.errorMessage,
     required super.navFeesString,
     required super.financeData,
-    required super.feespaidData,
+    required super.feesDetailsData,
   });
 }
 
@@ -85,7 +86,7 @@ class FeesStateSuccessful extends FeesState {
     required super.errorMessage,
     required super.navFeesString,
     required super.financeData,
-    required super.feespaidData,
+    required super.feesDetailsData,
   });
 }
 
@@ -95,6 +96,6 @@ class NoNetworkAvailableFees extends FeesState {
     required super.errorMessage,
     required super.navFeesString,
     required super.financeData,
-    required super.feespaidData,
+    required super.feesDetailsData,
   });
 }

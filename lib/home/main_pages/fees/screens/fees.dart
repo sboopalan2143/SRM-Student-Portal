@@ -24,7 +24,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(feesProvider.notifier)
-          .getFeesPaidDetails(ref.read(encryptionProvider.notifier));
+          .getFeesDetails(ref.read(encryptionProvider.notifier));
       ref
           .read(feesProvider.notifier)
           .getFinanceDetails(ref.read(encryptionProvider.notifier));
@@ -39,10 +39,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     ref.listen(feesProvider, (previous, next) {
       if (next is FeesError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is FeesStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
       }
-      // else if (next is FeesStateSuccessful) {
-      //   _showToast(context, next.successMessage, AppColors.greenColor);
-      // }
     });
     return Scaffold(
       key: scaffoldKey,
@@ -203,7 +202,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ListView.builder(
                     itemCount: provider.navFeesString == 'Paid Details'
-                        ? provider.feespaidData.length
+                        ? provider.feesDetailsData.length
                         : provider.financeData.length,
                     controller: _listController,
                     shrinkWrap: true,
@@ -251,7 +250,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Name',
+                      'Due name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -263,9 +262,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feespaidData[index].membername}' == ''
+                      '${provider.feesDetailsData[index].duename}' == ''
                           ? '-'
-                          : '${provider.feespaidData[index].membername}',
+                          : '${provider.feesDetailsData[index].duename}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -277,7 +276,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Code',
+                      'Amt collected',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -289,9 +288,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feespaidData[index].membercode}' == ''
+                      '${provider.feesDetailsData[index].amtcollected}' == ''
                           ? '-'
-                          : '${provider.feespaidData[index].membercode}',
+                          : '${provider.feesDetailsData[index].amtcollected}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -303,7 +302,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Member Type',
+                      'Current due',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -315,9 +314,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feespaidData[index].membertype}' == ''
+                      '${provider.feesDetailsData[index].currentdue}' == ''
                           ? '-'
-                          : '${provider.feespaidData[index].membertype}',
+                          : '${provider.feesDetailsData[index].currentdue}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -329,7 +328,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Status',
+                      'Due amount',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -341,9 +340,61 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feespaidData[index].status}' == ''
+                      '${provider.feesDetailsData[index].dueamount}' == ''
                           ? '-'
-                          : '${provider.feespaidData[index].status}',
+                          : '${provider.feesDetailsData[index].dueamount}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Due date',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feesDetailsData[index].duedate}' == ''
+                          ? '-'
+                          : '${provider.feesDetailsData[index].duedate}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Due description',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feesDetailsData[index].duedescription}' == ''
+                          ? '-'
+                          : '${provider.feesDetailsData[index].duedescription}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

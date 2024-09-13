@@ -7,6 +7,7 @@ import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/feespaidmodel.dart';
 import 'package:sample/home/main_pages/fees/model.dart/finance_response_model.dart';
+import 'package:sample/home/main_pages/fees/model.dart/get_fees_details.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 
 class FeesProvider extends StateNotifier<FeesState> {
@@ -19,7 +20,7 @@ class FeesProvider extends StateNotifier<FeesState> {
         errorMessage: '',
         navFeesString: state.navFeesString,
         financeData: <FinanceData>[],
-        feespaidData: <FeesPaidData>[],
+        feesDetailsData: <GetFeesData>[],
       );
 
   Future<void> getFinanceDetails(EncryptionProvider encrypt) async {
@@ -35,7 +36,7 @@ class FeesProvider extends StateNotifier<FeesState> {
         errorMessage: '',
         navFeesString: state.navFeesString,
         financeData: <FinanceData>[],
-        feespaidData: <FeesPaidData>[],
+        feesDetailsData: <GetFeesData>[],
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -58,7 +59,7 @@ class FeesProvider extends StateNotifier<FeesState> {
             errorMessage: '',
             navFeesString: state.navFeesString,
             financeData: state.financeData,
-            feespaidData: state.feespaidData,
+            feesDetailsData: state.feesDetailsData,
           );
         } else if (financeDataResponse.status != 'Success') {
           state = FeesError(
@@ -67,7 +68,7 @@ class FeesProvider extends StateNotifier<FeesState> {
                 '''${financeDataResponse.status!}, ${financeDataResponse.message!}''',
             navFeesString: state.navFeesString,
             financeData: <FinanceData>[],
-            feespaidData: <FeesPaidData>[],
+            feesDetailsData: <GetFeesData>[],
           );
         }
       } catch (e) {
@@ -77,7 +78,7 @@ class FeesProvider extends StateNotifier<FeesState> {
           errorMessage: error.message!,
           navFeesString: state.navFeesString,
           financeData: <FinanceData>[],
-          feespaidData: <FeesPaidData>[],
+          feesDetailsData: <GetFeesData>[],
         );
       }
     } else if (response.$1 != 200) {
@@ -86,58 +87,57 @@ class FeesProvider extends StateNotifier<FeesState> {
         errorMessage: 'Error',
         navFeesString: state.navFeesString,
         financeData: <FinanceData>[],
-        feespaidData: <FeesPaidData>[],
+        feesDetailsData: <GetFeesData>[],
       );
     }
   }
 
-  Future<void> getFeesPaidDetails(EncryptionProvider encrypt) async {
+  Future<void> getFeesDetails(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getFeePaidDetails', data);
+    final response = await HttpService.sendSoapRequest('getFeeDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableFees(
         successMessage: '',
         errorMessage: '',
         navFeesString: state.navFeesString,
         financeData: <FinanceData>[],
-        feespaidData: state.feespaidData,
+        feesDetailsData: state.feesDetailsData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final financeRes =
-          details['getFeePaidDetailsResponse'] as Map<String, dynamic>;
+          details['getFeeDetailsResponse'] as Map<String, dynamic>;
       final returnData = financeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
-      var feespaidData = state.feespaidData;
+      var feesDetailsData = state.feesDetailsData;
       log('decrypted>>>>>>>>${decryptedData.mapData}');
 
       try {
-        final fessPaidDataResponse =
-            FeesPaidDetails.fromJson(decryptedData.mapData!);
-        feespaidData = fessPaidDataResponse.data!;
-        state = state.copyWith(feespaidData: feespaidData);
-        if (fessPaidDataResponse.status == 'Success') {
+        final feesDetailsDataDataResponse =
+            GetFeesDetailsModel.fromJson(decryptedData.mapData!);
+        feesDetailsData = feesDetailsDataDataResponse.data!;
+        state = state.copyWith(feesDetailsData: feesDetailsData);
+        if (feesDetailsDataDataResponse.status == 'Success') {
           state = FeesStateSuccessful(
-            successMessage: fessPaidDataResponse.status!,
+            successMessage: feesDetailsDataDataResponse.status!,
             errorMessage: '',
             navFeesString: state.navFeesString,
             financeData: state.financeData,
-            feespaidData: state.feespaidData,
+            feesDetailsData: state.feesDetailsData,
           );
-        } else if (fessPaidDataResponse.status != 'Success') {
+        } else if (feesDetailsDataDataResponse.status != 'Success') {
           state = FeesError(
             successMessage: '',
             errorMessage:
-                '''${fessPaidDataResponse.status!}, ${fessPaidDataResponse.message!}''',
+                '''${feesDetailsDataDataResponse.status!}, ${feesDetailsDataDataResponse.message!}''',
             navFeesString: state.navFeesString,
             financeData: <FinanceData>[],
-            feespaidData: state.feespaidData,
+            feesDetailsData: state.feesDetailsData,
           );
         }
       } catch (e) {
@@ -147,7 +147,7 @@ class FeesProvider extends StateNotifier<FeesState> {
           errorMessage: error.message!,
           navFeesString: state.navFeesString,
           financeData: <FinanceData>[],
-          feespaidData: state.feespaidData,
+          feesDetailsData: state.feesDetailsData,
         );
       }
     } else if (response.$1 != 200) {
@@ -156,7 +156,7 @@ class FeesProvider extends StateNotifier<FeesState> {
         errorMessage: 'Error',
         navFeesString: state.navFeesString,
         financeData: <FinanceData>[],
-        feespaidData: state.feespaidData,
+        feesDetailsData: state.feesDetailsData,
       );
     }
   }

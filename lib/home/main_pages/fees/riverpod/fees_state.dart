@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/fees/model.dart/feespaidmodel.dart';
 import 'package:sample/home/main_pages/fees/model.dart/finance_response_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/get_fees_details.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_provider.dart';

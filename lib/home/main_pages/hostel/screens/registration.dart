@@ -506,36 +506,11 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
             ],
           ),
           const SizedBox(height: 20),
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     SizedBox(
-          //       height: 20,
-          //       width: 30,
-          //       child: Checkbox(
-          //         side: const BorderSide(color: AppColors.grey, width: 2),
-          //         checkColor: AppColors.whiteColor,
-          //         value: false,
-          //         onChanged: (bool? value) {},
-          //       ),
-          //     ),
-          //     const SizedBox(width: 5),
-          //     const Text(
-          //       'I Agree and Continue to ',
-          //       style: TextStyles.fontStyle10,
-          //     ),
-          //     Text(
-          //       ' Terms and Conditions',
-          //       style: TextStyles.fontStyle14,
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(height: 20),
           Row(
             children: [
               Expanded(
                 child: ButtonDesign.buttonDesign(
-                  'Submit',
+                  'Register',
                   AppColors.primaryColor,
                   context,
                   ref,

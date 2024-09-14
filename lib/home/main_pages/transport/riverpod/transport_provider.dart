@@ -556,11 +556,11 @@ class TrasportProvider extends StateNotifier<TransportState> {
       var transportAfterRegisterDetails = TransportAfterRegisterData.empty;
 
       if (decryptedData.mapData!['Status'] == 'Success') {
-        log('Enters here status data+++++++${decryptedData.mapData!['Data'][0]['status']}');
         if (decryptedData.mapData!['Data'][0]['status'] == '0') {
           log('enters status==0');
-          final transportRegisterResponse = getTransportRegistrationStateModel
-              .fromJson(decryptedData.mapData!);
+          final transportRegisterResponse =
+              GetTransportRegistrationStateModel.fromJson(
+                  decryptedData.mapData!);
 
           transportRegisterDetails = transportRegisterResponse.data![0];
           state = state.copyWith(

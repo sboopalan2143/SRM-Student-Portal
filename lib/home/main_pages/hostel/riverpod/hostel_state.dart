@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/hostel/model/get_hostel_details_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hotel_leave_application_model.dart';
 import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
 
@@ -22,6 +24,10 @@ class HostelState {
     required this.hostelRegisterDetails,
     required this.hostelAfterRegisterDetails,
     required this.gethostelData,
+    required this.fromDate,
+    required this.toDate,
+    required this.leaveReason,
+    required this.hostelLeaveData,
   });
 
   final String successMessage;
@@ -33,6 +39,10 @@ class HostelState {
   final HostelRegisterData? hostelRegisterDetails;
   final HostelAfterRegisterData? hostelAfterRegisterDetails;
   final List<GetHostelData> gethostelData;
+  final TextEditingController fromDate;
+  final TextEditingController toDate;
+  final TextEditingController leaveReason;
+  final List<HostelLeaveData> hostelLeaveData;
 
   HostelState copyWith({
     String? successMessage,
@@ -44,6 +54,10 @@ class HostelState {
     HostelRegisterData? hostelRegisterDetails,
     HostelAfterRegisterData? hostelAfterRegisterDetails,
     List<GetHostelData>? gethostelData,
+    TextEditingController? fromDate,
+    TextEditingController? toDate,
+    TextEditingController? leaveReason,
+    List<HostelLeaveData>? hostelLeaveData,
   }) =>
       HostelState(
         successMessage: successMessage ?? this.successMessage,
@@ -57,6 +71,10 @@ class HostelState {
         hostelAfterRegisterDetails:
             hostelAfterRegisterDetails ?? this.hostelAfterRegisterDetails,
         gethostelData: gethostelData ?? this.gethostelData,
+        fromDate: fromDate ?? this.fromDate,
+        toDate: toDate ?? this.toDate,
+        leaveReason: leaveReason ?? this.leaveReason,
+        hostelLeaveData: hostelLeaveData ?? this.hostelLeaveData,
       );
 }
 
@@ -72,6 +90,10 @@ class HostelInitial extends HostelState {
           hostelRegisterDetails: HostelRegisterData.empty,
           hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
           gethostelData: <GetHostelData>[],
+          fromDate: TextEditingController(),
+          toDate: TextEditingController(),
+          leaveReason: TextEditingController(),
+          hostelLeaveData: <HostelLeaveData>[],
         );
 }
 
@@ -86,6 +108,10 @@ class HostelStateLoading extends HostelState {
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
     required super.gethostelData,
+    required super.fromDate,
+    required super.toDate,
+    required super.leaveReason,
+    required super.hostelLeaveData,
   });
 }
 
@@ -100,6 +126,10 @@ class HostelStateError extends HostelState {
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
     required super.gethostelData,
+    required super.fromDate,
+    required super.toDate,
+    required super.leaveReason,
+    required super.hostelLeaveData,
   });
 }
 
@@ -114,6 +144,10 @@ class HostelStateSuccessful extends HostelState {
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
     required super.gethostelData,
+    required super.fromDate,
+    required super.toDate,
+    required super.leaveReason,
+    required super.hostelLeaveData,
   });
 }
 
@@ -128,5 +162,9 @@ class NoNetworkAvailableHostel extends HostelState {
     required super.hostelRegisterDetails,
     required super.hostelAfterRegisterDetails,
     required super.gethostelData,
+    required super.fromDate,
+    required super.toDate,
+    required super.leaveReason,
+    required super.hostelLeaveData,
   });
 }

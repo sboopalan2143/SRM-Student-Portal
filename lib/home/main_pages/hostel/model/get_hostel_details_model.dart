@@ -6,9 +6,9 @@ class GetHostelDetailsModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <GetHostelData>[];
-      json['Data'].forEach((v) {
-        data!.add(new GetHostelData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(GetHostelData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
   String? status;
@@ -27,18 +27,13 @@ class GetHostelDetailsModel {
 }
 
 class GetHostelData {
-  String? hostelname;
-  String? roomname;
-  String? academicyear;
-  String? alloteddate;
-  String? roomtype;
-
-  GetHostelData(
-      {this.hostelname,
-      this.roomname,
-      this.academicyear,
-      this.alloteddate,
-      this.roomtype});
+  GetHostelData({
+    this.hostelname,
+    this.roomname,
+    this.academicyear,
+    this.alloteddate,
+    this.roomtype,
+  });
 
   GetHostelData.fromJson(Map<String, dynamic> json) {
     hostelname = json['hostelname'] as String?;
@@ -47,6 +42,11 @@ class GetHostelData {
     alloteddate = json['alloteddate'] as String?;
     roomtype = json['roomtype'] as String?;
   }
+  String? hostelname;
+  String? roomname;
+  String? academicyear;
+  String? alloteddate;
+  String? roomtype;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

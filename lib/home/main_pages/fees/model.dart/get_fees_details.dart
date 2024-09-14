@@ -1,7 +1,4 @@
 class GetFeesDetailsModel {
-  String? status;
-  String? message;
-  List<GetFeesData>? data;
 
   GetFeesDetailsModel({this.status, this.message, this.data});
 
@@ -10,14 +7,17 @@ class GetFeesDetailsModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <GetFeesData>[];
-      json['Data'].forEach((v) {
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add( GetFeesData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
+  String? status;
+  String? message;
+  List<GetFeesData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['Status'] = status;
     data['Message'] = message;
     if (this.data != null) {
@@ -28,12 +28,6 @@ class GetFeesDetailsModel {
 }
 
 class GetFeesData {
-  String? duedate;
-  String? duename;
-  String? dueamount;
-  String? duedescription;
-  String? amtcollected;
-  String? currentdue;
 
   GetFeesData(
       {this.duedate,
@@ -51,6 +45,12 @@ class GetFeesData {
     amtcollected = json['amtcollected'] as String?;
     currentdue = json['currentdue'] as String?;
   }
+  String? duedate;
+  String? duename;
+  String? dueamount;
+  String? duedescription;
+  String? amtcollected;
+  String? currentdue;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

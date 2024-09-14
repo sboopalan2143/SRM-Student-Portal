@@ -1,24 +1,22 @@
-class getTransportRegistrationStateModel {
-  String? status;
-  String? message;
-  List<TransportRegisterData>? data;
+class GetTransportRegistrationStateModel {
+  GetTransportRegistrationStateModel({this.status, this.message, this.data});
 
-  getTransportRegistrationStateModel({this.status, this.message, this.data});
-
-  getTransportRegistrationStateModel.fromJson(Map<String, dynamic> json) {
+  GetTransportRegistrationStateModel.fromJson(Map<String, dynamic> json) {
     status = json['Status'] as String?;
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <TransportRegisterData>[];
-      json['Data'].forEach((v) {
-        data!
-            .add(new TransportRegisterData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(TransportRegisterData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<TransportRegisterData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['Status'] = status;
     data['Message'] = message;
     if (this.data != null) {
@@ -29,14 +27,6 @@ class getTransportRegistrationStateModel {
 }
 
 class TransportRegisterData {
-  String? transportstatus;
-  String? applicationfee;
-  String? controllerid;
-  String? officeid;
-  String? regconfig;
-  String? academicyearid;
-  String? status;
-
   TransportRegisterData(
       {this.transportstatus,
       this.applicationfee,
@@ -55,6 +45,13 @@ class TransportRegisterData {
     academicyearid = json['academicyearid'] as String?;
     status = json['status'] as String?;
   }
+  String? transportstatus;
+  String? applicationfee;
+  String? controllerid;
+  String? officeid;
+  String? regconfig;
+  String? academicyearid;
+  String? status;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -77,6 +74,4 @@ class TransportRegisterData {
     transportstatus: '',
     status: '',
   );
-
-  fromJson(Map<String, dynamic> map) {}
 }

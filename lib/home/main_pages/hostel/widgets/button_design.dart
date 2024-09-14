@@ -42,10 +42,15 @@ class ButtonDesign {
             ),
           );
         }
-        if (text == 'Submit') {
+        if (text == 'Register') {
           ref
               .read(hostelProvider.notifier)
               .hostelRegister(ref.read(encryptionProvider.notifier));
+        }
+        if (text == 'Submit') {
+          ref
+              .read(hostelProvider.notifier)
+              .studentLeaveSubmit(ref.read(encryptionProvider.notifier));
         }
       },
       child: FittedBox(

@@ -5,6 +5,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class FeesPage extends ConsumerStatefulWidget {
@@ -56,7 +57,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

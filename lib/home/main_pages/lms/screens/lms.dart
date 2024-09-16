@@ -4,6 +4,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/lms/screens/notes.dart';
 import 'package:sample/home/main_pages/lms/screens/online_assessment.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class LMSPage extends ConsumerStatefulWidget {
@@ -32,7 +33,7 @@ class _LMSPageState extends ConsumerState<LMSPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

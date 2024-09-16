@@ -10,6 +10,8 @@ import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
+import 'package:sample/login/screen/login_Page2.dart';
 import 'package:sample/login/screen/login_page.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
@@ -76,7 +78,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const HomePage(),
+                    route: const HomePage2(),
                   ),
                 );
               },
@@ -168,7 +170,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 TokensManagement.clearSharedPreference();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  RouteDesign(route: const LoginPage()),
+                  RouteDesign(route: const LoginPage2()),
                   (route) => false,
                 );
               },

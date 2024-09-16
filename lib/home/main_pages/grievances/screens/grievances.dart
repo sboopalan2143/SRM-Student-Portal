@@ -7,6 +7,7 @@ import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart'
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class GrievanceReportPage extends ConsumerStatefulWidget {
@@ -47,7 +48,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

@@ -22,7 +22,7 @@ class ButtonDesign {
       style: ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(9),
+            Radius.circular(20),
           ),
         ),
         elevation: 0,

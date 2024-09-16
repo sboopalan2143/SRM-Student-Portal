@@ -10,11 +10,21 @@ class AppColors {
 
   static const Color whiteColor = Color(0xffFFFFFF);
 
+  static const Color primaryColor2 = Color(0xff2762F6);
+
   static final primaryColorScheme = ThemeData().colorScheme.copyWith(
         primary: primaryColor,
       );
 
   static const Color loadingWrapperColor = Color(0xffC0DDF3);
+
+  static const Color homepagecolor1 = Color(0xffFFF3E7);
+
+  static const Color homepagecolor2 = Color(0xffD7FFEC);
+
+  static const Color homepagecolor3 = Color(0xffFFE5EE);
+
+  static const Color homepagecolor4 = Color(0xffFFF3E7);
 
   static const Color skyBlueColor = Color(0xff0087C9);
 

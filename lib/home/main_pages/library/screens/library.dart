@@ -6,6 +6,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/view.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -54,7 +55,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

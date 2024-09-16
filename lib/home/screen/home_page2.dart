@@ -1,0 +1,677 @@
+import 'dart:convert';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
+import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
+import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/main_pages/academics/screens/academics.dart';
+import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:sample/home/main_pages/fees/screens/fees.dart';
+import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
+import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
+import 'package:sample/home/main_pages/library/screens/library.dart';
+import 'package:sample/home/main_pages/lms/screens/lms.dart';
+import 'package:sample/home/main_pages/notification/screens/notification.dart';
+import 'package:sample/home/main_pages/transport/screens/transport.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/login/riverpod/login_state.dart';
+import 'package:sample/login/screen/login_Page2.dart';
+import 'package:sample/network/riverpod/network_state.dart';
+import 'package:sample/notification.dart';
+
+class HomePage2 extends ConsumerStatefulWidget {
+  const HomePage2({super.key});
+
+  @override
+  ConsumerState createState() => _HomePage2State();
+}
+
+class _HomePage2State extends ConsumerState<HomePage2>
+    with WidgetsBindingObserver {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      SystemChrome.setSystemUIOverlayStyle(
+        StatusBarNavigationBarDesigns.statusBarNavigationBarDesign,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initialProcess();
+    Alerts.checkForAppUpdate(context: context, forcefully: false);
+  }
+
+  Future<void> _initialProcess() async {
+    await TokensManagement.getStudentId();
+    await ref.read(loginProvider.notifier).getAppVersion();
+
+    /// Remove the command line after firebase setup
+    await TokensManagement.getPhoneToken();
+    await TokensManagement.getAppDeviceInfo();
+    try {
+      await ref.read(profileProvider.notifier).getProfileDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+    } catch (e) {
+      await TokensManagement.clearSharedPreference();
+      // ignore: use_build_context_synchronously
+      await Navigator.pushAndRemoveUntil(
+        context,
+        RouteDesign(route: const LoginPage2()),
+        (route) => false,
+      );
+    }
+  }
+
+  Future<void> showNotification(RemoteMessage message) async {
+    await AppNotification.createNotification(
+      title: message.notification?.title ?? '',
+      body: message.notification?.body ?? '',
+      networkImagePath: message.data['image'] as String?,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final providerProfile = ref.watch(profileProvider);
+    final base64Image =
+        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
+    final imageBytes = base64Decode(base64Image);
+    ref
+      ..listen(networkProvider, (previous, next) {
+        if (previous!.connectivityResult == ConnectivityResult.none &&
+            next.connectivityResult != ConnectivityResult.none) {}
+      })
+      ..listen(changePasswordProvider, (previous, next) {
+        if (next is ChangePasswordStateSuccessful) {
+          if (next.message == 'Password Changed Successfuly') {
+            _showToast(context, next.message, AppColors.greenColor);
+          } else {
+            _showToast(context, next.message, AppColors.redColor);
+          }
+        } else if (next is ChangePasswordStateError) {
+          _showToast(context, next.message, AppColors.redColor);
+        }
+      });
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: AppColors.primaryColor,
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            height: 650,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/Grievancesappbar.png',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: 30),
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (imageBytes == '')
+                              const CircleAvatar(
+                                radius: 25,
+                                backgroundColor: AppColors.whiteColor,
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                    'assets/images/profile.png',
+                                  ),
+                                  radius: 48,
+                                ),
+                              ),
+                            if (imageBytes != '')
+                              SizedBox(
+                                height: 60,
+                                width: 60,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.memory(
+                                    imageBytes,
+                                    fit: BoxFit.cover, // Adjust fit as needed
+                                  ),
+                                ),
+                              ),
+                            IconButton(
+                              iconSize: 35,
+                              color: AppColors.whiteColor,
+                              icon: const Icon(Icons.menu),
+                              onPressed: () {
+                                _scaffoldKey.currentState?.openEndDrawer();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                      ),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Hello, ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                          // Text(
+                          //   'Student',
+                          //   style: TextStyle(
+                          //     fontSize: 20,
+                          //     fontWeight: FontWeight.bold,
+                          //     color: AppColors.whiteColor,
+                          //   ),
+                          // ),
+                          Text(
+                            TokensManagement.studentName == ''
+                                ? '-'
+                                : TokensManagement.studentName,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        left: 30,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Welcome to ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                          Text(
+                            'SRM Portal',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40),
+                          topLeft: Radius.circular(40),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 25,
+                        ),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const AcademicsPage(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 100,
+                                padding: const EdgeInsets.all(
+                                  15,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.lightBlue[50],
+                                  borderRadius: BorderRadius.circular(
+                                    20,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 40),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/GraduationCap.png',
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                10,
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Academics',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue[800],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const LibraryPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.homepagecolor1,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/books.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Library',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    ref
+                                        .read(feesProvider.notifier)
+                                        .setFeesNavString('Online Trans');
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const FeesPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.homepagecolor2,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/coin.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Fees',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const HostelPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.homepagecolor3,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/hostelimage.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Hostel',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const GrievanceReportPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.homepagecolor4,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/pencil.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Grievances',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const TransportTransactionPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor2,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/Bus.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Transport',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const LMSPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.homepagecolor3,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/Graduationlms.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'LMS',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const NotificationPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor2,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/Notification.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Notification',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      endDrawer: const DrawerDesign(),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
+    );
+  }
+}

@@ -5,6 +5,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class NotificationPage extends ConsumerStatefulWidget {
@@ -55,7 +56,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

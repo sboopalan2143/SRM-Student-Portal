@@ -8,6 +8,7 @@ import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hou
 import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class AcademicsPage extends ConsumerStatefulWidget {
@@ -37,7 +38,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

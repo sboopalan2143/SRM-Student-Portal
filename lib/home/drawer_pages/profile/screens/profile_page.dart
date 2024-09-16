@@ -10,6 +10,7 @@ import 'package:sample/designs/navigation_style.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
@@ -61,7 +62,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const HomePage(),
+                  route: const HomePage2(),
                 ),
               );
             },

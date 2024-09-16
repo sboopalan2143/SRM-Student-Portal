@@ -6,6 +6,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/screen/home_page.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class HostelPage extends ConsumerStatefulWidget {
@@ -35,11 +36,12 @@ class _HostelPageState extends ConsumerState<HostelPage> {
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is HostelStateSuccessful) {
-        /// Handle route to next page.
-
-        _showToast(context, next.successMessage, AppColors.greenColor);
       }
+      // else if (next is HostelStateSuccessful) {
+      //   /// Handle route to next page.
+
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
     });
     return Scaffold(
       key: scaffoldKey,
@@ -52,8 +54,8 @@ class _HostelPageState extends ConsumerState<HostelPage> {
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute<HomePage>(
-                  builder: (context) => const HomePage(),
+                MaterialPageRoute<HomePage2>(
+                  builder: (context) => const HomePage2(),
                 ),
               );
             },

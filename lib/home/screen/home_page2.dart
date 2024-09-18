@@ -561,32 +561,32 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     padding: const EdgeInsets.all(
                                       15,
                                     ),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.homepagecolor3,
-                                      borderRadius: BorderRadius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/Graduationlms.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          'LMS',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue[800],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   color: AppColors.homepagecolor3,
+                                    //   borderRadius: BorderRadius.circular(
+                                    //     20,
+                                    //   ),
+                                    // ),
+                                    // child: Column(
+                                    //   children: [
+                                    //     Image.asset(
+                                    //       'assets/images/Graduationlms.png',
+                                    //       height: MediaQuery.of(context)
+                                    //               .size
+                                    //               .height /
+                                    //           12,
+                                    //     ),
+                                    //     const SizedBox(width: 10),
+                                    //     Text(
+                                    //       'LMS',
+                                    //       style: TextStyle(
+                                    //         fontSize: 20,
+                                    //         fontWeight: FontWeight.bold,
+                                    //         color: Colors.blue[800],
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // ),
                                   ),
                                 ),
                               ],
@@ -594,56 +594,56 @@ class _HomePage2State extends ConsumerState<HomePage2>
                             const SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      RouteDesign(
-                                        route: const NotificationPage(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    height: 120,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.5,
-                                    padding: const EdgeInsets.all(
-                                      15,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      // color: Colors.lightGreenAccent,
-                                      color: AppColors.homepagecolor2,
-                                      borderRadius: BorderRadius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/Notification.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          'Notification',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue[800],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: () {
+                            //         Navigator.push(
+                            //           context,
+                            //           RouteDesign(
+                            //             route: const NotificationPage(),
+                            //           ),
+                            //         );
+                            //       },
+                            //       child: Container(
+                            //         height: 120,
+                            //         width:
+                            //             MediaQuery.of(context).size.width / 2.5,
+                            //         padding: const EdgeInsets.all(
+                            //           15,
+                            //         ),
+                            //         decoration: BoxDecoration(
+                            //           // color: Colors.lightGreenAccent,
+                            //           color: AppColors.homepagecolor2,
+                            //           borderRadius: BorderRadius.circular(
+                            //             20,
+                            //           ),
+                            //         ),
+                            //         child: Column(
+                            //           children: [
+                            //             Image.asset(
+                            //               'assets/images/Notification.png',
+                            //               height: MediaQuery.of(context)
+                            //                       .size
+                            //                       .height /
+                            //                   12,
+                            //             ),
+                            //             const SizedBox(width: 10),
+                            //             Text(
+                            //               'Notification',
+                            //               style: TextStyle(
+                            //                 fontSize: 20,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 color: Colors.blue[800],
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),

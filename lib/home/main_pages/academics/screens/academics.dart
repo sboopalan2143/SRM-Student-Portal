@@ -7,7 +7,6 @@ import 'package:sample/home/main_pages/academics/exam_details_pages/screens/exam
 import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
@@ -30,42 +29,50 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          leadingWidth: 40,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                RouteDesign(
-                  route: const HomePage2(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.whiteColor,
+        child: Stack(
+          children: [
+            Image.asset(
+              'assets/images/Grievancesappbar.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
             ),
-          ),
-          backgroundColor: AppColors.primaryColor,
-          centerTitle: true,
-          title: const Text(
-            'ACADEMICS',
-            style: TextStyles.fontStyle4,
-            overflow: TextOverflow.clip,
-          ),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    scaffoldKey.currentState?.openEndDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 35,
-                    color: AppColors.whiteColor,
-                  ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const HomePage2(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'ACADEMICS',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        scaffoldKey.currentState?.openEndDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                        size: 35,
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -87,7 +94,14 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor2,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(
+                      BorderBoxButtonDecorations.homePageButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -98,10 +112,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     },
                     child: Text(
                       'Exam Details',
-                      textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -112,7 +127,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor1,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(BorderBoxButtonDecorations.homePageButtonStyle),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -124,9 +144,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     child: Text(
                       'Subjects',
                       textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -142,7 +164,14 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor3,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(
+                      BorderBoxButtonDecorations.homePageButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -154,9 +183,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     child: Text(
                       'Internal Marks',
                       textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -167,7 +198,14 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor2,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(
+                      BorderBoxButtonDecorations.homePageButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -179,9 +217,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     child: Text(
                       'Attendance',
                       textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -197,7 +237,14 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor1,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(
+                      BorderBoxButtonDecorations.homePageButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -209,9 +256,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     child: Text(
                       'Hour Attendance',
                       textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),
@@ -222,7 +271,14 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   height: height * 0.15,
                   width: width * 0.40,
                   child: ElevatedButton(
-                    style: BorderBoxButtonDecorations.homePageButtonStyle,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.homepagecolor3,
+                      textStyle: width > 400
+                          ? TextStyles.fontStyle6
+                          : TextStyles.fontStyle8,
+                    ).merge(
+                      BorderBoxButtonDecorations.homePageButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -234,9 +290,11 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                     child: Text(
                       'Cumulative Attendance',
                       textAlign: TextAlign.center,
-                      style: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[800],
+                      ),
                     ),
                   ),
                 ),

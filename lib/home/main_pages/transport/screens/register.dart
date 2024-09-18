@@ -58,42 +58,50 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          leadingWidth: 40,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                RouteDesign(
-                  route: const TransportTransactionPage(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.whiteColor,
+        child: Stack(
+          children: [
+            Image.asset(
+              'assets/images/Grievancesappbar.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
             ),
-          ),
-          backgroundColor: AppColors.primaryColor,
-          centerTitle: true,
-          title: const Text(
-            'TRANSPORT',
-            style: TextStyles.fontStyle4,
-            overflow: TextOverflow.clip,
-          ),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    scaffoldKey.currentState?.openEndDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 35,
-                    color: AppColors.whiteColor,
-                  ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const TransportTransactionPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'TRANSPORT',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        scaffoldKey.currentState?.openEndDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                        size: 35,
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

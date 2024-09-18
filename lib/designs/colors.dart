@@ -13,7 +13,7 @@ class AppColors {
   static const Color primaryColor2 = Color(0xff2762F6);
 
   static final primaryColorScheme = ThemeData().colorScheme.copyWith(
-        primary: primaryColor,
+        primary: primaryColor2,
       );
 
   static const Color loadingWrapperColor = Color(0xffC0DDF3);
@@ -66,7 +66,7 @@ class AppColors {
       ),
     );
     primaryColor = parseColor;
-    log('primaryColor $primaryColor');
+    log('primaryColor $primaryColor2');
   }
 
   static Future<void> setSecondaryColor(String color) async {

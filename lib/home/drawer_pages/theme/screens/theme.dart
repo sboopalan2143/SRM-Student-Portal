@@ -1,9 +1,11 @@
+// ignore_for_file: inference_failure_on_instance_creation
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
@@ -25,10 +27,12 @@ class _ThemePageState extends ConsumerState<ThemePage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -129,37 +133,72 @@ class _ThemePageState extends ConsumerState<ThemePage> {
                 log('Color $color');
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#fef2f2');
-                ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
 
               if (text == 'Green') {
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#f0fdf4');
                 ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
 
               if (text == 'Sky Blue') {
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#e0f2fe');
                 ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
 
               if (text == 'Orange') {
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#fff7ed');
                 ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
 
               if (text == 'Black') {
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#f3f4f6');
                 ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
 
               if (text == 'Blue') {
                 await AppColors.setPrimaryColor(color);
                 await AppColors.setSecondaryColor('#F3F9FD');
                 ref.read(mainProvider.notifier).setNavString('Theme');
+                await Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const ThemePage(),
+                  ),
+                );
               }
             },
             child: const Text(
@@ -171,85 +210,6 @@ class _ThemePageState extends ConsumerState<ThemePage> {
           text,
           style: TextStyles.fontStyle2,
         ),
-        // ElevatedButton(
-        //   style: ElevatedButton.styleFrom(
-        //     shape: const RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.all(
-        //         Radius.circular(14),
-        //       ),
-        //     ),
-        //     elevation: 0,
-        //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        //     backgroundColor: Color(int.parse(color)),
-        //     shadowColor: Colors.transparent,
-        //   ),
-        //   onPressed: () async {
-        //     if (text == 'Red') {
-        //       log('Color $color');
-        //       await AppColors.setPrimaryColor(color);
-        //       await AppColors.setSecondaryColor('#fef2f2');
-        //       ref.read(mainProvider.notifier).setNavString('Theme');
-
-        //       await Navigator.of(context).push(
-        //         MaterialPageRoute(
-        //           builder: (context) => const HomePage(),
-        //         ),
-        //       );
-        //     }
-
-        //     if (text == 'Green') {
-        //       await AppColors.setPrimaryColor(color);
-        //       await AppColors.setSecondaryColor('#f0fdf4');
-        //       ref.read(mainProvider.notifier).setNavString('Theme');
-        //       await Navigator.of(context).push(
-        //         MaterialPageRoute(
-        //           builder: (context) => const HomePage(),
-        //         ),
-        //       );
-        //     }
-
-        //     if (text == 'Sky Blue') {
-        //       await AppColors.setPrimaryColor(color);
-        //       await AppColors.setSecondaryColor('#e0f2fe');
-        //       ref.read(mainProvider.notifier).setNavString('Theme');
-        //       await Navigator.of(context).push(
-        //         MaterialPageRoute(
-        //           builder: (context) => const HomePage(),
-        //         ),
-        //       );
-        //     }
-
-        //     if (text == 'Orange') {
-        //       await AppColors.setPrimaryColor(color);
-        //       await AppColors.setSecondaryColor('#fff7ed');
-        //       ref.read(mainProvider.notifier).setNavString('Theme');
-        //       await Navigator.of(context).push(
-        //         MaterialPageRoute(
-        //           builder: (context) => const HomePage(),
-        //         ),
-        //       );
-        //     }
-
-        //     if (text == 'Black') {
-        //       await AppColors.setPrimaryColor(color);
-        //       await AppColors.setSecondaryColor('#f3f4f6');
-        //       ref.read(mainProvider.notifier).setNavString('Theme');
-        //       await Navigator.of(context).push(
-        //         MaterialPageRoute(
-        //           builder: (context) => const HomePage(),
-        //         ),
-        //       );
-        //     }
-        //   },
-        //   child: const Text(
-        //     '',
-        //     style: TextStyles.fontStyle13,
-        //   ),
-        // ),
-        // Text(
-        //   text,
-        //   style: TextStyles.fontStyle2,
-        // ),
       ],
     );
   }

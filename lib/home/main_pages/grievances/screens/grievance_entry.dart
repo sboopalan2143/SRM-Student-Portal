@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_model.dart';
@@ -11,8 +12,6 @@ import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart'
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class GrievanceEntryPage extends ConsumerStatefulWidget {
@@ -52,12 +51,12 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is GrievanceStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
-        Navigator.push(
-          context,
-          RouteDesign(
-            route: const HomePage2(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   RouteDesign(
+        //     route: const HomePage2(),
+        //   ),
+        // );
       }
     });
 
@@ -68,10 +67,12 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -116,273 +117,244 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        child: Column(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Student Name',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.studentname,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Grievances Category',
                     style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      hintText: 'Student Name',
-                      hintStyle: TextStyles.smallLightAshColorFontStyle,
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Subject',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.subject,
-                    style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      hintText: 'Subject',
-                      hintStyle: TextStyles.smallLightAshColorFontStyle,
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                    ),
+                  const SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Grievances Category',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: AppColors.grey2,
-                    ),
-                  ),
-                  height: 40,
-                  child: DropdownSearch<GrievanceCategoryData>(
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        // border: BorderRadius.circular(10),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(
+                        color: AppColors.grey2,
                       ),
                     ),
-                    itemAsString: (item) => item.grievancekcategory!,
-                    items: provider.grievanceCaregoryData,
-                    popupProps: const PopupProps.menu(
-                      constraints: BoxConstraints(maxHeight: 250),
-                    ),
-                    selectedItem: provider.selectedgrievanceCaregoryDataList,
-                    onChanged: (value) {
-                      readProvider.setValue(
-                        value!,
-                      );
-                    },
-                    dropdownBuilder: (BuildContext context, grievences) {
-                      return Text(
-                        '''  ${grievences?.grievancekcategory}''',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Grievances Sub Type',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: AppColors.grey2,
-                    ),
-                  ),
-                  height: 40,
-                  child: DropdownSearch<GrievanceSubTypeData>(
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        // border: BorderRadius.circular(10),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                    height: 40,
+                    child: DropdownSearch<GrievanceCategoryData>(
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          // border: BorderRadius.circular(10),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                        ),
                       ),
-                    ),
-                    itemAsString: (item) => item.grievancesubcategorydesc!,
-                    items: provider.grievanceSubType,
-                    popupProps: const PopupProps.menu(
-                      constraints: BoxConstraints(maxHeight: 250),
-                    ),
-                    selectedItem: provider.selectedgrievanceSubTypeDataList,
-                    onChanged: (value) {
-                      readProvider.setsubtype(
-                        value!,
-                      );
-                    },
-                    dropdownBuilder: (BuildContext context, grievencesSubtype) {
-                      return Text(
-                        '''  ${grievencesSubtype?.grievancesubcategorydesc}''',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Grievances Type',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: AppColors.grey2,
-                    ),
-                  ),
-                  height: 40,
-                  child: DropdownSearch<GrievanceData>(
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        // border: BorderRadius.circular(10),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                      itemAsString: (item) => item.grievancekcategory!,
+                      items: provider.grievanceCaregoryData,
+                      popupProps: const PopupProps.menu(
+                        constraints: BoxConstraints(maxHeight: 250),
                       ),
+                      selectedItem: provider.selectedgrievanceCaregoryDataList,
+                      onChanged: (value) {
+                        readProvider.setValue(
+                          value!,
+                        );
+                      },
+                      dropdownBuilder: (BuildContext context, grievences) {
+                        return Text(
+                          '''  ${grievences?.grievancekcategory}''',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      },
                     ),
-                    itemAsString: (item) => item.grievancetype!,
-                    items: provider.grievanceType,
-                    popupProps: const PopupProps.menu(
-                      constraints: BoxConstraints(maxHeight: 250),
-                    ),
-                    selectedItem: provider.selectedgrievanceTypeDataList,
-                    onChanged: (value) {
-                      readProvider.settype(
-                        value!,
-                      );
-                    },
-                    dropdownBuilder: (BuildContext context, grievencestype) {
-                      return Text(
-                        '''  ${grievencestype?.grievancetype}''',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      );
-                    },
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Description',
-                  style: TextStyles.fontStyle2,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: TextField(
-                    controller: provider.description,
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Grievances Sub Type',
                     style: TextStyles.fontStyle2,
-                    decoration: InputDecoration(
-                      hintText: 'Description',
-                      hintStyle: TextStyles.smallLightAshColorFontStyle,
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(10),
-                      enabledBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
-                      focusedBorder:
-                          BorderBoxButtonDecorations.loginTextFieldStyle,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(
+                        color: AppColors.grey2,
+                      ),
+                    ),
+                    height: 40,
+                    child: DropdownSearch<GrievanceSubTypeData>(
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          // border: BorderRadius.circular(10),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                        ),
+                      ),
+                      itemAsString: (item) => item.grievancesubcategorydesc!,
+                      items: provider.grievanceSubType,
+                      popupProps: const PopupProps.menu(
+                        constraints: BoxConstraints(maxHeight: 250),
+                      ),
+                      selectedItem: provider.selectedgrievanceSubTypeDataList,
+                      onChanged: (value) {
+                        readProvider.setsubtype(
+                          value!,
+                        );
+                      },
+                      dropdownBuilder:
+                          (BuildContext context, grievencesSubtype) {
+                        return Text(
+                          '''  ${grievencesSubtype?.grievancesubcategorydesc}''',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: ButtonDesign.buttonDesign(
-                    'Submit',
-                    AppColors.primaryColor,
-                    context,
-                    ref.read(mainProvider.notifier),
-                    ref,
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Grievances Type',
+                    style: TextStyles.fontStyle2,
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(
+                        color: AppColors.grey2,
+                      ),
+                    ),
+                    height: 40,
+                    child: DropdownSearch<GrievanceData>(
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          // border: BorderRadius.circular(10),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                        ),
+                      ),
+                      itemAsString: (item) => item.grievancetype!,
+                      items: provider.grievanceType,
+                      popupProps: const PopupProps.menu(
+                        constraints: BoxConstraints(maxHeight: 250),
+                      ),
+                      selectedItem: provider.selectedgrievanceTypeDataList,
+                      onChanged: (value) {
+                        readProvider.settype(
+                          value!,
+                        );
+                      },
+                      dropdownBuilder: (BuildContext context, grievencestype) {
+                        return Text(
+                          '''  ${grievencestype?.grievancetype}''',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Subject',
+                    style: TextStyles.fontStyle2,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                      controller: provider.subject,
+                      style: TextStyles.fontStyle2,
+                      decoration: InputDecoration(
+                        hintText: 'Subject',
+                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        filled: true,
+                        fillColor: AppColors.secondaryColor,
+                        contentPadding: const EdgeInsets.all(10),
+                        enabledBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Subject Description',
+                    style: TextStyles.fontStyle2,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    child: TextField(
+                      controller: provider.description,
+                      style: TextStyles.fontStyle2,
+                      decoration: InputDecoration(
+                        hintText: 'Subject Description',
+                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        filled: true,
+                        fillColor: AppColors.secondaryColor,
+                        contentPadding: const EdgeInsets.all(10),
+                        enabledBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder:
+                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: ButtonDesign.buttonDesign(
+                      'Submit',
+                      AppColors.primaryColor,
+                      context,
+                      ref.read(mainProvider.notifier),
+                      ref,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

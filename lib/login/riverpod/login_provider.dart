@@ -18,13 +18,13 @@ class LoginProvider extends StateNotifier<LoginState> {
 
   void disposeState() => state = LoginInitial();
 
-  // void _setLoading() => state = LoginStateLoading(
-  //       successMessage: '',
-  //       errorMessage: '',
-  //       userName: TextEditingController(),
-  //       password: TextEditingController(),
-  //       studentData: LoginData.empty,
-  //     );
+  void _setLoading() => state = LoginStateLoading(
+        successMessage: '',
+        errorMessage: '',
+        userName: state.userName,
+        password: state.password,
+        studentData: state.studentData,
+      );
 
   Future<void> getAppVersion() async {
     final deviceInfo = DeviceInfoPlugin();
@@ -65,6 +65,7 @@ class LoginProvider extends StateNotifier<LoginState> {
   }
 
   Future<void> login(EncryptionProvider encrypt) async {
+    _setLoading();
     log('enters here');
     final data = encrypt.getEncryptedData(
       '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',

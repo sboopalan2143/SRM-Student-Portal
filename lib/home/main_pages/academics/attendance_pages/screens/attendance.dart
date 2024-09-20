@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
@@ -46,42 +47,52 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          leadingWidth: 40,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                RouteDesign(
-                  route: const AcademicsPage(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.whiteColor,
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
-          ),
-          backgroundColor: AppColors.primaryColor,
-          centerTitle: true,
-          title: const Text(
-            'ATTENDANCE',
-            style: TextStyles.fontStyle4,
-            overflow: TextOverflow.clip,
-          ),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    scaffoldKey.currentState?.openEndDrawer();
-                  },
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 35,
-                    color: AppColors.whiteColor,
-                  ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const AcademicsPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'ATTENDANCE',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        scaffoldKey.currentState?.openEndDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                        size: 35,
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -91,54 +102,6 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: AppColors.whiteColor,
-            //       borderRadius: BorderRadius.circular(7),
-            //       border: Border.all(
-            //         color: AppColors.grey2,
-            //       ),
-            //     ),
-            //     height: 40,
-            //     child: DropdownSearch<String>(
-            //       // dropdownButtonProps: DropdownButtonProps(
-            //       //   focusNode: widget.focusNodeC,
-            //       // ),
-            //       dropdownDecoratorProps: const DropDownDecoratorProps(
-            //         dropdownSearchDecoration: InputDecoration(
-            //           border: InputBorder.none,
-            //           contentPadding:
-            //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            //         ),
-            //       ),
-            //       itemAsString: (item) => item,
-            //       items: name,
-            //       popupProps: const PopupProps.menu(
-            //         searchFieldProps: TextFieldProps(
-            //           autofocus: true,
-            //         ),
-            //         constraints: BoxConstraints(maxHeight: 250),
-            //       ),
-            //       selectedItem: selectedValue,
-            //       onChanged: (value) {
-            //         // readProvider.selectCustomer(value!);
-            //         setState(() {
-            //           selectedValue = value!;
-            //         });
-            //       },
-            //       dropdownBuilder: (BuildContext context, name) {
-            //         return Text(
-            //           name!,
-            //           maxLines: 1,
-            //           overflow: TextOverflow.ellipsis,
-            //           style: TextStyles.smallLightAshColorFontStyle,
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
             if (provider is AttendanceStateLoading)
               Padding(
                 padding: const EdgeInsets.only(top: 100),
@@ -260,7 +223,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: const Text(
-                      'Total Hrs.',
+                      'Total Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -286,7 +249,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: const Text(
-                      'Present Hrs.',
+                      'Present Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -312,7 +275,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: const Text(
-                      'Absent Hrs.',
+                      'Absent Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
@@ -271,9 +273,18 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Username',
-                                  style: TextStyles.fontStyle2,
+                                const Row(
+                                  children: [
+                                    Text(
+                                      'Username',
+                                      style: TextStyles.fontStyle2,
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      '*',
+                                      style: TextStyles.redColorFontStyleastric,
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(height: 5),
                                 SizedBox(
@@ -305,9 +316,18 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Password',
-                                  style: TextStyles.fontStyle2,
+                                const Row(
+                                  children: [
+                                    Text(
+                                      'Password',
+                                      style: TextStyles.fontStyle2,
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      '*',
+                                      style: TextStyles.redColorFontStyleastric,
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(height: 5),
                                 SizedBox(
@@ -339,16 +359,50 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                             Row(
                               children: [
                                 Expanded(
-                                  child: ButtonDesign.buttonDesign(
-                                    'Log In',
-                                    AppColors.primaryColor,
-                                    context,
-                                    ref.read(mainProvider.notifier),
-                                    ref,
+                                    child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
+                                    ),
+                                    elevation: 0,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    backgroundColor: AppColors.primaryColor,
+                                    shadowColor: Colors.transparent,
                                   ),
-                                ),
+                                  onPressed: () async {
+                                    // provider.setNavString('Home');
+
+                                    await ref
+                                        .read(loginProvider.notifier)
+                                        .login(ref
+                                            .read(encryptionProvider.notifier));
+                                  },
+                                  child: provider is LoginStateLoading
+                                      ? CircularProgressIndicator(
+                                          color: AppColors.secondaryColor,
+                                        )
+                                      : const Text(
+                                          'Login',
+                                          style: TextStyles.fontStyle1,
+                                        ),
+                                )
+
+                                    //  ButtonDesign.buttonDesign(
+                                    //   'Log In',
+                                    //   AppColors.primaryColor,
+                                    //   context,
+                                    //   ref.read(mainProvider.notifier),
+                                    //   ref,
+                                    // ),
+                                    ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 30,
+                            )
                           ],
                         ),
                       ),

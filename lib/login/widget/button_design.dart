@@ -43,10 +43,12 @@ class ButtonDesign {
               .changePassword(ref.read(encryptionProvider.notifier));
         }
       },
-      child: Text(
-        text,
-        style: TextStyles.fontStyle1,
-      ),
+      child: provider is LoginStateLoading
+          ? const CircularProgressIndicator()
+          : Text(
+              text,
+              style: TextStyles.fontStyle1,
+            ),
     );
   }
 }

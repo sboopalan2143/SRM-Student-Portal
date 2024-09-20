@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
@@ -44,10 +45,12 @@ class _TransportTransactionPageState
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -109,6 +112,29 @@ class _TransportTransactionPageState
                   ),
                 ),
                 const SizedBox(height: 10),
+                if (provider is TransportStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
+                    ),
+                  )
+                else if (provider.grievanceTransportStatusData.isEmpty &&
+                    provider is! TransportStateLoading)
+                  Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle1,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (provider.grievanceTransportStatusData.isNotEmpty)
+                  const SizedBox(height: 5),
                 ListView.builder(
                   itemCount: provider.grievanceTransportStatusData.length,
                   controller: _listController,

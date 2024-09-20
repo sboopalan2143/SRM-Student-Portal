@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,8 +26,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
   @override
   Widget build(BuildContext context) {
     final providerProfile = ref.watch(profileProvider);
-    final base64Image =
-        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
+
+    final base64Image = '${providerProfile.profileData.studentphoto}';
     final imageBytes = base64Decode(base64Image);
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.64,
@@ -44,16 +45,29 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: AppColors.primaryColor,
-                        // height: 100,
-                        // width: 100,
-                        radius: 35,
-                        child: Image.memory(
-                          imageBytes,
-                          // fit: BoxFit.fill,
+                      if (imageBytes == '' && imageBytes.isEmpty)
+                        const CircleAvatar(
+                          radius: 25,
+                          backgroundColor: AppColors.whiteColor,
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/profile.png',
+                            ),
+                            radius: 48,
+                          ),
                         ),
-                      ),
+                      if (imageBytes != '' && imageBytes.isNotEmpty)
+                        SizedBox(
+                          height: 80,
+                          width: 80,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.memory(
+                              imageBytes,
+                              fit: BoxFit.cover, // Adjust fit as needed
+                            ),
+                          ),
+                        ),
                       Text(
                         TokensManagement.studentName == ''
                             ? '-'
@@ -173,6 +187,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                   RouteDesign(route: const LoginPage2()),
                   (route) => false,
                 );
+                // log('${}}');
               },
             ),
           ],

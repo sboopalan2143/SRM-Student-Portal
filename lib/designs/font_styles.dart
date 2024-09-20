@@ -104,6 +104,12 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static const redColorFontStyleastric = TextStyle(
+    fontSize: 12,
+    color: AppColors.redColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static const redColorFontStyle = TextStyle(
     fontSize: 26,
     color: AppColors.redColor,
@@ -130,6 +136,12 @@ class TextStyles {
 
   static const fontStyle3 = TextStyle(
     fontSize: 16,
+    color: AppColors.whiteColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const fontStyle20 = TextStyle(
+    fontSize: 20,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );

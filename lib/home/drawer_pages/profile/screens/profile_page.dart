@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/navigation_style.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
@@ -56,10 +56,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -147,9 +149,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           child: SizedBox(
                             height: 100,
                             width: 100,
-                            child: Image.memory(
-                              imageBytes,
-                              fit: BoxFit.fill,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.memory(
+                                imageBytes,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

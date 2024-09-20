@@ -29,18 +29,26 @@ class ButtonDesign {
       onPressed: () async {
         if (text == 'Register') {
           await Navigator.push(
-                context,
-                RouteDesign(
-                  route: const TransportRegisterPage(),
-                ),
+            context,
+            RouteDesign(
+              route: const TransportRegisterPage(),
+            ),
+          );
+          await ref
+              .read(transportProvider.notifier)
+              .gettransportRegisterDetails(
+                ref.read(encryptionProvider.notifier),
+              );
+          await ref.read(transportProvider.notifier).getRouteIdDetails(
+                ref.read(encryptionProvider.notifier),
               );
         }
         if (text == 'Submit') {
-          await ref
-              .read(transportProvider.notifier)
-              .saveTransportstatusDetails(ref.read(
-                encryptionProvider.notifier,
-              ));
+          await ref.read(transportProvider.notifier).saveTransportstatusDetails(
+                ref.read(
+                  encryptionProvider.notifier,
+                ),
+              );
         }
       },
       child: Text(

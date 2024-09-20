@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
@@ -36,9 +37,10 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
     ref.listen(libraryProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
       }
+      //  else if (next is LibraryTrancsactionStateSuccessful) {
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
     });
     return Scaffold(
       key: scaffoldKey,
@@ -47,10 +49,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -104,9 +108,18 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'filter',
-                    style: TextStyles.fontStyle2,
+                  const Row(
+                    children: [
+                      Text(
+                        'Filter',
+                        style: TextStyles.fontStyle2,
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '*',
+                        style: TextStyles.redColorFontStyleastric,
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 5,
@@ -117,7 +130,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                       controller: provider.filter,
                       style: TextStyles.fontStyle2,
                       decoration: InputDecoration(
-                        hintText: 'filter',
+                        hintText: 'Search...',
                         hintStyle: TextStyles.smallLightAshColorFontStyle,
                         filled: true,
                         fillColor: AppColors.secondaryColor,
@@ -164,7 +177,8 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                       Column(
                         children: [
                           SizedBox(
-                              height: MediaQuery.of(context).size.height / 5),
+                            height: MediaQuery.of(context).size.height / 5,
+                          ),
                           const Center(
                             child: Text(
                               'No List Added Yet!',

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -18,7 +19,6 @@ import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/lms/screens/lms.dart';
-import 'package:sample/home/main_pages/notification/screens/notification.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
@@ -67,7 +67,6 @@ class _HomePage2State extends ConsumerState<HomePage2>
           );
     } catch (e) {
       await TokensManagement.clearSharedPreference();
-      // ignore: use_build_context_synchronously
       await Navigator.pushAndRemoveUntil(
         context,
         RouteDesign(route: const LoginPage2()),
@@ -112,31 +111,37 @@ class _HomePage2State extends ConsumerState<HomePage2>
       body: Stack(
         children: [
           // Background Image
-          Container(
-            height: 650,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/Grievancesappbar.png',
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
+          // Container(
+          //   height: 650,
+          //   decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage(
+          //         'assets/images/Grievancesappbar.png',
+          //       ),
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
+          SvgPicture.asset(
+            'assets/images/wavehome.svg',
+            fit: BoxFit.fill,
+            color: AppColors.primaryColor,
+            width: double.infinity,
+            colorBlendMode: BlendMode.srcOut,
           ),
-
           SingleChildScrollView(
             child: Column(
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(left: 30, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            if (imageBytes == '')
+                            if (imageBytes == '' && imageBytes.isEmpty)
                               const CircleAvatar(
                                 radius: 25,
                                 backgroundColor: AppColors.whiteColor,
@@ -147,10 +152,10 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                   radius: 48,
                                 ),
                               ),
-                            if (imageBytes != '')
+                            if (imageBytes != '' && imageBytes.isNotEmpty)
                               SizedBox(
-                                height: 60,
-                                width: 60,
+                                height: 45,
+                                width: 45,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.memory(
@@ -315,7 +320,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
@@ -362,7 +367,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
@@ -414,7 +419,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
@@ -458,7 +463,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
@@ -483,7 +488,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         Text(
                                           'Grievances',
                                           style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: 19,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.blue[800],
                                           ),
@@ -510,7 +515,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
@@ -555,38 +560,12 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     );
                                   },
                                   child: Container(
-                                    height: 120,
+                                    // height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
                                       15,
                                     ),
-                                    // decoration: BoxDecoration(
-                                    //   color: AppColors.homepagecolor3,
-                                    //   borderRadius: BorderRadius.circular(
-                                    //     20,
-                                    //   ),
-                                    // ),
-                                    // child: Column(
-                                    //   children: [
-                                    //     Image.asset(
-                                    //       'assets/images/Graduationlms.png',
-                                    //       height: MediaQuery.of(context)
-                                    //               .size
-                                    //               .height /
-                                    //           12,
-                                    //     ),
-                                    //     const SizedBox(width: 10),
-                                    //     Text(
-                                    //       'LMS',
-                                    //       style: TextStyle(
-                                    //         fontSize: 20,
-                                    //         fontWeight: FontWeight.bold,
-                                    //         color: Colors.blue[800],
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
                                   ),
                                 ),
                               ],
@@ -594,56 +573,48 @@ class _HomePage2State extends ConsumerState<HomePage2>
                             const SizedBox(
                               height: 20,
                             ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            //   children: [
-                            //     GestureDetector(
-                            //       onTap: () {
-                            //         Navigator.push(
-                            //           context,
-                            //           RouteDesign(
-                            //             route: const NotificationPage(),
-                            //           ),
-                            //         );
-                            //       },
-                            //       child: Container(
-                            //         height: 120,
-                            //         width:
-                            //             MediaQuery.of(context).size.width / 2.5,
-                            //         padding: const EdgeInsets.all(
-                            //           15,
-                            //         ),
-                            //         decoration: BoxDecoration(
-                            //           // color: Colors.lightGreenAccent,
-                            //           color: AppColors.homepagecolor2,
-                            //           borderRadius: BorderRadius.circular(
-                            //             20,
-                            //           ),
-                            //         ),
-                            //         child: Column(
-                            //           children: [
-                            //             Image.asset(
-                            //               'assets/images/Notification.png',
-                            //               height: MediaQuery.of(context)
-                            //                       .size
-                            //                       .height /
-                            //                   12,
-                            //             ),
-                            //             const SizedBox(width: 10),
-                            //             Text(
-                            //               'Notification',
-                            //               style: TextStyle(
-                            //                 fontSize: 20,
-                            //                 fontWeight: FontWeight.bold,
-                            //                 color: Colors.blue[800],
-                            //               ),
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   // color: Colors.lightGreenAccent,
+                                    //   color: AppColors.homepagecolor2,
+                                    //   borderRadius: BorderRadius.circular(
+                                    //     20,
+                                    //   ),
+                                    // ),
+                                    child: const Column(
+                                      children: [
+                                        // Image.asset(
+                                        //   'assets/images/Notification.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        SizedBox(width: 10),
+                                        // Text(
+                                        //   'Notification',
+                                        //   style: TextStyle(
+                                        //     fontSize: 20,
+                                        //     fontWeight: FontWeight.bold,
+                                        //     color: Colors.blue[800],
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
@@ -41,11 +42,9 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(transportProvider);
-
     final width = MediaQuery.of(context).size.width;
-
     final readProvider = ref.read(transportProvider.notifier);
-    log('status data in design>>>${provider.transportRegisterDetails!.status}, ${provider.transportRegisterDetails!.regconfig}');
+    // log('status data in design>>>${provider.transportRegisterDetails!.status}, ${provider.transportRegisterDetails!.regconfig}');
     ref.listen(transportProvider, (previous, next) {
       if (next is TransportStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -60,10 +59,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+           SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -114,98 +115,6 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Column(
                 children: [
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Student ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.studentId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Student ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 10),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Academicyear ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.academicyearId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Academicyear ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 10),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Boardingpoint ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.boardingpointId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Boardingpoint ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -256,38 +165,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 10),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Busroute ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.busrouteId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Busroute ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -338,69 +216,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 10),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Controller ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.controllerId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Controller ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 10),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     const Text(
-                  //       'Office ID',
-                  //       style: TextStyles.fontStyle2,
-                  //     ),
-                  //     const SizedBox(
-                  //       height: 5,
-                  //     ),
-                  //     SizedBox(
-                  //       height: 40,
-                  //       child: TextField(
-                  //         controller: provider.officeId,
-                  //         style: TextStyles.fontStyle2,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Enter Office ID',
-                  //           hintStyle: TextStyles.smallLightAshColorFontStyle,
-                  //           filled: true,
-                  //           fillColor: AppColors.secondaryColor,
-                  //           contentPadding: const EdgeInsets.all(10),
-                  //           enabledBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //           focusedBorder:
-                  //               BorderBoxButtonDecorations.loginTextFieldStyle,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(height: 20),
                   Row(
                     children: [

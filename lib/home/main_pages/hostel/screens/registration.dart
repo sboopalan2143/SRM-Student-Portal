@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
@@ -48,11 +49,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is HostelStateSuccessful) {
-        /// Handle route to next page.
-
-        _showToast(context, next.successMessage, AppColors.greenColor);
       }
+      // else if (next is HostelStateSuccessful) {
+      //   /// Handle route to next page.
+
+      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      // }
     });
 
     return Scaffold(
@@ -62,10 +64,12 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(

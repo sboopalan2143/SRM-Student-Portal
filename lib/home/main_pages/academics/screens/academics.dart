@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
@@ -31,10 +32,12 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/Grievancesappbar.png',
-              fit: BoxFit.cover,
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
               width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
@@ -99,6 +102,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
                     ),
@@ -132,6 +136,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(BorderBoxButtonDecorations.homePageButtonStyle),
                     onPressed: () {
                       Navigator.push(
@@ -169,6 +174,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
                     ),
@@ -203,6 +209,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
                     ),
@@ -242,6 +249,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
                     ),
@@ -276,6 +284,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                       textStyle: width > 400
                           ? TextStyles.fontStyle6
                           : TextStyles.fontStyle8,
+                      elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
                     ),
@@ -321,6 +330,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 //       style: width > 400
                 //           ? TextStyles.fontStyle6
                 //           : TextStyles.fontStyle8,
+                //  elevation: 10,
                 //     ),
                 //   ),
                 // ),

@@ -36,9 +36,24 @@ class ButtonDesign {
           );
         }
         if (text == 'Submit') {
-          await ref.read(libraryProvider.notifier).saveLibrartBookSearchDetails(
-                ref.read(encryptionProvider.notifier),
-              );
+          final provider = ref.watch(libraryProvider);
+          if (provider.filter.text == '') {
+            Alerts.errorAlert(
+              message: 'Filter empty',
+              context: context,
+            );
+          } else if (provider.filter.text.length < 3) {
+            Alerts.errorAlert(
+              message: 'Enter Morethan 3 Characters',
+              context: context,
+            );
+          } else {
+            await ref
+                .read(libraryProvider.notifier)
+                .saveLibrartBookSearchDetails(
+                  ref.read(encryptionProvider.notifier),
+                );
+          }
         }
       },
       child: Text(

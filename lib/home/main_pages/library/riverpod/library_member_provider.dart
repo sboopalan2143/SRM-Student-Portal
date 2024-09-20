@@ -126,7 +126,6 @@ class LibraryTransactionProvider
     );
     final response = await HttpService.sendSoapRequest('getBookSearch', data);
 
-
     if (response.$1 == 0) {
       state = NoNetworkAvailableLibraryMember(
         successMessage: '',
@@ -154,15 +153,6 @@ class LibraryTransactionProvider
         librarysearchData = librarySearchResponse.data!;
         state = state.copyWith(librarysearchData: librarysearchData);
         if (librarySearchResponse.status == 'Success') {
-          state = LibraryTrancsactionStateError(
-            successMessage: librarySearchResponse.status!,
-            errorMessage: '',
-            libraryTransactionData: state.libraryTransactionData,
-            studentId: TextEditingController(),
-            officeid: TextEditingController(),
-            filter: TextEditingController(),
-            librarysearchData: state.librarysearchData,
-          );
         } else if (librarySearchResponse.status != 'Success') {
           state = LibraryTrancsactionStateError(
             successMessage: '',

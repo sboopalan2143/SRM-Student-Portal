@@ -95,6 +95,11 @@ class TokensManagement {
   /// Call this function on logout
   static Future<void> clearSharedPreference() async {
     final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('deviceId', deviceId);
+    await sharedPreferences.setString('androidversion', androidVersion);
+    await sharedPreferences.setString('model', model);
+    await sharedPreferences.setString('sdkVersion', sdkVersion);
+    await sharedPreferences.setString('appversion', appVersion);
     await sharedPreferences.clear();
   }
 

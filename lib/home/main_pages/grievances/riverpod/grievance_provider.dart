@@ -362,10 +362,10 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   }
 
   Future<void> saveGrievanceDetails(EncryptionProvider encrypt) async {
-    log('{<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${state.studentname.text}</username><subjectdesc>${state.description.text}</subjectdesc>}');
+    log('{<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>}');
 
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${state.studentname.text}</username><subjectdesc>${state.description.text}</subjectdesc>',
+      '<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>',
     );
     final response = await HttpService.sendSoapRequest('saveGrievance', data);
 
@@ -400,14 +400,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         state = GrievanceStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
           errorMessage: '',
-          grievanceSubType: state.grievanceSubType,
-          grievanceCaregoryData: state.grievanceCaregoryData,
-          grievanceType: state.grievanceType,
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
-          selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+          grievanceCaregoryData: <GrievanceCategoryData>[],
+          grievanceSubType: <GrievanceSubTypeData>[],
+          grievanceType: <GrievanceData>[],
+          selectedgrievanceCaregoryDataList: GrievanceCategoryData.empty,
+          selectedgrievanceSubTypeDataList: GrievanceSubTypeData.empty,
+          selectedgrievanceTypeDataList: GrievanceData.empty,
           description: TextEditingController(),
           studentId: TextEditingController(),
           studentname: TextEditingController(),

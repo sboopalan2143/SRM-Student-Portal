@@ -19,9 +19,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await TokensManagement.getStudentId();
-
-  // await TokensManagement.getPhoneToken();
-  // await TokensManagement.getAppDeviceInfo();
   final sharedPreferences = await SharedPreferences.getInstance();
   if (sharedPreferences.getString('primaryColor') != null) {
     await AppColors.setPrimaryColor(
@@ -31,8 +28,6 @@ void main() async {
       sharedPreferences.getString('secondaryColor')!,
     );
   }
-
-  // / Handel firebase based on current platform
   await Firebase.initializeApp(options: PlatformOptions.currentPlatform);
   await FirebaseMessaging.instance.requestPermission();
   await AppNotification.initializeNotification();

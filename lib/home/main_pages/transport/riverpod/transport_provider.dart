@@ -163,7 +163,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
   }
 
   Future<void> getRouteIdDetails(EncryptionProvider encrypt) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
@@ -216,10 +216,10 @@ class TrasportProvider extends StateNotifier<TransportState> {
             routeDetailsDataList: state.routeDetailsDataList,
             selectedRouteDetailsDataList: state.selectedRouteDetailsDataList,
             borderpointDataList: <BorderPointData>[],
-            selectedborderpointDataList: BorderPointData.empty,
-            transportRegisterDetails: TransportRegisterData.empty,
-            grievanceTransportStatusData: <TransportStatusData>[],
-            transportAfterRegisterDetails: TransportAfterRegisterData.empty,
+            selectedborderpointDataList: state.selectedborderpointDataList,
+            transportRegisterDetails: state.transportRegisterDetails,
+            grievanceTransportStatusData: state.grievanceTransportStatusData,
+            transportAfterRegisterDetails: state.transportAfterRegisterDetails,
           );
         } else if (routeResponse.status != 'Success') {
           state = TransportStateError(
@@ -513,15 +513,15 @@ class TrasportProvider extends StateNotifier<TransportState> {
   }
 
   Future<void> gettransportRegisterDetails(EncryptionProvider encrypt) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    log(
-      'transportRegister>>>>>  <studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
-    );
+
     final response = await HttpService.sendSoapRequest(
-        'getTransportRegistrationStatus', data);
+      'getTransportRegistrationStatus',
+      data,
+    );
     if (response.$1 == 0) {
       state = NoNetworkAvailableTransport(
         successMessage: '',
@@ -596,7 +596,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           selectedborderpointDataList: BorderPointData.empty,
           transportRegisterDetails: TransportRegisterData.empty,
           grievanceTransportStatusData: <TransportStatusData>[],
-          transportAfterRegisterDetails: TransportAfterRegisterData.empty,
+          transportAfterRegisterDetails: state.transportAfterRegisterDetails,
         );
       }
     } else if (response.$1 != 200) {

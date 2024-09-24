@@ -248,6 +248,34 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                         fit: BoxFit.cover,
                       ),
                     ),
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/images/student001.png',
+                    //     height: MediaQuery.of(context).size.height - 410,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/images/student4.png',
+                    //     height: MediaQuery.of(context).size.height - 410,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/images/student2.png',
+                    //     height: MediaQuery.of(context).size.height - 410,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
+                    // Center(
+                    //   child: Image.asset(
+                    //     'assets/images/student3.png',
+                    //     height: MediaQuery.of(context).size.height - 450,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                     Container(
                       decoration: const BoxDecoration(
                         color: AppColors.whiteColor,

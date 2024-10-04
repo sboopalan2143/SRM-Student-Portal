@@ -85,6 +85,8 @@ class _HomePage2State extends ConsumerState<HomePage2>
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     final providerProfile = ref.watch(profileProvider);
     final base64Image =
         '${providerProfile.profileData.studentphoto}'; // shortened for brevity
@@ -270,7 +272,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                 );
                               },
                               child: Container(
-                                height: 100,
+                                height: 110,
+                                width: width < 480
+                                    ? 400 // For very small screens
+                                    : width < 1024
+                                        ? 650 // For medium screens
+                                        : 400, // For large screens
+
                                 padding: const EdgeInsets.all(
                                   15,
                                 ),
@@ -284,12 +292,12 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                   padding: const EdgeInsets.only(left: 40),
                                   child: Row(
                                     children: [
-                                      // Image.asset(
-                                      //   'assets/images/GraduationCap.png',
-                                      //   height:
-                                      //       MediaQuery.of(context).size.height /
-                                      //           10,
-                                      // ),
+                                      Image.asset(
+                                        'assets/images/GraduationCap.png',
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                10,
+                                      ),
                                       // Image.asset(
                                       //   'assets/images/Academic2.png',
                                       //   height:
@@ -308,15 +316,15 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                       //       MediaQuery.of(context).size.width /
                                       //           4,
                                       // ),
-                                      Image.asset(
-                                        'assets/images/Academic4.png',
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                10,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                      ),
+                                      // Image.asset(
+                                      //   'assets/images/Academic4.png',
+                                      //   height:
+                                      //       MediaQuery.of(context).size.height /
+                                      //           10,
+                                      //   width:
+                                      //       MediaQuery.of(context).size.width /
+                                      //           4,
+                                      // ),
                                       const SizedBox(width: 10),
                                       Text(
                                         'Academics',
@@ -361,13 +369,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/books.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/books.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/Library1.png',
                                         //   height: MediaQuery.of(context)
@@ -382,13 +390,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //           .height /
                                         //       12,
                                         // ),
-                                        Image.asset(
-                                          'assets/images/Library2.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/Library2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
                                         const SizedBox(width: 10),
                                         Text(
                                           'Library',
@@ -429,13 +437,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/coin.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/coin.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/fees2.png',
                                         //   height: MediaQuery.of(context)
@@ -450,13 +458,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //           .height /
                                         //       12,
                                         // ),
-                                        Image.asset(
-                                          'assets/images/fees4.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/fees4.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
                                         const SizedBox(width: 10),
                                         Text(
                                           'Fees',
@@ -502,13 +510,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/hostelimage.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/hostelimage.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/hostel2.png',
                                         //   height: MediaQuery.of(context)
@@ -523,13 +531,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //           .height /
                                         //       12,
                                         // ),
-                                        Image.asset(
-                                          'assets/images/hostel3.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/hostel3.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
                                         const SizedBox(width: 10),
                                         Text(
                                           'Hostel',
@@ -567,13 +575,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/pencil.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/pencil.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/grievance1.png',
                                         //   height: MediaQuery.of(context)
@@ -588,13 +596,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //           .height /
                                         //       12,
                                         // ),
-                                        Image.asset(
-                                          'assets/images/grievance2.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/grievance2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
                                         const SizedBox(width: 10),
                                         Text(
                                           'Grievances',
@@ -641,13 +649,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/Bus.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/Bus.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/bus2.png',
                                         //   height: MediaQuery.of(context)
@@ -662,13 +670,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //           .height /
                                         //       12,
                                         // ),
-                                        Image.asset(
-                                          'assets/images/bus1.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
                                         const SizedBox(width: 10),
                                         Text(
                                           'Transport',
@@ -702,50 +710,14 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.5,
-                                    padding: const EdgeInsets.all(
-                                      15,
-                                    ),
-                                    // decoration: BoxDecoration(
-                                    //   // color: Colors.lightGreenAccent,
-                                    //   color: AppColors.homepagecolor2,
-                                    //   borderRadius: BorderRadius.circular(
-                                    //     20,
-                                    //   ),
-                                    // ),
-                                    child: const Column(
-                                      children: [
-                                        // Image.asset(
-                                        //   'assets/images/Notification.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        SizedBox(width: 10),
-                                        // Text(
-                                        //   'Notification',
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     fontWeight: FontWeight.bold,
-                                        //     color: Colors.blue[800],
-                                        //   ),
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: height < 820
+                                  ? 35
+                                  : height < 1081
+                                      ? 250
+                                      : height < 1440
+                                          ? 100
+                                          : 5,
                             ),
                           ],
                         ),

@@ -59,7 +59,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-           SvgPicture.asset(
+            SvgPicture.asset(
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,

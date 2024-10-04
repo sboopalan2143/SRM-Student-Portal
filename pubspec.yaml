@@ -27,7 +27,7 @@ dependencies:
   logger:
   awesome_notifications:
   flutter_svg: ^1.1.6
-  dropdown_search:
+  dropdown_search: ^5.0.5
   xml:
   encrypt:
   hex:

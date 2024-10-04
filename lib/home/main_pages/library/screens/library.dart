@@ -359,7 +359,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].membername}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membername}''',
                       style: TextStyles.fontStyle10,
@@ -386,7 +386,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].membercode}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membercode}''',
                       style: TextStyles.fontStyle10,
@@ -413,7 +413,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].membertype}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membertype}''',
                       style: TextStyles.fontStyle10,
@@ -439,7 +439,8 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].status}' == ''
+                      '${provider.libraryTransactionData[index].status}' ==
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].status}',
                       style: TextStyles.fontStyle10,
@@ -466,7 +467,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].accessionno}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].accessionno}',
                       style: TextStyles.fontStyle10,
@@ -492,7 +493,8 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].duedate}' == ''
+                      '${provider.libraryTransactionData[index].duedate}' ==
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].duedate}',
                       style: TextStyles.fontStyle10,
@@ -519,7 +521,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].fineamount}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].fineamount}',
                       style: TextStyles.fontStyle10,
@@ -546,7 +548,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].issuedate}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].issuedate}',
                       style: TextStyles.fontStyle10,
@@ -573,7 +575,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].policyname}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].policyname}',
                       style: TextStyles.fontStyle10,
@@ -600,7 +602,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     width: width / 2 - 60,
                     child: Text(
                       '${provider.libraryTransactionData[index].returndate}' ==
-                              ''
+                              'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].returndate}',
                       style: TextStyles.fontStyle10,

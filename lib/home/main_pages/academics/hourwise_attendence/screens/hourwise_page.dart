@@ -127,7 +127,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                         width: width / 11.5,
                         child: const Text(
                           '-',
-                          style: TextStyles.fontStyle18,
+                          style: TextStyles.fontStyle16,
                         ),
                       ),
                       const SizedBox(width: 5),
@@ -245,55 +245,67 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             width: width / 11.5,
                             child: const Text(
                               '-',
-                              style: TextStyles.fontStyle18,
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseData[index].h1}',
-                              style: TextStyles.fontStyle17,
+                              '${provider.listHourWiseData[index].h1}' == 'null'
+                                  ? '-'
+                                  : '${provider.listHourWiseData[index].h1}',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseData[index].h2}',
-                              style: TextStyles.fontStyle17,
+                              '${provider.listHourWiseData[index].h2}' == 'null'
+                                  ? '-'
+                                  : '''${provider.listHourWiseData[index].h2}''',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseData[index].h3}',
-                              style: TextStyles.fontStyle17,
+                              '${provider.listHourWiseData[index].h3}' == 'null'
+                                  ? '-'
+                                  : '''${provider.listHourWiseData[index].h3}''',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseData[index].h5}',
-                              style: TextStyles.fontStyle18,
+                              '${provider.listHourWiseData[index].h5}' == 'null'
+                                  ? '-'
+                                  : '''${provider.listHourWiseData[index].h5}''',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseData[index].h6}',
-                              style: TextStyles.fontStyle18,
+                              '${provider.listHourWiseData[index].h6}' == 'null'
+                                  ? '-'
+                                  : '''${provider.listHourWiseData[index].h6}''',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                           const SizedBox(width: 5),
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseData[index].h7}',
-                              style: TextStyles.fontStyle18,
+                              '${provider.listHourWiseData[index].h7}' == 'null'
+                                  ? '-'
+                                  : '''${provider.listHourWiseData[index].h7}''',
+                              style: TextStyles.fontStyle16,
                             ),
                           ),
                         ],

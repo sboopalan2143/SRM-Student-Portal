@@ -158,6 +158,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Row(
                           children: [
                             SizedBox(
@@ -207,6 +210,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                   ),
                                 ],
                               ),
+                            ),
+                            const SizedBox(
+                              width: 10,
                             ),
                             SizedBox(
                               width: width / 2 - 60,
@@ -280,6 +286,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             SizedBox(
                               width: width / 2 - 60,
                               child: Column(
@@ -324,6 +333,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                   ),
                                 ],
                               ),
+                            ),
+                            const SizedBox(
+                              width: 10,
                             ),
                             SizedBox(
                               width: width / 2 - 60,

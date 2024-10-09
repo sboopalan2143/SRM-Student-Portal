@@ -60,11 +60,12 @@ class _HomePage2State extends ConsumerState<HomePage2>
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
     try {
-      await ref.read(profileProvider.notifier).getProfileDetails(
+      await ref.read(profileProvider.notifier).getProfileApi(
             ref.read(
               encryptionProvider.notifier,
             ),
           );
+      await ref.read(profileProvider.notifier).getProfile('');
     } catch (e) {
       await TokensManagement.clearSharedPreference();
       await Navigator.pushAndRemoveUntil(
@@ -89,7 +90,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
     final width = MediaQuery.of(context).size.width;
     final providerProfile = ref.watch(profileProvider);
     final base64Image =
-        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
+        '${providerProfile.profileDataHive.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {

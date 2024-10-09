@@ -44,26 +44,7 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     return strEncryptedData;
   }
 
-  // Map<String, dynamic> getDecryptedData(String stringToDecrypt) {
-  //   var strDecryptedData = '';
-  //   try {
-  //     setKey(state.strCommonKey, state.strCommonIV);
-  //     final strDecryptedMData = decrypt(stringToDecrypt);
-
-  //     setKey(state.strPrivateKey, state.strPrivateIV);
-  //     strDecryptedData = decrypt(strDecryptedMData);
-  //   } catch (e) {
-  //     log('$e');
-  //   }
-  //   dynamic jsonResponse = '';
-  //   try {
-  //     jsonResponse = json.decode(strDecryptedData);
-  //     return jsonResponse as Map<String, dynamic>;
-  //   } catch (e) {
-  //     jsonResponse = strDecryptedData;
-  //     return jsonResponse as Map<String, dynamic>;
-  //   }
-  // }
+ 
 
   DecryptedData getDecryptedData(String stringToDecrypt) {
     var strDecryptedData = '';

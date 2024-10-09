@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
+import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 
@@ -19,6 +21,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
         successMessage: '',
         errorMessage: '',
         profileData: ProfileDetails.empty,
+        profileDataHive: ProfileHiveData.empty,
       );
 
   Uint8List hexToBytes(String text) {
@@ -38,7 +41,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
     return data;
   }
 
-  Future<void> getProfileDetails(EncryptionProvider encrypt) async {
+  Future<void> getProfileApi(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
@@ -50,6 +53,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
         successMessage: '',
         errorMessage: '',
         profileData: ProfileDetails.empty,
+        profileDataHive: ProfileHiveData.empty,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -58,24 +62,38 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      var profileDetails = ProfileDetails.empty;
-      try {
-        final profileDataResponse =
-            ProfileResponseModel.fromJson(decryptedData.mapData!);
-        profileDetails = profileDataResponse.data![0];
-        state = state.copyWith(profileData: profileDetails);
 
-        if (profileDataResponse.status == 'Success') {
+      final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+      log('listData length>>>${listData.length}');
+      try {
+        for (var i = 0; i < listData.length; i++) {
+          final parseData =
+              ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+          log('data>>>>${parseData.sid}');
+          final box =
+              await Hive.openBox<ProfileHiveData>('productCategoryList');
+          final index =
+              box.values.toList().indexWhere((e) => e.sid == parseData.sid);
+          if (index != -1) {
+            await box.putAt(index, parseData);
+          } else {
+            await box.add(parseData);
+          }
+        }
+
+        if (decryptedData.mapData!['Status'] == 'Success') {
           state = ProfileDetailsStateSuccessful(
-            successMessage: profileDataResponse.status!,
+            successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
             profileData: state.profileData,
+             profileDataHive: ProfileHiveData.empty,
           );
-        } else if (profileDataResponse.status != 'Success') {
+        } else if (decryptedData.mapData!['Status'] != 'Success') {
           state = ProfileDetailsStateError(
             successMessage: '',
-            errorMessage: profileDataResponse.status!,
+            errorMessage: decryptedData.mapData!['Message'] as String,
             profileData: ProfileDetails.empty,
+             profileDataHive: ProfileHiveData.empty,
           );
         }
       } catch (e) {
@@ -84,6 +102,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
           successMessage: '',
           errorMessage: error.message!,
           profileData: ProfileDetails.empty,
+           profileDataHive: ProfileHiveData.empty,
         );
       }
     } else if (response.$1 != 200) {
@@ -91,7 +110,26 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
         successMessage: '',
         errorMessage: 'Error',
         profileData: ProfileDetails.empty,
+         profileDataHive: ProfileHiveData.empty,
       );
+    }
+  }
+
+  Future<void> getProfile(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<ProfileHiveData>('productCategoryList');
+      final profile = <ProfileHiveData>[...box.values];
+      log('profile length>>>${profile[0].sid}');
+
+      state = ProfileDetailsStateSuccessful(
+        successMessage: '',
+        errorMessage: '',
+        profileData: state.profileData,
+        profileDataHive: profile[0],
+      );
+    } catch (e) {
+      await getProfile(search);
     }
   }
 }

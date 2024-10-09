@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,10 +9,8 @@ import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/screen/login_Page2.dart';
-import 'package:sample/login/screen/login_page.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
   const DrawerDesign({super.key});

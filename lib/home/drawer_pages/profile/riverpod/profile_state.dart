@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_provider.dart';
 
@@ -12,21 +13,25 @@ class ProfileDetailsState {
     required this.successMessage,
     required this.errorMessage,
     required this.profileData,
+    required this.profileDataHive,
   });
 
   final String successMessage;
   final String errorMessage;
   final ProfileDetails profileData;
+  final ProfileHiveData profileDataHive;
 
   ProfileDetailsState copyWith({
     String? successMessage,
     String? errorMessage,
     ProfileDetails? profileData,
+    ProfileHiveData? profileDataHive,
   }) =>
       ProfileDetailsState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         profileData: profileData ?? this.profileData,
+        profileDataHive: profileDataHive ?? this.profileDataHive,
       );
 }
 
@@ -36,6 +41,7 @@ class ProfileInitial extends ProfileDetailsState {
           successMessage: '',
           errorMessage: '',
           profileData: ProfileDetails.empty,
+          profileDataHive: ProfileHiveData.empty,
         );
 }
 
@@ -44,6 +50,7 @@ class ProfileDetailsStateLoading extends ProfileDetailsState {
     required super.successMessage,
     required super.errorMessage,
     required super.profileData,
+    required super.profileDataHive,
   });
 }
 
@@ -52,6 +59,7 @@ class ProfileDetailsStateError extends ProfileDetailsState {
     required super.successMessage,
     required super.errorMessage,
     required super.profileData,
+    required super.profileDataHive,
   });
 }
 
@@ -60,6 +68,7 @@ class ProfileDetailsStateSuccessful extends ProfileDetailsState {
     required super.successMessage,
     required super.errorMessage,
     required super.profileData,
+    required super.profileDataHive,
   });
 }
 
@@ -68,5 +77,6 @@ class NoNetworkAvailableProfile extends ProfileDetailsState {
     required super.successMessage,
     required super.errorMessage,
     required super.profileData,
+    required super.profileDataHive,
   });
 }

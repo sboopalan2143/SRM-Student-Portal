@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_dynamic_calls
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';

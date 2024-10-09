@@ -8,7 +8,6 @@ import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -26,11 +25,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(profileProvider.notifier).getProfileDetails(
-            ref.read(
-              encryptionProvider.notifier,
-            ),
-          );
+      ref.read(profileProvider.notifier).getProfile('');
     });
   }
 
@@ -47,7 +42,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       // }
     });
     final base64Image =
-        '${provider.profileData.studentphoto}'; // shortened for brevity
+        '${provider.profileDataHive.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
     return Scaffold(
       key: scaffoldKey,
@@ -114,7 +109,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     CircularProgressIndicators.primaryColorProgressIndication,
               ),
             )
-          : provider.profileData.registerno == '' &&
+          : provider.profileDataHive.registerno == '' &&
                   provider is! ProfileDetailsStateLoading
               ? Column(
                   children: [
@@ -173,9 +168,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.studentname}' == ''
+                                    '${provider.profileDataHive.studentname}' ==
+                                            ''
                                         ? '-'
-                                        : '${provider.profileData.studentname}',
+                                        : '${provider.profileDataHive.studentname}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -202,9 +198,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.registerno}' == ''
+                                    '${provider.profileDataHive.registerno}' ==
+                                            ''
                                         ? '-'
-                                        : '${provider.profileData.registerno}',
+                                        : '${provider.profileDataHive.registerno}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -224,9 +221,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.dob}' == ''
+                                    '${provider.profileDataHive.dob}' == ''
                                         ? '-'
-                                        : '${provider.profileData.dob}',
+                                        : '${provider.profileDataHive.dob}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -250,10 +247,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.universityname}' ==
+                                    '${provider.profileDataHive.universityname}' ==
                                             ''
                                         ? '-'
-                                        : '''${provider.profileData.universityname}''',
+                                        : '''${provider.profileDataHive.universityname}''',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -277,9 +274,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.program}' == ''
+                                    '${provider.profileDataHive.program}' == ''
                                         ? '-'
-                                        : '${provider.profileData.program}',
+                                        : '${provider.profileDataHive.program}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -299,9 +296,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.semester}' == ''
+                                    '${provider.profileDataHive.semester}' == ''
                                         ? '-'
-                                        : '${provider.profileData.semester}',
+                                        : '${provider.profileDataHive.semester}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -325,9 +322,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.sectiondesc}' == ''
+                                    '${provider.profileDataHive.sectiondesc}' ==
+                                            ''
                                         ? '-'
-                                        : '${provider.profileData.sectiondesc}',
+                                        : '${provider.profileDataHive.sectiondesc}',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),
@@ -347,9 +345,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                                     style: TextStyles.fontStyle7,
                                   ),
                                   Text(
-                                    '${provider.profileData.academicyear}' == ''
+                                    '${provider.profileDataHive.academicyear}' ==
+                                            ''
                                         ? '-'
-                                        : '''${provider.profileData.academicyear}''',
+                                        : '''${provider.profileDataHive.academicyear}''',
                                     style:
                                         TextStyles.smallLightAshColorFontStyle,
                                   ),

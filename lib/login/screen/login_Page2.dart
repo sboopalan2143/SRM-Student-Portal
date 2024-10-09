@@ -7,12 +7,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/login/widget/button_design.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 
 class LoginPage2 extends ConsumerStatefulWidget {

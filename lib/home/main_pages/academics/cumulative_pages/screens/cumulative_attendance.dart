@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
@@ -20,6 +23,29 @@ class _CumulativeAttendancePageState
     extends ConsumerState<CumulativeAttendancePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref
+            .read(cummulativeAttendanceProvider.notifier)
+            .getCummulativeAttendanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -81,63 +107,75 @@ class _CumulativeAttendancePageState
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(cummulativeAttendanceProvider.notifier)
+                              .getCummulativeAttendanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (provider is CummulativeAttendanceStateLoading)
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
-                ),
-              )
-            else if (provider.cummulativeAttendanceData.isEmpty &&
-                provider is! CummulativeAttendanceStateLoading)
-              Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
-                    ),
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (provider is CummulativeAttendanceStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
-                ],
+                )
+              else if (provider.cummulativeAttendanceData.isEmpty &&
+                  provider is! CummulativeAttendanceStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.cummulativeAttendanceData.isNotEmpty)
+                const SizedBox(height: 5),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.cummulativeAttendanceData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
               ),
-            if (provider.cummulativeAttendanceData.isNotEmpty)
-              const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ListView.builder(
-                itemCount: provider.cummulativeAttendanceData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

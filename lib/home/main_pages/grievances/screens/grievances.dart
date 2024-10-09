@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
@@ -21,6 +25,26 @@ class GrievanceReportPage extends ConsumerStatefulWidget {
 class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(grievanceProvider.notifier).getStudentWisrGrievanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
 
   @override
   void initState() {
@@ -73,73 +97,98 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                // Row(
+                //   children: [
+                //     IconButton(
+                //       onPressed: () {
+                //         scaffoldKey.currentState?.openEndDrawer();
+                //       },
+                //       icon: const Icon(
+                //         Icons.menu,
+                //         size: 35,
+                //         color: AppColors.whiteColor,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(grievanceProvider.notifier)
+                              .getStudentWisrGrievanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                width: 200,
-                child: ButtonDesign.buttonDesign(
-                  'Grievance Entry',
-                  AppColors.primaryColor,
-                  context,
-                  ref.read(mainProvider.notifier),
-                  ref,
-                ),
-              ),
-              const SizedBox(height: 10),
-              if (provider is CummulativeAttendanceStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: ButtonDesign.buttonDesign(
+                    'Grievance Entry',
+                    AppColors.primaryColor,
+                    context,
+                    ref.read(mainProvider.notifier),
+                    ref,
                   ),
-                )
-              else if (provider.studentwisegrievanceData.isEmpty &&
-                  provider is! CummulativeAttendanceStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
-                      ),
-                    ),
-                  ],
                 ),
-              if (provider.studentwisegrievanceData.isNotEmpty)
-                const SizedBox(height: 5),
-              ListView.builder(
-                itemCount: provider.studentwisegrievanceData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
-            ],
+                const SizedBox(height: 10),
+                if (provider is CummulativeAttendanceStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
+                    ),
+                  )
+                else if (provider.studentwisegrievanceData.isEmpty &&
+                    provider is! CummulativeAttendanceStateLoading)
+                  Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle1,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (provider.studentwisegrievanceData.isNotEmpty)
+                  const SizedBox(height: 5),
+                ListView.builder(
+                  itemCount: provider.studentwisegrievanceData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

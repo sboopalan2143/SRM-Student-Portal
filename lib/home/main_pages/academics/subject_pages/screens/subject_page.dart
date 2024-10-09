@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
@@ -18,6 +21,26 @@ class SubjectPage extends ConsumerStatefulWidget {
 class _SubjectPageState extends ConsumerState<SubjectPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(subjectProvider.notifier).getSubjectDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
 
   @override
   void initState() {
@@ -79,122 +102,131 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref.read(subjectProvider.notifier).getSubjectDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: width / 8,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Sem',
-                            style: TextStyles.alertContentStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 8,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Code',
-                            style: TextStyles.alertContentStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2.3,
-                      child: const Column(
-                        children: [
-                          Text(
-                            'Subject',
-                            style: TextStyles.alertContentStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 8,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Credit',
-                            style: TextStyles.alertContentStyle,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (provider is SubjectStateLoading)
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                )
-              else if (provider.subjectData.isEmpty &&
-                  provider is! SubjectStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: width / 8,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sem',
+                              style: TextStyles.alertContentStyle,
+                            ),
+                          ],
+                        ),
                       ),
+                      const SizedBox(width: 5),
+                      SizedBox(
+                        width: width / 8,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Code',
+                              style: TextStyles.alertContentStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      SizedBox(
+                        width: width / 2.3,
+                        child: const Column(
+                          children: [
+                            Text(
+                              'Subject',
+                              style: TextStyles.alertContentStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      SizedBox(
+                        width: width / 8,
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Credit',
+                              style: TextStyles.alertContentStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (provider is SubjectStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
                     ),
-                  ],
+                  )
+                else if (provider.subjectData.isEmpty &&
+                    provider is! SubjectStateLoading)
+                  Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle1,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  child: ListView.builder(
+                    itemCount: provider.subjectData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
+                  ),
                 ),
-              if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                child: ListView.builder(
-                  itemCount: provider.subjectData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

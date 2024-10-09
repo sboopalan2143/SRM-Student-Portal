@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
@@ -20,6 +23,26 @@ class LibraryPage extends ConsumerStatefulWidget {
 class _LibraryPageState extends ConsumerState<LibraryPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
 
   @override
   void initState() {
@@ -80,237 +103,249 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(libraryProvider.notifier)
+                              .getLibraryMemberDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Center(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(9),
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(9),
+                              ),
                             ),
+                            elevation: 0,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            backgroundColor: AppColors.primaryColor,
+                            shadowColor: Colors.transparent,
                           ),
-                          elevation: 0,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          backgroundColor: AppColors.primaryColor,
-                          shadowColor: Colors.transparent,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(route: const ViewLibraryPage()),
-                          );
-                        },
-                        child: const Text(
-                          'Book Search',
-                          style: TextStyles.fontStyle13,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              RouteDesign(route: const ViewLibraryPage()),
+                            );
+                          },
+                          child: const Text(
+                            'Book Search',
+                            style: TextStyles.fontStyle13,
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: const Text(
+              //         'Member Name',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: Text(
+              //         // '${provider.libraryMemberData.membername}' == ''
+              //         //     ? '-'
+              //         //     : '${provider.libraryMemberData.membername}',
+
+              //         '',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: const Text(
+              //         'Member Code',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: Text(
+              //         // '${provider.libraryMemberData.membercode}' == ''
+              //         //     ? '-'
+              //         //     : '${provider.libraryMemberData.membercode}',
+
+              //         '',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: const Text(
+              //         'Member Type',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: Text(
+              //         // '${provider.libraryMemberData.membertype}' == ''
+              //         //     ? '-'
+              //         //     : '${provider.libraryMemberData.membertype}',
+
+              //         '',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: const Text(
+              //         'Policy Name',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: Text(
+              //         // '${provider.libraryMemberData.policyname}' == ''
+              //         //     ? '-'
+              //         //     : '${provider.libraryMemberData.policyname}',
+
+              //         '',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: const Text(
+              //         'Status',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 100,
+              //       child: Text(
+              //         // '${provider.libraryMemberData.status}' == ''
+              //         //     ? '-'
+              //         //     : '${provider.libraryMemberData.status}',
+              //         '',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 20),
+              if (provider is LibraryTrancsactionStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.libraryTransactionData.isEmpty &&
+                  provider is! LibraryTrancsactionStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
                     ),
-                    const SizedBox(height: 10),
                   ],
                 ),
-              ),
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: const Text(
-            //         'Member Name',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //     const Text(
-            //       ':',
-            //       style: TextStyles.fontStyle10,
-            //     ),
-            //     const SizedBox(width: 5),
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: Text(
-            //         // '${provider.libraryMemberData.membername}' == ''
-            //         //     ? '-'
-            //         //     : '${provider.libraryMemberData.membername}',
-
-            //         '',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: const Text(
-            //         'Member Code',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //     const Text(
-            //       ':',
-            //       style: TextStyles.fontStyle10,
-            //     ),
-            //     const SizedBox(width: 5),
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: Text(
-            //         // '${provider.libraryMemberData.membercode}' == ''
-            //         //     ? '-'
-            //         //     : '${provider.libraryMemberData.membercode}',
-
-            //         '',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: const Text(
-            //         'Member Type',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //     const Text(
-            //       ':',
-            //       style: TextStyles.fontStyle10,
-            //     ),
-            //     const SizedBox(width: 5),
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: Text(
-            //         // '${provider.libraryMemberData.membertype}' == ''
-            //         //     ? '-'
-            //         //     : '${provider.libraryMemberData.membertype}',
-
-            //         '',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: const Text(
-            //         'Policy Name',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //     const Text(
-            //       ':',
-            //       style: TextStyles.fontStyle10,
-            //     ),
-            //     const SizedBox(width: 5),
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: Text(
-            //         // '${provider.libraryMemberData.policyname}' == ''
-            //         //     ? '-'
-            //         //     : '${provider.libraryMemberData.policyname}',
-
-            //         '',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: const Text(
-            //         'Status',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //     const Text(
-            //       ':',
-            //       style: TextStyles.fontStyle10,
-            //     ),
-            //     const SizedBox(width: 5),
-            //     SizedBox(
-            //       width: width / 2 - 100,
-            //       child: Text(
-            //         // '${provider.libraryMemberData.status}' == ''
-            //         //     ? '-'
-            //         //     : '${provider.libraryMemberData.status}',
-            //         '',
-            //         style: TextStyles.fontStyle10,
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 20),
-            if (provider is LibraryTrancsactionStateLoading)
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+              if (provider.libraryTransactionData.isNotEmpty)
+                ListView.builder(
+                  itemCount: provider.libraryTransactionData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
                 ),
-              )
-            else if (provider.libraryTransactionData.isEmpty &&
-                provider is! LibraryTrancsactionStateLoading)
-              Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
-                    ),
-                  ),
-                ],
-              ),
-            if (provider.libraryTransactionData.isNotEmpty)
-              ListView.builder(
-                itemCount: provider.libraryTransactionData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

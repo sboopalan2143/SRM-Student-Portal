@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
@@ -19,6 +22,26 @@ class ExamDetailsPage extends ConsumerStatefulWidget {
 class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(examDetailsProvider.notifier).getExamDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
 
   @override
   void initState() {
@@ -79,116 +102,130 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref.listen(examDetailsProvider, (previous, next) {
+                            if (next is ExamDetailsError) {
+                              _showToast(context, next.errorMessage,
+                                  AppColors.redColor,);
+                            }
+                          });
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: AppColors.whiteColor,
-            //       borderRadius: BorderRadius.circular(7),
-            //       border: Border.all(
-            //         color: AppColors.grey2,
-            //       ),
-            //     ),
-            //     height: 40,
-            //     child: DropdownSearch<String>(
-            //       // dropdownButtonProps: DropdownButtonProps(
-            //       //   focusNode: widget.focusNodeC,
-            //       // ),
-            //       dropdownDecoratorProps: const DropDownDecoratorProps(
-            //         dropdownSearchDecoration: InputDecoration(
-            //           border: InputBorder.none,
-            //           contentPadding:
-            //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            //         ),
-            //       ),
-            //       itemAsString: (item) => item,
-            //       items: name,
-            //       popupProps: const PopupProps.menu(
-            //         searchFieldProps: TextFieldProps(
-            //           autofocus: true,
-            //         ),
-            //         constraints: BoxConstraints(maxHeight: 250),
-            //       ),
-            //       selectedItem: selectedValue,
-            //       onChanged: (value) {
-            //         // readProvider.selectCustomer(value!);
-            //         setState(() {
-            //           selectedValue = value!;
-            //         });
-            //       },
-            //       dropdownBuilder: (BuildContext context, name) {
-            //         return Text(
-            //           name!,
-            //           maxLines: 1,
-            //           overflow: TextOverflow.ellipsis,
-            //           style: TextStyles.smallLightAshColorFontStyle,
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // Center(
-            //   child: Text(
-            //     '2nd Year, 4th Sem',
-            //     style: TextStyles.smallPrimaryColorFontStyle,
-            //   ),
-            // ),
-            if (provider is ExamDetailsStateLoading)
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
-                ),
-              )
-            else if (provider.examDetailsData.isEmpty &&
-                provider is! ExamDetailsStateLoading)
-              Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
-                    ),
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: AppColors.whiteColor,
+              //       borderRadius: BorderRadius.circular(7),
+              //       border: Border.all(
+              //         color: AppColors.grey2,
+              //       ),
+              //     ),
+              //     height: 40,
+              //     child: DropdownSearch<String>(
+              //       // dropdownButtonProps: DropdownButtonProps(
+              //       //   focusNode: widget.focusNodeC,
+              //       // ),
+              //       dropdownDecoratorProps: const DropDownDecoratorProps(
+              //         dropdownSearchDecoration: InputDecoration(
+              //           border: InputBorder.none,
+              //           contentPadding:
+              //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              //         ),
+              //       ),
+              //       itemAsString: (item) => item,
+              //       items: name,
+              //       popupProps: const PopupProps.menu(
+              //         searchFieldProps: TextFieldProps(
+              //           autofocus: true,
+              //         ),
+              //         constraints: BoxConstraints(maxHeight: 250),
+              //       ),
+              //       selectedItem: selectedValue,
+              //       onChanged: (value) {
+              //         // readProvider.selectCustomer(value!);
+              //         setState(() {
+              //           selectedValue = value!;
+              //         });
+              //       },
+              //       dropdownBuilder: (BuildContext context, name) {
+              //         return Text(
+              //           name!,
+              //           maxLines: 1,
+              //           overflow: TextOverflow.ellipsis,
+              //           style: TextStyles.smallLightAshColorFontStyle,
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // ),
+              // Center(
+              //   child: Text(
+              //     '2nd Year, 4th Sem',
+              //     style: TextStyles.smallPrimaryColorFontStyle,
+              //   ),
+              // ),
+              if (provider is ExamDetailsStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
-                ],
+                )
+              else if (provider.examDetailsData.isEmpty &&
+                  provider is! ExamDetailsStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.examDetailsData.isNotEmpty)
+                const SizedBox(height: 5),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.examDetailsData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
               ),
-            if (provider.examDetailsData.isNotEmpty) const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ListView.builder(
-                itemCount: provider.examDetailsData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   cupertino_icons:
   connectivity_plus:
-  google_fonts: ^4.0.1
+  google_fonts:
   flutter_riverpod:
   http:
   shared_preferences:
@@ -34,7 +34,10 @@ dependencies:
   flutter_styled_toast:
   wave: 
   fluttertoast: 
-  hive:
+  liquid_pull_to_refresh: 
+  # hive:
+  # hive_flutter:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
@@ -44,7 +47,7 @@ dev_dependencies:
   flutter_native_splash:
   change_app_package_name:
   hive_generator:
-  build_runner:
+  build_runner: 
 
 # flutter pub run flutter_launcher_icons
 flutter_icons:

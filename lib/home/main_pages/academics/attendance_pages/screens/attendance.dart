@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
@@ -21,6 +24,27 @@ class AttendancePage extends ConsumerStatefulWidget {
 class _AttendancePageState extends ConsumerState<AttendancePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(attendanceProvider.notifier).getAttendanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -80,62 +104,74 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(attendanceProvider.notifier)
+                              .getAttendanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (provider is AttendanceStateLoading)
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
-                ),
-              )
-            else if (provider.attendanceData.isEmpty &&
-                provider is! AttendanceStateLoading)
-              Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
-                    ),
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (provider is AttendanceStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
-                ],
+                )
+              else if (provider.attendanceData.isEmpty &&
+                  provider is! AttendanceStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.attendanceData.isNotEmpty) const SizedBox(height: 5),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.attendanceData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
               ),
-            if (provider.attendanceData.isNotEmpty) const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ListView.builder(
-                itemCount: provider.attendanceData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

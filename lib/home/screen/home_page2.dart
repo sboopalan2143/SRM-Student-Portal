@@ -19,6 +19,7 @@ import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/lms/screens/lms.dart';
+import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
@@ -90,7 +91,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
     final width = MediaQuery.of(context).size.width;
     final providerProfile = ref.watch(profileProvider);
     final base64Image =
-        '${providerProfile.profileDataHive.studentphoto}'; // shortened for brevity
+        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
@@ -696,7 +697,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     Navigator.push(
                                       context,
                                       RouteDesign(
-                                        route: const LMSPage(),
+                                        route: const LmsHomePage(),
                                       ),
                                     );
                                   },
@@ -706,6 +707,54 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
                                       15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor3,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/LMS.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/bus2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus3.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Transport',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

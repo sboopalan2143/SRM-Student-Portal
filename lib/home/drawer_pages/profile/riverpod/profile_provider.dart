@@ -71,7 +71,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
               ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
           log('data>>>>${parseData.sid}');
           final box =
-              await Hive.openBox<ProfileHiveData>('productCategoryList');
+              await Hive.openBox<ProfileHiveData>('profile');
           final index =
               box.values.toList().indexWhere((e) => e.sid == parseData.sid);
           if (index != -1) {
@@ -118,7 +118,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
   Future<void> getProfile(String search) async {
     try {
       _setLoading();
-      final box = await Hive.openBox<ProfileHiveData>('productCategoryList');
+      final box = await Hive.openBox<ProfileHiveData>('profile');
       final profile = <ProfileHiveData>[...box.values];
       log('profile length>>>${profile[0].sid}');
 

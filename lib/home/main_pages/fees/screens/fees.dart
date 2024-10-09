@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
@@ -18,6 +21,29 @@ class FeesPage extends ConsumerStatefulWidget {
 class _FeesPageState extends ConsumerState<FeesPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref
+            .read(feesProvider.notifier)
+            .getFeesDetails(ref.read(encryptionProvider.notifier));
+        ref
+            .read(feesProvider.notifier)
+            .getFinanceDetails(ref.read(encryptionProvider.notifier));
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
 
   @override
   void initState() {
@@ -38,9 +64,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(feesProvider);
     ref.listen(feesProvider, (previous, next) {
-      if (next is FeesError) {
-        _showToast(context, next.errorMessage, AppColors.redColor);
-      }
+      // if (next is FeesError) {
+      //   _showToast(context, next.errorMessage, AppColors.redColor);
+      // }
       // else if (next is FeesStateSuccessful) {
       //   _showToast(context, next.successMessage, AppColors.greenColor);
       // }
@@ -83,110 +109,122 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref.read(feesProvider.notifier).getFeesDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          ref.read(feesProvider.notifier).getFinanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 45,
-                width: width - 40,
-                decoration: BoxDecoration(
-                  color: AppColors.grey1,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 45,
+                  width: width - 40,
+                  decoration: BoxDecoration(
                     color: AppColors.grey1,
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    border: Border.all(
+                      color: AppColors.grey1,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: navContainerDesign(
+                            text: 'Paid Details',
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Expanded(
+                          child: navContainerDesign(
+                            text: 'Online Trans',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                //       const Text(
+                //         '2023 - 2024    Total: Rs. 15,000.00',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyles.fontStyle7,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                if (provider is FeesStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
+                    ),
+                  )
+                else if (provider.financeData.isEmpty &&
+                    provider is! FeesStateLoading)
+                  Column(
                     children: [
-                      Expanded(
-                        child: navContainerDesign(
-                          text: 'Paid Details',
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: navContainerDesign(
-                          text: 'Online Trans',
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle6,
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              //       const Text(
-              //         '2023 - 2024    Total: Rs. 15,000.00',
-              //         textAlign: TextAlign.center,
-              //         style: TextStyles.fontStyle7,
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              if (provider is FeesStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                )
-              else if (provider.financeData.isEmpty &&
-                  provider is! FeesStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
-                      ),
+                if (provider.financeData.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: ListView.builder(
+                      itemCount: provider.navFeesString == 'Paid Details'
+                          ? provider.feesDetailsData.length
+                          : provider.financeData.length,
+                      controller: _listController,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return provider.navFeesString == 'Paid Details'
+                            ? cardDesign(index)
+                            : cardDesignTrans(index);
+                      },
                     ),
-                  ],
-                ),
-              if (provider.financeData.isNotEmpty)
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: ListView.builder(
-                    itemCount: provider.navFeesString == 'Paid Details'
-                        ? provider.feesDetailsData.length
-                        : provider.financeData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return provider.navFeesString == 'Paid Details'
-                          ? cardDesign(index)
-                          : cardDesignTrans(index);
-                    },
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
@@ -23,6 +26,27 @@ class HourAttendancePage extends ConsumerStatefulWidget {
 class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,238 +108,257 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
               ),
               centerTitle: true,
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(hourwiseProvider.notifier)
+                              .gethourwiseDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: width / 6,
-                        child: const Text(
-                          'Date',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: width / 11.5,
-                        child: const Text(
-                          '-',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11.5,
-                        child: const Text(
-                          '1',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11.5,
-                        child: const Text(
-                          '2',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11.5,
-                        child: const Text(
-                          '3',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11,
-                        child: const Text(
-                          '4',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11,
-                        child: const Text(
-                          '5',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 11,
-                        child: const Text(
-                          '6',
-                          style: TextStyles.fontStyle16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            if (provider is HourwiseStateLoading)
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
-                ),
-              )
-            else if (provider.listHourWiseData.isEmpty &&
-                provider is! HourwiseStateLoading)
-              Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
-                    ),
-                  ),
-                ],
-              ),
-            if (provider.listHourWiseData.isNotEmpty) const SizedBox(height: 5),
-            ListView.builder(
-              padding: const EdgeInsets.all(5),
-              itemCount: provider.listHourWiseData.length,
-              controller: _listController,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: LoadingWrapper(
-                  isLoading: provider is HourwiseStateLoading,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
+                padding: const EdgeInsets.only(left: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: width / 6,
+                          child: const Text(
+                            'Date',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        SizedBox(
+                          width: width / 11.5,
+                          child: const Text(
+                            '-',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11.5,
+                          child: const Text(
+                            '1',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11.5,
+                          child: const Text(
+                            '2',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11.5,
+                          child: const Text(
+                            '3',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11,
+                          child: const Text(
+                            '4',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11,
+                          child: const Text(
+                            '5',
+                            style: TextStyles.fontStyle16,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 11,
+                          child: const Text(
+                            '6',
+                            style: TextStyles.fontStyle16,
+                          ),
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 15, top: 10, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: width / 6,
-                            child: Text(
-                              '${provider.listHourWiseData[index].attendancedate}',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          SizedBox(
-                            width: width / 11.5,
-                            child: const Text(
-                              '-',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11.5,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h1}' == 'null'
-                                  ? '-'
-                                  : '${provider.listHourWiseData[index].h1}',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11.5,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h2}' == 'null'
-                                  ? '-'
-                                  : '''${provider.listHourWiseData[index].h2}''',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11.5,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h3}' == 'null'
-                                  ? '-'
-                                  : '''${provider.listHourWiseData[index].h3}''',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h5}' == 'null'
-                                  ? '-'
-                                  : '''${provider.listHourWiseData[index].h5}''',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h6}' == 'null'
-                                  ? '-'
-                                  : '''${provider.listHourWiseData[index].h6}''',
-                              style: TextStyles.fontStyle16,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 11,
-                            child: Text(
-                              '${provider.listHourWiseData[index].h7}' == 'null'
-                                  ? '-'
-                                  : '''${provider.listHourWiseData[index].h7}''',
-                              style: TextStyles.fontStyle16,
-                            ),
+                  ],
+                ),
+              ),
+              if (provider is HourwiseStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.listHourWiseData.isEmpty &&
+                  provider is! HourwiseStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.listHourWiseData.isNotEmpty)
+                const SizedBox(height: 5),
+              ListView.builder(
+                padding: const EdgeInsets.all(5),
+                itemCount: provider.listHourWiseData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: LoadingWrapper(
+                    isLoading: provider is HourwiseStateLoading,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
                           ),
                         ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15, top: 10, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: width / 6,
+                              child: Text(
+                                '${provider.listHourWiseData[index].attendancedate}',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: width / 11.5,
+                              child: const Text(
+                                '-',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11.5,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h1}' ==
+                                        'null'
+                                    ? '-'
+                                    : '${provider.listHourWiseData[index].h1}',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11.5,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h2}' ==
+                                        'null'
+                                    ? '-'
+                                    : '''${provider.listHourWiseData[index].h2}''',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11.5,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h3}' ==
+                                        'null'
+                                    ? '-'
+                                    : '''${provider.listHourWiseData[index].h3}''',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h5}' ==
+                                        'null'
+                                    ? '-'
+                                    : '''${provider.listHourWiseData[index].h5}''',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h6}' ==
+                                        'null'
+                                    ? '-'
+                                    : '''${provider.listHourWiseData[index].h6}''',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 11,
+                              child: Text(
+                                '${provider.listHourWiseData[index].h7}' ==
+                                        'null'
+                                    ? '-'
+                                    : '''${provider.listHourWiseData[index].h7}''',
+                                style: TextStyles.fontStyle16,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),

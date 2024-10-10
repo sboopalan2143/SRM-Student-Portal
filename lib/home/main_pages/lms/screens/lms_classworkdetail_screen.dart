@@ -10,6 +10,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:sample/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -91,8 +92,9 @@ class _LmsClassworkDetailPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                  ref.read(lmsProvider.notifier).getLmsTitleDetails(
                         ref.read(encryptionProvider.notifier),
+                        widget.classworkID,
                       );
                   Navigator.pop(context);
                   // Navigator.push(
@@ -195,13 +197,22 @@ class _LmsClassworkDetailPageState
     final provider = ref.watch(lmsProvider);
 
     return GestureDetector(
-      // onTap: () {
-      //   ref.read(lmsProvider.notifier).getLmsTitleDetails(
-      //         ref.read(encryptionProvider.notifier),
-      //         '${provider.lmsSubjectData[index].subjectid}',
-      //       );
-      //       Navigator.push(context, RouteDesign(route: ));
-      // },
+      onTap: () {
+        ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+              ref.read(encryptionProvider.notifier),
+              '${provider.classWorkDetailsData[index].classworkid}',
+            );
+
+        Navigator.push(
+          context,
+          RouteDesign(
+            route: LmsAttachmentDetailsDataPage(
+              classworkID:
+                  '${provider.classWorkDetailsData[index].classworkid}',
+            ),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8),
         child: Container(

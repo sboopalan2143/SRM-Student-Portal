@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_provider.dart';
@@ -15,6 +16,7 @@ class LmsState {
     required this.lmsSubjectData,
     required this.lmsTitleData,
     required this.classWorkDetailsData,
+    required this.lmsAttachmentDetailsData,
   });
 
   final String successMessage;
@@ -22,6 +24,7 @@ class LmsState {
   final List<LmsSubjectData> lmsSubjectData;
   final List<LmsGetTitleData> lmsTitleData;
   final List<ClassWorkDetailsData> classWorkDetailsData;
+  final List<GetAttachmentDetailsData> lmsAttachmentDetailsData;
 
   LmsState copyWith({
     String? successMessage,
@@ -29,6 +32,7 @@ class LmsState {
     List<LmsSubjectData>? lmsSubjectData,
     List<LmsGetTitleData>? lmsTitleData,
     List<ClassWorkDetailsData>? classWorkDetailsData,
+    List<GetAttachmentDetailsData>? lmsAttachmentDetailsData,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -36,6 +40,8 @@ class LmsState {
         lmsSubjectData: lmsSubjectData ?? this.lmsSubjectData,
         lmsTitleData: lmsTitleData ?? this.lmsTitleData,
         classWorkDetailsData: classWorkDetailsData ?? this.classWorkDetailsData,
+        lmsAttachmentDetailsData:
+            lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
       );
 }
 
@@ -47,6 +53,7 @@ class LmsInitial extends LmsState {
           lmsSubjectData: <LmsSubjectData>[],
           lmsTitleData: <LmsGetTitleData>[],
           classWorkDetailsData: <ClassWorkDetailsData>[],
+          lmsAttachmentDetailsData: <GetAttachmentDetailsData>[],
         );
 }
 
@@ -57,6 +64,7 @@ class LmsStateLoading extends LmsState {
     required super.lmsSubjectData,
     required super.lmsTitleData,
     required super.classWorkDetailsData,
+    required super.lmsAttachmentDetailsData,
   });
 }
 
@@ -67,6 +75,7 @@ class LmsStateError extends LmsState {
     required super.lmsSubjectData,
     required super.lmsTitleData,
     required super.classWorkDetailsData,
+    required super.lmsAttachmentDetailsData,
   });
 }
 
@@ -77,6 +86,7 @@ class LmsStateSuccessful extends LmsState {
     required super.lmsSubjectData,
     required super.lmsTitleData,
     required super.classWorkDetailsData,
+    required super.lmsAttachmentDetailsData,
   });
 }
 
@@ -87,6 +97,7 @@ class LmsStateclear extends LmsState {
     required super.lmsSubjectData,
     required super.lmsTitleData,
     required super.classWorkDetailsData,
+    required super.lmsAttachmentDetailsData,
   });
 }
 
@@ -97,5 +108,6 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.lmsSubjectData,
     required super.lmsTitleData,
     required super.classWorkDetailsData,
+    required super.lmsAttachmentDetailsData,
   });
 }

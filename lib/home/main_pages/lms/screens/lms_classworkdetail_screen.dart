@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -9,22 +10,23 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class LmsTitlePage extends ConsumerStatefulWidget {
-  const LmsTitlePage({
-    required this.subjectID,
+class LmsClassworkDetailPage extends ConsumerStatefulWidget {
+  const LmsClassworkDetailPage({
+    required this.classworkID,
     super.key,
   });
-  final String subjectID;
+  final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LmsTitlePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LmsClassworkDetailPageState();
 }
 
-class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
+class _LmsClassworkDetailPageState
+    extends ConsumerState<LmsClassworkDetailPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,9 +40,9 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmsTitleDetails(
+        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
               ref.read(encryptionProvider.notifier),
-              widget.subjectID,
+              widget.classworkID,
             );
       },
     );
@@ -53,9 +55,9 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+      ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
             ref.read(encryptionProvider.notifier),
-            widget.subjectID,
+            widget.classworkID,
           );
     });
   }
@@ -70,6 +72,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
       } else if (next is LibraryTrancsactionStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
+      log('classworkdeta >>> ${provider.classWorkDetailsData.length}');
     });
     return Scaffold(
       key: scaffoldKey,
@@ -107,7 +110,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'LMS Title',
+                'Class Work Details',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),
@@ -119,9 +122,9 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
                                 ref.read(encryptionProvider.notifier),
-                                widget.subjectID,
+                                widget.classworkID,
                               );
                         },
                         child: const Icon(
@@ -156,7 +159,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.lmsTitleData.isEmpty &&
+                else if (provider.classWorkDetailsData.isEmpty &&
                     provider is! LibraryTrancsactionStateLoading)
                   Column(
                     children: [
@@ -169,9 +172,9 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                       ),
                     ],
                   ),
-                if (provider.lmsTitleData.isNotEmpty)
+                if (provider.classWorkDetailsData.isNotEmpty)
                   ListView.builder(
-                    itemCount: provider.lmsTitleData.length,
+                    itemCount: provider.classWorkDetailsData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -189,24 +192,16 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
-
     final provider = ref.watch(lmsProvider);
-    return GestureDetector(
-      onTap: () {
-        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-              ref.read(encryptionProvider.notifier),
-              '${provider.lmsTitleData[index].classworkid}',
-            );
 
-        Navigator.push(
-          context,
-          RouteDesign(
-            route: LmsClassworkDetailPage(
-              classworkID: '${provider.lmsTitleData[index].classworkid}',
-            ),
-          ),
-        );
-      },
+    return GestureDetector(
+      // onTap: () {
+      //   ref.read(lmsProvider.notifier).getLmsTitleDetails(
+      //         ref.read(encryptionProvider.notifier),
+      //         '${provider.lmsSubjectData[index].subjectid}',
+      //       );
+      //       Navigator.push(context, RouteDesign(route: ));
+      // },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8),
         child: Container(
@@ -232,58 +227,6 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Title',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.lmsTitleData[index].title}' == 'null'
-                            ? '-'
-                            : '''${provider.lmsTitleData[index].title}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Class comment',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.lmsTitleData[index].classcomment}' == 'null'
-                            ? '-'
-                            : '${provider.lmsTitleData[index].classcomment}',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
                         'Classwork Id',
                         style: TextStyles.fontStyle10,
                       ),
@@ -296,9 +239,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].classworkid}' == 'null'
+                        '${provider.classWorkDetailsData[index].classworkid}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].classworkid}''',
+                            : '''${provider.classWorkDetailsData[index].classworkid}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -310,7 +254,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Classwork type desc',
+                        'Classwork reply Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -322,10 +266,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].classworktypedesc}' ==
-                                'null'
+                        '${provider.classWorkDetailsData[index].classworkreplyid}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].classworktypedesc}''',
+                            : '${provider.classWorkDetailsData[index].classworkreplyid}',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -337,7 +281,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Classwork type Id',
+                        'Classwork typed desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -349,10 +293,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].classworktypeid}' ==
-                                'null'
+                        '${provider.classWorkDetailsData[index].classworktypedesc}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].classworktypeid}''',
+                            : '''${provider.classWorkDetailsData[index].classworktypedesc}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -364,7 +308,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'End date time',
+                        'Classwork type id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -376,9 +320,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].enddatetime}' == 'null'
+                        '${provider.classWorkDetailsData[index].classworktypeid}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].enddatetime}''',
+                            : '''${provider.classWorkDetailsData[index].classworktypeid}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -390,7 +335,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'New work',
+                        'Cnt',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -402,9 +347,9 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].newwork}' == 'null'
+                        '${provider.classWorkDetailsData[index].cnt}' == ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].newwork}''',
+                            : '''${provider.classWorkDetailsData[index].cnt}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -416,7 +361,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Private comment',
+                        'Dpend date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -428,10 +373,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].privatecomment}' ==
-                                'null'
+                        '${provider.classWorkDetailsData[index].dpenddatetime}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].privatecomment}''',
+                            : '''${provider.classWorkDetailsData[index].dpenddatetime}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -443,7 +388,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Start date time',
+                        'Dpstart date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -455,10 +400,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].startdatetime}' ==
-                                'null'
+                        '${provider.classWorkDetailsData[index].dpstartdatetime}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].startdatetime}''',
+                            : '''${provider.classWorkDetailsData[index].dpstartdatetime}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -470,7 +415,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'Topic desc',
+                        'Field requirement',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -482,9 +427,250 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].topicdesc}' == 'null'
+                        '${provider.classWorkDetailsData[index].fieldrequirement}' ==
+                                ''
                             ? '-'
-                            : '''${provider.lmsTitleData[index].topicdesc}''',
+                            : '''${provider.classWorkDetailsData[index].fieldrequirement}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Instructions',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].instructions}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].instructions}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Mcqmarksperquestions',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].mcqmarksperquestions}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].mcqmarksperquestions}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Mcq min mark to pass',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].mcqminmarktopass}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].mcqminmarktopass}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Mcqtime limit',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].mcqtimelimit}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].mcqtimelimit}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Remarks',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].remarks}' == ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].remarks}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Stuimage attachment id',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].stuimageattachmentid}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].stuimageattachmentid}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Title Tam',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].titleTam}' == ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].titleTam}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Topic Tam',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].topicTam}' == ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].topicTam}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Title desc',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.classWorkDetailsData[index].topicdesc}' ==
+                                ''
+                            ? '-'
+                            : '''${provider.classWorkDetailsData[index].topicdesc}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),

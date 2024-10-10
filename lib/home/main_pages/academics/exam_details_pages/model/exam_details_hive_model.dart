@@ -1,33 +1,10 @@
-class ExamDetails {
-  ExamDetails({this.status, this.message, this.data});
+import 'package:hive/hive.dart';
 
-  ExamDetails.fromJson(Map<String, dynamic> json) {
-    status = json['Status'] as String?;
-    message = json['Message'] as String?;
-    if (json['Data'] != null) {
-      data = <ExamDetailsData>[];
-      for (final v in json['Data'] as List<dynamic>) {
-        data!.add(ExamDetailsData.fromJson(v as Map<String, dynamic>));
-      }
-    }
-  }
-  String? status;
-  String? message;
-  List<ExamDetailsData>? data;
+part 'exam_details_hive_model.g.dart';
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['Status'] = status;
-    data['Message'] = message;
-    if (this.data != null) {
-      data['Data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class ExamDetailsData {
-  ExamDetailsData({
+@HiveType(typeId: 1)
+class ExamDetailsHiveData {
+  ExamDetailsHiveData({
     this.result,
     this.internal,
     this.external,
@@ -41,7 +18,7 @@ class ExamDetailsData {
     this.attempts,
   });
 
-  ExamDetailsData.fromJson(Map<String, dynamic> json) {
+  ExamDetailsHiveData.fromJson(Map<String, dynamic> json) {
     result = json['result'] as String?;
     internal = json['internal'] as String?;
     external = json['external'] as String?;
@@ -54,17 +31,6 @@ class ExamDetailsData {
     subjectdesc = json['subjectdesc'] as String?;
     attempts = json['attempts'] as String?;
   }
-  String? result;
-  String? internal;
-  String? external;
-  String? grade;
-  String? semester;
-  String? monthyear;
-  String? marksobtained;
-  String? subjectcode;
-  String? credit;
-  String? subjectdesc;
-  String? attempts;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -82,7 +48,7 @@ class ExamDetailsData {
     return data;
   }
 
-  static final empty = ExamDetailsData(
+  static final empty = ExamDetailsHiveData(
     result: '',
     internal: '',
     external: '',
@@ -95,4 +61,37 @@ class ExamDetailsData {
     subjectdesc: '',
     attempts: '',
   );
+
+  @HiveField(0)
+  String? result;
+
+  @HiveField(1)
+  String? internal;
+
+  @HiveField(2)
+  String? external;
+
+  @HiveField(3)
+  String? grade;
+
+  @HiveField(4)
+  String? semester;
+
+  @HiveField(5)
+  String? monthyear;
+
+  @HiveField(6)
+  String? marksobtained;
+
+  @HiveField(7)
+  String? subjectcode;
+
+  @HiveField(8)
+  String? credit;
+
+  @HiveField(9)
+  String? subjectdesc;
+
+  @HiveField(10)
+  String? attempts;
 }

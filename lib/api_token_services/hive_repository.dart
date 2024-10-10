@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
 
 class HiveRepository {
   static bool initialized = false;
@@ -12,9 +13,10 @@ class HiveRepository {
     if (!initialized) {
       final storePath = await getApplicationDocumentsDirectory();
       final directory = Directory(storePath.path);
-      Hive..init(directory.path)
-      ..registerAdapter(ProfileHiveDataAdapter());
-      // ..registerAdapter(ProductCategoryDataAdapter())
+      Hive
+        ..init(directory.path)
+        ..registerAdapter(ProfileHiveDataAdapter())
+        ..registerAdapter(ExamDetailsHiveDataAdapter());
       // ..registerAdapter(CompanySettingDataAdapter())
       // ..registerAdapter(ThemeSettingDataAdapter())
       // ..registerAdapter(ExpensesCategoriesDataAdapter())

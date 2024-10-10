@@ -4,6 +4,7 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
@@ -18,6 +19,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         errorMessage: '',
         lmsSubjectData: <LmsSubjectData>[],
         lmsTitleData: <LmsGetTitleData>[],
+        classWorkDetailsData: <ClassWorkDetailsData>[],
       );
 
   void clearstate() => state = const LmsStateclear(
@@ -25,6 +27,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         errorMessage: '',
         lmsSubjectData: <LmsSubjectData>[],
         lmsTitleData: <LmsGetTitleData>[],
+        classWorkDetailsData: <ClassWorkDetailsData>[],
       );
 
   Future<void> getLmsSubgetDetails(EncryptionProvider encrypt) async {
@@ -35,10 +38,12 @@ class LmsProvider extends StateNotifier<LmsState> {
     final response = await HttpService.sendSoapRequest('getSubject', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
-          successMessage: '',
-          errorMessage: '',
-          lmsSubjectData: state.lmsSubjectData,
-          lmsTitleData: state.lmsTitleData);
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+      );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final libraryMemberRes =
@@ -66,26 +71,32 @@ class LmsProvider extends StateNotifier<LmsState> {
           // );
         } else if (lmsSubjectDataResponse.status != 'Success') {
           state = LmsStateError(
-              successMessage: '',
-              errorMessage:
-                  '''${lmsSubjectDataResponse.status!}, ${lmsSubjectDataResponse.message!}''',
-              lmsSubjectData: state.lmsSubjectData,
-              lmsTitleData: state.lmsTitleData);
+            successMessage: '',
+            errorMessage:
+                '''${lmsSubjectDataResponse.status!}, ${lmsSubjectDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+          );
         }
       } catch (e) {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = LmsStateError(
-            successMessage: '',
-            errorMessage: error.message!,
-            lmsSubjectData: state.lmsSubjectData,
-            lmsTitleData: state.lmsTitleData);
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+        );
       }
     } else if (response.$1 != 200) {
       state = LmsStateError(
-          successMessage: '',
-          errorMessage: 'Error',
-          lmsSubjectData: state.lmsSubjectData,
-          lmsTitleData: state.lmsTitleData);
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+      );
     }
   }
 
@@ -104,6 +115,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         errorMessage: '',
         lmsSubjectData: state.lmsSubjectData,
         lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -136,6 +148,7 @@ class LmsProvider extends StateNotifier<LmsState> {
                 '''${lmsTitleDataResponse.status!}, ${lmsTitleDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
           );
         }
       } catch (e) {
@@ -145,6 +158,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           errorMessage: error.message!,
           lmsSubjectData: state.lmsSubjectData,
           lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
         );
       }
     } else if (response.$1 != 200) {
@@ -153,6 +167,81 @@ class LmsProvider extends StateNotifier<LmsState> {
         errorMessage: 'Error',
         lmsSubjectData: state.lmsSubjectData,
         lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+      );
+    }
+  }
+
+  Future<void> getLmsClassWorkDetails(
+    EncryptionProvider encrypt,
+    String classworkid,
+  ) async {
+    _setLoading();
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getClassWorkDetails', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsTitleRes =
+          details['getClassWorkDetailsResponse'] as Map<String, dynamic>;
+      final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var classWorkDetailsData = state.classWorkDetailsData;
+      log('decrypted>>>>>>>>$decryptedData');
+
+      try {
+        final classWorkDetailsDataResponse =
+            GetClassWorkDetailsModel.fromJson(decryptedData.mapData!);
+        classWorkDetailsData = classWorkDetailsDataResponse.data!;
+        state = state.copyWith(classWorkDetailsData: classWorkDetailsData);
+        if (classWorkDetailsDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (classWorkDetailsDataResponse.status != 'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${classWorkDetailsDataResponse.status!}, ${classWorkDetailsDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
       );
     }
   }

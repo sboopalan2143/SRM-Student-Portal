@@ -33,9 +33,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(examDetailsProvider.notifier).getExamDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+       ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
       },
     );
 
@@ -47,9 +45,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(examDetailsProvider.notifier).getExamDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
     });
   }
 
@@ -110,8 +106,11 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                         onTap: () {
                           ref.listen(examDetailsProvider, (previous, next) {
                             if (next is ExamDetailsError) {
-                              _showToast(context, next.errorMessage,
-                                  AppColors.redColor,);
+                              _showToast(
+                                context,
+                                next.errorMessage,
+                                AppColors.redColor,
+                              );
                             }
                           });
                         },
@@ -197,7 +196,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                         .primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.examDetailsData.isEmpty &&
+              else if (provider.examDetailsHiveData.isEmpty &&
                   provider is! ExamDetailsStateLoading)
                 Column(
                   children: [
@@ -210,13 +209,13 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                     ),
                   ],
                 ),
-              if (provider.examDetailsData.isNotEmpty)
+              if (provider.examDetailsHiveData.isNotEmpty)
                 const SizedBox(height: 5),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ListView.builder(
-                  itemCount: provider.examDetailsData.length,
+                  itemCount: provider.examDetailsHiveData.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -272,9 +271,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].subjectcode}' == ''
+                      '${provider.examDetailsHiveData[index].subjectcode}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].subjectcode}',
+                          : '${provider.examDetailsHiveData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -298,9 +297,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].subjectdesc}' == ''
+                      '${provider.examDetailsHiveData[index].subjectdesc}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].subjectdesc}',
+                          : '${provider.examDetailsHiveData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -324,9 +323,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].semester}' == ''
+                      '${provider.examDetailsHiveData[index].semester}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].semester}',
+                          : '${provider.examDetailsHiveData[index].semester}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -350,9 +349,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].internal}' == ''
+                      '${provider.examDetailsHiveData[index].internal}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].internal}',
+                          : '${provider.examDetailsHiveData[index].internal}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -376,9 +375,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].external}' == ''
+                      '${provider.examDetailsHiveData[index].external}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].external}',
+                          : '${provider.examDetailsHiveData[index].external}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -402,9 +401,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].grade}' == ''
+                      '${provider.examDetailsHiveData[index].grade}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].grade}',
+                          : '${provider.examDetailsHiveData[index].grade}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -428,9 +427,9 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.examDetailsData[index].credit}' == ''
+                      '${provider.examDetailsHiveData[index].credit}' == ''
                           ? '-'
-                          : '${provider.examDetailsData[index].credit}',
+                          : '${provider.examDetailsHiveData[index].credit}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

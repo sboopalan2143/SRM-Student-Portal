@@ -1,12 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
+import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+
+import '../model/exam_details_hive_model.dart';
 
 class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
   ExamDetailsProvider() : super(ExamDetailsInitial());
@@ -17,6 +21,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         successMessage: '',
         errorMessage: '',
         examDetailsData: <ExamDetailsData>[],
+        examDetailsHiveData: <ExamDetailsHiveData>[],
       );
 
   Future<void> getExamDetails(
@@ -32,6 +37,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         successMessage: '',
         errorMessage: '',
         examDetailsData: <ExamDetailsData>[],
+        examDetailsHiveData: <ExamDetailsHiveData>[],
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -42,25 +48,44 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
       final decryptedData = encrypt.getDecryptedData('$data');
       log('decrypted>>>>>>>>$decryptedData');
 
-      var examDetailsData = <ExamDetailsData>[];
+      // var examDetailsData = <ExamDetailsData>[];
+      final examDetailslistData =
+          decryptedData.mapData!['Data'] as List<dynamic>;
+      log('listData length>>>${examDetailslistData.length}');
       try {
-        final examDetailsResponse =
-            ExamDetails.fromJson(decryptedData.mapData!);
-        examDetailsData = examDetailsResponse.data!;
-        state = state.copyWith(examDetailsData: examDetailsData);
-        log('exam details ${examDetailsData.length}');
-        if (examDetailsResponse.status == 'Success') {
+        // final examDetailsResponse =
+        //     ExamDetails.fromJson(decryptedData.mapData!);
+        // examDetailsData = examDetailsResponse.data!;
+        // state = state.copyWith(examDetailsData: examDetailsData);
+        // log('exam details ${examDetailsData.length}');
+        for (var i = 0; i < examDetailslistData.length; i++) {
+          final parseData = ExamDetailsHiveData.fromJson(
+              examDetailslistData[i] as Map<String, dynamic>);
+          log('data>>>>${parseData.subjectcode}');
+          final box = await Hive.openBox<ExamDetailsHiveData>('Exam Details');
+          final index = box.values
+              .toList()
+              .indexWhere((e) => e.subjectcode == parseData.subjectcode);
+          if (index != -1) {
+            await box.putAt(index, parseData);
+          } else {
+            await box.add(parseData);
+          }
+        }
+
+        if (decryptedData.mapData!['Status'] == 'Success') {
           state = ExamDetailsStateSuccessful(
-            successMessage: examDetailsResponse.status!,
+            successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
             examDetailsData: state.examDetailsData,
+            examDetailsHiveData: <ExamDetailsHiveData>[],
           );
-        } else if (examDetailsResponse.status != 'Success') {
+        } else if (decryptedData.mapData!['Status'] != 'Success') {
           state = ExamDetailsError(
             successMessage: '',
-            errorMessage:
-                '''${examDetailsResponse.status!}, ${examDetailsResponse.message!}''',
-            examDetailsData: state.examDetailsData,
+            errorMessage: decryptedData.mapData!['Message'] as String,
+            examDetailsData: <ExamDetailsData>[],
+            examDetailsHiveData: <ExamDetailsHiveData>[],
           );
         }
       } catch (e) {
@@ -69,6 +94,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
           successMessage: '',
           errorMessage: error.message!,
           examDetailsData: <ExamDetailsData>[],
+          examDetailsHiveData: <ExamDetailsHiveData>[],
         );
       }
     } else if (response.$1 != 200) {
@@ -76,7 +102,26 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         successMessage: '',
         errorMessage: 'Error',
         examDetailsData: <ExamDetailsData>[],
+        examDetailsHiveData: <ExamDetailsHiveData>[],
       );
+    }
+  }
+
+  Future<void> getHiveExamDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<ExamDetailsHiveData>('Exam Details');
+      final examDetailsHive = <ExamDetailsHiveData>[...box.values];
+      log('profile length>>>${examDetailsHive[0].subjectcode}');
+
+      state = ExamDetailsStateSuccessful(
+        successMessage: '',
+        errorMessage: '',
+        examDetailsData: state.examDetailsData,
+        examDetailsHiveData: examDetailsHive,
+      );
+    } catch (e) {
+      await getHiveExamDetails(search);
     }
   }
 }

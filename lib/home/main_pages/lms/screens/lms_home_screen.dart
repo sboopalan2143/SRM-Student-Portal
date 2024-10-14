@@ -8,7 +8,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/library/screens/view.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_title_screen.dart';
 import 'package:sample/home/screen/home_page2.dart';
@@ -189,11 +188,13 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
               '${provider.lmsSubjectData[index].subjectid}',
             );
         Navigator.push(
-            context,
-            RouteDesign(
-                route: LmsTitlePage(
+          context,
+          RouteDesign(
+            route: LmsTitlePage(
               subjectID: '${provider.lmsSubjectData[index].staffname}',
-            )));
+            ),
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8),

@@ -453,7 +453,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   }
 
   Future<void> getStudentWisrGrievanceDetails(
-      EncryptionProvider encrypt) async {
+    EncryptionProvider encrypt,
+  ) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',

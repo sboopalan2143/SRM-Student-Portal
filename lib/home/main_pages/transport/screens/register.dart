@@ -149,7 +149,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           selectedItem: provider.selectedRouteDetailsDataList,
                           onChanged: (value) {
                             readProvider.setsubtype(
-                                value!, ref.read(encryptionProvider.notifier));
+                                value!, ref.read(encryptionProvider.notifier),);
                           },
                           dropdownBuilder:
                               (BuildContext context, routedetails) {

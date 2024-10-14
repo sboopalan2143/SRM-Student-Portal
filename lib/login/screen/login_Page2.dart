@@ -401,8 +401,9 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
 
                                     await ref
                                         .read(loginProvider.notifier)
-                                        .login(ref
-                                            .read(encryptionProvider.notifier));
+                                        .login(
+                                          ref.read(encryptionProvider.notifier),
+                                        );
                                   },
                                   child: provider is LoginStateLoading
                                       ? CircularProgressIndicator(
@@ -421,13 +422,13 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                                     //   ref.read(mainProvider.notifier),
                                     //   ref,
                                     // ),
-                                    ),
+                                    ,),
                               ],
                             ),
                             const SizedBox(
                               height: 30,
                             )
-                          ],
+                          ,],
                         ),
                       ),
                     ),

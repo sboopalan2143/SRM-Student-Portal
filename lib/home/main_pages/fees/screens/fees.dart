@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
@@ -209,7 +208,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 if (provider.financeData.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                        horizontal: 20, vertical: 10,),
                     child: ListView.builder(
                       itemCount: provider.navFeesString == 'Paid Details'
                           ? provider.feesDetailsData.length
@@ -674,19 +673,5 @@ class _FeesPageState extends ConsumerState<FeesPage> {
     );
   }
 
-  void _showToast(BuildContext context, String message, Color color) {
-    showToast(
-      message,
-      context: context,
-      backgroundColor: color,
-      axis: Axis.horizontal,
-      alignment: Alignment.centerLeft,
-      position: StyledToastPosition.center,
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(15),
-        bottomLeft: Radius.circular(15),
-      ),
-      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
-    );
-  }
+  
 }

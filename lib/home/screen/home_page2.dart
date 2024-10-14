@@ -12,13 +12,13 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
-import 'package:sample/home/main_pages/lms/screens/lms.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -67,6 +67,12 @@ class _HomePage2State extends ConsumerState<HomePage2>
             ),
           );
       await ref.read(profileProvider.notifier).getProfile('');
+      await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
     } catch (e) {
       await TokensManagement.clearSharedPreference();
       await Navigator.pushAndRemoveUntil(

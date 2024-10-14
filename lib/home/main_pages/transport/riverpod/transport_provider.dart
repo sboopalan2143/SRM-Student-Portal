@@ -77,8 +77,9 @@ class TrasportProvider extends StateNotifier<TransportState> {
       log('decrypted >>>>>>>> $decryptedData');
 
       try {
-        final transportdataResponse = getTransportRegistrationStatusModel
-            .fromJson(decryptedData.mapData!);
+        final transportdataResponse =
+            GetTransportRegistrationStatusModel.fromJson(
+                decryptedData.mapData!,);
         transportStatusData = transportdataResponse.data!;
         state = state.copyWith(
           grievanceTransportStatusData: transportStatusData,
@@ -189,9 +190,9 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final RouteIDRes =
+      final routeIDRes =
           details['getRequestRoutesResponse'] as Map<String, dynamic>;
-      final returnData = RouteIDRes['return'] as Map<String, dynamic>;
+      final returnData = routeIDRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
@@ -560,7 +561,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
           log('enters status==0');
           final transportRegisterResponse =
               GetTransportRegistrationStateModel.fromJson(
-                  decryptedData.mapData!);
+                  decryptedData.mapData!,);
 
           transportRegisterDetails = transportRegisterResponse.data![0];
           state = state.copyWith(

@@ -7,7 +7,7 @@ class GrievanceSubTypeModel {
     if (json['Data'] != null) {
       data = <GrievanceSubTypeData>[];
       // ignore: avoid_dynamic_calls
-     for (final v in json['Data'] as List<dynamic>) {
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add(GrievanceSubTypeData.fromJson(v as Map<String, dynamic>));
       }
     }
@@ -28,8 +28,10 @@ class GrievanceSubTypeModel {
 }
 
 class GrievanceSubTypeData {
-  GrievanceSubTypeData(
-      {this.grievancesubcategorydesc, this.grievancesubcategoryid});
+  GrievanceSubTypeData({
+    this.grievancesubcategorydesc,
+    this.grievancesubcategoryid,
+  });
 
   GrievanceSubTypeData.fromJson(Map<String, dynamic> json) {
     grievancesubcategorydesc = json['grievancesubcategorydesc'] as String?;

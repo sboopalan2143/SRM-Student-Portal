@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
 
 class HiveRepository {
@@ -16,7 +17,8 @@ class HiveRepository {
       Hive
         ..init(directory.path)
         ..registerAdapter(ProfileHiveDataAdapter())
-        ..registerAdapter(ExamDetailsHiveDataAdapter());
+        ..registerAdapter(ExamDetailsHiveDataAdapter())
+        ..registerAdapter(SubjectAttendanceHiveDataAdapter());
       // ..registerAdapter(CompanySettingDataAdapter())
       // ..registerAdapter(ThemeSettingDataAdapter())
       // ..registerAdapter(ExpensesCategoriesDataAdapter())

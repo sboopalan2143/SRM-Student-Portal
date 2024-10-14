@@ -445,7 +445,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     selectedItem: provider.selectedHostelData,
                     onChanged: (value) {
                       providerRead.setHostelValue(
-                          value!, ref.read(encryptionProvider.notifier));
+                          value!, ref.read(encryptionProvider.notifier),);
                     },
                     dropdownBuilder: (BuildContext context, name) {
                       return Text(

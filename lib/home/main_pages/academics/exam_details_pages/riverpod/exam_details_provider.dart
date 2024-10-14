@@ -6,11 +6,9 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
-
-import '../model/exam_details_hive_model.dart';
 
 class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
   ExamDetailsProvider() : super(ExamDetailsInitial());
@@ -24,7 +22,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         examDetailsHiveData: <ExamDetailsHiveData>[],
       );
 
-  Future<void> getExamDetails(
+  Future<void> getExamDetailsApi(
     EncryptionProvider encrypt,
   ) async {
     _setLoading();
@@ -60,9 +58,10 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
         // log('exam details ${examDetailsData.length}');
         for (var i = 0; i < examDetailslistData.length; i++) {
           final parseData = ExamDetailsHiveData.fromJson(
-              examDetailslistData[i] as Map<String, dynamic>);
+            examDetailslistData[i] as Map<String, dynamic>,
+          );
           log('data>>>>${parseData.subjectcode}');
-          final box = await Hive.openBox<ExamDetailsHiveData>('Exam Details');
+          final box = await Hive.openBox<ExamDetailsHiveData>('examDetails');
           final index = box.values
               .toList()
               .indexWhere((e) => e.subjectcode == parseData.subjectcode);
@@ -109,8 +108,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
 
   Future<void> getHiveExamDetails(String search) async {
     try {
-      _setLoading();
-      final box = await Hive.openBox<ExamDetailsHiveData>('Exam Details');
+      final box = await Hive.openBox<ExamDetailsHiveData>('examDetails');
       final examDetailsHive = <ExamDetailsHiveData>[...box.values];
       log('profile length>>>${examDetailsHive[0].subjectcode}');
 

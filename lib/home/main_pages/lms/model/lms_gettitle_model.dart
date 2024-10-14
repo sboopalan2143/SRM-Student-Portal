@@ -6,10 +6,10 @@ class GetTitleListModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <LmsGetTitleData>[];
-      // ignore: inference_failure_on_untyped_parameter, avoid_dynamic_calls
-      json['Data'].forEach((v) {
+      
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add(LmsGetTitleData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
   String? status;

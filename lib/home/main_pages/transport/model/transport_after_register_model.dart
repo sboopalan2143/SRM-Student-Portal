@@ -1,6 +1,6 @@
 class GetTransportAfterRegistrationStateModel {
   GetTransportAfterRegistrationStateModel(
-      {this.status, this.message, this.data});
+      {this.status, this.message, this.data,});
 
   GetTransportAfterRegistrationStateModel.fromJson(Map<String, dynamic> json) {
     status = json['Status'] as String?;

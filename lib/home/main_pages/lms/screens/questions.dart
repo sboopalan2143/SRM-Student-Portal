@@ -142,7 +142,7 @@ class _QuestionPageState extends ConsumerState<QuestionPage> {
                     ),
                     const SizedBox(height: 10),
                     const Text('Wrong Answer',
-                        style: TextStyles.redColorFontStyle),
+                        style: TextStyles.redColorFontStyle,),
                     const SizedBox(height: 20),
                   ],
                 ),
@@ -184,7 +184,7 @@ class _QuestionPageState extends ConsumerState<QuestionPage> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 20),
+                          horizontal: 40, vertical: 20,),
                       child: ButtonDesign.buttonDesign(
                         'Next Question',
                         AppColors.primaryColor,

@@ -34,7 +34,7 @@ class TransportRegisterData {
       this.officeid,
       this.regconfig,
       this.academicyearid,
-      this.status});
+      this.status,});
 
   TransportRegisterData.fromJson(Map<String, dynamic> json) {
     transportstatus = json['transportstatus'] as String?;

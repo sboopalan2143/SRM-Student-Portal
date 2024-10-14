@@ -6,10 +6,10 @@ class GetClassWorkDetailsModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <ClassWorkDetailsData>[];
-      // ignore: inference_failure_on_untyped_parameter
-      json['Data'].forEach((v) {
+      
+      for (final v in json['Data'] as List<dynamic>){
         data!.add(ClassWorkDetailsData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
   String? status;

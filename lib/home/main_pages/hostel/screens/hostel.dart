@@ -171,7 +171,7 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                     Column(
                       children: [
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 5),
+                            height: MediaQuery.of(context).size.height / 5,),
                         const Center(
                           child: Text(
                             'No List Added Yet!',

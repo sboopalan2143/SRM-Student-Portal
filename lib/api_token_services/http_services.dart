@@ -90,6 +90,7 @@ class HttpService {
         }
       } else if (node is XmlText) {
         // Add text content as a key-value pair
+        // ignore: deprecated_member_use
         result['#text'] = node.text;
       }
     }

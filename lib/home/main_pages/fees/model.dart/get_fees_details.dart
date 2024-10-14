@@ -35,7 +35,7 @@ class GetFeesData {
       this.dueamount,
       this.duedescription,
       this.amtcollected,
-      this.currentdue});
+      this.currentdue,});
 
   GetFeesData.fromJson(Map<String, dynamic> json) {
     duedate = json['duedate'] as String?;

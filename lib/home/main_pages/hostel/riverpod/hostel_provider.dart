@@ -532,7 +532,7 @@ class HostelProvider extends StateNotifier<HostelState> {
     log('encrypted data>>>>$data');
     final response =
         await HttpService.sendSoapRequest('getStudentLeaveSave', data);
-log('student leave response>>>>>>$response');
+    log('student leave response>>>>>>$response');
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
         successMessage: '',
@@ -557,8 +557,8 @@ log('student leave response>>>>>>$response');
       final data = returnData['#text'];
       log('data>>>>>$data');
       final decryptedData = encrypt.getDecryptedData('$data');
-log('decrypted data>>>>${decryptedData.stringData}');
-     try {
+      log('decrypted data>>>>${decryptedData.stringData}');
+      try {
         if (decryptedData.mapData!['status'] == 'Success') {
           state = HostelStateSuccessful(
             successMessage: '${decryptedData.mapData!['Message']}',
@@ -592,48 +592,32 @@ log('decrypted data>>>>${decryptedData.stringData}');
             gethostelData: <GetHostelData>[],
           );
         }
-      }catch(e){
-       String jsonString = '${decryptedData.stringData}';
-       Map<String, dynamic> jsonObject={};
-     try  {
-        jsonObject =
-              jsonDecode(jsonString) as Map<String, dynamic>;
-        }catch(e){
-       state = HostelStateError(
-           successMessage: '',
-           errorMessage:'$e',
-           hostelData: <HostelData>[],
-           selectedHostelData: HostelData.empty,
-           roomTypeData: <RoomTypeData>[],
-           selectedRoomTypeData: RoomTypeData.empty,
-           hostelRegisterDetails: HostelRegisterData.empty,
-           hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-           fromDate:state.fromDate,
-           toDate: state.toDate,
-           leaveReason:state.leaveReason,
-           hostelLeaveData: <HostelLeaveData>[],
-           gethostelData: <GetHostelData>[]);
-     }
+      } catch (e) {
+        final jsonString = '${decryptedData.stringData}';
+        var jsonObject = <String, dynamic>{};
+        try {
+          jsonObject = jsonDecode(jsonString) as Map<String, dynamic>;
+        } catch (e) {
+          state = HostelStateError(
+            successMessage: '',
+            errorMessage: '$e',
+            hostelData: <HostelData>[],
+            selectedHostelData: HostelData.empty,
+            roomTypeData: <RoomTypeData>[],
+            selectedRoomTypeData: RoomTypeData.empty,
+            hostelRegisterDetails: HostelRegisterData.empty,
+            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+            fromDate: state.fromDate,
+            toDate: state.toDate,
+            leaveReason: state.leaveReason,
+            hostelLeaveData: <HostelLeaveData>[],
+            gethostelData: <GetHostelData>[],
+          );
+        }
         log('message>>>>>${jsonObject['Message']}');
-       state = HostelStateError(
-           successMessage: '',
-           errorMessage:jsonObject['Message']as String,
-           hostelData: <HostelData>[],
-           selectedHostelData: HostelData.empty,
-           roomTypeData: <RoomTypeData>[],
-           selectedRoomTypeData: RoomTypeData.empty,
-           hostelRegisterDetails: HostelRegisterData.empty,
-           hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-           fromDate:state.fromDate,
-           toDate: state.toDate,
-           leaveReason:state.leaveReason,
-           hostelLeaveData: <HostelLeaveData>[],
-           gethostelData: <GetHostelData>[]);
-     }
-    } else if (response.$1 != 200) {
-      state = HostelStateError(
+        state = HostelStateError(
           successMessage: '',
-          errorMessage: 'Error',
+          errorMessage: jsonObject['Message'] as String,
           hostelData: <HostelData>[],
           selectedHostelData: HostelData.empty,
           roomTypeData: <RoomTypeData>[],
@@ -644,7 +628,25 @@ log('decrypted data>>>>${decryptedData.stringData}');
           toDate: state.toDate,
           leaveReason: state.leaveReason,
           hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[]);
+          gethostelData: <GetHostelData>[],
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = HostelStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        hostelData: <HostelData>[],
+        selectedHostelData: HostelData.empty,
+        roomTypeData: <RoomTypeData>[],
+        selectedRoomTypeData: RoomTypeData.empty,
+        hostelRegisterDetails: HostelRegisterData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        fromDate: state.fromDate,
+        toDate: state.toDate,
+        leaveReason: state.leaveReason,
+        hostelLeaveData: <HostelLeaveData>[],
+        gethostelData: <GetHostelData>[],
+      );
     }
   }
 
@@ -654,22 +656,25 @@ log('decrypted data>>>>${decryptedData.stringData}');
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     final response = await HttpService.sendSoapRequest(
-        'getHostelLeaveApplicationDetails', data);
+      'getHostelLeaveApplicationDetails',
+      data,
+    );
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
-          successMessage: '',
-          errorMessage: '',
-          hostelData: <HostelData>[],
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-          fromDate: TextEditingController(),
-          toDate: TextEditingController(),
-          leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[]);
+        successMessage: '',
+        errorMessage: '',
+        hostelData: <HostelData>[],
+        selectedHostelData: HostelData.empty,
+        roomTypeData: <RoomTypeData>[],
+        selectedRoomTypeData: RoomTypeData.empty,
+        hostelRegisterDetails: HostelRegisterData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        fromDate: TextEditingController(),
+        toDate: TextEditingController(),
+        leaveReason: TextEditingController(),
+        hostelLeaveData: <HostelLeaveData>[],
+        gethostelData: <GetHostelData>[],
+      );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final hostelRes = details['getHostelLeaveApplicationDetailsResponse']
@@ -701,7 +706,7 @@ log('decrypted data>>>>${decryptedData.stringData}');
               toDate: TextEditingController(),
               leaveReason: TextEditingController(),
               hostelLeaveData: <HostelLeaveData>[],
-              gethostelData: <GetHostelData>[]);
+              gethostelData: <GetHostelData>[],);
         }
       } catch (e) {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
@@ -718,7 +723,7 @@ log('decrypted data>>>>${decryptedData.stringData}');
             toDate: TextEditingController(),
             leaveReason: TextEditingController(),
             hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[]);
+            gethostelData: <GetHostelData>[],);
       }
     } else if (response.$1 != 200) {
       state = HostelStateError(
@@ -734,7 +739,7 @@ log('decrypted data>>>>${decryptedData.stringData}');
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
           hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[]);
+          gethostelData: <GetHostelData>[],);
     }
   }
 }

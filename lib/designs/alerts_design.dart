@@ -71,6 +71,7 @@ class Alerts {
           showDialog<void>(
             context: context,
             builder: (BuildContext context) {
+              // ignore: deprecated_member_use
               return WillPopScope(
                 onWillPop: () async => !forcefully,
                 child: alert,
@@ -214,6 +215,7 @@ class Alerts {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+        // ignore: deprecated_member_use
         return WillPopScope(
           onWillPop: () async => false,
           child: alert,

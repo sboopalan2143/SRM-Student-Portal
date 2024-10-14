@@ -27,18 +27,18 @@ class BorderPointModel {
 }
 
 class BorderPointData {
+
+  BorderPointData(
+      {this.transportstatus,
+      this.fare,
+      this.boardingpointname,
+      this.busboardingpointid,});
   BorderPointData.fromJson(Map<String, dynamic> json) {
     transportstatus = json['transportstatus'] as String?;
     fare = json['fare'] as String?;
     boardingpointname = json['boardingpointname'] as String?;
     busboardingpointid = json['busboardingpointid'] as String?;
   }
-
-  BorderPointData(
-      {this.transportstatus,
-      this.fare,
-      this.boardingpointname,
-      this.busboardingpointid});
   String? transportstatus;
   String? fare;
   String? boardingpointname;

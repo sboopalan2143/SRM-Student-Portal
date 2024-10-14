@@ -1,7 +1,7 @@
-class getTransportRegistrationStatusModel {
-  getTransportRegistrationStatusModel({this.status, this.message, this.data});
+class GetTransportRegistrationStatusModel {
+  GetTransportRegistrationStatusModel({this.status, this.message, this.data});
 
-  getTransportRegistrationStatusModel.fromJson(Map<String, dynamic> json) {
+  GetTransportRegistrationStatusModel.fromJson(Map<String, dynamic> json) {
     status = json['Status'] as String?;
     message = json['Message'] as String?;
     if (json['Data'] != null) {

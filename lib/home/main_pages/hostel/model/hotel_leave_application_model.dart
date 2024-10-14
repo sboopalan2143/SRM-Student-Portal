@@ -27,8 +27,12 @@ class HostelLeaveApplicationModel {
 }
 
 class HostelLeaveData {
-  HostelLeaveData(
-      {this.leavetodate, this.reason, this.leavefromdate, this.status});
+  HostelLeaveData({
+    this.leavetodate,
+    this.reason,
+    this.leavefromdate,
+    this.status,
+  });
 
   HostelLeaveData.fromJson(Map<String, dynamic> json) {
     leavetodate = json['leavetodate'] as String?;

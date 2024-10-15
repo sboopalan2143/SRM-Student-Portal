@@ -70,8 +70,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
           final parseData =
               ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
           log('data>>>>${parseData.sid}');
-          final box =
-              await Hive.openBox<ProfileHiveData>('profile');
+          final box = await Hive.openBox<ProfileHiveData>('profile');
           final index =
               box.values.toList().indexWhere((e) => e.sid == parseData.sid);
           if (index != -1) {
@@ -86,14 +85,14 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
             successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
             profileData: state.profileData,
-             profileDataHive: ProfileHiveData.empty,
+            profileDataHive: ProfileHiveData.empty,
           );
         } else if (decryptedData.mapData!['Status'] != 'Success') {
           state = ProfileDetailsStateError(
             successMessage: '',
             errorMessage: decryptedData.mapData!['Message'] as String,
             profileData: ProfileDetails.empty,
-             profileDataHive: ProfileHiveData.empty,
+            profileDataHive: ProfileHiveData.empty,
           );
         }
       } catch (e) {
@@ -102,7 +101,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
           successMessage: '',
           errorMessage: error.message!,
           profileData: ProfileDetails.empty,
-           profileDataHive: ProfileHiveData.empty,
+          profileDataHive: ProfileHiveData.empty,
         );
       }
     } else if (response.$1 != 200) {
@@ -110,7 +109,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
         successMessage: '',
         errorMessage: 'Error',
         profileData: ProfileDetails.empty,
-         profileDataHive: ProfileHiveData.empty,
+        profileDataHive: ProfileHiveData.empty,
       );
     }
   }

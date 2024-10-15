@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_response_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 // import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
@@ -18,6 +20,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         successMessage: '',
         errorMessage: '',
         attendanceData: <SubjectAttendanceData>[],
+        attendancehiveData: <SubjectAttendanceHiveData>[],
       );
 
   Future<void> getAttendanceDetails(EncryptionProvider encrypt) async {
@@ -33,6 +36,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         successMessage: '',
         errorMessage: '',
         attendanceData: state.attendanceData,
+        attendancehiveData: state.attendancehiveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -47,28 +51,44 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
 
       // var attendanceData = <dynamic>[];
       try {
-        //change model
-        final attendanceDataResponse =
-            GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
-        attendanceData = attendanceDataResponse.data!;
-        state = state.copyWith(attendanceData: attendanceData);
-        if (attendanceDataResponse.status == 'Success') {
+        // //change model
+        // final attendanceDataResponse =
+        //     GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
+        // attendanceData = attendanceDataResponse.data!;
+        // state = state.copyWith(attendanceData: attendanceData);
+        for (var i = 0; i < attendanceData.length; i++) {
+          final parseData = SubjectAttendanceHiveData.fromJson(
+              attendanceData[i] as Map<String, dynamic>);
+          log('data>>>>${parseData.subjectcode}');
+          final box = await Hive.openBox<SubjectAttendanceHiveData>(
+              'subjectattendance');
+          final index = box.values
+              .toList()
+              .indexWhere((e) => e.subjectcode == parseData.subjectcode);
+          if (index != -1) {
+            await box.putAt(index, parseData);
+          } else {
+            await box.add(parseData);
+          }
+        }
+        if (decryptedData.mapData!['Status'] == 'Success') {
           // final studentIdJson =
           //     attendanceData.map((e) => e.toJson()).toList().toString();
           // await TokensManagement.setStudentId(
           //   studentId: studentIdJson,
           // );
           state = AttendanceStateSuccessful(
-            successMessage: attendanceDataResponse.status!,
+            successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
             attendanceData: state.attendanceData,
+            attendancehiveData: state.attendancehiveData,
           );
-        } else if (attendanceDataResponse.status != 'Success') {
+        } else if (decryptedData.mapData!['Message'] as String != 'Success') {
           state = AttendanceStateError(
             successMessage: '',
-            errorMessage:
-                '''${attendanceDataResponse.status!},${attendanceDataResponse.message!}''',
+            errorMessage: decryptedData.mapData!['Message'] as String,
             attendanceData: state.attendanceData,
+            attendancehiveData: state.attendancehiveData,
           );
         }
       } catch (e) {
@@ -77,6 +97,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
           successMessage: '',
           errorMessage: error.message!,
           attendanceData: state.attendanceData,
+          attendancehiveData: state.attendancehiveData,
         );
       }
     } else if (response.$1 != 200) {
@@ -84,7 +105,27 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         successMessage: '',
         errorMessage: 'Error',
         attendanceData: state.attendanceData,
+        attendancehiveData: state.attendancehiveData,
       );
+    }
+  }
+
+  Future<void> getHiveAttendanceDetails(String search) async {
+    try {
+      _setLoading();
+      final box =
+          await Hive.openBox<SubjectAttendanceHiveData>('subjectattendance');
+      final profile = <SubjectAttendanceHiveData>[...box.values];
+      log('profile length>>>${profile[0].subjectcode}');
+
+      state = AttendanceStateSuccessful(
+        successMessage: '',
+        errorMessage: '',
+        attendanceData: state.attendanceData,
+        attendancehiveData: state.attendancehiveData,
+      );
+    } catch (e) {
+      await getHiveAttendanceDetails(search);
     }
   }
 }

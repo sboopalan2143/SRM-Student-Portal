@@ -35,9 +35,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(attendanceProvider.notifier).getAttendanceDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+        ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
       },
     );
 
@@ -49,9 +47,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(attendanceProvider.notifier).getAttendanceDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
     });
   }
 
@@ -144,7 +140,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                         .primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.attendanceData.isEmpty &&
+              else if (provider.attendancehiveData.isEmpty &&
                   provider is! AttendanceStateLoading)
                 Column(
                   children: [
@@ -157,12 +153,13 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                     ),
                   ],
                 ),
-              if (provider.attendanceData.isNotEmpty) const SizedBox(height: 5),
+              if (provider.attendancehiveData.isNotEmpty)
+                const SizedBox(height: 5),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ListView.builder(
-                  itemCount: provider.attendanceData.length,
+                  itemCount: provider.attendancehiveData.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -219,9 +216,9 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].subjectcode}' == ''
+                      '${provider.attendancehiveData[index].subjectcode}' == ''
                           ? '-'
-                          : '${provider.attendanceData[index].subjectcode}',
+                          : '${provider.attendancehiveData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -245,9 +242,9 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].subjectdesc}' == ''
+                      '${provider.attendancehiveData[index].subjectdesc}' == ''
                           ? '-'
-                          : '${provider.attendanceData[index].subjectdesc}',
+                          : '${provider.attendancehiveData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -271,9 +268,9 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].total}' == ''
+                      '${provider.attendancehiveData[index].total}' == ''
                           ? '-'
-                          : '${provider.attendanceData[index].total}',
+                          : '${provider.attendancehiveData[index].total}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -297,9 +294,9 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].present}' == ''
+                      '${provider.attendancehiveData[index].present}' == ''
                           ? '-'
-                          : '${provider.attendanceData[index].present}',
+                          : '${provider.attendancehiveData[index].present}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -323,9 +320,9 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].absent}' == ''
+                      '${provider.attendancehiveData[index].absent}' == ''
                           ? '-'
-                          : '${provider.attendanceData[index].absent}',
+                          : '${provider.attendancehiveData[index].absent}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -349,10 +346,10 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendanceData[index].presentpercentage}' ==
+                      '${provider.attendancehiveData[index].presentpercentage}' ==
                               ''
                           ? '-'
-                          : '''${provider.attendanceData[index].presentpercentage}''',
+                          : '''${provider.attendancehiveData[index].presentpercentage}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

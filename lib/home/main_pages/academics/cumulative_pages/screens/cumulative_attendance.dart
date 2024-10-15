@@ -36,9 +36,7 @@ class _CumulativeAttendancePageState
       (_) {
         ref
             .read(cummulativeAttendanceProvider.notifier)
-            .getCummulativeAttendanceDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+            .getHiveCummulativeDetails('');
       },
     );
 
@@ -52,9 +50,7 @@ class _CumulativeAttendancePageState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(cummulativeAttendanceProvider.notifier)
-          .getCummulativeAttendanceDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+          .getHiveCummulativeDetails('');
     });
   }
 
@@ -115,9 +111,7 @@ class _CumulativeAttendancePageState
                         onTap: () {
                           ref
                               .read(cummulativeAttendanceProvider.notifier)
-                              .getCummulativeAttendanceDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                              .getHiveCummulativeDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -147,7 +141,7 @@ class _CumulativeAttendancePageState
                         .primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.cummulativeAttendanceData.isEmpty &&
+              else if (provider.cummulativeHiveAttendanceData.isEmpty &&
                   provider is! CummulativeAttendanceStateLoading)
                 Column(
                   children: [
@@ -160,13 +154,13 @@ class _CumulativeAttendancePageState
                     ),
                   ],
                 ),
-              if (provider.cummulativeAttendanceData.isNotEmpty)
+              if (provider.cummulativeHiveAttendanceData.isNotEmpty)
                 const SizedBox(height: 5),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ListView.builder(
-                  itemCount: provider.cummulativeAttendanceData.length,
+                  itemCount: provider.cummulativeHiveAttendanceData.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -275,27 +269,27 @@ class _CumulativeAttendancePageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '''${provider.cummulativeAttendanceData[index].attendancemonthyear}''',
+                      '''${provider.cummulativeHiveAttendanceData[index].attendancemonthyear}''',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '${provider.cummulativeAttendanceData[index].present}',
+                      '${provider.cummulativeHiveAttendanceData[index].present}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '${provider.cummulativeAttendanceData[index].absent}',
+                      '${provider.cummulativeHiveAttendanceData[index].absent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '${provider.cummulativeAttendanceData[index].odpresent}',
+                      '${provider.cummulativeHiveAttendanceData[index].odpresent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '${provider.cummulativeAttendanceData[index].odabsent}',
+                      '${provider.cummulativeHiveAttendanceData[index].odabsent}',
                       style: TextStyles.fontStyle10,
                     ),
                     Text(
-                      '${provider.cummulativeAttendanceData[index].medical}',
+                      '${provider.cummulativeHiveAttendanceData[index].medical}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

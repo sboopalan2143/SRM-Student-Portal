@@ -6,18 +6,18 @@ part of 'cummulative_attendance_hive.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CumulativeAttendanceDataAdapter
-    extends TypeAdapter<CumulativeAttendanceData> {
+class CumulativeAttendanceHiveDataAdapter
+    extends TypeAdapter<CumulativeAttendanceHiveData> {
   @override
   final int typeId = 3;
 
   @override
-  CumulativeAttendanceData read(BinaryReader reader) {
+  CumulativeAttendanceHiveData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return CumulativeAttendanceData(
+    return CumulativeAttendanceHiveData(
       attendancemonthyear: fields[0] as String?,
       medical: fields[1] as String?,
       absent: fields[2] as String?,
@@ -28,7 +28,7 @@ class CumulativeAttendanceDataAdapter
   }
 
   @override
-  void write(BinaryWriter writer, CumulativeAttendanceData obj) {
+  void write(BinaryWriter writer, CumulativeAttendanceHiveData obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -51,7 +51,7 @@ class CumulativeAttendanceDataAdapter
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CumulativeAttendanceDataAdapter &&
+      other is CumulativeAttendanceHiveDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

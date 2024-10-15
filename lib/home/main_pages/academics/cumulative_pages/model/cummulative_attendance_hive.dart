@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 part 'cummulative_attendance_hive.g.dart';
 
 @HiveType(typeId: 3)
-class CumulativeAttendanceData {
-  CumulativeAttendanceData({
+class CumulativeAttendanceHiveData {
+  CumulativeAttendanceHiveData({
     this.attendancemonthyear,
     this.medical,
     this.absent,
@@ -13,7 +13,7 @@ class CumulativeAttendanceData {
     this.odpresent,
   });
 
-  CumulativeAttendanceData.fromJson(Map<String, dynamic> json) {
+  CumulativeAttendanceHiveData.fromJson(Map<String, dynamic> json) {
     attendancemonthyear = json['attendancemonthyear'] as String?;
     medical = json['medical'] as String?;
     absent = json['absent'] as String?;
@@ -21,7 +21,6 @@ class CumulativeAttendanceData {
     odabsent = json['odabsent'] as String?;
     odpresent = json['odpresent'] as String?;
   }
- 
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -33,8 +32,6 @@ class CumulativeAttendanceData {
     data['odpresent'] = odpresent;
     return data;
   }
-
-
 
   @HiveField(0)
   String? attendancemonthyear;
@@ -53,6 +50,4 @@ class CumulativeAttendanceData {
 
   @HiveField(5)
   String? odpresent;
-
- 
 }

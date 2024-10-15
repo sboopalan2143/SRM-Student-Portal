@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppColors {
+  AppColors(Color primaryColor);
+
   static Color primaryColor = const Color(0xff236EDE);
 
   static Color secondaryColor = const Color(0xffF3F9FD);

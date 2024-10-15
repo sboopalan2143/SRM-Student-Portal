@@ -21,7 +21,7 @@ class HiveRepository {
         ..registerAdapter(ProfileHiveDataAdapter())
         ..registerAdapter(ExamDetailsHiveDataAdapter())
         ..registerAdapter(SubjectAttendanceHiveDataAdapter())
-        ..registerAdapter(CumulativeAttendanceDataAdapter())
+        ..registerAdapter(CumulativeAttendanceHiveDataAdapter())
         ..registerAdapter(SubjectHiveDataAdapter());
       // ..registerAdapter(ExpensesCategoriesDataAdapter())
       // ..registerAdapter(UOMAdapter())

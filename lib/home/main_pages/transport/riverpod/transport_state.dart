@@ -4,7 +4,7 @@ import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_after_register_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_register_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_status.dart';
+import 'package:sample/home/main_pages/transport/model/transport_status_model.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_provider.dart';
 
 final transportProvider =

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/hostel/model/get_hostel_details_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_details_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hotel_leave_application_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_model.dart';
 import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
 

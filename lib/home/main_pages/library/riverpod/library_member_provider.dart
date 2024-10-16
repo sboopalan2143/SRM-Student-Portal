@@ -5,7 +5,7 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/library/model/liberary_search.dart';
+import 'package:sample/home/main_pages/library/model/library_search_model.dart';
 import 'package:sample/home/main_pages/library/model/library_transaction_response_model.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 

@@ -7,11 +7,11 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/hostel/model/get_hostel_details_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_details_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hotel_leave_application_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_model.dart';
 import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 

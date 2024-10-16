@@ -6,7 +6,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';

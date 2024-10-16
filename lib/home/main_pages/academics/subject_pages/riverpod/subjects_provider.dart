@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
@@ -9,7 +8,6 @@ import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_response_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
-import '../model/subject_responce_hive_model.dart';
 
 class SubjectProvider extends StateNotifier<SubjectState> {
   SubjectProvider() : super(SubjectInitial());

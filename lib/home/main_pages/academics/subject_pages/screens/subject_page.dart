@@ -32,7 +32,9 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+        ref.read(subjectProvider.notifier).getSubjectDetails(
+              ref.read(encryptionProvider.notifier),
+            );
       },
     );
 
@@ -44,7 +46,9 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+      ref.read(subjectProvider.notifier).getSubjectDetails(
+            ref.read(encryptionProvider.notifier),
+          );
     });
   }
 
@@ -104,9 +108,9 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref
-                              .read(subjectProvider.notifier)
-                              .getHiveSubgetDetails('');
+                          ref.read(subjectProvider.notifier).getSubjectDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -195,7 +199,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.subjectHiveData.isEmpty &&
+                else if (provider.subjectData.isEmpty &&
                     provider is! SubjectStateLoading)
                   Column(
                     children: [
@@ -208,13 +212,12 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                       ),
                     ],
                   ),
-                if (provider.subjectHiveData.isNotEmpty)
-                  const SizedBox(height: 5),
+                if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   child: ListView.builder(
-                    itemCount: provider.subjectHiveData.length,
+                    itemCount: provider.subjectData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -259,7 +262,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.subjectHiveData[index]}',
+                      '${provider.subjectData[index]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

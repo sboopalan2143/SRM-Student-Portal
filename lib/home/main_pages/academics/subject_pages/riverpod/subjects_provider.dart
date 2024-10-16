@@ -20,7 +20,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
         successMessage: '',
         errorMessage: '',
         subjectData: <dynamic>[],
-        subjectHiveData: <SubjectHiveData>[],
+        // subjectHiveData: <SubjectHiveData>[],
       );
 
   List<dynamic> splitString(String dataToSplit) {
@@ -41,7 +41,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
         successMessage: '',
         errorMessage: '',
         subjectData: <dynamic>[],
-        subjectHiveData: <SubjectHiveData>[],
+        // subjectHiveData: <SubjectHiveData>[],
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -53,25 +53,25 @@ class SubjectProvider extends StateNotifier<SubjectState> {
 
       final listData = <dynamic>[];
       try {
-        // final subjectDataResponse =
-        //     SubjectResponseModel.fromJson(decryptedData.mapData!);
-        // // subjectDetails = subjectDataResponse.data!;
-        for (var i = 0; i < listData.length; i++) {
-          final parseData =
-              SubjectHiveData.fromJson(listData[i] as Map<String, dynamic>);
-          log('data>>>>${parseData.subjectdetails}');
-          final box = await Hive.openBox<SubjectHiveData>(
-            'cumulativeattendance',
-          );
-          final index = box.values
-              .toList()
-              .indexWhere((e) => e.subjectdetails == parseData.subjectdetails);
-          if (index != -1) {
-            await box.putAt(index, parseData);
-          } else {
-            await box.add(parseData);
-          }
-        }
+        final subjectDataResponse =
+            SubjectResponseModel.fromJson(decryptedData.mapData!);
+        // subjectDetails = subjectDataResponse.data!;
+        // for (var i = 0; i < listData.length; i++) {
+        //   final parseData =
+        //       SubjectHiveData.fromJson(listData[i] as Map<String, dynamic>);
+        //   log('data>>>>${parseData.subjectdetails}');
+        //   final box = await Hive.openBox<SubjectHiveData>(
+        //     'subjectattendance',
+        //   );
+        //   final index = box.values
+        //       .toList()
+        //       .indexWhere((e) => e.subjectdetails == parseData.subjectdetails);
+        //   if (index != -1) {
+        //     await box.putAt(index, parseData);
+        //   } else {
+        //     await box.add(parseData);
+        //   }
+        // }
 
         if (decryptedData.mapData!['Status'] == 'Success') {
           // log('singledata>>>>${subjectDataResponse.data![0].subjectdetails}');
@@ -118,21 +118,21 @@ class SubjectProvider extends StateNotifier<SubjectState> {
     }
   }
 
-  Future<void> getHiveSubgetDetails(String search) async {
-    try {
-      _setLoading();
-      final box = await Hive.openBox<SubjectHiveData>(
-        'cumulativeattendance',
-      );
-      final profile = <SubjectHiveData>[...box.values];
-      log('profile length>>>${profile[0].subjectdetails}');
-      state = SubjectStateError(
-        successMessage: '',
-        errorMessage: error.message!,
-        subjectData: <dynamic>[],
-      );
-    } catch (e) {
-      await getHiveSubgetDetails(search);
-    }
-  }
+  // Future<void> getHiveSubgetDetails(String search) async {
+  //   try {
+  //     _setLoading();
+  //     final box = await Hive.openBox<SubjectHiveData>(
+  //       'subjectattendance',
+  //     );
+  //     final profile = <SubjectHiveData>[...box.values];
+  //     log('profile length>>>${profile[0].subjectdetails}');
+  //     state = SubjectStateError(
+  //       successMessage: '',
+  //       errorMessage: error.message!,
+  //       subjectData: <dynamic>[],
+  //     );
+  //   } catch (e) {
+  //     await getHiveSubgetDetails(search);
+  //   }
+  // }
 }

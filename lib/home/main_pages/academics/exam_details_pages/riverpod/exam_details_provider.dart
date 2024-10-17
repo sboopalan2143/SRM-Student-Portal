@@ -49,7 +49,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
       // var examDetailsData = <ExamDetailsData>[];
       final examDetailslistData =
           decryptedData.mapData!['Data'] as List<dynamic>;
-      log('listData length>>>${examDetailslistData.length}');
+      // log('listData length>>>${examDetailslistData.length}');
       try {
         // final examDetailsResponse =
         //     ExamDetails.fromJson(decryptedData.mapData!);

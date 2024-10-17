@@ -1,46 +1,40 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'attendance_hive.dart';
+part of 'internal_mark_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class AttendanceHiveDataAdapter extends TypeAdapter<AttendanceHiveData> {
+class InternalMarkHiveDataAdapter extends TypeAdapter<InternalMarkHiveData> {
   @override
-  final int typeId = 2;
+  final int typeId = 6;
 
   @override
-  AttendanceHiveData read(BinaryReader reader) {
+  InternalMarkHiveData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AttendanceHiveData(
-      total: fields[0] as String?,
-      presentpercentage: fields[1] as String?,
-      absent: fields[2] as String?,
-      subjectcode: fields[3] as String?,
-      present: fields[4] as String?,
-      subjectdesc: fields[5] as String?,
+    return InternalMarkHiveData(
+      sumofmarks: fields[0] as String?,
+      subjectcode: fields[1] as String?,
+      sumofmaxmarks: fields[2] as String?,
+      subjectdesc: fields[3] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, AttendanceHiveData obj) {
+  void write(BinaryWriter writer, InternalMarkHiveData obj) {
     writer
-      ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj.total)
-      ..writeByte(1)
-      ..write(obj.presentpercentage)
-      ..writeByte(2)
-      ..write(obj.absent)
-      ..writeByte(3)
-      ..write(obj.subjectcode)
       ..writeByte(4)
-      ..write(obj.present)
-      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.sumofmarks)
+      ..writeByte(1)
+      ..write(obj.subjectcode)
+      ..writeByte(2)
+      ..write(obj.sumofmaxmarks)
+      ..writeByte(3)
       ..write(obj.subjectdesc);
   }
 
@@ -50,7 +44,7 @@ class AttendanceHiveDataAdapter extends TypeAdapter<AttendanceHiveData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AttendanceHiveDataAdapter &&
+      other is InternalMarkHiveDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

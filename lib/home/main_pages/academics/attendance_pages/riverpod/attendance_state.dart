@@ -19,13 +19,13 @@ class AttendanceState {
   final String successMessage;
   final String errorMessage;
   final List<SubjectAttendanceData> attendanceData;
-  final List<SubjectAttendanceHiveData> attendancehiveData;
+  final List<AttendanceHiveData> attendancehiveData;
 
   AttendanceState copyWith({
     String? successMessage,
     String? errorMessage,
     List<SubjectAttendanceData>? attendanceData,
-    List<SubjectAttendanceHiveData>? attendancehiveData,
+    List<AttendanceHiveData>? attendancehiveData,
   }) =>
       AttendanceState(
         successMessage: successMessage ?? this.successMessage,
@@ -41,7 +41,7 @@ class AttendanceInitial extends AttendanceState {
           successMessage: '',
           errorMessage: '',
           attendanceData: <SubjectAttendanceData>[],
-          attendancehiveData: <SubjectAttendanceHiveData>[],
+          attendancehiveData: <AttendanceHiveData>[],
         );
 }
 

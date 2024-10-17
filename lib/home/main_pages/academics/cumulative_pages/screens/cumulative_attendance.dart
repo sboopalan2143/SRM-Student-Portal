@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,6 +57,7 @@ class _CumulativeAttendancePageState
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(cummulativeAttendanceProvider);
+    log('cumlative log >> ${provider.cummulativeHiveAttendanceData.length}');
     ref.listen(cummulativeAttendanceProvider, (previous, next) {
       if (next is CummulativeAttendanceStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -148,7 +150,7 @@ class _CumulativeAttendancePageState
                     const Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                        style: TextStyles.alertContentStyle,
                       ),
                     ),
                   ],
@@ -191,7 +193,7 @@ class _CumulativeAttendancePageState
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+              offset: const Offset(0, 3), 
             ),
           ],
         ),

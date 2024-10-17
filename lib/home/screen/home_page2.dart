@@ -12,8 +12,13 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
+import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
@@ -23,7 +28,6 @@ import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/login/screen/login_Page2.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 
@@ -60,27 +64,65 @@ class _HomePage2State extends ConsumerState<HomePage2>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
-    try {
-      await ref.read(profileProvider.notifier).getProfileApi(
-            ref.read(
-              encryptionProvider.notifier,
-            ),
-          );
-      await ref.read(profileProvider.notifier).getProfile('');
-      await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
-            ref.read(
-              encryptionProvider.notifier,
-            ),
-          );
-      await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
-    } catch (e) {
-      await TokensManagement.clearSharedPreference();
-      await Navigator.pushAndRemoveUntil(
-        context,
-        RouteDesign(route: const LoginPage2()),
-        (route) => false,
-      );
-    }
+    // try {
+    await ref.read(profileProvider.notifier).getProfileApi(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(profileProvider.notifier).getProfile('');
+    await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
+    await ref.read(subjectProvider.notifier).getSubjectDetails(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+    await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
+
+    await ref
+        .read(cummulativeAttendanceProvider.notifier)
+        .getCummulativeAttendanceDetails(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref
+        .read(cummulativeAttendanceProvider.notifier)
+        .getHiveCummulativeDetails('');
+
+    await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
+
+    await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+          ref.read(
+            encryptionProvider.notifier,
+          ),
+        );
+    await ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
+    // }
+    // catch (e) {
+    //   await TokensManagement.clearSharedPreference();
+    //   await Navigator.pushAndRemoveUntil(
+    //     context,
+    //     RouteDesign(route: const LoginPage2()),
+    //     (route) => false,
+    //   );
+    // }
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -753,7 +795,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         // ),
                                         const SizedBox(width: 10),
                                         Text(
-                                          'Transport',
+                                          'LMS',
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,

@@ -5,6 +5,8 @@ import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
+import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/get_fees_details_hive_model.dart';
@@ -44,9 +46,11 @@ class HiveRepository {
         ..init(directory.path)
         ..registerAdapter(ProfileHiveDataAdapter())
         ..registerAdapter(ExamDetailsHiveDataAdapter())
-        ..registerAdapter(SubjectAttendanceHiveDataAdapter())
+        ..registerAdapter(AttendanceHiveDataAdapter())
         ..registerAdapter(CumulativeAttendanceHiveDataAdapter())
         ..registerAdapter(SubjectHiveDataAdapter())
+        ..registerAdapter(HourwiseHiveDataAdapter())
+        ..registerAdapter(InternalMarkHiveDataAdapter())
         ..registerAdapter(FinanceHiveDataAdapter())
         ..registerAdapter(GetFeesHiveDataAdapter())
         ..registerAdapter(GrievanceCategoryHiveDataAdapter())

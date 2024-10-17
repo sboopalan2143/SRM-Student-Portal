@@ -33,6 +33,15 @@ class CumulativeAttendanceHiveData {
     return data;
   }
 
+  static final empty = CumulativeAttendanceHiveData(
+    attendancemonthyear: '',
+    medical: '',
+    absent: '',
+    present: '',
+    odabsent: '',
+    odpresent: '',
+  );
+
   @HiveField(0)
   String? attendancemonthyear;
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +10,6 @@ import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -54,6 +54,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(attendanceProvider);
+    // log('Attendance lendth>>>>>>>>${provider.attendancehiveData.length}');
     ref.listen(attendanceProvider, (previous, next) {
       if (next is AttendanceStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -108,9 +109,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                         onTap: () {
                           ref
                               .read(attendanceProvider.notifier)
-                              .getAttendanceDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                              .getHiveAttendanceDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,

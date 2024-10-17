@@ -6,7 +6,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -32,9 +31,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(subjectProvider.notifier).getSubjectDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+        ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
       },
     );
 
@@ -46,9 +43,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(subjectProvider.notifier).getSubjectDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
     });
   }
 
@@ -108,9 +103,9 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref.read(subjectProvider.notifier).getSubjectDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                          ref
+                              .read(subjectProvider.notifier)
+                              .getHiveSubgetDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -199,7 +194,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.subjectData.isEmpty &&
+                else if (provider.subjectHiveData.isEmpty &&
                     provider is! SubjectStateLoading)
                   Column(
                     children: [
@@ -212,12 +207,13 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                       ),
                     ],
                   ),
-                if (provider.subjectData.isNotEmpty) const SizedBox(height: 5),
+                if (provider.subjectHiveData.isNotEmpty)
+                  const SizedBox(height: 5),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                   child: ListView.builder(
-                    itemCount: provider.subjectData.length,
+                    itemCount: provider.subjectHiveData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -262,7 +258,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.subjectData[index]}',
+                      '${provider.subjectHiveData[index].subjectdetails![0]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],
@@ -275,7 +271,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.subjectData[index][1]}',
+                      '${provider.subjectHiveData[index].subjectdetails![1]}',
                       style: TextStyles.fontStyle10small,
                     ),
                   ],
@@ -287,7 +283,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 child: Column(
                   children: [
                     Text(
-                      '${provider.subjectData[index][2]}',
+                      '${provider.subjectHiveData[index].subjectdetails![2]}',
                       style: TextStyles.fontStyle10small,
                       textAlign: TextAlign.center,
                     ),
@@ -300,7 +296,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 child: Column(
                   children: [
                     Text(
-                      '${provider.subjectData[index][3]}',
+                      '${provider.subjectHiveData[index].subjectdetails![3]}',
                       style: TextStyles.fontStyle10,
                     ),
                   ],

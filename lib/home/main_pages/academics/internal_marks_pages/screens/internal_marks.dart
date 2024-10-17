@@ -33,9 +33,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+        ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
       },
     );
 
@@ -47,9 +45,10 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      // ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+      //       ref.read(encryptionProvider.notifier),
+      //     );
+      ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
     });
   }
 
@@ -110,9 +109,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                         onTap: () {
                           ref
                               .read(internalMarksProvider.notifier)
-                              .getInternalMarksDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                              .getHiveinternalmark('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -192,7 +189,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ListView.builder(
-                  itemCount: provider.internalMarkData.length,
+                  itemCount: provider.internalMarkHiveData.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -249,9 +246,10 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkData[index].subjectcode}' == ''
+                      '${provider.internalMarkHiveData[index].subjectcode}' ==
+                              ''
                           ? '-'
-                          : '${provider.internalMarkData[index].subjectcode}',
+                          : '${provider.internalMarkHiveData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -275,9 +273,10 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkData[index].subjectdesc}' == ''
+                      '${provider.internalMarkHiveData[index].subjectdesc}' ==
+                              ''
                           ? '-'
-                          : '${provider.internalMarkData[index].subjectdesc}',
+                          : '${provider.internalMarkHiveData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -301,9 +300,9 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkData[index].sumofmarks}' == ''
+                      '${provider.internalMarkHiveData[index].sumofmarks}' == ''
                           ? '-'
-                          : '${provider.internalMarkData[index].sumofmarks}',
+                          : '${provider.internalMarkHiveData[index].sumofmarks}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -327,9 +326,10 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkData[index].sumofmaxmarks}' == ''
+                      '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
+                              ''
                           ? '-'
-                          : '${provider.internalMarkData[index].sumofmaxmarks}',
+                          : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

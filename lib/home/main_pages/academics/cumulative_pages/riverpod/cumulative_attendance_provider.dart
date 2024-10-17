@@ -47,7 +47,8 @@ class CummulativeAttendanceProvider
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
-      var cummulativeAttendanceData = state.cummulativeAttendanceData;
+      final cummulativelistAttendanceData =
+          decryptedData.mapData!['Data'] as List<dynamic>;
       log('decrypted>>>>>>>>$decryptedData');
 
       // var cummulativeAttendanceData = <CummulativeAttendanceData>[];
@@ -60,9 +61,9 @@ class CummulativeAttendanceProvider
         // state = state.copyWith(
         //   cummulativeAttendanceData: cummulativeAttendanceData,
         // );
-        for (var i = 0; i < cummulativeAttendanceData.length; i++) {
+        for (var i = 0; i < cummulativelistAttendanceData.length; i++) {
           final parseData = CumulativeAttendanceHiveData.fromJson(
-              cummulativeAttendanceData[i] as Map<String, dynamic>);
+              cummulativelistAttendanceData[i] as Map<String, dynamic>);
           log('data>>>>${parseData.attendancemonthyear}');
           final box = await Hive.openBox<CumulativeAttendanceHiveData>(
             'cumulativeattendance',
@@ -116,14 +117,16 @@ class CummulativeAttendanceProvider
       final box = await Hive.openBox<CumulativeAttendanceHiveData>(
         'cumulativeattendance',
       );
-      final profile = <CumulativeAttendanceHiveData>[...box.values];
-      log('profile length>>>${profile[0].attendancemonthyear}');
+      final cumulativeattendance = <CumulativeAttendanceHiveData>[
+        ...box.values
+      ];
+      log('cumulative length>>>${cumulativeattendance[0].attendancemonthyear}');
 
       state = CummulativeAttendanceStateSuccessful(
         successMessage: '',
         errorMessage: '',
         cummulativeAttendanceData: state.cummulativeAttendanceData,
-        cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
+        cummulativeHiveAttendanceData: cumulativeattendance,
       );
     } catch (e) {
       await getHiveCummulativeDetails(search);

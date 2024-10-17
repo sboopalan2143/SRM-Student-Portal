@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 part 'attendance_hive.g.dart';
 
 @HiveType(typeId: 2)
-class SubjectAttendanceHiveData {
-  SubjectAttendanceHiveData({
+class AttendanceHiveData {
+  AttendanceHiveData({
     this.total,
     this.presentpercentage,
     this.absent,
@@ -13,7 +13,7 @@ class SubjectAttendanceHiveData {
     this.subjectdesc,
   });
 
-  SubjectAttendanceHiveData.fromJson(Map<String, dynamic> json) {
+  AttendanceHiveData.fromJson(Map<String, dynamic> json) {
     total = json['total'] as String?;
     presentpercentage = json['presentpercentage'] as String?;
     absent = json['absent'] as String?;
@@ -21,7 +21,6 @@ class SubjectAttendanceHiveData {
     present = json['present'] as String?;
     subjectdesc = json['subjectdesc'] as String?;
   }
- 
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -34,6 +33,14 @@ class SubjectAttendanceHiveData {
     return data;
   }
 
+  static final empty = AttendanceHiveData(
+    total: '',
+    presentpercentage: '',
+    absent: '',
+    subjectcode: '',
+    present: '',
+    subjectdesc: '',
+  );
 
   @HiveField(0)
   String? total;
@@ -52,6 +59,4 @@ class SubjectAttendanceHiveData {
 
   @HiveField(5)
   String? subjectdesc;
-
- 
 }

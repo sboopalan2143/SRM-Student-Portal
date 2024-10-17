@@ -1,47 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'attendance_hive.dart';
+part of 'hourwise_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class AttendanceHiveDataAdapter extends TypeAdapter<AttendanceHiveData> {
+class HourwiseHiveDataAdapter extends TypeAdapter<HourwiseHiveData> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
-  AttendanceHiveData read(BinaryReader reader) {
+  HourwiseHiveData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AttendanceHiveData(
-      total: fields[0] as String?,
-      presentpercentage: fields[1] as String?,
-      absent: fields[2] as String?,
-      subjectcode: fields[3] as String?,
-      present: fields[4] as String?,
-      subjectdesc: fields[5] as String?,
+    return HourwiseHiveData(
+      h1: fields[0] as String?,
+      h3: fields[1] as String?,
+      h5: fields[2] as String?,
+      attendancedate: fields[3] as String?,
+      h6: fields[4] as String?,
+      h7: fields[5] as String?,
+      h2: fields[6] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, AttendanceHiveData obj) {
+  void write(BinaryWriter writer, HourwiseHiveData obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.total)
+      ..write(obj.h1)
       ..writeByte(1)
-      ..write(obj.presentpercentage)
+      ..write(obj.h3)
       ..writeByte(2)
-      ..write(obj.absent)
+      ..write(obj.h5)
       ..writeByte(3)
-      ..write(obj.subjectcode)
+      ..write(obj.attendancedate)
       ..writeByte(4)
-      ..write(obj.present)
+      ..write(obj.h6)
       ..writeByte(5)
-      ..write(obj.subjectdesc);
+      ..write(obj.h7)
+      ..writeByte(6)
+      ..write(obj.h2);
   }
 
   @override
@@ -50,7 +53,7 @@ class AttendanceHiveDataAdapter extends TypeAdapter<AttendanceHiveData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AttendanceHiveDataAdapter &&
+      other is HourwiseHiveDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -10,7 +10,6 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/loading_wrapper.dart';
 import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -37,9 +36,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-              ref.read(encryptionProvider.notifier),
-            );
+        ref.read(hourwiseProvider.notifier).getHiveHourwise('');
       },
     );
 
@@ -51,9 +48,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      // ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+      //       ref.read(encryptionProvider.notifier),
+      //     );
+      ref.read(hourwiseProvider.notifier).getHiveHourwise('');
     });
   }
 
@@ -116,9 +114,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                         onTap: () {
                           ref
                               .read(hourwiseProvider.notifier)
-                              .gethourwiseDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                              .getHiveHourwise('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -225,7 +221,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                         .primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.listHourWiseData.isEmpty &&
+              else if (provider.listHourWiseHiveData.isEmpty &&
                   provider is! HourwiseStateLoading)
                 Column(
                   children: [
@@ -238,11 +234,11 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                     ),
                   ],
                 ),
-              if (provider.listHourWiseData.isNotEmpty)
+              if (provider.listHourWiseHiveData.isNotEmpty)
                 const SizedBox(height: 5),
               ListView.builder(
                 padding: const EdgeInsets.all(5),
-                itemCount: provider.listHourWiseData.length,
+                itemCount: provider.listHourWiseHiveData.length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (context, index) => Padding(
@@ -265,14 +261,17 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 15, top: 10, bottom: 10,),
+                          left: 15,
+                          top: 10,
+                          bottom: 10,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
                               width: width / 6,
                               child: Text(
-                                '${provider.listHourWiseData[index].attendancedate}',
+                                '${provider.listHourWiseHiveData[index].attendancedate}',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -288,10 +287,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11.5,
                               child: Text(
-                                '${provider.listHourWiseData[index].h1}' ==
+                                '${provider.listHourWiseHiveData[index].h1}' ==
                                         'null'
                                     ? '-'
-                                    : '${provider.listHourWiseData[index].h1}',
+                                    : '${provider.listHourWiseHiveData[index].h1}',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -299,10 +298,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11.5,
                               child: Text(
-                                '${provider.listHourWiseData[index].h2}' ==
+                                '${provider.listHourWiseHiveData[index].h2}' ==
                                         'null'
                                     ? '-'
-                                    : '''${provider.listHourWiseData[index].h2}''',
+                                    : '''${provider.listHourWiseHiveData[index].h2}''',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -310,10 +309,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11.5,
                               child: Text(
-                                '${provider.listHourWiseData[index].h3}' ==
+                                '${provider.listHourWiseHiveData[index].h3}' ==
                                         'null'
                                     ? '-'
-                                    : '''${provider.listHourWiseData[index].h3}''',
+                                    : '''${provider.listHourWiseHiveData[index].h3}''',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -321,10 +320,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11,
                               child: Text(
-                                '${provider.listHourWiseData[index].h5}' ==
+                                '${provider.listHourWiseHiveData[index].h5}' ==
                                         'null'
                                     ? '-'
-                                    : '''${provider.listHourWiseData[index].h5}''',
+                                    : '''${provider.listHourWiseHiveData[index].h5}''',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -332,10 +331,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11,
                               child: Text(
-                                '${provider.listHourWiseData[index].h6}' ==
+                                '${provider.listHourWiseHiveData[index].h6}' ==
                                         'null'
                                     ? '-'
-                                    : '''${provider.listHourWiseData[index].h6}''',
+                                    : '''${provider.listHourWiseHiveData[index].h6}''',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),
@@ -343,10 +342,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                             SizedBox(
                               width: width / 11,
                               child: Text(
-                                '${provider.listHourWiseData[index].h7}' ==
+                                '${provider.listHourWiseHiveData[index].h7}' ==
                                         'null'
                                     ? '-'
-                                    : '''${provider.listHourWiseData[index].h7}''',
+                                    : '''${provider.listHourWiseHiveData[index].h7}''',
                                 style: TextStyles.fontStyle16,
                               ),
                             ),

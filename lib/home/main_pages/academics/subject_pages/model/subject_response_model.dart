@@ -40,6 +40,3 @@ class Data {
     return data;
   }
 }
-
-
-

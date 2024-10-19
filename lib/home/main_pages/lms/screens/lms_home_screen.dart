@@ -321,6 +321,44 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(9),
+                        ),
+                      ),
+                      elevation: 0,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      backgroundColor: AppColors.primaryColor,
+                      shadowColor: Colors.transparent,
+                    ),
+                    onPressed: () {
+                      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                            ref.read(encryptionProvider.notifier),
+                            '${provider.lmsSubjectData[index].subjectid}',
+                          );
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: LmsTitlePage(
+                            subjectID:
+                                '${provider.lmsSubjectData[index].staffname}',
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'view',
+                      style: TextStyles.fontStyle13,
+                    ),
+                  ),
+                )
               ],
             ),
           ),

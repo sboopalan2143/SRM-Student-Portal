@@ -9,23 +9,23 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_comment_screen.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_example_chatting_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class LmsTitlePage extends ConsumerStatefulWidget {
-  const LmsTitlePage({
-    required this.subjectID,
+class LmsCommentScreen extends ConsumerStatefulWidget {
+  const LmsCommentScreen({
+    required this.classworkID,
     super.key,
   });
-  final String subjectID;
+  final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LmsTitlePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LmsCommentScreenState();
 }
 
-class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
+class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,10 +39,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmsTitleDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.subjectID,
-            );
+        // ref.read(lmsProvider.notifier).getLmsTitleDetails(
+        //       ref.read(encryptionProvider.notifier),
+        //       widget.classworkID,
+        //     );
       },
     );
 
@@ -54,10 +54,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsTitleDetails(
-            ref.read(encryptionProvider.notifier),
-            widget.subjectID,
-          );
+      // ref.read(lmsProvider.notifier).getLmsTitleDetails(
+      //       ref.read(encryptionProvider.notifier),
+      //       widget.subjectID,
+      //     );
     });
   }
 
@@ -108,7 +108,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'LMS Title',
+                'Comment Page',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),
@@ -120,10 +120,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsTitleDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.subjectID,
-                              );
+                          // ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                          //       ref.read(encryptionProvider.notifier),
+                          //       widget.subjectID,
+                          //     );
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -142,27 +142,27 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.lmsTitleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              if (provider is LibraryTrancsactionStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.lmsTitleData.isEmpty &&
+                  provider is! LibraryTrancsactionStateLoading)
+                const Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
                           style: TextStyles.fontStyle1,
@@ -170,19 +170,111 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                       ),
                     ],
                   ),
-                if (provider.lmsTitleData.isNotEmpty)
-                  ListView.builder(
+                )
+              else if (provider.lmsTitleData.isNotEmpty)
+                Expanded(
+                  // Allows the list to take available space and be scrollable
+                  child: ListView.builder(
                     itemCount: provider.lmsTitleData.length,
                     controller: _listController,
-                    shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return cardDesign(index);
                     },
                   ),
-              ],
-            ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: provider.comment,
+                        decoration: InputDecoration(
+                          hintText: 'Type a Comment...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () async {
+                        await ref.read(lmsProvider.notifier).saveCommentfield(
+                              ref.read(encryptionProvider.notifier),
+                              widget.classworkID,
+                            );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
+        // child: SingleChildScrollView(
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         const SizedBox(height: 20),
+        //         if (provider is LibraryTrancsactionStateLoading)
+        //           Padding(
+        //             padding: const EdgeInsets.only(top: 100),
+        //             child: Center(
+        //               child: CircularProgressIndicators
+        //                   .primaryColorProgressIndication,
+        //             ),
+        //           )
+        //         else if (provider.lmsTitleData.isEmpty &&
+        //             provider is! LibraryTrancsactionStateLoading)
+        //           Column(
+        //             children: [
+        //               SizedBox(height: MediaQuery.of(context).size.height / 5),
+        //               const Center(
+        //                 child: Text(
+        //                   'No List Added Yet!',
+        //                   style: TextStyles.fontStyle1,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         if (provider.lmsTitleData.isNotEmpty)
+        //           ListView.builder(
+        //             itemCount: provider.lmsTitleData.length,
+        //             controller: _listController,
+        //             shrinkWrap: true,
+        //             itemBuilder: (BuildContext context, int index) {
+        //               return cardDesign(index);
+        //             },
+        //           ),
+        //         Padding(
+        //           padding: const EdgeInsets.all(8),
+        //           child: Row(
+        //             children: [
+        //               Expanded(
+        //                 child: TextField(
+        //                   // controller: _controller,
+        //                   decoration: InputDecoration(
+        //                     hintText: 'Type a message...',
+        //                     border: OutlineInputBorder(
+        //                       borderRadius: BorderRadius.circular(20),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //               IconButton(
+        //                 icon: const Icon(Icons.send),
+        //                 onPressed: () {},
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
       endDrawer: const DrawerDesign(),
     );
@@ -493,127 +585,6 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 70,
-                      child: GestureDetector(
-                        onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                                ref.read(encryptionProvider.notifier),
-                                '${provider.lmsTitleData[index].classworkid}',
-                              );
-
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: LmsClassworkDetailPage(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'View',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          width: 100,
-                          child: GestureDetector(
-                           
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: LmsCommentScreen(
-                                    classworkID:
-                                        '${provider.lmsTitleData[index].classworkid}',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Comments',
-                                      style: TextStyles.fontStyle5,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          width: 100,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: const LmsExmpleChattingDetailPage(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'faculty chat',
-                                      style: TextStyles.fontStyle5,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ],
             ),

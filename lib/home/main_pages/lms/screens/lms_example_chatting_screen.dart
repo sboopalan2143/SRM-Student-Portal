@@ -716,14 +716,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 
-class LmsChattingDetailPage extends ConsumerStatefulWidget {
-  const LmsChattingDetailPage({super.key});
+class LmsExmpleChattingDetailPage extends ConsumerStatefulWidget {
+  const LmsExmpleChattingDetailPage({super.key});
 
   @override
-  _LmsChattingDetailPageState createState() => _LmsChattingDetailPageState();
+  _LmsExmpleChattingDetailPageState createState() => _LmsExmpleChattingDetailPageState();
 }
 
-class _LmsChattingDetailPageState extends ConsumerState<LmsChattingDetailPage> {
+class _LmsExmpleChattingDetailPageState extends ConsumerState<LmsExmpleChattingDetailPage> {
   final List<String> _messages = [];
   final TextEditingController _controller = TextEditingController();
 

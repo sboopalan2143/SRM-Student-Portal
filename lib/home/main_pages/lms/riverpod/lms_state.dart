@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_provider.dart';
 
@@ -17,6 +19,8 @@ class LmsState {
     required this.lmsTitleData,
     required this.classWorkDetailsData,
     required this.lmsAttachmentDetailsData,
+    required this.comment,
+    required this.lmsgetcommentData,
   });
 
   final String successMessage;
@@ -25,6 +29,8 @@ class LmsState {
   final List<LmsGetTitleData> lmsTitleData;
   final List<ClassWorkDetailsData> classWorkDetailsData;
   final List<GetAttachmentDetailsData> lmsAttachmentDetailsData;
+  final TextEditingController comment;
+  final List<GetCommentData> lmsgetcommentData;
 
   LmsState copyWith({
     String? successMessage,
@@ -33,6 +39,8 @@ class LmsState {
     List<LmsGetTitleData>? lmsTitleData,
     List<ClassWorkDetailsData>? classWorkDetailsData,
     List<GetAttachmentDetailsData>? lmsAttachmentDetailsData,
+    TextEditingController? comment,
+    List<GetCommentData>? lmsgetcommentData,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -42,6 +50,8 @@ class LmsState {
         classWorkDetailsData: classWorkDetailsData ?? this.classWorkDetailsData,
         lmsAttachmentDetailsData:
             lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
+        comment: comment ?? this.comment,
+        lmsgetcommentData: lmsgetcommentData ?? this.lmsgetcommentData,
       );
 }
 
@@ -54,6 +64,8 @@ class LmsInitial extends LmsState {
           lmsTitleData: <LmsGetTitleData>[],
           classWorkDetailsData: <ClassWorkDetailsData>[],
           lmsAttachmentDetailsData: <GetAttachmentDetailsData>[],
+          comment: TextEditingController(),
+          lmsgetcommentData: <GetCommentData>[],
         );
 }
 
@@ -65,6 +77,8 @@ class LmsStateLoading extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.comment,
+    required super.lmsgetcommentData,
   });
 }
 
@@ -76,6 +90,8 @@ class LmsStateError extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.comment,
+    required super.lmsgetcommentData,
   });
 }
 
@@ -87,6 +103,8 @@ class LmsStateSuccessful extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.comment,
+    required super.lmsgetcommentData,
   });
 }
 
@@ -98,6 +116,8 @@ class LmsStateclear extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.comment,
+    required super.lmsgetcommentData,
   });
 }
 
@@ -109,5 +129,7 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.comment,
+    required super.lmsgetcommentData,
   });
 }

@@ -92,10 +92,6 @@ class _LmsClassworkDetailPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsTitleDetails(
-                        ref.read(encryptionProvider.notifier),
-                        widget.classworkID,
-                      );
                   Navigator.pop(context);
                   // Navigator.push(
                   //   context,

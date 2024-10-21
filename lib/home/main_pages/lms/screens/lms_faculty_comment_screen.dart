@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -8,23 +10,23 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class LmsCommentScreen extends ConsumerStatefulWidget {
-  const LmsCommentScreen({
-    required this.classworkID,
+class LmsFacultyCommentScreen extends ConsumerStatefulWidget {
+  const LmsFacultyCommentScreen({
+    required this.studentclassworkcommentid,
     super.key,
   });
-  final String classworkID;
+  final String studentclassworkcommentid;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LmsCommentScreenState();
+      _LmsFacultyCommentScreenState();
 }
 
-class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
+class _LmsFacultyCommentScreenState
+    extends ConsumerState<LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,9 +40,9 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmscommentDetails(
+        ref.read(lmsProvider.notifier).getLmsFacultycommentDetails(
               ref.read(encryptionProvider.notifier),
-              widget.classworkID,
+              widget.studentclassworkcommentid,
             );
       },
     );
@@ -53,9 +55,9 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmscommentDetails(
+      ref.read(lmsProvider.notifier).getLmsFacultycommentDetails(
             ref.read(encryptionProvider.notifier),
-            widget.classworkID,
+            widget.studentclassworkcommentid,
           );
     });
   }
@@ -64,6 +66,9 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
+    log(
+      'faculty log >>>${provider.lmsgetfacultycommentData.length}',
+    );
     ref.listen(lmsProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -104,7 +109,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'Comment Page',
+                'Faculty Comment',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),
@@ -116,9 +121,11 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmscommentDetails(
+                          ref
+                              .read(lmsProvider.notifier)
+                              .getLmsFacultycommentDetails(
                                 ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
+                                widget.studentclassworkcommentid,
                               );
                         },
                         child: const Icon(
@@ -152,7 +159,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                         .primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsgetcommentData.isEmpty &&
+              else if (provider.lmsgetfacultycommentData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
                 const Expanded(
                   child: Column(
@@ -167,11 +174,11 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                     ],
                   ),
                 )
-              else if (provider.lmsgetcommentData.isNotEmpty)
+              else if (provider.lmsgetfacultycommentData.isNotEmpty)
                 Expanded(
                   // Allows the list to take available space and be scrollable
                   child: ListView.builder(
-                    itemCount: provider.lmsgetcommentData.length,
+                    itemCount: provider.lmsgetfacultycommentData.length,
                     controller: _listController,
                     itemBuilder: (BuildContext context, int index) {
                       return chatCardDesign(index);
@@ -198,13 +205,13 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                       onPressed: () async {
                         await ref.read(lmsProvider.notifier).saveCommentfield(
                               ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
+                              widget.studentclassworkcommentid,
                             );
                         await ref
                             .read(lmsProvider.notifier)
-                            .getLmscommentDetails(
+                            .getLmsFacultycommentDetails(
                               ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
+                              widget.studentclassworkcommentid,
                             );
                       },
                     ),
@@ -229,7 +236,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
         //                   .primaryColorProgressIndication,
         //             ),
         //           )
-        //         else if (provider.lmsgetcommentData.isEmpty &&
+        //         else if (provider.lmsgetfacultycommentData.isEmpty &&
         //             provider is! LibraryTrancsactionStateLoading)
         //           Column(
         //             children: [
@@ -242,9 +249,9 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
         //               ),
         //             ],
         //           ),
-        //         if (provider.lmsgetcommentData.isNotEmpty)
+        //         if (provider.lmsgetfacultycommentData.isNotEmpty)
         //           ListView.builder(
-        //             itemCount: provider.lmsgetcommentData.length,
+        //             itemCount: provider.lmsgetfacultycommentData.length,
         //             controller: _listController,
         //             shrinkWrap: true,
         //             itemBuilder: (BuildContext context, int index) {
@@ -307,19 +314,20 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                     children: [
                       // Sender's Name
                       Text(
-                        '${provider.lmsgetcommentData[index].names}' == 'null'
+                        '${provider.lmsgetfacultycommentData[index].replynames}' ==
+                                'null'
                             ? '-'
-                            : '${provider.lmsgetcommentData[index].names}',
+                            : '${provider.lmsgetfacultycommentData[index].replynames}',
                         style: TextStyles.fontStyle10,
                       ),
                       const SizedBox(height: 4),
 
                       // Message Text
                       Text(
-                        '${provider.lmsgetcommentData[index].comments}' ==
+                        '${provider.lmsgetfacultycommentData[index].replycomments}' ==
                                 'null'
                             ? '-'
-                            : '${provider.lmsgetcommentData[index].comments}',
+                            : '${provider.lmsgetfacultycommentData[index].replycomments}',
                         style: TextStyles.lessSmallerBlackColorFontStyle,
                       ),
                     ],
@@ -329,10 +337,10 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
 
                 // Timestamp
                 Text(
-                  '${provider.lmsgetcommentData[index].commentdatetime}' ==
+                  '${provider.lmsgetfacultycommentData[index].replytime}' ==
                           'null'
                       ? 'Unknown time'
-                      : '${provider.lmsgetcommentData[index].commentdatetime}',
+                      : '${provider.lmsgetfacultycommentData[index].replytime}',
                   style:
                       TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                 ),

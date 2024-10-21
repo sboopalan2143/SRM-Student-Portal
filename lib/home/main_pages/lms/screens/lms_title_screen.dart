@@ -11,6 +11,7 @@ import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_comment_screen.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_example_chatting_screen.dart';
+import 'package:sample/home/main_pages/lms/screens/lms_faculty_comment_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -543,7 +544,6 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                           height: 30,
                           width: 100,
                           child: GestureDetector(
-                           
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -587,7 +587,10 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                               Navigator.push(
                                 context,
                                 RouteDesign(
-                                  route: const LmsExmpleChattingDetailPage(),
+                                  route: LmsFacultyCommentScreen(
+                                    studentclassworkcommentid:
+                                        '${provider.lmsgetcommentData[index].studentclassworkcommentid}',
+                                  ),
                                 ),
                               );
                             },

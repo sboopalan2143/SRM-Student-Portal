@@ -10,6 +10,7 @@ import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 
 class LmsProvider extends StateNotifier<LmsState> {
@@ -26,6 +27,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: <GetAttachmentDetailsData>[],
         comment: TextEditingController(),
         lmsgetcommentData: <GetCommentData>[],
+        lmsgetfacultycommentData: <ReplayFacultyCommentData>[],
       );
 
   void clearstate() => state = LmsStateclear(
@@ -37,6 +39,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: const <GetAttachmentDetailsData>[],
         comment: TextEditingController(),
         lmsgetcommentData: <GetCommentData>[],
+        lmsgetfacultycommentData: <ReplayFacultyCommentData>[],
       );
 
   Future<void> getLmsSubgetDetails(EncryptionProvider encrypt) async {
@@ -55,6 +58,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -92,6 +96,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
           );
         }
       } catch (e) {
@@ -105,6 +110,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
         );
       }
     } else if (response.$1 != 200) {
@@ -117,6 +123,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     }
   }
@@ -140,6 +147,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -176,6 +184,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
           );
         }
       } catch (e) {
@@ -189,6 +198,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
         );
       }
     } else if (response.$1 != 200) {
@@ -201,6 +211,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     }
   }
@@ -225,6 +236,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -262,6 +274,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
           );
         }
       } catch (e) {
@@ -275,6 +288,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
         );
       }
     } else if (response.$1 != 200) {
@@ -287,6 +301,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     }
   }
@@ -311,6 +326,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -349,6 +365,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
           );
         }
       } catch (e) {
@@ -362,6 +379,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
         );
       }
     } else if (response.$1 != 200) {
@@ -374,6 +392,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     }
   }
@@ -397,6 +416,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -415,6 +435,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     } else if (response.$1 != 200) {
       state = LmsStateSuccessful(
@@ -426,6 +447,185 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+      );
+    }
+  }
+
+  Future<void> getLmscommentDetails(
+    EncryptionProvider encrypt,
+    String classworkid,
+  ) async {
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmdtypeid>2</cmdtypeid>',
+    );
+    final response = await HttpService.sendSoapRequest('getComments', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsTitleRes =
+          details['getCommentsResponse'] as Map<String, dynamic>;
+      final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var lmsgetcommentData = state.lmsgetcommentData;
+      log('decrypted>>>>>>>>$decryptedData');
+
+      try {
+        final lmsCommentDetailsDataResponse =
+            GetCommentModel.fromJson(decryptedData.mapData!);
+        lmsgetcommentData = lmsCommentDetailsDataResponse.data!;
+        state = state.copyWith(lmsgetcommentData: lmsgetcommentData);
+        if (lmsCommentDetailsDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (lmsCommentDetailsDataResponse.status != 'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${lmsCommentDetailsDataResponse.status!}, ${lmsCommentDetailsDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+            lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            comment: TextEditingController(),
+            lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+          lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          comment: TextEditingController(),
+          lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+      );
+    }
+  }
+
+  Future<void> getLmsFacultycommentDetails(
+    EncryptionProvider encrypt,
+    String studentClsCmtId,
+  ) async {
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><StudentClsCmtId>$studentClsCmtId</StudentClsCmtId>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getReplyComments', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsTitleRes =
+          details['getReplyCommentsResponse'] as Map<String, dynamic>;
+      final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var lmsgetfacultycommentData = state.lmsgetfacultycommentData;
+      log('decrypted>>>>>>>>$decryptedData');
+
+      try {
+        final lmsfacultCommentDetailsDataResponse =
+            ReplayFacultyComment.fromJson(decryptedData.mapData!);
+        lmsgetfacultycommentData = lmsfacultCommentDetailsDataResponse.data!;
+        state =
+            state.copyWith(lmsgetfacultycommentData: lmsgetfacultycommentData);
+        if (lmsfacultCommentDetailsDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (lmsfacultCommentDetailsDataResponse.status != 'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${lmsfacultCommentDetailsDataResponse.status!}, ${lmsfacultCommentDetailsDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+            lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            comment: TextEditingController(),
+            lmsgetcommentData: state.lmsgetcommentData,
+            lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+          lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          comment: TextEditingController(),
+          lmsgetcommentData: state.lmsgetcommentData,
+          lmsgetfacultycommentData: state.lmsgetfacultycommentData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsgetfacultycommentData: state.lmsgetfacultycommentData,
       );
     }
   }

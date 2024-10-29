@@ -11,6 +11,8 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
+import 'package:sample/home/main_pages/lms/screens/lms_savework_replay_screen.dart';
+import 'package:sample/home/main_pages/lms/screens/lms_student_attachment_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -93,12 +95,6 @@ class _LmsClassworkDetailPageState
               leading: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   RouteDesign(
-                  //     route: const HomePage2(),
-                  //   ),
-                  // );
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios_new,
@@ -683,6 +679,94 @@ class _LmsClassworkDetailPageState
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      width: 150,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: LmsStudentAttachmentDetailsDataPage(
+                                classworkID:
+                                    '${provider.lmsTitleData[index].classworkid}',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Student Attachments',
+                                  style: TextStyles.fontStyle5,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      height: 30,
+                      width: 150,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: LmsSaveWorkReplayDetailsDataPage(
+                                classworkID:
+                                    '${provider.classWorkDetailsData[index].classworkid}',
+                                classworkreplyid:
+                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
+                                fieldrequirements:
+                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
+                                action:
+                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
+                                fileid:
+                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Save Attachment',
+                                  style: TextStyles.fontStyle5,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

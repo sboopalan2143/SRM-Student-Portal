@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -8,7 +9,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -64,6 +64,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
+    log('getReplayLog >> ${provider.lmsReplayfacultycommentData.length}');
     ref.listen(lmsProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -214,69 +215,6 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
             ],
           ),
         ),
-        // child: SingleChildScrollView(
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         const SizedBox(height: 20),
-        //         if (provider is LibraryTrancsactionStateLoading)
-        //           Padding(
-        //             padding: const EdgeInsets.only(top: 100),
-        //             child: Center(
-        //               child: CircularProgressIndicators
-        //                   .primaryColorProgressIndication,
-        //             ),
-        //           )
-        //         else if (provider.lmsgetcommentData.isEmpty &&
-        //             provider is! LibraryTrancsactionStateLoading)
-        //           Column(
-        //             children: [
-        //               SizedBox(height: MediaQuery.of(context).size.height / 5),
-        //               const Center(
-        //                 child: Text(
-        //                   'No List Added Yet!',
-        //                   style: TextStyles.fontStyle1,
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         if (provider.lmsgetcommentData.isNotEmpty)
-        //           ListView.builder(
-        //             itemCount: provider.lmsgetcommentData.length,
-        //             controller: _listController,
-        //             shrinkWrap: true,
-        //             itemBuilder: (BuildContext context, int index) {
-        //               return cardDesign(index);
-        //             },
-        //           ),
-        //         Padding(
-        //           padding: const EdgeInsets.all(8),
-        //           child: Row(
-        //             children: [
-        //               Expanded(
-        //                 child: TextField(
-        //                   // controller: _controller,
-        //                   decoration: InputDecoration(
-        //                     hintText: 'Type a message...',
-        //                     border: OutlineInputBorder(
-        //                       borderRadius: BorderRadius.circular(20),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               IconButton(
-        //                 icon: const Icon(Icons.send),
-        //                 onPressed: () {},
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
       endDrawer: const DrawerDesign(),
     );
@@ -333,6 +271,102 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                           'null'
                       ? 'Unknown time'
                       : '${provider.lmsgetcommentData[index].commentdatetime}',
+                  style:
+                      TextStyles.fontStyle10small.copyWith(color: Colors.grey),
+                ),
+
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   physics: const NeverScrollableScrollPhysics(),
+                //   itemCount: provider.lmsReplayfacultycommentData.length,
+                //   itemBuilder: (BuildContext context, int index) {
+                //     // final reply = 'Text'[index];
+                //     return chatCard2Design(index);
+                //   },
+                // ),
+
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       RouteDesign(
+                //         route: CommentSection(),
+                //         // route: LmsFacultyCommentScreen(
+                //         //   studentclassworkcommentid:
+                //         //       '${provider.lmsgetcommentData[index].studentclassworkcommentid}',
+                //         // ),
+                //       ),
+                //     );
+                //   },
+                //   child: Text(
+                //     '${provider.lmsgetcommentData[index].commentdatetime}' ==
+                //             'null'
+                //         ? 'Unknown time'
+                //         : '${provider.lmsgetcommentData[index].commentdatetime}',
+                //     style: TextStyles.fontStyle10small
+                //         .copyWith(color: Colors.grey),
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget chatCard2Design(int index) {
+    final provider = ref.watch(lmsProvider);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Sender's Name and Message
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Sender's Name
+                      Text(
+                        '${provider.lmsReplayfacultycommentData[index].replynames}' ==
+                                'null'
+                            ? '-'
+                            : '${provider.lmsReplayfacultycommentData[index].replynames}',
+                        style: TextStyles.fontStyle10,
+                      ),
+                      const SizedBox(height: 4),
+
+                      // Message Text
+                      Text(
+                        '${provider.lmsReplayfacultycommentData[index].replycomments}' ==
+                                'null'
+                            ? '-'
+                            : '${provider.lmsReplayfacultycommentData[index].replycomments}',
+                        style: TextStyles.lessSmallerBlackColorFontStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 4),
+
+                // Timestamp
+                Text(
+                  '${provider.lmsReplayfacultycommentData[index].replytime}' ==
+                          'null'
+                      ? 'Unknown time'
+                      : '${provider.lmsReplayfacultycommentData[index].replytime}',
                   style:
                       TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                 ),

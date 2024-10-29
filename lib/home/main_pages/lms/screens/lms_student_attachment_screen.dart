@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,12 +11,11 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/pdf_view_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
-  const LmsAttachmentDetailsDataPage({
+class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
+  const LmsStudentAttachmentDetailsDataPage({
     required this.classworkID,
     super.key,
   });
@@ -26,11 +23,11 @@ class LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      LmsAttachmentDetailsDataPageState();
+      LmsStudentAttachmentDetailsDataPageState();
 }
 
-class LmsAttachmentDetailsDataPageState
-    extends ConsumerState<LmsAttachmentDetailsDataPage> {
+class LmsStudentAttachmentDetailsDataPageState
+    extends ConsumerState<LmsStudentAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -200,146 +197,9 @@ class LmsAttachmentDetailsDataPageState
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //   final provider = ref.watch(lmsProvider);
-  //   // final base64Image =
-  //   //     '${provider.lmsAttachmentDetailsData[index].imageBytes}'; // shortened for brevity
-  //   // final imageBytes = base64Decode(base64Image);
-
-  //   final pdfBytes = provider.lmsAttachmentDetailsData[index] as Uint8List?;
-
-  //   log('Attachment PDF >>> $pdfBytes');
-
-  //   // log('Attachment image >>> $imageBytes');
-  //   return GestureDetector(
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(bottom: 8),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.grey.withOpacity(0.2),
-  //               spreadRadius: 5,
-  //               blurRadius: 7,
-  //               offset: const Offset(0, 3),
-  //             ),
-  //           ],
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(20),
-  //           child: Column(
-  //             children: [
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'File',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                 ],
-  //               ),
-  //               Center(
-  //                 child: SizedBox(
-  //                   height: 200,
-  //                   width: width - 100,
-  //                   child: pdfBytes != null
-  //                       ? PDFView(
-  //                           pdfData: pdfBytes,
-  //                           fitEachPage: true,
-  //                           fitPolicy: FitPolicy.BOTH,
-  //                           backgroundColor: Colors.grey[300],
-  //                         )
-  //                       : const Center(
-  //                           child: Text(
-  //                             'No PDF available',
-  //                             style: TextStyles.fontStyle10,
-  //                           ),
-  //                         ),
-  //                 ),
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Actual name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsAttachmentDetailsData[index].actualname}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '''${provider.lmsAttachmentDetailsData[index].actualname}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'File name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsAttachmentDetailsData[index].filename}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '${provider.lmsAttachmentDetailsData[index].filename}',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
-
-    final pdfBytes = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
-    final imageBytes = base64Decode(pdfBytes);
-
-    log('Attachment PDF >>> $pdfBytes');
-    log('Attachment image PDF >>> $imageBytes');
-    log('Model data>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
 
     return GestureDetector(
       child: Padding(
@@ -367,7 +227,7 @@ class LmsAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 80,
                       child: const Text(
-                        'File',
+                        'Image',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -376,24 +236,35 @@ class LmsAttachmentDetailsDataPageState
                       style: TextStyles.fontStyle10,
                     ),
                     const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.lmsAttachmentDetailsData[index].imageBytes}' ==
+                                ''
+                            ? '-'
+                            : '${provider.lmsAttachmentDetailsData[index].imageBytes}',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
                   ],
                 ),
                 Center(
                   child: SizedBox(
-                    height: 200,
-                    width: width - 100,
-                    child: imageBytes != ''
-                        ? PDFView(
-                            pdfData: imageBytes,
-                            fitPolicy: FitPolicy.BOTH,
-                            backgroundColor: Colors.grey[300],
-                          )
-                        : const Center(
-                            child: Text(
-                              'No PDF available',
-                              style: TextStyles.fontStyle10,
-                            ),
-                          ),
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.memory(
+                        provider.lmsAttachmentDetailsData[index].imageBytes !=
+                                null
+                            ? provider.lmsAttachmentDetailsData[index]
+                                .imageBytes! as Uint8List
+                            : Uint8List(
+                                0,
+                              ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
                 Row(
@@ -417,7 +288,7 @@ class LmsAttachmentDetailsDataPageState
                         '${provider.lmsAttachmentDetailsData[index].actualname}' ==
                                 ''
                             ? '-'
-                            : '${provider.lmsAttachmentDetailsData[index].actualname}',
+                            : '''${provider.lmsAttachmentDetailsData[index].actualname}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),

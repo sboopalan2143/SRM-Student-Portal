@@ -1,6 +1,5 @@
 // ignore: file_names
 class GetAttachmentDetailsModel {
-
   GetAttachmentDetailsModel({this.status, this.message, this.data});
 
   GetAttachmentDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -10,8 +9,7 @@ class GetAttachmentDetailsModel {
       data = <GetAttachmentDetailsData>[];
       // ignore: inference_failure_on_untyped_parameter, avoid_dynamic_calls
       json['Data'].forEach((v) {
-        data!.add(
-             GetAttachmentDetailsData.fromJson(v as Map<String, dynamic>));
+        data!.add(GetAttachmentDetailsData.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -31,20 +29,23 @@ class GetAttachmentDetailsModel {
 }
 
 class GetAttachmentDetailsData {
-
-  GetAttachmentDetailsData({this.filename, this.actualname});
+  GetAttachmentDetailsData({this.filename, this.actualname, this.imageBytes});
 
   GetAttachmentDetailsData.fromJson(Map<String, dynamic> json) {
     filename = json['filename'] as String?;
     actualname = json['actualname'] as String?;
+    imageBytes = json['imageBytes'] as String?;
   }
   String? filename;
   String? actualname;
+  String? imageBytes;
+
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['filename'] = filename;
     data['actualname'] = actualname;
+    data['imageBytes'] = imageBytes;
     return data;
   }
 }

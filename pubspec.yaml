@@ -32,12 +32,17 @@ dependencies:
   encrypt:
   hex:
   flutter_styled_toast:
-  wave: 
-  fluttertoast: 
-  liquid_pull_to_refresh: 
+  wave:
+  fluttertoast:
+  liquid_pull_to_refresh:
   hive:
   # hive_flutter:
   path_provider:
+  blinking_text:
+  file_picker:
+  flutter_pdfview:
+  printing: 
+  pdf:
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +52,7 @@ dev_dependencies:
   flutter_native_splash:
   change_app_package_name:
   hive_generator:
-  build_runner: 
+  build_runner:
 
 # flutter pub run flutter_launcher_icons
 flutter_icons:

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final base64Image =
         '${provider.profileDataHive.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
+    log('profiel image >>> $imageBytes');
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,

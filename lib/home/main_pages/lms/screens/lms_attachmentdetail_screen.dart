@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
+import 'package:excel/excel.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -390,6 +393,35 @@ class LmsAttachmentDetailsDataPageState
                     )
                   ],
                 ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Excel',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ExcelViewer(),
+                          ),
+                        );
+                      },
+                      child: const Text('Excel'),
+                    )
+                  ],
+                ),
                 Center(
                   child: SizedBox(
                     height: 200,
@@ -406,6 +438,29 @@ class LmsAttachmentDetailsDataPageState
                               style: TextStyles.fontStyle10,
                             ),
                           ),
+                  ),
+                ),
+                Card(
+                  elevation: 10,
+                  child: ElevatedButton(
+                    child: const Text(
+                      'View Doc',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    // AppColors: Colors.blueGrey,
+                    // textColor: Colors.white,
+                    // highlightColor: Colors.red,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const Pdfview(
+                            url:
+                                'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Row(
@@ -511,6 +566,71 @@ class Pdfview extends StatelessWidget {
           child: Text(error.toString()),
         ),
       ),
+    );
+  }
+}
+
+class ExcelViewer extends StatefulWidget {
+  @override
+  _ExcelViewerState createState() => _ExcelViewerState();
+}
+
+class _ExcelViewerState extends State<ExcelViewer> {
+  List<List<String>>? excelData;
+
+  Future<void> loadExcelFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx', 'xls'],
+    );
+
+    if (result != null) {
+      Uint8List? bytes = result.files.first.bytes;
+      if (bytes != null) {
+        var excel = Excel.decodeBytes(bytes);
+
+        List<List<String>> rows = [];
+        for (var table in excel.tables.keys) {
+          for (var row in excel.tables[table]!.rows) {
+            rows.add(row.map((e) => e?.value.toString() ?? '').toList());
+          }
+        }
+        setState(() {
+          excelData = rows;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Excel Viewer'),
+      ),
+      body: excelData != null
+          ? SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                columns: excelData![0]
+                    .map((header) => DataColumn(label: Text(header)))
+                    .toList(),
+                rows: excelData!
+                    .skip(1)
+                    .map(
+                      (row) => DataRow(
+                        cells: row.map((cell) => DataCell(Text(cell))).toList(),
+                      ),
+                    )
+                    .toList(),
+              ),
+            )
+          : Center(
+              child: ElevatedButton(
+                onPressed: loadExcelFile,
+                child: const Text('Load Excel File'),
+              ),
+            ),
     );
   }
 }

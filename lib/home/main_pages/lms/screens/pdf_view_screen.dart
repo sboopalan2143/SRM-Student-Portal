@@ -72,10 +72,10 @@ class PDFViewScreenState extends ConsumerState<PDFViewScreen> {
     final provider = ref.watch(lmsProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF Viewer'),
+        title: const Text('PDF Viewer'),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : widget.imageBytes != ''
               ? PDFView(
                   pdfData: widget.imageBytes,

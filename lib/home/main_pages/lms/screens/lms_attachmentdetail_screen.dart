@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -13,7 +12,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/pdf_view_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -376,6 +374,20 @@ class LmsAttachmentDetailsDataPageState
                       style: TextStyles.fontStyle10,
                     ),
                     const SizedBox(width: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const Pdfview(
+                              url:
+                                  'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('PDF From URL'),
+                    )
                   ],
                 ),
                 Center(
@@ -471,6 +483,34 @@ class LmsAttachmentDetailsDataPageState
         bottomLeft: Radius.circular(15),
       ),
       toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
+    );
+  }
+}
+
+class Pdfview extends StatelessWidget {
+  const Pdfview({
+    super.key,
+    required this.url,
+  });
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'PDF From URL',
+        ),
+      ),
+      body: const PDF().cachedFromUrl(
+        url,
+        placeholder: (double progress) => Center(
+          child: Text('$progress %'),
+        ),
+        errorWidget: (dynamic error) => Center(
+          child: Text(error.toString()),
+        ),
+      ),
     );
   }
 }

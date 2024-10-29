@@ -43,6 +43,7 @@ dependencies:
   flutter_pdfview:
   printing: 
   pdf:
+  flutter_cached_pdfview:
 
 dev_dependencies:
   flutter_test:

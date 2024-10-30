@@ -75,7 +75,6 @@ class _LmsClassworkDetailPageState
       } else if (next is LibraryTrancsactionStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
-      log('classworkdeta >>> ${provider.classWorkDetailsData.length}');
     });
     return Scaffold(
       key: scaffoldKey,
@@ -683,6 +682,7 @@ class _LmsClassworkDetailPageState
                   height: 10,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: 30,
@@ -719,9 +719,14 @@ class _LmsClassworkDetailPageState
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     SizedBox(
                       height: 30,
                       width: 150,
@@ -737,10 +742,8 @@ class _LmsClassworkDetailPageState
                                     '${provider.classWorkDetailsData[index].classworkreplyid}',
                                 fieldrequirements:
                                     '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                action:
-                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                fileid:
-                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
+                                imageattachmentid:
+                                    '${provider.classWorkDetailsData[index].stuimageattachmentid}',
                               ),
                             ),
                           );
@@ -766,7 +769,7 @@ class _LmsClassworkDetailPageState
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

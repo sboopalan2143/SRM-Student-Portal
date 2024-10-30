@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -16,15 +18,13 @@ class LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
     required this.classworkID,
     required this.classworkreplyid,
     required this.fieldrequirements,
-    required this.action,
-    required this.fileid,
+    required this.imageattachmentid,
     super.key,
   });
   final String classworkID;
   final String classworkreplyid;
   final String fieldrequirements;
-  final String action;
-  final String fileid;
+  final String imageattachmentid;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -56,23 +56,25 @@ class LmsSaveWorkReplayDetailsDataPageState
     });
   }
 
-  String imagepath = '';
+  // String imagepath = '';
 
-  // Future<void> _pickPDF() async {
+  // Future<void> _pickFile() async {
   //   final result = await FilePicker.platform.pickFiles(
-  //     type: FileType.custom,
-  //     allowedExtensions: ['pdf'],
+  //     type: FileType.any,
   //   );
 
   //   if (result != null) {
   //     setState(() {
   //       imagepath = '${result.files.first.path}';
-  //       // if (uploadproductbill != '') {
-  //       //   uploadproductbill = '';
+  //       // if (imagepath != '') {
+  //       //   imagepath = '';
   //       // }
   //     });
   //   }
   // }
+
+  String imagepath = '';
+  Uint8List? imageBytes;
 
   Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -82,8 +84,9 @@ class LmsSaveWorkReplayDetailsDataPageState
     if (result != null) {
       setState(() {
         imagepath = '${result.files.first.path}';
-        if (imagepath != '') {
-          imagepath = '';
+
+        if (imagepath.isNotEmpty) {
+          imageBytes = File(imagepath).readAsBytesSync();
         }
       });
     }
@@ -93,17 +96,16 @@ class LmsSaveWorkReplayDetailsDataPageState
   Widget build(
     BuildContext context,
   ) {
-    // final width = MediaQuery.of(context).size.width;
-    ref.watch(lmsProvider);
-    // ref.listen(lmsProvider, (previous, next) {
-    //   if (next is LibraryTrancsactionStateError) {
-    //     _showToast(context, next.errorMessage, AppColors.redColor);
-    //   } else if (next is LibraryTrancsactionStateSuccessful) {
-    //     _showToast(context, next.successMessage, AppColors.greenColor);
-    //   }
-    //   log('classworkdeta >>> ${provider.classWorkDetailsData.length}');
-    // });
-
+    final provider = ref.watch(lmsProvider);
+    // log('imagebyte >>> ${imageBytes}');
+    // log('imagepath >>> ${imagepath}');
+    ref.listen(lmsProvider, (previous, next) {
+      if (next is LmsStateError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is LmsStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
+      }
+    });
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
@@ -173,245 +175,248 @@ class LmsSaveWorkReplayDetailsDataPageState
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Card(
-          elevation: 0,
-          color: AppColors.whiteColor,
-          child: Padding(
-            padding: const EdgeInsets.all(40),
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Remarks',
-                      style: TextStyles.fontStyle2,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    // SizedBox(
-                    //   height: 40,
-                    //   child: TextButton(
-                    //     onPressed: () {
-                    //       _pickFile();
-                    //     },
-                    //     child: const Text(
-                    //       'Add PDF',
-                    //       style: TextStyles.fontStyle2,
-                    //     ),
-                    //   ),
-                    // ),
-                    // Image.file(
-                    //   height: 200,
-                    //   width: 100,
-                    //   File(imagepath),
-                    //   fit: BoxFit.cover,
-                    // ),
-                    Stack(
-                      children: <Widget>[
-                        if (imagepath == '')
-                          GestureDetector(
-                            child: const SizedBox(
-                              width: 110,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: AppColors.homepagecolor2,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
-                                child: SizedBox(
-                                  width: 300,
-                                  height: 100,
-                                  child: Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Card(
+            elevation: 0,
+            color: AppColors.whiteColor,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: <Widget>[
+                      if (imagepath == '')
+                        GestureDetector(
+                          onTap: _pickFile,
+                          child: const SizedBox(
+                            width: 110,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.grey),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                              child: SizedBox(
+                                width: 300,
+                                height: 100,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 50,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        if (imagepath != '')
-                          Center(
-                            child: Stack(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                    12,
-                                  ),
-                                  child: SizedBox.fromSize(
-                                    size: const Size.fromRadius(
-                                      50,
-                                    ),
-                                    child: imagepath.endsWith('.pdf')
-                                        ? const Icon(
-                                            Icons.picture_as_pdf,
-                                            color: Colors.red,
-                                            size: 50,
-                                          )
-                                        : Image.file(
-                                            File(imagepath),
-                                            height: 200,
-                                            width: 100,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        Positioned(
-                          left: 65,
-                          top: 65,
-                          child: Row(
-                            children: [
-                              PopupMenuButton<SampleItem>(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
+                        ),
+                      if (imagepath != '')
+                        Center(
+                          child: Stack(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
                                 child: SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                        color: AppColors.homepagecolor2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    color: AppColors.primaryColor,
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(
-                                        left: 8,
-                                      ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.edit,
-                                            size: 16,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                onSelected: (SampleItem item) {},
-                                itemBuilder: (
-                                  BuildContext context,
-                                ) =>
-                                    <PopupMenuEntry<SampleItem>>[
-                                  PopupMenuItem<SampleItem>(
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.photo_library,
-                                          color: AppColors.primaryColor2,
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                  context,
-                                                );
-                                                _pickFile();
-                                              },
-                                              child: const Text(
-                                                'Add PDF',
-                                                style: TextStyles.fontStyle2,
-                                              ),
+                                  width: 200,
+                                  height: 200,
+                                  child: imagepath.endsWith('.pdf')
+                                      ? const Icon(
+                                          Icons.picture_as_pdf,
+                                          color: Colors.red,
+                                          size: 50,
+                                        )
+                                      : imagepath.endsWith('.xlsx') ||
+                                              imagepath.endsWith('.xls')
+                                          ? const Icon(
+                                              Icons.explicit_outlined,
+                                              color: Colors.blue,
+                                              size: 50,
+                                            )
+                                          : Image.file(
+                                              File(imagepath),
+                                              fit: BoxFit.cover,
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Remarks',
-                      style: TextStyles.fontStyle2,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: TextField(
-                        // controller: provider.confirmPassword,
-                        style: TextStyles.fontStyle2,
-                        decoration: InputDecoration(
-                          hintStyle: TextStyles.smallLightAshColorFontStyle,
-                          filled: true,
-                          fillColor: AppColors.secondaryColor,
-                          contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                      Positioned(
+                        left: 65,
+                        top: 65,
+                        child: Row(
+                          children: [
+                            PopupMenuButton(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12)),
+                              ),
+                              child: SizedBox(
+                                height: 40,
+                                width: 40,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  color: Colors.blue,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              onSelected: (value) {
+                                _pickFile();
+                              },
+                              itemBuilder: (BuildContext context) =>
+                                  // ignore: strict_raw_type
+                                  <PopupMenuEntry>[
+                                PopupMenuItem(
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.photo_library,
+                                        color: Colors.blue,
+                                      ),
+                                      Expanded(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            _pickFile();
+                                          },
+                                          child: const Text(
+                                            'Add File',
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(lmsProvider.notifier).saveClassWorkReplay(
-                              ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
-                              widget.classworkreplyid,
-                              widget.fieldrequirements,
-                              widget.action,
-                              widget.fileid,
-                            );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
-                        foregroundColor: Colors.white,
-                        elevation: 5,
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Action',
+                        style: TextStyles.fontStyle2,
                       ),
-                      child: const Text(
-                        'Question and Answer',
-                        style: TextStyle(color: Colors.white),
+                      const SizedBox(
+                        height: 5,
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        height: 40,
+                        child: TextField(
+                          controller: provider.action,
+                          style: TextStyles.fontStyle2,
+                          decoration: InputDecoration(
+                            hintStyle: TextStyles.smallLightAshColorFontStyle,
+                            filled: true,
+                            fillColor: AppColors.secondaryColor,
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Remarks',
+                        style: TextStyles.fontStyle2,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: TextField(
+                          controller: provider.remarks,
+                          style: TextStyles.fontStyle2,
+                          decoration: InputDecoration(
+                            hintStyle: TextStyles.smallLightAshColorFontStyle,
+                            filled: true,
+                            fillColor: AppColors.secondaryColor,
+                            contentPadding: const EdgeInsets.all(10),
+                            enabledBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder:
+                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          ref.read(lmsProvider.notifier).saveClassWorkReplay(
+                                ref.read(encryptionProvider.notifier),
+                                widget.classworkID,
+                                widget.imageattachmentid,
+                                widget.classworkreplyid,
+                                widget.fieldrequirements,
+                                imageBytes!,
+                              );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryColor,
+                          elevation: 5,
+                        ),
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
       endDrawer: const DrawerDesign(),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

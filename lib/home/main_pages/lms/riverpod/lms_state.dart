@@ -27,6 +27,7 @@ class LmsState {
     required this.lmsfacultygetcommentData,
     required this.imagepath,
     required this.remarks,
+    required this.action,
   });
 
   final String successMessage;
@@ -41,6 +42,7 @@ class LmsState {
   final List<FacultyGetCommentData> lmsfacultygetcommentData;
   final TextEditingController imagepath;
   final TextEditingController remarks;
+  final TextEditingController action;
 
   LmsState copyWith({
     String? successMessage,
@@ -55,6 +57,7 @@ class LmsState {
     List<FacultyGetCommentData>? lmsfacultygetcommentData,
     TextEditingController? imagepath,
     TextEditingController? remarks,
+    TextEditingController? action,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -72,6 +75,7 @@ class LmsState {
             lmsfacultygetcommentData ?? this.lmsfacultygetcommentData,
         imagepath: imagepath ?? this.imagepath,
         remarks: remarks ?? this.remarks,
+        action: action ?? this.action,
       );
 }
 
@@ -90,6 +94,7 @@ class LmsInitial extends LmsState {
           lmsfacultygetcommentData: <FacultyGetCommentData>[],
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
 }
 
@@ -107,6 +112,7 @@ class LmsStateLoading extends LmsState {
     required super.lmsfacultygetcommentData,
     required super.imagepath,
     required super.remarks,
+    required super.action,
   });
 }
 
@@ -124,6 +130,7 @@ class LmsStateError extends LmsState {
     required super.lmsfacultygetcommentData,
     required super.imagepath,
     required super.remarks,
+    required super.action,
   });
 }
 
@@ -141,6 +148,7 @@ class LmsStateSuccessful extends LmsState {
     required super.lmsfacultygetcommentData,
     required super.imagepath,
     required super.remarks,
+    required super.action,
   });
 }
 
@@ -158,6 +166,7 @@ class LmsStateclear extends LmsState {
     required super.lmsfacultygetcommentData,
     required super.imagepath,
     required super.remarks,
+    required super.action,
   });
 }
 
@@ -175,5 +184,6 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.lmsfacultygetcommentData,
     required super.imagepath,
     required super.remarks,
+    required super.action,
   });
 }

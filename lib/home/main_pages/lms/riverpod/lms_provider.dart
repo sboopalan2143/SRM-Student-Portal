@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
@@ -32,6 +33,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: <FacultyGetCommentData>[],
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
 
   void clearstate() => state = LmsStateclear(
@@ -47,6 +49,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: <FacultyGetCommentData>[],
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
 
   Future<void> getLmsSubgetDetails(EncryptionProvider encrypt) async {
@@ -69,6 +72,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -110,6 +114,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -127,6 +132,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -143,6 +149,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -170,6 +177,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -210,6 +218,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -227,6 +236,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -243,6 +253,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -271,6 +282,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -312,6 +324,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -329,6 +342,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -345,6 +359,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -373,6 +388,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -417,6 +433,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -434,6 +451,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -450,6 +468,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -477,6 +496,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -499,6 +519,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 != 200) {
       state = LmsStateSuccessful(
@@ -514,6 +535,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -540,6 +562,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -581,6 +604,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -598,6 +622,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -614,6 +639,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -640,6 +666,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -682,6 +709,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -699,6 +727,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -715,6 +744,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -744,6 +774,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -786,6 +817,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsfacultygetcommentData: state.lmsfacultygetcommentData,
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
+            action: TextEditingController(),
           );
         }
       } catch (e) {
@@ -803,6 +835,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsfacultygetcommentData: state.lmsfacultygetcommentData,
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
+          action: TextEditingController(),
         );
       }
     } else if (response.$1 != 200) {
@@ -819,6 +852,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }
@@ -826,13 +860,13 @@ class LmsProvider extends StateNotifier<LmsState> {
   Future<void> saveClassWorkReplay(
     EncryptionProvider encrypt,
     String classworkid,
+    String imageattachmentid,
     String classworkreplyid,
     String fieldrequirements,
-    String action,
-    String fileid,
+    Uint8List imagepath,
   ) async {
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>$action</action><fileid>$fileid</fileid><imageattachments>${state.imagepath}</imageattachments>',
+      '<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>',
     );
     final response =
         await HttpService.sendSoapRequest('SaveClassWorkReply', data);
@@ -851,6 +885,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -860,6 +895,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       log('save work Replay >>${decryptedData.mapData}');
+      log('save data Replay >>$data');
 
       state = LmsStateError(
         successMessage: '',
@@ -874,6 +910,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     } else if (response.$1 != 200) {
       state = LmsStateSuccessful(
@@ -889,6 +926,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsfacultygetcommentData: state.lmsfacultygetcommentData,
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
+        action: TextEditingController(),
       );
     }
   }

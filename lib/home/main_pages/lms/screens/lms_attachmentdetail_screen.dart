@@ -79,7 +79,6 @@ class LmsAttachmentDetailsDataPageState
       } else if (next is LibraryTrancsactionStateSuccessful) {
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
-      log('classworkdeta >>> ${provider.classWorkDetailsData.length}');
     });
 
     return Scaffold(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,26 +10,20 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_savework_replay_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_student_attachment_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_entry_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class LmsClassworkDetailPage extends ConsumerStatefulWidget {
-  const LmsClassworkDetailPage({
-    required this.classworkID,
+class McqTestViewPage extends ConsumerStatefulWidget {
+  const McqTestViewPage({
     super.key,
   });
-  final String classworkID;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LmsClassworkDetailPageState();
+      _McqTestViewPageState();
 }
 
-class _LmsClassworkDetailPageState
-    extends ConsumerState<LmsClassworkDetailPage> {
+class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,10 +37,10 @@ class _LmsClassworkDetailPageState
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.classworkID,
-            );
+        // ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+        //       ref.read(encryptionProvider.notifier),
+        //       widget.classworkID,
+        //     );
       },
     );
 
@@ -59,10 +52,10 @@ class _LmsClassworkDetailPageState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-            ref.read(encryptionProvider.notifier),
-            widget.classworkID,
-          );
+      // ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+      //       ref.read(encryptionProvider.notifier),
+      //       widget.classworkID,
+      //     );
     });
   }
 
@@ -116,10 +109,10 @@ class _LmsClassworkDetailPageState
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
-                              );
+                          // ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                          //       ref.read(encryptionProvider.notifier),
+                          //       widget.classworkID,
+                          //     );
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -187,7 +180,6 @@ class _LmsClassworkDetailPageState
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
-    log('mcqshedykeid >> ${provider.classWorkDetailsData[index].mcqscheduleid}');
 
     return GestureDetector(
       onTap: () {
@@ -691,15 +683,12 @@ class _LmsClassworkDetailPageState
                       width: 150,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: LmsStudentAttachmentDetailsDataPage(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
-                              ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   RouteDesign(
+                          //     route: const McqEnteryPage(),
+                          //   ),
+                          // );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -711,99 +700,7 @@ class _LmsClassworkDetailPageState
                             children: [
                               Center(
                                 child: Text(
-                                  'Student Attachments',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: LmsSaveWorkReplayDetailsDataPage(
-                                classworkID:
-                                    '${provider.classWorkDetailsData[index].classworkid}',
-                                classworkreplyid:
-                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
-                                fieldrequirements:
-                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                imageattachmentid:
-                                    '${provider.classWorkDetailsData[index].stuimageattachmentid}',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Save Attachment',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: McqEnteryPage(
-                                  // mcqscheduleid:
-                                  //     '${provider.classWorkDetailsData[index].mcqscheduleid}',
-                                  ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'MCQ Test',
+                                  'Take Test',
                                   style: TextStyles.fontStyle5,
                                   textAlign: TextAlign.center,
                                 ),

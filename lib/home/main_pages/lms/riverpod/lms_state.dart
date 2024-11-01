@@ -7,6 +7,8 @@ import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_get_question_and_answer_model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_shedule-model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_provider.dart';
 
 final lmsProvider = StateNotifierProvider<LmsProvider, LmsState>((ref) {
@@ -28,6 +30,8 @@ class LmsState {
     required this.imagepath,
     required this.remarks,
     required this.action,
+    required this.mcqSheduleData,
+    required this.mcqQuestionAndAnswerData,
   });
 
   final String successMessage;
@@ -43,6 +47,8 @@ class LmsState {
   final TextEditingController imagepath;
   final TextEditingController remarks;
   final TextEditingController action;
+  final List<McqSheduleData> mcqSheduleData;
+  final List<McqGetQuestionAndAnswerData> mcqQuestionAndAnswerData;
 
   LmsState copyWith({
     String? successMessage,
@@ -58,6 +64,8 @@ class LmsState {
     TextEditingController? imagepath,
     TextEditingController? remarks,
     TextEditingController? action,
+    List<McqSheduleData>? mcqSheduleData,
+    List<McqGetQuestionAndAnswerData>? mcqQuestionAndAnswerData,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -76,6 +84,9 @@ class LmsState {
         imagepath: imagepath ?? this.imagepath,
         remarks: remarks ?? this.remarks,
         action: action ?? this.action,
+        mcqSheduleData: mcqSheduleData ?? this.mcqSheduleData,
+        mcqQuestionAndAnswerData:
+            mcqQuestionAndAnswerData ?? this.mcqQuestionAndAnswerData,
       );
 }
 
@@ -95,6 +106,8 @@ class LmsInitial extends LmsState {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: <McqSheduleData>[],
+          mcqQuestionAndAnswerData: <McqGetQuestionAndAnswerData>[],
         );
 }
 
@@ -113,6 +126,8 @@ class LmsStateLoading extends LmsState {
     required super.imagepath,
     required super.remarks,
     required super.action,
+    required super.mcqSheduleData,
+    required super.mcqQuestionAndAnswerData,
   });
 }
 
@@ -131,6 +146,8 @@ class LmsStateError extends LmsState {
     required super.imagepath,
     required super.remarks,
     required super.action,
+    required super.mcqSheduleData,
+    required super.mcqQuestionAndAnswerData,
   });
 }
 
@@ -149,6 +166,8 @@ class LmsStateSuccessful extends LmsState {
     required super.imagepath,
     required super.remarks,
     required super.action,
+    required super.mcqSheduleData,
+    required super.mcqQuestionAndAnswerData,
   });
 }
 
@@ -167,6 +186,8 @@ class LmsStateclear extends LmsState {
     required super.imagepath,
     required super.remarks,
     required super.action,
+    required super.mcqSheduleData,
+    required super.mcqQuestionAndAnswerData,
   });
 }
 
@@ -185,5 +206,7 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.imagepath,
     required super.remarks,
     required super.action,
+    required super.mcqSheduleData,
+    required super.mcqQuestionAndAnswerData,
   });
 }

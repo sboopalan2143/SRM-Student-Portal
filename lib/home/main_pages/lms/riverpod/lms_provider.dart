@@ -13,6 +13,8 @@ import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_get_question_and_answer_model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_shedule-model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 
 class LmsProvider extends StateNotifier<LmsState> {
@@ -34,6 +36,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: <McqSheduleData>[],
+        mcqQuestionAndAnswerData: <McqGetQuestionAndAnswerData>[],
       );
 
   void clearstate() => state = LmsStateclear(
@@ -50,6 +54,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: <McqSheduleData>[],
+        mcqQuestionAndAnswerData: <McqGetQuestionAndAnswerData>[],
       );
 
   Future<void> getLmsSubgetDetails(EncryptionProvider encrypt) async {
@@ -73,6 +79,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -115,6 +123,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -133,6 +143,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -150,6 +162,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -178,6 +192,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -219,6 +235,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -237,6 +255,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -254,6 +274,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -283,6 +305,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -325,6 +349,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -343,6 +369,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -360,6 +388,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -389,6 +419,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -434,6 +466,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -452,6 +486,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -469,6 +505,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -497,6 +535,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -520,6 +560,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 != 200) {
       state = LmsStateSuccessful(
@@ -536,6 +578,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -563,6 +607,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -605,6 +651,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -623,6 +671,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -640,6 +690,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -667,6 +719,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -710,6 +764,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -728,6 +784,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -745,6 +803,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -775,6 +835,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -818,6 +880,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             imagepath: TextEditingController(),
             remarks: TextEditingController(),
             action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
           );
         }
       } catch (e) {
@@ -836,6 +900,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           imagepath: TextEditingController(),
           remarks: TextEditingController(),
           action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
         );
       }
     } else if (response.$1 != 200) {
@@ -853,6 +919,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }
@@ -886,6 +954,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -911,6 +981,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     } else if (response.$1 != 200) {
       state = LmsStateSuccessful(
@@ -927,6 +999,241 @@ class LmsProvider extends StateNotifier<LmsState> {
         imagepath: TextEditingController(),
         remarks: TextEditingController(),
         action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+      );
+    }
+  }
+
+  Future<void> getLmsMcqSheduleDetails(
+    EncryptionProvider encrypt,
+    String mcqscheduleid,
+  ) async {
+    _setLoading();
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getMCQExamScheduleDetails', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsmcqsheduleRes =
+          details['getMCQExamScheduleDetailsResponse'] as Map<String, dynamic>;
+      final returnData = lmsmcqsheduleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var mcqSheduleData = state.mcqSheduleData;
+      log('decrypted>>>>>>>>$decryptedData');
+      log('mcq shedule data >>>>>>>>$data');
+
+      try {
+        final mcqsheduleDataResponse =
+            McqSheduleModel.fromJson(decryptedData.mapData!);
+        mcqSheduleData = mcqsheduleDataResponse.data!;
+        state = state.copyWith(mcqSheduleData: mcqSheduleData);
+        if (mcqsheduleDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (mcqsheduleDataResponse.status != 'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${mcqsheduleDataResponse.status!}, ${mcqsheduleDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+            lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            comment: TextEditingController(),
+            lmsgetcommentData: state.lmsgetcommentData,
+            lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+            lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+            imagepath: TextEditingController(),
+            remarks: TextEditingController(),
+            action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+          lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          comment: TextEditingController(),
+          lmsgetcommentData: state.lmsgetcommentData,
+          lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+          lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+          imagepath: TextEditingController(),
+          remarks: TextEditingController(),
+          action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+      );
+    }
+  }
+
+  Future<void> getLmsMcqQuestionandAnswerDetails(
+    EncryptionProvider encrypt,
+    String mcqtemplateid,
+    String mcqscheduleid,
+    String subjectid,
+    String noofquestions,
+  ) async {
+    _setLoading();
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getQuestionsandAnswers', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsmcqsheduleRes =
+          details['getQuestionsandAnswersResponse'] as Map<String, dynamic>;
+      final returnData = lmsmcqsheduleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var mcqQuestionAndAnswerData = state.mcqQuestionAndAnswerData;
+      log('decrypted>>>>>>>>$decryptedData');
+      log('mcq Question & Answer data >>>>>>>>$data');
+
+      try {
+        final mcqQuestionandAnswerDataResponse =
+            McqQuestionandAnswerModel.fromJson(decryptedData.mapData!);
+        mcqQuestionAndAnswerData = mcqQuestionandAnswerDataResponse.data!;
+        state = state.copyWith(mcqQuestionAndAnswerData: mcqQuestionAndAnswerData);
+        if (mcqQuestionandAnswerDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (mcqQuestionandAnswerDataResponse.status != 'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${mcqQuestionandAnswerDataResponse.status!}, ${mcqQuestionandAnswerDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+            lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            comment: TextEditingController(),
+            lmsgetcommentData: state.lmsgetcommentData,
+            lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+            lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+            imagepath: TextEditingController(),
+            remarks: TextEditingController(),
+            action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+          lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          comment: TextEditingController(),
+          lmsgetcommentData: state.lmsgetcommentData,
+          lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+          lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+          imagepath: TextEditingController(),
+          remarks: TextEditingController(),
+          action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
       );
     }
   }

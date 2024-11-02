@@ -787,9 +787,9 @@ class _LmsClassworkDetailPageState
                             context,
                             RouteDesign(
                               route: McqEnteryPage(
-                                  // mcqscheduleid:
-                                  //     '${provider.classWorkDetailsData[index].mcqscheduleid}',
-                                  ),
+                                mcqscheduleid:
+                                    '${provider.classWorkDetailsData[index].mcqscheduleid}',
+                              ),
                             ),
                           );
                         },

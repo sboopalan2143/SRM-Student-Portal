@@ -209,15 +209,15 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                 children: [
                   Text('MCQ Entry ', style: TextStyles.titleFontStyle),
                   const SizedBox(height: 20),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Work Type : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
                       Text(
-                        '${provider.mcqSheduleData[index].minmarktopass}',
+                        'MCQ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
                     ],
@@ -230,9 +230,11 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                         'Last Submission Date : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
-                      Text(
-                        '${provider.mcqSheduleData[index].endtime}',
-                        style: TextStyles.smallBlackColorFontStyle,
+                      Expanded(
+                        child: Text(
+                          '${provider.mcqSheduleData[index].date}',
+                          style: TextStyles.smallBlackColorFontStyle,
+                        ),
                       ),
                     ],
                   ),
@@ -246,6 +248,20 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                       ),
                       Text(
                         '${provider.mcqSheduleData[index].subjectid}',
+                        style: TextStyles.smallBlackColorFontStyle,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'no of questions: ',
+                        style: TextStyles.smallBlackColorFontStyle,
+                      ),
+                      Text(
+                        '${provider.mcqSheduleData[index].noofquestions}',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
                     ],
@@ -269,14 +285,15 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 context,
                                 RouteDesign(
                                   route: McqTestViewPage(
-                                      mcqscheduleid:
-                                          '${provider.mcqSheduleData[index].scheduleid}',
-                                      mcqtemplateid:
-                                          '${provider.mcqSheduleData[index].mcqtemplateid}',
-                                      subjectid:
-                                          '${provider.mcqSheduleData[index].subjectid}',
-                                      noofquestions:
-                                          '${provider.mcqSheduleData[index].noofquestions}'),
+                                    mcqscheduleid:
+                                        '${provider.mcqSheduleData[index].scheduleid}',
+                                    mcqtemplateid:
+                                        '${provider.mcqSheduleData[index].mcqtemplateid}',
+                                    subjectid:
+                                        '${provider.mcqSheduleData[index].subjectid}',
+                                    noofquestions:
+                                        '${provider.mcqSheduleData[index].noofquestions}',
+                                  ),
                                 ),
                               );
                             },
@@ -290,7 +307,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 children: [
                                   Center(
                                     child: Text(
-                                      'View',
+                                      'Take test',
                                       style: TextStyles.fontStyle5,
                                       textAlign: TextAlign.center,
                                     ),
@@ -364,201 +381,3 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
     );
   }
 }
-
-// import 'package:blinking_text/blinking_text.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:sample/designs/_designs.dart';
-// import 'package:sample/home/main_pages/lms/screens/mcq_test_view.dart';
-// import 'package:sample/home/widgets/drawer_design.dart';
-
-// class McqEnteryPage extends ConsumerStatefulWidget {
-//   const McqEnteryPage({super.key});
-
-//   @override
-//   ConsumerState<ConsumerStatefulWidget> createState() => _McqEnteryPageState();
-// }
-
-// class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
-//   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       key: scaffoldKey,
-//       backgroundColor: AppColors.secondaryColor,
-//       appBar: PreferredSize(
-//         preferredSize: const Size.fromHeight(60),
-//         child: AppBar(
-//           automaticallyImplyLeading: false,
-//           leadingWidth: 40,
-//           leading: IconButton(
-//             onPressed: () {
-//               Navigator.pop(context);
-//             },
-//             icon: const Icon(
-//               Icons.arrow_back_ios_new,
-//               color: AppColors.whiteColor,
-//             ),
-//           ),
-//           backgroundColor: AppColors.primaryColor,
-//           centerTitle: true,
-//           title: const Text(
-//             'MCQ Entry Screen',
-//             style: TextStyles.fontStyle4,
-//             overflow: TextOverflow.clip,
-//           ),
-//           actions: [
-//             Row(
-//               children: [
-//                 IconButton(
-//                   onPressed: () {
-//                     scaffoldKey.currentState?.openEndDrawer();
-//                   },
-//                   icon: const Icon(
-//                     Icons.menu,
-//                     size: 35,
-//                     color: AppColors.whiteColor,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//       body: Center(
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 20),
-//                 child: Column(
-//                   children: [
-//                     Text('MCQ Entry ', style: TextStyles.titleFontStyle),
-//                     const SizedBox(height: 20),
-//                     const Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Text('Work Type : ',
-//                             style: TextStyles.smallBlackColorFontStyle),
-//                         Text(
-//                           'MCQ',
-//                           style: TextStyles.smallBlackColorFontStyle,
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                     const Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Text('Last Submission Date : ',
-//                             style: TextStyles.smallBlackColorFontStyle),
-//                         Text(
-//                           '01-09-2024',
-//                           style: TextStyles.smallBlackColorFontStyle,
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                     const Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Text('Test : ',
-//                             style: TextStyles.smallBlackColorFontStyle),
-//                         Text(
-//                           'Mcq Entry',
-//                           style: TextStyles.smallBlackColorFontStyle,
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                     const BlinkText(
-//                       'New',
-//                       style: TextStyles.fontStyle6,
-//                       endColor: Colors.redAccent,
-//                     ),
-//                     const SizedBox(height: 20),
-//                     Row(
-//                       children: [
-//                         Expanded(
-//                           child: SizedBox(
-//                             height: 30,
-//                             width: 150,
-//                             child: GestureDetector(
-//                               onTap: () {
-//                                 Navigator.push(
-//                                   context,
-//                                   RouteDesign(
-//                                     route: const McqTestViewPage(),
-//                                   ),
-//                                 );
-//                               },
-//                               child: Container(
-//                                 decoration: BoxDecoration(
-//                                   color: AppColors.primaryColor,
-//                                   borderRadius: BorderRadius.circular(10),
-//                                 ),
-//                                 child: const Column(
-//                                   mainAxisAlignment: MainAxisAlignment.center,
-//                                   children: [
-//                                     Center(
-//                                       child: Text(
-//                                         'View',
-//                                         style: TextStyles.fontStyle5,
-//                                         textAlign: TextAlign.center,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         const SizedBox(width: 20),
-//                         Expanded(
-//                           child: SizedBox(
-//                             height: 30,
-//                             width: 150,
-//                             child: GestureDetector(
-//                               onTap: () {
-//                                 Navigator.push(
-//                                   context,
-//                                   RouteDesign(
-//                                     route: const McqEnteryPage(),
-//                                   ),
-//                                 );
-//                               },
-//                               child: Container(
-//                                 decoration: BoxDecoration(
-//                                   color: AppColors.primaryColor,
-//                                   borderRadius: BorderRadius.circular(10),
-//                                 ),
-//                                 child: const Column(
-//                                   mainAxisAlignment: MainAxisAlignment.center,
-//                                   children: [
-//                                     Center(
-//                                       child: Text(
-//                                         'Top 3',
-//                                         style: TextStyles.fontStyle5,
-//                                         textAlign: TextAlign.center,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       endDrawer: const DrawerDesign(),
-//     );
-//   }
-// }

@@ -45,7 +45,6 @@ dependencies:
   pdf:
   flutter_cached_pdfview:
   excel:
-  syncfusion_flutter_xlsio:
 
 dev_dependencies:
   flutter_test:

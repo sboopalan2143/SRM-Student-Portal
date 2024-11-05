@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:core';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -9,7 +10,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -38,6 +38,8 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
+  final Map<int, String> selectedAnswers = {};
+
   static int refreshNum = 10;
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
@@ -49,8 +51,8 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
               ref.read(encryptionProvider.notifier),
               widget.mcqscheduleid,
               widget.mcqtemplateid,
-              widget.noofquestions,
               widget.subjectid,
+              widget.noofquestions,
             );
       },
     );
@@ -67,8 +69,8 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
             ref.read(encryptionProvider.notifier),
             widget.mcqscheduleid,
             widget.mcqtemplateid,
-            widget.noofquestions,
             widget.subjectid,
+            widget.noofquestions,
           );
     });
   }
@@ -129,8 +131,8 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                                 ref.read(encryptionProvider.notifier),
                                 widget.mcqscheduleid,
                                 widget.mcqtemplateid,
-                                widget.noofquestions,
                                 widget.subjectid,
+                                widget.noofquestions,
                               );
                         },
                         child: const Icon(
@@ -187,121 +189,6 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                       return cardDesign(index);
                     },
                   ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      endDrawer: const DrawerDesign(),
-    );
-  }
-
-  Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
-    final provider = ref.watch(lmsProvider);
-
-    return GestureDetector(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'question Image',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.mcqQuestionAndAnswerData[index].questionimage}' ==
-                                ''
-                            ? '-'
-                            : '''${provider.mcqQuestionAndAnswerData[index].questionimage}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Question Id',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.mcqQuestionAndAnswerData[index].questionid}' ==
-                                ''
-                            ? '-'
-                            : '${provider.mcqQuestionAndAnswerData[index].questionid}',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Tamil',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.mcqQuestionAndAnswerData[index].tamil}' ==
-                                ''
-                            ? '-'
-                            : '''${provider.mcqQuestionAndAnswerData[index].tamil}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -330,7 +217,7 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                             children: [
                               Center(
                                 child: Text(
-                                  'Take Test',
+                                  'Submit',
                                   style: TextStyles.fontStyle5,
                                   textAlign: TextAlign.center,
                                 ),
@@ -340,6 +227,189 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      endDrawer: const DrawerDesign(),
+    );
+  }
+
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+  //   final provider = ref.watch(lmsProvider);
+  //   log('data >>> ${provider.mcqQuestionAndAnswerData[index].answer!}');
+
+  //   final answersplit = provider.mcqQuestionAndAnswerData[index].answer!;
+  //   log('answersplit >>> $answersplit');
+
+  //   final answer = answersplit.split(',');
+
+  //   log('answerdata11111>>> ${answer[0]}');
+  //   final oneValue = <String>[];
+  //   final answerIsValid = <String>[];
+  //   for (int i = 0; i < answer.length; i++) {
+  //     final value = answer[i].split('~');
+  //     oneValue.add(value[1]);
+  //     answerIsValid.add(value[2]);
+  //   }
+
+  //   return GestureDetector(
+  //     onTap: () {},
+  //     child: Padding(
+  //       padding: const EdgeInsets.only(bottom: 8),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey.withOpacity(0.2),
+  //               spreadRadius: 5,
+  //               blurRadius: 7,
+  //               offset: const Offset(0, 3),
+  //             ),
+  //           ],
+  //         ),
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(20),
+  //           child: Column(
+  //             children: [
+  //               Row(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   SizedBox(
+  //                     width: width / 2 - 80,
+  //                     child: const Text(
+  //                       'question No',
+  //                       style: TextStyles.fontStyle10,
+  //                     ),
+  //                   ),
+  //                   const Text(
+  //                     ':',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                   const SizedBox(width: 5),
+  //                   SizedBox(
+  //                     width: width / 2 - 60,
+  //                     child: Text(
+  //                       '${provider.mcqQuestionAndAnswerData[index].questionimage}' ==
+  //                               ''
+  //                           ? '-'
+  //                           : '''${provider.mcqQuestionAndAnswerData[index].questionimage}''',
+  //                       style: TextStyles.fontStyle10,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               const SizedBox(
+  //                 height: 10,
+  //               ),
+  //               Row(
+  //                 children: [
+  //                   Expanded(
+  //                     child: SizedBox(
+  //                       child: Text(
+  //                         '${provider.mcqQuestionAndAnswerData[index].questiondesc}' ==
+  //                                 ''
+  //                             ? '-'
+  //                             : '${provider.mcqQuestionAndAnswerData[index].questiondesc}',
+  //                         style: TextStyles.fontStyle10,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               const SizedBox(
+  //                 height: 10,
+  //               ),
+  //               Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   for (int j = 0; j < oneValue.length; j++)
+  //                     SizedBox(
+  //                       width: width / 2 - 20,
+  //                       child: Text(
+  //                         '${j + 1} . ${oneValue[j]}',
+  //                         style: TextStyles.fontStyle10,
+
+  //                         // '${provider.mcqQuestionAndAnswerData[index].answer}' ==
+  //                         //         ''
+  //                         //     ? '-'
+  //                         //     : '''${provider.mcqQuestionAndAnswerData[index].answer}''',
+  //                         // style: TextStyles.fontStyle10,
+  //                       ),
+  //                     ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget cardDesign(int index) {
+    final provider = ref.watch(lmsProvider);
+
+    final answers = provider.mcqQuestionAndAnswerData[index].answer!;
+    final answerOptions = answers.split(',').map((e) => e.split('~')).toList();
+
+    log('selectedAnswer >>> $selectedAnswers');
+
+    return GestureDetector(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Question No. ${index + 1}',
+                  style: TextStyles.fontStyle10,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  provider.mcqQuestionAndAnswerData[index].questiondesc ?? '-',
+                  style: TextStyles.fontStyle10,
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    for (int j = 0; j < answerOptions.length; j++)
+                      RadioListTile<String>(
+                        title: Text(
+                          '${j + 1}. ${answerOptions[j][1]}',
+                          style: TextStyles.fontStyle10,
+                        ),
+                        value: answerOptions[j][1],
+                        groupValue: selectedAnswers[index],
+                        onChanged: (value) {
+                          setState(() {
+                            selectedAnswers[index] = value!;
+                          });
+                        },
+                        activeColor: AppColors.primaryColor,
+                      ),
                   ],
                 ),
               ],

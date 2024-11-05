@@ -238,12 +238,14 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      child: Text(
-                        '${provider.lmsTitleData[index].title}' == 'null'
-                            ? '-'
-                            : '''${provider.lmsTitleData[index].title}''',
-                        style: TextStyles.fontStyle6,
+                    Expanded(
+                      child: SizedBox(
+                        child: Text(
+                          '${provider.lmsTitleData[index].title}' == 'null'
+                              ? '-'
+                              : '''${provider.lmsTitleData[index].title}''',
+                          style: TextStyles.fontStyle6,
+                        ),
                       ),
                     ),
                   ],

@@ -938,6 +938,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     );
     final response =
         await HttpService.sendSoapRequest('SaveClassWorkReply', data);
+    log('<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>');
 
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
@@ -1129,7 +1130,10 @@ class LmsProvider extends StateNotifier<LmsState> {
   ) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+      '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions>',
+    );
+    log(
+      '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions>',
     );
     final response =
         await HttpService.sendSoapRequest('getQuestionsandAnswers', data);
@@ -1167,7 +1171,8 @@ class LmsProvider extends StateNotifier<LmsState> {
         final mcqQuestionandAnswerDataResponse =
             McqQuestionandAnswerModel.fromJson(decryptedData.mapData!);
         mcqQuestionAndAnswerData = mcqQuestionandAnswerDataResponse.data!;
-        state = state.copyWith(mcqQuestionAndAnswerData: mcqQuestionAndAnswerData);
+        state =
+            state.copyWith(mcqQuestionAndAnswerData: mcqQuestionAndAnswerData);
         if (mcqQuestionandAnswerDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,

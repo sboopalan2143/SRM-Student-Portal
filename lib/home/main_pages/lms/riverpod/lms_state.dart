@@ -32,6 +32,7 @@ class LmsState {
     required this.action,
     required this.mcqSheduleData,
     required this.mcqQuestionAndAnswerData,
+    required this.answerdesc,
   });
 
   final String successMessage;
@@ -49,6 +50,7 @@ class LmsState {
   final TextEditingController action;
   final List<McqSheduleData> mcqSheduleData;
   final List<McqGetQuestionAndAnswerData> mcqQuestionAndAnswerData;
+  final TextEditingController answerdesc;
 
   LmsState copyWith({
     String? successMessage,
@@ -66,6 +68,7 @@ class LmsState {
     TextEditingController? action,
     List<McqSheduleData>? mcqSheduleData,
     List<McqGetQuestionAndAnswerData>? mcqQuestionAndAnswerData,
+    TextEditingController? answerdesc,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -87,6 +90,7 @@ class LmsState {
         mcqSheduleData: mcqSheduleData ?? this.mcqSheduleData,
         mcqQuestionAndAnswerData:
             mcqQuestionAndAnswerData ?? this.mcqQuestionAndAnswerData,
+        answerdesc: answerdesc ?? this.answerdesc,
       );
 }
 
@@ -108,6 +112,7 @@ class LmsInitial extends LmsState {
           action: TextEditingController(),
           mcqSheduleData: <McqSheduleData>[],
           mcqQuestionAndAnswerData: <McqGetQuestionAndAnswerData>[],
+          answerdesc: TextEditingController(),
         );
 }
 
@@ -128,6 +133,7 @@ class LmsStateLoading extends LmsState {
     required super.action,
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
+    required super.answerdesc,
   });
 }
 
@@ -148,6 +154,7 @@ class LmsStateError extends LmsState {
     required super.action,
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
+    required super.answerdesc,
   });
 }
 
@@ -168,6 +175,7 @@ class LmsStateSuccessful extends LmsState {
     required super.action,
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
+    required super.answerdesc,
   });
 }
 
@@ -188,6 +196,7 @@ class LmsStateclear extends LmsState {
     required super.action,
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
+    required super.answerdesc,
   });
 }
 
@@ -208,5 +217,6 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.action,
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
+    required super.answerdesc,
   });
 }

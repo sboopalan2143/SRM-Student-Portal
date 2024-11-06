@@ -285,15 +285,16 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 context,
                                 RouteDesign(
                                   route: McqTestViewPage(
-                                    mcqscheduleid:
-                                        '${provider.mcqSheduleData[index].scheduleid}',
-                                    mcqtemplateid:
-                                        '${provider.mcqSheduleData[index].mcqtemplateid}',
-                                    subjectid:
-                                        '${provider.mcqSheduleData[index].subjectid}',
-                                    noofquestions:
-                                        '${provider.mcqSheduleData[index].noofquestions}',
-                                  ),
+                                      mcqscheduleid:
+                                          '${provider.mcqSheduleData[index].scheduleid}',
+                                      mcqtemplateid:
+                                          '${provider.mcqSheduleData[index].mcqtemplateid}',
+                                      subjectid:
+                                          '${provider.mcqSheduleData[index].subjectid}',
+                                      noofquestions:
+                                          '${provider.mcqSheduleData[index].noofquestions}',
+                                      marksperquestion:
+                                          '${provider.mcqSheduleData[index].marksperquestions}'),
                                 ),
                               );
                             },

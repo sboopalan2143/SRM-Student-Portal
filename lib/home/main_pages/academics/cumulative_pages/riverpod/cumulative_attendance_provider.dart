@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 
@@ -18,7 +17,6 @@ class CummulativeAttendanceProvider
   void _setLoading() => state = CummulativeAttendanceStateLoading(
         successMessage: '',
         errorMessage: '',
-        cummulativeAttendanceData: state.cummulativeAttendanceData,
         cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
       );
 
@@ -35,7 +33,6 @@ class CummulativeAttendanceProvider
       state = NoNetworkAvailableCummulativeAttendance(
         successMessage: '',
         errorMessage: '',
-        cummulativeAttendanceData: state.cummulativeAttendanceData,
         cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
       );
     } else if (response.$1 == 200) {
@@ -52,60 +49,63 @@ class CummulativeAttendanceProvider
       log('decrypted>>>>>>>>$decryptedData');
 
       // var cummulativeAttendanceData = <CummulativeAttendanceData>[];
-      try {
-        //change model
+      // try {
+      //change model
 
-        // final cummulativeAttendanceDataResponse =
-        //     GetCumulativeAttedence.fromJson(decryptedData.mapData!);
-        // cummulativeAttendanceData = cummulativeAttendanceDataResponse.data!;
-        // state = state.copyWith(
-        //   cummulativeAttendanceData: cummulativeAttendanceData,
-        // );
+      // final cummulativeAttendanceDataResponse =
+      //     GetCumulativeAttedence.fromJson(decryptedData.mapData!);
+      // cummulativeAttendanceData = cummulativeAttendanceDataResponse.data!;
+      // state = state.copyWith(
+      //   cummulativeAttendanceData: cummulativeAttendanceData,
+      // );
+
+      final box = await Hive.openBox<CumulativeAttendanceHiveData>(
+        'cumulativeattendance',
+      );
+      if (box.isEmpty) {
         for (var i = 0; i < cummulativelistAttendanceData.length; i++) {
           final parseData = CumulativeAttendanceHiveData.fromJson(
               cummulativelistAttendanceData[i] as Map<String, dynamic>);
-          log('data>>>>${parseData.attendancemonthyear}');
-          final box = await Hive.openBox<CumulativeAttendanceHiveData>(
-            'cumulativeattendance',
-          );
-          final index = box.values.toList().indexWhere(
-              (e) => e.attendancemonthyear == parseData.attendancemonthyear);
-          if (index != -1) {
-            await box.putAt(index, parseData);
-          } else {
-            await box.add(parseData);
-          }
+
+          await box.add(parseData);
         }
-        if (decryptedData.mapData!['Status'] == 'Success') {
-          state = CummulativeAttendanceStateSuccessful(
-            successMessage: decryptedData.mapData!['Message'] as String,
-            errorMessage: '',
-            cummulativeAttendanceData: state.cummulativeAttendanceData,
-            cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
-          );
-        } else if (decryptedData.mapData!['Message'] != 'Success') {
-          state = CummulativeAttendanceStateError(
-            successMessage: '',
-            errorMessage:
-                '''${decryptedData.mapData!['Message']}, ${decryptedData.mapData!['Message']}''',
-            cummulativeAttendanceData: state.cummulativeAttendanceData,
-            cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
-          );
+      } else {
+        await box.clear();
+        for (var i = 0; i < cummulativelistAttendanceData.length; i++) {
+          final parseData = CumulativeAttendanceHiveData.fromJson(
+              cummulativelistAttendanceData[i] as Map<String, dynamic>);
+
+          await box.add(parseData);
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      }
+      await box.close();
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = CummulativeAttendanceStateSuccessful(
+          successMessage: decryptedData.mapData!['Message'] as String,
+          errorMessage: '',
+          cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
+        );
+      } else if (decryptedData.mapData!['Message'] != 'Success') {
         state = CummulativeAttendanceStateError(
           successMessage: '',
-          errorMessage: error.message!,
-          cummulativeAttendanceData: state.cummulativeAttendanceData,
+          errorMessage:
+              '''${decryptedData.mapData!['Message']}, ${decryptedData.mapData!['Message']}''',
           cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = CummulativeAttendanceStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     cummulativeAttendanceData: state.cummulativeAttendanceData,
+      //     cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = CummulativeAttendanceStateError(
         successMessage: '',
         errorMessage: 'Error',
-        cummulativeAttendanceData: state.cummulativeAttendanceData,
         cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
       );
     }
@@ -120,12 +120,8 @@ class CummulativeAttendanceProvider
       final cumulativeattendance = <CumulativeAttendanceHiveData>[
         ...box.values
       ];
-      log('cumulative length>>>${cumulativeattendance[0].attendancemonthyear}');
 
-      state = CummulativeAttendanceStateSuccessful(
-        successMessage: '',
-        errorMessage: '',
-        cummulativeAttendanceData: state.cummulativeAttendanceData,
+      state = state.copyWith(
         cummulativeHiveAttendanceData: cumulativeattendance,
       );
     } catch (e) {

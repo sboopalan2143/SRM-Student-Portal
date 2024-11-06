@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
@@ -16,7 +14,6 @@ class SubjectProvider extends StateNotifier<SubjectState> {
   void _setLoading() => state = const SubjectStateLoading(
         successMessage: '',
         errorMessage: '',
-        subjectData: <dynamic>[],
         subjectHiveData: <SubjectHiveData>[],
       );
 
@@ -33,11 +30,9 @@ class SubjectProvider extends StateNotifier<SubjectState> {
     );
     final response = await HttpService.sendSoapRequest('getSubjects', data);
     if (response.$1 == 0) {
-      log('test subject >> <studentid>${TokensManagement.studentId}</studentid><deviceid>21f84947bd6aa060</deviceid><accesstoken>TR</accesstoken><androidversion>TR</androidversion><model>TR</model><sdkversion>TR</sdkversion><appversion>TR</appversion>');
       state = const NoNetworkAvailableSubject(
         successMessage: '',
         errorMessage: '',
-        subjectData: <dynamic>[],
         subjectHiveData: <SubjectHiveData>[],
       );
     } else if (response.$1 == 200) {
@@ -46,12 +41,11 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       final returnData = subjectRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('subject decrypted>>>>>>>>$decryptedData');
 
       // final listData = <dynamic>[];
       final listDataHiveSubject =
           decryptedData.mapData!['Data'] as List<dynamic>;
-      log('hive subject decrypted>>>>>>>>$listDataHiveSubject');
+
       // try {
 
       // final subjectDataResponse =
@@ -63,29 +57,32 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       //       final finalData =
       //           splitString('${subjectDataResponse.data![i].subjectdetails}');
       //       listData.add(finalData);
+      final box = await Hive.openBox<SubjectHiveData>('subjecthive');
+      if (box.isEmpty) {
+        for (var i = 0; i < listDataHiveSubject.length; i++) {
+          final parseData = SubjectHiveData.fromJson(
+            listDataHiveSubject[i] as Map<String, dynamic>,
+          );
 
-      for (var i = 0; i < listDataHiveSubject.length; i++) {
-        final parseData = SubjectHiveData.fromJson(
-          listDataHiveSubject[i] as Map<String, dynamic>,
-        );
-        log('data>>>>${parseData.subjectdetails}');
-        final box = await Hive.openBox<SubjectHiveData>('subjecthive');
-        final index = box.values
-            .toList()
-            .indexWhere((e) => e.subjectdetails == parseData.subjectdetails);
-        if (index != -1) {
-          await box.putAt(index, parseData);
-        } else {
+          await box.add(parseData);
+        }
+      } else {
+        await box.clear();
+        for (var i = 0; i < listDataHiveSubject.length; i++) {
+          final parseData = SubjectHiveData.fromJson(
+            listDataHiveSubject[i] as Map<String, dynamic>,
+          );
+
           await box.add(parseData);
         }
       }
 
+      await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
         //  for (var i = 0; i < SubjectResponseModel..length; i++)
         state = SubjectStateSuccessful(
           successMessage: decryptedData.mapData!['Message'] as String,
           errorMessage: '',
-          subjectData: state.subjectData,
           subjectHiveData: state.subjectHiveData,
         );
       } else if (decryptedData.mapData!['Status'] != 'Success') {
@@ -93,7 +90,6 @@ class SubjectProvider extends StateNotifier<SubjectState> {
           successMessage: '',
           errorMessage:
               '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Status']}''',
-          subjectData: <dynamic>[],
           subjectHiveData: <SubjectHiveData>[],
         );
       }
@@ -110,28 +106,23 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       state = const SubjectStateError(
         successMessage: '',
         errorMessage: '',
-        subjectData: <dynamic>[],
         subjectHiveData: <SubjectHiveData>[],
       );
     }
   }
 
-  Future<void> getHiveSubgetDetails(String search) async {
+  Future<void> getHiveSubjectDetails(String search) async {
     try {
       _setLoading();
       final box = await Hive.openBox<SubjectHiveData>(
         'subjecthive',
       );
       final subjecthivedata = <SubjectHiveData>[...box.values];
-      log('hive subject length>>>${subjecthivedata[0].subjectdetails}');
-      state = SubjectStateError(
-        successMessage: '',
-        errorMessage: '',
-        subjectData: <dynamic>[],
+      state = state.copyWith(
         subjectHiveData: subjecthivedata,
       );
     } catch (e) {
-      await getHiveSubgetDetails(search);
+      await getHiveSubjectDetails(search);
     }
   }
 }

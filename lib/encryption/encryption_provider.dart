@@ -28,13 +28,9 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     try {
       // Encrypting for Data iteration 1
       setKey(state.strPrivateKey, state.strPrivateIV);
-      log('length1 ${state.strPrivateKey.length}');
-      log('length2 ${state.strPrivateIV.length}');
-      log('length3 ${state.strCommonKey.length}');
-      log('length4 ${state.strCommonIV.length}');
 
       final strData = encrypt(stringToEncrypt);
-      // log('first iteration>>>>>$strData');
+
       // Encrypting for Data iteration 2
       setKey(state.strCommonKey, state.strCommonIV);
       strEncryptedData = encrypt(strData);
@@ -43,8 +39,6 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
     }
     return strEncryptedData;
   }
-
- 
 
   DecryptedData getDecryptedData(String stringToDecrypt) {
     var strDecryptedData = '';

@@ -7,6 +7,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -33,8 +34,13 @@ class _CumulativeAttendancePageState
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref
+      (_) async {
+        await ref
+            .read(cummulativeAttendanceProvider.notifier)
+            .getCummulativeAttendanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref
             .read(cummulativeAttendanceProvider.notifier)
             .getHiveCummulativeDetails('');
       },
@@ -109,8 +115,13 @@ class _CumulativeAttendancePageState
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
+                              .read(cummulativeAttendanceProvider.notifier)
+                              .getCummulativeAttendanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
                               .read(cummulativeAttendanceProvider.notifier)
                               .getHiveCummulativeDetails('');
                         },
@@ -193,7 +204,7 @@ class _CumulativeAttendancePageState
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: const Offset(0, 3), 
+              offset: const Offset(0, 3),
             ),
           ],
         ),

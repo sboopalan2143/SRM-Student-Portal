@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/model/cumulative_attendance_model.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_provider.dart';
 
 final cummulativeAttendanceProvider = StateNotifierProvider<
@@ -12,26 +11,25 @@ class CummulativeAttendanceState {
   CummulativeAttendanceState({
     required this.successMessage,
     required this.errorMessage,
-    required this.cummulativeAttendanceData,
+   
     required this.cummulativeHiveAttendanceData,
   });
 
   final String successMessage;
   final String errorMessage;
-  final List<CumulativeAttendanceData> cummulativeAttendanceData;
+  
   final List<CumulativeAttendanceHiveData> cummulativeHiveAttendanceData;
 
   CummulativeAttendanceState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<CumulativeAttendanceData>? cummulativeAttendanceData,
+   
     List<CumulativeAttendanceHiveData>? cummulativeHiveAttendanceData,
   }) =>
       CummulativeAttendanceState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        cummulativeAttendanceData:
-            cummulativeAttendanceData ?? this.cummulativeAttendanceData,
+       
         cummulativeHiveAttendanceData:
             cummulativeHiveAttendanceData ?? this.cummulativeHiveAttendanceData,
       );
@@ -42,7 +40,7 @@ class CummulativeAttendanceInitial extends CummulativeAttendanceState {
       : super(
           successMessage: '',
           errorMessage: '',
-          cummulativeAttendanceData: <CumulativeAttendanceData>[],
+        
           cummulativeHiveAttendanceData: <CumulativeAttendanceHiveData>[],
         );
 }
@@ -51,7 +49,7 @@ class CummulativeAttendanceStateLoading extends CummulativeAttendanceState {
   CummulativeAttendanceStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    required super.cummulativeAttendanceData,
+   
     required super.cummulativeHiveAttendanceData,
   });
 }
@@ -60,7 +58,7 @@ class CummulativeAttendanceStateError extends CummulativeAttendanceState {
   CummulativeAttendanceStateError({
     required super.successMessage,
     required super.errorMessage,
-    required super.cummulativeAttendanceData,
+   
     required super.cummulativeHiveAttendanceData,
   });
 }
@@ -69,7 +67,7 @@ class CummulativeAttendanceStateSuccessful extends CummulativeAttendanceState {
   CummulativeAttendanceStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    required super.cummulativeAttendanceData,
+    
     required super.cummulativeHiveAttendanceData,
   });
 }
@@ -79,7 +77,7 @@ class NoNetworkAvailableCummulativeAttendance
   NoNetworkAvailableCummulativeAttendance({
     required super.successMessage,
     required super.errorMessage,
-    required super.cummulativeAttendanceData,
+    
     required super.cummulativeHiveAttendanceData,
   });
 }

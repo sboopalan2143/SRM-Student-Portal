@@ -5,9 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 
 class HourwiseProvider extends StateNotifier<HourwiseState> {
@@ -15,11 +13,9 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
 
   void disposeState() => state = HourwiseInitial();
 
-  void _setLoading() => state = HourwiseStateLoading(
+  void _setLoading() => state = const HourwiseStateLoading(
         successMessage: '',
         errorMessage: '',
-        listHourWiseData: <HourwiseData>[],
-        hourwiseData: HourwiseData.empty,
         listHourWiseHiveData: <HourwiseHiveData>[],
       );
 
@@ -37,8 +33,6 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
       state = NoNetworkAvailablehourwise(
         successMessage: '',
         errorMessage: '',
-        hourwiseData: state.hourwiseData,
-        listHourWiseData: state.listHourWiseData,
         listHourWiseHiveData: state.listHourWiseHiveData,
       );
 
@@ -56,70 +50,66 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
           decryptedData.mapData!['Data'] as List<dynamic>;
       log('decrypted>>>>>>>>$decryptedData');
 
-      try {
-        // final hourWiseDetails =
-        //     HourwisePaidDetails.fromJson(decryptedData.mapData!);
-        // listHourWiseData.addAll(hourWiseDetails.data!);
-        // state = state.copyWith(listHourWiseData: listHourWiseData);
-
+      // try {
+      // final hourWiseDetails =
+      //     HourwisePaidDetails.fromJson(decryptedData.mapData!);
+      // listHourWiseData.addAll(hourWiseDetails.data!);
+      // state = state.copyWith(listHourWiseData: listHourWiseData);
+      final box = await Hive.openBox<HourwiseHiveData>(
+        'hourwisedata',
+      );
+      if (box.isEmpty) {
         for (var i = 0; i < listHourWiseHiveData.length; i++) {
           final parseData = HourwiseHiveData.fromJson(
               listHourWiseHiveData[i] as Map<String, dynamic>);
-          log('data>>>>${parseData.attendancedate}');
-          final box = await Hive.openBox<HourwiseHiveData>(
-            'hourwisedata',
-          );
-          final index = box.values
-              .toList()
-              .indexWhere((e) => e.attendancedate == parseData.attendancedate);
-          if (index != -1) {
-            await box.putAt(index, parseData);
-          } else {
-            await box.add(parseData);
-          }
-        }
 
-        if (decryptedData.mapData!['Status'] == 'Success') {
-          // final studentIdJson =
-          //     listHourWiseData.map((e) => e.toJson()).toList().toString();
-          // await TokensManagement.setStudentId(
-          //   studentId: studentIdJson,
-          // );
-
-          state = HourwiseStateSuccessful(
-            successMessage: decryptedData.mapData!['Status'] as String,
-            errorMessage: '',
-            hourwiseData: state.hourwiseData,
-            listHourWiseData: state.listHourWiseData,
-            listHourWiseHiveData: state.listHourWiseHiveData,
-          );
-          // disposeState();
-        } else if (decryptedData.mapData!['Status'] != 'Success') {
-          state = HourwiseError(
-            successMessage: '',
-            errorMessage:
-                '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']}''',
-            hourwiseData: state.hourwiseData,
-            listHourWiseData: state.listHourWiseData,
-            listHourWiseHiveData: state.listHourWiseHiveData,
-          );
+          await box.add(parseData);
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else {
+        await box.clear();
+        for (var i = 0; i < listHourWiseHiveData.length; i++) {
+          final parseData = HourwiseHiveData.fromJson(
+              listHourWiseHiveData[i] as Map<String, dynamic>);
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // final studentIdJson =
+        //     listHourWiseData.map((e) => e.toJson()).toList().toString();
+        // await TokensManagement.setStudentId(
+        //   studentId: studentIdJson,
+        // );
+
+        state = HourwiseStateSuccessful(
+          successMessage: decryptedData.mapData!['Status'] as String,
+          errorMessage: '',
+          listHourWiseHiveData: state.listHourWiseHiveData,
+        );
+        // disposeState();
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = HourwiseError(
           successMessage: '',
-          errorMessage: error.message!,
-          hourwiseData: state.hourwiseData,
-          listHourWiseData: state.listHourWiseData,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']}''',
           listHourWiseHiveData: state.listHourWiseHiveData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = HourwiseError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     hourwiseData: state.hourwiseData,
+      //     listHourWiseData: state.listHourWiseData,
+      //     listHourWiseHiveData: state.listHourWiseHiveData,
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = HourwiseError(
         successMessage: '',
         errorMessage: 'Error',
-        hourwiseData: state.hourwiseData,
-        listHourWiseData: state.listHourWiseData,
         listHourWiseHiveData: state.listHourWiseHiveData,
       );
     }
@@ -132,15 +122,11 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
         'hourwisedata',
       );
       final hourwise = <HourwiseHiveData>[...box.values];
-      log('profile length>>>${hourwise[0].attendancedate}');
 
-      state = HourwiseStateSuccessful(
-        successMessage: '',
-        errorMessage: '',
-        hourwiseData: state.hourwiseData,
-        listHourWiseData: state.listHourWiseData,
+      state = state.copyWith(
         listHourWiseHiveData: hourwise,
       );
+      await box.close();
     } catch (e) {
       await getHiveHourwise(search);
     }

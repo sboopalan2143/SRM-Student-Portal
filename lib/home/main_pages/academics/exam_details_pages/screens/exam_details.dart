@@ -6,6 +6,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -31,8 +32,13 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
+      (_) async {
+        await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+              ref.read(
+                encryptionProvider.notifier,
+              ),
+            );
+        await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
       },
     );
 
@@ -102,16 +108,17 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref.listen(examDetailsProvider, (previous, next) {
-                            if (next is ExamDetailsError) {
-                              _showToast(
-                                context,
-                                next.errorMessage,
-                                AppColors.redColor,
+                        onTap: () async {
+                          await ref
+                              .read(examDetailsProvider.notifier)
+                              .getExamDetailsApi(
+                                ref.read(
+                                  encryptionProvider.notifier,
+                                ),
                               );
-                            }
-                          });
+                          await ref
+                              .read(examDetailsProvider.notifier)
+                              .getHiveExamDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,

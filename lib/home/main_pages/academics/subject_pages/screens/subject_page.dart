@@ -6,6 +6,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -30,8 +31,11 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+      (_) async {
+        await ref
+            .read(subjectProvider.notifier)
+            .getSubjectDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
       },
     );
 
@@ -43,7 +47,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+      ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
     });
   }
 
@@ -102,10 +106,14 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
                               .read(subjectProvider.notifier)
-                              .getHiveSubgetDetails('');
+                              .getSubjectDetails(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(subjectProvider.notifier)
+                              .getHiveSubjectDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -233,6 +241,9 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   Widget cardDesign(int index) {
     final provider = ref.watch(subjectProvider);
     final width = MediaQuery.of(context).size.width;
+    final data = provider.subjectHiveData[index].subjectdetails;
+    final subjectData = data!.split('##');
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -258,7 +269,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.subjectHiveData[index].subjectdetails![0]}',
+                      subjectData[0],
                       style: TextStyles.fontStyle10,
                     ),
                   ],
@@ -271,7 +282,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${provider.subjectHiveData[index].subjectdetails![1]}',
+                      subjectData[1],
                       style: TextStyles.fontStyle10small,
                     ),
                   ],
@@ -283,7 +294,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 child: Column(
                   children: [
                     Text(
-                      '${provider.subjectHiveData[index].subjectdetails![2]}',
+                      subjectData[2],
                       style: TextStyles.fontStyle10small,
                       textAlign: TextAlign.center,
                     ),
@@ -296,7 +307,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 child: Column(
                   children: [
                     Text(
-                      '${provider.subjectHiveData[index].subjectdetails![3]}',
+                      subjectData[3],
                       style: TextStyles.fontStyle10,
                     ),
                   ],

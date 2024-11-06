@@ -5,9 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_marks_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
 class InternalMarksProvider extends StateNotifier<InternalMarksState> {
@@ -18,7 +16,6 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
   void _setLoading() => state = InternalMarksState(
         successMessage: '',
         errorMessage: '',
-        internalMarkData: <InternalMarkData>[],
         internalMarkHiveData: <InternalMarkHiveData>[],
       );
 
@@ -35,7 +32,6 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       state = NoNetworkAvailableInternalMarks(
         successMessage: '',
         errorMessage: '',
-        internalMarkData: state.internalMarkData,
         internalMarkHiveData: state.internalMarkHiveData,
       );
     } else if (response.$1 == 200) {
@@ -50,81 +46,77 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       final internalMarkHiveData =
           decryptedData.mapData!['Data'] as List<dynamic>;
       log('decrypted>>>>>>>>$decryptedData');
-      try {
-        // final internalMarksDataResponse =
-        //     GetInternalMarkDetails.fromJson(decryptedData.mapData!);
-        // internalMarkData = internalMarksDataResponse.data!;
-        // state = state.copyWith(internalMarkData: internalMarkData);
+      // try {
+      // final internalMarksDataResponse =
+      //     GetInternalMarkDetails.fromJson(decryptedData.mapData!);
+      // internalMarkData = internalMarksDataResponse.data!;
+      // state = state.copyWith(internalMarkData: internalMarkData);
 
+      final box = await Hive.openBox<InternalMarkHiveData>(
+        'internakmarkdata',
+      );
+      if (box.isEmpty) {
         for (var i = 0; i < internalMarkHiveData.length; i++) {
           final parseData = InternalMarkHiveData.fromJson(
               internalMarkHiveData[i] as Map<String, dynamic>);
-          log('data>>>>${parseData.subjectcode}');
-          final box = await Hive.openBox<InternalMarkHiveData>(
-            'internakmarkdata',
-          );
-          final index = box.values
-              .toList()
-              .indexWhere((e) => e.subjectcode == parseData.subjectcode);
-          if (index != -1) {
-            await box.putAt(index, parseData);
-          } else {
-            await box.add(parseData);
-          }
-        }
 
-        if (decryptedData.mapData!['Status'] == 'Success') {
-          state = InternalMarksStateSuccessful(
-            successMessage: decryptedData.mapData!['Status']! as String,
-            errorMessage: '',
-            internalMarkData: state.internalMarkData,
-            internalMarkHiveData: state.internalMarkHiveData,
-          );
-        } else if (decryptedData.mapData!['Status'] != 'Success') {
-          state = InternalMarksStateError(
-            successMessage: '',
-            errorMessage:
-                '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']!}''',
-            internalMarkData: state.internalMarkData,
-            internalMarkHiveData: state.internalMarkHiveData,
-          );
+          await box.add(parseData);
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else {
+        await box.clear();
+        for (var i = 0; i < internalMarkHiveData.length; i++) {
+          final parseData = InternalMarkHiveData.fromJson(
+              internalMarkHiveData[i] as Map<String, dynamic>);
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = InternalMarksStateSuccessful(
+          successMessage: decryptedData.mapData!['Status']! as String,
+          errorMessage: '',
+          internalMarkHiveData: state.internalMarkHiveData,
+        );
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = InternalMarksStateError(
           successMessage: '',
-          errorMessage: error.message!,
-          internalMarkData: state.internalMarkData,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']!}''',
           internalMarkHiveData: state.internalMarkHiveData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = InternalMarksStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     internalMarkHiveData: state.internalMarkHiveData,
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = InternalMarksStateError(
         successMessage: '',
         errorMessage: 'Error',
-        internalMarkData: state.internalMarkData,
         internalMarkHiveData: state.internalMarkHiveData,
       );
     }
   }
 
-  Future<void> getHiveinternalmark(String search) async {
+  Future<void> getHiveInternalMarks(String search) async {
     try {
       _setLoading();
       final box = await Hive.openBox<InternalMarkHiveData>(
         'internakmarkdata',
       );
       final internakmarkdata = <InternalMarkHiveData>[...box.values];
-      log('profile length>>>${internakmarkdata[0].subjectcode}');
 
-      state = InternalMarksStateSuccessful(
-        successMessage: '',
-        errorMessage: '',
-        internalMarkData: state.internalMarkData,
+      state = state.copyWith(
         internalMarkHiveData: internakmarkdata,
       );
+      await box.close();
     } catch (e) {
-      await getHiveinternalmark(search);
+      await getHiveInternalMarks(search);
     }
   }
 }

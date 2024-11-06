@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_response_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-// import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
 class AttendanceProvider extends StateNotifier<AttendanceState> {
   AttendanceProvider() : super(AttendanceInitial());
@@ -19,7 +14,6 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
   void _setLoading() => state = AttendanceStateLoading(
         successMessage: '',
         errorMessage: '',
-        attendanceData: <SubjectAttendanceData>[],
         attendancehiveData: <AttendanceHiveData>[],
       );
 
@@ -28,14 +22,12 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    log('Attendance body>>>>><studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>');
     final response =
         await HttpService.sendSoapRequest('getSubjectwiseAttendance', data);
     if (response.$1 == 0) {
       state = const NoNetworkAvailableAttendance(
         successMessage: '',
         errorMessage: '',
-        attendanceData: <SubjectAttendanceData>[],
         attendancehiveData: <AttendanceHiveData>[],
       );
     } else if (response.$1 == 200) {
@@ -58,23 +50,28 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       //     GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
       // attendanceData = attendanceDataResponse.data!;
       // state = state.copyWith(attendanceData: attendanceData);
-      for (var i = 0; i < attendancelistData.length; i++) {
-        final parseData = AttendanceHiveData.fromJson(
-          attendancelistData[i] as Map<String, dynamic>,
-        );
-        // log('data>>>>${parseData.subjectcode}');
-        final box = await Hive.openBox<AttendanceHiveData>(
-          'Attendance',
-        );
-        final index = box.values
-            .toList()
-            .indexWhere((e) => e.subjectcode == parseData.subjectcode);
-        if (index != -1) {
-          await box.putAt(index, parseData);
-        } else {
+      final box = await Hive.openBox<AttendanceHiveData>(
+        'Attendance',
+      );
+      if (box.isEmpty) {
+        for (var i = 0; i < attendancelistData.length; i++) {
+          final parseData = AttendanceHiveData.fromJson(
+            attendancelistData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      } else {
+        await box.clear();
+        for (var i = 0; i < attendancelistData.length; i++) {
+          final parseData = AttendanceHiveData.fromJson(
+            attendancelistData[i] as Map<String, dynamic>,
+          );
+
           await box.add(parseData);
         }
       }
+      await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
         // final studentIdJson =
         //     attendanceData.map((e) => e.toJson()).toList().toString();
@@ -84,14 +81,12 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
         state = AttendanceStateSuccessful(
           successMessage: decryptedData.mapData!['Message'] as String,
           errorMessage: '',
-          attendanceData: state.attendanceData,
           attendancehiveData: <AttendanceHiveData>[],
         );
       } else if (decryptedData.mapData!['Message'] as String != 'Success') {
         state = AttendanceStateError(
           successMessage: '',
           errorMessage: decryptedData.mapData!['Message'] as String,
-          attendanceData: <SubjectAttendanceData>[],
           attendancehiveData: <AttendanceHiveData>[],
         );
       }
@@ -108,7 +103,6 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       state = const AttendanceStateError(
         successMessage: '',
         errorMessage: 'Error',
-        attendanceData: <SubjectAttendanceData>[],
         attendancehiveData: <AttendanceHiveData>[],
       );
     }
@@ -119,14 +113,11 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       _setLoading();
       final box = await Hive.openBox<AttendanceHiveData>('Attendance');
       final attendancelishive = <AttendanceHiveData>[...box.values];
-      log('Attendance hive length>>>${attendancelishive[0].subjectcode}');
 
-      state = AttendanceStateSuccessful(
-        successMessage: '',
-        errorMessage: '',
-        attendanceData: state.attendanceData,
+      state = state.copyWith(
         attendancehiveData: attendancelishive,
       );
+      await box.close();
     } catch (e) {
       await getHiveAttendanceDetails(search);
     }

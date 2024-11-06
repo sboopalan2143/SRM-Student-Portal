@@ -10,6 +10,7 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/loading_wrapper.dart';
 import 'package:sample/designs/navigation_style.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -35,8 +36,11 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(hourwiseProvider.notifier).getHiveHourwise('');
+      (_) async {
+        await ref
+            .read(hourwiseProvider.notifier)
+            .gethourwiseDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
       },
     );
 
@@ -48,9 +52,6 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-      //       ref.read(encryptionProvider.notifier),
-      //     );
       ref.read(hourwiseProvider.notifier).getHiveHourwise('');
     });
   }
@@ -111,8 +112,12 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
+                              .read(hourwiseProvider.notifier)
+                              .gethourwiseDetails(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
                               .read(hourwiseProvider.notifier)
                               .getHiveHourwise('');
                         },

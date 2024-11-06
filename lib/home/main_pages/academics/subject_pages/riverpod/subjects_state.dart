@@ -11,25 +11,22 @@ class SubjectState {
   const SubjectState({
     required this.successMessage,
     required this.errorMessage,
-    required this.subjectData,
     required this.subjectHiveData,
   });
 
   final String successMessage;
   final String errorMessage;
-  final List<dynamic> subjectData;
+
   final List<SubjectHiveData> subjectHiveData;
 
   SubjectState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<dynamic>? subjectData,
     List<SubjectHiveData>? subjectHiveData,
   }) =>
       SubjectState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        subjectData: subjectData ?? this.subjectData,
         subjectHiveData: subjectHiveData ?? this.subjectHiveData,
       );
 }
@@ -39,7 +36,6 @@ class SubjectInitial extends SubjectState {
       : super(
           successMessage: '',
           errorMessage: '',
-          subjectData: <dynamic>[],
           subjectHiveData: <SubjectHiveData>[],
         );
 }
@@ -48,7 +44,6 @@ class SubjectStateLoading extends SubjectState {
   const SubjectStateLoading({
     required super.successMessage,
     required super.errorMessage,
-    required super.subjectData,
     required super.subjectHiveData,
   });
 }
@@ -57,7 +52,6 @@ class SubjectStateError extends SubjectState {
   const SubjectStateError({
     required super.successMessage,
     required super.errorMessage,
-    required super.subjectData,
     required super.subjectHiveData,
   });
 }
@@ -66,7 +60,6 @@ class SubjectStateSuccessful extends SubjectState {
   const SubjectStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
-    required super.subjectData,
     required super.subjectHiveData,
   });
 }
@@ -75,7 +68,6 @@ class NoNetworkAvailableSubject extends SubjectState {
   const NoNetworkAvailableSubject({
     required super.successMessage,
     required super.errorMessage,
-    required super.subjectData,
     required super.subjectHiveData,
   });
 }

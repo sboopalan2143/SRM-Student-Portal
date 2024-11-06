@@ -32,8 +32,11 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
+      (_) async {
+        await ref
+            .read(internalMarksProvider.notifier)
+            .getInternalMarksDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
       },
     );
 
@@ -45,10 +48,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
-      //       ref.read(encryptionProvider.notifier),
-      //     );
-      ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
+      ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
     });
   }
 
@@ -106,10 +106,14 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
                               .read(internalMarksProvider.notifier)
-                              .getHiveinternalmark('');
+                              .getInternalMarksDetails(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(internalMarksProvider.notifier)
+                              .getHiveInternalMarks('');
                         },
                         child: const Icon(
                           Icons.refresh,

@@ -6,17 +6,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
+import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
@@ -63,56 +70,147 @@ class _HomePage2State extends ConsumerState<HomePage2>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+
+//ACADEMICS
+
+//>>>Attendance
+    final attendance = await Hive.openBox<AttendanceHiveData>(
+      'Attendance',
+    );
+    if (attendance.isEmpty) {
+      await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
+    }
+    await attendance.close();
+
+//>>>Cummulative Attendance
+
+    final cummulativeAttendance =
+        await Hive.openBox<CumulativeAttendanceHiveData>(
+      'cumulativeattendance',
+    );
+    if (cummulativeAttendance.isEmpty) {
+      await ref
+          .read(cummulativeAttendanceProvider.notifier)
+          .getCummulativeAttendanceDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref
+          .read(cummulativeAttendanceProvider.notifier)
+          .getHiveCummulativeDetails('');
+    }
+    await cummulativeAttendance.close();
+
+//>>>Exam Details
+
+    final examDetails = await Hive.openBox<ExamDetailsHiveData>('examDetails');
+    if (examDetails.isEmpty) {
+      await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
+    }
+    await examDetails.close();
+
+    //>>>Hourwise Attendance
+
+    final hourwiseAttendance = await Hive.openBox<HourwiseHiveData>(
+      'hourwisedata',
+    );
+    if (hourwiseAttendance.isEmpty) {
+      await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
+    }
+    await hourwiseAttendance.close();
+
+    //>>>Internal Marks
+
+    final internalMarks = await Hive.openBox<InternalMarkHiveData>(
+      'internalmarkdata',
+    );
+    if (internalMarks.isEmpty) {
+      await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
+    }
+    await internalMarks.close();
+
+    //>>>Subject
+
+    final subjects = await Hive.openBox<SubjectHiveData>('subjecthive');
+    if (subjects.isEmpty) {
+      await ref
+          .read(subjectProvider.notifier)
+          .getSubjectDetails(ref.read(encryptionProvider.notifier));
+      await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
+    }
+    await subjects.close();
+
     // try {
-    await ref.read(profileProvider.notifier).getProfileApi(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(profileProvider.notifier).getProfile('');
-    await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
-    await ref.read(subjectProvider.notifier).getSubjectDetails(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
-    await ref.read(attendanceProvider.notifier).getAttendanceDetails(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
+    // await ref.read(profileProvider.notifier).getProfileApi(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(profileProvider.notifier).getProfile('');
+    // await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
+    // await ref.read(subjectProvider.notifier).getSubjectDetails(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
+    // await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
 
-    await ref
-        .read(cummulativeAttendanceProvider.notifier)
-        .getCummulativeAttendanceDetails(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref
-        .read(cummulativeAttendanceProvider.notifier)
-        .getHiveCummulativeDetails('');
+    // await ref
+    //     .read(cummulativeAttendanceProvider.notifier)
+    //     .getCummulativeAttendanceDetails(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref
+    //     .read(cummulativeAttendanceProvider.notifier)
+    //     .getHiveCummulativeDetails('');
 
-    await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
+    // await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
 
-    await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
-          ref.read(
-            encryptionProvider.notifier,
-          ),
-        );
-    await ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
+    // await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+    //       ref.read(
+    //         encryptionProvider.notifier,
+    //       ),
+    //     );
+    // await ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
     // }
     // catch (e) {
     //   await TokensManagement.clearSharedPreference();

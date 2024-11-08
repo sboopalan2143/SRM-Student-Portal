@@ -8,7 +8,9 @@ import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/mcq_get_question_and_answer_model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_get_view_list_model.dart';
 import 'package:sample/home/main_pages/lms/model/mcq_shedule-model.dart';
+import 'package:sample/home/main_pages/lms/model/mcq_submited_answer_model.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_provider.dart';
 
 final lmsProvider = StateNotifierProvider<LmsProvider, LmsState>((ref) {
@@ -33,6 +35,8 @@ class LmsState {
     required this.mcqSheduleData,
     required this.mcqQuestionAndAnswerData,
     required this.answerdesc,
+    required this.mcqSubmitedData,
+    required this.mcqgetAnswerDetails,
   });
 
   final String successMessage;
@@ -51,6 +55,8 @@ class LmsState {
   final List<McqSheduleData> mcqSheduleData;
   final List<McqGetQuestionAndAnswerData> mcqQuestionAndAnswerData;
   final TextEditingController answerdesc;
+  final McqSubmitedData mcqSubmitedData;
+  final List<MCQGetViewModelData> mcqgetAnswerDetails;
 
   LmsState copyWith({
     String? successMessage,
@@ -69,6 +75,8 @@ class LmsState {
     List<McqSheduleData>? mcqSheduleData,
     List<McqGetQuestionAndAnswerData>? mcqQuestionAndAnswerData,
     TextEditingController? answerdesc,
+    McqSubmitedData? mcqSubmitedData,
+    List<MCQGetViewModelData>? mcqgetAnswerDetails,
   }) =>
       LmsState(
         successMessage: successMessage ?? this.successMessage,
@@ -91,6 +99,8 @@ class LmsState {
         mcqQuestionAndAnswerData:
             mcqQuestionAndAnswerData ?? this.mcqQuestionAndAnswerData,
         answerdesc: answerdesc ?? this.answerdesc,
+        mcqSubmitedData: mcqSubmitedData ?? this.mcqSubmitedData,
+        mcqgetAnswerDetails: mcqgetAnswerDetails ?? this.mcqgetAnswerDetails,
       );
 }
 
@@ -113,6 +123,8 @@ class LmsInitial extends LmsState {
           mcqSheduleData: <McqSheduleData>[],
           mcqQuestionAndAnswerData: <McqGetQuestionAndAnswerData>[],
           answerdesc: TextEditingController(),
+          mcqSubmitedData: McqSubmitedData.empty,
+          mcqgetAnswerDetails: <MCQGetViewModelData>[],
         );
 }
 
@@ -134,6 +146,8 @@ class LmsStateLoading extends LmsState {
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
     required super.answerdesc,
+    required super.mcqSubmitedData,
+    required super.mcqgetAnswerDetails,
   });
 }
 
@@ -155,6 +169,8 @@ class LmsStateError extends LmsState {
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
     required super.answerdesc,
+    required super.mcqSubmitedData,
+    required super.mcqgetAnswerDetails,
   });
 }
 
@@ -176,6 +192,8 @@ class LmsStateSuccessful extends LmsState {
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
     required super.answerdesc,
+    required super.mcqSubmitedData,
+    required super.mcqgetAnswerDetails,
   });
 }
 
@@ -197,6 +215,8 @@ class LmsStateclear extends LmsState {
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
     required super.answerdesc,
+    required super.mcqSubmitedData,
+    required super.mcqgetAnswerDetails,
   });
 }
 
@@ -218,5 +238,7 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.mcqSheduleData,
     required super.mcqQuestionAndAnswerData,
     required super.answerdesc,
+    required super.mcqSubmitedData,
+    required super.mcqgetAnswerDetails,
   });
 }

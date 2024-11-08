@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,7 +67,7 @@ class PDFViewScreenState extends ConsumerState<PDFViewScreen> {
   Widget build(
     BuildContext context,
   ) {
-    final provider = ref.watch(lmsProvider);
+    ref.watch(lmsProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('PDF Viewer'),

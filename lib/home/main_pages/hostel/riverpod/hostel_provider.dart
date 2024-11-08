@@ -694,25 +694,8 @@ class HostelProvider extends StateNotifier<HostelState> {
         if (hostelLeaveResponse.status == 'Success') {
         } else if (hostelLeaveResponse.status != 'Success') {
           state = HostelStateError(
-              successMessage: '',
-              errorMessage: hostelLeaveResponse.message!,
-              hostelData: <HostelData>[],
-              selectedHostelData: HostelData.empty,
-              roomTypeData: <RoomTypeData>[],
-              selectedRoomTypeData: RoomTypeData.empty,
-              hostelRegisterDetails: HostelRegisterData.empty,
-              hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-              fromDate: TextEditingController(),
-              toDate: TextEditingController(),
-              leaveReason: TextEditingController(),
-              hostelLeaveData: <HostelLeaveData>[],
-              gethostelData: <GetHostelData>[],);
-        }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
-        state = HostelStateError(
             successMessage: '',
-            errorMessage: error.message!,
+            errorMessage: hostelLeaveResponse.message!,
             hostelData: <HostelData>[],
             selectedHostelData: HostelData.empty,
             roomTypeData: <RoomTypeData>[],
@@ -723,12 +706,14 @@ class HostelProvider extends StateNotifier<HostelState> {
             toDate: TextEditingController(),
             leaveReason: TextEditingController(),
             hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[],);
-      }
-    } else if (response.$1 != 200) {
-      state = HostelStateError(
+            gethostelData: <GetHostelData>[],
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = HostelStateError(
           successMessage: '',
-          errorMessage: 'Error',
+          errorMessage: error.message!,
           hostelData: <HostelData>[],
           selectedHostelData: HostelData.empty,
           roomTypeData: <RoomTypeData>[],
@@ -739,7 +724,25 @@ class HostelProvider extends StateNotifier<HostelState> {
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
           hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[],);
+          gethostelData: <GetHostelData>[],
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = HostelStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        hostelData: <HostelData>[],
+        selectedHostelData: HostelData.empty,
+        roomTypeData: <RoomTypeData>[],
+        selectedRoomTypeData: RoomTypeData.empty,
+        hostelRegisterDetails: HostelRegisterData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        fromDate: TextEditingController(),
+        toDate: TextEditingController(),
+        leaveReason: TextEditingController(),
+        hostelLeaveData: <HostelLeaveData>[],
+        gethostelData: <GetHostelData>[],
+      );
     }
   }
 }

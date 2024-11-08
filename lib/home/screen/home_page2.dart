@@ -235,8 +235,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final providerProfile = ref.watch(profileProvider);
-    final base64Image =
-        '${providerProfile.profileData.studentphoto}'; // shortened for brevity
+    final base64Image = '${providerProfile.profileData.studentphoto}';
     final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
@@ -899,6 +898,146 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                             color: Colors.blue[800],
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const TransportTransactionPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    // height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor1,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/calendar.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/bus2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus3.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Calender',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const LmsHomePage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    // height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   // color: Colors.lightGreenAccent,
+                                    //   color: AppColors.homepagecolor3,
+                                    //   borderRadius: BorderRadius.circular(
+                                    //     20,
+                                    //   ),
+                                    // ),
+                                    child: Column(
+                                      children: [
+                                        // Image.asset(
+                                        //   'assets/images/LMS.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus3.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        const SizedBox(width: 10),
+                                        // Text(
+                                        //   'LMS',
+                                        //   style: TextStyle(
+                                        //     fontSize: 20,
+                                        //     fontWeight: FontWeight.bold,
+                                        //     color: Colors.blue[800],
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),

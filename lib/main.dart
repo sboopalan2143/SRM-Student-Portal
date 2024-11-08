@@ -62,6 +62,7 @@ class _InitialState extends ConsumerState<Initial> {
           Theme.of(context).textTheme,
         ),
       ),
+
       title: 'App Title',
 
       /// Navigate base on stored auth token for mobile and web

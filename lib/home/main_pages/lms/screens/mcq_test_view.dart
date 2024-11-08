@@ -348,6 +348,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:sample/home/main_pages/lms/screens/mcq_get_answer_data_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 // import 'package:sample/home/riverpod/main_state.dart';
@@ -544,14 +545,27 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                       height: 30,
                       width: 150,
                       child: GestureDetector(
-                        onTap: () {
-                          log('save log >>>>>>>> $singleString');
-                          ref.read(lmsProvider.notifier).saveMCQAnswerDetails(
+                        onTap: () async {
+                          await ref
+                              .read(lmsProvider.notifier)
+                              .getMcqAnswerDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
+                              .read(lmsProvider.notifier)
+                              .saveMCQAnswerDetails(
                                 ref.read(encryptionProvider.notifier),
                                 widget.mcqscheduleid,
                                 singleString,
                                 widget.marksperquestion,
                               );
+
+                          await Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: const McqGetAnswerPage(),
+                            ),
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -639,7 +653,7 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                             // );
 
                             answerSelected.add(
-                              '''${provider.mcqQuestionAndAnswerData[index].questionid!.trim()}~${answerOptions[j][0].trim()}~${answerOptions[j][2].trim()}~${provider.mcqQuestionAndAnswerData[index].mcqanswertype!.trim()}~${answerOptions[j][1].trim()}~-''',
+                              '''${provider.mcqQuestionAndAnswerData[index].questionid!.trim()}~${answerOptions[j][0].trim()}~${answerOptions[j][2].trim()}~${provider.mcqQuestionAndAnswerData[index].mcqanswertype!.trim()}~${answerOptions[j][1].trim()}''',
                             );
 
                             singleString = answerSelected.join(',');

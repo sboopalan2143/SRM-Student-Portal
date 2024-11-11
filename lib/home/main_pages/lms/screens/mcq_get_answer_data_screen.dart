@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -11,7 +9,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
 
 class McqGetAnswerPage extends ConsumerStatefulWidget {
   const McqGetAnswerPage({
@@ -39,8 +36,6 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
       (_) {
         ref.read(lmsProvider.notifier).getMcqAnswerDetails(
               ref.read(encryptionProvider.notifier),
-              // widget.mcqscheduleid,
-              // widget.mcqexamid,
             );
       },
     );
@@ -55,8 +50,6 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(lmsProvider.notifier).getMcqAnswerDetails(
             ref.read(encryptionProvider.notifier),
-            // widget.mcqscheduleid,
-            // widget.mcqexamid,
           );
     });
   }
@@ -184,21 +177,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
     final provider = ref.watch(lmsProvider);
 
     return GestureDetector(
-      onTap: () {
-        // ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
-        //       ref.read(encryptionProvider.notifier),
-        //       '${provider.mcqgetAnswerDetails[index].classworkid}',
-        //     );
-
-        // Navigator.push(
-        //   context,
-        //   RouteDesign(
-        //     route: LmsAttachmentDetailsDataPage(
-        //       classworkID: '${provider.mcqgetAnswerDetails[index].classworkid}',
-        //     ),
-        //   ),
-        // );
-      },
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8),
         child: Column(

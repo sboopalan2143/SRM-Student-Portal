@@ -25,6 +25,7 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/i
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/home/main_pages/calendar/screens/calendar_screen.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
@@ -912,10 +913,13 @@ class _HomePage2State extends ConsumerState<HomePage2>
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    ref
+                                        .read(feesProvider.notifier)
+                                        .setFeesNavString('Online Trans');
                                     Navigator.push(
                                       context,
                                       RouteDesign(
-                                        route: const TransportTransactionPage(),
+                                        route: const CalendarPage(),
                                       ),
                                     );
                                   },

@@ -50,7 +50,6 @@ class _InitialState extends ConsumerState<Initial> {
   //   super.initState();
   //   ref.read(networkProvider.notifier).subscribe();
   // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

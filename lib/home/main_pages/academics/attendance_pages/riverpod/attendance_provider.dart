@@ -37,19 +37,10 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       final returnData = attendanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      // log('Attendance decrypted>>>>>>>>${decryptedData}');
 
       final attendancelistData =
           decryptedData.mapData!['Data'] as List<dynamic>;
-      // log('attendancelistData length >>>>>>>>${attendancelistData.length}');
 
-      // var attendanceData = <dynamic>[];
-      // try {
-      // //change model
-      // final attendanceDataResponse =
-      //     GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
-      // attendanceData = attendanceDataResponse.data!;
-      // state = state.copyWith(attendanceData: attendanceData);
       final box = await Hive.openBox<AttendanceHiveData>(
         'Attendance',
       );
@@ -73,11 +64,6 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       }
       await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
-        // final studentIdJson =
-        //     attendanceData.map((e) => e.toJson()).toList().toString();
-        // await TokensManagement.setStudentId(
-        //   studentId: studentIdJson,
-        // );
         state = AttendanceStateSuccessful(
           successMessage: decryptedData.mapData!['Message'] as String,
           errorMessage: '',
@@ -90,15 +76,6 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
           attendancehiveData: <AttendanceHiveData>[],
         );
       }
-      // } catch (e) {
-      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
-      //   state = AttendanceStateError(
-      //     successMessage: '',
-      //     errorMessage: error.message!,
-      //     attendanceData: <SubjectAttendanceData>[],
-      //     attendancehiveData: <AttendanceHiveData>[],
-      //   );
-      // }
     } else if (response.$1 != 200) {
       state = const AttendanceStateError(
         successMessage: '',

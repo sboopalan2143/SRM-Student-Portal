@@ -12,7 +12,9 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 
 class LoginPage2 extends ConsumerStatefulWidget {
-  const LoginPage2({super.key});
+  const LoginPage2({
+    super.key,
+  });
 
   @override
   ConsumerState createState() => _LoginPage2State();
@@ -20,6 +22,14 @@ class LoginPage2 extends ConsumerStatefulWidget {
 
 class _LoginPage2State extends ConsumerState<LoginPage2>
     with WidgetsBindingObserver {
+  bool _isPasswordVisible = false;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -354,10 +364,34 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                                   ],
                                 ),
                                 const SizedBox(height: 5),
+                                // SizedBox(
+                                //   height: 40,
+                                //   child: TextField(
+                                //     controller: provider.password,
+                                //     style: TextStyles.fontStyle2,
+                                //     decoration: InputDecoration(
+                                //       prefixIcon: const Icon(
+                                //         Icons.lock,
+                                //         color: AppColors.grey2,
+                                //       ),
+                                //       hintText: 'Enter Password',
+                                //       hintStyle: TextStyles
+                                //           .smallLightAshColorFontStyle,
+                                //       filled: true,
+                                //       fillColor: AppColors.secondaryColor,
+                                //       contentPadding: const EdgeInsets.all(10),
+                                //       enabledBorder: BorderBoxButtonDecorations
+                                //           .loginTextFieldStyle,
+                                //       focusedBorder: BorderBoxButtonDecorations
+                                //           .loginTextFieldStyle,
+                                //     ),
+                                //   ),
+                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: TextField(
                                     controller: provider.password,
+                                    obscureText: !_isPasswordVisible,
                                     style: TextStyles.fontStyle2,
                                     decoration: InputDecoration(
                                       prefixIcon: const Icon(
@@ -374,6 +408,15 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                                           .loginTextFieldStyle,
                                       focusedBorder: BorderBoxButtonDecorations
                                           .loginTextFieldStyle,
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _isPasswordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: AppColors.grey2,
+                                        ),
+                                        onPressed: _togglePasswordVisibility,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -383,52 +426,54 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
                             Row(
                               children: [
                                 Expanded(
-                                    child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                    ),
-                                    elevation: 0,
-                                    tapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    backgroundColor: AppColors.primaryColor,
-                                    shadowColor: Colors.transparent,
-                                  ),
-                                  onPressed: () async {
-                                    // provider.setNavString('Home');
-
-                                    await ref
-                                        .read(loginProvider.notifier)
-                                        .login(
-                                          ref.read(encryptionProvider.notifier),
-                                        );
-                                  },
-                                  child: provider is LoginStateLoading
-                                      ? CircularProgressIndicator(
-                                          color: AppColors.secondaryColor,
-                                        )
-                                      : const Text(
-                                          'Login',
-                                          style: TextStyles.fontStyle1,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
                                         ),
-                                )
+                                      ),
+                                      elevation: 0,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      backgroundColor: AppColors.primaryColor,
+                                      shadowColor: Colors.transparent,
+                                    ),
+                                    onPressed: () async {
+                                      // provider.setNavString('Home');
 
-                                    //  ButtonDesign.buttonDesign(
-                                    //   'Log In',
-                                    //   AppColors.primaryColor,
-                                    //   context,
-                                    //   ref.read(mainProvider.notifier),
-                                    //   ref,
-                                    // ),
-                                    ,),
+                                      await ref
+                                          .read(loginProvider.notifier)
+                                          .login(
+                                            ref.read(
+                                                encryptionProvider.notifier),
+                                          );
+                                    },
+                                    child: provider is LoginStateLoading
+                                        ? CircularProgressIndicator(
+                                            color: AppColors.secondaryColor,
+                                          )
+                                        : const Text(
+                                            'Login',
+                                            style: TextStyles.fontStyle1,
+                                          ),
+                                  )
+
+                                  //  ButtonDesign.buttonDesign(
+                                  //   'Log In',
+                                  //   AppColors.primaryColor,
+                                  //   context,
+                                  //   ref.read(mainProvider.notifier),
+                                  //   ref,
+                                  // ),
+                                  ,
+                                ),
                               ],
                             ),
                             const SizedBox(
                               height: 30,
-                            )
-                          ,],
+                            ),
+                          ],
                         ),
                       ),
                     ),

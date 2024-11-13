@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: lines_longer_than_80_chars
 
+import 'dart:async';
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +15,6 @@ import 'package:sample/home/main_pages/lms/screens/lms_Faculty_comment_screen.da
 import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_comment_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
 
 class LmsTitlePage extends ConsumerStatefulWidget {
   const LmsTitlePage({

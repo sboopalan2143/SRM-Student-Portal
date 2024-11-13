@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/calendar/model/calendar_hive_model.dart';
-import 'package:sample/home/main_pages/calendar/model/clendar_model.dart';
 import 'package:sample/home/main_pages/calendar/riverpod/calendar_provider.dart';
 
 final calendarProvider =

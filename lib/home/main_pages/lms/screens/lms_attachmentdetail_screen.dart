@@ -439,28 +439,31 @@ class LmsAttachmentDetailsDataPageState
                           ),
                   ),
                 ),
-                Card(
-                  elevation: 10,
-                  child: ElevatedButton(
-                    child: const Text(
-                      'View Doc',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    // AppColors: Colors.blueGrey,
-                    // textColor: Colors.white,
-                    // highlightColor: Colors.red,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const Pdfview(
-                            url:
-                                'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                // Card(
+                //   elevation: 10,
+                //   child: ElevatedButton(
+                //     child: const Text(
+                //       'View Doc',
+                //       style: TextStyle(fontSize: 20),
+                //     ),
+                //     // AppColors: Colors.blueGrey,
+                //     // textColor: Colors.white,
+                //     // highlightColor: Colors.red,
+                //     onPressed: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (_) => const Pdfview(
+                //             url:
+                //                 'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

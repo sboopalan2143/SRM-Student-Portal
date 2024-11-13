@@ -1,6 +1,7 @@
 analyzer:
   errors:
     avoid_single_cascade_in_expression_statements: ignore
+    inference_failure_on_instance_creation: ignore
     lines_longer_than_80_chars: ignore ignore
     noop_primitive_operations: ignore
     unrelated_type_equality_checks: ignore

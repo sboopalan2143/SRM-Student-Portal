@@ -171,7 +171,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     EncryptionProvider encrypt,
     String subjectId,
   ) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><subjectid>$subjectId</subjectid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
@@ -295,7 +295,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     EncryptionProvider encrypt,
     String classworkid,
   ) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
@@ -1019,7 +1019,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final response =
         await HttpService.sendSoapRequest('SaveClassWorkReply', data);
     log('<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>');
-    log('Save Attachment data>>> ${data}');
+    log('Save Attachment data>>> $data');
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -1099,7 +1099,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     EncryptionProvider encrypt,
     String mcqscheduleid,
   ) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
@@ -1229,7 +1229,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     String subjectid,
     String noofquestions,
   ) async {
-    _setLoading();
+    // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions>',
     );
@@ -1577,7 +1577,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final response = await HttpService.sendSoapRequest('getViewAnswer', data);
 
     log('GET Answer Details >=>=>= ${'<studentid>${TokensManagement.studentId}</studentid><mcqexamid>${state.mcqSubmitedData.examid}</mcqexamid><mcqscheduleid>${state.mcqSubmitedData.scheduleid}</mcqscheduleid>'}');
-    log('MCQ GET Answer Encroted Data >>> ${data}');
+    log('MCQ GET Answer Encroted Data >>> $data');
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -1648,7 +1648,9 @@ class LmsProvider extends StateNotifier<LmsState> {
             mcqgetAnswerDetails: state.mcqgetAnswerDetails,
           );
         }
-      } catch (e) {
+      } 
+      catch (e) 
+      {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = LmsStateError(
           successMessage: '',

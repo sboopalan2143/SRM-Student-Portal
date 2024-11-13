@@ -89,7 +89,7 @@ class CalendarProvider extends StateNotifier<CalendarState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><officeid>${TokensManagement.officeId}</officeid>',
     );
-   
+
     final response = await HttpService.sendSoapRequest(
       'getAcademyCalenderEntryDetails',
       data,
@@ -110,7 +110,7 @@ class CalendarProvider extends StateNotifier<CalendarState> {
 
       final calendarData = decryptedData.mapData!['Data'] as List<dynamic>;
 
-      final box = await Hive.openBox<CalendarHiveModelData>('examDetails');
+      final box = await Hive.openBox<CalendarHiveModelData>('calendardetail');
       if (box.isEmpty) {
         for (var i = 0; i < calendarData.length; i++) {
           final parseData = CalendarHiveModelData.fromJson(
@@ -154,7 +154,7 @@ class CalendarProvider extends StateNotifier<CalendarState> {
 
   Future<void> getHiveCalendar(String search) async {
     try {
-      final box = await Hive.openBox<CalendarHiveModelData>('examDetails');
+      final box = await Hive.openBox<CalendarHiveModelData>('calendardetail');
       final calendarDetailsHive = <CalendarHiveModelData>[...box.values];
 
       state = state.copyWith(

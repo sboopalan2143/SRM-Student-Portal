@@ -9,7 +9,6 @@ import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
-import 'package:sample/home/drawer_pages/profile/model/profile_response_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 
 class ProfileProvider extends StateNotifier<ProfileDetailsState> {
@@ -20,7 +19,6 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
   void _setLoading() => state = ProfileDetailsStateLoading(
         successMessage: '',
         errorMessage: '',
-        profileData: ProfileDetails.empty,
         profileDataHive: ProfileHiveData.empty,
       );
 
@@ -51,8 +49,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
     if (response.$1 == 0) {
       state = NoNetworkAvailableProfile(
         successMessage: '',
-        errorMessage: '',
-        profileData: ProfileDetails.empty,
+        errorMessage: 'No Network. Connect to Internet',
         profileDataHive: ProfileHiveData.empty,
       );
     } else if (response.$1 == 200) {
@@ -64,43 +61,42 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final decryptedData = encrypt.getDecryptedData('$data');
 
       final listData = decryptedData.mapData!['Data'] as List<dynamic>;
-      log('listData length>>>${listData.length}');
-      try {
-        for (var i = 0; i < listData.length; i++) {
-          final parseData =
-              ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
-          log('data>>>>${parseData.sid}');
-          final box = await Hive.openBox<ProfileHiveData>('profile');
-          final index =
-              box.values.toList().indexWhere((e) => e.sid == parseData.sid);
-          if (index != -1) {
-            await box.putAt(index, parseData);
-          } else {
+      log('PROFILE listData length>>>${listData.length}');
+      if (listData.isNotEmpty) {
+        final box = await Hive.openBox<ProfileHiveData>('profile');
+        if (box.isEmpty) {
+          for (var i = 0; i < listData.length; i++) {
+            final parseData =
+                ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+            await box.add(parseData);
+          }
+        } else {
+          await box.clear();
+          for (var i = 0; i < listData.length; i++) {
+            final parseData =
+                ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
             await box.add(parseData);
           }
         }
-
+        await box.close();
         if (decryptedData.mapData!['Status'] == 'Success') {
           state = ProfileDetailsStateSuccessful(
             successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
-            profileData: state.profileData,
             profileDataHive: ProfileHiveData.empty,
           );
         } else if (decryptedData.mapData!['Status'] != 'Success') {
           state = ProfileDetailsStateError(
             successMessage: '',
             errorMessage: decryptedData.mapData!['Message'] as String,
-            profileData: ProfileDetails.empty,
             profileDataHive: ProfileHiveData.empty,
           );
         }
-      } catch (e) {
+      } else {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = ProfileDetailsStateError(
           successMessage: '',
           errorMessage: error.message!,
-          profileData: ProfileDetails.empty,
           profileDataHive: ProfileHiveData.empty,
         );
       }
@@ -108,27 +104,23 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       state = ProfileDetailsStateError(
         successMessage: '',
         errorMessage: 'Error',
-        profileData: ProfileDetails.empty,
         profileDataHive: ProfileHiveData.empty,
       );
     }
   }
 
-  Future<void> getProfile(String search) async {
+  Future<void> getProfileHive(String search) async {
     try {
       _setLoading();
       final box = await Hive.openBox<ProfileHiveData>('profile');
       final profile = <ProfileHiveData>[...box.values];
-      log('profile length>>>${profile[0].sid}');
 
-      state = ProfileDetailsStateSuccessful(
-        successMessage: '',
-        errorMessage: '',
-        profileData: state.profileData,
+      state = state.copyWith(
         profileDataHive: profile[0],
       );
+      await box.close();
     } catch (e) {
-      await getProfile(search);
+      await getProfileHive(search);
     }
   }
 }

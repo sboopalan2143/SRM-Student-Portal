@@ -33,10 +33,11 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+      (_) async {
+        await ref.read(libraryProvider.notifier).getLibraryMemberDetails(
               ref.read(encryptionProvider.notifier),
             );
+        await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
       },
     );
 
@@ -48,15 +49,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(libraryProvider.notifier).getLibraryMemberDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(libraryProvider);
     ref.listen(libraryProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
@@ -108,15 +106,28 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
                               .read(libraryProvider.notifier)
                               .getLibraryMemberDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
+                          await ref
+                              .read(libraryProvider.notifier)
+                              .getLibraryMemberHiveData('');
                         },
                         child: const Icon(
                           Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          scaffoldKey.currentState?.openEndDrawer();
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 35,
                           color: AppColors.whiteColor,
                         ),
                       ),
@@ -174,146 +185,6 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   ),
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: const Text(
-              //         'Member Name',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       ':',
-              //       style: TextStyles.fontStyle10,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: Text(
-              //         // '${provider.libraryMemberData.membername}' == ''
-              //         //     ? '-'
-              //         //     : '${provider.libraryMemberData.membername}',
-
-              //         '',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: const Text(
-              //         'Member Code',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       ':',
-              //       style: TextStyles.fontStyle10,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: Text(
-              //         // '${provider.libraryMemberData.membercode}' == ''
-              //         //     ? '-'
-              //         //     : '${provider.libraryMemberData.membercode}',
-
-              //         '',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: const Text(
-              //         'Member Type',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       ':',
-              //       style: TextStyles.fontStyle10,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: Text(
-              //         // '${provider.libraryMemberData.membertype}' == ''
-              //         //     ? '-'
-              //         //     : '${provider.libraryMemberData.membertype}',
-
-              //         '',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: const Text(
-              //         'Policy Name',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       ':',
-              //       style: TextStyles.fontStyle10,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: Text(
-              //         // '${provider.libraryMemberData.policyname}' == ''
-              //         //     ? '-'
-              //         //     : '${provider.libraryMemberData.policyname}',
-
-              //         '',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: const Text(
-              //         'Status',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //     const Text(
-              //       ':',
-              //       style: TextStyles.fontStyle10,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     SizedBox(
-              //       width: width / 2 - 100,
-              //       child: Text(
-              //         // '${provider.libraryMemberData.status}' == ''
-              //         //     ? '-'
-              //         //     : '${provider.libraryMemberData.status}',
-              //         '',
-              //         style: TextStyles.fontStyle10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: 20),
               if (provider is LibraryTrancsactionStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),

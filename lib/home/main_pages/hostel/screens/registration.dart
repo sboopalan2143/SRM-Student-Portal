@@ -5,8 +5,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
@@ -27,18 +27,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(hostelProvider.notifier).getHostelRegisterDetails(
-            ref.read(encryptionProvider.notifier),
-          );
-      ref.read(hostelProvider.notifier).gethostel(
-            ref.read(encryptionProvider.notifier),
-          );
-      // ref.read(hostelProvider.notifier).getRoomType(
-      //       ref.read(
-      //         encryptionProvider.notifier,
-      //       ),
-      //       0,
-      //     );
+      // ref.read(hostelProvider.notifier).getAfterHostelRegisterDetailsHive('');
+      // ref.read(hostelProvider.notifier).getBeforeHostelRegisterDetailsHive('');
+      ref.read(hostelProvider.notifier).getHostelNameHiveData('');
+      ref.read(hostelProvider.notifier).getRoomTypeHiveData('');
     });
   }
 
@@ -424,7 +416,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     ),
                   ),
                   height: 40,
-                  child: DropdownSearch<HostelData>(
+                  child: DropdownSearch<HostelHiveData>(
                     dropdownDecoratorProps: const DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         border: InputBorder.none,
@@ -445,7 +437,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     selectedItem: provider.selectedHostelData,
                     onChanged: (value) {
                       providerRead.setHostelValue(
-                          value!, ref.read(encryptionProvider.notifier),);
+                        value!,
+                        ref.read(encryptionProvider.notifier),
+                      );
                     },
                     dropdownBuilder: (BuildContext context, name) {
                       return Text(
@@ -482,7 +476,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     ),
                   ),
                   height: 40,
-                  child: DropdownSearch<RoomTypeData>(
+                  child: DropdownSearch<RoomTypeHiveData>(
                     dropdownDecoratorProps: const DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         border: InputBorder.none,

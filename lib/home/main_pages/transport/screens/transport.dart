@@ -30,16 +30,19 @@ class _TransportTransactionPageState
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
-  static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  // static int refreshNum = 10;
+  // Stream<int> counterStream =
+  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(transportProvider.notifier).getTransportStatusDetails(
+      (_) async {
+        await ref.read(transportProvider.notifier).getTransportStatusDetails(
               ref.read(encryptionProvider.notifier),
             );
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportStatusHiveDetails('');
       },
     );
 
@@ -51,9 +54,7 @@ class _TransportTransactionPageState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(transportProvider.notifier).getTransportStatusDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
     });
   }
 
@@ -117,15 +118,28 @@ class _TransportTransactionPageState
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
                               .read(transportProvider.notifier)
                               .getTransportStatusDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
+                          await ref
+                              .read(transportProvider.notifier)
+                              .getTransportStatusHiveDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          scaffoldKey.currentState?.openEndDrawer();
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 35,
                           color: AppColors.whiteColor,
                         ),
                       ),
@@ -166,12 +180,13 @@ class _TransportTransactionPageState
                             .primaryColorProgressIndication,
                       ),
                     )
-                  else if (provider.grievanceTransportStatusData.isEmpty &&
+                  else if (provider.transportStatusData.isEmpty &&
                       provider is! TransportStateLoading)
                     Column(
                       children: [
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,),
+                          height: MediaQuery.of(context).size.height / 5,
+                        ),
                         const Center(
                           child: Text(
                             'No List Added Yet!',
@@ -180,10 +195,10 @@ class _TransportTransactionPageState
                         ),
                       ],
                     ),
-                  if (provider.grievanceTransportStatusData.isNotEmpty)
+                  if (provider.transportStatusData.isNotEmpty)
                     const SizedBox(height: 5),
                   ListView.builder(
-                    itemCount: provider.grievanceTransportStatusData.length,
+                    itemCount: provider.transportStatusData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -241,10 +256,10 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].officeid}' ==
+                      '${provider.transportStatusData[index].officeid}' ==
                               ''
                           ? '-'
-                          : '''${provider.grievanceTransportStatusData[index].officeid}''',
+                          : '''${provider.transportStatusData[index].officeid}''',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -268,11 +283,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].academicyearid}' ==
+                      '${provider.transportStatusData[index].academicyearid}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].academicyearid}'
+                              '${provider.transportStatusData[index].academicyearid}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -297,11 +312,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].applicationfee}' ==
+                      '${provider.transportStatusData[index].applicationfee}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].applicationfee}'
+                              '${provider.transportStatusData[index].applicationfee}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -326,11 +341,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].regconfig}' ==
+                      '${provider.transportStatusData[index].regconfig}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].regconfig}'
+                              '${provider.transportStatusData[index].regconfig}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -355,11 +370,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].transportstatus}' ==
+                      '${provider.transportStatusData[index].transportstatus}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].transportstatus}'
+                              '${provider.transportStatusData[index].transportstatus}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),
@@ -384,11 +399,11 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.grievanceTransportStatusData[index].status}' ==
+                      '${provider.transportStatusData[index].status}' ==
                               ''
                           ? '-'
                           : ''
-                              '${provider.grievanceTransportStatusData[index].status}'
+                              '${provider.transportStatusData[index].status}'
                               '',
                       style: TextStyles.fontStyle10,
                     ),

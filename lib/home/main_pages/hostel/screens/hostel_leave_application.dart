@@ -1,10 +1,11 @@
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
@@ -23,12 +24,32 @@ class LeaveApplicationPage extends ConsumerStatefulWidget {
 class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _listController = ScrollController();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(hostelProvider.notifier).getHostelLeaveStatus(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(hostelProvider.notifier).getHostelLeaveStatusHive(
+              '',
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(hostelProvider.notifier).getHostelLeaveStatus(
-            ref.read(encryptionProvider.notifier),
+      ref.read(hostelProvider.notifier).getHostelLeaveStatusHive(
+            '',
           );
     });
   }
@@ -40,7 +61,6 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
 
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
-        log('enter error listener');
         _showToast(context, next.errorMessage, AppColors.redColor);
       }
       //  else if (next is HostelStateSuccessful) {
@@ -86,219 +106,268 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
                 overflow: TextOverflow.clip,
               ),
               centerTitle: true,
+              // actions: [
+              //   Row(
+              //     children: [
+              //       IconButton(
+              //         onPressed: () {
+              //           scaffoldKey.currentState?.openEndDrawer();
+              //         },
+              //         icon: const Icon(
+              //           Icons.menu,
+              //           size: 35,
+              //           color: AppColors.whiteColor,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ],
               actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.whiteColor,
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(hostelProvider.notifier)
+                              .getHostelLeaveStatus(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
+                              .read(hostelProvider.notifier)
+                              .getHostelLeaveStatusHive(
+                                '',
+                              );
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
-                    ),
-                  ],
+                      IconButton(
+                        onPressed: () {
+                          scaffoldKey.currentState?.openEndDrawer();
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 35,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ],
         ),
       ),
-      body: provider is HostelStateLoading
-          ? Padding(
-              padding: const EdgeInsets.only(top: 100),
-              child: Center(
-                child:
-                    CircularProgressIndicators.primaryColorProgressIndication,
-              ),
-            )
-          : provider.hostelLeaveData.isEmpty && provider is! HostelStateLoading
-              ? Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'FromDate',
-                                  style: TextStyles.fontStyle2,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: AppColors.whiteColor,
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(
-                                      color: AppColors.grey2,
-                                    ),
-                                  ),
-                                  height: 40,
-                                  child: TextField(
-                                    onChanged: (value) =>
-                                        providerRead.setValue(),
-                                    onTap: () async {
-                                      final pickedDate = await showDatePicker(
-                                        context: context,
-
-                                        // initialDate: DateTime(2005, 9, 14),
-                                        firstDate: DateTime(1923),
-                                        lastDate: DateTime.now(),
-                                      );
-                                      if (pickedDate != null) {
-                                        setState(() {
-                                          provider.fromDate.text =
-                                              DateFormat('MM-dd-yyyy')
-                                                  .format(pickedDate);
-                                        });
-                                      }
-                                    },
-                                    keyboardType: TextInputType.text,
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: provider is HostelStateLoading
+            ? Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              )
+            : provider.hostelLeaveData.isEmpty &&
+                    provider is! HostelStateLoading
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'FromDate',
                                     style: TextStyles.fontStyle2,
-                                    controller: provider.fromDate,
-                                    decoration: InputDecoration(
-                                      hintText: 'Select FromDate',
-                                      hintStyle: TextStyles
-                                          .smallLightAshColorFontStyle,
-                                      filled: true,
-                                      fillColor: AppColors.whiteColor,
-                                      contentPadding: const EdgeInsets.all(10),
-                                      enabledBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
-                                      focusedBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
-                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'ToDate',
-                                  style: TextStyles.fontStyle2,
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: AppColors.whiteColor,
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(
-                                      color: AppColors.grey2,
-                                    ),
+                                  const SizedBox(
+                                    height: 5,
                                   ),
-                                  height: 40,
-                                  child: TextField(
-                                    onChanged: (value) =>
-                                        providerRead.setValue(),
-                                    onTap: () async {
-                                      final pickedDate = await showDatePicker(
-                                        context: context,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.whiteColor,
+                                      borderRadius: BorderRadius.circular(7),
+                                      border: Border.all(
+                                        color: AppColors.grey2,
+                                      ),
+                                    ),
+                                    height: 40,
+                                    child: TextField(
+                                      onChanged: (value) =>
+                                          providerRead.setValue(),
+                                      onTap: () async {
+                                        final pickedDate = await showDatePicker(
+                                          context: context,
 
-                                        // initialDate: DateTime(2005, 9, 14),
-                                        firstDate: DateTime(1923),
-                                        lastDate: DateTime.now(),
-                                      );
-                                      if (pickedDate != null) {
-                                        setState(() {
-                                          provider.toDate.text =
-                                              DateFormat('MM-dd-yyyy')
-                                                  .format(pickedDate);
-                                        });
-                                      }
-                                    },
-                                    keyboardType: TextInputType.text,
-                                    style: TextStyles.fontStyle2,
-                                    controller: provider.toDate,
-                                    decoration: InputDecoration(
-                                      hintText: 'Select ToDate',
-                                      hintStyle: TextStyles
-                                          .smallLightAshColorFontStyle,
-                                      filled: true,
-                                      fillColor: AppColors.whiteColor,
-                                      contentPadding: const EdgeInsets.all(10),
-                                      enabledBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
-                                      focusedBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
+                                          // initialDate: DateTime(2005, 9, 14),
+                                          firstDate: DateTime(1923),
+                                          lastDate: DateTime.now(),
+                                        );
+                                        if (pickedDate != null) {
+                                          setState(() {
+                                            provider.fromDate.text =
+                                                DateFormat('MM-dd-yyyy')
+                                                    .format(pickedDate);
+                                          });
+                                        }
+                                      },
+                                      keyboardType: TextInputType.text,
+                                      style: TextStyles.fontStyle2,
+                                      controller: provider.fromDate,
+                                      decoration: InputDecoration(
+                                        hintText: 'Select FromDate',
+                                        hintStyle: TextStyles
+                                            .smallLightAshColorFontStyle,
+                                        filled: true,
+                                        fillColor: AppColors.whiteColor,
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
+                                        enabledBorder:
+                                            BorderBoxButtonDecorations
+                                                .loginTextFieldStyle,
+                                        focusedBorder:
+                                            BorderBoxButtonDecorations
+                                                .loginTextFieldStyle,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Reason for Leave',
-                            style: TextStyles.fontStyle2,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          SizedBox(
-                            child: TextField(
-                              controller: provider.leaveReason,
-                              maxLines: 4,
-                              keyboardType: TextInputType.number,
-                              style: TextStyles.fontStyle2,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: AppColors.whiteColor,
-                                contentPadding: const EdgeInsets.all(10),
-                                enabledBorder: BorderBoxButtonDecorations
-                                    .loginTextFieldStyle,
-                                focusedBorder: BorderBoxButtonDecorations
-                                    .loginTextFieldStyle,
+                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ButtonDesign.buttonDesign(
-                              'Submit',
-                              AppColors.primaryColor,
-                              context,
-                              ref,
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'ToDate',
+                                    style: TextStyles.fontStyle2,
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.whiteColor,
+                                      borderRadius: BorderRadius.circular(7),
+                                      border: Border.all(
+                                        color: AppColors.grey2,
+                                      ),
+                                    ),
+                                    height: 40,
+                                    child: TextField(
+                                      onChanged: (value) =>
+                                          providerRead.setValue(),
+                                      onTap: () async {
+                                        final pickedDate = await showDatePicker(
+                                          context: context,
+
+                                          // initialDate: DateTime(2005, 9, 14),
+                                          firstDate: DateTime(1923),
+                                          lastDate: DateTime.now(),
+                                        );
+                                        if (pickedDate != null) {
+                                          setState(() {
+                                            provider.toDate.text =
+                                                DateFormat('MM-dd-yyyy')
+                                                    .format(pickedDate);
+                                          });
+                                        }
+                                      },
+                                      keyboardType: TextInputType.text,
+                                      style: TextStyles.fontStyle2,
+                                      controller: provider.toDate,
+                                      decoration: InputDecoration(
+                                        hintText: 'Select ToDate',
+                                        hintStyle: TextStyles
+                                            .smallLightAshColorFontStyle,
+                                        filled: true,
+                                        fillColor: AppColors.whiteColor,
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
+                                        enabledBorder:
+                                            BorderBoxButtonDecorations
+                                                .loginTextFieldStyle,
+                                        focusedBorder:
+                                            BorderBoxButtonDecorations
+                                                .loginTextFieldStyle,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Reason for Leave',
+                              style: TextStyles.fontStyle2,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            SizedBox(
+                              child: TextField(
+                                controller: provider.leaveReason,
+                                maxLines: 4,
+                                keyboardType: TextInputType.number,
+                                style: TextStyles.fontStyle2,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: AppColors.whiteColor,
+                                  contentPadding: const EdgeInsets.all(10),
+                                  enabledBorder: BorderBoxButtonDecorations
+                                      .loginTextFieldStyle,
+                                  focusedBorder: BorderBoxButtonDecorations
+                                      .loginTextFieldStyle,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ButtonDesign.buttonDesign(
+                                'Submit',
+                                AppColors.primaryColor,
+                                context,
+                                ref,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: provider.hostelLeaveData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
                   ),
-                )
-              : ListView.builder(
-                  itemCount: provider.hostelLeaveData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
-                ),
+      ),
       endDrawer: const DrawerDesign(),
     );
   }

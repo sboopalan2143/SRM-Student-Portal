@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
@@ -41,67 +42,64 @@ class SubjectProvider extends StateNotifier<SubjectState> {
       final returnData = subjectRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // final listData = <dynamic>[];
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
 
-      // final listData = <dynamic>[];
-      final listDataHiveSubject =
-          decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          // final subjectDataResponse =
+          //       SubjectResponseModel.fromJson(decryptedData.mapData!);
+          //   // subjectDetails = subjectDataResponse.data!;
+          //   if (subjectDataResponse.status == 'Success') {
+          //     log('singledata>>>>${subjectDataResponse.data![0].subjectdetails}');
+          //     for (var i = 0; i < subjectDataResponse.data!.length; i++) {
+          //       final finalData =
+          //           splitString('${subjectDataResponse.data![i].subjectdetails}');
+          //       listData.add(finalData);
+          final box = await Hive.openBox<SubjectHiveData>('subjecthive');
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = SubjectHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      // try {
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = SubjectHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      // final subjectDataResponse =
-      //       SubjectResponseModel.fromJson(decryptedData.mapData!);
-      //   // subjectDetails = subjectDataResponse.data!;
-      //   if (subjectDataResponse.status == 'Success') {
-      //     log('singledata>>>>${subjectDataResponse.data![0].subjectdetails}');
-      //     for (var i = 0; i < subjectDataResponse.data!.length; i++) {
-      //       final finalData =
-      //           splitString('${subjectDataResponse.data![i].subjectdetails}');
-      //       listData.add(finalData);
-      final box = await Hive.openBox<SubjectHiveData>('subjecthive');
-      if (box.isEmpty) {
-        for (var i = 0; i < listDataHiveSubject.length; i++) {
-          final parseData = SubjectHiveData.fromJson(
-            listDataHiveSubject[i] as Map<String, dynamic>,
+              await box.add(parseData);
+            }
+          }
+
+          await box.close();
+
+          //  for (var i = 0; i < SubjectResponseModel..length; i++)
+          state = SubjectStateSuccessful(
+            successMessage: decryptedData.mapData!['Message'] as String,
+            errorMessage: '',
+            subjectHiveData: state.subjectHiveData,
           );
-
-          await box.add(parseData);
+        } else if (decryptedData.mapData!['Status'] != 'Success') {
+          state = SubjectStateError(
+            successMessage: '',
+            errorMessage:
+                '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Status']}''',
+            subjectHiveData: <SubjectHiveData>[],
+          );
         }
       } else {
-        await box.clear();
-        for (var i = 0; i < listDataHiveSubject.length; i++) {
-          final parseData = SubjectHiveData.fromJson(
-            listDataHiveSubject[i] as Map<String, dynamic>,
-          );
-
-          await box.add(parseData);
-        }
-      }
-
-      await box.close();
-      if (decryptedData.mapData!['Status'] == 'Success') {
-        //  for (var i = 0; i < SubjectResponseModel..length; i++)
-        state = SubjectStateSuccessful(
-          successMessage: decryptedData.mapData!['Message'] as String,
-          errorMessage: '',
-          subjectHiveData: state.subjectHiveData,
-        );
-      } else if (decryptedData.mapData!['Status'] != 'Success') {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = SubjectStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Status']}''',
+          errorMessage: '$error',
           subjectHiveData: <SubjectHiveData>[],
         );
       }
-      // } catch (e) {
-      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
-      //   state = SubjectStateError(
-      //     successMessage: '',
-      //     errorMessage: '',
-      //     subjectData: <dynamic>[],
-      //     subjectHiveData: <SubjectHiveData>[],
-      //   );
-      // }
     } else if (response.$1 != 200) {
       state = const SubjectStateError(
         successMessage: '',

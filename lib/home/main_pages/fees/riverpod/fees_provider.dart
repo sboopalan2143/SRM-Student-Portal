@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/fees/model.dart/finance_response_model.dart';
-import 'package:sample/home/main_pages/fees/model.dart/get_fees_details.dart';
+import 'package:sample/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
+import 'package:sample/home/main_pages/fees/model.dart/get_fees_details_hive_model.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 
 class FeesProvider extends StateNotifier<FeesState> {
@@ -18,11 +17,11 @@ class FeesProvider extends StateNotifier<FeesState> {
         successMessage: '',
         errorMessage: '',
         navFeesString: state.navFeesString,
-        financeData: <FinanceData>[],
-        feesDetailsData: <GetFeesData>[],
+        feesDetailsHiveData: <GetFeesHiveData>[],
+        financeHiveData: <FinanceHiveData>[],
       );
 
-  Future<void> getFinanceDetails(EncryptionProvider encrypt) async {
+  Future<void> getFinanceDetailsApi(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
@@ -34,8 +33,8 @@ class FeesProvider extends StateNotifier<FeesState> {
         successMessage: '',
         errorMessage: '',
         navFeesString: state.navFeesString,
-        financeData: <FinanceData>[],
-        feesDetailsData: <GetFeesData>[],
+        financeHiveData: <FinanceHiveData>[],
+        feesDetailsHiveData: state.feesDetailsHiveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -44,40 +43,62 @@ class FeesProvider extends StateNotifier<FeesState> {
       final returnData = financeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('decrypted>>>>>>>>$decryptedData');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // final listData = <FinanceData>[];
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
 
-      final listData = <FinanceData>[];
-      try {
-        final financeDataResponse =
-            FinanceResponseModel.fromJson(decryptedData.mapData!);
-        listData.addAll(financeDataResponse.data!);
-        state = state.copyWith(financeData: listData);
-        if (financeDataResponse.status == 'Success') {
+        if (listData.isNotEmpty) {
+          // final financeData =
+          //     FinanceResponseModel.fromJson(decryptedData.mapData!);
+          // listData.addAll(financeDataResponse.data!);
+          // state = state.copyWith(financeData: listData);
+
+          final box = await Hive.openBox<FinanceHiveData>('financeDetailsList');
+
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = FinanceHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = FinanceHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+
+              await box.add(parseData);
+            }
+          }
+          await box.close();
           state = FeesStateSuccessful(
-            successMessage: financeDataResponse.status!,
+            successMessage: '',
             errorMessage: '',
             navFeesString: state.navFeesString,
-            financeData: state.financeData,
-            feesDetailsData: state.feesDetailsData,
+            feesDetailsHiveData: state.feesDetailsHiveData,
+            financeHiveData: <FinanceHiveData>[],
           );
-        } else if (financeDataResponse.status != 'Success') {
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = FeesError(
             successMessage: '',
-            errorMessage:
-                '''${financeDataResponse.status!}, ${financeDataResponse.message!}''',
+            errorMessage: error.message!,
             navFeesString: state.navFeesString,
-            financeData: <FinanceData>[],
-            feesDetailsData: <GetFeesData>[],
+            financeHiveData: <FinanceHiveData>[],
+            feesDetailsHiveData: state.feesDetailsHiveData,
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = FeesError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['message']}''',
           navFeesString: state.navFeesString,
-          financeData: <FinanceData>[],
-          feesDetailsData: <GetFeesData>[],
+          financeHiveData: <FinanceHiveData>[],
+          feesDetailsHiveData: state.feesDetailsHiveData,
         );
       }
     } else if (response.$1 != 200) {
@@ -85,13 +106,28 @@ class FeesProvider extends StateNotifier<FeesState> {
         successMessage: '',
         errorMessage: 'Error',
         navFeesString: state.navFeesString,
-        financeData: <FinanceData>[],
-        feesDetailsData: <GetFeesData>[],
+        financeHiveData: <FinanceHiveData>[],
+        feesDetailsHiveData: state.feesDetailsHiveData,
       );
     }
   }
 
-  Future<void> getFeesDetails(EncryptionProvider encrypt) async {
+  Future<void> getHiveFinanceDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<FinanceHiveData>('financeDetailsList');
+      final financeDetailsHive = <FinanceHiveData>[...box.values];
+
+      state = state.copyWith(
+        financeHiveData: financeDetailsHive,
+      );
+      await box.close();
+    } catch (e) {
+      await getHiveFinanceDetails(search);
+    }
+  }
+
+  Future<void> getFeesDetailsApi(EncryptionProvider encrypt) async {
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
@@ -102,8 +138,8 @@ class FeesProvider extends StateNotifier<FeesState> {
         successMessage: '',
         errorMessage: '',
         navFeesString: state.navFeesString,
-        financeData: <FinanceData>[],
-        feesDetailsData: state.feesDetailsData,
+        financeHiveData: state.financeHiveData,
+        feesDetailsHiveData: state.feesDetailsHiveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -113,40 +149,59 @@ class FeesProvider extends StateNotifier<FeesState> {
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
-      var feesDetailsData = state.feesDetailsData;
-      log('decrypted>>>>>>>>${decryptedData.mapData}');
+      // var feesDetailsHiveData = state.feesDetailsHiveData;
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
 
-      try {
-        final feesDetailsDataDataResponse =
-            GetFeesDetailsModel.fromJson(decryptedData.mapData!);
-        feesDetailsData = feesDetailsDataDataResponse.data!;
-        state = state.copyWith(feesDetailsData: feesDetailsData);
-        if (feesDetailsDataDataResponse.status == 'Success') {
+        if (listData.isNotEmpty) {
+          // final feesDetailsHiveDataDataResponse =
+          //     GetFeesDetailsModel.fromJson(decryptedData.mapData!);
+          // feesDetailsHiveData = feesDetailsHiveDataDataResponse.data!;
+          // state = state.copyWith(feesDetailsHiveData: feesDetailsHiveData);
+          final box = await Hive.openBox<GetFeesHiveData>('feesDetails');
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GetFeesHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GetFeesHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
           state = FeesStateSuccessful(
-            successMessage: feesDetailsDataDataResponse.status!,
+            successMessage: decryptedData.mapData!['Status'] as String,
             errorMessage: '',
             navFeesString: state.navFeesString,
-            financeData: state.financeData,
-            feesDetailsData: state.feesDetailsData,
+            financeHiveData: state.financeHiveData,
+            feesDetailsHiveData: <GetFeesHiveData>[],
           );
-        } else if (feesDetailsDataDataResponse.status != 'Success') {
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = FeesError(
             successMessage: '',
-            errorMessage:
-                '''${feesDetailsDataDataResponse.status!}, ${feesDetailsDataDataResponse.message!}''',
+            errorMessage: error.message!,
             navFeesString: state.navFeesString,
-            financeData: <FinanceData>[],
-            feesDetailsData: state.feesDetailsData,
+            financeHiveData: state.financeHiveData,
+            feesDetailsHiveData: <GetFeesHiveData>[],
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = FeesError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           navFeesString: state.navFeesString,
-          financeData: <FinanceData>[],
-          feesDetailsData: state.feesDetailsData,
+          financeHiveData: state.financeHiveData,
+          feesDetailsHiveData: <GetFeesHiveData>[],
         );
       }
     } else if (response.$1 != 200) {
@@ -154,9 +209,24 @@ class FeesProvider extends StateNotifier<FeesState> {
         successMessage: '',
         errorMessage: 'Error',
         navFeesString: state.navFeesString,
-        financeData: <FinanceData>[],
-        feesDetailsData: state.feesDetailsData,
+        financeHiveData: state.financeHiveData,
+        feesDetailsHiveData: <GetFeesHiveData>[],
       );
+    }
+  }
+
+  Future<void> getHiveFeesDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<GetFeesHiveData>('feesDetails');
+      final feesDetailsHive = <GetFeesHiveData>[...box.values];
+
+      state = state.copyWith(
+        feesDetailsHiveData: feesDetailsHive,
+      );
+      await box.close();
+    } catch (e) {
+      await getHiveFeesDetails(search);
     }
   }
 

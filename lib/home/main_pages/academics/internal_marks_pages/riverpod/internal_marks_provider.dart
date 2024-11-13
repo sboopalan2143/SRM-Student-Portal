@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
@@ -41,43 +42,50 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       final returnData = internalMarksRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
-      // var internalMarkData = state.internalMarkData;
-      final internalMarkHiveData =
-          decryptedData.mapData!['Data'] as List<dynamic>;
-      log('decrypted>>>>>>>>$decryptedData');
-      // try {
-      // final internalMarksDataResponse =
-      //     GetInternalMarkDetails.fromJson(decryptedData.mapData!);
-      // internalMarkData = internalMarksDataResponse.data!;
-      // state = state.copyWith(internalMarkData: internalMarkData);
-
-      final box = await Hive.openBox<InternalMarkHiveData>(
-        'internakmarkdata',
-      );
-      if (box.isEmpty) {
-        for (var i = 0; i < internalMarkHiveData.length; i++) {
-          final parseData = InternalMarkHiveData.fromJson(
-              internalMarkHiveData[i] as Map<String, dynamic>);
-
-          await box.add(parseData);
-        }
-      } else {
-        await box.clear();
-        for (var i = 0; i < internalMarkHiveData.length; i++) {
-          final parseData = InternalMarkHiveData.fromJson(
-              internalMarkHiveData[i] as Map<String, dynamic>);
-
-          await box.add(parseData);
-        }
-      }
-      await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
-        state = InternalMarksStateSuccessful(
-          successMessage: decryptedData.mapData!['Status']! as String,
-          errorMessage: '',
-          internalMarkHiveData: state.internalMarkHiveData,
-        );
+        // var internalMarkData = state.internalMarkData;
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        log('decrypted>>>>>>>>$decryptedData');
+        if (listData.isNotEmpty) {
+          // final internalMarksDataResponse =
+          //     GetInternalMarkDetails.fromJson(decryptedData.mapData!);
+          // internalMarkData = internalMarksDataResponse.data!;
+          // state = state.copyWith(internalMarkData: internalMarkData);
+
+          final box = await Hive.openBox<InternalMarkHiveData>(
+            'internakmarkdata',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = InternalMarkHiveData.fromJson(
+                  listData[i] as Map<String, dynamic>);
+
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = InternalMarkHiveData.fromJson(
+                  listData[i] as Map<String, dynamic>);
+
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
+          state = InternalMarksStateSuccessful(
+            successMessage: decryptedData.mapData!['Status']! as String,
+            errorMessage: '',
+            internalMarkHiveData: state.internalMarkHiveData,
+          );
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
+          state = InternalMarksStateError(
+            successMessage: '',
+            errorMessage: error.message!,
+            internalMarkHiveData: state.internalMarkHiveData,
+          );
+        }
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = InternalMarksStateError(
           successMessage: '',
@@ -86,14 +94,6 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
           internalMarkHiveData: state.internalMarkHiveData,
         );
       }
-      // } catch (e) {
-      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
-      //   state = InternalMarksStateError(
-      //     successMessage: '',
-      //     errorMessage: error.message!,
-      //     internalMarkHiveData: state.internalMarkHiveData,
-      //   );
-      // }
     } else if (response.$1 != 200) {
       state = InternalMarksStateError(
         successMessage: '',

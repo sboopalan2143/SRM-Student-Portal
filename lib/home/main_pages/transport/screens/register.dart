@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,8 +7,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/transport/model/border_point_model.dart';
-import 'package:sample/home/main_pages/transport/model/route_model.dart';
+import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
+import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
@@ -24,15 +26,37 @@ class TransportRegisterPage extends ConsumerStatefulWidget {
 class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(transportProvider.notifier).getRouteIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getRouteIdHiveDetails(
+              '',
+            );
+        await ref.read(transportProvider.notifier).getBoardingIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+              '',
+            );
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(transportProvider.notifier).gettransportRegisterDetails(
-            ref.read(encryptionProvider.notifier),
+      ref.read(transportProvider.notifier).getRouteIdHiveDetails(
+            '',
           );
-      ref.read(transportProvider.notifier).getRouteIdDetails(
-            ref.read(encryptionProvider.notifier),
+      ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+            '',
           );
     });
   }
@@ -40,8 +64,8 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(transportProvider);
-    final width = MediaQuery.of(context).size.width;
     final readProvider = ref.read(transportProvider.notifier);
+    final width = MediaQuery.of(context).size.width;
     // log('status data in design>>>${provider.transportRegisterDetails!.status}, ${provider.transportRegisterDetails!.regconfig}');
     ref.listen(transportProvider, (previous, next) {
       if (next is TransportStateError) {
@@ -90,6 +114,34 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
               actions: [
                 Row(
                   children: [
+                    GestureDetector(
+                      onTap: () async {
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getRouteIdDetails(
+                              ref.read(encryptionProvider.notifier),
+                            );
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getRouteIdHiveDetails(
+                              '',
+                            );
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getBoardingIdDetails(
+                              ref.read(encryptionProvider.notifier),
+                            );
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getBoardingPointHiveDetails(
+                              '',
+                            );
+                      },
+                      child: const Icon(
+                        Icons.refresh,
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
                     IconButton(
                       onPressed: () {
                         scaffoldKey.currentState?.openEndDrawer();
@@ -132,7 +184,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           ),
                         ),
                         height: 40,
-                        child: DropdownSearch<RouteDetailsData>(
+                        child: DropdownSearch<RouteDetailsHiveData>(
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                               // border: BorderRadius.circular(10),
@@ -149,7 +201,9 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           selectedItem: provider.selectedRouteDetailsDataList,
                           onChanged: (value) {
                             readProvider.setsubtype(
-                                value!, ref.read(encryptionProvider.notifier),);
+                              value!,
+                              ref.read(encryptionProvider.notifier),
+                            );
                           },
                           dropdownBuilder:
                               (BuildContext context, routedetails) {
@@ -183,7 +237,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           ),
                         ),
                         height: 40,
-                        child: DropdownSearch<BorderPointData>(
+                        child: DropdownSearch<BoardingPointHiveData>(
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                             dropdownSearchDecoration: InputDecoration(
                               // border: BorderRadius.circular(10),
@@ -193,11 +247,11 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                             ),
                           ),
                           itemAsString: (item) => item.boardingpointname!,
-                          items: provider.borderpointDataList,
+                          items: provider.boardingPointDataList,
                           popupProps: const PopupProps.menu(
                             constraints: BoxConstraints(maxHeight: 250),
                           ),
-                          selectedItem: provider.selectedborderpointDataList,
+                          selectedItem: provider.selectedBoardingPointDataList,
                           onChanged: (value) {
                             readProvider.setBorderRoute(
                               value!,

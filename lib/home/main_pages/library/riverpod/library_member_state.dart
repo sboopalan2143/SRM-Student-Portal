@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/library/model/library_search_model.dart';
-import 'package:sample/home/main_pages/library/model/library_transaction_response_model.dart';
+import 'package:sample/home/main_pages/library/model/library_transaction_res_hive_model.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_provider.dart';
 
 final libraryProvider =
@@ -23,7 +23,7 @@ class LibraryTrancsactionState {
 
   final String successMessage;
   final String errorMessage;
-  final List<LibraryTransactionData> libraryTransactionData;
+  final List<LibraryTransactionHiveData> libraryTransactionData;
   final TextEditingController studentId;
   final TextEditingController officeid;
   final TextEditingController filter;
@@ -32,7 +32,7 @@ class LibraryTrancsactionState {
   LibraryTrancsactionState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<LibraryTransactionData>? libraryTransactionData,
+    List<LibraryTransactionHiveData>? libraryTransactionData,
     TextEditingController? studentId,
     TextEditingController? officeid,
     TextEditingController? filter,
@@ -55,7 +55,7 @@ class LibraryMemberInitial extends LibraryTrancsactionState {
       : super(
           successMessage: '',
           errorMessage: '',
-          libraryTransactionData: <LibraryTransactionData>[],
+          libraryTransactionData: <LibraryTransactionHiveData>[],
           studentId: TextEditingController(),
           officeid: TextEditingController(),
           filter: TextEditingController(),

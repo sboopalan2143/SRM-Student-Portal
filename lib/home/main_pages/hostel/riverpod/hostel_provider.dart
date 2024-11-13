@@ -3,16 +3,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_details_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 
 class HostelProvider extends StateNotifier<HostelState> {
@@ -23,21 +23,24 @@ class HostelProvider extends StateNotifier<HostelState> {
   void _setLoading() => state = HostelStateLoading(
         successMessage: '',
         errorMessage: '',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        hostelData: <HostelHiveData>[],
+        selectedHostelData: HostelHiveData.empty,
+        roomTypeData: <RoomTypeHiveData>[],
+        selectedRoomTypeData: RoomTypeHiveData.empty,
+        hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+        gethostelData: <GetHostelHiveData>[],
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: <HostelLeaveHiveData>[],
       );
 
   Future<void> getHostelDetails(EncryptionProvider encrypt) async {
     _setLoading();
+    log(
+      'dataaaaaaaaa>>>>>>> <studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
@@ -46,18 +49,18 @@ class HostelProvider extends StateNotifier<HostelState> {
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
         successMessage: '',
-        errorMessage: '',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        errorMessage: 'No Network. Connect to Internet',
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
+        gethostelData: <GetHostelHiveData>[],
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -66,89 +69,126 @@ class HostelProvider extends StateNotifier<HostelState> {
       final returnData = gethostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
-      var gethostelData = <GetHostelData>[];
-      log('decrypted>>>>>>>>$decryptedData');
-
-      try {
-        final gethosteldetailsResponse =
-            GetHostelDetailsModel.fromJson(decryptedData.mapData!);
-        gethostelData = gethosteldetailsResponse.data!;
-        state = state.copyWith(gethostelData: gethostelData);
-        if (gethosteldetailsResponse.status == 'Success') {
-          state = HostelStateSuccessful(
-            successMessage: '${decryptedData.mapData!['Status']}',
-            errorMessage: '',
-            hostelData: state.hostelData,
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: state.hostelRegisterDetails,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-            gethostelData: state.gethostelData,
-            fromDate: TextEditingController(),
-            toDate: TextEditingController(),
-            leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
+      log('hostel details>>>>${decryptedData.mapData}');
+      // var gethostelData = <GetHostelHiveData>[];
+      final listData = decryptedData.mapData!['Data'] as String;
+      final box = await Hive.openBox<GetHostelHiveData>(
+        'hostelData',
+      );
+      if (box.isEmpty) {
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = GetHostelHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
           );
-        } else if (gethosteldetailsResponse.status != 'Success') {
-          state = HostelStateError(
-            successMessage: '',
-            errorMessage: gethosteldetailsResponse.status!,
-            hostelData: <HostelData>[],
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: HostelRegisterData.empty,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-            gethostelData: <GetHostelData>[],
-            fromDate: TextEditingController(),
-            toDate: TextEditingController(),
-            leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
-          );
+
+          await box.add(parseData);
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
-        state = HostelStateError(
-          successMessage: '',
-          errorMessage: error.message!,
-          hostelData: <HostelData>[],
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-          gethostelData: <GetHostelData>[],
+      } else {
+        await box.clear();
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = GetHostelHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      // try {
+      // final gethosteldetailsResponse =
+      //     GetHostelDetailsModel.fromJson(decryptedData.mapData!);
+      // gethostelData = gethosteldetailsResponse.data!;
+      // state = state.copyWith(gethostelData: gethostelData);
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        state = HostelStateSuccessful(
+          successMessage: '${decryptedData.mapData!['Status']}',
+          errorMessage: '',
+          hostelData: state.hostelData,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
+          hostelRegisterDetails: state.hostelRegisterDetails,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
+          gethostelData: <GetHostelHiveData>[],
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
+        );
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
+        state = HostelStateError(
+          successMessage: '',
+          errorMessage: decryptedData.mapData!['Message'] as String,
+          hostelData: state.hostelData,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
+          hostelRegisterDetails: state.hostelRegisterDetails,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
+          gethostelData: <GetHostelHiveData>[],
+          fromDate: TextEditingController(),
+          toDate: TextEditingController(),
+          leaveReason: TextEditingController(),
+          hostelLeaveData: state.hostelLeaveData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = HostelStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     hostelData: <HostelData>[],
+      //     selectedHostelData: HostelData.empty,
+      //     roomTypeData: <RoomTypeData>[],
+      //     selectedRoomTypeData: RoomTypeData.empty,
+      //     hostelRegisterDetails: HostelRegisterData.empty,
+      //     hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+      //     gethostelData: <GetHostelData>[],
+      //     fromDate: TextEditingController(),
+      //     toDate: TextEditingController(),
+      //     leaveReason: TextEditingController(),
+      //     hostelLeaveData: <HostelLeaveData>[],
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
+        gethostelData: <GetHostelHiveData>[],
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     }
   }
 
+  Future<void> getHostelHiveDetails(String search) async {
+    log('Enters here hostel data');
+    try {
+      _setLoading();
+      final box = await Hive.openBox<GetHostelHiveData>(
+        'hostelData',
+      );
+      final hostelHiveData = <GetHostelHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(gethostelData: hostelHiveData);
+      log('hostel data>>>${state.gethostelData.length}');
+      await box.close();
+    } catch (e) {
+      await getHostelHiveDetails(search);
+    }
+  }
+
   Future<void> hostelRegister(EncryptionProvider encrypt) async {
-    log(
-      'body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.hostelRegisterDetails!.academicyearid}</academicyearid><roomtypeid>${state.selectedRoomTypeData.roomtypeid}</roomtypeid><hostelid>${state.selectedHostelData.hostelid}</hostelid><controllerid>${state.hostelRegisterDetails!.controllerid}</controllerid><officeid>${TokensManagement.officeId}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
-    );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.hostelRegisterDetails!.academicyearid}</academicyearid><roomtypeid>${state.selectedRoomTypeData.roomtypeid}</roomtypeid><hostelid>${state.selectedHostelData.hostelid}</hostelid><controllerid>${state.hostelRegisterDetails!.controllerid}</controllerid><officeid>${TokensManagement.officeId}</officeid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
@@ -163,12 +203,12 @@ class HostelProvider extends StateNotifier<HostelState> {
         roomTypeData: state.roomTypeData,
         selectedRoomTypeData: state.selectedRoomTypeData,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -176,24 +216,24 @@ class HostelProvider extends StateNotifier<HostelState> {
           details['getRegisterResponse'] as Map<String, dynamic>;
       final returnData = hostelRegisterRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
-      log('data>>>>>$data');
+
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('status>>>>>>>>${decryptedData.mapData!['Status']}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         state = HostelStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
           errorMessage: '',
           hostelData: state.hostelData,
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
           hostelRegisterDetails: state.hostelRegisterDetails,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           gethostelData: state.gethostelData,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
         );
       } else {
         state = HostelStateError(
@@ -204,12 +244,12 @@ class HostelProvider extends StateNotifier<HostelState> {
           roomTypeData: state.roomTypeData,
           selectedRoomTypeData: state.selectedRoomTypeData,
           hostelRegisterDetails: state.hostelRegisterDetails,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           gethostelData: state.gethostelData,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
         );
       }
     } else if (response.$1 != 200) {
@@ -221,17 +261,17 @@ class HostelProvider extends StateNotifier<HostelState> {
         roomTypeData: state.roomTypeData,
         selectedRoomTypeData: state.selectedRoomTypeData,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     }
   }
 
-  void setHostelValue(HostelData data, EncryptionProvider encrypt) {
+  void setHostelValue(HostelHiveData data, EncryptionProvider encrypt) {
     state = state.copyWith(selectedHostelData: data);
     getRoomType(
       encrypt,
@@ -239,13 +279,12 @@ class HostelProvider extends StateNotifier<HostelState> {
     );
   }
 
-  void setRoomTypeValue(RoomTypeData data) {
+  void setRoomTypeValue(RoomTypeHiveData data) {
     state = state.copyWith(selectedRoomTypeData: data);
   }
 
   Future<void> gethostel(EncryptionProvider encrypt) async {
     _setLoading();
-    log('enters hostel api');
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
@@ -255,17 +294,17 @@ class HostelProvider extends StateNotifier<HostelState> {
       state = NoNetworkAvailableHostel(
         successMessage: '',
         errorMessage: 'No Internet',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
+        hostelData: <HostelHiveData>[],
+        selectedHostelData: HostelHiveData.empty,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
+        gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -274,71 +313,107 @@ class HostelProvider extends StateNotifier<HostelState> {
       final data = returnData['#text'];
 
       final decryptedData = encrypt.getDecryptedData('$data');
-      var hostelData = <HostelData>[];
-      try {
-        final hostelDataResponse = HostelModel.fromJson(decryptedData.mapData!);
-        hostelData = hostelDataResponse.data!;
-        state = state.copyWith(hostelData: hostelData);
-
-        if (decryptedData.mapData!['Status'] == 'Success') {
-        } else {
-          state = HostelStateError(
-            successMessage: '',
-            errorMessage: '${decryptedData.mapData!['Status']}',
-            hostelData: state.hostelData,
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: state.hostelRegisterDetails,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-            gethostelData: state.gethostelData,
-            fromDate: TextEditingController(),
-            toDate: TextEditingController(),
-            leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
+      // var hostelData = <HostelData>[];
+      // try {
+      //   final hostelDataResponse = HostelModel.fromJson(decryptedData.mapData!);
+      //   hostelData = hostelDataResponse.data!;
+      //   state = state.copyWith(hostelData: hostelData);
+      final listData = decryptedData.mapData!['Data'] as String;
+      final box = await Hive.openBox<HostelHiveData>(
+        'hostel',
+      );
+      if (box.isEmpty) {
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = HostelHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
           );
+
+          await box.add(parseData);
         }
-      } catch (e) {
-        log('enters here');
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else {
+        await box.clear();
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = HostelHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      if (decryptedData.mapData!['Status'] == 'Success') {
+      } else {
         state = HostelStateError(
           successMessage: '',
-          errorMessage: error.message!,
-          hostelData: state.hostelData,
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
+          errorMessage: '${decryptedData.mapData!['Status']}',
+          hostelData: <HostelHiveData>[],
+          selectedHostelData: HostelHiveData.empty,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
           hostelRegisterDetails: state.hostelRegisterDetails,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           gethostelData: state.gethostelData,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = HostelStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     hostelData: state.hostelData,
+      //     selectedHostelData: HostelData.empty,
+      //     roomTypeData: <RoomTypeData>[],
+      //     selectedRoomTypeData: RoomTypeData.empty,
+      //     hostelRegisterDetails: state.hostelRegisterDetails,
+      //     hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+      //     gethostelData: state.gethostelData,
+      //     fromDate: TextEditingController(),
+      //     toDate: TextEditingController(),
+      //     leaveReason: TextEditingController(),
+      //     hostelLeaveData: <HostelLeaveData>[],
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
-        hostelData: state.hostelData,
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
+        hostelData: <HostelHiveData>[],
+        selectedHostelData: HostelHiveData.empty,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     }
   }
 
+  Future<void> getHostelNameHiveData(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<HostelHiveData>(
+        'hostel',
+      );
+      final hostelHive = <HostelHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(hostelData: hostelHive);
+      await box.close();
+    } catch (e) {
+      await getHostelNameHiveData(search);
+    }
+  }
+
   Future<void> getRoomType(EncryptionProvider encrypt, String hostelId) async {
-    log('hostelid >>>$hostelId');
-    log('Room type data>>>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid><hostelid>$hostelId</hostelid>');
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid><hostelid>$hostelId</hostelid>',
     );
@@ -350,15 +425,15 @@ class HostelProvider extends StateNotifier<HostelState> {
         errorMessage: 'No Internet',
         hostelData: state.hostelData,
         selectedHostelData: state.selectedHostelData,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
+        roomTypeData: <RoomTypeHiveData>[],
+        selectedRoomTypeData: RoomTypeHiveData.empty,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -366,64 +441,104 @@ class HostelProvider extends StateNotifier<HostelState> {
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      var roomType = <RoomTypeData>[];
-      try {
-        final roomTypeDataResponse =
-            RoomTypeModel.fromJson(decryptedData.mapData!);
-        roomType = roomTypeDataResponse.data!;
-        state = state.copyWith(roomTypeData: roomType);
-        if (decryptedData.mapData!['Status'] == 'Success') {
-        } else {
-          state = HostelStateError(
-            successMessage: '',
-            errorMessage: '${decryptedData.mapData!['Status']}',
-            hostelData: state.hostelData,
-            selectedHostelData: state.selectedHostelData,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: state.hostelRegisterDetails,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-            gethostelData: state.gethostelData,
-            fromDate: TextEditingController(),
-            toDate: TextEditingController(),
-            leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
+      // var roomType = <RoomTypeData>[];
+      // try {
+      //   final roomTypeDataResponse =
+      //       RoomTypeModel.fromJson(decryptedData.mapData!);
+      //   roomType = roomTypeDataResponse.data!;
+      //   state = state.copyWith(roomTypeData: roomType);
+      final listData = decryptedData.mapData!['Data'] as String;
+      final box = await Hive.openBox<RoomTypeHiveData>(
+        'roomTypeData',
+      );
+      if (box.isEmpty) {
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = RoomTypeHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
           );
+
+          await box.add(parseData);
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else {
+        await box.clear();
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = RoomTypeHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      if (decryptedData.mapData!['Status'] == 'Success') {
+      } else {
         state = HostelStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage: '${decryptedData.mapData!['Status']}',
           hostelData: state.hostelData,
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: <RoomTypeHiveData>[],
+          selectedRoomTypeData: RoomTypeHiveData.empty,
           hostelRegisterDetails: state.hostelRegisterDetails,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           gethostelData: state.gethostelData,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = HostelStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     hostelData: state.hostelData,
+      //     selectedHostelData: state.selectedHostelData,
+      //     roomTypeData: <RoomTypeData>[],
+      //     selectedRoomTypeData: RoomTypeData.empty,
+      //     hostelRegisterDetails: state.hostelRegisterDetails,
+      //     hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+      //     gethostelData: state.gethostelData,
+      //     fromDate: TextEditingController(),
+      //     toDate: TextEditingController(),
+      //     leaveReason: TextEditingController(),
+      //     hostelLeaveData: <HostelLeaveData>[],
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
         hostelData: state.hostelData,
         selectedHostelData: state.selectedHostelData,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
+        roomTypeData: <RoomTypeHiveData>[],
+        selectedRoomTypeData: RoomTypeHiveData.empty,
         hostelRegisterDetails: state.hostelRegisterDetails,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
+    }
+  }
+
+  Future<void> getRoomTypeHiveData(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<RoomTypeHiveData>(
+        'roomTypeData',
+      );
+      final roomTypeHiveData = <RoomTypeHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(roomTypeData: roomTypeHiveData);
+      await box.close();
+    } catch (e) {
+      await getHostelNameHiveData(search);
     }
   }
 
@@ -432,7 +547,6 @@ class HostelProvider extends StateNotifier<HostelState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
-    log('hostel>>>>><studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>');
     final response =
         await HttpService.sendSoapRequest('getHostelRegister', data);
     if (response.$1 == 0) {
@@ -440,16 +554,16 @@ class HostelProvider extends StateNotifier<HostelState> {
         successMessage: '',
         errorMessage: '',
         hostelData: state.hostelData,
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+        gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -458,45 +572,89 @@ class HostelProvider extends StateNotifier<HostelState> {
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('hostelRegister>>>>>>>>${decryptedData.mapData}');
 
-      var hostelRegisterDetails = HostelRegisterData.empty;
-      var hostelAfterRegisterDetails = HostelAfterRegisterData.empty;
-
+      // var hostelRegisterDetails = HostelRegisterData.empty;
+      // var hostelAfterRegisterDetails = HostelAfterRegisterData.empty;
+      log('register details  MAP DATA >>>>>${decryptedData.mapData}');
+      log('register details STRING DATA>>>>>${decryptedData.stringData}');
       if (decryptedData.mapData!['Status'] == 'Success') {
-        if (decryptedData.mapData!['Data'][0]['status'] == 0) {
-          log('enters status==0');
-          final hostelRegisterResponse =
-              HostelRegisterModel.fromJson(decryptedData.mapData!);
+        //   if (decryptedData.mapData!['Data'][0]['status'] == 0) {
+        //     final listData = decryptedData.mapData!['Data'][0] as List<dynamic>;
+        //     final box = await Hive.openBox<HostelBeforeRegisterHiveData>(
+        //       'hostelRegister',
+        //     );
+        //     if (box.isEmpty) {
+        //       for (var i = 0; i < listData.length; i++) {
+        //         final parseData = HostelBeforeRegisterHiveData.fromJson(
+        //           listData[i] as Map<String, dynamic>,
+        //         );
 
-          hostelRegisterDetails = hostelRegisterResponse.data![0];
-          state = state.copyWith(hostelRegisterDetails: hostelRegisterDetails);
-        } else {
-          log('enters status==1');
-          final hostelAfterRegisterResponse =
-              HostelAfterRegisterModel.fromJson(decryptedData.mapData!);
+        //         await box.add(parseData);
+        //       }
+        //     } else {
+        //       await box.clear();
+        //       for (var i = 0; i < listData.length; i++) {
+        //         final parseData = HostelBeforeRegisterHiveData.fromJson(
+        //           listData[i] as Map<String, dynamic>,
+        //         );
 
-          hostelAfterRegisterDetails = hostelAfterRegisterResponse.data![0];
-          state = state.copyWith(
-            hostelAfterRegisterDetails: hostelAfterRegisterDetails,
-          );
-        }
+        //         await box.add(parseData);
+        //       }
+        //     }
+        //     await box.close();
+        //     // final hostelRegisterResponse =
+        //     //     HostelRegisterModel.fromJson(decryptedData.mapData!);
+
+        //     // hostelRegisterDetails = hostelRegisterResponse.data![0];
+        //     // state = state.copyWith(hostelRegisterDetails: hostelRegisterDetails);
+        //   } else {
+        //     final listData =
+        //         decryptedData.mapData!['Data'][0] as Map<String, dynamic>;
+        //     final box = await Hive.openBox<HostelAfterRegisterHiveData>(
+        //       'hostelAfterRegister',
+        //     );
+        //     if (box.isEmpty) {
+        //       for (var i = 0; i < listData.length; i++) {
+        //         final parseData = HostelAfterRegisterHiveData.fromJson(
+        //           listData,
+        //         );
+
+        //         await box.add(parseData);
+        //       }
+        //     } else {
+        //       await box.clear();
+        //       for (var i = 0; i < listData.length; i++) {
+        //         final parseData = HostelAfterRegisterHiveData.fromJson(
+        //           listData,
+        //         );
+
+        //         await box.add(parseData);
+        //       }
+        //     }
+        //     await box.close();
+        //     // final hostelAfterRegisterResponse =
+        //     //     HostelAfterRegisterData.fromJson(decryptedData.mapData!);
+
+        //     // hostelAfterRegisterDetails = hostelAfterRegisterResponse;
+        //     // state = state.copyWith(
+        //     //   hostelAfterRegisterDetails: hostelAfterRegisterDetails,
+        //     // );
+        //   }
       } else if (decryptedData.mapData!['Status'] != 'Success') {
-        log('enters here !success');
         state = HostelStateError(
           successMessage: '',
           errorMessage: decryptedData.mapData!['Status'] as String,
           hostelData: state.hostelData,
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-          gethostelData: <GetHostelData>[],
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
+          hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+          hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+          gethostelData: state.gethostelData,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: state.hostelLeaveData,
         );
       }
     } else if (response.$1 != 200) {
@@ -504,16 +662,16 @@ class HostelProvider extends StateNotifier<HostelState> {
         successMessage: '',
         errorMessage: 'Error',
         hostelData: state.hostelData,
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-        gethostelData: <GetHostelData>[],
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+        hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+        gethostelData: state.gethostelData,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
+        hostelLeaveData: state.hostelLeaveData,
       );
     }
   }
@@ -522,32 +680,64 @@ class HostelProvider extends StateNotifier<HostelState> {
     state = state.copyWith();
   }
 
+  Future<void> getBeforeHostelRegisterDetailsHive(String search) async {
+    try {
+      final box = await Hive.openBox<HostelBeforeRegisterHiveData>(
+        'hostelRegister',
+      );
+      final hostelRegisterDetails = <HostelBeforeRegisterHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(hostelRegisterDetails: hostelRegisterDetails[0]);
+      await box.close();
+    } catch (e) {
+      await getBeforeHostelRegisterDetailsHive(search);
+    }
+  }
+
+  Future<void> getAfterHostelRegisterDetailsHive(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<HostelAfterRegisterHiveData>(
+        'hostelAfterRegister',
+      );
+      final hostelAfterRegisterDetails = <HostelAfterRegisterHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(
+        hostelAfterRegisterDetails: hostelAfterRegisterDetails[0],
+      );
+      await box.close();
+    } catch (e) {
+      await getAfterHostelRegisterDetailsHive(search);
+    }
+  }
+
   Future<void> studentLeaveSubmit(EncryptionProvider encrypt) async {
-    log(
-      'body>>>>>>>>><studentid>${TokensManagement.studentId}</studentid><fromdate>${state.fromDate.text}</fromdate><todate>${state.toDate.text}</todate><reason>${state.leaveReason.text}</reason>',
-    );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><fromdate>${state.fromDate.text}</fromdate><todate>${state.toDate.text}</todate><reason>${state.leaveReason.text}</reason>',
     );
-    log('encrypted data>>>>$data');
+
     final response =
         await HttpService.sendSoapRequest('getStudentLeaveSave', data);
-    log('student leave response>>>>>>$response');
+
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
         successMessage: '',
         errorMessage: 'No Internet',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         fromDate: state.fromDate,
         toDate: state.toDate,
         leaveReason: state.leaveReason,
-        hostelLeaveData: <HostelLeaveData>[],
-        gethostelData: <GetHostelData>[],
+        hostelLeaveData: state.hostelLeaveData,
+        gethostelData: state.gethostelData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -555,41 +745,41 @@ class HostelProvider extends StateNotifier<HostelState> {
           details['getStudentLeaveSaveResponse'] as Map<String, dynamic>;
       final returnData = hostelRegisterRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
-      log('data>>>>>$data');
+
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('decrypted data>>>>${decryptedData.stringData}');
+
       try {
         if (decryptedData.mapData!['status'] == 'Success') {
           state = HostelStateSuccessful(
             successMessage: '${decryptedData.mapData!['Message']}',
             errorMessage: '',
-            hostelData: <HostelData>[],
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: HostelRegisterData.empty,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+            hostelData: state.hostelData,
+            selectedHostelData: state.selectedHostelData,
+            roomTypeData: state.roomTypeData,
+            selectedRoomTypeData: state.selectedRoomTypeData,
+            hostelRegisterDetails: state.hostelRegisterDetails,
+            hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
             fromDate: TextEditingController(),
             toDate: TextEditingController(),
             leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[],
+            hostelLeaveData: state.hostelLeaveData,
+            gethostelData: state.gethostelData,
           );
         } else {
           state = HostelStateError(
             successMessage: '',
             errorMessage: '${decryptedData.mapData!['Message']}',
-            hostelData: <HostelData>[],
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: HostelRegisterData.empty,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+            hostelData: state.hostelData,
+            selectedHostelData: state.selectedHostelData,
+            roomTypeData: state.roomTypeData,
+            selectedRoomTypeData: state.selectedRoomTypeData,
+            hostelRegisterDetails: state.hostelRegisterDetails,
+            hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
             fromDate: state.fromDate,
             toDate: state.toDate,
             leaveReason: state.leaveReason,
-            hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[],
+            hostelLeaveData: state.hostelLeaveData,
+            gethostelData: state.gethostelData,
           );
         }
       } catch (e) {
@@ -601,51 +791,51 @@ class HostelProvider extends StateNotifier<HostelState> {
           state = HostelStateError(
             successMessage: '',
             errorMessage: '$e',
-            hostelData: <HostelData>[],
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: HostelRegisterData.empty,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+            hostelData: state.hostelData,
+            selectedHostelData: state.selectedHostelData,
+            roomTypeData: state.roomTypeData,
+            selectedRoomTypeData: state.selectedRoomTypeData,
+            hostelRegisterDetails: state.hostelRegisterDetails,
+            hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
             fromDate: state.fromDate,
             toDate: state.toDate,
             leaveReason: state.leaveReason,
-            hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[],
+            hostelLeaveData: state.hostelLeaveData,
+            gethostelData: state.gethostelData,
           );
         }
-        log('message>>>>>${jsonObject['Message']}');
+
         state = HostelStateError(
           successMessage: '',
           errorMessage: jsonObject['Message'] as String,
-          hostelData: <HostelData>[],
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          hostelData: state.hostelData,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
+          hostelRegisterDetails: state.hostelRegisterDetails,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           fromDate: state.fromDate,
           toDate: state.toDate,
           leaveReason: state.leaveReason,
-          hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[],
+          hostelLeaveData: state.hostelLeaveData,
+          gethostelData: state.gethostelData,
         );
       }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         fromDate: state.fromDate,
         toDate: state.toDate,
         leaveReason: state.leaveReason,
-        hostelLeaveData: <HostelLeaveData>[],
-        gethostelData: <GetHostelData>[],
+        hostelLeaveData: state.hostelLeaveData,
+        gethostelData: state.gethostelData,
       );
     }
   }
@@ -663,17 +853,17 @@ class HostelProvider extends StateNotifier<HostelState> {
       state = NoNetworkAvailableHostel(
         successMessage: '',
         errorMessage: '',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
-        gethostelData: <GetHostelData>[],
+        hostelLeaveData: <HostelLeaveHiveData>[],
+        gethostelData: state.gethostelData,
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -682,67 +872,109 @@ class HostelProvider extends StateNotifier<HostelState> {
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('decrypted leave status>>>>>>>>${decryptedData.mapData}');
-      var hostelLeaveData = <HostelLeaveData>[];
+
+      final listData = decryptedData.mapData!['Data'] as String;
+      final box = await Hive.openBox<HostelLeaveHiveData>(
+        'hostelLeaveStatus',
+      );
+      if (box.isEmpty) {
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = HostelLeaveHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      } else {
+        await box.clear();
+        for (var i = 0; i < listData.length; i++) {
+          final parseData = HostelLeaveHiveData.fromJson(
+            listData[i] as Map<String, dynamic>,
+          );
+
+          await box.add(parseData);
+        }
+      }
+      await box.close();
+      // var hostelLeaveData = <HostelLeaveData>[];
 
 //change model
-      try {
-        final hostelLeaveResponse =
-            HostelLeaveApplicationModel.fromJson(decryptedData.mapData!);
-        hostelLeaveData = hostelLeaveResponse.data!;
-        state = state.copyWith(hostelLeaveData: hostelLeaveData);
-        if (hostelLeaveResponse.status == 'Success') {
-        } else if (hostelLeaveResponse.status != 'Success') {
-          state = HostelStateError(
-            successMessage: '',
-            errorMessage: hostelLeaveResponse.message!,
-            hostelData: <HostelData>[],
-            selectedHostelData: HostelData.empty,
-            roomTypeData: <RoomTypeData>[],
-            selectedRoomTypeData: RoomTypeData.empty,
-            hostelRegisterDetails: HostelRegisterData.empty,
-            hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-            fromDate: TextEditingController(),
-            toDate: TextEditingController(),
-            leaveReason: TextEditingController(),
-            hostelLeaveData: <HostelLeaveData>[],
-            gethostelData: <GetHostelData>[],
-          );
-        }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      // try {
+      //   final hostelLeaveResponse =
+      //       HostelLeaveApplicationModel.fromJson(decryptedData.mapData!);
+      //   hostelLeaveData = hostelLeaveResponse.data!;
+      //   state = state.copyWith(hostelLeaveData: hostelLeaveData);
+      if (decryptedData.mapData!['Status'] == 'Success') {
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = HostelStateError(
           successMessage: '',
-          errorMessage: error.message!,
-          hostelData: <HostelData>[],
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+          errorMessage: decryptedData.mapData!['Message'] as String,
+          hostelData: state.hostelData,
+          selectedHostelData: state.selectedHostelData,
+          roomTypeData: state.roomTypeData,
+          selectedRoomTypeData: state.selectedRoomTypeData,
+          hostelRegisterDetails: state.hostelRegisterDetails,
+          hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
-          gethostelData: <GetHostelData>[],
+          hostelLeaveData: <HostelLeaveHiveData>[],
+          gethostelData: state.gethostelData,
         );
       }
+      // } catch (e) {
+      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
+      //   state = HostelStateError(
+      //     successMessage: '',
+      //     errorMessage: error.message!,
+      //     hostelData: state.hostelData,
+      //     selectedHostelData: state.selectedHostelData,
+      //     roomTypeData: state.roomTypeData,
+      //     selectedRoomTypeData: state.selectedRoomTypeData,
+      //     hostelRegisterDetails: HostelRegisterData.empty,
+      //     hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+      //     fromDate: TextEditingController(),
+      //     toDate: TextEditingController(),
+      //     leaveReason: TextEditingController(),
+      //     hostelLeaveData: <HostelLeaveData>[],
+      //     gethostelData: state.gethostelData,
+      //   );
+      // }
     } else if (response.$1 != 200) {
       state = HostelStateError(
         successMessage: '',
         errorMessage: 'Error',
-        hostelData: <HostelData>[],
-        selectedHostelData: HostelData.empty,
-        roomTypeData: <RoomTypeData>[],
-        selectedRoomTypeData: RoomTypeData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
+        hostelData: state.hostelData,
+        selectedHostelData: state.selectedHostelData,
+        roomTypeData: state.roomTypeData,
+        selectedRoomTypeData: state.selectedRoomTypeData,
+        hostelRegisterDetails: state.hostelRegisterDetails,
+        hostelAfterRegisterDetails: state.hostelAfterRegisterDetails,
         fromDate: TextEditingController(),
         toDate: TextEditingController(),
         leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveData>[],
-        gethostelData: <GetHostelData>[],
+        hostelLeaveData: <HostelLeaveHiveData>[],
+        gethostelData: state.gethostelData,
       );
     }
   }
+
+  Future<void> getHostelLeaveStatusHive(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<HostelLeaveHiveData>(
+        'hostelLeaveStatus',
+      );
+      final hostelLeaveStatusHive = <HostelLeaveHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(hostelLeaveData: hostelLeaveStatusHive);
+      await box.close();
+    } catch (e) {
+      await getHostelLeaveStatusHive(search);
+    }
+  }
 }
+
+

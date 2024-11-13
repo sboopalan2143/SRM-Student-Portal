@@ -11,6 +11,7 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
+import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
@@ -25,13 +26,28 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/i
 import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/main_pages/calendar/screens/calendar_screen.dart';
+import 'package:sample/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
+import 'package:sample/home/main_pages/fees/model.dart/get_fees_details_hive_model.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/fees/screens/fees.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/studentwise_grievance_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
+import 'package:sample/home/main_pages/library/model/library_transaction_res_hive_model.dart';
+import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
+import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
+import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
+import 'package:sample/home/main_pages/transport/model/transport_status_hive_model.dart';
+import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
@@ -71,6 +87,18 @@ class _HomePage2State extends ConsumerState<HomePage2>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+
+//PROFILE
+    final profile = await Hive.openBox<ProfileHiveData>('profile');
+    if (profile.isEmpty) {
+      await ref.read(profileProvider.notifier).getProfileApi(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(profileProvider.notifier).getProfileHive('');
+    }
+    await profile.close();
 
 //ACADEMICS
 
@@ -162,56 +190,156 @@ class _HomePage2State extends ConsumerState<HomePage2>
     }
     await subjects.close();
 
-    // try {
-    // await ref.read(profileProvider.notifier).getProfileApi(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(profileProvider.notifier).getProfile('');
-    // await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
-    // await ref.read(subjectProvider.notifier).getSubjectDetails(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(subjectProvider.notifier).getHiveSubgetDetails('');
-    // await ref.read(attendanceProvider.notifier).getAttendanceDetails(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
+    //FEES
+    final transactionFees =
+        await Hive.openBox<FinanceHiveData>('financeDetailsList');
+    if (transactionFees.isEmpty) {
+      await ref
+          .read(feesProvider.notifier)
+          .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+      await ref.read(feesProvider.notifier).getHiveFinanceDetails('');
+    }
+    await transactionFees.close();
 
-    // await ref
-    //     .read(cummulativeAttendanceProvider.notifier)
-    //     .getCummulativeAttendanceDetails(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref
-    //     .read(cummulativeAttendanceProvider.notifier)
-    //     .getHiveCummulativeDetails('');
+    final feesDetails = await Hive.openBox<GetFeesHiveData>('feesDetails');
+    if (feesDetails.isEmpty) {
+      await ref
+          .read(feesProvider.notifier)
+          .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
+      await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+    }
+    await feesDetails.close();
 
-    // await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
+// LIBRARY
+    final libraryMemberDetails = await Hive.openBox<LibraryTransactionHiveData>(
+      'libraryMemberDetails',
+    );
+    if (libraryMemberDetails.isEmpty) {
+      await ref
+          .read(libraryProvider.notifier)
+          .getLibraryMemberDetails(ref.read(encryptionProvider.notifier));
+      await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
+    }
+    await libraryMemberDetails.close();
 
-    // await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
-    //       ref.read(
-    //         encryptionProvider.notifier,
-    //       ),
-    //     );
-    // await ref.read(internalMarksProvider.notifier).getHiveinternalmark('');
+    //GRIEVANCES
+    final studentWiseHiveData = await Hive.openBox<StudentWiseHiveData>(
+      'studentWiseHiveData',
+    );
+    if (studentWiseHiveData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getStudentWiseGrievanceDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
+    }
+    await studentWiseHiveData.close();
+
+    final grievanceCategoryData = await Hive.openBox<GrievanceCategoryHiveData>(
+      'grievanceCategoryData',
+    );
+    if (grievanceCategoryData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceCategoryDetails('');
+    }
+    await grievanceCategoryData.close();
+
+    final grievanceSubTypeData = await Hive.openBox<GrievanceSubTypeHiveData>(
+      'grievanceSubTypeData',
+    );
+    if (grievanceSubTypeData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceSubTypeDetails('');
+    }
+    await grievanceSubTypeData.close();
+
+    final grievanceTypeData = await Hive.openBox<GrievanceTypeHiveData>(
+      'grievanceTypeData',
+    );
+    if (grievanceTypeData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceTypeDetails('');
+    }
+    await grievanceTypeData.close();
+
+//HOSTEL
+    final hostelData = await Hive.openBox<GetHostelHiveData>(
+      'hostelData',
+    );
+    if (hostelData.isEmpty) {
+      await ref.read(hostelProvider.notifier).getHostelDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(hostelProvider.notifier).getHostelHiveDetails(
+            '',
+          );
+    }
+    await hostelData.close();
+
+    final hostelLeaveStatus = await Hive.openBox<HostelLeaveHiveData>(
+      'hostelLeaveStatus',
+    );
+    if (hostelLeaveStatus.isEmpty) {
+      await ref.read(hostelProvider.notifier).getHostelLeaveStatus(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(hostelProvider.notifier).getHostelLeaveStatusHive(
+            '',
+          );
+    }
+    await hostelLeaveStatus.close();
+
+// TRANSPORT
+    final transportStatus = await Hive.openBox<TransportStatusHiveData>(
+      'transportStatus',
+    );
+    if (transportStatus.isEmpty) {
+      await ref.read(transportProvider.notifier).getTransportStatusDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(transportProvider.notifier)
+          .getTransportStatusHiveDetails('');
+    }
+    await transportStatus.close();
+
+    final routeDetails = await Hive.openBox<RouteDetailsHiveData>(
+      'routeDetails',
+    );
+    if (routeDetails.isEmpty) {
+      await ref.read(transportProvider.notifier).getRouteIdDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+            '',
+          );
+    }
+    await routeDetails.close();
+
+    final boardingPoint = await Hive.openBox<BoardingPointHiveData>(
+      'boardingPoint',
+    );
+    if (boardingPoint.isEmpty) {
+      await ref.read(transportProvider.notifier).getBoardingIdDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+            '',
+          );
+    }
+    await boardingPoint.close();
+
     // }
     // catch (e) {
     //   await TokensManagement.clearSharedPreference();
@@ -236,7 +364,8 @@ class _HomePage2State extends ConsumerState<HomePage2>
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final providerProfile = ref.watch(profileProvider);
-    final base64Image = '${providerProfile.profileData.studentphoto}';
+    final base64Image =
+        '${providerProfile.profileDataHive.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
@@ -899,149 +1028,6 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                             color: Colors.blue[800],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    ref
-                                        .read(feesProvider.notifier)
-                                        .setFeesNavString('Online Trans');
-                                    Navigator.push(
-                                      context,
-                                      RouteDesign(
-                                        route: const CalendarPage(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    // height: 120,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.5,
-                                    padding: const EdgeInsets.all(
-                                      15,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      // color: Colors.lightGreenAccent,
-                                      color: AppColors.homepagecolor1,
-                                      borderRadius: BorderRadius.circular(
-                                        20,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/calendar.png',
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              12,
-                                        ),
-                                        // Image.asset(
-                                        //   'assets/images/bus2.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        // Image.asset(
-                                        //   'assets/images/bus3.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        // Image.asset(
-                                        //   'assets/images/bus1.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          'Calender',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.blue[800],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      RouteDesign(
-                                        route: const LmsHomePage(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    // height: 120,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.5,
-                                    padding: const EdgeInsets.all(
-                                      15,
-                                    ),
-                                    // decoration: BoxDecoration(
-                                    //   // color: Colors.lightGreenAccent,
-                                    //   color: AppColors.homepagecolor3,
-                                    //   borderRadius: BorderRadius.circular(
-                                    //     20,
-                                    //   ),
-                                    // ),
-                                    child: Column(
-                                      children: [
-                                        // Image.asset(
-                                        //   'assets/images/LMS.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        // Image.asset(
-                                        //   'assets/images/bus2.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        // Image.asset(
-                                        //   'assets/images/bus3.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        // Image.asset(
-                                        //   'assets/images/bus1.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
-                                        const SizedBox(width: 10),
-                                        // Text(
-                                        //   'LMS',
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     fontWeight: FontWeight.bold,
-                                        //     color: Colors.blue[800],
-                                        //   ),
-                                        // ),
                                       ],
                                     ),
                                   ),

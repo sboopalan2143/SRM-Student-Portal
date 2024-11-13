@@ -1,16 +1,16 @@
 import 'package:hive/hive.dart';
 
-part 'border_point_hive_model.g.dart';
+part 'boarding_point_hive_model.g.dart';
 
 @HiveType(typeId: 26)
-class BorderPointHiveData {
-  BorderPointHiveData({
+class BoardingPointHiveData {
+  BoardingPointHiveData({
     this.transportstatus,
     this.fare,
     this.boardingpointname,
     this.busboardingpointid,
   });
-  BorderPointHiveData.fromJson(Map<String, dynamic> json) {
+  BoardingPointHiveData.fromJson(Map<String, dynamic> json) {
     transportstatus = json['transportstatus'] as String?;
     fare = json['fare'] as String?;
     boardingpointname = json['boardingpointname'] as String?;
@@ -26,7 +26,7 @@ class BorderPointHiveData {
     return data;
   }
 
-  static final empty = BorderPointHiveData(
+  static final empty = BoardingPointHiveData(
     transportstatus: '',
     fare: '',
     boardingpointname: 'Boarding point',

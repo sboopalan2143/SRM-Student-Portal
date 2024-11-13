@@ -26,15 +26,18 @@ class _HostelPageState extends ConsumerState<HostelPage> {
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
-  static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  // static int refreshNum = 10;
+  // Stream<int> counterStream =
+  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(hostelProvider.notifier).getHostelDetails(
+      (_) async {
+        await ref.read(hostelProvider.notifier).getHostelDetails(
               ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(hostelProvider.notifier).getHostelHiveDetails(
+              '',
             );
       },
     );
@@ -47,8 +50,8 @@ class _HostelPageState extends ConsumerState<HostelPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(hostelProvider.notifier).getHostelDetails(
-            ref.read(encryptionProvider.notifier),
+      ref.read(hostelProvider.notifier).getHostelHiveDetails(
+            '',
           );
     });
   }
@@ -108,9 +111,16 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref.read(hostelProvider.notifier).getHostelDetails(
+                        onTap: () async {
+                          await ref
+                              .read(hostelProvider.notifier)
+                              .getHostelDetails(
                                 ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
+                              .read(hostelProvider.notifier)
+                              .getHostelHiveDetails(
+                                '',
                               );
                         },
                         child: const Icon(
@@ -171,7 +181,8 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                     Column(
                       children: [
                         SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,),
+                          height: MediaQuery.of(context).size.height / 5,
+                        ),
                         const Center(
                           child: Text(
                             'No List Added Yet!',

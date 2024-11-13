@@ -24,7 +24,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
   Widget build(BuildContext context) {
     final providerProfile = ref.watch(profileProvider);
 
-    final base64Image = '${providerProfile.profileData.studentphoto}';
+    final base64Image = '${providerProfile.profileDataHive.studentphoto}';
     final imageBytes = base64Decode(base64Image);
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.64,

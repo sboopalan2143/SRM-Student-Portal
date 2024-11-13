@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'border_point_hive_model.dart';
+part of 'boarding_point_hive_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BorderPointHiveDataAdapter extends TypeAdapter<BorderPointHiveData> {
+class BoardingPointHiveDataAdapter extends TypeAdapter<BoardingPointHiveData> {
   @override
   final int typeId = 26;
 
   @override
-  BorderPointHiveData read(BinaryReader reader) {
+  BoardingPointHiveData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return BorderPointHiveData(
+    return BoardingPointHiveData(
       transportstatus: fields[0] as String?,
       fare: fields[1] as String?,
       boardingpointname: fields[2] as String?,
@@ -25,7 +25,7 @@ class BorderPointHiveDataAdapter extends TypeAdapter<BorderPointHiveData> {
   }
 
   @override
-  void write(BinaryWriter writer, BorderPointHiveData obj) {
+  void write(BinaryWriter writer, BoardingPointHiveData obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -44,7 +44,7 @@ class BorderPointHiveDataAdapter extends TypeAdapter<BorderPointHiveData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BorderPointHiveDataAdapter &&
+      other is BoardingPointHiveDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

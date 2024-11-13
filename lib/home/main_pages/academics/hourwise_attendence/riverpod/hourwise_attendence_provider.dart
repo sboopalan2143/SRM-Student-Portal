@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 
@@ -32,7 +33,7 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
     if (response.$1 == 0) {
       state = NoNetworkAvailablehourwise(
         successMessage: '',
-        errorMessage: '',
+        errorMessage: 'No Network. Connect to Internet',
         listHourWiseHiveData: state.listHourWiseHiveData,
       );
 
@@ -45,49 +46,56 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       // final listHourWiseData = state.listHourWiseData;
-
-      final listHourWiseHiveData =
-          decryptedData.mapData!['Data'] as List<dynamic>;
-      log('decrypted>>>>>>>>$decryptedData');
-
-      // try {
-      // final hourWiseDetails =
-      //     HourwisePaidDetails.fromJson(decryptedData.mapData!);
-      // listHourWiseData.addAll(hourWiseDetails.data!);
-      // state = state.copyWith(listHourWiseData: listHourWiseData);
-      final box = await Hive.openBox<HourwiseHiveData>(
-        'hourwisedata',
-      );
-      if (box.isEmpty) {
-        for (var i = 0; i < listHourWiseHiveData.length; i++) {
-          final parseData = HourwiseHiveData.fromJson(
-              listHourWiseHiveData[i] as Map<String, dynamic>);
-
-          await box.add(parseData);
-        }
-      } else {
-        await box.clear();
-        for (var i = 0; i < listHourWiseHiveData.length; i++) {
-          final parseData = HourwiseHiveData.fromJson(
-              listHourWiseHiveData[i] as Map<String, dynamic>);
-
-          await box.add(parseData);
-        }
-      }
-      await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
-        // final studentIdJson =
-        //     listHourWiseData.map((e) => e.toJson()).toList().toString();
-        // await TokensManagement.setStudentId(
-        //   studentId: studentIdJson,
-        // );
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        log('decrypted>>>>>>>>$decryptedData');
 
-        state = HourwiseStateSuccessful(
-          successMessage: decryptedData.mapData!['Status'] as String,
-          errorMessage: '',
-          listHourWiseHiveData: state.listHourWiseHiveData,
-        );
-        // disposeState();
+        if (listData.isNotEmpty) {
+          // final hourWiseDetails =
+          //     HourwisePaidDetails.fromJson(decryptedData.mapData!);
+          // listHourWiseData.addAll(hourWiseDetails.data!);
+          // state = state.copyWith(listHourWiseData: listHourWiseData);
+          final box = await Hive.openBox<HourwiseHiveData>(
+            'hourwisedata',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = HourwiseHiveData.fromJson(
+                  listData[i] as Map<String, dynamic>);
+
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = HourwiseHiveData.fromJson(
+                  listData[i] as Map<String, dynamic>);
+
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
+          // final studentIdJson =
+          //     listHourWiseData.map((e) => e.toJson()).toList().toString();
+          // await TokensManagement.setStudentId(
+          //   studentId: studentIdJson,
+          // );
+
+          state = HourwiseStateSuccessful(
+            successMessage: decryptedData.mapData!['Status'] as String,
+            errorMessage: '',
+            listHourWiseHiveData: state.listHourWiseHiveData,
+          );
+          // disposeState();
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
+          state = HourwiseError(
+            successMessage: '',
+            errorMessage: error.message!,
+            listHourWiseHiveData: state.listHourWiseHiveData,
+          );
+        }
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = HourwiseError(
           successMessage: '',
@@ -96,16 +104,6 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
           listHourWiseHiveData: state.listHourWiseHiveData,
         );
       }
-      // } catch (e) {
-      //   final error = ErrorModel.fromJson(decryptedData.mapData!);
-      //   state = HourwiseError(
-      //     successMessage: '',
-      //     errorMessage: error.message!,
-      //     hourwiseData: state.hourwiseData,
-      //     listHourWiseData: state.listHourWiseData,
-      //     listHourWiseHiveData: state.listHourWiseHiveData,
-      //   );
-      // }
     } else if (response.$1 != 200) {
       state = HourwiseError(
         successMessage: '',

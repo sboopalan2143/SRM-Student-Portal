@@ -1,14 +1,14 @@
-import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/studetwise_grievance_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/studentwise_grievance_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 
 class GrievanceProvider extends StateNotifier<GrievanceState> {
@@ -19,17 +19,17 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   void _setLoading() => state = GrievanceStateLoading(
         successMessage: '',
         errorMessage: '',
-        grievanceCaregoryData: <GrievanceCategoryData>[],
-        grievanceSubType: <GrievanceSubTypeData>[],
-        grievanceType: <GrievanceData>[],
-        selectedgrievanceCaregoryDataList: GrievanceCategoryData.empty,
-        selectedgrievanceSubTypeDataList: GrievanceSubTypeData.empty,
-        selectedgrievanceTypeDataList: GrievanceData.empty,
+        grievanceCaregoryData: <GrievanceCategoryHiveData>[],
+        grievanceSubType: <GrievanceSubTypeHiveData>[],
+        grievanceType: <GrievanceTypeHiveData>[],
+        selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+        selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
-        studentwisegrievanceData: <StudentWiseData>[],
+        studentwisegrievanceData: <StudentWiseHiveData>[],
       );
 
   Future<void> getGrievanceCategoryDetails(EncryptionProvider encrypt) async {
@@ -44,11 +44,10 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
         errorMessage: '',
-        grievanceCaregoryData: state.grievanceCaregoryData,
+        grievanceCaregoryData: <GrievanceCategoryHiveData>[],
         grievanceSubType: state.grievanceSubType,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
@@ -65,22 +64,41 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       final returnData = grievanceCaregoryRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // var grievanceCaregoryData = state.grievanceCaregoryData;
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          // final grievanceCaregoryDataResponse =
+          //     GrievanceCategory.fromJson(decryptedData.mapData!);
+          // grievanceCaregoryData = grievanceCaregoryDataResponse.data!;
+          // state = state.copyWith(grievanceCaregoryData: grievanceCaregoryData);
+          final box = await Hive.openBox<GrievanceCategoryHiveData>(
+            'grievanceCategoryData',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceCategoryHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      var grievanceCaregoryData = state.grievanceCaregoryData;
-      log('decrypted>>>>>>>>$decryptedData');
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceCategoryHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      try {
-        final grievanceCaregoryDataResponse =
-            GrievanceCategory.fromJson(decryptedData.mapData!);
-        grievanceCaregoryData = grievanceCaregoryDataResponse.data!;
-        state = state.copyWith(grievanceCaregoryData: grievanceCaregoryData);
-
-        if (grievanceCaregoryDataResponse.status == 'Success') {
-        } else if (grievanceCaregoryDataResponse.status != 'Success') {
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = GrievanceStateError(
             successMessage: '',
-            errorMessage:
-                '''${grievanceCaregoryDataResponse.status!}, ${grievanceCaregoryDataResponse.message!}''',
+            errorMessage: error.message!,
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
             grievanceType: state.grievanceType,
@@ -96,16 +114,15 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage: error.message!,
-          grievanceCaregoryData: state.grievanceCaregoryData,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          grievanceCaregoryData: <GrievanceCategoryHiveData>[],
           grievanceSubType: state.grievanceSubType,
           grievanceType: state.grievanceType,
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
+          selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
           selectedgrievanceSubTypeDataList:
               state.selectedgrievanceSubTypeDataList,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
@@ -119,12 +136,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     } else if (response.$1 != 200) {
       state = GrievanceStateError(
         successMessage: '',
-        errorMessage: 'Error',
-        grievanceCaregoryData: state.grievanceCaregoryData,
+        errorMessage: 'error',
+        grievanceCaregoryData: <GrievanceCategoryHiveData>[],
         grievanceSubType: state.grievanceSubType,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
@@ -137,7 +153,24 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     }
   }
 
-  void setValue(GrievanceCategoryData data) {
+  Future<void> getHiveGrievanceCategoryDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<GrievanceCategoryHiveData>(
+        'grievanceCategoryData',
+      );
+      final grievanceCategoryHiveData = <GrievanceCategoryHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(grievanceCaregoryData: grievanceCategoryHiveData);
+      await box.close();
+    } catch (e) {
+      await getHiveGrievanceCategoryDetails(search);
+    }
+  }
+
+  void setValue(GrievanceCategoryHiveData data) {
     state = state.copyWith(
       selectedgrievanceCaregoryDataList: data,
     );
@@ -154,13 +187,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
         errorMessage: '',
-        grievanceSubType: state.grievanceSubType,
+        grievanceSubType: <GrievanceSubTypeHiveData>[],
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
         selectedgrievanceCaregoryDataList:
             state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -175,28 +207,47 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       final returnData = grievanceSubTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // var grievanceSubType = state.grievanceSubType;
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          //   final grievanceSubTypeCResponse =
+          //       GrievanceSubTypeModel.fromJson(decryptedData.mapData!);
+          //   grievanceSubType = grievanceSubTypeCResponse.data!;
+          //   state = state.copyWith(grievanceSubType: grievanceSubType);
+          final box = await Hive.openBox<GrievanceSubTypeHiveData>(
+            'grievanceSubTypeData',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceSubTypeHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      var grievanceSubType = state.grievanceSubType;
-      log('decrypted >>>>>>>>$decryptedData');
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceSubTypeHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      try {
-        final grievanceSubTypeCResponse =
-            GrievanceSubTypeModel.fromJson(decryptedData.mapData!);
-        grievanceSubType = grievanceSubTypeCResponse.data!;
-        state = state.copyWith(grievanceSubType: grievanceSubType);
-        if (grievanceSubTypeCResponse.status == 'Success') {
-        } else if (grievanceSubTypeCResponse.status != 'Success') {
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = GrievanceStateError(
             successMessage: '',
-            errorMessage:
-                '''${grievanceSubTypeCResponse.status!}, ${grievanceSubTypeCResponse.message!}''',
+            errorMessage: error.message!,
             grievanceCaregoryData: state.grievanceCaregoryData,
-            grievanceSubType: state.grievanceSubType,
+            grievanceSubType: <GrievanceSubTypeHiveData>[],
             grievanceType: state.grievanceType,
             selectedgrievanceCaregoryDataList:
                 state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
+            selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
             selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
             description: TextEditingController(),
             studentId: TextEditingController(),
@@ -205,18 +256,17 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: state.grievanceCaregoryData,
-          grievanceSubType: state.grievanceSubType,
+          grievanceSubType: <GrievanceSubTypeHiveData>[],
           grievanceType: state.grievanceType,
           selectedgrievanceCaregoryDataList:
               state.selectedgrievanceCaregoryDataList,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
+          selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
           description: TextEditingController(),
           studentId: TextEditingController(),
@@ -230,12 +280,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         successMessage: '',
         errorMessage: 'Error',
         grievanceCaregoryData: state.grievanceCaregoryData,
-        grievanceSubType: state.grievanceSubType,
+        grievanceSubType: <GrievanceSubTypeHiveData>[],
         grievanceType: state.grievanceType,
         selectedgrievanceCaregoryDataList:
             state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -246,7 +295,24 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     }
   }
 
-  void setsubtype(GrievanceSubTypeData data) {
+  Future<void> getHiveGrievanceSubTypeDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<GrievanceSubTypeHiveData>(
+        'grievanceSubTypeData',
+      );
+      final grievanceCategoryHiveData = <GrievanceSubTypeHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(grievanceSubType: grievanceCategoryHiveData);
+      await box.close();
+    } catch (e) {
+      await getHiveGrievanceSubTypeDetails(search);
+    }
+  }
+
+  void setsubtype(GrievanceSubTypeHiveData data) {
     state = state.copyWith(
       selectedgrievanceSubTypeDataList: data,
     );
@@ -265,12 +331,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         errorMessage: '',
         grievanceSubType: state.grievanceSubType,
         grievanceCaregoryData: state.grievanceCaregoryData,
-        grievanceType: state.grievanceType,
+        grievanceType: <GrievanceTypeHiveData>[],
         selectedgrievanceCaregoryDataList:
             state.selectedgrievanceCaregoryDataList,
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),
@@ -284,29 +350,51 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       final returnData = grievanceTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          // var grievanceType = state.grievanceType;
 
-      var grievanceType = state.grievanceType;
-      log('decrypted>>>>>>>>$decryptedData');
+          final box = await Hive.openBox<GrievanceTypeHiveData>(
+            'grievanceTypeData',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceTypeHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      try {
-        final grievanceTypeCResponse =
-            GrievanceTypeModel.fromJson(decryptedData.mapData!);
-        grievanceType = grievanceTypeCResponse.data!;
-        state = state.copyWith(grievanceType: grievanceType);
-        if (grievanceTypeCResponse.status == 'Success') {
-        } else if (grievanceTypeCResponse.status != 'Success') {
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = GrievanceTypeHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+          // try {
+          //   final grievanceTypeCResponse =
+          //       GrievanceTypeModel.fromJson(decryptedData.mapData!);
+          //   grievanceType = grievanceTypeCResponse.data!;
+          //   state = state.copyWith(grievanceType: grievanceType);
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = GrievanceStateError(
             successMessage: '',
-            errorMessage:
-                '''${grievanceTypeCResponse.status!}, ${grievanceTypeCResponse.message!}''',
+            errorMessage: error.message!,
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
-            grievanceType: state.grievanceType,
+            grievanceType: <GrievanceTypeHiveData>[],
             selectedgrievanceCaregoryDataList:
                 state.selectedgrievanceCaregoryDataList,
             selectedgrievanceSubTypeDataList:
                 state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+            selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
             description: TextEditingController(),
             studentId: TextEditingController(),
             studentname: TextEditingController(),
@@ -314,19 +402,19 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentwisegrievanceData: state.studentwisegrievanceData,
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceSubType: state.grievanceSubType,
-          grievanceType: state.grievanceType,
+          grievanceType: <GrievanceTypeHiveData>[],
           selectedgrievanceCaregoryDataList:
               state.selectedgrievanceCaregoryDataList,
           selectedgrievanceSubTypeDataList:
               state.selectedgrievanceSubTypeDataList,
-          selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+          selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
           description: TextEditingController(),
           studentId: TextEditingController(),
           studentname: TextEditingController(),
@@ -340,12 +428,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         errorMessage: 'Error',
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceSubType: state.grievanceSubType,
-        grievanceType: state.grievanceType,
+        grievanceType: <GrievanceTypeHiveData>[],
         selectedgrievanceCaregoryDataList:
             state.selectedgrievanceCaregoryDataList,
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),
@@ -355,15 +443,30 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     }
   }
 
-  void settype(GrievanceData data) {
+  Future<void> getHiveGrievanceTypeDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<GrievanceTypeHiveData>(
+        'grievanceTypeData',
+      );
+      final grievanceTypeHiveData = <GrievanceTypeHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(grievanceType: grievanceTypeHiveData);
+      await box.close();
+    } catch (e) {
+      await getHiveGrievanceTypeDetails(search);
+    }
+  }
+
+  void settype(GrievanceTypeHiveData data) {
     state = state.copyWith(
       selectedgrievanceTypeDataList: data,
     );
   }
 
   Future<void> saveGrievanceDetails(EncryptionProvider encrypt) async {
-    log('{<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>}');
-
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>',
     );
@@ -394,18 +497,17 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       final returnData = saveGrievanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('Status >>>> ${decryptedData.mapData!['Status']}');
 
       if (decryptedData.mapData!['Status'] == 'Success') {
         state = GrievanceStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
           errorMessage: '',
-          grievanceCaregoryData: <GrievanceCategoryData>[],
-          grievanceSubType: <GrievanceSubTypeData>[],
-          grievanceType: <GrievanceData>[],
-          selectedgrievanceCaregoryDataList: GrievanceCategoryData.empty,
-          selectedgrievanceSubTypeDataList: GrievanceSubTypeData.empty,
-          selectedgrievanceTypeDataList: GrievanceData.empty,
+          grievanceCaregoryData: state.grievanceCaregoryData,
+          grievanceSubType: state.grievanceSubType,
+          grievanceType: state.grievanceType,
+          selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+          selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+          selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
           description: TextEditingController(),
           studentId: TextEditingController(),
           studentname: TextEditingController(),
@@ -424,10 +526,10 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           selectedgrievanceSubTypeDataList:
               state.selectedgrievanceSubTypeDataList,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-          description: TextEditingController(),
-          studentId: TextEditingController(),
-          studentname: TextEditingController(),
-          subject: TextEditingController(),
+          description: state.description,
+          studentId: state.studentId,
+          studentname: state.studentname,
+          subject: state.subject,
           studentwisegrievanceData: state.studentwisegrievanceData,
         );
       }
@@ -443,16 +545,16 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         selectedgrievanceSubTypeDataList:
             state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
-        description: TextEditingController(),
-        studentId: TextEditingController(),
-        studentname: TextEditingController(),
-        subject: TextEditingController(),
+        description: state.description,
+        studentId: state.studentId,
+        studentname: state.studentname,
+        subject: state.subject,
         studentwisegrievanceData: state.studentwisegrievanceData,
       );
     }
   }
 
-  Future<void> getStudentWisrGrievanceDetails(
+  Future<void> getStudentWiseGrievanceDetails(
     EncryptionProvider encrypt,
   ) async {
     _setLoading();
@@ -477,7 +579,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
-        studentwisegrievanceData: state.studentwisegrievanceData,
+        studentwisegrievanceData: <StudentWiseHiveData>[],
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
@@ -487,22 +589,44 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studetwisegrievanceTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // var studentwisegrievanceData = state.studentwisegrievanceData;
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          final box = await Hive.openBox<StudentWiseHiveData>(
+            'studentWiseHiveData',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = StudentWiseHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      var studentwisegrievanceData = state.studentwisegrievanceData;
-      log('decrypted studentwise>>>>>>>>$decryptedData');
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = StudentWiseHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      try {
-        final studetwisegrievanceResponse =
-            GetStudentWiseGrievancesMmodel.fromJson(decryptedData.mapData!);
-        studentwisegrievanceData = studetwisegrievanceResponse.data!;
-        state =
-            state.copyWith(studentwisegrievanceData: studentwisegrievanceData);
-        if (studetwisegrievanceResponse.status == 'Success') {
-        } else if (studetwisegrievanceResponse.status != 'Success') {
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
+          // try {
+          //   final studetwisegrievanceResponse =
+          //       GetStudentWiseGrievancesMmodel.fromJson(decryptedData.mapData!);
+          //   studentwisegrievanceData = studetwisegrievanceResponse.data!;
+          //   state =
+          //       state.copyWith(studentwisegrievanceData: studentwisegrievanceData);
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = GrievanceStateError(
             successMessage: '',
-            errorMessage:
-                '''${studetwisegrievanceResponse.status!}, ${studetwisegrievanceResponse.message!}''',
+            errorMessage: error.message!,
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
             grievanceType: state.grievanceType,
@@ -515,14 +639,14 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             studentId: TextEditingController(),
             studentname: TextEditingController(),
             subject: TextEditingController(),
-            studentwisegrievanceData: state.studentwisegrievanceData,
+            studentwisegrievanceData: <StudentWiseHiveData>[],
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceSubType: state.grievanceSubType,
           grievanceType: state.grievanceType,
@@ -535,7 +659,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           studentId: TextEditingController(),
           studentname: TextEditingController(),
           subject: TextEditingController(),
-          studentwisegrievanceData: state.studentwisegrievanceData,
+          studentwisegrievanceData: <StudentWiseHiveData>[],
         );
       }
     } else if (response.$1 != 200) {
@@ -554,8 +678,25 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         studentId: TextEditingController(),
         studentname: TextEditingController(),
         subject: TextEditingController(),
-        studentwisegrievanceData: state.studentwisegrievanceData,
+        studentwisegrievanceData: <StudentWiseHiveData>[],
       );
+    }
+  }
+
+  Future<void> getHiveGrievanceDetails(String search) async {
+    try {
+      _setLoading();
+      final box = await Hive.openBox<StudentWiseHiveData>(
+        'studentWiseHiveData',
+      );
+      final grievanceHiveData = <StudentWiseHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(studentwisegrievanceData: grievanceHiveData);
+      await box.close();
+    } catch (e) {
+      await getHiveGrievanceDetails(search);
     }
   }
 }

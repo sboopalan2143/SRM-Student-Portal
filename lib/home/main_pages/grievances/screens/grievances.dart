@@ -34,10 +34,13 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(grievanceProvider.notifier).getStudentWisrGrievanceDetails(
+      (_) async {
+        await ref
+            .read(grievanceProvider.notifier)
+            .getStudentWiseGrievanceDetails(
               ref.read(encryptionProvider.notifier),
             );
+        await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
       },
     );
 
@@ -49,9 +52,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(grievanceProvider.notifier).getStudentWisrGrievanceDetails(
-            ref.read(encryptionProvider.notifier),
-          );
+      ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
     });
   }
 
@@ -115,12 +116,15 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
+                        onTap: () async {
+                          await ref
                               .read(grievanceProvider.notifier)
-                              .getStudentWisrGrievanceDetails(
+                              .getStudentWiseGrievanceDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
+                          await ref
+                              .read(grievanceProvider.notifier)
+                              .getHiveGrievanceDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,

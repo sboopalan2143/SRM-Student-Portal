@@ -30,13 +30,15 @@ class _FeesPageState extends ConsumerState<FeesPage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref
+      (_) async {
+        await ref
             .read(feesProvider.notifier)
-            .getFeesDetails(ref.read(encryptionProvider.notifier));
-        ref
+            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+        await ref
             .read(feesProvider.notifier)
-            .getFinanceDetails(ref.read(encryptionProvider.notifier));
+            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFinanceDetails('');
       },
     );
 
@@ -48,12 +50,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(feesProvider.notifier)
-          .getFeesDetails(ref.read(encryptionProvider.notifier));
-      ref
-          .read(feesProvider.notifier)
-          .getFinanceDetails(ref.read(encryptionProvider.notifier));
+      ref.read(feesProvider.notifier).getHiveFeesDetails('');
+
+      ref.read(feesProvider.notifier).getHiveFinanceDetails('');
     });
   }
 
@@ -113,13 +112,21 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref.read(feesProvider.notifier).getFeesDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          ref.read(feesProvider.notifier).getFinanceDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                        onTap: () async {
+                          await ref
+                              .read(feesProvider.notifier)
+                              .getFeesDetailsApi(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(feesProvider.notifier)
+                              .getHiveFeesDetails('');
+                          await ref
+                              .read(feesProvider.notifier)
+                              .getFinanceDetailsApi(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(feesProvider.notifier)
+                              .getHiveFinanceDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -192,7 +199,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.financeData.isEmpty &&
+                else if (provider.financeHiveData.isEmpty &&
                     provider is! FeesStateLoading)
                   Column(
                     children: [
@@ -205,14 +212,16 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                       ),
                     ],
                   ),
-                if (provider.financeData.isNotEmpty)
+                if (provider.financeHiveData.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10,),
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     child: ListView.builder(
                       itemCount: provider.navFeesString == 'Paid Details'
-                          ? provider.feesDetailsData.length
-                          : provider.financeData.length,
+                          ? provider.feesDetailsHiveData.length
+                          : provider.financeHiveData.length,
                       controller: _listController,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
@@ -272,9 +281,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].duename}' == ''
+                      '${provider.feesDetailsHiveData[index].duename}' == ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].duename}',
+                          : '${provider.feesDetailsHiveData[index].duename}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -298,9 +307,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].amtcollected}' == ''
+                      '${provider.feesDetailsHiveData[index].amtcollected}' ==
+                              ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].amtcollected}',
+                          : '${provider.feesDetailsHiveData[index].amtcollected}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -324,9 +334,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].currentdue}' == ''
+                      '${provider.feesDetailsHiveData[index].currentdue}' == ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].currentdue}',
+                          : '${provider.feesDetailsHiveData[index].currentdue}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -350,9 +360,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].dueamount}' == ''
+                      '${provider.feesDetailsHiveData[index].dueamount}' == ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].dueamount}',
+                          : '${provider.feesDetailsHiveData[index].dueamount}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -376,9 +386,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].duedate}' == ''
+                      '${provider.feesDetailsHiveData[index].duedate}' == ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].duedate}',
+                          : '${provider.feesDetailsHiveData[index].duedate}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -402,9 +412,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].duedescription}' == ''
+                      '${provider.feesDetailsHiveData[index].duedescription}' ==
+                              ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].duedescription}',
+                          : '${provider.feesDetailsHiveData[index].duedescription}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -458,9 +469,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].receiptnum}' == ''
+                      '${provider.financeHiveData[index].receiptnum}' == ''
                           ? '-'
-                          : '${provider.financeData[index].receiptnum}',
+                          : '${provider.financeHiveData[index].receiptnum}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -484,9 +495,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].duedate}' == ''
+                      '${provider.financeHiveData[index].duedate}' == ''
                           ? '-'
-                          : '${provider.financeData[index].duedate}',
+                          : '${provider.financeHiveData[index].duedate}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -510,9 +521,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].modeoftransaction}' == ''
+                      '${provider.financeHiveData[index].modeoftransaction}' ==
+                              ''
                           ? '-'
-                          : '${provider.financeData[index].modeoftransaction}',
+                          : '${provider.financeHiveData[index].modeoftransaction}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -536,9 +548,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].dueamount}' == ''
+                      '${provider.financeHiveData[index].dueamount}' == ''
                           ? '-'
-                          : '${provider.financeData[index].dueamount}',
+                          : '${provider.financeHiveData[index].dueamount}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -562,9 +574,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].term}' == ''
+                      '${provider.financeHiveData[index].term}' == ''
                           ? '-'
-                          : '${provider.financeData[index].term}',
+                          : '${provider.financeHiveData[index].term}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -588,9 +600,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].amountcollected}' == ''
+                      '${provider.financeHiveData[index].amountcollected}' == ''
                           ? '-'
-                          : '${provider.financeData[index].amountcollected}',
+                          : '${provider.financeHiveData[index].amountcollected}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -614,9 +626,9 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeData[index].receiptdate}' == ''
+                      '${provider.financeHiveData[index].receiptdate}' == ''
                           ? '-'
-                          : '${provider.financeData[index].receiptdate}',
+                          : '${provider.financeHiveData[index].receiptdate}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -672,6 +684,4 @@ class _FeesPageState extends ConsumerState<FeesPage> {
       ),
     );
   }
-
-  
 }

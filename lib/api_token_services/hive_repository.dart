@@ -8,7 +8,6 @@ import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_d
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
-import 'package:sample/home/main_pages/calendar/model/calendar_hive_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
 import 'package:sample/home/main_pages/fees/model.dart/get_fees_details_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
@@ -28,7 +27,7 @@ import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_hive_model
 import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_hive_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_hive_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/border_point_hive_model.dart';
+import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_after_reg_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_register_hive_model.dart';
@@ -71,12 +70,11 @@ class HiveRepository {
         ..registerAdapter(GetAttachmentDetailsHiveDataAdapter())
         ..registerAdapter(LmsSubjectHiveDataAdapter())
         ..registerAdapter(LmsGetTitleHiveDataAdapter())
-        ..registerAdapter(BorderPointHiveDataAdapter())
+        ..registerAdapter(BoardingPointHiveDataAdapter())
         ..registerAdapter(RouteDetailsHiveDataAdapter())
         ..registerAdapter(TransportAfterRegisterHiveDataAdapter())
         ..registerAdapter(TransportRegisterHiveDataAdapter())
-        ..registerAdapter(TransportStatusHiveDataAdapter())
-        ..registerAdapter(CalendarHiveModelDataAdapter());
+        ..registerAdapter(TransportStatusHiveDataAdapter());
 
       initializeHiveFlag();
     }

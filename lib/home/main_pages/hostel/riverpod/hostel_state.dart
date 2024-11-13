@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_details_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_after_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
 
 final hostelProvider =
@@ -32,32 +32,32 @@ class HostelState {
 
   final String successMessage;
   final String errorMessage;
-  final List<HostelData> hostelData;
-  final HostelData selectedHostelData;
-  final List<RoomTypeData> roomTypeData;
-  final RoomTypeData selectedRoomTypeData;
-  final HostelRegisterData? hostelRegisterDetails;
-  final HostelAfterRegisterData? hostelAfterRegisterDetails;
-  final List<GetHostelData> gethostelData;
+  final List<HostelHiveData> hostelData;
+  final HostelHiveData selectedHostelData;
+  final List<RoomTypeHiveData> roomTypeData;
+  final RoomTypeHiveData selectedRoomTypeData;
+  final HostelBeforeRegisterHiveData? hostelRegisterDetails;
+  final HostelAfterRegisterHiveData? hostelAfterRegisterDetails;
+  final List<GetHostelHiveData> gethostelData;
   final TextEditingController fromDate;
   final TextEditingController toDate;
   final TextEditingController leaveReason;
-  final List<HostelLeaveData> hostelLeaveData;
+  final List<HostelLeaveHiveData> hostelLeaveData;
 
   HostelState copyWith({
     String? successMessage,
     String? errorMessage,
-    List<HostelData>? hostelData,
-    HostelData? selectedHostelData,
-    List<RoomTypeData>? roomTypeData,
-    RoomTypeData? selectedRoomTypeData,
-    HostelRegisterData? hostelRegisterDetails,
-    HostelAfterRegisterData? hostelAfterRegisterDetails,
-    List<GetHostelData>? gethostelData,
+    List<HostelHiveData>? hostelData,
+    HostelHiveData? selectedHostelData,
+    List<RoomTypeHiveData>? roomTypeData,
+    RoomTypeHiveData? selectedRoomTypeData,
+    HostelBeforeRegisterHiveData? hostelRegisterDetails,
+    HostelAfterRegisterHiveData? hostelAfterRegisterDetails,
+    List<GetHostelHiveData>? gethostelData,
     TextEditingController? fromDate,
     TextEditingController? toDate,
     TextEditingController? leaveReason,
-    List<HostelLeaveData>? hostelLeaveData,
+    List<HostelLeaveHiveData>? hostelLeaveData,
   }) =>
       HostelState(
         successMessage: successMessage ?? this.successMessage,
@@ -83,17 +83,17 @@ class HostelInitial extends HostelState {
       : super(
           successMessage: '',
           errorMessage: '',
-          hostelData: <HostelData>[],
-          selectedHostelData: HostelData.empty,
-          roomTypeData: <RoomTypeData>[],
-          selectedRoomTypeData: RoomTypeData.empty,
-          hostelRegisterDetails: HostelRegisterData.empty,
-          hostelAfterRegisterDetails: HostelAfterRegisterData.empty,
-          gethostelData: <GetHostelData>[],
+          hostelData: <HostelHiveData>[],
+          selectedHostelData: HostelHiveData.empty,
+          roomTypeData: <RoomTypeHiveData>[],
+          selectedRoomTypeData: RoomTypeHiveData.empty,
+          hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+          hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+          gethostelData: <GetHostelHiveData>[],
           fromDate: TextEditingController(),
           toDate: TextEditingController(),
           leaveReason: TextEditingController(),
-          hostelLeaveData: <HostelLeaveData>[],
+          hostelLeaveData: <HostelLeaveHiveData>[],
         );
 }
 

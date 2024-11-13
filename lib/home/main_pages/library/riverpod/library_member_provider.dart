@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/library/model/library_search_model.dart';
-import 'package:sample/home/main_pages/library/model/library_transaction_response_model.dart';
+import 'package:sample/home/main_pages/library/model/library_transaction_res_hive_model.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 
 class LibraryTransactionProvider
@@ -19,7 +20,7 @@ class LibraryTransactionProvider
         successMessage: '',
         errorMessage: '',
         // libraryMemberData: LibraryMemberData.empty,
-        libraryTransactionData: <LibraryTransactionData>[],
+        libraryTransactionData: <LibraryTransactionHiveData>[],
         studentId: TextEditingController(),
         officeid: TextEditingController(),
         filter: TextEditingController(),
@@ -30,7 +31,7 @@ class LibraryTransactionProvider
         successMessage: '',
         errorMessage: '',
         // libraryMemberData: LibraryMemberData.empty,
-        libraryTransactionData: <LibraryTransactionData>[],
+        libraryTransactionData: <LibraryTransactionHiveData>[],
         studentId: TextEditingController(),
         officeid: TextEditingController(),
         filter: state.filter,
@@ -61,16 +62,39 @@ class LibraryTransactionProvider
       final returnData = libraryMemberRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        // var libraryTransactionData = state.libraryTransactionData;
+        // log('decrypted>>>>>>>>$decryptedData');
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          final box = await Hive.openBox<LibraryTransactionHiveData>(
+            'libraryMemberDetails',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = LibraryTransactionHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      var libraryTransactionData = state.libraryTransactionData;
-      log('decrypted>>>>>>>>$decryptedData');
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = LibraryTransactionHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
 
-      try {
-        final libraryTransactionDataResponse =
-            GetLibraryTransaction.fromJson(decryptedData.mapData!);
-        libraryTransactionData = libraryTransactionDataResponse.data!;
-        state = state.copyWith(libraryTransactionData: libraryTransactionData);
-        if (libraryTransactionDataResponse.status == 'Success') {
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
+          // final libraryTransactionDataResponse =
+          //     GetLibraryTransaction.fromJson(decryptedData.mapData!);
+          // libraryTransactionData = libraryTransactionDataResponse.data!;
+          // state = state.copyWith(libraryTransactionData: libraryTransactionData);
+
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
           //   errorMessage: '',
@@ -79,11 +103,11 @@ class LibraryTransactionProvider
           //   officeid: TextEditingController(),
           //   filter: TextEditingController(),
           // );
-        } else if (libraryTransactionDataResponse.status != 'Success') {
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = LibraryTrancsactionStateError(
             successMessage: '',
-            errorMessage:
-                '''${libraryTransactionDataResponse.status!}, ${libraryTransactionDataResponse.message!}''',
+            errorMessage: error.message!,
             libraryTransactionData: state.libraryTransactionData,
             studentId: TextEditingController(),
             officeid: TextEditingController(),
@@ -91,11 +115,11 @@ class LibraryTransactionProvider
             librarysearchData: state.librarysearchData,
           );
         }
-      } catch (e) {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = LibraryTrancsactionStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage:
+              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           libraryTransactionData: state.libraryTransactionData,
           studentId: TextEditingController(),
           officeid: TextEditingController(),
@@ -113,6 +137,22 @@ class LibraryTransactionProvider
         filter: TextEditingController(),
         librarysearchData: state.librarysearchData,
       );
+    }
+  }
+
+  Future<void> getLibraryMemberHiveData(String search) async {
+    try {
+      final box = await Hive.openBox<LibraryTransactionHiveData>(
+        'libraryMemberDetails',
+      );
+      final libraryTransactionData = <LibraryTransactionHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(libraryTransactionData: libraryTransactionData);
+      await box.close();
+    } catch (e) {
+      await getLibraryMemberHiveData(search);
     }
   }
 

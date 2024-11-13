@@ -25,16 +25,16 @@ dependencies:
   package_info_plus:
   device_info_plus:
   logger:
-  awesome_notifications: ^0.9.3
+  awesome_notifications: ^0.8.2
   flutter_svg: ^1.1.6
   dropdown_search: ^5.0.5
   xml:
   encrypt:
   hex:
   flutter_styled_toast:
-  wave:
-  fluttertoast:
-  liquid_pull_to_refresh:
+  wave: 
+  fluttertoast: 
+  liquid_pull_to_refresh: 
   hive:
   # hive_flutter:
   path_provider:
@@ -54,7 +54,7 @@ dev_dependencies:
   flutter_native_splash:
   change_app_package_name:
   hive_generator:
-  build_runner:
+  build_runner: 
 
 # flutter pub run flutter_launcher_icons
 flutter_icons:

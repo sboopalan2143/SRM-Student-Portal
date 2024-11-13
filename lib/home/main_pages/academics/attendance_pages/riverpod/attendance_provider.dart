@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
+import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
@@ -27,7 +28,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
     if (response.$1 == 0) {
       state = const NoNetworkAvailableAttendance(
         successMessage: '',
-        errorMessage: '',
+        errorMessage: 'No Network. Connect to Internet',
         attendancehiveData: <AttendanceHiveData>[],
       );
     } else if (response.$1 == 200) {
@@ -37,38 +38,57 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       final returnData = attendanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
-      final attendancelistData =
-          decryptedData.mapData!['Data'] as List<dynamic>;
-
-      final box = await Hive.openBox<AttendanceHiveData>(
-        'Attendance',
-      );
-      if (box.isEmpty) {
-        for (var i = 0; i < attendancelistData.length; i++) {
-          final parseData = AttendanceHiveData.fromJson(
-            attendancelistData[i] as Map<String, dynamic>,
-          );
-
-          await box.add(parseData);
-        }
-      } else {
-        await box.clear();
-        for (var i = 0; i < attendancelistData.length; i++) {
-          final parseData = AttendanceHiveData.fromJson(
-            attendancelistData[i] as Map<String, dynamic>,
-          );
-
-          await box.add(parseData);
-        }
-      }
-      await box.close();
       if (decryptedData.mapData!['Status'] == 'Success') {
-        state = AttendanceStateSuccessful(
-          successMessage: decryptedData.mapData!['Message'] as String,
-          errorMessage: '',
-          attendancehiveData: <AttendanceHiveData>[],
-        );
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+
+        // var attendanceData = <dynamic>[];
+        if (listData.isNotEmpty) {
+          // //change model
+          // final attendanceDataResponse =
+          //     GetSubjectWiseAttedence.fromJson(decryptedData.mapData!);
+          // attendanceData = attendanceDataResponse.data!;
+          // state = state.copyWith(attendanceData: attendanceData);
+          final box = await Hive.openBox<AttendanceHiveData>(
+            'Attendance',
+          );
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = AttendanceHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData = AttendanceHiveData.fromJson(
+                listData[i] as Map<String, dynamic>,
+              );
+
+              await box.add(parseData);
+            }
+          }
+          await box.close();
+
+          // final studentIdJson =
+          //     attendanceData.map((e) => e.toJson()).toList().toString();
+          // await TokensManagement.setStudentId(
+          //   studentId: studentIdJson,
+          // );
+          state = AttendanceStateSuccessful(
+            successMessage: decryptedData.mapData!['Message'] as String,
+            errorMessage: '',
+            attendancehiveData: <AttendanceHiveData>[],
+          );
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
+          state = AttendanceStateError(
+            successMessage: '',
+            errorMessage: error.message!,
+            attendancehiveData: <AttendanceHiveData>[],
+          );
+        }
       } else if (decryptedData.mapData!['Message'] as String != 'Success') {
         state = AttendanceStateError(
           successMessage: '',

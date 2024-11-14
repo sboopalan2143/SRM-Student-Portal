@@ -67,7 +67,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final base64Image =
         '${provider.profileDataHive.studentphoto}'; // shortened for brevity
     final imageBytes = base64Decode(base64Image);
-    log('profiel image >>> $imageBytes');
+
+    log('profiel image >>> $base64Image');
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,

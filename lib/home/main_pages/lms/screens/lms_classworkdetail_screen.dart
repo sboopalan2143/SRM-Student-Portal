@@ -693,12 +693,27 @@ class _LmsClassworkDetailPageState
                       width: 150,
                       child: GestureDetector(
                         onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   RouteDesign(
+                          //     route: LmsStudentAttachmentDetailsDataPage(
+                          //       classworkID:
+                          //           '${provider.lmsTitleData[index].classworkid}',
+                          //     ),
+                          //   ),
+                          // );
+                          ref
+                              .read(lmsProvider.notifier)
+                              .getLmsStudentAttachmentDetails(
+                                ref.read(encryptionProvider.notifier),
+                                '${provider.classWorkDetailsData[index].classworkreplyid}',
+                              );
                           Navigator.push(
                             context,
                             RouteDesign(
                               route: LmsStudentAttachmentDetailsDataPage(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
+                                classworkreplyid:
+                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
                               ),
                             ),
                           );

@@ -9,6 +9,7 @@ import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/lms/model/%E1%B8%B7ms_faculty_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_getStudentAttachment_Details.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
@@ -31,6 +32,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: <LmsGetTitleData>[],
         classWorkDetailsData: <ClassWorkDetailsData>[],
         lmsAttachmentDetailsData: <GetAttachmentDetailsData>[],
+        lmsStudentAttachmentDetailsData: <GetStudentAttachmentDetailsData>[],
         comment: TextEditingController(),
         lmsgetcommentData: <GetCommentData>[],
         lmsReplayfacultycommentData: <ReplayFacultyCommentData>[],
@@ -59,6 +61,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -106,6 +109,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -129,6 +134,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -151,6 +158,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -184,6 +192,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -230,6 +239,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -253,6 +264,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -275,6 +288,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -309,6 +323,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -356,6 +371,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -379,6 +396,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -401,6 +420,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -435,6 +455,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -458,13 +479,14 @@ class LmsProvider extends StateNotifier<LmsState> {
 
       var lmsAttachmentDetailsData = state.lmsAttachmentDetailsData;
       // log('Attachment data >>>>>>>>$data');
-      log('decrypted att data >>>>>>>>${decryptedData.mapData}');
+      log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
 
       try {
         final lmsAttachmentDetailsDataResponse =
             GetAttachmentDetailsModel.fromJson(decryptedData.mapData!);
         lmsAttachmentDetailsData = lmsAttachmentDetailsDataResponse.data!;
-        log('attachment Details>>>>>${lmsAttachmentDetailsData[0].imageBytes}');
+        log('attachment Details provider >>>>>${lmsAttachmentDetailsData[0].imageBytes}');
+        log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsAttachmentDetailsDataResponse.data}');
         state =
             state.copyWith(lmsAttachmentDetailsData: lmsAttachmentDetailsData);
         if (lmsAttachmentDetailsDataResponse.status == 'Success') {
@@ -485,6 +507,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -508,6 +532,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -530,6 +556,146 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+        answerdesc: TextEditingController(),
+        mcqSubmitedData: state.mcqSubmitedData,
+        mcqgetAnswerDetails: state.mcqgetAnswerDetails,
+      );
+    }
+  }
+
+  Future<void> getLmsStudentAttachmentDetails(
+    EncryptionProvider encrypt,
+    String classworkreplyid,
+  ) async {
+    _setLoading();
+    final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkreplyid>$classworkreplyid</classworkreplyid>',
+    );
+    final response =
+        await HttpService.sendSoapRequest('getStudentAttachmentDetails', data);
+    if (response.$1 == 0) {
+      state = NoNetworkAvailableLmsMember(
+        successMessage: '',
+        errorMessage: '',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
+        comment: TextEditingController(),
+        lmsgetcommentData: state.lmsgetcommentData,
+        lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+        imagepath: TextEditingController(),
+        remarks: TextEditingController(),
+        action: TextEditingController(),
+        mcqSheduleData: state.mcqSheduleData,
+        mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+        answerdesc: TextEditingController(),
+        mcqSubmitedData: state.mcqSubmitedData,
+        mcqgetAnswerDetails: state.mcqgetAnswerDetails,
+      );
+    } else if (response.$1 == 200) {
+      final details = response.$2['Body'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getStudentAttachmentDetailsResponse']
+          as Map<String, dynamic>;
+      final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
+      final data = returnData['#text'];
+      final decryptedData = encrypt.getDecryptedData('$data');
+
+      var lmsStudentAttachmentDetailsData =
+          state.lmsStudentAttachmentDetailsData;
+      // log('Attachment data >>>>>>>>$data');
+      log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
+
+      try {
+        final lmsStudentAttachmentDetailsDataResponse =
+            GetStudentAttachmentDetailsModel.fromJson(decryptedData.mapData!);
+        lmsStudentAttachmentDetailsData =
+            lmsStudentAttachmentDetailsDataResponse.data!;
+        log('attachment Details provider >>>>>${lmsStudentAttachmentDetailsData[0].imageBytes}');
+        log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsStudentAttachmentDetailsDataResponse.data}');
+        state = state.copyWith(
+            lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData);
+        if (lmsStudentAttachmentDetailsDataResponse.status == 'Success') {
+          // state = LibraryTrancsactionStateSuccessful(
+          //   successMessage: libraryTransactionDataResponse.status!,
+          //   errorMessage: '',
+          //   libraryTransactionData: state.libraryTransactionData,
+          //   studentId: TextEditingController(),
+          //   officeid: TextEditingController(),
+          //   filter: TextEditingController(),
+          // );
+        } else if (lmsStudentAttachmentDetailsDataResponse.status !=
+            'Success') {
+          state = LmsStateError(
+            successMessage: '',
+            errorMessage:
+                '''${lmsStudentAttachmentDetailsDataResponse.status!}, ${lmsStudentAttachmentDetailsDataResponse.message!}''',
+            lmsSubjectData: state.lmsSubjectData,
+            lmsTitleData: state.lmsTitleData,
+            classWorkDetailsData: state.classWorkDetailsData,
+            lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
+            comment: TextEditingController(),
+            lmsgetcommentData: state.lmsgetcommentData,
+            lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+            lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+            imagepath: TextEditingController(),
+            remarks: TextEditingController(),
+            action: TextEditingController(),
+            mcqSheduleData: state.mcqSheduleData,
+            mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+            answerdesc: TextEditingController(),
+            mcqSubmitedData: state.mcqSubmitedData,
+            mcqgetAnswerDetails: state.mcqgetAnswerDetails,
+          );
+        }
+      } catch (e) {
+        final error = ErrorModel.fromJson(decryptedData.mapData!);
+        state = LmsStateError(
+          successMessage: '',
+          errorMessage: error.message!,
+          lmsSubjectData: state.lmsSubjectData,
+          lmsTitleData: state.lmsTitleData,
+          classWorkDetailsData: state.classWorkDetailsData,
+          lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
+          comment: TextEditingController(),
+          lmsgetcommentData: state.lmsgetcommentData,
+          lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
+          lmsfacultygetcommentData: state.lmsfacultygetcommentData,
+          imagepath: TextEditingController(),
+          remarks: TextEditingController(),
+          action: TextEditingController(),
+          mcqSheduleData: state.mcqSheduleData,
+          mcqQuestionAndAnswerData: state.mcqQuestionAndAnswerData,
+          answerdesc: TextEditingController(),
+          mcqSubmitedData: state.mcqSubmitedData,
+          mcqgetAnswerDetails: state.mcqgetAnswerDetails,
+        );
+      }
+    } else if (response.$1 != 200) {
+      state = LmsStateError(
+        successMessage: '',
+        errorMessage: 'Error',
+        lmsSubjectData: state.lmsSubjectData,
+        lmsTitleData: state.lmsTitleData,
+        classWorkDetailsData: state.classWorkDetailsData,
+        lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -554,7 +720,6 @@ class LmsProvider extends StateNotifier<LmsState> {
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmttypeid>2</cmttypeid><comment>${state.comment}</comment>',
     );
     final response = await HttpService.sendSoapRequest('SaveComment', data);
-
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -563,6 +728,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -583,7 +749,6 @@ class LmsProvider extends StateNotifier<LmsState> {
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       log('save comments >>${decryptedData.mapData}');
-
       state = LmsStateError(
         successMessage: '',
         errorMessage: '',
@@ -591,6 +756,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -612,6 +778,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -644,6 +811,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -691,6 +859,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -714,6 +884,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -736,6 +908,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -768,6 +941,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -816,6 +990,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -839,6 +1015,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -861,6 +1039,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -896,6 +1075,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -925,7 +1105,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             ReplayFacultyComment.fromJson(decryptedData.mapData!);
         lmsReplayfacultycommentData = lmsfacultCommentDetailsDataResponse.data!;
         state = state.copyWith(
-            lmsReplayfacultycommentData: lmsReplayfacultycommentData);
+          lmsReplayfacultycommentData: lmsReplayfacultycommentData,
+        );
         if (lmsfacultCommentDetailsDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
@@ -944,6 +1125,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -967,6 +1150,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -989,6 +1174,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1011,7 +1197,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     String imageattachmentid,
     String classworkreplyid,
     String fieldrequirements,
-    Uint8List imagepath,
+    String imagepath,
   ) async {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>',
@@ -1028,6 +1214,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1058,6 +1245,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1079,6 +1267,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1113,6 +1302,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1161,6 +1351,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1184,6 +1376,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1206,6 +1400,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1246,6 +1441,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1295,6 +1491,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1318,6 +1516,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1340,6 +1540,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1468,6 +1669,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1505,6 +1707,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1527,6 +1731,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1549,6 +1755,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1586,6 +1793,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1634,6 +1842,8 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData:
+                state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1648,9 +1858,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             mcqgetAnswerDetails: state.mcqgetAnswerDetails,
           );
         }
-      } 
-      catch (e) 
-      {
+      } catch (e) {
         final error = ErrorModel.fromJson(decryptedData.mapData!);
         state = LmsStateError(
           successMessage: '',
@@ -1659,6 +1867,8 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData:
+              state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1681,6 +1891,7 @@ class LmsProvider extends StateNotifier<LmsState> {
         lmsTitleData: state.lmsTitleData,
         classWorkDetailsData: state.classWorkDetailsData,
         lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
         comment: TextEditingController(),
         lmsgetcommentData: state.lmsgetcommentData,
         lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,

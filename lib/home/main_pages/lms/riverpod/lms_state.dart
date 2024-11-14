@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/lms/model/%E1%B8%B7ms_faculty_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
+import 'package:sample/home/main_pages/lms/model/lms_getStudentAttachment_Details.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
@@ -25,6 +26,7 @@ class LmsState {
     required this.lmsTitleData,
     required this.classWorkDetailsData,
     required this.lmsAttachmentDetailsData,
+    required this.lmsStudentAttachmentDetailsData,
     required this.comment,
     required this.lmsgetcommentData,
     required this.lmsReplayfacultycommentData,
@@ -45,6 +47,7 @@ class LmsState {
   final List<LmsGetTitleData> lmsTitleData;
   final List<ClassWorkDetailsData> classWorkDetailsData;
   final List<GetAttachmentDetailsData> lmsAttachmentDetailsData;
+  final List<GetStudentAttachmentDetailsData> lmsStudentAttachmentDetailsData;
   final TextEditingController comment;
   final List<GetCommentData> lmsgetcommentData;
   final List<ReplayFacultyCommentData> lmsReplayfacultycommentData;
@@ -65,6 +68,7 @@ class LmsState {
     List<LmsGetTitleData>? lmsTitleData,
     List<ClassWorkDetailsData>? classWorkDetailsData,
     List<GetAttachmentDetailsData>? lmsAttachmentDetailsData,
+    List<GetStudentAttachmentDetailsData>? lmsStudentAttachmentDetailsData,
     TextEditingController? comment,
     List<GetCommentData>? lmsgetcommentData,
     List<ReplayFacultyCommentData>? lmsReplayfacultycommentData,
@@ -86,6 +90,8 @@ class LmsState {
         classWorkDetailsData: classWorkDetailsData ?? this.classWorkDetailsData,
         lmsAttachmentDetailsData:
             lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData:
+            lmsStudentAttachmentDetailsData ?? this.lmsStudentAttachmentDetailsData,
         comment: comment ?? this.comment,
         lmsgetcommentData: lmsgetcommentData ?? this.lmsgetcommentData,
         lmsReplayfacultycommentData:
@@ -113,6 +119,7 @@ class LmsInitial extends LmsState {
           lmsTitleData: <LmsGetTitleData>[],
           classWorkDetailsData: <ClassWorkDetailsData>[],
           lmsAttachmentDetailsData: <GetAttachmentDetailsData>[],
+          lmsStudentAttachmentDetailsData: <GetStudentAttachmentDetailsData>[],
           comment: TextEditingController(),
           lmsgetcommentData: <GetCommentData>[],
           lmsReplayfacultycommentData: <ReplayFacultyCommentData>[],
@@ -136,6 +143,7 @@ class LmsStateLoading extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.lmsStudentAttachmentDetailsData,
     required super.comment,
     required super.lmsgetcommentData,
     required super.lmsReplayfacultycommentData,
@@ -159,6 +167,7 @@ class LmsStateError extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.lmsStudentAttachmentDetailsData,
     required super.comment,
     required super.lmsgetcommentData,
     required super.lmsReplayfacultycommentData,
@@ -182,6 +191,7 @@ class LmsStateSuccessful extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.lmsStudentAttachmentDetailsData,
     required super.comment,
     required super.lmsgetcommentData,
     required super.lmsReplayfacultycommentData,
@@ -205,6 +215,7 @@ class LmsStateclear extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.lmsStudentAttachmentDetailsData,
     required super.comment,
     required super.lmsgetcommentData,
     required super.lmsReplayfacultycommentData,
@@ -228,6 +239,7 @@ class NoNetworkAvailableLmsMember extends LmsState {
     required super.lmsTitleData,
     required super.classWorkDetailsData,
     required super.lmsAttachmentDetailsData,
+    required super.lmsStudentAttachmentDetailsData,
     required super.comment,
     required super.lmsgetcommentData,
     required super.lmsReplayfacultycommentData,

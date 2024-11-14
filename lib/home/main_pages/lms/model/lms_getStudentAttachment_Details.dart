@@ -1,21 +1,22 @@
 // ignore: file_names
-class GetAttachmentDetailsModel {
-  GetAttachmentDetailsModel({this.status, this.message, this.data});
+class GetStudentAttachmentDetailsModel {
+  GetStudentAttachmentDetailsModel({this.status, this.message, this.data});
 
-  GetAttachmentDetailsModel.fromJson(Map<String, dynamic> json) {
+  GetStudentAttachmentDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['Status'] as String?;
     message = json['Message'] as String?;
     if (json['Data'] != null) {
-      data = <GetAttachmentDetailsData>[];
+      data = <GetStudentAttachmentDetailsData>[];
       // ignore: inference_failure_on_untyped_parameter, avoid_dynamic_calls
       json['Data'].forEach((v) {
-        data!.add(GetAttachmentDetailsData.fromJson(v as Map<String, dynamic>));
+        data!.add(GetStudentAttachmentDetailsData.fromJson(
+            v as Map<String, dynamic>));
       });
     }
   }
   String? status;
   String? message;
-  List<GetAttachmentDetailsData>? data;
+  List<GetStudentAttachmentDetailsData>? data;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -28,10 +29,11 @@ class GetAttachmentDetailsModel {
   }
 }
 
-class GetAttachmentDetailsData {
-  GetAttachmentDetailsData({this.filename, this.actualname, this.imageBytes});
+class GetStudentAttachmentDetailsData {
+  GetStudentAttachmentDetailsData(
+      {this.filename, this.actualname, this.imageBytes});
 
-  GetAttachmentDetailsData.fromJson(Map<String, dynamic> json) {
+  GetStudentAttachmentDetailsData.fromJson(Map<String, dynamic> json) {
     filename = json['filename'] as String?;
     actualname = json['actualname'] as String?;
     imageBytes = json['imagedata'] as String?;

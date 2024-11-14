@@ -14,10 +14,10 @@ import 'package:sample/home/widgets/drawer_design.dart';
 
 class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   const LmsStudentAttachmentDetailsDataPage({
-    required this.classworkID,
+    required this.classworkreplyid,
     super.key,
   });
-  final String classworkID;
+  final String classworkreplyid;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -39,9 +39,9 @@ class LmsStudentAttachmentDetailsDataPageState
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+        ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
               ref.read(encryptionProvider.notifier),
-              widget.classworkID,
+              widget.classworkreplyid,
             );
       },
     );
@@ -54,9 +54,9 @@ class LmsStudentAttachmentDetailsDataPageState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+      ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
             ref.read(encryptionProvider.notifier),
-            widget.classworkID,
+            widget.classworkreplyid,
           );
     });
   }
@@ -92,9 +92,9 @@ class LmsStudentAttachmentDetailsDataPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                  ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
                         ref.read(encryptionProvider.notifier),
-                        widget.classworkID,
+                        widget.classworkreplyid,
                       );
                   Navigator.pop(context);
                 },
@@ -120,9 +120,9 @@ class LmsStudentAttachmentDetailsDataPageState
                         onTap: () {
                           ref
                               .read(lmsProvider.notifier)
-                              .getLmsAttachmentDetails(
+                              .getLmsStudentAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
+                                widget.classworkreplyid,
                               );
                         },
                         child: const Icon(
@@ -157,7 +157,7 @@ class LmsStudentAttachmentDetailsDataPageState
                           .primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.lmsAttachmentDetailsData.isEmpty &&
+                else if (provider.lmsStudentAttachmentDetailsData.isEmpty &&
                     provider is! LibraryTrancsactionStateLoading)
                   Column(
                     children: [
@@ -170,9 +170,9 @@ class LmsStudentAttachmentDetailsDataPageState
                       ),
                     ],
                   ),
-                if (provider.lmsAttachmentDetailsData.isNotEmpty)
+                if (provider.lmsStudentAttachmentDetailsData.isNotEmpty)
                   ListView.builder(
-                    itemCount: provider.lmsAttachmentDetailsData.length,
+                    itemCount: provider.lmsStudentAttachmentDetailsData.length,
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -230,10 +230,10 @@ class LmsStudentAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsAttachmentDetailsData[index].imageBytes}' ==
+                        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}' ==
                                 ''
                             ? '-'
-                            : '${provider.lmsAttachmentDetailsData[index].imageBytes}',
+                            : '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -246,9 +246,10 @@ class LmsStudentAttachmentDetailsDataPageState
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.memory(
-                        provider.lmsAttachmentDetailsData[index].imageBytes !=
+                        provider.lmsStudentAttachmentDetailsData[index]
+                                    .imageBytes !=
                                 null
-                            ? provider.lmsAttachmentDetailsData[index]
+                            ? provider.lmsStudentAttachmentDetailsData[index]
                                 .imageBytes! as Uint8List
                             : Uint8List(
                                 0,
@@ -276,10 +277,10 @@ class LmsStudentAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsAttachmentDetailsData[index].actualname}' ==
+                        '${provider.lmsStudentAttachmentDetailsData[index].actualname}' ==
                                 ''
                             ? '-'
-                            : '''${provider.lmsAttachmentDetailsData[index].actualname}''',
+                            : '''${provider.lmsStudentAttachmentDetailsData[index].actualname}''',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
@@ -303,10 +304,10 @@ class LmsStudentAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsAttachmentDetailsData[index].filename}' ==
+                        '${provider.lmsStudentAttachmentDetailsData[index].filename}' ==
                                 ''
                             ? '-'
-                            : '${provider.lmsAttachmentDetailsData[index].filename}',
+                            : '${provider.lmsStudentAttachmentDetailsData[index].filename}',
                         style: TextStyles.fontStyle10,
                       ),
                     ),

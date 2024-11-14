@@ -337,7 +337,7 @@ class LmsAttachmentDetailsDataPageState
     final pdfBytes = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
     final imageBytes = base64Decode(pdfBytes);
 
-    log('Attachment PDF >>> $pdfBytes');
+    log('Attachment PDF >>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
     log('Attachment image PDF >>> $imageBytes');
     log('Model data>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
 
@@ -361,66 +361,66 @@ class LmsAttachmentDetailsDataPageState
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'File',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const Pdfview(
-                              url:
-                                  'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Text('PDF From URL'),
-                    )
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Excel',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    const SizedBox(width: 5),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ExcelViewer(),
-                          ),
-                        );
-                      },
-                      child: const Text('Excel'),
-                    )
-                  ],
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: const Text(
+                //         'File',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //     const Text(
+                //       ':',
+                //       style: TextStyles.fontStyle10,
+                //     ),
+                //     const SizedBox(width: 5),
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (_) => const Pdfview(
+                //               url:
+                //                   'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //       child: const Text('PDF From URL'),
+                //     )
+                //   ],
+                // ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: const Text(
+                //         'Excel',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //     const Text(
+                //       ':',
+                //       style: TextStyles.fontStyle10,
+                //     ),
+                //     const SizedBox(width: 5),
+                //     const SizedBox(width: 5),
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (_) => ExcelViewer(),
+                //           ),
+                //         );
+                //       },
+                //       child: const Text('Excel'),
+                //     )
+                //   ],
+                // ),
                 Center(
                   child: SizedBox(
                     height: 200,

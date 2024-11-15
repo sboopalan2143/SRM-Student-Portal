@@ -190,7 +190,7 @@ class _TransportTransactionPageState
                         const Center(
                           child: Text(
                             'No List Added Yet!',
-                            style: TextStyles.fontStyle1,
+                            style: TextStyles.fontStyle,
                           ),
                         ),
                       ],

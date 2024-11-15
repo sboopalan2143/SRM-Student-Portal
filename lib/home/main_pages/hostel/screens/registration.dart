@@ -122,7 +122,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     const Center(
                       child: Text(
                         'No Data!',
-                        style: TextStyles.fontStyle1,
+                        style: TextStyles.fontStyle,
                       ),
                     ),
                   ],

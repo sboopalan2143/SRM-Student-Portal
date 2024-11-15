@@ -122,6 +122,12 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static const fontStyle = TextStyle(
+    fontSize: 18,
+    color: AppColors.blackColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static const fontStyle1 = TextStyle(
     fontSize: 18,
     color: AppColors.whiteColor,

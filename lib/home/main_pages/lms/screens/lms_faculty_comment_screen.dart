@@ -174,7 +174,7 @@
 //                       Center(
 //                         child: Text(
 //                           'No List Added Yet!',
-//                           style: TextStyles.fontStyle1,
+//                           style: TextStyles.fontStyle,
 //                         ),
 //                       ),
 //                     ],
@@ -250,7 +250,7 @@
 //         //               const Center(
 //         //                 child: Text(
 //         //                   'No List Added Yet!',
-//         //                   style: TextStyles.fontStyle1,
+//         //                   style: TextStyles.fontStyle,
 //         //                 ),
 //         //               ),
 //         //             ],
@@ -610,7 +610,7 @@ import 'package:sample/home/widgets/drawer_design.dart';
 //                       Center(
 //                         child: Text(
 //                           'No List Added Yet!',
-//                           style: TextStyles.fontStyle1,
+//                           style: TextStyles.fontStyle,
 //                         ),
 //                       ),
 //                     ],
@@ -967,7 +967,7 @@ class _LmsFacultyCommentScreenState
                   child: Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle1,
+                      style: TextStyles.fontStyle,
                     ),
                   ),
                 )

@@ -162,7 +162,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       const Center(
                         child: Text(
                           'No Data!',
-                          style: TextStyles.fontStyle1,
+                          style: TextStyles.fontStyle,
                         ),
                       ),
                     ],

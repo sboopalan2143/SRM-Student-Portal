@@ -51,11 +51,11 @@ class LmsSaveWorkReplayDetailsDataPageState
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
-  String base64JsonArray = ' ';
   List<String> imagePaths = [];
-  List<String> imagePathswithname = [];
+  List<String> imageName = [];
+  List<String> sampledata = [];
   List<Uint8List> imageBytes = [];
-  List<Uint8List> imageByteswihname = [];
+  String sendData = '';
 
   Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -63,26 +63,52 @@ class LmsSaveWorkReplayDetailsDataPageState
       allowMultiple: true,
     );
 
+    // if (result != null) {
+    //   setState(() {
+    //     imagePaths = result.files.map((file) => file.path!).toList();
+    //     imageName = result.files.map((file) => file.name).toList();
+    //     imageBytes = imagePaths.map((path) {
+    //       return File(path).readAsBytesSync();
+    //     }).toList();
+    //     log('data >>> $sampledata');
+    //     for (var i = 0; i < imagePaths.length; i++) {
+    //       final con = base64Encode(imageBytes[i]);
+    //       sampledata.add('${imageName[i]}!^!${imagePaths[i]}');
+    //       log('Combined Data>>>>>>>>>$sampledata');
+    //     }
+    //     // log('data >>> $data');
+    //     // sendData = data.join(', ');
+    //     // log('sendData >>> $sendData');
+
+    //     // log('imagePaths Length >>>>>>> ${imageName.length}');
+    //     // log('imageBytes Length >>>>>>> ${imageBytes.length}');
+    //   });
+    // }
     if (result != null) {
       setState(() {
+        // Extracting image paths and names
         imagePaths = result.files.map((file) => file.path!).toList();
-        imagePathswithname =
-            result.files.map((file) => '${file.name}!^!${file.path!}').toList();
-        imagePathswithname.forEach((imagePathswithname) {
-          print(imagePathswithname);
-        });
+        imageName = result.files.map((file) => file.name).toList();
+
+        // Reading file bytes
         imageBytes = imagePaths.map((path) {
           return File(path).readAsBytesSync();
         }).toList();
 
-        final base64Combined =
-            imageBytes.map((uint8list) => base64Encode(uint8list)).join(',');
+        // Clearing sampledata to avoid duplicate entries on repeated calls
+        sampledata.clear();
 
-        // For JSON array of base64 strings (useful for data integrity when re-decoding)
-        base64JsonArray = jsonEncode(
-            imageBytes.map((uint8list) => base64Encode(uint8list)).toList());
+        // Combining image data
+        for (var i = 0; i < imagePaths.length; i++) {
+          final base64String = base64Encode(imageBytes[i]);
+          sampledata.add('${imageName[i]}!^!$base64String');
+          // log('Base64 Encoded Data: $base64String');
+          // log('Combined Data: $sampledata');
+        }
 
-        log('imagePathswithname>>>>>>>$base64JsonArray');
+        // Joining the list into a single string for further use
+        sendData = sampledata.join(', ');
+        // log('Final Combined Data as String: $sendData');
       });
     }
   }
@@ -92,6 +118,19 @@ class LmsSaveWorkReplayDetailsDataPageState
     BuildContext context,
   ) {
     final provider = ref.watch(lmsProvider);
+
+    // for (var i = 0; i < imagePaths.length; i++) {
+    //   final con = base64Encode(imageBytes[i]);
+    //   data.add('${imageName[i]}!^!${imagePaths[i]}');
+    //   log('Combined Data>>>>>>>>>$data');
+    // }
+
+    // sendData = data.join(', ');
+    // log('sendData >>> $sendData');
+
+    // log('imagePaths Length >>>>>>> ${imageName.length}');
+    // log('imageBytes Length >>>>>>> ${imageBytes.length}');
+
     ref.listen(lmsProvider, (previous, next) {
       if (next is LmsStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -355,7 +394,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                                 widget.imageattachmentid,
                                 widget.classworkreplyid,
                                 widget.fieldrequirements,
-                                base64JsonArray,
+                                sendData,
                               );
                         },
                         style: ElevatedButton.styleFrom(

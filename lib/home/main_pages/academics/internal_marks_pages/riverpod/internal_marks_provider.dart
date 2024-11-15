@@ -14,7 +14,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
 
   void disposeState() => state = InternalMarksInitial();
 
-  void _setLoading() => state = InternalMarksState(
+  void _setLoading() => state = InternalMarksStateLoading(
         successMessage: '',
         errorMessage: '',
         internalMarkHiveData: <InternalMarkHiveData>[],

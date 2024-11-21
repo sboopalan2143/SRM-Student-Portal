@@ -6,6 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppColors {
   AppColors(Color primaryColor);
 
+  static Color theme01primaryColor = const Color(0xff355B63);
+
+  static Color theme01secondaryColor1 = const Color(0xffFFCC99);
+
+  static Color theme01secondaryColor2 = const Color(0xffFFCC99);
+
+  static Color theme01secondaryColor3 = const Color(0xffFEF1D8);
+  static Color theme01secondaryColor4 = const Color(0xffFAE5C7);
+
   static Color primaryColor = const Color(0xff236EDE);
 
   static Color secondaryColor = const Color(0xffF3F9FD);
@@ -53,6 +62,8 @@ class AppColors {
   static const Color grey3 = Color(0xffCCCDD2);
 
   static const Color grey4 = Color(0xffA7A7A7);
+
+  static const Color whitecolor = Colors.white;
 
   static const Color skeletonColor = Color(0xffE0E0E0);
 

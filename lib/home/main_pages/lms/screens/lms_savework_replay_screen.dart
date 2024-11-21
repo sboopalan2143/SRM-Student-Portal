@@ -102,8 +102,8 @@ class LmsSaveWorkReplayDetailsDataPageState
         for (var i = 0; i < imagePaths.length; i++) {
           final base64String = base64Encode(imageBytes[i]);
           sampledata.add('${imageName[i]}!^!$base64String');
-          // log('Base64 Encoded Data: $base64String');
-          // log('Combined Data: $sampledata');
+          log('Base64 Encoded Data: $imageBytes');
+          log('Combined Data: $sampledata');
         }
 
         // Joining the list into a single string for further use

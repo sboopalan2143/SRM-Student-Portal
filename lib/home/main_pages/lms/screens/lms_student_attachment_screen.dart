@@ -1,7 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 import 'dart:async';
-import 'dart:typed_data';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +12,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:sample/home/main_pages/lms/screens/pdf_view_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
@@ -106,7 +109,7 @@ class LmsStudentAttachmentDetailsDataPageState
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'Attachment Details',
+                'Student Attachment Details',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),
@@ -192,6 +195,89 @@ class LmsStudentAttachmentDetailsDataPageState
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
+    // final pdfBytes =
+    //     '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
+    // final imageBytes = base64Decode(pdfBytes);
+
+    // final base64Image =
+    //     '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}'; // shortened for brevity
+    // final imageBytes = base64Decode(base64Image);
+
+    // log('Student Attachment PDF >>> ${provider.lmsStudentAttachmentDetailsData[index].imageBytes}');
+    // log('Student Attachment image PDF >>> $imageBytes');
+    // log('Student Model data>> ${provider.lmsStudentAttachmentDetailsData[index].imageBytes}');
+
+    // Get base64 data and decode
+    final base64File =
+        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
+    final fileBytes = base64Decode(base64File);
+
+    // File name to determine type
+    final actualname =
+        provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
+    final fileExtension = actualname.split('.').last.toLowerCase();
+
+    // Log details (optional for debugging)
+    log('File Name: $actualname');
+    log('File Extension: $fileExtension');
+
+    // Widget to display based on file type
+    Widget fileDisplayWidget;
+
+    if (['png', 'jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+      // Image display
+      fileDisplayWidget = Image.memory(
+        fileBytes,
+        fit: BoxFit.cover,
+      );
+    } else if (fileExtension == 'pdf') {
+      // PDF display
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          // Navigate to a PDF viewer page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => PDFViewPage(
+                pdfData: fileBytes, // Pass the PDF bytes here
+                fileName: actualname, // Pass the file name (or title)
+              ),
+            ),
+          );
+        },
+        child: const Center(
+          child: Text(
+            'Tap to view PDF',
+            style: TextStyles.fontStyle10,
+          ),
+        ),
+      );
+    } else if (fileExtension == 'xls' || fileExtension == 'xlsx') {
+      // Placeholder for Excel
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          // Handle Excel file (e.g., download or navigate to a viewer)
+          showToast(
+            'Excel viewing not supported. File downloaded.',
+          );
+        },
+        child: const Center(
+          child: Text(
+            'Tap to download Excel',
+            style: TextStyles.fontStyle10,
+          ),
+        ),
+      );
+    } else {
+      // Unsupported file type
+      fileDisplayWidget = const Center(
+        child: Text(
+          'Unsupported file type',
+          style: TextStyles.fontStyle10,
+        ),
+      );
+    }
+
     return GestureDetector(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8),
@@ -212,53 +298,33 @@ class LmsStudentAttachmentDetailsDataPageState
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Image',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}' ==
-                                ''
-                            ? '-'
-                            : '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Center(
-                  child: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.memory(
-                        provider.lmsStudentAttachmentDetailsData[index]
-                                    .imageBytes !=
-                                null
-                            ? provider.lmsStudentAttachmentDetailsData[index]
-                                .imageBytes! as Uint8List
-                            : Uint8List(
-                                0,
-                              ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: const Text(
+                //         'Image',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //     const Text(
+                //       ':',
+                //       style: TextStyles.fontStyle10,
+                //     ),
+                //     const SizedBox(width: 5),
+                //     SizedBox(
+                //       width: width / 2 - 60,
+                //       child: Text(
+                //         '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}' ==
+                //                 ''
+                //             ? '-'
+                //             : '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -312,6 +378,29 @@ class LmsStudentAttachmentDetailsDataPageState
                       ),
                     ),
                   ],
+                ),
+
+                Center(
+                  child:
+                      //  SizedBox(
+                      //   height: 200,
+                      //   width: width - 100,
+                      //   child: ClipRRect(
+                      //     // borderRadius: BorderRadius.circular(50),
+                      //     child: Image.memory(
+                      //       imageBytes,
+                      //       fit: BoxFit.cover,
+                      //     ),
+                      //   ),
+                      // ),
+                      SizedBox(
+                    height: 200,
+                    width: width - 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: fileDisplayWidget,
+                    ),
+                  ),
                 ),
               ],
             ),

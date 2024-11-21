@@ -10,7 +10,7 @@ class GetStudentAttachmentDetailsModel {
       // ignore: inference_failure_on_untyped_parameter, avoid_dynamic_calls
       json['Data'].forEach((v) {
         data!.add(GetStudentAttachmentDetailsData.fromJson(
-            v as Map<String, dynamic>));
+            v as Map<String, dynamic>,),);
       });
     }
   }
@@ -31,7 +31,7 @@ class GetStudentAttachmentDetailsModel {
 
 class GetStudentAttachmentDetailsData {
   GetStudentAttachmentDetailsData(
-      {this.filename, this.actualname, this.imageBytes});
+      {this.filename, this.actualname, this.imageBytes,});
 
   GetStudentAttachmentDetailsData.fromJson(Map<String, dynamic> json) {
     filename = json['filename'] as String?;

@@ -253,4 +253,10 @@ class TextStyles {
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle fontStyle01theme = TextStyle(
+    fontSize: 22,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
 }

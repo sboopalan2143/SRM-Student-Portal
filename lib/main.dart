@@ -64,7 +64,7 @@ class _InitialState extends ConsumerState<Initial> {
 
       title: 'App Title',
 
-      /// Navigate base on stored auth token for mobile and web
+      
       initialRoute:
           TokensManagement.studentId == '' ? Routes.login : Routes.home,
       //  :

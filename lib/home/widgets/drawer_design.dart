@@ -11,6 +11,8 @@ import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/screen/login_Page2.dart';
+import 'package:sample/theme-01/drawer_page/profile_screen.dart';
+import 'package:sample/theme-01/theme01_homepage.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
   const DrawerDesign({super.key});
@@ -29,6 +31,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.64,
       child: Drawer(
+        backgroundColor: AppColors.theme01primaryColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -36,7 +39,14 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
               height: 220,
               child: DrawerHeader(
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme01secondaryColor3, // Start color
+                      AppColors.theme01secondaryColor2, // End color
+                    ],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                  ),
                 ),
                 child: Center(
                   child: Column(
@@ -81,7 +91,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Home',
-                    style: TextStyles.fontStyle2,
+                    style: TextStyles.fontStyle3,
                   ),
                 ],
               ),
@@ -89,7 +99,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const HomePage2(),
+                    // route: const HomePage2(),
+                    route: const Theme01Homepage(),
                   ),
                 );
               },
@@ -99,7 +110,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Profile',
-                    style: TextStyles.fontStyle2,
+                    style: TextStyles.fontStyle3,
                   ),
                 ],
               ),
@@ -107,7 +118,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const ProfilePage(),
+                    // route: const ProfilePage(),
+                    route: const Theme01ProfilePage(),
                   ),
                 );
               },
@@ -117,7 +129,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Theme',
-                    style: TextStyles.fontStyle2,
+                    style: TextStyles.fontStyle3,
                   ),
                 ],
               ),
@@ -136,7 +148,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Change Password',
-                    style: TextStyles.fontStyle2,
+                    style: TextStyles.fontStyle3,
                   ),
                 ],
               ),
@@ -155,7 +167,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
             //     children: [
             //       Text(
             //         'Terms & Conditions',
-            //         style: TextStyles.fontStyle2,
+            //         style: TextStyles.fontStyle3,
             //       ),
             //     ],
             //   ),
@@ -172,7 +184,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Logout',
-                    style: TextStyles.fontStyle2,
+                    style: TextStyles.fontStyle3,
                   ),
                 ],
               ),

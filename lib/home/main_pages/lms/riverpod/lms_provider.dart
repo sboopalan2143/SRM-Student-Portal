@@ -313,6 +313,8 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
+    log( '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+   );
     final response =
         await HttpService.sendSoapRequest('getClassWorkDetails', data);
     if (response.$1 == 0) {
@@ -479,14 +481,14 @@ class LmsProvider extends StateNotifier<LmsState> {
 
       var lmsAttachmentDetailsData = state.lmsAttachmentDetailsData;
       // log('Attachment data >>>>>>>>$data');
-      log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
+      // log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
 
       try {
         final lmsAttachmentDetailsDataResponse =
             GetAttachmentDetailsModel.fromJson(decryptedData.mapData!);
         lmsAttachmentDetailsData = lmsAttachmentDetailsDataResponse.data!;
-        log('attachment Details provider >>>>>${lmsAttachmentDetailsData[0].imageBytes}');
-        log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsAttachmentDetailsDataResponse.data}');
+        // log('attachment Details provider >>>>>${lmsAttachmentDetailsData[0].imageBytes}');
+        // log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsAttachmentDetailsDataResponse.data}');
         state =
             state.copyWith(lmsAttachmentDetailsData: lmsAttachmentDetailsData);
         if (lmsAttachmentDetailsDataResponse.status == 'Success') {

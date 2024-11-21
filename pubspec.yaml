@@ -32,19 +32,25 @@ dependencies:
   encrypt:
   hex:
   flutter_styled_toast:
-  wave: 
-  fluttertoast: 
-  liquid_pull_to_refresh: 
+  wave:
+  fluttertoast:
+  liquid_pull_to_refresh:
   hive:
   # hive_flutter:
   path_provider:
+  open_file: 
   blinking_text:
   file_picker:
   flutter_pdfview:
-  printing: 
+  printing:
   pdf:
   flutter_cached_pdfview:
   excel:
+  flicked_cards: ^0.0.3
+  flutter_neumorphic:
+  animated_cards_carousel:
+  carousel_slider:
+  sidebarx:
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +60,7 @@ dev_dependencies:
   flutter_native_splash:
   change_app_package_name:
   hive_generator:
-  build_runner: 
+  build_runner:
 
 # flutter pub run flutter_launcher_icons
 flutter_icons:

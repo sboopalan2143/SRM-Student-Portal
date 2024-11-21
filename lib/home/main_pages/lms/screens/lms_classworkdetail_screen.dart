@@ -692,6 +692,56 @@ class _LmsClassworkDetailPageState
                       width: 150,
                       child: GestureDetector(
                         onTap: () {
+                          ref
+                              .read(lmsProvider.notifier)
+                              .getLmsAttachmentDetails(
+                                ref.read(encryptionProvider.notifier),
+                                '${provider.classWorkDetailsData[index].classworkid}',
+                              );
+
+                          Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: LmsAttachmentDetailsDataPage(
+                                classworkID:
+                                    '${provider.classWorkDetailsData[index].classworkid}',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Attachments',
+                                  style: TextStyles.fontStyle5,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      width: 150,
+                      child: GestureDetector(
+                        onTap: () {
                           // Navigator.push(
                           //   context,
                           //   RouteDesign(
@@ -742,52 +792,54 @@ class _LmsClassworkDetailPageState
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: LmsSaveWorkReplayDetailsDataPage(
-                                classworkID:
-                                    '${provider.classWorkDetailsData[index].classworkid}',
-                                classworkreplyid:
-                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
-                                fieldrequirements:
-                                    '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                imageattachmentid:
-                                    '${provider.classWorkDetailsData[index].stuimageattachmentid}',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Save Attachment',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
+                if (provider.classWorkDetailsData[index].classworkreplyid ==
+                    '0')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 150,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              RouteDesign(
+                                route: LmsSaveWorkReplayDetailsDataPage(
+                                  classworkID:
+                                      '${provider.classWorkDetailsData[index].classworkid}',
+                                  classworkreplyid:
+                                      '${provider.classWorkDetailsData[index].classworkreplyid}',
+                                  fieldrequirements:
+                                      '${provider.classWorkDetailsData[index].fieldrequirement}',
+                                  imageattachmentid:
+                                      '${provider.classWorkDetailsData[index].stuimageattachmentid}',
                                 ),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Save Attachment',
+                                    style: TextStyles.fontStyle5,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
                 const SizedBox(
                   height: 10,
                 ),

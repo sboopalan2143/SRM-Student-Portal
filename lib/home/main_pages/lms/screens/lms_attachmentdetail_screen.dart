@@ -15,6 +15,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:sample/home/main_pages/lms/screens/pdf_view_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -334,12 +335,102 @@ class LmsAttachmentDetailsDataPageState
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
-    final pdfBytes = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
-    final imageBytes = base64Decode(pdfBytes);
+    // final pdfBytes = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
+    // final imageBytes = base64Decode(pdfBytes);
 
-    log('Attachment PDF >>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
-    log('Attachment image PDF >>> $imageBytes');
-    log('Model data>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
+    // log('Attachment PDF >>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
+    // log('Attachment image PDF >>> $imageBytes');
+    // log('Model data>> ${provider.lmsAttachmentDetailsData[index].imageBytes}');
+    final base64File = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
+    final fileBytes = base64Decode(base64File);
+
+    // File name to determine type
+    final actualname =
+        provider.lmsAttachmentDetailsData[index].actualname ?? '';
+    final fileExtension = actualname.split('.').last.toLowerCase();
+
+    // Log details (optional for debugging)
+    log('File Name: $actualname');
+    log('File Extension: $fileExtension');
+
+    // Widget to display based on file type
+    Widget fileDisplayWidget;
+
+    if (['png', 'jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+      // Image display
+      fileDisplayWidget = Image.memory(
+        fileBytes,
+        fit: BoxFit.cover,
+      );
+    } else if (fileExtension == 'pdf') {
+      // PDF display
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          // Navigate to a PDF viewer page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => PDFViewPage(
+                pdfData: fileBytes, // Pass the PDF bytes here
+                fileName: actualname, // Pass the file name (or title)
+              ),
+            ),
+          );
+        },
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.picture_as_pdf,
+              color: Colors.red,
+              size: 30,
+            ),
+            SizedBox(width: 12),
+            Text(
+              'Tap to view PDF',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else if (fileExtension == 'xls' || fileExtension == 'xlsx') {
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          showToast(
+            'Excel viewing not supported. File downloaded.',
+          );
+        },
+        child: const Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.table_chart,
+                color: Colors.green,
+                size: 24,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Tap to download Excel',
+                style: TextStyles.fontStyle10,
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      // Unsupported file type
+      fileDisplayWidget = const Center(
+        child: Text(
+          'Unsupported file type',
+          style: TextStyles.fontStyle10,
+        ),
+      );
+    }
 
     return GestureDetector(
       child: Padding(
@@ -421,47 +512,33 @@ class LmsAttachmentDetailsDataPageState
                 //     )
                 //   ],
                 // ),
-                Center(
-                  child: SizedBox(
-                    height: 200,
-                    width: width - 100,
-                    child: imageBytes != ''
-                        ? PDFView(
-                            pdfData: imageBytes,
-                            fitPolicy: FitPolicy.BOTH,
-                            backgroundColor: Colors.grey[300],
-                          )
-                        : const Center(
-                            child: Text(
-                              'No PDF available',
-                              style: TextStyles.fontStyle10,
-                            ),
-                          ),
-                  ),
-                ),
-                // Card(
-                //   elevation: 10,
-                //   child: ElevatedButton(
-                //     child: const Text(
-                //       'View Doc',
-                //       style: TextStyle(fontSize: 20),
-                //     ),
-                //     // AppColors: Colors.blueGrey,
-                //     // textColor: Colors.white,
-                //     // highlightColor: Colors.red,
-                //     onPressed: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (_) => const Pdfview(
-                //             url:
-                //                 'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
+                // Center(
+                //   child: SizedBox(
+                //     height: 200,
+                //     width: width - 100,
+                //     child: imageBytes != ''
+                //         ? PDFView(
+                //             pdfData: imageBytes,
+                //             fitPolicy: FitPolicy.BOTH,
+                //             backgroundColor: Colors.grey[300],
+                //           )
+                //         : const Center(
+                //             child: Text(
+                //               'No PDF available',
+                //               style: TextStyles.fontStyle10,
+                //             ),
                 //           ),
-                //         ),
-                //       );
-                //     },
                 //   ),
                 // ),
+                SizedBox(
+                  height: 200,
+                  width: width - 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: fileDisplayWidget,
+                  ),
+                ),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -540,99 +617,6 @@ class LmsAttachmentDetailsDataPageState
         bottomLeft: Radius.circular(15),
       ),
       toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
-    );
-  }
-}
-
-class Pdfview extends StatelessWidget {
-  const Pdfview({
-    super.key,
-    required this.url,
-  });
-  final String url;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'PDF From URL',
-        ),
-      ),
-      body: const PDF().cachedFromUrl(
-        url,
-        placeholder: (double progress) => Center(
-          child: Text('$progress %'),
-        ),
-        errorWidget: (dynamic error) => Center(
-          child: Text(error.toString()),
-        ),
-      ),
-    );
-  }
-}
-
-class ExcelViewer extends StatefulWidget {
-  @override
-  _ExcelViewerState createState() => _ExcelViewerState();
-}
-
-class _ExcelViewerState extends State<ExcelViewer> {
-  List<List<String>>? excelData;
-
-  Future<void> loadExcelFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls'],
-    );
-
-    if (result != null) {
-      Uint8List? bytes = result.files.first.bytes;
-      if (bytes != null) {
-        var excel = Excel.decodeBytes(bytes);
-
-        List<List<String>> rows = [];
-        for (var table in excel.tables.keys) {
-          for (var row in excel.tables[table]!.rows) {
-            rows.add(row.map((e) => e?.value.toString() ?? '').toList());
-          }
-        }
-        setState(() {
-          excelData = rows;
-        });
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Excel Viewer'),
-      ),
-      body: excelData != null
-          ? SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: excelData![0]
-                    .map((header) => DataColumn(label: Text(header)))
-                    .toList(),
-                rows: excelData!
-                    .skip(1)
-                    .map(
-                      (row) => DataRow(
-                        cells: row.map((cell) => DataCell(Text(cell))).toList(),
-                      ),
-                    )
-                    .toList(),
-              ),
-            )
-          : Center(
-              child: ElevatedButton(
-                onPressed: loadExcelFile,
-                child: const Text('Load Excel File'),
-              ),
-            ),
     );
   }
 }

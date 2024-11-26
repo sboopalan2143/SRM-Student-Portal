@@ -140,6 +140,12 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static const fontStyletheme2 = TextStyle(
+    fontSize: 14,
+    color: AppColors.whiteColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static const fontStyle3 = TextStyle(
     fontSize: 16,
     color: AppColors.whiteColor,
@@ -257,6 +263,48 @@ class TextStyles {
   static TextStyle fontStyle01theme = TextStyle(
     fontSize: 22,
     color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle buttonStyle01theme = TextStyle(
+    fontSize: 16,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle buttonStyle01theme4 = TextStyle(
+    fontSize: 22,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle buttonStyle01theme2 = TextStyle(
+    fontSize: 14,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle buttonStyle01theme12 = TextStyle(
+    fontSize: 12,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle theme01primary10small = TextStyle(
+    fontSize: 10,
+    color: AppColors.theme01primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle theme01primary10smal3 = TextStyle(
+    fontSize: 14,
+    color: AppColors.theme01secondaryColor4,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle theme01titleFontStyle = TextStyle(
+    fontSize: 25,
+    color: AppColors.theme01secondaryColor4,
     fontWeight: FontWeight.bold,
   );
 }

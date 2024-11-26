@@ -10,7 +10,6 @@ import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/navigation_style.dart';
 import 'package:sample/designs/status_bar_navigation_bar_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
@@ -85,6 +84,14 @@ class _LoginScreen3State extends ConsumerState<LoginScreen3>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Center(
+                  child: Image.asset(
+                    'assets/images/srmlogodesign.png',
+                    width: MediaQuery.of(context).size.width - 120,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(height: 50),
                 const Text(
                   'Log in',
                   style: TextStyle(

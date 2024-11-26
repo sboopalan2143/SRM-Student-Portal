@@ -5,6 +5,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
+import 'package:sample/theme-01/mainscreens/transport/transport_register.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -23,7 +24,7 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.theme01secondaryColor4,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
@@ -31,7 +32,8 @@ class ButtonDesign {
           await Navigator.push(
             context,
             RouteDesign(
-              route: const TransportRegisterPage(),
+              // route: const TransportRegisterPage(),
+              route: const Theme01TransportRegisterPage(),
             ),
           );
           await ref
@@ -53,7 +55,7 @@ class ButtonDesign {
       },
       child: Text(
         text,
-        style: TextStyles.fontStyle13,
+        style: TextStyles.buttonStyle01theme2,
       ),
     );
   }

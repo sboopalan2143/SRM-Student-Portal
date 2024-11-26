@@ -11,7 +11,8 @@ import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/screen/login_Page2.dart';
-import 'package:sample/theme-01/drawer_page/profile_screen.dart';
+import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
+import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
@@ -79,7 +80,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                         TokensManagement.studentName == ''
                             ? '-'
                             : TokensManagement.studentName,
-                        style: TextStyles.fontStyle3,
+                        style: TextStyles.buttonStyle01theme,
                       ),
                     ],
                   ),
@@ -156,7 +157,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const ChangePassword(),
+                    // route: const ChangePassword(),
+                    route: const Theme01ChangePasswordPage(),
                   ),
                 );
               },

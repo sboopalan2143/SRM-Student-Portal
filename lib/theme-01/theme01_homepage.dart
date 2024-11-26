@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,36 +11,36 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/screens/exam_details.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
-import 'package:sample/home/main_pages/calendar/screens/calendar_screen.dart';
-import 'package:sample/home/main_pages/fees/screens/fees.dart';
-import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
-import 'package:sample/home/main_pages/library/screens/library.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
-import 'package:sample/home/main_pages/transport/screens/transport.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-01/mainscreens/academics/attendance.dart';
+import 'package:sample/theme-01/mainscreens/academics/cumulative_attendance.dart';
+import 'package:sample/theme-01/mainscreens/academics/exam_details.dart';
+import 'package:sample/theme-01/mainscreens/academics/hour_attendance.dart';
+import 'package:sample/theme-01/mainscreens/academics/internal_marks.dart';
+import 'package:sample/theme-01/mainscreens/academics/subject.dart';
+import 'package:sample/theme-01/mainscreens/calendar_screen.dart';
+import 'package:sample/theme-01/mainscreens/fees_screen_theme01.dart';
+import 'package:sample/theme-01/mainscreens/grievances/grievances_screen.dart';
+import 'package:sample/theme-01/mainscreens/hostel/hostel_screen.dart';
+import 'package:sample/theme-01/mainscreens/library/library_screen.dart';
+import 'package:sample/theme-01/mainscreens/lms/lms_subject_screen.dart';
+import 'package:sample/theme-01/mainscreens/transport/transport_screen.dart';
 
 class Theme01Homepage extends ConsumerStatefulWidget {
   const Theme01Homepage({super.key});
@@ -65,32 +65,32 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     {
       'title': 'Exam Details',
       'image': 'assets/images/GraduationCap.png',
-      'route': const ExamDetailsPage(),
+      'route': const Theme01ExamDetailsPage(),
     },
     {
       'title': 'Subject',
       'image': 'assets/images/books.png',
-      'route': const SubjectPage(),
+      'route': const Theme01SubjectPage(),
     },
     {
       'title': 'Internal Marks',
       'image': 'assets/images/coin.png',
-      'route': const InternalMarksPage(),
+      'route': const Theme01InternalMarksPage(),
     },
     {
       'title': 'Attendance',
       'image': 'assets/images/hostelimage.png',
-      'route': const AttendancePage(),
+      'route': const Theme01AttendancePage(),
     },
     {
       'title': 'Hour Attendance',
       'image': 'assets/images/coin.png',
-      'route': const HourAttendancePage(),
+      'route': const Theme01HourAttendancePage(),
     },
     {
       'title': 'Cumulat Attendance',
       'image': 'assets/images/hostelimage.png',
-      'route': const CumulativeAttendancePage(),
+      'route': const Theme01CumulativeAttendancePage(),
     },
   ];
 
@@ -98,37 +98,37 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     {
       'title': 'Library',
       'image': 'assets/images/books.png',
-      'route': const LibraryPage(),
+      'route': const Theme01LibraryPage(),
     },
     {
       'title': 'Fees',
       'image': 'assets/images/coin.png',
-      'route': const FeesPage(),
+      'route': const Theme01FeesPage(),
     },
     {
       'title': 'Hostel',
       'image': 'assets/images/hostelimage.png',
-      'route': const HostelPage(),
+      'route': const Theme01HostelPage(),
     },
     {
       'title': 'Grievances',
       'image': 'assets/images/pencil.png',
-      'route': const GrievanceReportPage(),
+      'route': const Theme01GrievanceReportPage(),
     },
     {
       'title': 'Transport',
       'image': 'assets/images/Bus.png',
-      'route': const TransportTransactionPage(),
+      'route': const Theme01TransportTransactionPage(),
     },
     {
       'title': 'LMS',
       'image': 'assets/images/LMS.png',
-      'route': const LmsHomePage(),
+      'route': const Theme01LmsHomePage(),
     },
     {
       'title': 'Calendar',
       'image': 'assets/images/calendar.png',
-      'route': const CalendarPage(),
+      'route': const Theme01CalendarPage(),
     },
   ];
 
@@ -235,11 +235,6 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    final providerProfile = ref.watch(profileProvider);
-    final base64Image = '${providerProfile.profileDataHive.studentphoto}';
-    final imageBytes = base64Decode(base64Image);
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -266,51 +261,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 30),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              iconSize: 35,
-                              color: AppColors.theme01primaryColor,
-                              icon: const Icon(Icons.menu),
-                              onPressed: () {
-                                _scaffoldKey.currentState?.openDrawer();
-                              },
-                            ),
-                            if (imageBytes == '' && imageBytes.isEmpty)
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: AppColors.theme01primaryColor,
-                                child: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    'assets/images/profile.png',
-                                  ),
-                                  radius: 48,
-                                ),
-                              ),
-                            if (imageBytes != '' && imageBytes.isNotEmpty)
-                              SizedBox(
-                                height: 45,
-                                width: 45,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.memory(
-                                    imageBytes,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 60),
+                 
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 30,
@@ -499,7 +451,6 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                                 options: CarouselOptions(
                                   height: 150,
                                   enlargeCenterPage: true,
-                                  enableInfiniteScroll: true,
                                   // autoPlay: true,
                                   autoPlayInterval: const Duration(seconds: 3),
                                 ),
@@ -531,8 +482,6 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                                         ],
                                       ),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
                                         children: [
                                           const SizedBox(height: 20),
                                           Padding(
@@ -560,7 +509,7 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                                 }).toList(),
                               ),
                             ],
-                          )),
+                          ),),
                     ),
                   ],
                 ),

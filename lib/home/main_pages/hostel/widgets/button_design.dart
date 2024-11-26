@@ -5,6 +5,8 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
 import 'package:sample/home/main_pages/hostel/screens/registration.dart';
+import 'package:sample/theme-01/mainscreens/hostel/hostel_leave_application.dart';
+import 'package:sample/theme-01/mainscreens/hostel/hostel_register.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -22,7 +24,7 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.theme01secondaryColor1,
         shadowColor: Colors.transparent,
       ),
       onPressed: () {
@@ -30,7 +32,8 @@ class ButtonDesign {
           Navigator.push(
             context,
             RouteDesign(
-              route: const LeaveApplicationPage(),
+              // route: const LeaveApplicationPage(),
+              route: const Theme01LeaveApplicationPage(),
             ),
           );
         }
@@ -38,7 +41,8 @@ class ButtonDesign {
           Navigator.push(
             context,
             RouteDesign(
-              route: const RegistrationPage(),
+              // route: const RegistrationPage(),
+              route: const Theme01RegistrationPage(),
             ),
           );
         }
@@ -56,7 +60,7 @@ class ButtonDesign {
       child: FittedBox(
         child: Text(
           text,
-          style: TextStyles.fontStyle13,
+          style: TextStyles.buttonStyle01theme2,
         ),
       ),
     );

@@ -56,13 +56,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
+         
             AppBar(
               leading: IconButton(
                 onPressed: () {

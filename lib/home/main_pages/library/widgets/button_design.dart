@@ -26,7 +26,7 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.theme01secondaryColor4,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
@@ -58,7 +58,7 @@ class ButtonDesign {
       },
       child: Text(
         text,
-        style: TextStyles.fontStyle13,
+        style: TextStyles.buttonStyle01theme2,
       ),
     );
   }

@@ -65,7 +65,8 @@ class CummulativeAttendanceProvider
           if (box.isEmpty) {
             for (var i = 0; i < listData.length; i++) {
               final parseData = CumulativeAttendanceHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }
@@ -73,7 +74,8 @@ class CummulativeAttendanceProvider
             await box.clear();
             for (var i = 0; i < listData.length; i++) {
               final parseData = CumulativeAttendanceHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }
@@ -118,7 +120,7 @@ class CummulativeAttendanceProvider
       );
       final cumulativeattendance = <CumulativeAttendanceHiveData>[
         ...box.values
-      ];
+      ,];
 
       state = state.copyWith(
         cummulativeHiveAttendanceData: cumulativeattendance,

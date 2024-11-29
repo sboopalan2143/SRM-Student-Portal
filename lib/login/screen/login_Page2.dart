@@ -10,6 +10,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
+import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 
 class LoginPage2 extends ConsumerStatefulWidget {
   const LoginPage2({
@@ -65,7 +66,7 @@ class _LoginPage2State extends ConsumerState<LoginPage2>
         } else if (next is LoginStateSuccessful) {
           /// Handle route to next page.
 
-          Navigator.push(context, RouteDesign(route: const HomePage2()));
+          Navigator.push(context, RouteDesign(route: const MainScreenPage()));
           _showToast(context, next.successMessage, AppColors.greenColor);
         }
       });

@@ -103,7 +103,8 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                           await ref
                               .read(calendarProvider.notifier)
                               .getCalendarDetails(
-                                  ref.read(encryptionProvider.notifier));
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(calendarProvider.notifier)
                               .getHiveCalendar('');

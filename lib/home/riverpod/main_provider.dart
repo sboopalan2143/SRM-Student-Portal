@@ -12,6 +12,9 @@ class MainProvider extends StateNotifier<MainState> {
     state = state.copyWith(navString: text);
     log(state.navString);
   }
-  
-  
+
+  void setIndex(int val) {
+    state = state.copyWith(myCurrentIndex: val);
+    log('set val method${state.myCurrentIndex}');
+  }
 }

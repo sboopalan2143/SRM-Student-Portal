@@ -110,7 +110,8 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                           await ref
                               .read(internalMarksProvider.notifier)
                               .getInternalMarksDetails(
-                                  ref.read(encryptionProvider.notifier));
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(internalMarksProvider.notifier)
                               .getHiveInternalMarks('');

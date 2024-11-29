@@ -4,8 +4,10 @@ part 'grievance_category_hive_model.g.dart';
 
 @HiveType(typeId: 9)
 class GrievanceCategoryHiveData {
-  GrievanceCategoryHiveData(
-      {this.grievancekcategory, this.grievancekcategoryid});
+  GrievanceCategoryHiveData({
+    this.grievancekcategory,
+    this.grievancekcategoryid,
+  });
 
   GrievanceCategoryHiveData.fromJson(Map<String, dynamic> json) {
     grievancekcategory = json['grievancekcategory'] as String?;

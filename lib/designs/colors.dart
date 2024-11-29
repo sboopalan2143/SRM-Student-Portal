@@ -15,6 +15,10 @@ class AppColors {
   static Color theme01secondaryColor3 = const Color(0xffFEF1D8);
   static Color theme01secondaryColor4 = const Color(0xffFAE5C7);
 
+  static Color primaryColorTheme3 = const Color(0xffAD1457);
+
+  static Color secondaryColorTheme3 = const Color(0xffE0E0E0);
+
   static Color primaryColor = const Color(0xff236EDE);
 
   static Color secondaryColor = const Color(0xffF3F9FD);

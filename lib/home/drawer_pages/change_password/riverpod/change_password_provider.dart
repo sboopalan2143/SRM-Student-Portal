@@ -12,14 +12,15 @@ class ChangePasswordProvider extends StateNotifier<ChangePasswordState> {
 
   void disposeState() => state = ChangePasswordInitial();
 
-  // void _setLoading() => state = ChangePasswordStateLoading(
-  //       message: '',
-  //       currentPassword: TextEditingController(),
-  //       newPassword: TextEditingController(),
-  //       confirmPassword: TextEditingController(),
-  //     );
+  void _setLoading() => state = ChangePasswordStateLoading(
+        message: '',
+        currentPassword: TextEditingController(),
+        newPassword: TextEditingController(),
+        confirmPassword: TextEditingController(),
+      );
 
   Future<void> changePassword(EncryptionProvider encrypt) async {
+    
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><oldpassword>${state.currentPassword.text}</oldpassword><newpassword>${state.currentPassword.text}</newpassword><confirmpassword>${state.currentPassword.text}</confirmpassword>',
     );

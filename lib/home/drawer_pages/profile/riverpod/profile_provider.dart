@@ -59,44 +59,43 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      if (decryptedData.mapData!['Status'] == 'Success') {
+        final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+        if (listData.isNotEmpty) {
+          final box = await Hive.openBox<ProfileHiveData>('profile');
+          if (box.isEmpty) {
+            for (var i = 0; i < listData.length; i++) {
+              final parseData =
+                  ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+              await box.add(parseData);
+            }
+          } else {
+            await box.clear();
+            for (var i = 0; i < listData.length; i++) {
+              final parseData =
+                  ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+              await box.add(parseData);
+            }
+          }
+          await box.close();
 
-      final listData = decryptedData.mapData!['Data'] as List<dynamic>;
-      log('PROFILE listData length>>>${listData.length}');
-      if (listData.isNotEmpty) {
-        final box = await Hive.openBox<ProfileHiveData>('profile');
-        if (box.isEmpty) {
-          for (var i = 0; i < listData.length; i++) {
-            final parseData =
-                ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
-            await box.add(parseData);
-          }
-        } else {
-          await box.clear();
-          for (var i = 0; i < listData.length; i++) {
-            final parseData =
-                ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
-            await box.add(parseData);
-          }
-        }
-        await box.close();
-        if (decryptedData.mapData!['Status'] == 'Success') {
           state = ProfileDetailsStateSuccessful(
             successMessage: decryptedData.mapData!['Message'] as String,
             errorMessage: '',
             profileDataHive: ProfileHiveData.empty,
           );
-        } else if (decryptedData.mapData!['Status'] != 'Success') {
+        } else {
+          final error = ErrorModel.fromJson(decryptedData.mapData!);
           state = ProfileDetailsStateError(
             successMessage: '',
-            errorMessage: decryptedData.mapData!['Message'] as String,
+            errorMessage: error.message!,
             profileDataHive: ProfileHiveData.empty,
           );
         }
-      } else {
-        final error = ErrorModel.fromJson(decryptedData.mapData!);
+      } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = ProfileDetailsStateError(
           successMessage: '',
-          errorMessage: error.message!,
+          errorMessage: decryptedData.mapData!['Message'] as String,
           profileDataHive: ProfileHiveData.empty,
         );
       }

@@ -6,9 +6,9 @@ class ReplayFacultyComment {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <ReplayFacultyCommentData>[];
-      json['Data'].forEach((v) {
+     for (final v in json['Data'] as List<dynamic>)  {
         data!.add(ReplayFacultyCommentData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
   String? status;

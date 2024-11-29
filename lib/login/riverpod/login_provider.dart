@@ -65,8 +65,10 @@ class LoginProvider extends StateNotifier<LoginState> {
   }
 
   Future<void> login(EncryptionProvider encrypt) async {
-    _setLoading();
-    log('enters here');
+    // _setLoading();
+    log(
+      'body>>>>>>><username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
+    );
     final data = encrypt.getEncryptedData(
       '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
     );

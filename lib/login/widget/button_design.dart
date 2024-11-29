@@ -31,7 +31,7 @@ class ButtonDesign {
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
-        provider.setNavString('Home');
+        // provider.setNavString('Home');
         if (text == 'Log In') {
           await ref
               .read(loginProvider.notifier)

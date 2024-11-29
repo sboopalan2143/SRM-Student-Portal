@@ -48,9 +48,13 @@ dependencies:
   excel:
   flicked_cards: ^0.0.3
   flutter_neumorphic:
-  animated_cards_carousel:
+  # animated_cards_carousel:
   carousel_slider:
   sidebarx:
+  percent_indicator: 
+  flutter_zoom_drawer:
+  badges:
+
 
 dev_dependencies:
   flutter_test:

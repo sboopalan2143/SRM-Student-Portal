@@ -61,7 +61,8 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
           if (box.isEmpty) {
             for (var i = 0; i < listData.length; i++) {
               final parseData = HourwiseHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }
@@ -69,7 +70,8 @@ class HourwiseProvider extends StateNotifier<HourwiseState> {
             await box.clear();
             for (var i = 0; i < listData.length; i++) {
               final parseData = HourwiseHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }

@@ -10,9 +10,9 @@ class GetMCQViewDetails {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <MCQGetViewModelData>[];
-      json['Data'].forEach((v) {
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add(MCQGetViewModelData.fromJson(v as Map<String, dynamic>));
-      });
+      }
     }
   }
 
@@ -91,6 +91,4 @@ class MCQGetViewModelData {
     data['mcqanswertype'] = mcqanswertype;
     return data;
   }
-
-  
 }

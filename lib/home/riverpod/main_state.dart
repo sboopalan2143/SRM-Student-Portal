@@ -11,35 +11,39 @@ class MainState {
     required this.errorMessage,
     required this.navString,
     required this.subNavString,
+    required this.myCurrentIndex,
   });
 
   final String successMessage;
   final String errorMessage;
   final String navString;
   final String subNavString;
+  final int myCurrentIndex;
 
   MainState copyWith({
     String? successMessage,
     String? errorMessage,
     String? navString,
     String? subNavString,
+    int? myCurrentIndex,
   }) =>
       MainState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         navString: navString ?? this.navString,
         subNavString: subNavString ?? this.subNavString,
+        myCurrentIndex: myCurrentIndex ?? this.myCurrentIndex,
       );
 }
 
 class SettingInitial extends MainState {
   SettingInitial()
       : super(
-          successMessage: '',
-          errorMessage: '',
-          navString: 'Home',
-          subNavString: '',
-        );
+            successMessage: '',
+            errorMessage: '',
+            navString: '',
+            subNavString: '',
+            myCurrentIndex: 0);
 }
 
 class SettingLoading extends MainState {
@@ -48,6 +52,7 @@ class SettingLoading extends MainState {
     required super.errorMessage,
     required super.navString,
     required super.subNavString,
+    required super.myCurrentIndex,
   });
 }
 
@@ -57,6 +62,7 @@ class SettingSuccessFull extends MainState {
     required super.errorMessage,
     required super.navString,
     required super.subNavString,
+    required super.myCurrentIndex,
   });
 }
 
@@ -66,6 +72,7 @@ class SettingError extends MainState {
     required super.errorMessage,
     required super.navString,
     required super.subNavString,
+    required super.myCurrentIndex,
   });
 }
 
@@ -75,5 +82,6 @@ class NoNetworkAvailablePhoto extends MainState {
     required super.errorMessage,
     required super.navString,
     required super.subNavString,
+    required super.myCurrentIndex,
   });
 }

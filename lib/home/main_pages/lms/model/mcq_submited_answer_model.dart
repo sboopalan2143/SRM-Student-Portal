@@ -52,10 +52,6 @@
 // }
 
 class McqSubmitedDataModel {
-  String? status;
-  String? message;
-  List<McqSubmitedData>? data;
-
   McqSubmitedDataModel({this.status, this.message, this.data});
 
   McqSubmitedDataModel.fromJson(Map<String, dynamic> json) {
@@ -63,14 +59,17 @@ class McqSubmitedDataModel {
     message = json['message'] as String?;
     if (json['data'] != null) {
       data = <McqSubmitedData>[];
-      json['data'].forEach((v) {
-        data!.add(new McqSubmitedData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['data'] as List<dynamic>) {
+        data!.add(McqSubmitedData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<McqSubmitedData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
     if (this.data != null) {
@@ -81,18 +80,17 @@ class McqSubmitedDataModel {
 }
 
 class McqSubmitedData {
-  int? examid;
-  int? scheduleid;
-
   McqSubmitedData({this.examid, this.scheduleid});
 
   McqSubmitedData.fromJson(Map<String, dynamic> json) {
     examid = json['examid'] as int?;
     scheduleid = json['scheduleid'] as int?;
   }
+  int? examid;
+  int? scheduleid;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['examid'] = examid;
     data['scheduleid'] = scheduleid;
     return data;

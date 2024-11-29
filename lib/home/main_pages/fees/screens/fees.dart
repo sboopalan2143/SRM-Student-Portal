@@ -116,14 +116,14 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                           await ref
                               .read(feesProvider.notifier)
                               .getFeesDetailsApi(
-                                  ref.read(encryptionProvider.notifier));
+                                  ref.read(encryptionProvider.notifier),);
                           await ref
                               .read(feesProvider.notifier)
                               .getHiveFeesDetails('');
                           await ref
                               .read(feesProvider.notifier)
                               .getFinanceDetailsApi(
-                                  ref.read(encryptionProvider.notifier));
+                                  ref.read(encryptionProvider.notifier),);
                           await ref
                               .read(feesProvider.notifier)
                               .getHiveFinanceDetails('');

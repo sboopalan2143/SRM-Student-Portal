@@ -1,0 +1,464 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
+import 'package:sample/theme_3/grievances/grievances_entry_page.dart';
+
+class GrievanceReportPageTheme3 extends ConsumerStatefulWidget {
+  const GrievanceReportPageTheme3({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _GrievanceReportPageTheme3State();
+}
+
+class _GrievanceReportPageTheme3State
+    extends ConsumerState<GrievanceReportPageTheme3> {
+  final ScrollController _listController = ScrollController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
+      GlobalKey<LiquidPullToRefreshState>();
+
+  static int refreshNum = 10;
+  Stream<int> counterStream =
+      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+
+  Future<void> _handleRefresh() async {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(grievanceProvider.notifier)
+            .getStudentWiseGrievanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
+      },
+    );
+
+    final completer = Completer<void>();
+    Timer(const Duration(seconds: 1), completer.complete);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = ref.watch(grievanceProvider);
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: AppColors.secondaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
+            ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const MainScreenPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'GRIEVANCES',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                // Row(
+                //   children: [
+                //     IconButton(
+                //       onPressed: () {
+                //         scaffoldKey.currentState?.openEndDrawer();
+                //       },
+                //       icon: const Icon(
+                //         Icons.menu,
+                //         size: 35,
+                //         color: AppColors.whiteColor,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(grievanceProvider.notifier)
+                              .getStudentWiseGrievanceDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
+                              .read(grievanceProvider.notifier)
+                              .getHiveGrievanceDetails('');
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: LiquidPullToRefresh(
+        key: _refreshIndicatorKey,
+        onRefresh: _handleRefresh,
+        color: AppColors.primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(9),
+                        ),
+                      ),
+                      elevation: 0,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      backgroundColor: AppColors.primaryColor,
+                      shadowColor: Colors.transparent,
+                    ),
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: const GrievanceEntryPageTheme3(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Grievances Entry',
+                      style: TextStyles.fontStyle13,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                if (provider is CummulativeAttendanceStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
+                    ),
+                  )
+                else if (provider.studentwisegrievanceData.isEmpty &&
+                    provider is! CummulativeAttendanceStateLoading)
+                  Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (provider.studentwisegrievanceData.isNotEmpty)
+                  const SizedBox(height: 5),
+                ListView.builder(
+                  itemCount: provider.studentwisegrievanceData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      endDrawer: const DrawerDesign(),
+    );
+  }
+
+  Widget cardDesign(int index) {
+    final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(grievanceProvider);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              // spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance id',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievanceid}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievanceid}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance category',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancecategory}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancecategory}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance desc',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancedesc}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancedesc}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance time',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancetime}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancetime}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Grievance type',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].grievancetype}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].grievancetype}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'subject',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].subject}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].subject}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].status}' == ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].status}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Active status',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.studentwisegrievanceData[index].activestatus}' ==
+                              ''
+                          ? '-'
+                          : '''${provider.studentwisegrievanceData[index].activestatus}''',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

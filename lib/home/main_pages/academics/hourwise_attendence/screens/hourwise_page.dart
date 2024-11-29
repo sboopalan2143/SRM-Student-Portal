@@ -116,7 +116,8 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           await ref
                               .read(hourwiseProvider.notifier)
                               .gethourwiseDetails(
-                                  ref.read(encryptionProvider.notifier));
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(hourwiseProvider.notifier)
                               .getHiveHourwise('');

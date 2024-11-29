@@ -976,5 +976,3 @@ class HostelProvider extends StateNotifier<HostelState> {
     }
   }
 }
-
-

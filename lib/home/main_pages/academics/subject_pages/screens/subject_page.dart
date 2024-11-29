@@ -110,7 +110,8 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                           await ref
                               .read(subjectProvider.notifier)
                               .getSubjectDetails(
-                                  ref.read(encryptionProvider.notifier));
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(subjectProvider.notifier)
                               .getHiveSubjectDetails('');

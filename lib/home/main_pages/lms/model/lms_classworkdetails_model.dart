@@ -109,10 +109,6 @@
 // }
 
 class GetClassWorkDetailsModel {
-  String? status;
-  String? message;
-  List<ClassWorkDetailsData>? data;
-
   GetClassWorkDetailsModel({this.status, this.message, this.data});
 
   GetClassWorkDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -120,14 +116,17 @@ class GetClassWorkDetailsModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <ClassWorkDetailsData>[];
-      json['Data'].forEach((v) {
-        data!.add(new ClassWorkDetailsData.fromJson(v as Map<String, dynamic>));
-      });
+      for (final v in json['Data'] as List<dynamic>) {
+        data!.add(ClassWorkDetailsData.fromJson(v as Map<String, dynamic>));
+      }
     }
   }
+  String? status;
+  String? message;
+  List<ClassWorkDetailsData>? data;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['Status'] = status;
     data['Message'] = message;
     if (this.data != null) {
@@ -138,48 +137,28 @@ class GetClassWorkDetailsModel {
 }
 
 class ClassWorkDetailsData {
-  String? mcqmarksperquestions;
-  String? instructions;
-  String? classworktypeid;
-  String? cnt;
-  String? classworktypedesc;
-  String? titleTam;
-  String? topicdesc;
-  String? mcqminmarktopass;
-  String? dpstartdatetime;
-  String? mcqtimelimit;
-  String? classworkid;
-  String? mcqscheduleid;
-  String? conductingmarks;
-  String? stuimageattachmentid;
-  String? fieldrequirement;
-  String? mcqnoofquestions;
-  String? topicTam;
-  String? classworkreplyid;
-  String? remarks;
-  String? dpenddatetime;
-
-  ClassWorkDetailsData(
-      {this.mcqmarksperquestions,
-      this.instructions,
-      this.classworktypeid,
-      this.cnt,
-      this.classworktypedesc,
-      this.titleTam,
-      this.topicdesc,
-      this.mcqminmarktopass,
-      this.dpstartdatetime,
-      this.mcqtimelimit,
-      this.classworkid,
-      this.mcqscheduleid,
-      this.conductingmarks,
-      this.stuimageattachmentid,
-      this.fieldrequirement,
-      this.mcqnoofquestions,
-      this.topicTam,
-      this.classworkreplyid,
-      this.remarks,
-      this.dpenddatetime});
+  ClassWorkDetailsData({
+    this.mcqmarksperquestions,
+    this.instructions,
+    this.classworktypeid,
+    this.cnt,
+    this.classworktypedesc,
+    this.titleTam,
+    this.topicdesc,
+    this.mcqminmarktopass,
+    this.dpstartdatetime,
+    this.mcqtimelimit,
+    this.classworkid,
+    this.mcqscheduleid,
+    this.conductingmarks,
+    this.stuimageattachmentid,
+    this.fieldrequirement,
+    this.mcqnoofquestions,
+    this.topicTam,
+    this.classworkreplyid,
+    this.remarks,
+    this.dpenddatetime,
+  });
 
   ClassWorkDetailsData.fromJson(Map<String, dynamic> json) {
     mcqmarksperquestions = json['mcqmarksperquestions'] as String?;
@@ -203,9 +182,29 @@ class ClassWorkDetailsData {
     remarks = json['remarks'] as String?;
     dpenddatetime = json['dpenddatetime'] as String?;
   }
+  String? mcqmarksperquestions;
+  String? instructions;
+  String? classworktypeid;
+  String? cnt;
+  String? classworktypedesc;
+  String? titleTam;
+  String? topicdesc;
+  String? mcqminmarktopass;
+  String? dpstartdatetime;
+  String? mcqtimelimit;
+  String? classworkid;
+  String? mcqscheduleid;
+  String? conductingmarks;
+  String? stuimageattachmentid;
+  String? fieldrequirement;
+  String? mcqnoofquestions;
+  String? topicTam;
+  String? classworkreplyid;
+  String? remarks;
+  String? dpenddatetime;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['mcqmarksperquestions'] = mcqmarksperquestions;
     data['instructions'] = instructions;
     data['classworktypeid'] = classworktypeid;

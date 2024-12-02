@@ -151,7 +151,7 @@ class _Theme01RegistrationPageState
                               SizedBox(
                                 width: width / 2 - 100,
                                 child: Text(
-                                  'hostel :',
+                                  'Hostel :',
                                   style: TextStyles.buttonStyle01theme2,
                                 ),
                               ),
@@ -173,7 +173,7 @@ class _Theme01RegistrationPageState
                                 color: AppColors.theme01primaryColor
                                     .withOpacity(0.5)),
                             _buildRow(
-                              'Hostel fee amount :',
+                              'Hostel Fee Amount :',
                               '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
                                       ''
                                   ? '-'
@@ -181,7 +181,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Registration date',
+                              'Registration Date',
                               '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
                                       ''
                                   ? '-'
@@ -189,7 +189,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Caution deposit amt',
+                              'Caution Deposit Amt',
                               '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
                                       ''
                                   ? '-'
@@ -197,7 +197,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Room type :',
+                              'Room Type :',
                               '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
                                       ''
                                   ? '-'
@@ -205,7 +205,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Active status',
+                              'Active Status',
                               '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
                                       ''
                                   ? '-'
@@ -213,7 +213,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Active status',
+                              'Active Status',
                               '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
                                       ''
                                   ? '-'
@@ -221,7 +221,7 @@ class _Theme01RegistrationPageState
                               width,
                             ),
                             _buildRow(
-                              'Active status',
+                              'Active Status',
                               '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
                                       ''
                                   ? '-'

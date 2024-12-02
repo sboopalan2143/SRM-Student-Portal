@@ -8,7 +8,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_get_answer_data_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_get_answer_screen.dart';
 
@@ -149,7 +148,7 @@ class _Theme01McqTestViewPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -157,27 +156,27 @@ class _Theme01McqTestViewPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
-                  )
-                else if (provider.mcqQuestionAndAnswerData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
-                      ),
-                    ],
                   ),
+                // else if (provider.mcqQuestionAndAnswerData.isEmpty &&
+                //     provider is! LmsStateLoading)
+                //   Column(
+                //     children: [
+                //       SizedBox(height: MediaQuery.of(context).size.height / 5),
+                //       const Center(
+                //         child: Text(
+                //           'No List Added',
+                //           style: TextStyles.fontStyle1,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
                 if (provider.mcqQuestionAndAnswerData.isNotEmpty)
                   ListView.builder(
                     itemCount: provider.mcqQuestionAndAnswerData.length,
@@ -190,57 +189,58 @@ class _Theme01McqTestViewPageState
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .getMcqAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .saveMCQAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.mcqscheduleid,
-                                singleString,
-                                widget.marksperquestion,
-                              );
+                if (provider.mcqQuestionAndAnswerData.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 150,
+                        child: GestureDetector(
+                          onTap: () async {
+                            await ref
+                                .read(lmsProvider.notifier)
+                                .getMcqAnswerDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                            await ref
+                                .read(lmsProvider.notifier)
+                                .saveMCQAnswerDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                  widget.mcqscheduleid,
+                                  singleString,
+                                  widget.marksperquestion,
+                                );
 
-                          await Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: const Theme01McqGetAnswerPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme01secondaryColor4,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyles.buttonStyle01theme,
-                                  textAlign: TextAlign.center,
-                                ),
+                            await Navigator.push(
+                              context,
+                              RouteDesign(
+                                route: const Theme01McqGetAnswerPage(),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.theme01secondaryColor4,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Submit',
+                                    style: TextStyles.buttonStyle01theme,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -311,7 +311,7 @@ class _Theme01McqTestViewPageState
                             singleString = answerSelected.join(',');
                           });
                         },
-                        activeColor: AppColors.primaryColor,
+                        activeColor: AppColors.theme01primaryColor,
                       ),
                   ],
                 ),

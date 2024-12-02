@@ -3,13 +3,11 @@ import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_test_view.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_mcq_test_screen.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
@@ -128,7 +126,7 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -136,27 +134,27 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
-                  )
-                else if (provider.mcqSheduleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
-                      ),
-                    ],
                   ),
+                // else if (provider.mcqSheduleData.isEmpty &&
+                //     provider is! LmsStateLoading)
+                //   Column(
+                //     children: [
+                //       SizedBox(height: MediaQuery.of(context).size.height / 5),
+                //       const Center(
+                //         child: Text(
+                //           'No List Added',
+                //           style: TextStyles.fontStyle1,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
                 if (provider.mcqSheduleData.isNotEmpty)
                   ListView.builder(
                     itemCount: provider.mcqSheduleData.length,
@@ -202,6 +200,40 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
+                  Center(
+                    child: Card(
+                      elevation: 8, // Gives the card a shadow effect for depth
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(16), // Rounded corners
+                      ),
+                      shadowColor: Colors.redAccent.withOpacity(0.5),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.new_releases,
+                              color: Colors.redAccent,
+                              size: 28,
+                            ),
+                            SizedBox(width: 8),
+                            BlinkText(
+                              'New',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              endColor: Colors.redAccent,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Text('MCQ Entry ', style: TextStyles.theme01titleFontStyle),
                   const SizedBox(height: 20),
                   const Row(
@@ -252,7 +284,7 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'no of questions: ',
+                        'No Of Questions: ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
                       Text(
@@ -260,12 +292,6 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 20),
-                  const BlinkText(
-                    'New',
-                    style: TextStyles.fontStyle6,
-                    endColor: Colors.redAccent,
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -304,7 +330,7 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
                                 children: [
                                   Center(
                                     child: Text(
-                                      'Take test',
+                                      'Take Test',
                                       style: TextStyles.buttonStyle01theme2,
                                       textAlign: TextAlign.center,
                                     ),

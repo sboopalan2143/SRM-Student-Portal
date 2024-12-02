@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/loading_wrapper.dart';
-import 'package:sample/designs/navigation_style.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
+
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme01HourAttendancePage extends ConsumerStatefulWidget {
@@ -214,7 +212,7 @@ class _Theme01HourAttendancePageState
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.listHourWiseHiveData.isEmpty &&
@@ -224,8 +222,8 @@ class _Theme01HourAttendancePageState
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     const Center(
                       child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle,
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
                       ),
                     ),
                   ],

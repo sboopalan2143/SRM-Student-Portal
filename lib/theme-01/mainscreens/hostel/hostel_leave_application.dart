@@ -80,12 +80,7 @@ class _Theme01LeaveApplicationPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const HostelPage(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -155,8 +150,8 @@ class _Theme01LeaveApplicationPageState
             ? Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators
+                      .theme01primaryColorProgressIndication,
                 ),
               )
             : provider.hostelLeaveData.isEmpty &&
@@ -302,7 +297,7 @@ class _Theme01LeaveApplicationPageState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Reason for Leave',
+                              'Reason For Leave',
                               style: TextStyles.theme01primary10smal3,
                             ),
                             const SizedBox(
@@ -411,7 +406,7 @@ class _Theme01LeaveApplicationPageState
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Leave From date',
+                      'Leave From Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

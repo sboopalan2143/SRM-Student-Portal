@@ -338,7 +338,7 @@ class _Theme01ProfilePageState extends ConsumerState<Theme01ProfilePage>
                                   Row(
                                     children: [
                                       Text(
-                                        'kabir',
+                                        'Yatin Lochab',
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -430,12 +430,6 @@ class _Theme01ProfilePageState extends ConsumerState<Theme01ProfilePage>
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                // Menu Item 6
-                                _buildMenuItem(
-                                  icon: Icons.logout,
-                                  label: 'Log out',
-                                ),
-                                const Divider(color: Colors.white54, height: 1),
                               ],
                             ),
                           ),

@@ -86,7 +86,7 @@ class _Theme01CumulativeAttendancePageState
                   //     route: const AcademicsPage(),
                   //   ),
                   // );
-                  Navigator.of(context);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -96,7 +96,7 @@ class _Theme01CumulativeAttendancePageState
               backgroundColor: AppColors.theme01secondaryColor4,
               elevation: 0,
               title: Text(
-                'CUMMULATIVE ATTENDANCE',
+                'CUMMULAT ATTENDANCE',
                 style: TextStyles.buttonStyle01theme4,
                 overflow: TextOverflow.clip,
               ),
@@ -142,7 +142,7 @@ class _Theme01CumulativeAttendancePageState
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.cummulativeHiveAttendanceData.isEmpty &&
@@ -152,8 +152,8 @@ class _Theme01CumulativeAttendancePageState
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     const Center(
                       child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.alertContentStyle,
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
                       ),
                     ),
                   ],

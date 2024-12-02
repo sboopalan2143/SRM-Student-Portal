@@ -169,7 +169,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.libraryTransactionData.isEmpty &&
@@ -179,8 +179,8 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     const Center(
                       child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle5,
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
                       ),
                     ),
                   ],
@@ -230,15 +230,15 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
               title: Row(
                 children: [
                   SizedBox(
-                    width: width / 2 - 100,
+                    width: width / 2 - 80,
                     child: Text(
-                      'Status :',
+                      'Member Code :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
                   Expanded(
                     child: Text(
-                      '${provider.libraryTransactionData[index].status}',
+                      '${provider.libraryTransactionData[index].membercode}',
                       style: TextStyles.fontStyle2,
                     ),
                   ),
@@ -249,7 +249,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Member name :',
+                  'Member Name :',
                   '${provider.libraryTransactionData[index].membername}' ==
                           'null'
                       ? '-'
@@ -257,15 +257,14 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Member code',
-                  '${provider.libraryTransactionData[index].membercode}' ==
-                          'null'
+                  'Status',
+                  '${provider.libraryTransactionData[index].status}' == 'null'
                       ? '-'
-                      : '${provider.libraryTransactionData[index].membercode}',
+                      : '${provider.libraryTransactionData[index].status}',
                   width,
                 ),
                 _buildRow(
-                  'Member type',
+                  'Member Type',
                   '${provider.libraryTransactionData[index].membertype}' ==
                           'null'
                       ? '-'
@@ -273,7 +272,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Policy name :',
+                  'Policy Name :',
                   '${provider.libraryTransactionData[index].policyname}' ==
                           'null'
                       ? '-'
@@ -281,7 +280,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Accession no',
+                  'Accession No',
                   '${provider.libraryTransactionData[index].accessionno}' ==
                           'null'
                       ? '-'
@@ -289,14 +288,14 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Due date',
+                  'Due Date',
                   '${provider.libraryTransactionData[index].duedate}' == 'null'
                       ? '-'
                       : '${provider.libraryTransactionData[index].duedate}',
                   width,
                 ),
                 _buildRow(
-                  'Fine amount',
+                  'Fine Amount',
                   '${provider.libraryTransactionData[index].fineamount}' ==
                           'null'
                       ? '-'
@@ -304,7 +303,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Issue date',
+                  'Issue Date',
                   '${provider.libraryTransactionData[index].issuedate}' ==
                           'null'
                       ? '-'
@@ -312,7 +311,7 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
                   width,
                 ),
                 _buildRow(
-                  'Return date',
+                  'Return Date',
                   '${provider.libraryTransactionData[index].returndate}' ==
                           'null'
                       ? '-'

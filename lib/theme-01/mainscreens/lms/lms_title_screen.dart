@@ -129,7 +129,7 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -137,26 +137,26 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.lmsTitleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                      const Padding(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: Center(
+                          child: Text(
+                            'No List Added',
+                            style: TextStyles.fontStyle1,
+                          ),
                         ),
                       ),
                     ],
+                  )
+                else if (provider.lmsTitleData.isEmpty &&
+                    provider is! LmsStateLoading)
+                  Center(
+                    child: CircularProgressIndicators
+                        .theme01primaryColorProgressIndication,
                   ),
                 if (provider.lmsTitleData.isNotEmpty)
                   ListView.builder(
@@ -225,21 +225,21 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Start date time :',
+                  'Start Date Time :',
                   '${provider.lmsTitleData[index].startdatetime}' == 'null'
                       ? '-'
                       : '''${provider.lmsTitleData[index].startdatetime}''',
                   width,
                 ),
                 _buildRow(
-                  'End date time',
+                  'End Date Time',
                   '${provider.lmsTitleData[index].enddatetime}' == 'null'
                       ? '-'
                       : '''${provider.lmsTitleData[index].enddatetime}''',
                   width,
                 ),
                 _buildRow(
-                  'Subject desc',
+                  'Subject Desc',
                   '${provider.lmsTitleData[index].classworktypedesc}' == 'null'
                       ? '-'
                       : '''${provider.lmsTitleData[index].classworktypedesc}''',
@@ -359,7 +359,7 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
                                   children: [
                                     Center(
                                       child: Text(
-                                        'faculty chat',
+                                        'Faculty Chat',
                                         style: TextStyles.fontStyle5,
                                         textAlign: TextAlign.center,
                                       ),

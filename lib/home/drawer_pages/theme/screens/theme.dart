@@ -22,38 +22,28 @@ class _ThemePageState extends ConsumerState<ThemePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.theme01primaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_back_ios_new,
-                  color: AppColors.whiteColor,
+                  color: AppColors.theme01primaryColor,
                 ),
               ),
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.theme01secondaryColor4,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'THEME',
-                style: TextStyles.fontStyle4,
+                style: TextStyles.fontStyle01theme,
                 overflow: TextOverflow.clip,
               ),
               centerTitle: true,
@@ -64,10 +54,10 @@ class _ThemePageState extends ConsumerState<ThemePage> {
                       onPressed: () {
                         scaffoldKey.currentState?.openEndDrawer();
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.menu,
                         size: 35,
-                        color: AppColors.whiteColor,
+                        color: AppColors.theme01primaryColor,
                       ),
                     ),
                   ],
@@ -77,32 +67,34 @@ class _ThemePageState extends ConsumerState<ThemePage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: Column(
-          children: [
-            const Text(
-              'Select your prefered theme color',
-              style: TextStyles.smallBlackColorFontStyle,
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: Wrap(
-                spacing: 30,
-                runSpacing: 20,
-                children: [
-                  button('Blue', '0xff236EDE'),
-                  button('Red', '0xffdc2626'),
-                  button('Green', '0xff16a34a'),
-                  button('Sky Blue', '0xff0ea5e9'),
-                  button('Orange', '0xffea580c'),
-                  button('Black', '0xff030712'),
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          child: Column(
+            children: [
+              const Text(
+                'Select your prefered theme color',
+                style: TextStyles.smallBlackColorFontStyle,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 40,
+              ),
+              Center(
+                child: Wrap(
+                  spacing: 30,
+                  runSpacing: 20,
+                  children: [
+                    button('Blue', '0xff236EDE'),
+                    button('Red', '0xffdc2626'),
+                    button('Green', '0xff16a34a'),
+                    button('Sky Blue', '0xff0ea5e9'),
+                    button('Orange', '0xffea580c'),
+                    button('Black', '0xff030712'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),
@@ -111,106 +103,108 @@ class _ThemePageState extends ConsumerState<ThemePage> {
 
   Widget button(String text, String color) {
     final width = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        SizedBox(
-          height: 120,
-          width: width * 0.30,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(14),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 120,
+            width: width * 0.30,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(14),
+                  ),
                 ),
+                elevation: 0,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                backgroundColor: Color(int.parse(color)),
+                shadowColor: Colors.transparent,
               ),
-              elevation: 0,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              backgroundColor: Color(int.parse(color)),
-              shadowColor: Colors.transparent,
-            ),
-            onPressed: () async {
-              if (text == 'Red') {
-                log('Color $color');
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#fef2f2');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
+              onPressed: () async {
+                if (text == 'Red') {
+                  log('Color $color');
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#fef2f2');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
 
-              if (text == 'Green') {
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#f0fdf4');
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
+                if (text == 'Green') {
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#f0fdf4');
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
 
-              if (text == 'Sky Blue') {
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#e0f2fe');
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
+                if (text == 'Sky Blue') {
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#e0f2fe');
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
 
-              if (text == 'Orange') {
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#fff7ed');
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
+                if (text == 'Orange') {
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#fff7ed');
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
 
-              if (text == 'Black') {
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#f3f4f6');
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
+                if (text == 'Black') {
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#f3f4f6');
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
 
-              if (text == 'Blue') {
-                await AppColors.setPrimaryColor(color);
-                await AppColors.setSecondaryColor('#F3F9FD');
-                ref.read(mainProvider.notifier).setNavString('Theme');
-                await Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const ThemePage(),
-                  ),
-                );
-              }
-            },
-            child: const Text(
-              '',
+                if (text == 'Blue') {
+                  await AppColors.setPrimaryColor(color);
+                  await AppColors.setSecondaryColor('#F3F9FD');
+                  ref.read(mainProvider.notifier).setNavString('Theme');
+                  await Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const ThemePage(),
+                    ),
+                  );
+                }
+              },
+              child: const Text(
+                '',
+              ),
             ),
           ),
-        ),
-        Text(
-          text,
-          style: TextStyles.fontStyle2,
-        ),
-      ],
+          Text(
+            text,
+            style: TextStyles.fontStyle2,
+          ),
+        ],
+      ),
     );
   }
 }

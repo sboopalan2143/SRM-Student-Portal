@@ -129,7 +129,7 @@ class _Theme01LmsClassworkDetailPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -137,25 +137,24 @@ class _Theme01LmsClassworkDetailPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                if (provider is LmsStateLoading)
+                  const Center(
+                      child: Padding(
+                    padding: EdgeInsets.only(top: 100),
+                    child: Text(
+                      'No List Added',
+                      style: TextStyles.fontStyle1,
                     ),
-                  )
+                  ),)
                 else if (provider.classWorkDetailsData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                    provider is! LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
-                      ),
+                      Center(
+                        child: CircularProgressIndicators
+                            .theme01primaryColorProgressIndication,
+                      )
                     ],
                   ),
                 if (provider.classWorkDetailsData.isNotEmpty)
@@ -206,7 +205,7 @@ class _Theme01LmsClassworkDetailPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Classwork id :',
+                      'Classwork Id :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -226,7 +225,7 @@ class _Theme01LmsClassworkDetailPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'class work type desc :',
+                  'Class Work Type Desc :',
                   '${provider.classWorkDetailsData[index].classworktypedesc}' ==
                           'null'
                       ? '-'
@@ -234,7 +233,7 @@ class _Theme01LmsClassworkDetailPageState
                   width,
                 ),
                 _buildRow(
-                  'Dp start date time',
+                  'Dp Start Date Time',
                   '${provider.classWorkDetailsData[index].dpstartdatetime}' ==
                           'null'
                       ? '-'
@@ -242,7 +241,7 @@ class _Theme01LmsClassworkDetailPageState
                   width,
                 ),
                 _buildRow(
-                  'Dp end date time',
+                  'Dp End Date Time',
                   '${provider.classWorkDetailsData[index].dpenddatetime}' ==
                           'null'
                       ? '-'
@@ -250,7 +249,7 @@ class _Theme01LmsClassworkDetailPageState
                   width,
                 ),
                 _buildRow(
-                  'Topic desc',
+                  'Topic Desc',
                   '${provider.classWorkDetailsData[index].topicdesc}' == 'null'
                       ? '-'
                       : '''${provider.classWorkDetailsData[index].topicdesc}''',

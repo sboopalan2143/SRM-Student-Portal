@@ -123,7 +123,7 @@ class _Theme01LmsFacultyCommentScreenState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -131,21 +131,21 @@ class _Theme01LmsFacultyCommentScreenState
             children: [
               const SizedBox(height: 20),
               if (provider is LibraryTrancsactionStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
+                const Padding(
+                  padding: EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: Text(
+                      'No List Added',
+                      style: TextStyles.fontStyle1,
+                    ),
                   ),
                 )
               else if (provider.lmsfacultygetcommentData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
+                Expanded(
                   child: Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle,
-                    ),
+                    child: CircularProgressIndicators
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.lmsfacultygetcommentData.isNotEmpty)
@@ -322,6 +322,12 @@ class _Theme01LmsFacultyCommentScreenState
                     },
                     child: Text(
                       showRepliesList[index] ? 'Hide Replies' : 'Show Replies',
+                      style: TextStyle(
+                        color: showRepliesList[index]
+                            ? Colors.grey
+                            : AppColors.theme01secondaryColor4,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

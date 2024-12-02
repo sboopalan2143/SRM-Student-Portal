@@ -1,25 +1,26 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
+import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
-import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
 import 'package:sample/theme-01/setting_page.dart';
-import 'package:sample/theme-01/theme01_homepage.dart';
+import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
+import 'package:sample/theme-02/theme02_homepage.dart';
+import 'package:sample/theme-02/theme_02setting_page.dart';
 
-class Theme01MainScreenPage extends ConsumerStatefulWidget {
-  const Theme01MainScreenPage({super.key});
+class Theme02MainScreenPage extends ConsumerStatefulWidget {
+  const Theme02MainScreenPage({super.key});
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01MainScreenPageState();
+      _Theme02MainScreenPageState();
 }
 
-class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
+class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
   int myCurrentIndex = 0;
   final pages = const [
-    Theme01Homepage(),
-    Theme01settingPage(),
-    Theme01ProfilePage(),
+    Theme02Homepage(),
+    Theme02settingPage(),
+    Theme02ProfilePage(),
     ThemePage(),
   ];
   @override
@@ -29,14 +30,13 @@ class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: myCurrentIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.theme01primaryColor,
-        selectedItemColor: AppColors.theme01secondaryColor1,
-        unselectedItemColor: AppColors.whiteColor,
+        backgroundColor: AppColors.whiteColor,
+        selectedItemColor: AppColors.primaryColor2,
+        unselectedItemColor: AppColors.lightAshColor,
         iconSize: 25,
         onTap: (index) {
           setState(() {
             myCurrentIndex = index;
-            log('Index >>> $myCurrentIndex');
           });
         },
         items: const [

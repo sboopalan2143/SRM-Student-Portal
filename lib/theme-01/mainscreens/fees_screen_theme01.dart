@@ -79,11 +79,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: Icon(
@@ -192,7 +189,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.financeHiveData.isEmpty &&
@@ -202,8 +199,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle6,
+                          'No List Added ',
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],
@@ -266,7 +263,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Due name :',
+                      'Due Name :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -285,35 +282,35 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Amt collected :',
+                  'Amt Collected :',
                   '${provider.feesDetailsHiveData[index].amtcollected}' == ''
                       ? '-'
                       : '${provider.feesDetailsHiveData[index].amtcollected}',
                   width,
                 ),
                 _buildRow(
-                  'Current due',
+                  'Current Due',
                   '${provider.feesDetailsHiveData[index].currentdue}' == ''
                       ? '-'
                       : '${provider.feesDetailsHiveData[index].currentdue}',
                   width,
                 ),
                 _buildRow(
-                  'Due amount',
+                  'Due Amount',
                   '${provider.feesDetailsHiveData[index].dueamount}' == ''
                       ? '-'
                       : '${provider.feesDetailsHiveData[index].dueamount}',
                   width,
                 ),
                 _buildRow(
-                  'Due date :',
+                  'Due Date :',
                   '${provider.feesDetailsHiveData[index].duedate}' == ''
                       ? '-'
                       : '${provider.feesDetailsHiveData[index].duedate}',
                   width,
                 ),
                 _buildRow(
-                  'Due description',
+                  'Due Description',
                   '${provider.feesDetailsHiveData[index].duedescription}' == ''
                       ? '-'
                       : '${provider.feesDetailsHiveData[index].duedescription}',
@@ -377,21 +374,21 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Due date :',
+                  'Due Date :',
                   '${provider.financeHiveData[index].duedate}' == ''
                       ? '-'
                       : '${provider.financeHiveData[index].duedate}',
                   width,
                 ),
                 _buildRow(
-                  'Mode of transaction',
+                  'Mode Of Transaction',
                   '${provider.financeHiveData[index].modeoftransaction}' == ''
                       ? '-'
                       : '${provider.financeHiveData[index].modeoftransaction}',
                   width,
                 ),
                 _buildRow(
-                  'Due amount',
+                  'Due Amount',
                   '${provider.financeHiveData[index].dueamount}' == ''
                       ? '-'
                       : '${provider.financeHiveData[index].dueamount}',
@@ -405,14 +402,14 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                   width,
                 ),
                 _buildRow(
-                  'Amount collected',
+                  'Amount Collected',
                   '${provider.financeHiveData[index].amountcollected}' == ''
                       ? '-'
                       : '${provider.financeHiveData[index].amountcollected}',
                   width,
                 ),
                 _buildRow(
-                  'Receipt date',
+                  'Receipt Date',
                   '${provider.financeHiveData[index].receiptdate}' == ''
                       ? '-'
                       : '${provider.financeHiveData[index].receiptdate}',

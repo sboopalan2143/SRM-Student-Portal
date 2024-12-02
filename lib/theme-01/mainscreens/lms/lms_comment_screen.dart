@@ -138,7 +138,7 @@ class _Theme01LmsCommentScreenState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -146,24 +146,24 @@ class _Theme01LmsCommentScreenState
             children: [
               const SizedBox(height: 20),
               if (provider is LibraryTrancsactionStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
+                const Padding(
+                  padding: EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: Text(
+                      'No List Added',
+                      style: TextStyles.fontStyle1,
+                    ),
                   ),
                 )
               else if (provider.lmsgetcommentData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
+                        child: CircularProgressIndicators
+                            .theme01primaryColorProgressIndication,
                       ),
                     ],
                   ),
@@ -199,6 +199,10 @@ class _Theme01LmsCommentScreenState
                           ],
                         ),
                         child: TextField(
+                          onChanged: (value) {
+                            log('Textfield : ${value}');
+                            log('${provider.comment.text}');
+                          },
                           controller: provider.comment,
                           decoration: const InputDecoration(
                             hintText: 'Type a Comment...',
@@ -244,8 +248,7 @@ class _Theme01LmsCommentScreenState
   Widget chatCardDesign(int index) {
     final provider = ref.watch(lmsProvider);
     final commentData = provider.lmsgetcommentData[index];
-    final isYou = commentData.names ==
-        'You'; // Adjust this condition based on your logic.
+    final isYou = commentData.names == 'You';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -306,6 +309,7 @@ class _Theme01LmsCommentScreenState
                       color: isYou ? AppColors.primaryColor : Colors.black87,
                     ),
                   ),
+
                   const SizedBox(height: 8),
                   // Timestamp
                   Align(

@@ -80,7 +80,7 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop(context);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -163,7 +163,7 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                       padding: const EdgeInsets.only(top: 100),
                       child: Center(
                         child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
+                            .theme01primaryColorProgressIndication,
                       ),
                     )
                   else if (provider.gethostelData.isEmpty &&
@@ -175,8 +175,8 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                         ),
                         const Center(
                           child: Text(
-                            'No List Added Yet!',
-                            style: TextStyles.fontStyle6,
+                            'No List Added',
+                            style: TextStyles.fontStyle1,
                           ),
                         ),
                       ],
@@ -230,7 +230,7 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Academic year :',
+                      'Academic Year :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -249,28 +249,28 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Alloted date :',
+                  'Alloted Date :',
                   '${provider.gethostelData[index].alloteddate}' == ''
                       ? '-'
                       : '''${provider.gethostelData[index].alloteddate}''',
                   width,
                 ),
                 _buildRow(
-                  'Hostel name',
+                  'Hostel Name',
                   '${provider.gethostelData[index].hostelname}' == ''
                       ? '-'
                       : '''${provider.gethostelData[index].hostelname}''',
                   width,
                 ),
                 _buildRow(
-                  'Room name',
+                  'Room Name',
                   '${provider.gethostelData[index].roomname}' == ''
                       ? '-'
                       : '${provider.gethostelData[index].roomname}',
                   width,
                 ),
                 _buildRow(
-                  'Room type :',
+                  'Room Type :',
                   '${provider.gethostelData[index].roomtype}' == ''
                       ? '-'
                       : '${provider.gethostelData[index].roomtype}',

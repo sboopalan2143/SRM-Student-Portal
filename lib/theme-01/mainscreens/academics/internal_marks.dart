@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme01InternalMarksPage extends ConsumerStatefulWidget {
@@ -129,7 +127,7 @@ class _Theme01InternalMarksPageState
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.internalMarkHiveData.isEmpty &&
@@ -139,8 +137,8 @@ class _Theme01InternalMarksPageState
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     const Center(
                       child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
                       ),
                     ),
                   ],
@@ -197,7 +195,7 @@ class _Theme01InternalMarksPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Subject code :',
+                      'Subject Code :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -214,17 +212,17 @@ class _Theme01InternalMarksPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Subject desc :',
+                  'Subject Desc :',
                   '${provider.internalMarkHiveData[index].subjectdesc}',
                   width,
                 ),
                 _buildRow(
-                  'sum of Marks',
+                  'Sum Of Marks',
                   '${provider.internalMarkHiveData[index].sumofmarks}',
                   width,
                 ),
                 _buildRow(
-                  'sum of max marks',
+                  'Sum Of Max Marks',
                   '${provider.internalMarkHiveData[index].sumofmaxmarks}',
                   width,
                 ),

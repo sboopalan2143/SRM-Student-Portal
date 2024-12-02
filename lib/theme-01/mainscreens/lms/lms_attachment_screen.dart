@@ -140,7 +140,7 @@ class Theme01LmsAttachmentDetailsDataPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -149,11 +149,13 @@ class Theme01LmsAttachmentDetailsDataPageState
               children: [
                 const SizedBox(height: 20),
                 if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: Text(
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
+                      ),
                     ),
                   )
                 else if (provider.lmsAttachmentDetailsData.isEmpty &&
@@ -161,11 +163,9 @@ class Theme01LmsAttachmentDetailsDataPageState
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
+                      Center(
+                        child: CircularProgressIndicators
+                            .theme01primaryColorProgressIndication,
                       ),
                     ],
                   ),
@@ -276,7 +276,7 @@ class Theme01LmsAttachmentDetailsDataPageState
       // Unsupported file type
       fileDisplayWidget = const Center(
         child: Text(
-          'Unsupported file type',
+          'Unsupported File Type',
           style: TextStyles.fontStyle10,
         ),
       );
@@ -324,7 +324,7 @@ class Theme01LmsAttachmentDetailsDataPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Actual name :',
+                  'Actual Name :',
                   '${provider.lmsAttachmentDetailsData[index].actualname}' ==
                           'null'
                       ? '-'
@@ -332,7 +332,7 @@ class Theme01LmsAttachmentDetailsDataPageState
                   width,
                 ),
                 _buildRow(
-                  'File name :',
+                  'File Name :',
                   '${provider.lmsAttachmentDetailsData[index].filename}' ==
                           'null'
                       ? '-'

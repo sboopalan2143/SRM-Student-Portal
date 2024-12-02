@@ -135,7 +135,7 @@ class _Theme01AttendancePageState extends ConsumerState<Theme01AttendancePage> {
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.attendancehiveData.isEmpty &&
@@ -145,8 +145,8 @@ class _Theme01AttendancePageState extends ConsumerState<Theme01AttendancePage> {
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     const Center(
                       child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle,
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
                       ),
                     ),
                   ],

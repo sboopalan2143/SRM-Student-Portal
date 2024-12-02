@@ -74,7 +74,7 @@ class _Theme01ExamDetailsPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.of(context);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -127,83 +127,29 @@ class _Theme01ExamDetailsPageState
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       color: AppColors.whiteColor,
-              //       borderRadius: BorderRadius.circular(7),
-              //       border: Border.all(
-              //         color: AppColors.grey2,
-              //       ),
-              //     ),
-              //     height: 40,
-              //     child: DropdownSearch<String>(
-              //       // dropdownButtonProps: DropdownButtonProps(
-              //       //   focusNode: widget.focusNodeC,
-              //       // ),
-              //       dropdownDecoratorProps: const DropDownDecoratorProps(
-              //         dropdownSearchDecoration: InputDecoration(
-              //           border: InputBorder.none,
-              //           contentPadding:
-              //               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              //         ),
-              //       ),
-              //       itemAsString: (item) => item,
-              //       items: name,
-              //       popupProps: const PopupProps.menu(
-              //         searchFieldProps: TextFieldProps(
-              //           autofocus: true,
-              //         ),
-              //         constraints: BoxConstraints(maxHeight: 250),
-              //       ),
-              //       selectedItem: selectedValue,
-              //       onChanged: (value) {
-              //         // readProvider.selectCustomer(value!);
-              //         setState(() {
-              //           selectedValue = value!;
-              //         });
-              //       },
-              //       dropdownBuilder: (BuildContext context, name) {
-              //         return Text(
-              //           name!,
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //           style: TextStyles.smallLightAshColorFontStyle,
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-              // Center(
-              //   child: Text(
-              //     '2nd Year, 4th Sem',
-              //     style: TextStyles.smallPrimaryColorFontStyle,
-              //   ),
-              // ),
               if (provider is ExamDetailsStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
                 )
               else if (provider.examDetailsHiveData.isEmpty &&
                   provider is! ExamDetailsStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
-                      ),
-                    ),
-                  ],
-                ),
-              if (provider.examDetailsHiveData.isNotEmpty)
-                const SizedBox(height: 5),
+                // Column(
+                //   children: [
+                //     SizedBox(height: MediaQuery.of(context).size.height / 5),
+                //     const Center(
+                //       child: Text(
+                //         'No List Added',
+                //         style: TextStyles.fontStyle1,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                if (provider.examDetailsHiveData.isNotEmpty)
+                  const SizedBox(height: 5),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -254,7 +200,7 @@ class _Theme01ExamDetailsPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Subject code :',
+                      'Subject Code :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -271,7 +217,7 @@ class _Theme01ExamDetailsPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Subject desc :',
+                  'Subject Desc :',
                   '${provider.examDetailsHiveData[index].subjectdesc}',
                   width,
                 ),

@@ -313,8 +313,9 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    log( '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
-   );
+    log(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+    );
     final response =
         await HttpService.sendSoapRequest('getClassWorkDetails', data);
     if (response.$1 == 0) {
@@ -719,7 +720,10 @@ class LmsProvider extends StateNotifier<LmsState> {
     String classworkid,
   ) async {
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmttypeid>2</cmttypeid><comment>${state.comment}</comment>',
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmttypeid>2</cmttypeid><comment>${state.comment.text}</comment>',
+    );
+    log(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmttypeid>2</cmttypeid><comment>${state.comment.text}</comment>',
     );
     final response = await HttpService.sendSoapRequest('SaveComment', data);
     if (response.$1 == 0) {
@@ -802,6 +806,9 @@ class LmsProvider extends StateNotifier<LmsState> {
     String classworkid,
   ) async {
     final data = encrypt.getEncryptedData(
+      '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmdtypeid>2</cmdtypeid>',
+    );
+    log(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><cmdtypeid>2</cmdtypeid>',
     );
     final response = await HttpService.sendSoapRequest('getComments', data);

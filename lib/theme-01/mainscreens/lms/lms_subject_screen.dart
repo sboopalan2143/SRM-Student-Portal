@@ -117,7 +117,7 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -125,23 +125,23 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.lmsSubjectData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                    provider is! LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          'No List Added',
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],
@@ -163,196 +163,6 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
       endDrawer: const DrawerDesign(),
     );
   }
-
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-
-  //   final provider = ref.watch(lmsProvider);
-  //   return GestureDetector(
-  //     onTap: () {
-  //       ref.read(lmsProvider.notifier).getLmsTitleDetails(
-  //             ref.read(encryptionProvider.notifier),
-  //             '${provider.lmsSubjectData[index].subjectid}',
-  //           );
-  //       Navigator.push(
-  //         context,
-  //         RouteDesign(
-  //           route: LmsTitlePage(
-  //             subjectID: '${provider.lmsSubjectData[index].staffname}',
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(bottom: 8),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.grey.withOpacity(0.2),
-  //               spreadRadius: 5,
-  //               blurRadius: 7,
-  //               offset: const Offset(0, 3),
-  //             ),
-  //           ],
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(20),
-  //           child: Column(
-  //             children: [
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Staff Name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].staffname}' == 'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].staffname}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subject Id',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectid}' == 'null'
-  //                           ? '-'
-  //                           : '${provider.lmsSubjectData[index].subjectid}',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subject Code',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectcode}' ==
-  //                               'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].subjectcode}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subjectdesc',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectdesc}' ==
-  //                               'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].subjectdesc}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               const SizedBox(
-  //                 height: 10,
-  //               ),
-  //               SizedBox(
-  //                 width: 200,
-  //                 child: ElevatedButton(
-  //                   style: ElevatedButton.styleFrom(
-  //                     shape: const RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.all(
-  //                         Radius.circular(9),
-  //                       ),
-  //                     ),
-  //                     elevation: 0,
-  //                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //                     backgroundColor: AppColors.primaryColor,
-  //                     shadowColor: Colors.transparent,
-  //                   ),
-  //                   onPressed: () {
-  //                     ref.read(lmsProvider.notifier).getLmsTitleDetails(
-  //                           ref.read(encryptionProvider.notifier),
-  //                           '${provider.lmsSubjectData[index].subjectid}',
-  //                         );
-  //                     Navigator.push(
-  //                       context,
-  //                       RouteDesign(
-  //                         route: LmsTitlePage(
-  //                           subjectID:
-  //                               '${provider.lmsSubjectData[index].staffname}',
-  //                         ),
-  //                       ),
-  //                     );
-  //                   },
-  //                   child: const Text(
-  //                     'view',
-  //                     style: TextStyles.fontStyle13,
-  //                   ),
-  //                 ),
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
@@ -384,7 +194,7 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Subject id :',
+                      'Subject Id :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -403,21 +213,21 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Staff name :',
+                  'Staff Name :',
                   '${provider.lmsSubjectData[index].staffname}' == 'null'
                       ? '-'
                       : '''${provider.lmsSubjectData[index].staffname}''',
                   width,
                 ),
                 _buildRow(
-                  'Subject code',
+                  'Subject Code',
                   '${provider.lmsSubjectData[index].subjectcode}' == 'null'
                       ? '-'
                       : '''${provider.lmsSubjectData[index].subjectcode}''',
                   width,
                 ),
                 _buildRow(
-                  'Subject desc',
+                  'Subject Desc',
                   '${provider.lmsSubjectData[index].subjectdesc}' == 'null'
                       ? '-'
                       : '''${provider.lmsSubjectData[index].subjectdesc}''',
@@ -455,7 +265,7 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
                         );
                       },
                       child: const Text(
-                        'view',
+                        'View',
                         style: TextStyles.fontStyle13,
                       ),
                     ),

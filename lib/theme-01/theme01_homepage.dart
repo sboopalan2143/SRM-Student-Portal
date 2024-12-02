@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,7 +10,8 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-
+import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
+import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
@@ -24,6 +24,10 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/model/inte
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
+import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
@@ -139,12 +143,29 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     Alerts.checkForAppUpdate(context: context, forcefully: false);
   }
 
+
   Future<void> _initialProcess() async {
     await TokensManagement.getStudentId();
     await ref.read(loginProvider.notifier).getAppVersion();
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
 
+//>>>PROFILE
+
+    final profile = await Hive.openBox<ProfileHiveData>('profile');
+    if (profile.isEmpty) {
+      await ref.read(profileProvider.notifier).getProfileApi(
+            ref.read(
+              encryptionProvider.notifier,
+            ),
+          );
+      await ref.read(profileProvider.notifier).getProfileHive('');
+    }
+    await profile.close();
+
+//ACADEMICS
+
+//>>>Attendance
     final attendance = await Hive.openBox<AttendanceHiveData>(
       'Attendance',
     );
@@ -157,6 +178,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
       await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
     }
     await attendance.close();
+
+//>>>Cummulative Attendance
 
     final cummulativeAttendance =
         await Hive.openBox<CumulativeAttendanceHiveData>(
@@ -175,6 +198,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
           .getHiveCummulativeDetails('');
     }
     await cummulativeAttendance.close();
+
+//>>>Exam Details
 
     final examDetails = await Hive.openBox<ExamDetailsHiveData>('examDetails');
     if (examDetails.isEmpty) {
@@ -202,6 +227,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     }
     await hourwiseAttendance.close();
 
+    //>>>Internal Marks
+
     final internalMarks = await Hive.openBox<InternalMarkHiveData>(
       'internalmarkdata',
     );
@@ -215,6 +242,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     }
     await internalMarks.close();
 
+    //>>>Subject
+
     final subjects = await Hive.openBox<SubjectHiveData>('subjecthive');
     if (subjects.isEmpty) {
       await ref
@@ -223,6 +252,47 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
       await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
     }
     await subjects.close();
+
+    //GRIEVANCES
+
+    final grievanceCategoryData = await Hive.openBox<GrievanceCategoryHiveData>(
+      'grievanceCategoryData',
+    );
+    if (grievanceCategoryData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceCategoryDetails('');
+    }
+    await grievanceCategoryData.close();
+
+    final grievanceSubTypeData = await Hive.openBox<GrievanceSubTypeHiveData>(
+      'grievanceSubTypeData',
+    );
+    if (grievanceSubTypeData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceSubTypeDetails('');
+    }
+    await grievanceSubTypeData.close();
+
+    final grievanceTypeData = await Hive.openBox<GrievanceTypeHiveData>(
+      'grievanceTypeData',
+    );
+    if (grievanceTypeData.isEmpty) {
+      await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(grievanceProvider.notifier)
+          .getHiveGrievanceTypeDetails('');
+    }
+    await grievanceTypeData.close();
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -262,7 +332,6 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                 Column(
                   children: [
                     const SizedBox(height: 60),
-                 
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 30,
@@ -277,14 +346,6 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                               color: AppColors.theme01primaryColor,
                             ),
                           ),
-                          // Text(
-                          //   'Student',
-                          //   style: TextStyle(
-                          //     fontSize: 20,
-                          //     fontWeight: FontWeight.bold,
-                          //     color: AppColors.whiteColor,
-                          //   ),
-                          // ),
                           Text(
                             TokensManagement.studentName == ''
                                 ? '-'
@@ -427,89 +488,90 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                         color: AppColors.theme01primaryColor,
                       ),
                       child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 25,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Others',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.theme01secondaryColor1,
-                                  ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 25,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                'Others',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.theme01secondaryColor1,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 15,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            CarouselSlider(
+                              options: CarouselOptions(
+                                height: 150,
+                                enlargeCenterPage: true,
+                                // autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 3),
                               ),
-                              CarouselSlider(
-                                options: CarouselOptions(
-                                  height: 150,
-                                  enlargeCenterPage: true,
-                                  // autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 3),
-                                ),
-                                items: carouselItems2.map((item) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      // Navigate to the specified route
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              item['route'] as Widget,
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        horizontal: 8,
+                              items: carouselItems2.map((item) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigate to the specified route
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            item['route'] as Widget,
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.shade300,
-                                            blurRadius: 5,
-                                            offset: const Offset(0, 3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height: 20),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Image.asset(
-                                              item['image']! as String,
-                                              height: 50,
-                                              width: 300,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            item['title']! as String,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color:
-                                                  AppColors.theme01primaryColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 8,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                            ],
-                          ),),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Image.asset(
+                                            item['image']! as String,
+                                            height: 50,
+                                            width: 300,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          item['title']! as String,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                AppColors.theme01primaryColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

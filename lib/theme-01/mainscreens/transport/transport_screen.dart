@@ -141,7 +141,7 @@ class _Theme01TransportTransactionPageState
                       padding: const EdgeInsets.only(top: 100),
                       child: Center(
                         child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
+                            .theme01primaryColorProgressIndication,
                       ),
                     )
                   else if (provider.transportStatusData.isEmpty &&
@@ -153,8 +153,8 @@ class _Theme01TransportTransactionPageState
                         ),
                         const Center(
                           child: Text(
-                            'No List Added Yet!',
-                            style: TextStyles.fontStyle,
+                            'No List Added',
+                            style: TextStyles.fontStyle1,
                           ),
                         ),
                       ],

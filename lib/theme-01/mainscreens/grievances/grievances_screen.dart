@@ -135,23 +135,23 @@ class _Theme01GrievanceReportPageState
                   ),
                 ),
                 const SizedBox(height: 10),
-                if (provider is CummulativeAttendanceStateLoading)
+                if (provider is GrievanceStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.studentwisegrievanceData.isEmpty &&
-                    provider is! CummulativeAttendanceStateLoading)
+                    provider is! GrievanceStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          'No List Added',
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],
@@ -174,251 +174,6 @@ class _Theme01GrievanceReportPageState
       endDrawer: const DrawerDesign(),
     );
   }
-
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-
-  //   final provider = ref.watch(grievanceProvider);
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 8),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.grey.withOpacity(0.2),
-  //             // spreadRadius: 2,
-  //             blurRadius: 7,
-  //             offset: const Offset(0, 3),
-  //           ),
-  //         ],
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(20),
-  //         child: Column(
-  //           children: [
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Grievance id',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].grievanceid}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].grievanceid}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Grievance category',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].grievancecategory}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].grievancecategory}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Grievance desc',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].grievancedesc}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].grievancedesc}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Grievance time',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].grievancetime}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].grievancetime}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Grievance type',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].grievancetype}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].grievancetype}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'subject',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].subject}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].subject}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Status',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].status}' == ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].status}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 80,
-  //                   child: const Text(
-  //                     'Active status',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.studentwisegrievanceData[index].activestatus}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '''${provider.studentwisegrievanceData[index].activestatus}''',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
@@ -470,7 +225,7 @@ class _Theme01GrievanceReportPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Grievance category :',
+                  'Grievance Category :',
                   '${provider.studentwisegrievanceData[index].grievancecategory}' ==
                           ''
                       ? '-'
@@ -478,7 +233,7 @@ class _Theme01GrievanceReportPageState
                   width,
                 ),
                 _buildRow(
-                  'Grievance desc',
+                  'Grievance Desc',
                   '${provider.studentwisegrievanceData[index].grievancedesc}' ==
                           ''
                       ? '-'
@@ -486,7 +241,7 @@ class _Theme01GrievanceReportPageState
                   width,
                 ),
                 _buildRow(
-                  'Grievance time',
+                  'Grievance Time',
                   '${provider.studentwisegrievanceData[index].grievancetime}' ==
                           ''
                       ? '-'
@@ -494,7 +249,7 @@ class _Theme01GrievanceReportPageState
                   width,
                 ),
                 _buildRow(
-                  'Grievance type :',
+                  'Grievance Type :',
                   '${provider.studentwisegrievanceData[index].grievancetype}' ==
                           ''
                       ? '-'
@@ -516,7 +271,7 @@ class _Theme01GrievanceReportPageState
                   width,
                 ),
                 _buildRow(
-                  'Active status',
+                  'Active Status',
                   '${provider.studentwisegrievanceData[index].activestatus}' ==
                           ''
                       ? '-'

@@ -218,14 +218,18 @@ class _LoginScreen3State extends ConsumerState<LoginScreen3>
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
-                    child: Text(
-                      'Log in',
-                      style: TextStyle(
-                        color: AppColors.theme01primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: provider is LoginStateLoading
+                        ? CircularProgressIndicator(
+                            color: AppColors.secondaryColor,
+                          )
+                        : Text(
+                            'Log in',
+                            style: TextStyle(
+                              color: AppColors.theme01primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                   ),
                 ),
               ],

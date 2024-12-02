@@ -8,12 +8,21 @@ class AppColors {
 
   static Color theme01primaryColor = const Color(0xff355B63);
 
+  static Color theme02primaryColor = const Color(0xff514CA6);
+
   static Color theme01secondaryColor1 = const Color(0xffFFCC99);
 
   static Color theme01secondaryColor2 = const Color(0xffFFCC99);
 
   static Color theme01secondaryColor3 = const Color(0xffFEF1D8);
+
   static Color theme01secondaryColor4 = const Color(0xffFAE5C7);
+
+  static Color theme02secondaryColor1 = const Color(0xff3A8ECC);
+
+  static Color theme02buttonColor1 = const Color(0xffF44A1C);
+
+  static Color theme02buttonColor2 = const Color(0xffF15D25);
 
   static Color primaryColorTheme3 = const Color(0xffAD1457);
 

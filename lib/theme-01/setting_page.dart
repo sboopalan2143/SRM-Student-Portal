@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +12,10 @@ import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/login/screen/login_Page2.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
+import 'package:sample/theme-01/login/theme01_login_screen.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 
 class Theme01settingPage extends ConsumerStatefulWidget {
@@ -206,7 +205,7 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                                     TokensManagement.clearSharedPreference();
                                     Navigator.pushAndRemoveUntil(
                                       context,
-                                      RouteDesign(route: const LoginPage2()),
+                                      RouteDesign(route: const LoginScreen3()),
                                       (route) => false,
                                     );
                                   },

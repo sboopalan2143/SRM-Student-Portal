@@ -161,8 +161,8 @@ class _Theme01ViewLibraryPageState
                           ),
                           const Center(
                             child: Text(
-                              'No List Added Yet!',
-                              style: TextStyles.fontStyle,
+                              'No List Added',
+                              style: TextStyles.fontStyle1,
                             ),
                           ),
                         ],
@@ -217,7 +217,7 @@ class _Theme01ViewLibraryPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Accession number :',
+                      'Accession Number :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),
@@ -237,21 +237,21 @@ class _Theme01ViewLibraryPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Author name :',
+                  'Author Name :',
                   '${provider.librarysearchData[index].authorname}' == ''
                       ? '-'
                       : '''${provider.librarysearchData[index].authorname}''',
                   width,
                 ),
                 _buildRow(
-                  'Book number',
+                  'Book Number',
                   '${provider.librarysearchData[index].booknumber}' == ''
                       ? '-'
                       : '''${provider.librarysearchData[index].booknumber}''',
                   width,
                 ),
                 _buildRow(
-                  'Publisher name',
+                  'Publisher Name',
                   '${provider.librarysearchData[index].publishername}' == ''
                       ? '-'
                       : '''${provider.librarysearchData[index].publishername}''',
@@ -280,14 +280,14 @@ class _Theme01ViewLibraryPageState
                   width,
                 ),
                 _buildRow(
-                  'department',
+                  'Department',
                   '${provider.librarysearchData[index].department}' == ''
                       ? '-'
                       : '''${provider.librarysearchData[index].department}''',
                   width,
                 ),
                 _buildRow(
-                  'edition',
+                  'Edition',
                   '${provider.librarysearchData[index].edition}' == ''
                       ? '-'
                       : '''${provider.librarysearchData[index].edition}''',

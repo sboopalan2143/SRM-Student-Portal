@@ -117,31 +117,31 @@ class _Theme01McqGetAnswerPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (provider is ExamDetailsStateLoading)
+              if (provider is LmsStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme01primaryColorProgressIndication,
                   ),
-                )
-              else if (provider.mcqgetAnswerDetails.isEmpty &&
-                  provider is! ExamDetailsStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
-                      ),
-                    ),
-                  ],
                 ),
+              // else if (provider.mcqgetAnswerDetails.isEmpty &&
+              //     provider is! LmsStateLoading)
+              //   Column(
+              //     children: [
+              //       SizedBox(height: MediaQuery.of(context).size.height / 5),
+              //       const Center(
+              //         child: Text(
+              //           'No List Added',
+              //           style: TextStyles.fontStyle1,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
               if (provider.mcqgetAnswerDetails.isNotEmpty)
                 const SizedBox(height: 5),
               Padding(
@@ -163,246 +163,6 @@ class _Theme01McqGetAnswerPageState
       endDrawer: const DrawerDesign(),
     );
   }
-
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //   final provider = ref.watch(lmsProvider);
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 8),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.grey.withOpacity(0.2),
-  //             spreadRadius: 5,
-  //             blurRadius: 7,
-  //             offset: const Offset(0, 3),
-  //           ),
-  //         ],
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(20),
-  //         child: Column(
-  //           children: [
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Answer',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].answer}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].answer}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Answer id',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].answerid}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].answerid}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Question filename',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].questionfilename}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Total marks',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].totalmarks}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].totalmarks}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your answer',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswer}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswer}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your marks',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].yourmarks}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].yourmarks}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your answervalid',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswervalid}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Youranswer filename',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswerfilename}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
@@ -453,14 +213,14 @@ class _Theme01McqGetAnswerPageState
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
-                  'Answer id :',
+                  'Answer Id :',
                   '${provider.mcqgetAnswerDetails[index].answerid}' == 'null'
                       ? '-'
                       : '''${provider.mcqgetAnswerDetails[index].answerid}''',
                   width,
                 ),
                 _buildRow(
-                  'Question file name',
+                  'Question File Name',
                   '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
                           'null'
                       ? '-'
@@ -468,28 +228,28 @@ class _Theme01McqGetAnswerPageState
                   width,
                 ),
                 _buildRow(
-                  'Total marks',
+                  'Total Marks',
                   '${provider.mcqgetAnswerDetails[index].totalmarks}' == 'null'
                       ? '-'
                       : '''${provider.mcqgetAnswerDetails[index].totalmarks}''',
                   width,
                 ),
                 _buildRow(
-                  'Your answer',
+                  'Your Answer',
                   '${provider.mcqgetAnswerDetails[index].youranswer}' == 'null'
                       ? '-'
                       : '''${provider.mcqgetAnswerDetails[index].youranswer}''',
                   width,
                 ),
                 _buildRow(
-                  'Your marks',
+                  'Your Marks',
                   '${provider.mcqgetAnswerDetails[index].yourmarks}' == 'null'
                       ? '-'
                       : '''${provider.mcqgetAnswerDetails[index].yourmarks}''',
                   width,
                 ),
                 _buildRow(
-                  'Your answer valid',
+                  'Your Answer Valid',
                   '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
                           'null'
                       ? '-'
@@ -497,7 +257,7 @@ class _Theme01McqGetAnswerPageState
                   width,
                 ),
                 _buildRow(
-                  'Your answer filename',
+                  'Your Answer Filename',
                   '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
                           'null'
                       ? '-'

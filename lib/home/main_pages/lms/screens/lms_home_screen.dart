@@ -154,7 +154,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                       const Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],

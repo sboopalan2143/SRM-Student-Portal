@@ -175,7 +175,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                       const Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],

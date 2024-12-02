@@ -162,7 +162,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],

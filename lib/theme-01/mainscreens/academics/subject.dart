@@ -120,7 +120,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme01secondaryColor4,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -137,7 +137,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                           children: [
                             Text(
                               'Sem',
-                              style: TextStyles.alertContentStyle,
+                              style: TextStyles.fontStyletheme2,
                             ),
                           ],
                         ),
@@ -150,7 +150,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                           children: [
                             Text(
                               'Code',
-                              style: TextStyles.alertContentStyle,
+                              style: TextStyles.fontStyletheme2,
                             ),
                           ],
                         ),
@@ -162,7 +162,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                           children: [
                             Text(
                               'Subject',
-                              style: TextStyles.alertContentStyle,
+                              style: TextStyles.fontStyletheme2,
                             ),
                           ],
                         ),
@@ -175,7 +175,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                           children: [
                             Text(
                               'Credit',
-                              style: TextStyles.alertContentStyle,
+                              style: TextStyles.fontStyletheme2,
                             ),
                           ],
                         ),
@@ -188,7 +188,7 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme01primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.subjectHiveData.isEmpty &&
@@ -198,8 +198,8 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                          'No List Added',
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
                     ],

@@ -6,18 +6,17 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01FeesPage extends ConsumerStatefulWidget {
-  const Theme01FeesPage({super.key});
+class Theme02FeesPage extends ConsumerStatefulWidget {
+  const Theme02FeesPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01FeesPageState();
+      _Theme02FeesPageState();
 }
 
-class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
+class _Theme02FeesPageState extends ConsumerState<Theme02FeesPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,68 +70,71 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const HomePage2(),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'FEES',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref.read(feesProvider.notifier).getFeesDetailsApi(
+                          ref.read(encryptionProvider.notifier));
+                      await ref
+                          .read(feesProvider.notifier)
+                          .getHiveFeesDetails('');
+                      await ref
+                          .read(feesProvider.notifier)
+                          .getFinanceDetailsApi(
+                            ref.read(
+                              encryptionProvider.notifier,
+                            ),
+                          );
+                      await ref
+                          .read(feesProvider.notifier)
+                          .getHiveFinanceDetails('');
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
                     ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'FEES',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFeesDetailsApi(
-                                  ref.read(encryptionProvider.notifier));
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getHiveFeesDetails('');
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFinanceDetailsApi(
-                                ref.read(
-                                  encryptionProvider.notifier,
-                                ),
-                              );
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getHiveFinanceDetails('');
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -150,7 +152,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                   height: 45,
                   width: width - 40,
                   decoration: BoxDecoration(
-                    color: AppColors.theme01secondaryColor4,
+                    color: AppColors.whiteColor,
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                     border: Border.all(
                       color: AppColors.theme01secondaryColor4,
@@ -203,7 +205,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                       const Center(
                         child: Text(
                           'No List Added',
-                          style: TextStyles.fontStyle1,
+                          style: TextStyles.fontStyle,
                         ),
                       ),
                     ],
@@ -250,11 +252,11 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
@@ -265,9 +267,9 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: Text(
+                    child: const Text(
                       'Due name :',
-                      style: TextStyles.buttonStyle01theme2,
+                      style: TextStyles.fontStyle13,
                     ),
                   ),
                   Expanded(
@@ -275,13 +277,13 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                       '${provider.feesDetailsHiveData[index].duename}' == ''
                           ? '-'
                           : '${provider.feesDetailsHiveData[index].duename}',
-                      style: TextStyles.fontStyle2,
+                      style: TextStyles.fontStyle13,
                     ),
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
@@ -342,11 +344,11 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
@@ -357,9 +359,9 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: Text(
+                    child: const Text(
                       'Receipt no :',
-                      style: TextStyles.buttonStyle01theme2,
+                      style: TextStyles.fontStyle13,
                     ),
                   ),
                   Expanded(
@@ -367,13 +369,13 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                       '${provider.financeHiveData[index].receiptnum}' == ''
                           ? '-'
                           : '${provider.financeHiveData[index].receiptnum}',
-                      style: TextStyles.fontStyle2,
+                      style: TextStyles.fontStyle13,
                     ),
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
@@ -435,13 +437,13 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyle13,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle13,
           ),
         ),
         const SizedBox(width: 5),
@@ -449,7 +451,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle13,
           ),
         ),
       ],
@@ -475,8 +477,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: text == provider.navFeesString
-              ? AppColors.theme01primaryColor
-              : AppColors.theme01secondaryColor4,
+              ? AppColors.theme02secondaryColor1
+              : AppColors.whiteColor,
           shadowColor: Colors.transparent,
         ),
         onPressed: () {

@@ -12,6 +12,7 @@ import 'package:sample/designs/status_bar_navigation_bar_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
+import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 
 class LoginScreen3 extends ConsumerStatefulWidget {
@@ -69,7 +70,7 @@ class _LoginScreen3State extends ConsumerState<LoginScreen3>
           /// Handle route to next page.
 
           // Navigator.push(context, RouteDesign(route: const HomePage2()));
-          Navigator.push(context, RouteDesign(route: Theme01Homepage()));
+          Navigator.push(context, RouteDesign(route: Theme01MainScreenPage()));
           _showToast(context, next.successMessage, AppColors.greenColor);
         }
       });
@@ -79,160 +80,162 @@ class _LoginScreen3State extends ConsumerState<LoginScreen3>
           color: Color(0xFF355B63),
         ),
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/srmlogodesign.png',
-                    width: MediaQuery.of(context).size.width - 120,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 50),
-                const Text(
-                  'Log in',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      children: [
-                        Text(
-                          'Username',
-                          style: TextStyles.fontStyle1,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          '*',
-                          style: TextStyles.redColorFontStyleastric,
-                        ),
-                      ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/images/srmlogodesign.png',
+                      width: MediaQuery.of(context).size.width - 120,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 5),
-                    TextField(
-                      controller: provider.userName,
-                      style: TextStyles.fontStyle2,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.account_circle,
-                          color: AppColors.grey2,
-                        ),
-                        hintText: 'Enter UserName',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                  ),
+                  const SizedBox(height: 50),
+                  const Text(
+                    'Log in',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Text(
+                            'Username',
+                            style: TextStyles.fontStyle1,
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            '*',
+                            style: TextStyles.redColorFontStyleastric,
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      children: [
-                        Text(
-                          'Password',
-                          style: TextStyles.fontStyle1,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          '*',
-                          style: TextStyles.redColorFontStyleastric,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    TextField(
-                      controller: provider.password,
-                      obscureText: !_isPasswordVisible,
-                      style: TextStyles.fontStyle2,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                          color: AppColors.grey2,
-                        ),
-                        hintText: 'Enter Password',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                      const SizedBox(height: 5),
+                      TextField(
+                        controller: provider.userName,
+                        style: TextStyles.fontStyle2,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.account_circle,
                             color: AppColors.grey2,
                           ),
-                          onPressed: _togglePasswordVisibility,
+                          hintText: 'Enter UserName',
+                          hintStyle: TextStyles.smallLightAshColorFontStyle,
+                          filled: true,
+                          fillColor: AppColors.secondaryColor,
+                          contentPadding: const EdgeInsets.all(10),
+                          enabledBorder:
+                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder:
+                              BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.theme01secondaryColor1,
-                        AppColors.theme01secondaryColor2,
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      10,
-                    ),
+                    ],
                   ),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await ref.read(loginProvider.notifier).login(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                    ),
-                    child: provider is LoginStateLoading
-                        ? CircularProgressIndicator(
-                            color: AppColors.secondaryColor,
-                          )
-                        : Text(
-                            'Log in',
-                            style: TextStyle(
-                              color: AppColors.theme01primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Text(
+                            'Password',
+                            style: TextStyles.fontStyle1,
                           ),
+                          SizedBox(height: 5),
+                          Text(
+                            '*',
+                            style: TextStyles.redColorFontStyleastric,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      TextField(
+                        controller: provider.password,
+                        obscureText: !_isPasswordVisible,
+                        style: TextStyles.fontStyle2,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: AppColors.grey2,
+                          ),
+                          hintText: 'Enter Password',
+                          hintStyle: TextStyles.smallLightAshColorFontStyle,
+                          filled: true,
+                          fillColor: AppColors.secondaryColor,
+                          contentPadding: const EdgeInsets.all(10),
+                          enabledBorder:
+                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder:
+                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: AppColors.grey2,
+                            ),
+                            onPressed: _togglePasswordVisibility,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 30),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme01secondaryColor1,
+                          AppColors.theme01secondaryColor2,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await ref.read(loginProvider.notifier).login(
+                              ref.read(encryptionProvider.notifier),
+                            );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: provider is LoginStateLoading
+                          ? CircularProgressIndicator(
+                              color: AppColors.secondaryColor,
+                            )
+                          : Text(
+                              'Log in',
+                              style: TextStyle(
+                                color: AppColors.theme01primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

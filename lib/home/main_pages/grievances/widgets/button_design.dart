@@ -6,6 +6,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
 import 'package:sample/theme-01/mainscreens/grievances/grievance_entry_screen.dart';
+import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;
 
@@ -27,7 +28,7 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.theme01secondaryColor2,
+        backgroundColor: AppColors.theme02secondaryColor1,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
@@ -35,8 +36,7 @@ class ButtonDesign {
           await Navigator.push(
             context,
             RouteDesign(
-              // route: const GrievanceEntryPage(),
-              route: const Theme01GrievanceEntryPage(),
+              route: const Theme02GrievanceEntryPage(),
             ),
           );
         }
@@ -82,7 +82,7 @@ class ButtonDesign {
       },
       child: Text(
         text,
-        style: TextStyles.buttonStyle01theme,
+        style: TextStyles.fontStyletheme2,
       ),
     );
   }

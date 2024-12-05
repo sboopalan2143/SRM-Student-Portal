@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/library/screens/library.dart';
-import 'package:sample/home/main_pages/library/widgets/button_design.dart';
-import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme_3/library/library_page.dart';
 
-class Theme01ViewLibraryPage extends ConsumerStatefulWidget {
-  const Theme01ViewLibraryPage({super.key});
+class Theme02LibraryBookSearch extends ConsumerStatefulWidget {
+  const Theme02LibraryBookSearch({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01ViewLibraryPageState();
+      _Theme02LibraryBookSearchState();
 }
 
-class _Theme01ViewLibraryPageState
-    extends ConsumerState<Theme01ViewLibraryPage> {
+class _Theme02LibraryBookSearchState
+    extends ConsumerState<Theme02LibraryBookSearch> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -45,38 +43,41 @@ class _Theme01ViewLibraryPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'BOOK SEARCH',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
             ),
-          ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'BOOK SEARCH',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
         ),
       ),
       body: SingleChildScrollView(
@@ -85,58 +86,61 @@ class _Theme01ViewLibraryPageState
           child: Column(
             children: [
               const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Filter',
-                        style: TextStyles.theme01primary10smal3,
-                      ),
-                      const SizedBox(height: 5),
-                      const Text(
-                        '*',
-                        style: TextStyles.redColorFontStyleastric,
-                      ),
-                    ],
+              SizedBox(
+                height: 40,
+                child: TextField(
+                  controller: provider.filter,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: TextField(
-                      controller: provider.filter,
-                      style: TextStyles.fontStyle2,
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                  decoration: InputDecoration(
+                    hintText: 'Search for Books',
+                    hintStyle: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: AppColors.theme02secondaryColor1),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.theme02secondaryColor1,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Row(
-                children: [
-                  Expanded(
-                    child: ButtonDesign.buttonDesign(
-                      'Submit',
-                      AppColors.theme01primaryColor,
-                      context,
-                      ref.read(mainProvider.notifier),
-                      ref,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        color: AppColors.theme02buttonColor2,
+                      ),
+                      onPressed: () async {
+                        final provider = ref.watch(libraryProvider);
+
+                        if (provider.filter.text == '') {
+                          Alerts.errorAlert(
+                            message: 'Filter empty',
+                            context: context,
+                          );
+                        } else if (provider.filter.text.length < 3) {
+                          Alerts.errorAlert(
+                            message: 'Enter Morethan 3 Characters',
+                            context: context,
+                          );
+                        } else {
+                          await ref
+                              .read(libraryProvider.notifier)
+                              .saveLibrartBookSearchDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                        }
+                        provider.filter.clear();
+                      },
                     ),
                   ),
-                ],
+                ),
               ),
               Padding(
                 padding:
@@ -159,10 +163,14 @@ class _Theme01ViewLibraryPageState
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 5,
                           ),
-                          const Center(
+                          Center(
                             child: Text(
-                              'No List Added Yet!',
-                              style: TextStyles.fontStyle,
+                              'SEARCH LIST IS EMPTY',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: AppColors.theme02secondaryColor1,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -187,161 +195,351 @@ class _Theme01ViewLibraryPageState
     );
   }
 
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+
+  //   final provider = ref.watch(libraryProvider);
+
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 10),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: [
+  //           AppColors.theme02primaryColor,
+  //           AppColors.theme02secondaryColor1,
+  //         ],
+  //         begin: Alignment.topCenter,
+  //         end: Alignment.bottomCenter,
+  //       ),
+  //       borderRadius: BorderRadius.circular(20),
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(15),
+  //       child: Column(
+  //         children: [
+  //           Row(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               SizedBox(
+  //                 width: width / 2 - 80,
+  //                 child: Icon(
+  //                   Icons.book,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 35,
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 5),
+  //               SizedBox(
+  //                 width: width * 0.35,
+  //                 child: Text(
+  //                   '${provider.librarysearchData[index].title}' == ''
+  //                       ? '-'
+  //                       : '''${provider.librarysearchData[index].title}''',
+  //                   style: const TextStyle(
+  //                     fontSize: 12,
+  //                     color: AppColors.whiteColor,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 10),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].accessionnumber}' ==
+  //                           'null' ||
+  //                       '${provider.librarysearchData[index].accessionnumber}' ==
+  //                           ''
+  //                   ? 'ACCESSION NUMBER  -'
+  //                   : '''ACCESSION NUMBER - ${provider.librarysearchData[index].accessionnumber}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].authorname}' == 'null' ||
+  //                       '${provider.librarysearchData[index].authorname}' == ''
+  //                   ? 'AUTHOR NAME  -'
+  //                   : '''AUTHOR NAME - ${provider.librarysearchData[index].authorname}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].publishername}' ==
+  //                           'null' ||
+  //                       '${provider.librarysearchData[index].publishername}' ==
+  //                           ''
+  //                   ? 'PUBLISHER NAME  -'
+  //                   : '''PUBLISHER NAME - ${provider.librarysearchData[index].publishername}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].department}' == 'null' ||
+  //                       '${provider.librarysearchData[index].department}' == ''
+  //                   ? 'DEPARTMENT  -'
+  //                   : '''DEPARTMENT - ${provider.librarysearchData[index].department}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].booknumber}' == 'null' ||
+  //                       '${provider.librarysearchData[index].booknumber}' == ''
+  //                   ? 'BOOK NUMBER  -'
+  //                   : '''BOOK NUMBER - ${provider.librarysearchData[index].booknumber}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].inhand}' == 'null' ||
+  //                       '${provider.librarysearchData[index].inhand}' == ''
+  //                   ? 'INHAND  -'
+  //                   : '''INHAND - ${provider.librarysearchData[index].inhand}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 // fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].availability}' == 'null' ||
+  //                       '${provider.librarysearchData[index].availability}' ==
+  //                           ''
+  //                   ? 'AVAILABILITY  -'
+  //                   : '''AVAILABILITY - ${provider.librarysearchData[index].availability}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 // fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].borrow}' == 'null' ||
+  //                       '${provider.librarysearchData[index].borrow}' == ''
+  //                   ? 'BORROW  -'
+  //                   : '''BORROW - ${provider.librarysearchData[index].borrow}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 // fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].classificationNumber}' ==
+  //                           'null' ||
+  //                       '${provider.librarysearchData[index].classificationNumber}' ==
+  //                           ''
+  //                   ? 'CLASSIFICATION NUMBER  -'
+  //                   : '''CLASSIFICATION NUMBER - ${provider.librarysearchData[index].classificationNumber}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 // fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 5),
+  //           SizedBox(
+  //             width: width / 2 + 95,
+  //             child: Text(
+  //               '${provider.librarysearchData[index].edition}' == 'null' ||
+  //                       '${provider.librarysearchData[index].edition}' == ''
+  //                   ? 'EDITION  -'
+  //                   : '''EDITION - ${provider.librarysearchData[index].edition}''',
+  //               style: const TextStyle(
+  //                 fontSize: 12,
+  //                 color: AppColors.whiteColor,
+  //                 // fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 15),
+  //           const Divider(height: 1, color: AppColors.whiteColor)
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
+
     final provider = ref.watch(libraryProvider);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-      child: Material(
-        elevation: 5,
-        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      onTap: () {
+        // Handle on-tap action
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme02primaryColor,
+              AppColors.theme02secondaryColor1,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.theme02primaryColor.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Title Section
+              Row(
                 children: [
-                  SizedBox(
-                    width: width / 2 - 100,
-                    child: Text(
-                      'Accession number :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
+                  Icon(
+                    Icons.book,
+                    color: AppColors.theme02buttonColor2,
+                    size: 40,
                   ),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      '${provider.librarysearchData[index].accessionnumber}' ==
-                              ''
-                          ? '-'
-                          : '''${provider.librarysearchData[index].accessionnumber}''',
-                      style: TextStyles.fontStyle10,
+                      provider.librarysearchData[index].title?.isEmpty ?? true
+                          ? 'Untitled'
+                          : provider.librarysearchData[index].title!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
-              children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Author name :',
-                  '${provider.librarysearchData[index].authorname}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].authorname}''',
-                  width,
-                ),
-                _buildRow(
-                  'Book number',
-                  '${provider.librarysearchData[index].booknumber}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].booknumber}''',
-                  width,
-                ),
-                _buildRow(
-                  'Publisher name',
-                  '${provider.librarysearchData[index].publishername}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].publishername}''',
-                  width,
-                ),
-                _buildRow(
-                  'title :',
-                  '${provider.librarysearchData[index].title}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].title}''',
-                  width,
-                ),
-                _buildRow(
-                  'borrow',
-                  '${provider.librarysearchData[index].borrow}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].borrow}''',
-                  width,
-                ),
-                _buildRow(
-                  'Classification Number',
-                  '${provider.librarysearchData[index].classificationNumber}' ==
-                          ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].classificationNumber}''',
-                  width,
-                ),
-                _buildRow(
-                  'department',
-                  '${provider.librarysearchData[index].department}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].department}''',
-                  width,
-                ),
-                _buildRow(
-                  'edition',
-                  '${provider.librarysearchData[index].edition}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].edition}''',
-                  width,
-                ),
-                _buildRow(
-                  'Inhand',
-                  '${provider.librarysearchData[index].inhand}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].inhand}''',
-                  width,
-                ),
-                const SizedBox(height: 10),
-                _buildRow(
-                  'Availability',
-                  '${provider.librarysearchData[index].availability}' == ''
-                      ? '-'
-                      : '''${provider.librarysearchData[index].availability}''',
-                  width,
-                ),
-              ],
-            ),
+              const SizedBox(height: 10),
+              // Key Information Section
+              buildInfoRow(
+                Icons.qr_code,
+                'Accession Number',
+                provider.librarysearchData[index].accessionnumber,
+              ),
+              buildInfoRow(
+                Icons.person,
+                'Author Name',
+                provider.librarysearchData[index].authorname,
+              ),
+              buildInfoRow(
+                Icons.apartment,
+                'Department',
+                provider.librarysearchData[index].department,
+              ),
+              buildInfoRow(
+                Icons.category,
+                'Classification',
+                provider.librarysearchData[index].classificationNumber,
+              ),
+              buildInfoRow(
+                Icons.info,
+                'Edition',
+                provider.librarysearchData[index].edition,
+              ),
+              // buildInfoRow(Icons.availability, 'Availability',
+              // provider.librarysearchData[index].availability),
+              buildInfoRow(
+                Icons.bookmark,
+                'Book Number',
+                provider.librarysearchData[index].booknumber,
+              ),
+              const SizedBox(height: 15),
+              // Divider
+              const Divider(height: 1, color: AppColors.whiteColor),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
+  Widget buildInfoRow(IconData icon, String label, String? value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: AppColors.whiteColor,
+            size: 20,
           ),
-        ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              value?.isEmpty ?? true
+                  ? '$label - Not Available'
+                  : '$label - $value',
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.whiteColor,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -4,17 +4,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/navigation_style.dart';
+import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
+import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/exam_details.dart';
-import 'package:sample/theme_3/attendance/attendance_home_theme3.dart';
-import 'package:sample/theme_3/cummulative/cummulative_home_theme3.dart';
-import 'package:sample/theme_3/fees_page_theme3.dart';
+import 'package:sample/theme-02/mainscreens/academics/hour_attendance.dart';
+import 'package:sample/theme-02/mainscreens/academics/internal_marks.dart';
+import 'package:sample/theme-02/mainscreens/academics/subject.dart';
+import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
+import 'package:sample/theme-02/mainscreens/grievances/grievances_screen.dart';
+import 'package:sample/theme-02/mainscreens/library/library_screen.dart';
 import 'package:sample/theme_3/grievances/grievances_page.dart';
 import 'package:sample/theme_3/hostel/hostel_page_theme.dart';
-import 'package:sample/theme_3/hourwise_attendance/hourwise_home_theme3.dart';
-import 'package:sample/theme_3/internal_marks/internal_home_theme3.dart';
-import 'package:sample/theme_3/library/library_page_home_theme3.dart';
 import 'package:sample/theme_3/lms/lms_home_theme3.dart';
-import 'package:sample/theme_3/subjects/subjects_home_theme3.dart';
+import 'mainscreens/calendar_screen.dart';
 
 class Theme02Homepage extends ConsumerStatefulWidget {
   const Theme02Homepage({super.key});
@@ -66,29 +68,11 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
               ],
             ),
             backgroundColor: Colors.transparent,
-            elevation: 0, // Removes shadow for a cleaner gradient look
+            elevation: 0,
           ),
         ),
       ),
-      body:
-          //  Padding(
-          //   padding: const EdgeInsets.all(8),
-          //   child: GridView.builder(
-          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 2,
-          //       mainAxisSpacing: 15,
-          //       crossAxisSpacing: 15,
-          //       childAspectRatio: 1.1,
-          //     ),
-          //     itemCount: cardData.length,
-          //     itemBuilder: (context, index) {
-          //       return GradientCard(
-          //         data: cardData[index],
-          //       );
-          //     },
-          //   ),
-          // ),
-          SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -151,7 +135,9 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const SubjectsHomeTheme3(),
+                        // route: const SubjectsHomeTheme3(),
+                        route: const Theme02SubjectPage(),
+                        // route: const Theme01SubjectPage(),
                       ),
                     );
                   },
@@ -207,7 +193,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const AttendanceHomeTheme3(),
+                        route: const Theme02InternalMarksPage(),
                       ),
                     );
                   },
@@ -235,13 +221,13 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/attendancetheme3.svg',
+                        Icon(
+                          Icons.numbers_outlined,
+                          size: MediaQuery.of(context).size.height / 12,
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
                         ),
                         const Text(
-                          'Attendance',
+                          'Internal Marks',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -257,7 +243,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const HourwiseHomeTheme3(),
+                        route: const Theme02HourAttendancePage(),
                       ),
                     );
                   },
@@ -314,7 +300,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const CummulativeHomeTheme3(),
+                        route: const Theme02CumulativeAttendancePage(),
                       ),
                     );
                   },
@@ -365,14 +351,16 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const LibraryPageHomeTheme3(),
+                        route: const Theme02AttendancePage(),
                       ),
                     );
                   },
                   child: Container(
                     height: 160,
                     width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -392,12 +380,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SvgPicture.asset(
-                          'assets/images/librarytheme3.svg',
+                          'assets/images/attendancetheme3.svg',
                           color: AppColors.whiteColor,
                           height: MediaQuery.of(context).size.height / 12,
                         ),
                         const Text(
-                          'Library',
+                          'Attendance',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -526,7 +514,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const FeesPageTheme3(),
+                        route: const Theme02FeesPage(),
                       ),
                     );
                   },
@@ -577,7 +565,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const GrievanceReportPageTheme3(),
+                        route: const Theme02GrievanceReportPage(),
                       ),
                     );
                   },
@@ -630,12 +618,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   RouteDesign(
-                    //     route: const Theme02CalendarPage(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const Theme02CalendarPage(),
+                      ),
+                    );
                   },
                   child: Container(
                     height: 160,
@@ -684,16 +672,14 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const InternalMarksHomeTheme3(),
+                        route: const Theme02LibraryPage(),
                       ),
                     );
                   },
                   child: Container(
                     height: 160,
                     width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -712,13 +698,13 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(
-                          Icons.numbers_outlined,
-                          size: MediaQuery.of(context).size.height / 12,
+                        SvgPicture.asset(
+                          'assets/images/librarytheme3.svg',
                           color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 12,
                         ),
                         const Text(
-                          'Internal Marks',
+                          'Library',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -745,7 +731,7 @@ class GradientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(5), // Space around the card
+      margin: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 4,
       child: Column(

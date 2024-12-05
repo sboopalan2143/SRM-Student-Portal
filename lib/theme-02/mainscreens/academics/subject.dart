@@ -3,23 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/encryption/encryption_state.dart';import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01SubjectPage extends ConsumerStatefulWidget {
-  const Theme01SubjectPage({super.key});
+class Theme02SubjectPage extends ConsumerStatefulWidget {
+  const Theme02SubjectPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01SubjectPageState();
+      _Theme02SubjectPageState();
 }
 
-class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
+class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -54,7 +51,6 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(subjectProvider);
     ref.listen(subjectProvider, (previous, next) {
       if (next is SubjectStateError) {
@@ -66,123 +62,78 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'SUBJECTS',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(subjectProvider.notifier)
-                              .getSubjectDetails(
-                                  ref.read(encryptionProvider.notifier));
-                          await ref
-                              .read(subjectProvider.notifier)
-                              .getHiveSubjectDetails('');
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Subject',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref
+                          .read(subjectProvider.notifier)
+                          .getSubjectDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      await ref
+                          .read(subjectProvider.notifier)
+                          .getHiveSubjectDetails('');
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
       ),
       body: LiquidPullToRefresh(
+        color: AppColors.theme02secondaryColor1,
+        backgroundColor: AppColors.theme02secondaryColor1,
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: width / 8,
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Sem',
-                              style: TextStyles.alertContentStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 8,
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Code',
-                              style: TextStyles.alertContentStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 2.3,
-                        child: const Column(
-                          children: [
-                            Text(
-                              'Subject',
-                              style: TextStyles.alertContentStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        width: width / 8,
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Credit',
-                              style: TextStyles.alertContentStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 if (provider is SubjectStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
@@ -199,24 +150,20 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
                       const Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                          style: TextStyles.fontStyle,
                         ),
                       ),
                     ],
                   ),
                 if (provider.subjectHiveData.isNotEmpty)
                   const SizedBox(height: 5),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  child: ListView.builder(
-                    itemCount: provider.subjectHiveData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
+                ListView.builder(
+                  itemCount: provider.subjectHiveData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
                 ),
               ],
             ),
@@ -229,80 +176,95 @@ class _Theme01SubjectPageState extends ConsumerState<Theme01SubjectPage> {
 
   Widget cardDesign(int index) {
     final provider = ref.watch(subjectProvider);
-    final width = MediaQuery.of(context).size.width;
     final data = provider.subjectHiveData[index].subjectdetails;
     final subjectData = data!.split('##');
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.theme01secondaryColor1,
-              AppColors.theme01secondaryColor2,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(20),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.theme02primaryColor,
+            AppColors.theme02secondaryColor1,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Row(
-            children: [
-              SizedBox(
-                width: width / 8,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      subjectData[0],
-                      style: TextStyles.theme01primary10small,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Text(
+                    'SEMESTER : ${subjectData[0]}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.theme02buttonColor2,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 8,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      subjectData[1],
-                      style: TextStyles.theme01primary10small,
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Text(
+                    'Code : ${subjectData[1]}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 2.3,
-                child: Column(
-                  children: [
-                    Text(
-                      subjectData[2],
-                      style: TextStyles.theme01primary10small,
-                      textAlign: TextAlign.center,
+              ],
+            ),
+            const SizedBox(height: 15),
+            const Divider(
+              color: AppColors.grey4,
+              height: 1,
+            ),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Text(
+                    'Subject : ${subjectData[2]}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 5),
-              SizedBox(
-                width: width / 8,
-                child: Column(
-                  children: [
-                    Text(
-                      subjectData[3],
-                      style: TextStyles.theme01primary10small,
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Text(
+                    'Credit : ${subjectData[3]}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Divider(
+              thickness: 2,
+              color: AppColors.theme02secondaryColor1,
+              height: 1,
+            ),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );

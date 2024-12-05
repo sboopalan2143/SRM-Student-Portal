@@ -16,6 +16,7 @@ import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 
 class Theme01ChangePasswordPage extends ConsumerStatefulWidget {
@@ -103,7 +104,7 @@ class _Theme01ChangePasswordPageState
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const Theme01Homepage(),
+                      route: const Theme01MainScreenPage(),
                     ),
                   );
                 },

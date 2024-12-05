@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -12,21 +10,20 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01GrievanceEntryPage extends ConsumerStatefulWidget {
-  const Theme01GrievanceEntryPage({super.key});
+class Theme02GrievanceEntryPage extends ConsumerStatefulWidget {
+  const Theme02GrievanceEntryPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01GrievanceEntryPageState();
+      _Theme02GrievanceEntryPageState();
 }
 
-class _Theme01GrievanceEntryPageState
-    extends ConsumerState<Theme01GrievanceEntryPage> {
+class _Theme02GrievanceEntryPageState
+    extends ConsumerState<Theme02GrievanceEntryPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   String? selectedGrievanceCategory;
 
@@ -93,33 +90,41 @@ class _Theme01GrievanceEntryPageState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'GRIEVANCES ENTRY',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
             ),
-          ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'GRIEVANCES ENTRY',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
         ),
       ),
       body: LiquidPullToRefresh(
@@ -135,9 +140,9 @@ class _Theme01GrievanceEntryPageState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Grievances Category',
-                      style: TextStyles.theme01primary10smal3,
+                      style: TextStyles.alertContentStyle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -188,9 +193,9 @@ class _Theme01GrievanceEntryPageState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Grievances Sub Type',
-                      style: TextStyles.theme01primary10smal3,
+                      style: TextStyles.alertContentStyle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -241,9 +246,9 @@ class _Theme01GrievanceEntryPageState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Grievances Type',
-                      style: TextStyles.theme01primary10smal3,
+                      style: TextStyles.alertContentStyle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -292,9 +297,9 @@ class _Theme01GrievanceEntryPageState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Subject',
-                      style: TextStyles.theme01primary10smal3,
+                      style: TextStyles.alertContentStyle,
                     ),
                     const SizedBox(
                       height: 5,
@@ -303,7 +308,7 @@ class _Theme01GrievanceEntryPageState
                       height: 40,
                       child: TextField(
                         controller: provider.subject,
-                        style: TextStyles.theme01primary10smal3,
+                        style: TextStyles.alertContentStyle,
                         decoration: InputDecoration(
                           hintText: 'Subject',
                           hintStyle: TextStyles.smallLightAshColorFontStyle,
@@ -323,9 +328,9 @@ class _Theme01GrievanceEntryPageState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Subject Description',
-                      style: TextStyles.theme01primary10smal3,
+                      style: TextStyles.alertContentStyle,
                     ),
                     const SizedBox(
                       height: 5,

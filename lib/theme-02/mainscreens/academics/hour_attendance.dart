@@ -1,30 +1,28 @@
 import 'dart:async';
 
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/designs/loading_wrapper.dart';
-import 'package:sample/designs/navigation_style.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01HourAttendancePage extends ConsumerStatefulWidget {
-  const Theme01HourAttendancePage({super.key});
+class Theme02HourAttendancePage extends ConsumerStatefulWidget {
+  const Theme02HourAttendancePage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01HourAttendancePageState();
+      _Theme02HourAttendancePageState();
 }
 
-class _Theme01HourAttendancePageState
-    extends ConsumerState<Theme01HourAttendancePage> {
+class _Theme02HourAttendancePageState
+    extends ConsumerState<Theme02HourAttendancePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -72,55 +70,63 @@ class _Theme01HourAttendancePageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'HOURWISE ATTENDANCE',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(hourwiseProvider.notifier)
-                              .gethourwiseDetails(
-                                  ref.read(encryptionProvider.notifier));
-                          await ref
-                              .read(hourwiseProvider.notifier)
-                              .getHiveHourwise('');
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'HOURWISE ATTENDANCE',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref
+                          .read(hourwiseProvider.notifier)
+                          .gethourwiseDetails(
+                              ref.read(encryptionProvider.notifier));
+                      await ref
+                          .read(hourwiseProvider.notifier)
+                          .getHiveHourwise('');
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -128,7 +134,7 @@ class _Theme01HourAttendancePageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.theme01primaryColor,
+        color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -142,66 +148,127 @@ class _Theme01HourAttendancePageState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: width / 6,
+                          width: width / 4.8,
                           child: const Text(
                             'Date',
-                            style: TextStyles.fontStyle13,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.grey1,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        SizedBox(
-                          width: width / 11.5,
-                          child: const Text(
-                            '-',
-                            style: TextStyles.fontStyle13,
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '1',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11.5,
-                          child: const Text(
-                            '1',
-                            style: TextStyles.fontStyle13,
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11.5,
-                          child: const Text(
-                            '2',
-                            style: TextStyles.fontStyle13,
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '3',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11.5,
-                          child: const Text(
-                            '3',
-                            style: TextStyles.fontStyle13,
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '4',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11,
-                          child: const Text(
-                            '4',
-                            style: TextStyles.fontStyle13,
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '5',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11,
-                          child: const Text(
-                            '5',
-                            style: TextStyles.fontStyle13,
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        SizedBox(
-                          width: width / 11,
-                          child: const Text(
-                            '6',
-                            style: TextStyles.fontStyle13,
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '6',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -233,7 +300,7 @@ class _Theme01HourAttendancePageState
               if (provider.listHourWiseHiveData.isNotEmpty)
                 const SizedBox(height: 5),
               ListView.builder(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemCount: provider.listHourWiseHiveData.length,
                 controller: _listController,
                 shrinkWrap: true,
@@ -245,102 +312,205 @@ class _Theme01HourAttendancePageState
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            AppColors.theme01secondaryColor1,
-                            AppColors.theme01secondaryColor2,
+                            AppColors.theme02primaryColor,
+                            AppColors.theme02secondaryColor1,
                           ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 15,
-                          top: 10,
-                          bottom: 10,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: width / 6,
+                              width: width / 3.5,
                               child: Text(
                                 '${provider.listHourWiseHiveData[index].attendancedate}',
-                                style: TextStyles.fontStyle16,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            SizedBox(
-                              width: width / 11.5,
-                              child: const Text(
-                                '-',
-                                style: TextStyles.fontStyle16,
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h1 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h1 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
+                              ),
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h1}' ==
+                                          'null'
+                                      ? '-'
+                                      : '${provider.listHourWiseHiveData[index].h1}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11.5,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h1}' ==
-                                        'null'
-                                    ? '-'
-                                    : '${provider.listHourWiseHiveData[index].h1}',
-                                style: TextStyles.fontStyle16,
+                            SizedBox(width: width * 0.03),
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h2 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h2 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
+                              ),
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h2}' ==
+                                          'null'
+                                      ? '-'
+                                      : '''${provider.listHourWiseHiveData[index].h2}''',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11.5,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h2}' ==
-                                        'null'
-                                    ? '-'
-                                    : '''${provider.listHourWiseHiveData[index].h2}''',
-                                style: TextStyles.fontStyle16,
+                            SizedBox(width: width * 0.03),
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h3 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h3 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
+                              ),
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h3}' ==
+                                          'null'
+                                      ? '-'
+                                      : '''${provider.listHourWiseHiveData[index].h3}''',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11.5,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h3}' ==
-                                        'null'
-                                    ? '-'
-                                    : '''${provider.listHourWiseHiveData[index].h3}''',
-                                style: TextStyles.fontStyle16,
+                            SizedBox(width: width * 0.03),
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h5 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h5 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
+                              ),
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h5}' ==
+                                          'null'
+                                      ? '-'
+                                      : '''${provider.listHourWiseHiveData[index].h5}''',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h5}' ==
-                                        'null'
-                                    ? '-'
-                                    : '''${provider.listHourWiseHiveData[index].h5}''',
-                                style: TextStyles.fontStyle16,
+                            SizedBox(width: width * 0.03),
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h6 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h6 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
+                              ),
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h6}' ==
+                                          'null'
+                                      ? '-'
+                                      : '''${provider.listHourWiseHiveData[index].h6}''',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h6}' ==
-                                        'null'
-                                    ? '-'
-                                    : '''${provider.listHourWiseHiveData[index].h6}''',
-                                style: TextStyles.fontStyle16,
+                            SizedBox(width: width * 0.03),
+                            badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                padding: const EdgeInsets.all(7),
+                                badgeColor: provider
+                                            .listHourWiseHiveData[index].h7 ==
+                                        'A'
+                                    ? AppColors.redColor
+                                    : provider.listHourWiseHiveData[index].h7 ==
+                                            'P'
+                                        ? AppColors.greenColor
+                                        : AppColors.lightAshColor,
                               ),
-                            ),
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 11,
-                              child: Text(
-                                '${provider.listHourWiseHiveData[index].h7}' ==
-                                        'null'
-                                    ? '-'
-                                    : '''${provider.listHourWiseHiveData[index].h7}''',
-                                style: TextStyles.fontStyle16,
+                              position: badges.BadgePosition.topEnd(top: -10),
+                              badgeContent: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  '${provider.listHourWiseHiveData[index].h7}' ==
+                                          'null'
+                                      ? '-'
+                                      : '''${provider.listHourWiseHiveData[index].h7}''',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ],

@@ -54,6 +54,9 @@ dependencies:
   percent_indicator: 
   flutter_zoom_drawer:
   badges:
+  fl_chart:
+  flutter_animate:
+  table_calendar:
 
 
 dev_dependencies:

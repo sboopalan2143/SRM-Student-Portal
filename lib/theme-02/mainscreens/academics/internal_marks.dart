@@ -3,24 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01InternalMarksPage extends ConsumerStatefulWidget {
-  const Theme01InternalMarksPage({super.key});
+class Theme02InternalMarksPage extends ConsumerStatefulWidget {
+  const Theme02InternalMarksPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01InternalMarksPageState();
+      _Theme02InternalMarksPageState();
 }
 
-class _Theme01InternalMarksPageState
-    extends ConsumerState<Theme01InternalMarksPage> {
+class _Theme02InternalMarksPageState
+    extends ConsumerState<Theme02InternalMarksPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -28,6 +27,7 @@ class _Theme01InternalMarksPageState
       GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
+
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
@@ -66,53 +66,63 @@ class _Theme01InternalMarksPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'INTERNAL MARKS',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(internalMarksProvider.notifier)
-                              .getInternalMarksDetails(
-                                  ref.read(encryptionProvider.notifier));
-                          await ref
-                              .read(internalMarksProvider.notifier)
-                              .getHiveInternalMarks('');
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'INTERNAL MARKS',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref
+                          .read(internalMarksProvider.notifier)
+                          .getInternalMarksDetails(
+                              ref.read(encryptionProvider.notifier));
+                      await ref
+                          .read(internalMarksProvider.notifier)
+                          .getHiveInternalMarks('');
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -120,7 +130,7 @@ class _Theme01InternalMarksPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -169,100 +179,134 @@ class _Theme01InternalMarksPageState
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
-    final provider = ref.watch(internalMarksProvider);
 
+    final provider = ref.watch(internalMarksProvider);
+    final external =
+        double.parse('${provider.internalMarkHiveData[index].sumofmaxmarks}');
+    final externalResult = external / 100;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-      child: Material(
-        elevation: 5,
-        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme02primaryColor,
+              AppColors.theme02secondaryColor1,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 100,
+                    width: width / 2 + 40,
                     child: Text(
-                      'Subject code :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${provider.internalMarkHiveData[index].subjectcode}',
-                      style: TextStyles.fontStyle2,
+                      '${provider.internalMarkHiveData[index].subjectdesc}' ==
+                              ''
+                          ? '-'
+                          : '${provider.internalMarkHiveData[index].subjectdesc}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
-              children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Subject desc :',
-                  '${provider.internalMarkHiveData[index].subjectdesc}',
-                  width,
-                ),
-                _buildRow(
-                  'sum of Marks',
-                  '${provider.internalMarkHiveData[index].sumofmarks}',
-                  width,
-                ),
-                _buildRow(
-                  'sum of max marks',
-                  '${provider.internalMarkHiveData[index].sumofmaxmarks}',
-                  width,
-                ),
-                const SizedBox(height: 10),
-              ],
-            ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 15,
+                          child: Icon(
+                            Icons.numbers,
+                            color: AppColors.grey4,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 2 - 130,
+                          child: Text(
+                            '${provider.internalMarkHiveData[index].subjectcode}' ==
+                                    ''
+                                ? '-'
+                                : '${provider.internalMarkHiveData[index].subjectcode}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.theme02buttonColor2,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: width / 5,
+                    child: Text(
+                      '${provider.internalMarkHiveData[index].sumofmarks}' == ''
+                          ? '-'
+                          : '${provider.internalMarkHiveData[index].sumofmarks}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: AppColors.theme02buttonColor2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Text(
+                    'Max Marks :',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  LinearPercentIndicator(
+                    trailing: Text(
+                      '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
+                                  '' ||
+                              '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
+                                  'null'
+                          ? '-'
+                          : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                    ),
+                    width: MediaQuery.of(context).size.width - 250,
+                    animation: true,
+                    lineHeight: 10,
+                    animationDuration: 1000,
+                    percent: externalResult,
+                    barRadius: const Radius.circular(15),
+                    progressColor: AppColors.theme02buttonColor2,
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
-          ),
-        ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-      ],
     );
   }
 

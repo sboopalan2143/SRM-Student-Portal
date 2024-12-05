@@ -14,6 +14,7 @@ import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
 import 'package:sample/theme-01/login/theme01_login_screen.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
@@ -101,7 +102,7 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const Theme01Homepage(),
+                      route: const Theme01MainScreenPage(),
                     ),
                   );
                 },

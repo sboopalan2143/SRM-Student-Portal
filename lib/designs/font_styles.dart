@@ -313,4 +313,10 @@ class TextStyles {
     color: AppColors.theme02primaryColor,
     fontWeight: FontWeight.bold,
   );
+
+   static TextStyle theme02fontStyle2 = TextStyle(
+    fontSize: 14,
+    color: AppColors.theme02buttonColor2,
+    fontWeight: FontWeight.bold,
+  );
 }

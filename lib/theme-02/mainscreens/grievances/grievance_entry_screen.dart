@@ -374,7 +374,7 @@ class _Theme02GrievanceEntryPageState
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
+      // endDrawer: const DrawerDesign(),
     );
   }
 

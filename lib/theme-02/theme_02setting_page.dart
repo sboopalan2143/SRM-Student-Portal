@@ -17,6 +17,7 @@ import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
+import 'package:sample/theme-02/login/theme02_login_screen.dart';
 
 class Theme02settingPage extends ConsumerStatefulWidget {
   const Theme02settingPage({super.key});
@@ -103,8 +104,8 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
                       AppColors.theme02primaryColor,
                       AppColors.theme02secondaryColor1,
                     ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    begin: Alignment.topRight,
+                    end: Alignment.center,
                   ),
                 ),
               ),
@@ -218,7 +219,8 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
                                     TokensManagement.clearSharedPreference();
                                     Navigator.pushAndRemoveUntil(
                                       context,
-                                      RouteDesign(route: const LoginPage2()),
+                                      RouteDesign(
+                                          route: const Theme02LoginScreen()),
                                       (route) => false,
                                     );
                                   },

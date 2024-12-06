@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -11,8 +10,8 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01LmsCommentScreen extends ConsumerStatefulWidget {
-  const Theme01LmsCommentScreen({
+class Theme02LmsCommentScreen extends ConsumerStatefulWidget {
+  const Theme02LmsCommentScreen({
     required this.classworkID,
     super.key,
   });
@@ -20,11 +19,11 @@ class Theme01LmsCommentScreen extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LmsCommentScreenState();
+      _Theme02LmsCommentScreenState();
 }
 
-class _Theme01LmsCommentScreenState
-    extends ConsumerState<Theme01LmsCommentScreen> {
+class _Theme02LmsCommentScreenState
+    extends ConsumerState<Theme02LmsCommentScreen> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -74,63 +73,60 @@ class _Theme01LmsCommentScreenState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   RouteDesign(
-                  //     route: const HomePage2(),
-                  //   ),
-                  // );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Comment Page',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref.read(lmsProvider.notifier).getLmscommentDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Comment Page',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmscommentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -138,7 +134,7 @@ class _Theme01LmsCommentScreenState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme02secondaryColor1,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -215,7 +211,7 @@ class _Theme01LmsCommentScreenState
                     IconButton(
                       icon: Icon(
                         Icons.send,
-                        color: AppColors.theme01secondaryColor1,
+                        color: AppColors.theme02buttonColor2,
                       ), // Blue send icon
                       onPressed: () async {
                         await ref.read(lmsProvider.notifier).saveCommentfield(
@@ -313,7 +309,7 @@ class _Theme01LmsCommentScreenState
                     child: Text(
                       commentData.commentdatetime ?? 'Unknown time',
                       style: TextStyles.fontStyle10small.copyWith(
-                        color: Colors.grey.shade600,
+                        color: AppColors.theme02buttonColor2,
                         fontStyle: FontStyle.italic,
                       ),
                     ),

@@ -12,8 +12,8 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
-  const Theme01LmsSaveWorkReplayDetailsDataPage({
+class Theme02LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
+  const Theme02LmsSaveWorkReplayDetailsDataPage({
     required this.classworkID,
     required this.classworkreplyid,
     required this.fieldrequirements,
@@ -27,7 +27,7 @@ class Theme01LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      Theme01LmsSaveWorkReplayDetailsDataPageState();
+      Theme02LmsSaveWorkReplayDetailsDataPageState();
 }
 
 enum SampleItem {
@@ -36,8 +36,8 @@ enum SampleItem {
   itemThree,
 }
 
-class Theme01LmsSaveWorkReplayDetailsDataPageState
-    extends ConsumerState<Theme01LmsSaveWorkReplayDetailsDataPage> {
+class Theme02LmsSaveWorkReplayDetailsDataPageState
+    extends ConsumerState<Theme02LmsSaveWorkReplayDetailsDataPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   static int refreshNum = 10;
@@ -101,45 +101,57 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Save Attachments',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
+                    ref.read(encryptionProvider.notifier),
+                    widget.classworkreplyid,
+                  );
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Save Attachments',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -149,7 +161,7 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
           padding: const EdgeInsets.all(10),
           child: Card(
             elevation: 0,
-            color: AppColors.theme01primaryColor,
+            color: AppColors.whiteColor,
             child: Padding(
               padding: const EdgeInsets.all(40),
               child: Column(
@@ -175,7 +187,7 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
                                   child: Icon(
                                     Icons.add,
                                     size: 50,
-                                    color: AppColors.theme01primaryColor,
+                                    color: AppColors.theme02buttonColor2,
                                   ),
                                 ),
                               ),
@@ -234,13 +246,13 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
                                     ),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
-                                  color: AppColors.theme01secondaryColor4,
+                                  color: AppColors.theme02secondaryColor1,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8),
                                     child: Icon(
                                       Icons.edit,
                                       size: 16,
-                                      color: AppColors.theme01primaryColor,
+                                      color: AppColors.theme02buttonColor2,
                                     ),
                                   ),
                                 ),
@@ -283,9 +295,9 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Action',
-                        style: TextStyles.theme01primary10smal3,
+                        style: TextStyles.alertContentStyle,
                       ),
                       const SizedBox(
                         height: 5,
@@ -313,9 +325,9 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Remarks',
-                        style: TextStyles.theme01primary10smal3,
+                        style: TextStyles.alertContentStyle,
                       ),
                       const SizedBox(
                         height: 5,
@@ -355,13 +367,12 @@ class Theme01LmsSaveWorkReplayDetailsDataPageState
                               );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.theme01secondaryColor4,
+                          backgroundColor: AppColors.theme02secondaryColor1,
                           elevation: 5,
                         ),
-                        child: Text(
+                        child: const Text(
                           'Submit',
-                          style:
-                              TextStyle(color: AppColors.theme01primaryColor),
+                          style: TextStyle(color: AppColors.whiteColor),
                         ),
                       ),
                     ],

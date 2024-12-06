@@ -202,10 +202,9 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
                 children: [
                   Center(
                     child: Card(
-                      elevation: 8, // Gives the card a shadow effect for depth
+                      elevation: 8,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(16), // Rounded corners
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       shadowColor: Colors.redAccent.withOpacity(0.5),
                       child: const Padding(

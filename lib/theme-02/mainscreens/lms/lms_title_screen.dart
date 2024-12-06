@@ -13,9 +13,12 @@ import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_classwork_detail_screen.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_comment_screen.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_faculty_comment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
 
-class Theme01LmsTitlePage extends ConsumerStatefulWidget {
-  const Theme01LmsTitlePage({
+class Theme02LmsTitlePage extends ConsumerStatefulWidget {
+  const Theme02LmsTitlePage({
     required this.subjectID,
     super.key,
   });
@@ -23,10 +26,10 @@ class Theme01LmsTitlePage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LmsTitlePageState();
+      _Theme02LmsTitlePageState();
 }
 
-class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
+class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -75,53 +78,60 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
-                        ref.read(encryptionProvider.notifier),
-                      );
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'LMS Title',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsTitleDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.subjectID,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'LMS Title',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.subjectID,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -177,203 +187,186 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
   }
 
   Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       child: Material(
+        borderRadius: BorderRadius.circular(18), // Rounded corners for elegance
+        color: Colors.white,
         elevation: 5,
-        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
+        shadowColor:
+            AppColors.theme01primaryColor.withOpacity(0.1), // Soft shadow
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: width / 2 - 100,
-                    child: Text(
-                      'Title :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${provider.lmsTitleData[index].title}' == 'null'
-                          ? '-'
-                          : '''${provider.lmsTitleData[index].title}''',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ),
-                ],
-              ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+            padding: const EdgeInsets.all(20), // Clean and spacious padding
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Start date time :',
-                  '${provider.lmsTitleData[index].startdatetime}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsTitleData[index].startdatetime}''',
-                  width,
+                // Title Section with larger text for a bold look
+                Row(
+                  children: [
+                    const Text(
+                      'Title : ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${provider.lmsTitleData[index].title}' == 'null'
+                            ? '-'
+                            : '${provider.lmsTitleData[index].title}',
+                        style: TextStyle(
+                          color: AppColors.theme02buttonColor2,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                _buildRow(
-                  'End date time',
-                  '${provider.lmsTitleData[index].enddatetime}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsTitleData[index].enddatetime}''',
-                  width,
+                const SizedBox(height: 14), // More space between sections
+
+                // Description Section with crisp text
+                Row(
+                  children: [
+                    const Text(
+                      'Subject Description: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${provider.lmsTitleData[index].classworktypedesc}' ==
+                                'null'
+                            ? '-'
+                            : '${provider.lmsTitleData[index].classworktypedesc}',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                _buildRow(
-                  'Subject desc',
-                  '${provider.lmsTitleData[index].classworktypedesc}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsTitleData[index].classworktypedesc}''',
-                  width,
+                const SizedBox(height: 12),
+
+                // Date Section with clear date format
+                Row(
+                  children: [
+                    const Text(
+                      'Start Date : ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${provider.lmsTitleData[index].startdatetime}' == 'null'
+                          ? '-'
+                          : '${provider.lmsTitleData[index].startdatetime}',
+                      style:
+                          const TextStyle(color: Colors.white70, fontSize: 16),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Text(
+                      'End Date : ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${provider.lmsTitleData[index].enddatetime}' == 'null'
+                          ? '-'
+                          : '${provider.lmsTitleData[index].enddatetime}',
+                      style:
+                          const TextStyle(color: Colors.white70, fontSize: 16),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18), // Extra space for buttons
+
+                // Action Buttons with Icons and Smooth Hover Effects
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 30,
-                      width: 70,
-                      child: GestureDetector(
+                    _buildActionButton(
+                      label: 'View',
+                      icon: Icons.visibility,
+                      onTap: () {
+                        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                              ref.read(encryptionProvider.notifier),
+                              '${provider.lmsTitleData[index].classworkid}',
+                            );
+                        Navigator.push(
+                          context,
+                          RouteDesign(
+                            route: Theme02LmsClassworkDetailPage(
+                              classworkID:
+                                  '${provider.lmsTitleData[index].classworkid}',
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildActionButton(
+                      label: 'Comments',
+                      icon: Icons.comment,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          RouteDesign(
+                            route: Theme02LmsCommentScreen(
+                              classworkID:
+                                  '${provider.lmsTitleData[index].classworkid}',
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    if (provider.lmsTitleData[index].privatecomment != '0')
+                      _buildActionButton(
+                        label: 'Faculty Chat',
+                        icon: Icons.chat,
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                                ref.read(encryptionProvider.notifier),
-                                '${provider.lmsTitleData[index].classworkid}',
-                              );
-
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: Theme01LmsClassworkDetailPage(
+                              route: Theme02LmsFacultyCommentScreen(
                                 classworkID:
                                     '${provider.lmsTitleData[index].classworkid}',
                               ),
                             ),
                           );
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'View',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
-                    ),
-                    // if (provider.lmsTitleData[index].classcomment != '0')
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          width: 100,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: Theme01LmsCommentScreen(
-                                    classworkID:
-                                        '${provider.lmsTitleData[index].classworkid}',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.theme01primaryColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Comments',
-                                      style: TextStyles.fontStyle5,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        if (provider.lmsTitleData[index].privatecomment != '0')
-                          SizedBox(
-                            height: 30,
-                            width: 100,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  RouteDesign(
-                                    route: Theme01LmsFacultyCommentScreen(
-                                      classworkID:
-                                          '${provider.lmsTitleData[index].classworkid}',
-                                      // studentclassworkcommentid:
-                                      //     '${provider.lmsfacultygetcommentData[index].studentclassworkcommentid}',
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.theme01primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        'faculty chat',
-                                        style: TextStyles.fontStyle5,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
                   ],
                 ),
-                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -382,32 +375,52 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
     );
   }
 
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
+  Widget _buildActionButton({
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 40, // Adequate height for buttons
+        width: 100, // Optimized width
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme02buttonColor1,
+              AppColors.theme02buttonColor2,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.theme01primaryColor.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 16),
+              const SizedBox(width: 5),
+              Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ],
           ),
         ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-      ],
+      ),
     );
   }
 

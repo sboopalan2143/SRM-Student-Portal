@@ -9,18 +9,17 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_title_screen.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
 
-class Theme01LmsHomePage extends ConsumerStatefulWidget {
-  const Theme01LmsHomePage({super.key});
+class Theme02LmsHomePage extends ConsumerStatefulWidget {
+  const Theme02LmsHomePage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LmsHomePageState();
+      _Theme02LmsHomePageState();
 }
 
-class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
+class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -67,49 +66,59 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'LMS Subject',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsSubgetDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'LMS Subject',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -117,7 +126,7 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -164,307 +173,215 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-
-  //   final provider = ref.watch(lmsProvider);
-  //   return GestureDetector(
-  //     onTap: () {
-  //       ref.read(lmsProvider.notifier).getLmsTitleDetails(
-  //             ref.read(encryptionProvider.notifier),
-  //             '${provider.lmsSubjectData[index].subjectid}',
-  //           );
-  //       Navigator.push(
-  //         context,
-  //         RouteDesign(
-  //           route: LmsTitlePage(
-  //             subjectID: '${provider.lmsSubjectData[index].staffname}',
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(bottom: 8),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.grey.withOpacity(0.2),
-  //               spreadRadius: 5,
-  //               blurRadius: 7,
-  //               offset: const Offset(0, 3),
-  //             ),
-  //           ],
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(20),
-  //           child: Column(
-  //             children: [
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Staff Name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].staffname}' == 'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].staffname}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subject Id',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectid}' == 'null'
-  //                           ? '-'
-  //                           : '${provider.lmsSubjectData[index].subjectid}',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subject Code',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectcode}' ==
-  //                               'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].subjectcode}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Subjectdesc',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsSubjectData[index].subjectdesc}' ==
-  //                               'null'
-  //                           ? '-'
-  //                           : '''${provider.lmsSubjectData[index].subjectdesc}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               const SizedBox(
-  //                 height: 10,
-  //               ),
-  //               SizedBox(
-  //                 width: 200,
-  //                 child: ElevatedButton(
-  //                   style: ElevatedButton.styleFrom(
-  //                     shape: const RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.all(
-  //                         Radius.circular(9),
-  //                       ),
-  //                     ),
-  //                     elevation: 0,
-  //                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //                     backgroundColor: AppColors.primaryColor,
-  //                     shadowColor: Colors.transparent,
-  //                   ),
-  //                   onPressed: () {
-  //                     ref.read(lmsProvider.notifier).getLmsTitleDetails(
-  //                           ref.read(encryptionProvider.notifier),
-  //                           '${provider.lmsSubjectData[index].subjectid}',
-  //                         );
-  //                     Navigator.push(
-  //                       context,
-  //                       RouteDesign(
-  //                         route: LmsTitlePage(
-  //                           subjectID:
-  //                               '${provider.lmsSubjectData[index].staffname}',
-  //                         ),
-  //                       ),
-  //                     );
-  //                   },
-  //                   child: const Text(
-  //                     'view',
-  //                     style: TextStyles.fontStyle13,
-  //                   ),
-  //                 ),
-  //               )
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-      child: Material(
-        elevation: 5,
-        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+    return GestureDetector(
+      onTap: () {},
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
             ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: width / 2 - 100,
-                    child: Text(
-                      'Subject id :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${provider.lmsSubjectData[index].subjectid}' == 'null'
-                          ? '-'
-                          : '''${provider.lmsSubjectData[index].subjectid}''',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ),
-                ],
+          ],
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // Base Layer
+            Container(
+              height: 210,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.theme02primaryColor,
+                    AppColors.theme02secondaryColor1,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
-              children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Staff name :',
-                  '${provider.lmsSubjectData[index].staffname}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsSubjectData[index].staffname}''',
-                  width,
-                ),
-                _buildRow(
-                  'Subject code',
-                  '${provider.lmsSubjectData[index].subjectcode}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsSubjectData[index].subjectcode}''',
-                  width,
-                ),
-                _buildRow(
-                  'Subject desc',
-                  '${provider.lmsSubjectData[index].subjectdesc}' == 'null'
-                      ? '-'
-                      : '''${provider.lmsSubjectData[index].subjectdesc}''',
-                  width,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(9),
-                          ),
-                        ),
-                        elevation: 0,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        backgroundColor: AppColors.theme01primaryColor,
-                        shadowColor: Colors.transparent,
+            ),
+            Positioned(
+              top: 20,
+              left: 20,
+              right: 20,
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white.withOpacity(0.9),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
                       ),
-                      onPressed: () {
-                        ref.read(lmsProvider.notifier).getLmsTitleDetails(
-                              ref.read(encryptionProvider.notifier),
-                              '${provider.lmsSubjectData[index].subjectid}',
-                            );
-                        Navigator.push(
-                          context,
-                          RouteDesign(
-                            route: Theme01LmsTitlePage(
-                              subjectID:
-                                  '${provider.lmsSubjectData[index].staffname}',
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Subject Code
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.code,
+                            color: AppColors.theme02buttonColor2,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'Subject Code : ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
                             ),
                           ),
-                        );
-                      },
-                      child: const Text(
-                        'view',
-                        style: TextStyles.fontStyle13,
+                          Text(
+                            '${provider.lmsSubjectData[index].subjectcode}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.theme02buttonColor2,
+                            ),
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 12),
+
+                      // Staff Name and Credit
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: AppColors.theme02buttonColor2,
+                                size: 18,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Staff : ${provider.lmsSubjectData[index].staffname}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black87,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: AppColors.theme02buttonColor2,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'subject id : ${provider.lmsSubjectData[index].subjectid}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.description,
+                            color: AppColors.theme02buttonColor2,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Description : ${provider.lmsSubjectData[index].subjectdesc}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Positioned(
+              bottom: -20,
+              right: 20,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 8,
+                  backgroundColor: AppColors.theme02buttonColor2,
+                ),
+                onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                        ref.read(encryptionProvider.notifier),
+                        '${provider.lmsSubjectData[index].subjectid}',
+                      );
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: Theme02LmsTitlePage(
+                        subjectID:
+                            '${provider.lmsSubjectData[index].subjectid}',
+                      ),
+                    ),
+                  );
+                },
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'View',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: Colors.white,
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

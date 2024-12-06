@@ -10,8 +10,8 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01LmsFacultyCommentScreen extends ConsumerStatefulWidget {
-  const Theme01LmsFacultyCommentScreen({
+class Theme02LmsFacultyCommentScreen extends ConsumerStatefulWidget {
+  const Theme02LmsFacultyCommentScreen({
     required this.classworkID,
     // required this.studentclassworkcommentid,
     super.key,
@@ -21,11 +21,11 @@ class Theme01LmsFacultyCommentScreen extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LmsFacultyCommentScreenState();
+      _Theme02LmsFacultyCommentScreenState();
 }
 
-class _Theme01LmsFacultyCommentScreenState
-    extends ConsumerState<Theme01LmsFacultyCommentScreen> {
+class _Theme02LmsFacultyCommentScreenState
+    extends ConsumerState<Theme02LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -74,48 +74,56 @@ class _Theme01LmsFacultyCommentScreenState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Faculty Comment',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  ref.read(lmsProvider.notifier).getLmsFacultycommentDetails(
+                        ref.read(encryptionProvider.notifier),
+                        widget.classworkID,
+                      );
                 },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
+                child: const Icon(
+                  Icons.refresh,
+                  color: AppColors.whiteColor,
                 ),
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Faculty Comment',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: GestureDetector(
-                    onTap: () {
-                      ref
-                          .read(lmsProvider.notifier)
-                          .getLmsFacultycommentDetails(
-                            ref.read(encryptionProvider.notifier),
-                            widget.classworkID,
-                          );
-                    },
-                    child: Icon(
-                      Icons.refresh,
-                      color: AppColors.theme01primaryColor,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ],
         ),
@@ -194,7 +202,7 @@ class _Theme01LmsFacultyCommentScreenState
                     IconButton(
                       icon: Icon(
                         Icons.send,
-                        color: AppColors.theme01secondaryColor1,
+                        color: AppColors.theme02buttonColor2,
                       ), // Blue send icon
                       onPressed: () async {
                         await ref.read(lmsProvider.notifier).saveCommentfield(
@@ -296,7 +304,7 @@ class _Theme01LmsFacultyCommentScreenState
                         child: Text(
                           commentData.commentdatetime ?? 'Unknown time',
                           style: TextStyles.fontStyle10small.copyWith(
-                            color: Colors.grey.shade600,
+                            color: AppColors.theme02buttonColor2,
                             fontStyle: FontStyle.italic,
                           ),
                         ),
@@ -359,8 +367,7 @@ class _Theme01LmsFacultyCommentScreenState
   Widget chatCard2Design(int index) {
     final provider = ref.watch(lmsProvider);
     final replyData = provider.lmsReplayfacultycommentData[index];
-    final isYou = replyData.replynames ==
-        'You'; // Adjust this condition based on your logic.
+    final isYou = replyData.replynames == 'You';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -425,7 +432,7 @@ class _Theme01LmsFacultyCommentScreenState
                     child: Text(
                       replyData.replytime ?? 'Unknown time',
                       style: TextStyles.fontStyle10small.copyWith(
-                        color: Colors.grey.shade600,
+                        color: AppColors.theme02buttonColor2,
                         fontStyle: FontStyle.italic,
                       ),
                     ),

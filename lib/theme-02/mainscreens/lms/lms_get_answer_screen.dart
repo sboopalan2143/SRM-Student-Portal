@@ -4,22 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01McqGetAnswerPage extends ConsumerStatefulWidget {
-  const Theme01McqGetAnswerPage({super.key});
+class Theme02McqGetAnswerPage extends ConsumerStatefulWidget {
+  const Theme02McqGetAnswerPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01McqGetAnswerPageState();
+      _Theme02McqGetAnswerPageState();
 }
 
-class _Theme01McqGetAnswerPageState
-    extends ConsumerState<Theme01McqGetAnswerPage> {
+class _Theme02McqGetAnswerPageState
+    extends ConsumerState<Theme02McqGetAnswerPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -65,51 +66,59 @@ class _Theme01McqGetAnswerPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'MCQ Answer Screen',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .getMcqAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'MCQ Entry Screen',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref.read(lmsProvider.notifier).getMcqAnswerDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -117,7 +126,7 @@ class _Theme01McqGetAnswerPageState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -164,347 +173,86 @@ class _Theme01McqGetAnswerPageState
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //   final provider = ref.watch(lmsProvider);
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 8),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.grey.withOpacity(0.2),
-  //             spreadRadius: 5,
-  //             blurRadius: 7,
-  //             offset: const Offset(0, 3),
-  //           ),
-  //         ],
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(20),
-  //         child: Column(
-  //           children: [
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Answer',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].answer}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].answer}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Answer id',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].answerid}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].answerid}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Question filename',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].questionfilename}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Total marks',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].totalmarks}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].totalmarks}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your answer',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswer}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswer}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your marks',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].yourmarks}' == ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].yourmarks}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Your answervalid',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswervalid}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   width: width / 2 - 100,
-  //                   child: const Text(
-  //                     'Youranswer filename',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //                 const Text(
-  //                   ':',
-  //                   style: TextStyles.fontStyle10,
-  //                 ),
-  //                 const SizedBox(width: 5),
-  //                 SizedBox(
-  //                   width: width / 2 - 60,
-  //                   child: Text(
-  //                     '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
-  //                             ''
-  //                         ? '-'
-  //                         : '${provider.mcqgetAnswerDetails[index].youranswerfilename}',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       child: Material(
-        elevation: 5,
+        elevation: 6,
         shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: width / 2 - 100,
-                    child: Text(
-                      'Answer :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${provider.mcqgetAnswerDetails[index].answer}' == 'null'
-                          ? '-'
-                          : '''${provider.mcqgetAnswerDetails[index].answer}''',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ),
-                ],
-              ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+            padding: const EdgeInsets.all(16),
+            child: Column(
               children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Answer id :',
-                  '${provider.mcqgetAnswerDetails[index].answerid}' == 'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].answerid}''',
-                  width,
+                Row(
+                  children: [
+                    Icon(
+                      Icons.question_answer,
+                      color: AppColors.theme02buttonColor2,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Answer:',
+                      style: TextStyles.fontStyle13.copyWith(fontSize: 16),
+                    ),
+                  ],
                 ),
-                _buildRow(
-                  'Question file name',
-                  '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
-                          'null'
+                const SizedBox(height: 4),
+                Text(
+                  provider.mcqgetAnswerDetails[index].answer == 'null'
                       ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].questionfilename}''',
-                  width,
+                      : '${provider.mcqgetAnswerDetails[index].answer}',
+                  style: TextStyles.fontStyle2.copyWith(
+                    fontSize: 14,
+                    color: AppColors.theme02buttonColor2,
+                  ),
                 ),
-                _buildRow(
-                  'Total marks',
-                  '${provider.mcqgetAnswerDetails[index].totalmarks}' == 'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].totalmarks}''',
-                  width,
+                const Divider(thickness: 1, color: Colors.grey),
+                const SizedBox(height: 8),
+                _buildDetailRow(
+                  Icons.confirmation_num,
+                  'Answer ID:',
+                  provider.mcqgetAnswerDetails[index].answerid,
                 ),
-                _buildRow(
-                  'Your answer',
-                  '${provider.mcqgetAnswerDetails[index].youranswer}' == 'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].youranswer}''',
-                  width,
+                _buildDetailRow(
+                  Icons.insert_drive_file,
+                  'Question File Name:',
+                  provider.mcqgetAnswerDetails[index].questionfilename,
                 ),
-                _buildRow(
-                  'Your marks',
-                  '${provider.mcqgetAnswerDetails[index].yourmarks}' == 'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].yourmarks}''',
-                  width,
+                const SizedBox(height: 16),
+                _buildCircularIndicator(
+                  provider.mcqgetAnswerDetails[index].totalmarks,
+                  provider.mcqgetAnswerDetails[index].yourmarks,
                 ),
-                _buildRow(
-                  'Your answer valid',
-                  '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
-                          'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].youranswervalid}''',
-                  width,
+                const SizedBox(height: 16),
+                _buildDetailRow(
+                  Icons.edit,
+                  'Your Answer:',
+                  provider.mcqgetAnswerDetails[index].youranswer,
                 ),
-                _buildRow(
-                  'Your answer filename',
-                  '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
-                          'null'
-                      ? '-'
-                      : '''${provider.mcqgetAnswerDetails[index].youranswerfilename}''',
-                  width,
+                _buildDetailRow(
+                  Icons.verified,
+                  'Valid Answer:',
+                  provider.mcqgetAnswerDetails[index].youranswervalid,
                 ),
-                const SizedBox(height: 20),
+                _buildDetailRow(
+                  Icons.file_copy,
+                  'Answer Filename:',
+                  provider.mcqgetAnswerDetails[index].youranswerfilename,
+                ),
               ],
             ),
           ),
@@ -513,34 +261,207 @@ class _Theme01McqGetAnswerPageState
     );
   }
 
-  Widget _buildRow(String title, String value, double width) {
+  Widget _buildDetailRow(IconData icon, String title, String? value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: AppColors.theme02buttonColor2),
+          const SizedBox(width: 10),
+          Expanded(
+            flex: 3,
+            child: Text(
+              title,
+              style: TextStyles.fontStyle13.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(
+              value == 'null' || value == null || value.isEmpty ? '-' : value,
+              style: TextStyles.fontStyle13.copyWith(fontSize: 14),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCircularIndicator(String? totalMarksStr, String? yourMarksStr) {
+    double totalMarks = double.tryParse(totalMarksStr ?? '0') ?? 0;
+    double yourMarks = double.tryParse(yourMarksStr ?? '0') ?? 0;
+    double percentage = totalMarks > 0 ? (yourMarks / totalMarks) : 0;
+
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
-          ),
+        const Text(
+          'Total Marks : ',
+          style: TextStyles.fontStyle3,
         ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+        const SizedBox(height: 10),
+        Center(
+          child: CircularPercentIndicator(
+            radius: 40,
+            lineWidth: 8,
+            animation: true,
+            percent: percentage.clamp(
+              0.0,
+              1.0,
+            ),
+            center: Text(
+              '${(percentage * 100).toStringAsFixed(1)}%',
+              style: TextStyles.fontStyletheme2
+                  .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            circularStrokeCap: CircularStrokeCap.round,
+            progressColor: AppColors.theme02buttonColor2,
+            backgroundColor: Colors.white,
           ),
         ),
       ],
     );
   }
+
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+  //   final provider = ref.watch(lmsProvider);
+
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+  //     child: Material(
+  //       elevation: 5,
+  //       shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
+  //       borderRadius: BorderRadius.circular(20),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //           gradient: LinearGradient(
+  //             colors: [
+  //               AppColors.theme01secondaryColor1,
+  //               AppColors.theme01secondaryColor2,
+  //             ],
+  //             begin: Alignment.topLeft,
+  //             end: Alignment.bottomRight,
+  //           ),
+  //           borderRadius: BorderRadius.circular(20),
+  //         ),
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(20),
+  //           child: ExpansionTile(
+  //             title: Row(
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 100,
+  //                   child: Text(
+  //                     'Answer :',
+  //                     style: TextStyles.buttonStyle01theme2,
+  //                   ),
+  //                 ),
+  //                 Expanded(
+  //                   child: Text(
+  //                     '${provider.mcqgetAnswerDetails[index].answer}' == 'null'
+  //                         ? '-'
+  //                         : '''${provider.mcqgetAnswerDetails[index].answer}''',
+  //                     style: TextStyles.fontStyle2,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             collapsedIconColor: AppColors.theme01primaryColor,
+  //             iconColor: AppColors.theme01primaryColor,
+  //             children: [
+  //               Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
+  //               _buildRow(
+  //                 'Answer id :',
+  //                 '${provider.mcqgetAnswerDetails[index].answerid}' == 'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].answerid}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Question file name',
+  //                 '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
+  //                         'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].questionfilename}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Total marks',
+  //                 '${provider.mcqgetAnswerDetails[index].totalmarks}' == 'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].totalmarks}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Your answer',
+  //                 '${provider.mcqgetAnswerDetails[index].youranswer}' == 'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].youranswer}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Your marks',
+  //                 '${provider.mcqgetAnswerDetails[index].yourmarks}' == 'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].yourmarks}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Your answer valid',
+  //                 '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
+  //                         'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].youranswervalid}''',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Your answer filename',
+  //                 '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
+  //                         'null'
+  //                     ? '-'
+  //                     : '''${provider.mcqgetAnswerDetails[index].youranswerfilename}''',
+  //                 width,
+  //               ),
+  //               const SizedBox(height: 20),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildRow(String title, String value, double width) {
+  //   return Row(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       SizedBox(
+  //         width: width / 2 - 60,
+  //         child: Text(
+  //           title,
+  //           style: TextStyles.buttonStyle01theme2,
+  //         ),
+  //       ),
+  //       const Expanded(
+  //         child: Text(
+  //           ':',
+  //           style: TextStyles.fontStyle2,
+  //         ),
+  //       ),
+  //       const SizedBox(width: 5),
+  //       SizedBox(
+  //         width: width / 2 - 60,
+  //         child: Text(
+  //           value.isEmpty ? '-' : value,
+  //           style: TextStyles.fontStyle2,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

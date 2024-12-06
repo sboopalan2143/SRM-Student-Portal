@@ -80,6 +80,8 @@ class AppColors {
 
   static const Color skeletonColor = Color(0xffE0E0E0);
 
+  static var fontStyle3;
+
   static Future<void> setPrimaryColor(String color) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('primaryColor', color);

@@ -12,16 +12,16 @@ import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01TransportRegisterPage extends ConsumerStatefulWidget {
-  const Theme01TransportRegisterPage({super.key});
+class Theme02TransportRegisterPage extends ConsumerStatefulWidget {
+  const Theme02TransportRegisterPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01TransportRegisterPageState();
+      _Theme02TransportRegisterPageState();
 }
 
-class _Theme01TransportRegisterPageState
-    extends ConsumerState<Theme01TransportRegisterPage> {
+class _Theme02TransportRegisterPageState
+    extends ConsumerState<Theme02TransportRegisterPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> _handleRefresh() async {
@@ -74,63 +74,71 @@ class _Theme01TransportRegisterPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'TRANSPORT',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getRouteIdDetails(
-                              ref.read(encryptionProvider.notifier),
-                            );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getRouteIdHiveDetails(
-                              '',
-                            );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getBoardingIdDetails(
-                              ref.read(encryptionProvider.notifier),
-                            );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getBoardingPointHiveDetails(
-                              '',
-                            );
-                      },
-                      child: Icon(
-                        Icons.refresh,
-                        color: AppColors.theme01primaryColor,
-                      ),
-                    ),
-                  ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'TRANSPORT',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    await ref
+                        .read(transportProvider.notifier)
+                        .getRouteIdDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
+                    await ref
+                        .read(transportProvider.notifier)
+                        .getRouteIdHiveDetails(
+                          '',
+                        );
+                    await ref
+                        .read(transportProvider.notifier)
+                        .getBoardingIdDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
+                    await ref
+                        .read(transportProvider.notifier)
+                        .getBoardingPointHiveDetails(
+                          '',
+                        );
+                  },
+                  child: const Icon(
+                    Icons.refresh,
+                    color: AppColors.whiteColor,
+                  ),
                 ),
               ],
             ),
@@ -148,7 +156,7 @@ class _Theme01TransportRegisterPageState
                     children: [
                       const Text(
                         'Busroute ID',
-                        style: TextStyles.fontStyle2,
+                        style: TextStyles.fontStyletheme2,
                       ),
                       const SizedBox(
                         height: 5,
@@ -201,7 +209,7 @@ class _Theme01TransportRegisterPageState
                     children: [
                       const Text(
                         'Boardingpoint ID',
-                        style: TextStyles.fontStyle2,
+                        style: TextStyles.fontStyletheme2,
                       ),
                       const SizedBox(
                         height: 5,
@@ -287,11 +295,11 @@ class _Theme01TransportRegisterPageState
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          AppColors.theme01secondaryColor1,
-                          AppColors.theme01secondaryColor2,
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
                         ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -302,9 +310,9 @@ class _Theme01TransportRegisterPageState
                           children: [
                             SizedBox(
                               width: width / 2 - 100,
-                              child: Text(
+                              child: const Text(
                                 'Academic year id :',
-                                style: TextStyles.buttonStyle01theme2,
+                                style: TextStyles.fontStyletheme2,
                               ),
                             ),
                             Expanded(
@@ -313,13 +321,13 @@ class _Theme01TransportRegisterPageState
                                         ''
                                     ? '-'
                                     : '''${provider.transportAfterRegisterDetails!.academicyearid}''',
-                                style: TextStyles.fontStyle2,
+                                style: TextStyles.theme02fontStyle2,
                               ),
                             ),
                           ],
                         ),
-                        collapsedIconColor: AppColors.theme01primaryColor,
-                        iconColor: AppColors.theme01primaryColor,
+                        collapsedIconColor: AppColors.theme02buttonColor2,
+                        iconColor: AppColors.theme02buttonColor2,
                         children: [
                           Divider(
                               color: AppColors.theme01primaryColor
@@ -730,13 +738,13 @@ class _Theme01TransportRegisterPageState
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyletheme2,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyletheme2,
           ),
         ),
         const SizedBox(width: 5),
@@ -744,7 +752,7 @@ class _Theme01TransportRegisterPageState
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyletheme2,
           ),
         ),
       ],

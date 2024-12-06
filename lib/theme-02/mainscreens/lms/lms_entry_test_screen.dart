@@ -1,21 +1,18 @@
 import 'dart:async';
-import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_test_view.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_mcq_test_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_mcq_test_screen.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
-class Theme01McqEnteryPage extends ConsumerStatefulWidget {
-  const Theme01McqEnteryPage({
+class Theme02McqEnteryPage extends ConsumerStatefulWidget {
+  const Theme02McqEnteryPage({
     required this.mcqscheduleid,
     super.key,
   });
@@ -23,10 +20,10 @@ class Theme01McqEnteryPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01McqEnteryPageState();
+      _Theme02McqEnteryPageState();
 }
 
-class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
+class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -75,52 +72,60 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'MCQ Entry Screen',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsMcqSheduleDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.mcqscheduleid,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'MCQ Entry Screen',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmsMcqSheduleDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.mcqscheduleid,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -179,146 +184,225 @@ class _Theme01McqEnteryPageState extends ConsumerState<Theme01McqEnteryPage> {
     final provider = ref.watch(lmsProvider);
 
     return GestureDetector(
-      onTap: () {
-        // ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
-        //       ref.read(encryptionProvider.notifier),
-        //       '${provider.mcqSheduleData[index].classworkid}',
-        //     );
-
-        // Navigator.push(
-        //   context,
-        //   RouteDesign(
-        //     route: LmsAttachmentDetailsDataPage(
-        //       classworkID: '${provider.mcqSheduleData[index].classworkid}',
-        //     ),
-        //   ),
-        // );
-      },
+      onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: Column(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            // Card background
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.theme02primaryColor,
+                    AppColors.theme02secondaryColor1,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('MCQ Entry ', style: TextStyles.theme01titleFontStyle),
-                  const SizedBox(height: 20),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  // Title
+                  Text(
+                    'MCQ Entry',
+                    style: TextStyles.theme01titleFontStyle.copyWith(
+                      color: AppColors.theme02buttonColor2,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Work Type
+                  Row(
                     children: [
+                      Icon(
+                        Icons.assignment,
+                        color: AppColors.theme02buttonColor2,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 8),
                       Text(
-                        'Work Type : ',
-                        style: TextStyles.smallBlackColorFontStyle,
+                        'Work Type: ',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
                       ),
                       Text(
                         'MCQ',
-                        style: TextStyles.smallBlackColorFontStyle,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Last Submission Date : ',
-                        style: TextStyles.smallBlackColorFontStyle,
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${provider.mcqSheduleData[index].date}',
-                          style: TextStyles.smallBlackColorFontStyle,
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 8),
+
+                  // Submission Date
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Test : ',
-                        style: TextStyles.smallBlackColorFontStyle,
+                      Icon(
+                        Icons.calendar_today,
+                        color: AppColors.theme02buttonColor2,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Submission Date: ',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        '${provider.mcqSheduleData[index].date}',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.yellowAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Test Info
+                  Row(
+                    children: [
+                      Icon(Icons.book,
+                          color: AppColors.theme02buttonColor2, size: 18),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Test: ',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
                       ),
                       Text(
                         '${provider.mcqSheduleData[index].subjectid}',
-                        style: TextStyles.smallBlackColorFontStyle,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'no of questions: ',
-                        style: TextStyles.smallBlackColorFontStyle,
-                      ),
-                      Text(
-                        '${provider.mcqSheduleData[index].noofquestions}',
-                        style: TextStyles.smallBlackColorFontStyle,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  const BlinkText(
-                    'New',
-                    style: TextStyles.fontStyle6,
-                    endColor: Colors.redAccent,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 30,
-                          width: 150,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: Theme01McqTestViewPage(
-                                    mcqscheduleid:
-                                        '${provider.mcqSheduleData[index].scheduleid}',
-                                    mcqtemplateid:
-                                        '${provider.mcqSheduleData[index].mcqtemplateid}',
-                                    subjectid:
-                                        '${provider.mcqSheduleData[index].subjectid}',
-                                    noofquestions:
-                                        '${provider.mcqSheduleData[index].noofquestions}',
-                                    marksperquestion:
-                                        '${provider.mcqSheduleData[index].marksperquestions}',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.theme01secondaryColor4,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Take test',
-                                      style: TextStyles.buttonStyle01theme2,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.lightGreenAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 8),
+
+                  // No of Questions
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.question_answer,
+                        color: AppColors.theme02buttonColor2,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'No of Questions: ',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        '${provider.mcqSheduleData[index].noofquestions}',
+                        style: TextStyles.smallBlackColorFontStyle.copyWith(
+                          color: Colors.orangeAccent,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Take Test Button
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: Theme02McqTestViewPage(
+                            mcqscheduleid:
+                                '${provider.mcqSheduleData[index].scheduleid}',
+                            mcqtemplateid:
+                                '${provider.mcqSheduleData[index].mcqtemplateid}',
+                            subjectid:
+                                '${provider.mcqSheduleData[index].subjectid}',
+                            noofquestions:
+                                '${provider.mcqSheduleData[index].noofquestions}',
+                            marksperquestion:
+                                '${provider.mcqSheduleData[index].marksperquestions}',
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 6,
+                            offset: Offset(2, 4),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Take Test',
+                          style: TextStyles.buttonStyle01theme2.copyWith(
+                            color: AppColors.blackColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 15,
+              child: AnimatedContainer(
+                duration: const Duration(seconds: 1),
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.redAccent.withOpacity(0.8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.redAccent.withOpacity(0.5),
+                      blurRadius: 12,
+                      spreadRadius: 3,
+                    ),
+                  ],
+                ),
+                child: const Center(
+                  child: Text(
+                    'New',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

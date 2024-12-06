@@ -11,9 +11,10 @@ import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/mcq_get_answer_data_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_get_answer_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_get_answer_screen.dart';
 
-class Theme01McqTestViewPage extends ConsumerStatefulWidget {
-  const Theme01McqTestViewPage({
+class Theme02McqTestViewPage extends ConsumerStatefulWidget {
+  const Theme02McqTestViewPage({
     required this.mcqtemplateid,
     required this.mcqscheduleid,
     required this.subjectid,
@@ -29,11 +30,11 @@ class Theme01McqTestViewPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01McqTestViewPageState();
+      _Theme02McqTestViewPageState();
 }
 
-class _Theme01McqTestViewPageState
-    extends ConsumerState<Theme01McqTestViewPage> {
+class _Theme02McqTestViewPageState
+    extends ConsumerState<Theme02McqTestViewPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -93,55 +94,65 @@ class _Theme01McqTestViewPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Mcq Take Test',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsMcqQuestionandAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.mcqscheduleid,
-                                widget.mcqtemplateid,
-                                widget.subjectid,
-                                widget.noofquestions,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Mcq Take Test',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(lmsProvider.notifier)
+                          .getLmsMcqQuestionandAnswerDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.mcqscheduleid,
+                            widget.mcqtemplateid,
+                            widget.subjectid,
+                            widget.noofquestions,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -215,22 +226,22 @@ class _Theme01McqTestViewPageState
                           await Navigator.push(
                             context,
                             RouteDesign(
-                              route: const Theme01McqGetAnswerPage(),
+                              route: const Theme02McqGetAnswerPage(),
                             ),
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.theme01secondaryColor4,
+                            color: AppColors.theme02secondaryColor1,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
                                 child: Text(
                                   'Submit',
-                                  style: TextStyles.buttonStyle01theme,
+                                  style: TextStyles.fontStyle13,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -279,7 +290,7 @@ class _Theme01McqTestViewPageState
               children: [
                 Text(
                   'Question No. ${index + 1}',
-                  style: TextStyles.buttonStyle01theme2,
+                  style: TextStyles.theme02fontStyle2,
                 ),
                 const SizedBox(height: 10),
                 Text(

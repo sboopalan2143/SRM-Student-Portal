@@ -8,20 +8,20 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme-02/mainscreens/transport/transport_button_design.dart';
 
-class Theme01TransportTransactionPage extends ConsumerStatefulWidget {
-  const Theme01TransportTransactionPage({super.key});
+class Theme02TransportTransactionPage extends ConsumerStatefulWidget {
+  const Theme02TransportTransactionPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01TransportTransactionPageState();
+      _Theme02TransportTransactionPageState();
 }
 
-class _Theme01TransportTransactionPageState
-    extends ConsumerState<Theme01TransportTransactionPage> {
+class _Theme02TransportTransactionPageState
+    extends ConsumerState<Theme02TransportTransactionPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -61,56 +61,64 @@ class _Theme01TransportTransactionPageState
     final provider = ref.watch(transportProvider);
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'TRANSPORT',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(transportProvider.notifier)
-                              .getTransportStatusDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          await ref
-                              .read(transportProvider.notifier)
-                              .getTransportStatusHiveDetails('');
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'TRANSPORT',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref
+                          .read(transportProvider.notifier)
+                          .getTransportStatusDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      await ref
+                          .read(transportProvider.notifier)
+                          .getTransportStatusHiveDetails('');
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -119,60 +127,63 @@ class _Theme01TransportTransactionPageState
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 200,
-                    child: ButtonDesign.buttonDesign(
-                      'Register',
-                      AppColors.primaryColor,
-                      context,
-                      ref.read(mainProvider.notifier),
-                      ref,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  if (provider is TransportStateLoading)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: Center(
-                        child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: TransportButtonDesign.buttonDesign(
+                        'Register',
+                        AppColors.primaryColor,
+                        context,
+                        ref.read(mainProvider.notifier),
+                        ref,
                       ),
-                    )
-                  else if (provider.transportStatusData.isEmpty &&
-                      provider is! TransportStateLoading)
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 5,
-                        ),
-                        const Center(
-                          child: Text(
-                            'No List Added Yet!',
-                            style: TextStyles.fontStyle1,
-                          ),
-                        ),
-                      ],
                     ),
-                  if (provider.transportStatusData.isNotEmpty)
-                    const SizedBox(height: 5),
-                  ListView.builder(
-                    itemCount: provider.transportStatusData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    if (provider is TransportStateLoading)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: Center(
+                          child: CircularProgressIndicators
+                              .primaryColorProgressIndication,
+                        ),
+                      )
+                    else if (provider.transportStatusData.isEmpty &&
+                        provider is! TransportStateLoading)
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 5,
+                          ),
+                          const Center(
+                            child: Text(
+                              'No List Added Yet!',
+                              style: TextStyles.fontStyle1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (provider.transportStatusData.isNotEmpty)
+                      const SizedBox(height: 5),
+                    ListView.builder(
+                      itemCount: provider.transportStatusData.length,
+                      controller: _listController,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return cardDesign(index);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       endDrawer: const DrawerDesign(),
@@ -187,93 +198,81 @@ class _Theme01TransportTransactionPageState
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
       child: Material(
-        elevation: 5,
-        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(20),
+        elevation: 8,
+        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(15),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ExpansionTile(
-              title: Row(
-                children: [
-                  SizedBox(
-                    width: width / 2 - 100,
-                    child: Text(
-                      'Office id :',
-                      style: TextStyles.buttonStyle01theme2,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${provider.transportStatusData[index].officeid}' == ''
-                          ? '-'
-                          : ''
-                              '${provider.transportStatusData[index].officeid}'
-                              '',
-                      style: TextStyles.fontStyle2,
-                    ),
-                  ),
-                ],
-              ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
-                _buildRow(
-                  'Academic year id :',
-                  '${provider.transportStatusData[index].academicyearid}' == ''
-                      ? '-'
-                      : ''
-                          '${provider.transportStatusData[index].academicyearid}'
-                          '',
-                  width,
+                Row(
+                  children: [
+                    Icon(
+                      Icons.account_balance,
+                      color: AppColors.theme02buttonColor2,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Office ID : ',
+                      style: TextStyles.fontStyletheme2.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      provider.transportStatusData[index].officeid!.isEmpty
+                          ? '-'
+                          : '${provider.transportStatusData[index].officeid}',
+                      style: TextStyles.theme02fontStyle2,
+                    ),
+                  ],
                 ),
-                _buildRow(
-                  'Application fee',
-                  '${provider.transportStatusData[index].applicationfee}' == ''
-                      ? '-'
-                      : ''
-                          '${provider.transportStatusData[index].applicationfee}'
-                          '',
-                  width,
+                Divider(thickness: 1, color: AppColors.theme01primaryColor),
+                _buildRowWithIcon(
+                  icon: Icons.calendar_today,
+                  label: 'Academic Year ID:',
+                  value:
+                      '${provider.transportStatusData[index].academicyearid}',
+                  width: width,
                 ),
-                _buildRow(
-                  'Regcon fig',
-                  '${provider.transportStatusData[index].regconfig}' == ''
-                      ? '-'
-                      : ''
-                          '${provider.transportStatusData[index].regconfig}'
-                          '',
-                  width,
+                _buildRowWithIcon(
+                  icon: Icons.money,
+                  label: 'Application Fee:',
+                  value:
+                      '${provider.transportStatusData[index].applicationfee}',
+                  width: width,
                 ),
-                _buildRow(
-                  'Transport status :',
-                  '${provider.transportStatusData[index].transportstatus}' == ''
-                      ? '-'
-                      : ''
-                          '${provider.transportStatusData[index].transportstatus}'
-                          '',
-                  width,
+                _buildRowWithIcon(
+                  icon: Icons.settings,
+                  label: 'Reg Config:',
+                  value: '${provider.transportStatusData[index].regconfig}',
+                  width: width,
                 ),
-                _buildRow(
-                  'Status',
-                  '${provider.transportStatusData[index].status}' == ''
-                      ? '-'
-                      : ''
-                          '${provider.transportStatusData[index].status}'
-                          '',
-                  width,
+                _buildRowWithIcon(
+                  icon: Icons.directions_bus,
+                  label: 'Transport Status:',
+                  value:
+                      '${provider.transportStatusData[index].transportstatus}',
+                  width: width,
+                ),
+                _buildRowWithIcon(
+                  icon: Icons.info,
+                  label: 'Status:',
+                  value: '${provider.transportStatusData[index].status}',
+                  width: width,
                 ),
                 const SizedBox(height: 10),
               ],
@@ -283,6 +282,143 @@ class _Theme01TransportTransactionPageState
       ),
     );
   }
+
+  Widget _buildRowWithIcon({
+    required IconData icon,
+    required String label,
+    required String value,
+    required double width,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Icon(icon, color: AppColors.theme02buttonColor2, size: 20),
+          const SizedBox(width: 10),
+          SizedBox(
+            width: width / 2 - 100,
+            child: Text(
+              label,
+              style: TextStyles.fontStyle13.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value.isEmpty ? '-' : value,
+              style: TextStyles.fontStyle13,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+
+  //   final provider = ref.watch(transportProvider);
+
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+  //     child: Material(
+  //       elevation: 5,
+  //       shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
+  //       borderRadius: BorderRadius.circular(20),
+  //       child: Container(
+  //         decoration: BoxDecoration(
+  //           gradient: LinearGradient(
+  //             colors: [
+  //               AppColors.theme01secondaryColor1,
+  //               AppColors.theme01secondaryColor2,
+  //             ],
+  //             begin: Alignment.topLeft,
+  //             end: Alignment.bottomRight,
+  //           ),
+  //           borderRadius: BorderRadius.circular(20),
+  //         ),
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(20),
+  //           child: ExpansionTile(
+  //             title: Row(
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 100,
+  //                   child: Text(
+  //                     'Office id :',
+  //                     style: TextStyles.buttonStyle01theme2,
+  //                   ),
+  //                 ),
+  //                 Expanded(
+  //                   child: Text(
+  //                     '${provider.transportStatusData[index].officeid}' == ''
+  //                         ? '-'
+  //                         : ''
+  //                             '${provider.transportStatusData[index].officeid}'
+  //                             '',
+  //                     style: TextStyles.fontStyle2,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             collapsedIconColor: AppColors.theme01primaryColor,
+  //             iconColor: AppColors.theme01primaryColor,
+  //             children: [
+  //               Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
+  //               _buildRow(
+  //                 'Academic year id :',
+  //                 '${provider.transportStatusData[index].academicyearid}' == ''
+  //                     ? '-'
+  //                     : ''
+  //                         '${provider.transportStatusData[index].academicyearid}'
+  //                         '',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Application fee',
+  //                 '${provider.transportStatusData[index].applicationfee}' == ''
+  //                     ? '-'
+  //                     : ''
+  //                         '${provider.transportStatusData[index].applicationfee}'
+  //                         '',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Regcon fig',
+  //                 '${provider.transportStatusData[index].regconfig}' == ''
+  //                     ? '-'
+  //                     : ''
+  //                         '${provider.transportStatusData[index].regconfig}'
+  //                         '',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Transport status :',
+  //                 '${provider.transportStatusData[index].transportstatus}' == ''
+  //                     ? '-'
+  //                     : ''
+  //                         '${provider.transportStatusData[index].transportstatus}'
+  //                         '',
+  //                 width,
+  //               ),
+  //               _buildRow(
+  //                 'Status',
+  //                 '${provider.transportStatusData[index].status}' == ''
+  //                     ? '-'
+  //                     : ''
+  //                         '${provider.transportStatusData[index].status}'
+  //                         '',
+  //                 width,
+  //               ),
+  //               const SizedBox(height: 10),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildRow(String title, String value, double width) {
     return Row(

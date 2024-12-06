@@ -8,20 +8,19 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01RegistrationPage extends ConsumerStatefulWidget {
-  const Theme01RegistrationPage({super.key});
+class Theme02RegistrationPage extends ConsumerStatefulWidget {
+  const Theme02RegistrationPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01RegistrationPageState();
+      _Theme02RegistrationPageState();
 }
 
-class _Theme01RegistrationPageState
-    extends ConsumerState<Theme01RegistrationPage> {
+class _Theme02RegistrationPageState
+    extends ConsumerState<Theme02RegistrationPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -52,54 +51,41 @@ class _Theme01RegistrationPageState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'REGISTRATION',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
-                      },
-                      icon: Icon(
-                        Icons.menu,
-                        size: 35,
-                        color: AppColors.theme01primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
             ),
-          ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'REGISTRATION',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
         ),
       ),
       body: provider is HostelStateLoading
@@ -135,11 +121,11 @@ class _Theme01RegistrationPageState
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            AppColors.theme01secondaryColor1,
-                            AppColors.theme01secondaryColor2,
+                            AppColors.theme02primaryColor,
+                            AppColors.theme02secondaryColor1,
                           ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -150,9 +136,9 @@ class _Theme01RegistrationPageState
                             children: [
                               SizedBox(
                                 width: width / 2 - 100,
-                                child: Text(
+                                child: const Text(
                                   'hostel :',
-                                  style: TextStyles.buttonStyle01theme2,
+                                  style: TextStyles.fontStyle1,
                                 ),
                               ),
                               Expanded(
@@ -161,7 +147,7 @@ class _Theme01RegistrationPageState
                                           ''
                                       ? '-'
                                       : '''${provider.hostelAfterRegisterDetails!.hostel}''',
-                                  style: TextStyles.fontStyle2,
+                                  style: TextStyles.fontStyle1,
                                 ),
                               ),
                             ],
@@ -170,8 +156,9 @@ class _Theme01RegistrationPageState
                           iconColor: AppColors.theme01primaryColor,
                           children: [
                             Divider(
-                                color: AppColors.theme01primaryColor
-                                    .withOpacity(0.5)),
+                              color: AppColors.theme01primaryColor
+                                  .withOpacity(0.5),
+                            ),
                             _buildRow(
                               'Hostel fee amount :',
                               '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
@@ -235,7 +222,6 @@ class _Theme01RegistrationPageState
                     ),
                   ),
                 ),
-      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -247,13 +233,13 @@ class _Theme01RegistrationPageState
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyle1,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle1,
           ),
         ),
         const SizedBox(width: 5),
@@ -261,7 +247,7 @@ class _Theme01RegistrationPageState
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle1,
           ),
         ),
       ],
@@ -296,7 +282,7 @@ class _Theme01RegistrationPageState
             children: [
               const Text(
                 'Hostel',
-                style: TextStyles.fontStyle2,
+                style: TextStyles.fontStyle1,
               ),
               const SizedBox(
                 height: 5,
@@ -356,7 +342,7 @@ class _Theme01RegistrationPageState
             children: [
               const Text(
                 'Room Type',
-                style: TextStyles.fontStyle2,
+                style: TextStyles.fontStyle1,
               ),
               const SizedBox(
                 height: 5,

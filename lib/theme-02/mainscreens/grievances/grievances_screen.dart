@@ -182,6 +182,8 @@ class _Theme02GrievanceReportPageState
   }
 
   Widget cardDesign(int index) {
+    final width = MediaQuery.of(context).size.width;
+
     final provider = ref.watch(grievanceProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -286,7 +288,7 @@ class _Theme02GrievanceReportPageState
           ),
           const SizedBox(width: 10),
           Text(
-            '$label : ',
+            "$label : ",
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,

@@ -12,8 +12,8 @@ import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_pdf_view_page.dart';
 
-class Theme01LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
-  const Theme01LmsAttachmentDetailsDataPage({
+class Theme02LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
+  const Theme02LmsAttachmentDetailsDataPage({
     required this.classworkID,
     super.key,
   });
@@ -21,11 +21,11 @@ class Theme01LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      Theme01LmsAttachmentDetailsDataPageState();
+      Theme02LmsAttachmentDetailsDataPageState();
 }
 
-class Theme01LmsAttachmentDetailsDataPageState
-    extends ConsumerState<Theme01LmsAttachmentDetailsDataPage> {
+class Theme02LmsAttachmentDetailsDataPageState
+    extends ConsumerState<Theme02LmsAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -77,62 +77,60 @@ class Theme01LmsAttachmentDetailsDataPageState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                        ref.read(encryptionProvider.notifier),
-                        widget.classworkID,
-                      );
-                  Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   RouteDesign(
-                  //     route: const HomePage2(),
-                  //   ),
-                  // );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Attachment Details',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsAttachmentDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Attachment Details',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -221,8 +219,8 @@ class Theme01LmsAttachmentDetailsDataPageState
             context,
             MaterialPageRoute(
               builder: (_) => Theme01PDFViewPage(
-                pdfData: fileBytes, // Pass the PDF bytes here
-                fileName: actualname, // Pass the file name (or title)
+                pdfData: fileBytes,
+                fileName: actualname,
               ),
             ),
           );
@@ -241,7 +239,7 @@ class Theme01LmsAttachmentDetailsDataPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ],
@@ -266,7 +264,7 @@ class Theme01LmsAttachmentDetailsDataPageState
               SizedBox(width: 8),
               Text(
                 'Tap to download Excel',
-                style: TextStyles.fontStyle10,
+                style: TextStyles.fontStyle3,
               ),
             ],
           ),
@@ -277,7 +275,7 @@ class Theme01LmsAttachmentDetailsDataPageState
       fileDisplayWidget = const Center(
         child: Text(
           'Unsupported file type',
-          style: TextStyles.fontStyle10,
+          style: TextStyles.fontStyle3,
         ),
       );
     }
@@ -289,15 +287,15 @@ class Theme01LmsAttachmentDetailsDataPageState
         borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -319,8 +317,8 @@ class Theme01LmsAttachmentDetailsDataPageState
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
@@ -358,13 +356,13 @@ class Theme01LmsAttachmentDetailsDataPageState
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyle3,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle3,
           ),
         ),
         const SizedBox(width: 5),
@@ -372,7 +370,7 @@ class Theme01LmsAttachmentDetailsDataPageState
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle3,
           ),
         ),
       ],

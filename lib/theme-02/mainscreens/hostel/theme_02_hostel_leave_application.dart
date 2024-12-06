@@ -1,28 +1,24 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
-class Theme01LeaveApplicationPage extends ConsumerStatefulWidget {
-  const Theme01LeaveApplicationPage({super.key});
+class Theme02LeaveApplicationPage extends ConsumerStatefulWidget {
+  const Theme02LeaveApplicationPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LeaveApplicationPageState();
+      _Theme02LeaveApplicationPageState();
 }
 
-class _Theme01LeaveApplicationPageState
-    extends ConsumerState<Theme01LeaveApplicationPage> {
+class _Theme02LeaveApplicationPageState
+    extends ConsumerState<Theme02LeaveApplicationPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _listController = ScrollController();
 
@@ -64,87 +60,44 @@ class _Theme01LeaveApplicationPageState
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       }
-      //  else if (next is HostelStateSuccessful) {
-      //   /// Handle route to next page.
-
-      //   _showToast(context, next.successMessage, AppColors.greenColor);
-      // }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const HostelPage(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'LEAVE APPLICATION',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              // actions: [
-              //   Row(
-              //     children: [
-              //       IconButton(
-              //         onPressed: () {
-              //           scaffoldKey.currentState?.openEndDrawer();
-              //         },
-              //         icon: const Icon(
-              //           Icons.menu,
-              //           size: 35,
-              //           color: AppColors.whiteColor,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ],
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(hostelProvider.notifier)
-                              .getHostelLeaveStatus(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          await ref
-                              .read(hostelProvider.notifier)
-                              .getHostelLeaveStatusHive(
-                                '',
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
-          ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'LEAVE APPLICATION',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
         ),
       ),
       body: LiquidPullToRefresh(
@@ -163,7 +116,9 @@ class _Theme01LeaveApplicationPageState
                     provider is! HostelStateLoading
                 ? Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 10),
+                      horizontal: 40,
+                      vertical: 10,
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -172,9 +127,9 @@ class _Theme01LeaveApplicationPageState
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'FromDate',
-                                    style: TextStyles.theme01primary10smal3,
+                                    style: TextStyles.alertContentStyle,
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -235,9 +190,9 @@ class _Theme01LeaveApplicationPageState
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'ToDate',
-                                    style: TextStyles.theme01primary10smal3,
+                                    style: TextStyles.alertContentStyle,
                                   ),
                                   const SizedBox(
                                     height: 5,
@@ -301,9 +256,9 @@ class _Theme01LeaveApplicationPageState
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Reason for Leave',
-                              style: TextStyles.theme01primary10smal3,
+                              style: TextStyles.alertContentStyle,
                             ),
                             const SizedBox(
                               height: 5,
@@ -352,7 +307,7 @@ class _Theme01LeaveApplicationPageState
                     },
                   ),
       ),
-      endDrawer: const DrawerDesign(),
+      // endDrawer: const DrawerDesign(),
     );
   }
 

@@ -9,15 +9,15 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_entry_page.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_attachment_screen.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_save_attachment.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_student_attachment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_attachment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_save_attachment.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_student_attachment_screen.dart';
 
-class Theme01LmsClassworkDetailPage extends ConsumerStatefulWidget {
-  const Theme01LmsClassworkDetailPage({
+class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
+  const Theme02LmsClassworkDetailPage({
     required this.classworkID,
     super.key,
   });
@@ -25,11 +25,11 @@ class Theme01LmsClassworkDetailPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01LmsClassworkDetailPageState();
+      _Theme02LmsClassworkDetailPageState();
 }
 
-class _Theme01LmsClassworkDetailPageState
-    extends ConsumerState<Theme01LmsClassworkDetailPage> {
+class _Theme02LmsClassworkDetailPageState
+    extends ConsumerState<Theme02LmsClassworkDetailPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -78,50 +78,60 @@ class _Theme01LmsClassworkDetailPageState
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Class Work Details',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.classworkID,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Class Work Details',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(lmsProvider.notifier).getLmscommentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -188,15 +198,15 @@ class _Theme01LmsClassworkDetailPageState
         borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -205,9 +215,9 @@ class _Theme01LmsClassworkDetailPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: Text(
+                    child: const Text(
                       'Classwork id :',
-                      style: TextStyles.buttonStyle01theme2,
+                      style: TextStyles.fontStyle13,
                     ),
                   ),
                   Expanded(
@@ -216,13 +226,13 @@ class _Theme01LmsClassworkDetailPageState
                               'null'
                           ? '-'
                           : '''${provider.classWorkDetailsData[index].classworkid}''',
-                      style: TextStyles.fontStyle2,
+                      style: TextStyles.theme02fontStyle2,
                     ),
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
@@ -275,7 +285,7 @@ class _Theme01LmsClassworkDetailPageState
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: Theme01LmsAttachmentDetailsDataPage(
+                              route: Theme02LmsAttachmentDetailsDataPage(
                                 classworkID:
                                     '${provider.classWorkDetailsData[index].classworkid}',
                               ),
@@ -284,7 +294,7 @@ class _Theme01LmsClassworkDetailPageState
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                            color: AppColors.theme02buttonColor2,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Column(
@@ -328,7 +338,7 @@ class _Theme01LmsClassworkDetailPageState
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: Theme01LmsStudentAttachmentDetailsDataPage(
+                              route: Theme02LmsStudentAttachmentDetailsDataPage(
                                 classworkreplyid:
                                     '${provider.classWorkDetailsData[index].classworkreplyid}',
                               ),
@@ -337,7 +347,7 @@ class _Theme01LmsClassworkDetailPageState
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                            color: AppColors.theme02buttonColor2,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Column(
@@ -373,7 +383,7 @@ class _Theme01LmsClassworkDetailPageState
                             Navigator.push(
                               context,
                               RouteDesign(
-                                route: Theme01LmsSaveWorkReplayDetailsDataPage(
+                                route: Theme02LmsSaveWorkReplayDetailsDataPage(
                                   classworkID:
                                       '${provider.classWorkDetailsData[index].classworkid}',
                                   classworkreplyid:
@@ -388,7 +398,7 @@ class _Theme01LmsClassworkDetailPageState
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              color: AppColors.theme01primaryColor,
+                              color: AppColors.theme02buttonColor2,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Column(
@@ -417,7 +427,7 @@ class _Theme01LmsClassworkDetailPageState
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: Theme01McqEnteryPage(
+                              route: Theme02McqEnteryPage(
                                 mcqscheduleid:
                                     '${provider.classWorkDetailsData[index].mcqscheduleid}',
                               ),
@@ -426,7 +436,7 @@ class _Theme01LmsClassworkDetailPageState
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                            color: AppColors.theme02buttonColor2,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Column(
@@ -463,13 +473,13 @@ class _Theme01LmsClassworkDetailPageState
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyle13,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle13,
           ),
         ),
         const SizedBox(width: 5),
@@ -477,7 +487,7 @@ class _Theme01LmsClassworkDetailPageState
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle13,
           ),
         ),
       ],

@@ -13,9 +13,9 @@ import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_pdf_view_page.dart';
 
-class Theme01LmsStudentAttachmentDetailsDataPage
+class Theme02LmsStudentAttachmentDetailsDataPage
     extends ConsumerStatefulWidget {
-  const Theme01LmsStudentAttachmentDetailsDataPage({
+  const Theme02LmsStudentAttachmentDetailsDataPage({
     required this.classworkreplyid,
     super.key,
   });
@@ -23,11 +23,11 @@ class Theme01LmsStudentAttachmentDetailsDataPage
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      Theme01LmsStudentAttachmentDetailsDataPageState();
+      Theme02LmsStudentAttachmentDetailsDataPageState();
 }
 
-class Theme01LmsStudentAttachmentDetailsDataPageState
-    extends ConsumerState<Theme01LmsStudentAttachmentDetailsDataPage> {
+class Theme02LmsStudentAttachmentDetailsDataPageState
+    extends ConsumerState<Theme02LmsStudentAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -79,56 +79,64 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
-                        ref.read(encryptionProvider.notifier),
-                        widget.classworkreplyid,
-                      );
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'Student Attachment Details',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsStudentAttachmentDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.classworkreplyid,
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
+                    ref.read(encryptionProvider.notifier),
+                    widget.classworkreplyid,
+                  );
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Student Attachment Details',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(lmsProvider.notifier)
+                          .getLmsStudentAttachmentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkreplyid,
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -183,225 +191,6 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //   final provider = ref.watch(lmsProvider);
-
-  //   // final pdfBytes =
-  //   //     '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
-  //   // final imageBytes = base64Decode(pdfBytes);
-
-  //   // final base64Image =
-  //   //     '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}'; // shortened for brevity
-  //   // final imageBytes = base64Decode(base64Image);
-
-  //   // log('Student Attachment PDF >>> ${provider.lmsStudentAttachmentDetailsData[index].imageBytes}');
-  //   // log('Student Attachment image PDF >>> $imageBytes');
-  //   // log('Student Model data>> ${provider.lmsStudentAttachmentDetailsData[index].imageBytes}');
-
-  //   // Get base64 data and decode
-  //   final base64File =
-  //       '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
-  //   final fileBytes = base64Decode(base64File);
-
-  //   // File name to determine type
-  //   final actualname =
-  //       provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
-  //   final fileExtension = actualname.split('.').last.toLowerCase();
-
-  //   // Log details (optional for debugging)
-  //   log('File Name: $actualname');
-  //   log('File Extension: $fileExtension');
-
-  //   // Widget to display based on file type
-  //   Widget fileDisplayWidget;
-
-  //   if (['png', 'jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
-  //     // Image display
-  //     fileDisplayWidget = Image.memory(
-  //       fileBytes,
-  //       fit: BoxFit.cover,
-  //     );
-  //   } else if (fileExtension == 'pdf') {
-  //     // PDF display
-  //     fileDisplayWidget = GestureDetector(
-  //       onTap: () {
-  //         // Navigate to a PDF viewer page
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //             builder: (_) => PDFViewPage(
-  //               pdfData: fileBytes, // Pass the PDF bytes here
-  //               fileName: actualname, // Pass the file name (or title)
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //       child: const Center(
-  //         child: Text(
-  //           'Tap to view PDF',
-  //           style: TextStyles.fontStyle10,
-  //         ),
-  //       ),
-  //     );
-  //   } else if (fileExtension == 'xls' || fileExtension == 'xlsx') {
-  //     // Placeholder for Excel
-  //     fileDisplayWidget = GestureDetector(
-  //       onTap: () {
-  //         // Handle Excel file (e.g., download or navigate to a viewer)
-  //         showToast(
-  //           'Excel viewing not supported. File downloaded.',
-  //         );
-  //       },
-  //       child: const Center(
-  //         child: Text(
-  //           'Tap to download Excel',
-  //           style: TextStyles.fontStyle10,
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     // Unsupported file type
-  //     fileDisplayWidget = const Center(
-  //       child: Text(
-  //         'Unsupported file type',
-  //         style: TextStyles.fontStyle10,
-  //       ),
-  //     );
-  //   }
-
-  //   return GestureDetector(
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(bottom: 8),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.grey.withOpacity(0.2),
-  //               spreadRadius: 5,
-  //               blurRadius: 7,
-  //               offset: const Offset(0, 3),
-  //             ),
-  //           ],
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(20),
-  //           child: Column(
-  //             children: [
-  //               // Row(
-  //               //   crossAxisAlignment: CrossAxisAlignment.start,
-  //               //   children: [
-  //               //     SizedBox(
-  //               //       width: width / 2 - 80,
-  //               //       child: const Text(
-  //               //         'Image',
-  //               //         style: TextStyles.fontStyle10,
-  //               //       ),
-  //               //     ),
-  //               //     const Text(
-  //               //       ':',
-  //               //       style: TextStyles.fontStyle10,
-  //               //     ),
-  //               //     const SizedBox(width: 5),
-  //               //     SizedBox(
-  //               //       width: width / 2 - 60,
-  //               //       child: Text(
-  //               //         '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}' ==
-  //               //                 ''
-  //               //             ? '-'
-  //               //             : '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}',
-  //               //         style: TextStyles.fontStyle10,
-  //               //       ),
-  //               //     ),
-  //               //   ],
-  //               // ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Actual name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsStudentAttachmentDetailsData[index].actualname}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '''${provider.lmsStudentAttachmentDetailsData[index].actualname}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'File name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsStudentAttachmentDetailsData[index].filename}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '${provider.lmsStudentAttachmentDetailsData[index].filename}',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-
-  //               Center(
-  //                 child:
-  //                     //  SizedBox(
-  //                     //   height: 200,
-  //                     //   width: width - 100,
-  //                     //   child: ClipRRect(
-  //                     //     // borderRadius: BorderRadius.circular(50),
-  //                     //     child: Image.memory(
-  //                     //       imageBytes,
-  //                     //       fit: BoxFit.cover,
-  //                     //     ),
-  //                     //   ),
-  //                     // ),
-  //                     SizedBox(
-  //                   height: 200,
-  //                   width: width - 100,
-  //                   child: ClipRRect(
-  //                     borderRadius: BorderRadius.circular(10),
-  //                     child: fileDisplayWidget,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
@@ -455,7 +244,7 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ],
@@ -480,7 +269,7 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
               SizedBox(width: 8),
               Text(
                 'Tap to download Excel',
-                style: TextStyles.fontStyle10,
+                style: TextStyles.fontStyle3,
               ),
             ],
           ),
@@ -491,7 +280,7 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
       fileDisplayWidget = const Center(
         child: Text(
           'Unsupported file type',
-          style: TextStyles.fontStyle10,
+          style: TextStyles.fontStyle3,
         ),
       );
     }
@@ -503,15 +292,15 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
         borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
-                AppColors.theme01secondaryColor1,
-                AppColors.theme01secondaryColor2,
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -533,8 +322,8 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
@@ -572,13 +361,13 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
           width: width / 2 - 60,
           child: Text(
             title,
-            style: TextStyles.buttonStyle01theme2,
+            style: TextStyles.fontStyle3,
           ),
         ),
         const Expanded(
           child: Text(
             ':',
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle3,
           ),
         ),
         const SizedBox(width: 5),
@@ -586,7 +375,7 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
           width: width / 2 - 60,
           child: Text(
             value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
+            style: TextStyles.fontStyle3,
           ),
         ),
       ],

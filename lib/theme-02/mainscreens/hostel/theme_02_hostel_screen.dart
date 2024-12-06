@@ -3,24 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_button_style.dart';
 
-class Theme01HostelPage extends ConsumerStatefulWidget {
-  const Theme01HostelPage({super.key});
+class Theme02HostelPage extends ConsumerStatefulWidget {
+  const Theme02HostelPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme01HostelPageState();
+      _Theme02HostelPageState();
 }
 
-class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
+class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -72,56 +70,64 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.theme01primaryColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: AppColors.theme01secondaryColor4,
-              elevation: 0,
-              title: Text(
-                'HOSTEL',
-                style: TextStyles.buttonStyle01theme4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(hostelProvider.notifier)
-                              .getHostelDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          await ref
-                              .read(hostelProvider.notifier)
-                              .getHostelHiveDetails(
-                                '',
-                              );
-                        },
-                        child: Icon(
-                          Icons.refresh,
-                          color: AppColors.theme01primaryColor,
-                        ),
-                      ),
-                    ],
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'HOSTEL',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      await ref.read(hostelProvider.notifier).getHostelDetails(
+                            ref.read(encryptionProvider.notifier),
+                          );
+                      await ref
+                          .read(hostelProvider.notifier)
+                          .getHostelHiveDetails(
+                            '',
+                          );
+                    },
+                    child: const Icon(
+                      Icons.refresh,
+                      color: AppColors.whiteColor,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -139,7 +145,7 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                   Row(
                     children: [
                       Expanded(
-                        child: ButtonDesign.buttonDesign(
+                        child: Theme02ButtonDesign.buttonDesign(
                           'Leave Application',
                           AppColors.primaryColor,
                           context,
@@ -148,7 +154,7 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                       ),
                       const SizedBox(width: 5),
                       Expanded(
-                        child: ButtonDesign.buttonDesign(
+                        child: Theme02ButtonDesign.buttonDesign(
                           'Registration',
                           AppColors.primaryColor,
                           context,

@@ -4,6 +4,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
@@ -66,54 +67,65 @@ class _HourAttendancePageTheme3State
         _showToast(context, next.errorMessage, AppColors.redColor);
       }
       // else if (next is HourwiseStateSuccessful) {
-      //   _showToast(context, next.successMessage, AppColors.greenColor);
+      //   _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       // }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              ZoomDrawer.of(context)!.toggle();
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: AppColors.whiteColor,
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColorTheme3,
+              colorBlendMode: BlendMode.srcOut,
             ),
-          ),
-          backgroundColor: AppColors.primaryColorTheme3,
-          elevation: 0,
-          title: const Text(
-            'HOURWISE ATTENDANCE',
-            style: TextStyles.fontStyle4,
-            overflow: TextOverflow.clip,
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await ref
-                          .read(hourwiseProvider.notifier)
-                          .gethourwiseDetails(
-                              ref.read(encryptionProvider.notifier));
-                      await ref
-                          .read(hourwiseProvider.notifier)
-                          .getHiveHourwise('');
-                    },
-                    child: const Icon(
-                      Icons.refresh,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                ],
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  ZoomDrawer.of(context)!.toggle();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColors.whiteColor,
+                ),
               ),
+              backgroundColor: AppColors.primaryColorTheme3,
+              elevation: 0,
+              title: const Text(
+                'HOURWISE ATTENDANCE',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(hourwiseProvider.notifier)
+                              .gethourwiseDetails(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(hourwiseProvider.notifier)
+                              .getHiveHourwise('');
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -121,7 +133,7 @@ class _HourAttendancePageTheme3State
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -338,7 +350,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h1 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),
@@ -367,7 +379,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h2 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),
@@ -396,7 +408,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h3 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),
@@ -425,7 +437,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h5 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),
@@ -454,7 +466,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h6 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),
@@ -483,7 +495,7 @@ class _HourAttendancePageTheme3State
                                     ? AppColors.redColor
                                     : provider.listHourWiseHiveData[index].h7 ==
                                             'P'
-                                        ? AppColors.greenColor
+                                        ? AppColors.greenColorTheme3
                                         : AppColors.grey3,
                               ),
                               position: badges.BadgePosition.topEnd(top: -10),

@@ -34,15 +34,16 @@ import 'package:sample/notification.dart';
 import 'package:sample/theme_3/attendance/attendance_home_theme3.dart';
 import 'package:sample/theme_3/calendar/calender_home_theme3.dart';
 import 'package:sample/theme_3/cummulative/cummulative_home_theme3.dart';
-import 'package:sample/theme_3/exam_details_page_theme3.dart';
-import 'package:sample/theme_3/fees_page_theme3.dart';
-import 'package:sample/theme_3/grievances/grievances_page.dart';
-import 'package:sample/theme_3/hostel/hostel_page_theme.dart';
+import 'package:sample/theme_3/exam/exam_home_theme3.dart';
+import 'package:sample/theme_3/fees/fees_home_theme3.dart';
+import 'package:sample/theme_3/grievances/grievances_home_theme3.dart';
+import 'package:sample/theme_3/hostel/hostel_home_theme3.dart';
 import 'package:sample/theme_3/hourwise_attendance/hourwise_home_theme3.dart';
 import 'package:sample/theme_3/internal_marks/internal_home_theme3.dart';
 import 'package:sample/theme_3/library/library_page_home_theme3.dart';
 import 'package:sample/theme_3/lms/lms_home_theme3.dart';
 import 'package:sample/theme_3/subjects/subjects_home_theme3.dart';
+import 'package:sample/theme_3/transport/transport_home_theme3.dart';
 
 class HomePageTheme3 extends ConsumerStatefulWidget {
   const HomePageTheme3({super.key});
@@ -222,6 +223,18 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
           .getHiveGrievanceTypeDetails('');
     }
     await grievanceTypeData.close();
+
+    Container(
+      width: 200,
+      height: 200,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue, Colors.green], // Gradient colors
+          begin: Alignment.topLeft, // Start point
+          end: Alignment.bottomRight, // End point
+        ),
+      ),
+    );
   }
 
   Future<void> showNotification(RemoteMessage message) async {
@@ -242,7 +255,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
       ..listen(changePasswordProvider, (previous, next) {
         if (next is ChangePasswordStateSuccessful) {
           if (next.message == 'Password Changed Successfuly') {
-            _showToast(context, next.message, AppColors.greenColor);
+            _showToast(context, next.message, AppColors.greenColorTheme3);
           } else {
             _showToast(context, next.message, AppColors.redColor);
           }
@@ -250,7 +263,8 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
           _showToast(context, next.message, AppColors.redColor);
         }
       });
-    return menuScreen();
+    return Scaffold(
+        backgroundColor: AppColors.primaryColorTheme3, body: menuScreen());
   }
 
   Widget menuScreen() {
@@ -304,7 +318,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const ExamDetailsPageTheme3(),
+                      route: const ExamHomeTheme3(),
                     ),
                   );
                 },
@@ -541,7 +555,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const HostelPageTheme3(),
+                      route: const HostelHomeTheme3(),
                     ),
                   );
                 },
@@ -583,7 +597,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const FeesPageTheme3(),
+                      route: const FeesHomeTheme3(),
                     ),
                   );
                 },
@@ -620,7 +634,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const GrievanceReportPageTheme3(),
+                      route: const GrievancesHomeTheme3(),
                     ),
                   );
                 },
@@ -732,6 +746,78 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
               ),
             ],
           ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const TransportHomeTheme3(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 160,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.all(
+                    15,
+                  ),
+                  color: AppColors.whiteColor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/transporttheme3.svg',
+                        color: AppColors.primaryColorTheme3,
+                        height: MediaQuery.of(context).size.height / 12,
+                      ),
+                      Text(
+                        'Transport',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.blackColor.withOpacity(0.5),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //dummy block
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 160,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.all(
+                    15,
+                  ),
+                  color: AppColors.primaryColorTheme3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.numbers_outlined,
+                        size: MediaQuery.of(context).size.height / 12,
+                        color: AppColors.primaryColorTheme3,
+                      ),
+                      Text(
+                        'Transport',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryColorTheme3,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

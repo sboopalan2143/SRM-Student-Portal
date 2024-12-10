@@ -8,7 +8,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
 class SubjectPageTheme3 extends ConsumerStatefulWidget {
   const SubjectPageTheme3({super.key});
@@ -64,7 +63,7 @@ class _SubjectPageTheme3State extends ConsumerState<SubjectPageTheme3> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.primaryColorTheme3,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -156,7 +155,7 @@ class _SubjectPageTheme3State extends ConsumerState<SubjectPageTheme3> {
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
+      
     );
   }
 
@@ -224,7 +223,7 @@ class _SubjectPageTheme3State extends ConsumerState<SubjectPageTheme3> {
                     subjectData[3],
                     style: const TextStyle(
                       fontSize: 16,
-                      color: AppColors.greenColor,
+                      color: AppColors.greenColorTheme3,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.right,

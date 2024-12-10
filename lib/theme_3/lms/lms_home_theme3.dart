@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:sample/designs/colors.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
 import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
+import 'package:sample/theme_3/lms/lms_home_screen_theme3.dart';
 import 'package:sample/theme_3/menu_page_theme3.dart';
 
 class LMSHomeTheme3 extends ConsumerStatefulWidget {
@@ -45,7 +45,7 @@ class _LMSHomeTheme3State
   Widget getScreen() {
     switch (currentItem) {
       case MenuItems.home:
-        return const LmsHomePage();
+        return const LmsHomePageTheme3();
       case MenuItems.main:
       default:
         return const MainScreenPage();

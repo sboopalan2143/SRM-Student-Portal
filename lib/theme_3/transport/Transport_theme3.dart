@@ -5,14 +5,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme_3/transport/transport_register_theme3.dart';
 
 class TransportTransactionPageTheme3 extends ConsumerStatefulWidget {
   const TransportTransactionPageTheme3({super.key});
@@ -30,19 +28,11 @@ class _TransportTransactionPageTheme3State
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
-  // static int refreshNum = 10;
-  // Stream<int> counterStream =
-  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
-
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref.read(transportProvider.notifier).getTransportStatusDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportStatusHiveDetails('');
+      
+       
       },
     );
 
@@ -63,7 +53,7 @@ class _TransportTransactionPageTheme3State
     final provider = ref.watch(transportProvider);
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -72,21 +62,16 @@ class _TransportTransactionPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
-                  );
+                  ZoomDrawer.of(context)!.toggle();
                 },
                 icon: const Icon(
-                  Icons.arrow_back_ios_new,
+                  Icons.menu,
                   color: AppColors.whiteColor,
                 ),
               ),
@@ -99,20 +84,6 @@ class _TransportTransactionPageTheme3State
               ),
               centerTitle: true,
               actions: [
-                // Row(
-                //   children: [
-                //     IconButton(
-                //       onPressed: () {
-                //         scaffoldKey.currentState?.openEndDrawer();
-                //       },
-                //       icon: const Icon(
-                //         Icons.menu,
-                //         size: 35,
-                //         color: AppColors.whiteColor,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Row(
@@ -133,16 +104,6 @@ class _TransportTransactionPageTheme3State
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          scaffoldKey.currentState?.openEndDrawer();
-                        },
-                        icon: const Icon(
-                          Icons.menu,
-                          size: 35,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -154,7 +115,7 @@ class _TransportTransactionPageTheme3State
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: Column(
           children: [
             Padding(
@@ -163,13 +124,54 @@ class _TransportTransactionPageTheme3State
                 children: [
                   SizedBox(
                     width: 200,
-                    child: ButtonDesign.buttonDesign(
-                      'Register',
-                      AppColors.primaryColor,
-                      context,
-                      ref.read(mainProvider.notifier),
-                      ref,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        elevation: 0,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        backgroundColor: AppColors.greenColorTheme3,
+                        shadowColor: Colors.transparent,
+                      ),
+                      onPressed: () async {
+                        await ref
+                            .read(transportProvider.notifier)
+                            .gettransportRegisterDetails(
+                              ref.read(encryptionProvider.notifier),
+                            );
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getTransportHiveRegisterDetails('');
+                        await ref
+                            .read(transportProvider.notifier)
+                            .getTransportHiveAfterRegisterDetails('');
+
+                        await Navigator.push(
+                          context,
+                          RouteDesign(
+                            route: const TransportRegisterPageTheme3(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
+                    // ButtonDesign.buttonDesign(
+                    //   'Register',
+                    //   AppColors.primaryColorTheme3,
+                    //   context,
+                    //   ref.read(mainProvider.notifier),
+                    //   ref,
+                    // ),
                   ),
                   const SizedBox(height: 10),
                   if (provider is TransportStateLoading)
@@ -211,7 +213,6 @@ class _TransportTransactionPageTheme3State
           ],
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

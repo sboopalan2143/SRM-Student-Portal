@@ -8,8 +8,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme_3/hostel/hostel_home_theme3.dart';
 import 'package:sample/theme_3/hostel/hostel_page_theme.dart';
 
 class RegistrationPageTheme3 extends ConsumerStatefulWidget {
@@ -52,7 +51,7 @@ class _RegistrationPageTheme3State
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -61,7 +60,7 @@ class _RegistrationPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -70,7 +69,7 @@ class _RegistrationPageTheme3State
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const HostelPageTheme3(),
+                      route: const HostelHomeTheme3(),
                     ),
                   );
                 },
@@ -90,13 +89,26 @@ class _RegistrationPageTheme3State
               actions: [
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                    GestureDetector(
+                      onTap: () async {
+                        await ref
+                            .read(hostelProvider.notifier)
+                            .getHostelRegisterDetails(
+                              ref.read(encryptionProvider.notifier),
+                            );
+                        // await ref
+                        //     .read(hostelProvider.notifier)
+                        //     .getBeforeHostelRegisterDetailsHive(
+                        //       '',
+                        //     );
+                        // await ref
+                        //     .read(hostelProvider.notifier)
+                        //     .getAfterHostelRegisterDetailsHive(
+                        //       '',
+                        //     );
                       },
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 35,
+                      child: const Icon(
+                        Icons.refresh,
                         color: AppColors.whiteColor,
                       ),
                     ),
@@ -115,7 +127,8 @@ class _RegistrationPageTheme3State
                     CircularProgressIndicators.primaryColorProgressIndication,
               ),
             )
-          : provider.hostelRegisterDetails!.status == '1' &&
+          : (provider.hostelRegisterDetails!.status!.isEmpty ||
+                      provider.hostelAfterRegisterDetails!.status!.isEmpty) &&
                   provider is! HostelStateLoading
               ? Column(
                   children: [
@@ -128,248 +141,251 @@ class _RegistrationPageTheme3State
                     ),
                   ],
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
+              : (provider.hostelRegisterDetails!.status == '1' ||
+                      provider.hostelAfterRegisterDetails!.status == '1')
+                  ? Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Hostel',
-                                  style: TextStyles.fontStyle10,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Hostel',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.hostel}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Hostel Fee Amount',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.hostel}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Registration Date',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Caution Deposit Amount',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Room Type',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Active Status',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'Mess Fee Amount',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: width / 2 - 80,
+                                    child: const Text(
+                                      'App In-Fee Amount',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    ':',
+                                    style: TextStyles.fontStyle10,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  SizedBox(
+                                    width: width / 2 - 60,
+                                    child: Text(
+                                      '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
+                                              ''
+                                          ? '-'
+                                          : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
+                                      style: TextStyles.fontStyle10,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Hostel Fee Amount',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Registration Date',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Caution Deposit Amount',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Room Type',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Active Status',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'Mess Fee Amount',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 80,
-                                child: const Text(
-                                  'App In-Fee Amount',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                              const Text(
-                                ':',
-                                style: TextStyles.fontStyle10,
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: width / 2 - 60,
-                                child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
-                                  style: TextStyles.fontStyle10,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-      endDrawer: const DrawerDesign(),
+                    )
+                  : registrationForm(),
     );
   }
 
@@ -516,12 +532,40 @@ class _RegistrationPageTheme3State
           Row(
             children: [
               Expanded(
-                child: ButtonDesign.buttonDesign(
-                  'Register',
-                  AppColors.primaryColor,
-                  context,
-                  ref,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                    elevation: 0,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    backgroundColor: AppColors.greenColorTheme3,
+                    shadowColor: Colors.transparent,
+                  ),
+                  onPressed: () {
+                    ref
+                        .read(hostelProvider.notifier)
+                        .hostelRegister(ref.read(encryptionProvider.notifier));
+                  },
+                  child: const FittedBox(
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
+                // ButtonDesign.buttonDesign(
+                //   'Register',
+                //   AppColors.primaryColorTheme3,
+                //   context,
+                //   ref,
+                // ),
               ),
             ],
           ),

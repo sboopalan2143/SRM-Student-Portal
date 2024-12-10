@@ -74,7 +74,7 @@ class _LmsFacultyCommentScreenState
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -83,7 +83,7 @@ class _LmsFacultyCommentScreenState
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -130,7 +130,7 @@ class _LmsFacultyCommentScreenState
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(

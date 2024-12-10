@@ -2,26 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
-import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
-import 'package:sample/theme_3/grievances/grievances_entry_page.dart';
 
-class GrievanceReportPageTheme3 extends ConsumerStatefulWidget {
-  const GrievanceReportPageTheme3({super.key});
+class McqGetAnswerPageTheme3 extends ConsumerStatefulWidget {
+  const McqGetAnswerPageTheme3({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _GrievanceReportPageTheme3State();
+      _McqGetAnswerPageTheme3State();
 }
 
-class _GrievanceReportPageTheme3State
-    extends ConsumerState<GrievanceReportPageTheme3> {
+class _McqGetAnswerPageTheme3State
+    extends ConsumerState<McqGetAnswerPageTheme3> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,12 +34,9 @@ class _GrievanceReportPageTheme3State
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(grievanceProvider.notifier)
-            .getStudentWiseGrievanceDetails(
+        await ref.read(lmsProvider.notifier).getMcqAnswerDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
       },
     );
 
@@ -52,16 +48,25 @@ class _GrievanceReportPageTheme3State
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
+      ref.read(lmsProvider.notifier).getMcqAnswerDetails(
+            ref.read(encryptionProvider.notifier),
+          );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(grievanceProvider);
+    final provider = ref.watch(lmsProvider);
+    ref.listen(examDetailsProvider, (previous, next) {
+      if (next is ExamDetailsError) {
+        _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is ExamDetailsStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
+      }
+    });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -70,18 +75,13 @@ class _GrievanceReportPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const MainScreenPage(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios_new,
@@ -91,26 +91,12 @@ class _GrievanceReportPageTheme3State
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'GRIEVANCES',
+                'MCQ Answer Screen',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),
               centerTitle: true,
               actions: [
-                // Row(
-                //   children: [
-                //     IconButton(
-                //       onPressed: () {
-                //         scaffoldKey.currentState?.openEndDrawer();
-                //       },
-                //       icon: const Icon(
-                //         Icons.menu,
-                //         size: 35,
-                //         color: AppColors.whiteColor,
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Row(
@@ -118,13 +104,10 @@ class _GrievanceReportPageTheme3State
                       GestureDetector(
                         onTap: () async {
                           await ref
-                              .read(grievanceProvider.notifier)
-                              .getStudentWiseGrievanceDetails(
+                              .read(lmsProvider.notifier)
+                              .getMcqAnswerDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(grievanceProvider.notifier)
-                              .getHiveGrievanceDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -142,74 +125,46 @@ class _GrievanceReportPageTheme3State
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(9),
-                        ),
-                      ),
-                      elevation: 0,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: AppColors.primaryColor,
-                      shadowColor: Colors.transparent,
-                    ),
-                    onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        RouteDesign(
-                          route: const GrievanceEntryPageTheme3(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Grievances Entry',
-                      style: TextStyles.fontStyle13,
-                    ),
+        color: AppColors.primaryColorTheme3,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (provider is ExamDetailsStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
+                )
+              else if (provider.mcqgetAnswerDetails.isEmpty &&
+                  provider is! ExamDetailsStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle6,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                if (provider is CummulativeAttendanceStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.studentwisegrievanceData.isEmpty &&
-                    provider is! CummulativeAttendanceStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
-                      ),
-                    ],
-                  ),
-                if (provider.studentwisegrievanceData.isNotEmpty)
-                  const SizedBox(height: 5),
-                ListView.builder(
-                  itemCount: provider.studentwisegrievanceData.length,
+              if (provider.mcqgetAnswerDetails.isNotEmpty)
+                const SizedBox(height: 5),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.mcqgetAnswerDetails.length,
                   controller: _listController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return cardDesign(index);
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -219,8 +174,7 @@ class _GrievanceReportPageTheme3State
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
-
-    final provider = ref.watch(grievanceProvider);
+    final provider = ref.watch(lmsProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -230,7 +184,7 @@ class _GrievanceReportPageTheme3State
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
-              // spreadRadius: 2,
+              spreadRadius: 5,
               blurRadius: 7,
               offset: const Offset(0, 3),
             ),
@@ -244,9 +198,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Grievance id',
+                      'Answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -258,10 +212,9 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].grievanceid}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].answer}' == ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].grievanceid}''',
+                          : '${provider.mcqgetAnswerDetails[index].answer}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -271,9 +224,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Grievance category',
+                      'Answer id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -285,10 +238,9 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].grievancecategory}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].answerid}' == ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].grievancecategory}''',
+                          : '${provider.mcqgetAnswerDetails[index].answerid}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -298,9 +250,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Grievance desc',
+                      'Question filename',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -312,10 +264,10 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].grievancedesc}' ==
+                      '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
                               ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].grievancedesc}''',
+                          : '${provider.mcqgetAnswerDetails[index].questionfilename}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -325,9 +277,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Grievance time',
+                      'Total marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -339,10 +291,9 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].grievancetime}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].totalmarks}' == ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].grievancetime}''',
+                          : '${provider.mcqgetAnswerDetails[index].totalmarks}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -352,9 +303,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Grievance type',
+                      'Your answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -366,10 +317,9 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].grievancetype}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].youranswer}' == ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].grievancetype}''',
+                          : '${provider.mcqgetAnswerDetails[index].youranswer}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -379,9 +329,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'subject',
+                      'Your marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -393,10 +343,9 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].subject}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].yourmarks}' == ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].subject}''',
+                          : '${provider.mcqgetAnswerDetails[index].yourmarks}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -406,9 +355,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Status',
+                      'Your answervalid',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -420,9 +369,10 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].status}' == ''
+                      '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
+                              ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].status}''',
+                          : '${provider.mcqgetAnswerDetails[index].youranswervalid}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -432,9 +382,9 @@ class _GrievanceReportPageTheme3State
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
+                    width: width / 2 - 100,
                     child: const Text(
-                      'Active status',
+                      'Youranswer filename',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -446,10 +396,10 @@ class _GrievanceReportPageTheme3State
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.studentwisegrievanceData[index].activestatus}' ==
+                      '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
                               ''
                           ? '-'
-                          : '''${provider.studentwisegrievanceData[index].activestatus}''',
+                          : '${provider.mcqgetAnswerDetails[index].youranswerfilename}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -459,6 +409,22 @@ class _GrievanceReportPageTheme3State
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message, Color color) {
+    showToast(
+      message,
+      context: context,
+      backgroundColor: color,
+      axis: Axis.horizontal,
+      alignment: Alignment.centerLeft,
+      position: StyledToastPosition.center,
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(15),
+        bottomLeft: Radius.circular(15),
+      ),
+      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
     );
   }
 }

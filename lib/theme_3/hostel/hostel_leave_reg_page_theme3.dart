@@ -9,9 +9,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/hostel/hostel_page_theme.dart';
+import 'package:sample/theme_3/hostel/hostel_home_theme3.dart';
 
 class LeaveApplicationPageTheme3 extends ConsumerStatefulWidget {
   const LeaveApplicationPageTheme3({super.key});
@@ -72,7 +70,7 @@ class _LeaveApplicationPageTheme3State
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -81,7 +79,7 @@ class _LeaveApplicationPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -90,7 +88,7 @@ class _LeaveApplicationPageTheme3State
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const HostelPageTheme3(),
+                      route: const HostelHomeTheme3(),
                     ),
                   );
                 },
@@ -107,22 +105,6 @@ class _LeaveApplicationPageTheme3State
                 overflow: TextOverflow.clip,
               ),
               centerTitle: true,
-              // actions: [
-              //   Row(
-              //     children: [
-              //       IconButton(
-              //         onPressed: () {
-              //           scaffoldKey.currentState?.openEndDrawer();
-              //         },
-              //         icon: const Icon(
-              //           Icons.menu,
-              //           size: 35,
-              //           color: AppColors.whiteColor,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ],
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
@@ -146,16 +128,6 @@ class _LeaveApplicationPageTheme3State
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          scaffoldKey.currentState?.openEndDrawer();
-                        },
-                        icon: const Icon(
-                          Icons.menu,
-                          size: 35,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -167,7 +139,7 @@ class _LeaveApplicationPageTheme3State
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: provider is HostelStateLoading
             ? Padding(
                 padding: const EdgeInsets.only(top: 100),
@@ -180,7 +152,9 @@ class _LeaveApplicationPageTheme3State
                     provider is! HostelStateLoading
                 ? Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 10),
+                      horizontal: 40,
+                      vertical: 10,
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -348,12 +322,43 @@ class _LeaveApplicationPageTheme3State
                         Row(
                           children: [
                             Expanded(
-                              child: ButtonDesign.buttonDesign(
-                                'Submit',
-                                AppColors.primaryColor,
-                                context,
-                                ref,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                  ),
+                                  elevation: 0,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  backgroundColor: AppColors.greenColorTheme3,
+                                  shadowColor: Colors.transparent,
+                                ),
+                                onPressed: () {
+                                  ref
+                                      .read(hostelProvider.notifier)
+                                      .studentLeaveSubmit(ref
+                                          .read(encryptionProvider.notifier));
+                                },
+                                child: const FittedBox(
+                                  child: Text(
+                                    'Submit',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.whiteColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                               ),
+
+                              // ButtonDesign.buttonDesign(
+                              //   'Submit',
+                              //   AppColors.primaryColorTheme3,
+                              //   context,
+                              //   ref,
+                              // ),
                             ),
                           ],
                         ),
@@ -369,7 +374,6 @@ class _LeaveApplicationPageTheme3State
                     },
                   ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

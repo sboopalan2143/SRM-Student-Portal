@@ -67,7 +67,7 @@ class _LoginPageTheme3State extends ConsumerState<LoginPageTheme3>
           /// Handle route to next page.
 
           Navigator.push(context, RouteDesign(route: const MainScreenPage()));
-          _showToast(context, next.successMessage, AppColors.greenColor);
+          _showToast(context, next.successMessage, AppColors.greenColorTheme3);
         }
       });
 
@@ -75,7 +75,6 @@ class _LoginPageTheme3State extends ConsumerState<LoginPageTheme3>
       backgroundColor: AppColors.primaryColorTheme3,
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: height * 0.15),
             const Text(

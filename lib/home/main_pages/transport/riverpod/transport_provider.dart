@@ -9,7 +9,6 @@ import 'package:sample/encryption/model/error_model.dart';
 import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_after_reg_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_after_register_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_register_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_status_hive_model.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
@@ -34,7 +33,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         selectedBoardingPointDataList: BoardingPointHiveData.empty,
         transportRegisterDetails: TransportRegisterHiveData.empty,
         transportStatusData: <TransportStatusHiveData>[],
-        transportAfterRegisterDetails: TransportAfterRegisterData.empty,
+        transportAfterRegisterDetails: TransportAfterRegisterHiveData.empty,
       );
 
   Future<void> getTransportStatusDetails(EncryptionProvider encrypt) async {
@@ -623,6 +622,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
   }
 
   Future<void> gettransportRegisterDetails(EncryptionProvider encrypt) async {
+    log('enters trans');
     // _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
@@ -664,7 +664,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
       // var transportRegisterDetails = TransportRegisterHiveData.empty;
 
       // var transportAfterRegisterDetails = TransportAfterRegisterData.empty;
-
+      log('status>>>>${decryptedData.mapData!['Data'][0]['status']}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         if (decryptedData.mapData!['Data'][0]['status'] == '0' &&
             decryptedData.mapData!['Data'][0]['regconfig'] == '1') {
@@ -678,7 +678,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
                 final parseData = TransportRegisterHiveData.fromJson(
                   listData[i] as Map<String, dynamic>,
                 );
-
+                log('dataparse>>>$parseData');
                 await box.add(parseData);
               }
             } else {
@@ -692,7 +692,27 @@ class TrasportProvider extends StateNotifier<TransportState> {
               }
             }
             await box.close();
-          } else {}
+          } else {
+            final error = ErrorModel.fromJson(decryptedData.mapData!);
+            state = TransportStateError(
+              successMessage: '',
+              errorMessage: '$error',
+              studentId: TextEditingController(),
+              academicyearId: TextEditingController(),
+              boardingpointId: TextEditingController(),
+              busrouteId: TextEditingController(),
+              controllerId: TextEditingController(),
+              officeId: TextEditingController(),
+              routeDetailsDataList: state.routeDetailsDataList,
+              selectedRouteDetailsDataList: RouteDetailsHiveData.empty,
+              boardingPointDataList: state.boardingPointDataList,
+              selectedBoardingPointDataList: BoardingPointHiveData.empty,
+              transportRegisterDetails: TransportRegisterHiveData.empty,
+              transportStatusData: state.transportStatusData,
+              transportAfterRegisterDetails:
+                  TransportAfterRegisterHiveData.empty,
+            );
+          }
         } else {
           final listData =
               decryptedData.mapData!['Data'][0] as Map<String, dynamic>;
@@ -719,30 +739,27 @@ class TrasportProvider extends StateNotifier<TransportState> {
               }
             }
             await box.close();
-          }else {}
-          // log('enters status==0');
-          // final transportRegisterResponse =
-          //     GetTransportRegistrationStateModel.fromJson(
-          //   decryptedData.mapData!,
-          // );
-
-          // transportRegisterDetails = transportRegisterResponse.data![0];
-          // state = state.copyWith(
-          //   transportRegisterDetails: transportRegisterDetails,
-          // );
-          
-            // log('enters status==1');
-            // final transportAfterRegisterResponse =
-            //     GetTransportAfterRegistrationStateModel.fromJson(
-            //   decryptedData.mapData!,
-            // );
-
-            // transportAfterRegisterDetails =
-            //     transportAfterRegisterResponse.data![0];
-            // state = state.copyWith(
-            //   transportAfterRegisterDetails: transportAfterRegisterDetails,
-            // );
-          
+          } else {
+            final error = ErrorModel.fromJson(decryptedData.mapData!);
+            state = TransportStateError(
+              successMessage: '',
+              errorMessage: '$error',
+              studentId: TextEditingController(),
+              academicyearId: TextEditingController(),
+              boardingpointId: TextEditingController(),
+              busrouteId: TextEditingController(),
+              controllerId: TextEditingController(),
+              officeId: TextEditingController(),
+              routeDetailsDataList: state.routeDetailsDataList,
+              selectedRouteDetailsDataList: RouteDetailsHiveData.empty,
+              boardingPointDataList: state.boardingPointDataList,
+              selectedBoardingPointDataList: BoardingPointHiveData.empty,
+              transportRegisterDetails: TransportRegisterHiveData.empty,
+              transportStatusData: state.transportStatusData,
+              transportAfterRegisterDetails:
+                  TransportAfterRegisterHiveData.empty,
+            );
+          }
         }
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         log('enters here !success');
@@ -782,6 +799,39 @@ class TrasportProvider extends StateNotifier<TransportState> {
         transportStatusData: state.transportStatusData,
         transportAfterRegisterDetails: state.transportAfterRegisterDetails,
       );
+    }
+  }
+
+  Future<void> getTransportHiveRegisterDetails(String search) async {
+    try {
+      final box = await Hive.openBox<TransportRegisterHiveData>(
+        'transportRegister',
+      );
+      final transportRegister = <TransportRegisterHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(transportRegisterDetails: transportRegister[0]);
+      await box.close();
+    } catch (e) {
+      await getTransportStatusHiveDetails(search);
+    }
+  }
+
+  Future<void> getTransportHiveAfterRegisterDetails(String search) async {
+    try {
+      final box = await Hive.openBox<TransportAfterRegisterHiveData>(
+        'transportAfterRegister',
+      );
+      final transportAfterRegister = <TransportAfterRegisterHiveData>[
+        ...box.values,
+      ];
+
+      state = state.copyWith(
+          transportAfterRegisterDetails: transportAfterRegister[0]);
+      await box.close();
+    } catch (e) {
+      await getTransportStatusHiveDetails(search);
     }
   }
 }

@@ -59,7 +59,7 @@ class _LibraryPageTheme3State extends ConsumerState<LibraryPageTheme3> {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
@@ -113,7 +113,7 @@ class _LibraryPageTheme3State extends ConsumerState<LibraryPageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
@@ -136,7 +136,7 @@ class _LibraryPageTheme3State extends ConsumerState<LibraryPageTheme3> {
                             ),
                             elevation: 0,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: AppColors.primaryColorTheme3,
+                            backgroundColor: AppColors.greenColorTheme3,
                             shadowColor: Colors.transparent,
                           ),
                           onPressed: () {
@@ -250,7 +250,7 @@ class _LibraryPageTheme3State extends ConsumerState<LibraryPageTheme3> {
                           color:
                               provider.libraryTransactionData[index].status ==
                                       'Active'
-                                  ? AppColors.greenColor
+                                  ? AppColors.greenColorTheme3
                                   : AppColors.redColor,
                         ),
                       )

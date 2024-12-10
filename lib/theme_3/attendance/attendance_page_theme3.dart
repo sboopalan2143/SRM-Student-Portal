@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
@@ -10,7 +11,6 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
 class AttendancePageTheme3 extends ConsumerStatefulWidget {
   const AttendancePageTheme3({super.key});
@@ -27,10 +27,7 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
-  // static int refreshNum = 10;
-  // Stream<int> counterStream =
-  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
-
+ 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -68,56 +65,67 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              ZoomDrawer.of(context)!.toggle();
-            },
-            icon: Icon(
-              Icons.menu,
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
               color: AppColors.primaryColorTheme3,
+              colorBlendMode: BlendMode.srcOut,
             ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            'ATTENDANCE',
-            style: TextStyle(
-              fontSize: 22,
-              color: AppColors.primaryColorTheme3,
-              fontWeight: FontWeight.bold,
-            ),
-            overflow: TextOverflow.clip,
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await ref
-                          .read(attendanceProvider.notifier)
-                          .getAttendanceDetails(
-                            ref.read(
-                              encryptionProvider.notifier,
-                            ),
-                          );
-                      await ref
-                          .read(attendanceProvider.notifier)
-                          .getHiveAttendanceDetails('');
-                    },
-                    child: Icon(
-                      Icons.refresh,
-                      color: AppColors.primaryColorTheme3,
-                    ),
-                  ),
-                ],
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  ZoomDrawer.of(context)!.toggle();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColors.whiteColor,
+                ),
               ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'ATTENDANCE',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(attendanceProvider.notifier)
+                              .getAttendanceDetails(
+                                ref.read(
+                                  encryptionProvider.notifier,
+                                ),
+                              );
+                          await ref
+                              .read(attendanceProvider.notifier)
+                              .getHiveAttendanceDetails('');
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -168,7 +176,6 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -220,7 +227,7 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
                           : '${provider.attendancehiveData[index].presentpercentage} %',
                       style: const TextStyle(
                         fontSize: 18,
-                        color: AppColors.greenColor,
+                        color: AppColors.greenColorTheme3,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,
@@ -297,7 +304,7 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
                           width: 15,
                           child: Icon(
                             Icons.av_timer,
-                            color: AppColors.greenColor,
+                            color: AppColors.greenColorTheme3,
                             size: 25,
                           ),
                         ),

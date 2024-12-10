@@ -73,12 +73,12 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -87,7 +87,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -145,7 +145,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -386,7 +386,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorTheme3,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Column(
@@ -424,7 +424,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
+                                color: AppColors.primaryColorTheme3,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: const Column(
@@ -466,7 +466,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: AppColors.primaryColor,
+                                  color: AppColors.primaryColorTheme3,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: const Column(

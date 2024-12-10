@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
@@ -59,7 +60,7 @@ class _CalendarPageTheme3State extends ConsumerState<CalendarPageTheme3> {
       if (next is ExamDetailsError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is ExamDetailsStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
@@ -67,46 +68,57 @@ class _CalendarPageTheme3State extends ConsumerState<CalendarPageTheme3> {
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              ZoomDrawer.of(context)!.toggle();
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: AppColors.whiteColor,
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColorTheme3,
+              colorBlendMode: BlendMode.srcOut,
             ),
-          ),
-          backgroundColor: AppColors.primaryColorTheme3,
-          elevation: 0,
-          title: const Text(
-            'CALENDAR DETAILS',
-            style: TextStyles.fontStyle4,
-            overflow: TextOverflow.clip,
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await ref
-                          .read(calendarProvider.notifier)
-                          .getCalendarDetails(
-                              ref.read(encryptionProvider.notifier));
-                      await ref
-                          .read(calendarProvider.notifier)
-                          .getHiveCalendar('');
-                    },
-                    child: const Icon(
-                      Icons.refresh,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                ],
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  ZoomDrawer.of(context)!.toggle();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColors.whiteColor,
+                ),
               ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'CALENDAR DETAILS',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(calendarProvider.notifier)
+                              .getCalendarDetails(
+                                  ref.read(encryptionProvider.notifier));
+                          await ref
+                              .read(calendarProvider.notifier)
+                              .getHiveCalendar('');
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

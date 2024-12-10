@@ -570,11 +570,9 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+        selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),
@@ -627,14 +625,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           state = GrievanceStateError(
             successMessage: '',
             errorMessage: error.message!,
-            grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
+            grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
-            selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+            selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+            selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+            selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
             description: TextEditingController(),
             studentId: TextEditingController(),
             studentname: TextEditingController(),
@@ -647,14 +643,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           successMessage: '',
           errorMessage:
               '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
-          grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceSubType: state.grievanceSubType,
+          grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceType: state.grievanceType,
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
-          selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+          selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+          selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+          selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
           description: TextEditingController(),
           studentId: TextEditingController(),
           studentname: TextEditingController(),
@@ -666,14 +660,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       state = GrievanceStateError(
         successMessage: '',
         errorMessage: 'Error',
-        grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceSubType: state.grievanceSubType,
+        grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
+        selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
+        selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
+        selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
         studentname: TextEditingController(),

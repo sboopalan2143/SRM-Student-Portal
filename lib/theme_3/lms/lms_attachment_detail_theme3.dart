@@ -77,13 +77,13 @@ class LmsAttachmentDetailsDataPageTheme3State
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -92,7 +92,7 @@ class LmsAttachmentDetailsDataPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -153,7 +153,7 @@ class LmsAttachmentDetailsDataPageTheme3State
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

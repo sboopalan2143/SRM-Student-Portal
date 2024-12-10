@@ -5,7 +5,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
-import 'package:sample/theme-01/mainscreens/grievances/grievance_entry_screen.dart';
 import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;

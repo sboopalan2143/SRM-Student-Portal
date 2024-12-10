@@ -66,7 +66,7 @@ class _InternalMarksPageTheme3State
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -222,7 +222,7 @@ class _InternalMarksPageTheme3State
                           : '${provider.internalMarkHiveData[index].sumofmarks}',
                       style: const TextStyle(
                         fontSize: 18,
-                        color: AppColors.greenColor,
+                        color: AppColors.greenColorTheme3,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,

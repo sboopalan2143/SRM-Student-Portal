@@ -134,12 +134,12 @@ class LmsSaveWorkReplayDataPageTheme3State
       if (next is LmsStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LmsStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -148,7 +148,7 @@ class LmsSaveWorkReplayDataPageTheme3State
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -340,7 +340,7 @@ class LmsSaveWorkReplayDataPageTheme3State
                           decoration: InputDecoration(
                             hintStyle: TextStyles.smallLightAshColorFontStyle,
                             filled: true,
-                            fillColor: AppColors.secondaryColor,
+                            fillColor: AppColors.secondaryColorTheme3,
                             contentPadding: const EdgeInsets.all(10),
                             enabledBorder:
                                 BorderBoxButtonDecorations.loginTextFieldStyle,
@@ -370,7 +370,7 @@ class LmsSaveWorkReplayDataPageTheme3State
                           decoration: InputDecoration(
                             hintStyle: TextStyles.smallLightAshColorFontStyle,
                             filled: true,
-                            fillColor: AppColors.secondaryColor,
+                            fillColor: AppColors.secondaryColorTheme3,
                             contentPadding: const EdgeInsets.all(10),
                             enabledBorder:
                                 BorderBoxButtonDecorations.loginTextFieldStyle,
@@ -397,7 +397,7 @@ class LmsSaveWorkReplayDataPageTheme3State
                               );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
+                          backgroundColor: AppColors.primaryColorTheme3,
                           elevation: 5,
                         ),
                         child: const Text(

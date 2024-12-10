@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
+import 'package:sample/home/main_pages/transport/model/transport_after_reg_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_after_register_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_register_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/transport_status_hive_model.dart';
@@ -45,7 +46,7 @@ class TransportState {
   final List<BoardingPointHiveData> boardingPointDataList;
   final BoardingPointHiveData selectedBoardingPointDataList;
   final TransportRegisterHiveData? transportRegisterDetails;
-  final TransportAfterRegisterData? transportAfterRegisterDetails;
+  final TransportAfterRegisterHiveData? transportAfterRegisterDetails;
 
   TransportState copyWith({
     String? successMessage,
@@ -62,13 +63,12 @@ class TransportState {
     List<BoardingPointHiveData>? boardingPointDataList,
     BoardingPointHiveData? selectedBoardingPointDataList,
     TransportRegisterHiveData? transportRegisterDetails,
-    TransportAfterRegisterData? transportAfterRegisterDetails,
+    TransportAfterRegisterHiveData? transportAfterRegisterDetails,
   }) =>
       TransportState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        transportStatusData:
-            transportStatusData ?? this.transportStatusData,
+        transportStatusData: transportStatusData ?? this.transportStatusData,
         studentId: studentId ?? this.studentId,
         academicyearId: academicyearId ?? this.academicyearId,
         boardingpointId: boardingpointId ?? this.boardingpointId,
@@ -106,7 +106,7 @@ class TransportInitial extends TransportState {
           boardingPointDataList: <BoardingPointHiveData>[],
           selectedBoardingPointDataList: BoardingPointHiveData.empty,
           transportRegisterDetails: TransportRegisterHiveData.empty,
-          transportAfterRegisterDetails: TransportAfterRegisterData.empty,
+          transportAfterRegisterDetails: TransportAfterRegisterHiveData.empty,
         );
 }
 

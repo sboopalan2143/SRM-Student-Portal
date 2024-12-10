@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
@@ -78,68 +79,79 @@ class _CumulativeAttendancePageTheme3State
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
-        child: ColoredBox(
-          color: AppColors.primaryColorTheme3,
-          child: Column(
-            children: [
-              SizedBox(height: height * 0.05),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColorTheme3,
+              colorBlendMode: BlendMode.srcOut,
+            ),
+            ColoredBox(
+              color: Colors.transparent,
+              child: Column(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      ZoomDrawer.of(context)!.toggle();
-                    },
-                    icon: const Icon(
-                      Icons.menu,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: GestureDetector(
-                      onTap: () async {
-                        await ref
-                            .read(cummulativeAttendanceProvider.notifier)
-                            .getCummulativeAttendanceDetails(
-                              ref.read(encryptionProvider.notifier),
-                            );
-                        await ref
-                            .read(cummulativeAttendanceProvider.notifier)
-                            .getHiveCummulativeDetails('');
-                      },
-                      child: const Icon(
-                        Icons.refresh,
-                        color: AppColors.whiteColor,
-                        size: 30,
+                  SizedBox(height: height * 0.05),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          ZoomDrawer.of(context)!.toggle();
+                        },
+                        icon: const Icon(
+                          Icons.menu,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: GestureDetector(
+                          onTap: () async {
+                            await ref
+                                .read(cummulativeAttendanceProvider.notifier)
+                                .getCummulativeAttendanceDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                            await ref
+                                .read(cummulativeAttendanceProvider.notifier)
+                                .getHiveCummulativeDetails('');
+                          },
+                          child: const Icon(
+                            Icons.refresh,
+                            color: AppColors.whiteColor,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  SizedBox(
+                    width: width * 0.80,
+                    child: const Text(
+                      'CUMMULATIVE ATTENDANCE',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              SizedBox(
-                width: width * 0.80,
-                child: const Text(
-                  'CUMMULATIVE ATTENDANCE',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -218,7 +230,7 @@ class _CumulativeAttendancePageTheme3State
                   children: [
                     const Icon(
                       Icons.date_range,
-                      color: AppColors.greenColor,
+                      color: AppColors.greenColorTheme3,
                       size: 25,
                     ),
                     const SizedBox(width: 5),
@@ -229,7 +241,7 @@ class _CumulativeAttendancePageTheme3State
                           : '${provider.cummulativeHiveAttendanceData[index].present}',
                       style: const TextStyle(
                         fontSize: 18,
-                        color: AppColors.greenColor,
+                        color: AppColors.greenColorTheme3,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,
@@ -306,7 +318,7 @@ class _CumulativeAttendancePageTheme3State
                         'OD',
                         style: TextStyle(
                           fontSize: 18,
-                          color: AppColors.greenColor,
+                          color: AppColors.greenColorTheme3,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -369,127 +381,6 @@ class _CumulativeAttendancePageTheme3State
         ],
       ),
     );
-
-    // Padding(
-    //   padding: const EdgeInsets.only(bottom: 8),
-    //   child: Container(
-    //     // elevation: 0,
-    //     decoration: BoxDecoration(
-    //       color: Colors.white,
-    //       borderRadius: const BorderRadius.all(Radius.circular(20)),
-    //       boxShadow: [
-    //         BoxShadow(
-    //           color: Colors.grey.withOpacity(0.2),
-    //           spreadRadius: 5,
-    //           blurRadius: 7,
-    //           offset: const Offset(0, 3),
-    //         ),
-    //       ],
-    //     ),
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(20),
-    //       child: Row(
-    //         children: [
-    //           SizedBox(
-    //             width: width / 2 - 80,
-    //             child: const Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: [
-    //                 Text(
-    //                   'Month/Year',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Present',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Absent',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'OD Present',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'OD Absent',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   'Medical',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           const Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //               Text(
-    //                 ':',
-    //                 style: TextStyles.fontStyle10,
-    //               ),
-    //             ],
-    //           ),
-    //           const SizedBox(width: 5),
-    //           SizedBox(
-    //             width: width / 2 - 60,
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   '''${provider.cummulativeHiveAttendanceData[index].attendancemonthyear}''',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.cummulativeHiveAttendanceData[index].present}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.cummulativeHiveAttendanceData[index].absent}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.cummulativeHiveAttendanceData[index].odpresent}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.cummulativeHiveAttendanceData[index].odabsent}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //                 Text(
-    //                   '${provider.cummulativeHiveAttendanceData[index].medical}',
-    //                   style: TextStyles.fontStyle10,
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   void _showToast(BuildContext context, String message, Color color) {

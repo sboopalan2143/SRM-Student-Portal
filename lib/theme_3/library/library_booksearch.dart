@@ -4,8 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/library/library_page.dart';
+import 'package:sample/theme_3/library/library_page_home_theme3.dart';
 
 class LibraryBookSearchTheme3 extends ConsumerStatefulWidget {
   const LibraryBookSearchTheme3({super.key});
@@ -52,7 +51,7 @@ class _LibraryBookSearchTheme3State
               Navigator.push(
                 context,
                 RouteDesign(
-                  route: const LibraryPageTheme3(),
+                  route: const LibraryPageHomeTheme3(),
                 ),
               );
             },
@@ -150,7 +149,7 @@ class _LibraryBookSearchTheme3State
                               .primaryColorProgressIndication,
                         ),
                       )
-                    else if (provider.libraryTransactionData.isEmpty &&
+                    else if (provider.librarysearchData.isEmpty &&
                         provider is! LibraryTrancsactionStateLoading)
                       Column(
                         children: [
@@ -169,7 +168,7 @@ class _LibraryBookSearchTheme3State
                           ),
                         ],
                       ),
-                    if (provider.libraryTransactionData.isNotEmpty)
+                    if (provider.librarysearchData.isNotEmpty)
                       ListView.builder(
                         itemCount: provider.librarysearchData.length,
                         controller: _listController,
@@ -185,7 +184,6 @@ class _LibraryBookSearchTheme3State
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

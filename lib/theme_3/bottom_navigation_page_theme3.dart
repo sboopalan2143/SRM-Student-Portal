@@ -27,7 +27,7 @@ class _MainScreenPageState extends ConsumerState<MainScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondaryColorTheme3,
+      // backgroundColor: AppColors.primaryColorTheme4,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: myCurrentIndex,
         type: BottomNavigationBarType.fixed,

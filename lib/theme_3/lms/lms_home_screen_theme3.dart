@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_3/lms/lms_title_screen_theme3.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
@@ -65,12 +64,12 @@ class _LmsHomePageTheme3State extends ConsumerState<LmsHomePageTheme3> {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -79,21 +78,16 @@ class _LmsHomePageTheme3State extends ConsumerState<LmsHomePageTheme3> {
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const MainScreenPage(),
-                    ),
-                  );
+                  ZoomDrawer.of(context)!.toggle();
                 },
                 icon: const Icon(
-                  Icons.arrow_back_ios_new,
+                  Icons.menu,
                   color: AppColors.whiteColor,
                 ),
               ),
@@ -132,7 +126,7 @@ class _LmsHomePageTheme3State extends ConsumerState<LmsHomePageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -337,7 +331,7 @@ class _LmsHomePageTheme3State extends ConsumerState<LmsHomePageTheme3> {
                       ),
                       elevation: 0,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: AppColors.primaryColor,
+                      backgroundColor: AppColors.primaryColorTheme3,
                       shadowColor: Colors.transparent,
                     ),
                     onPressed: () {

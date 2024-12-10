@@ -41,6 +41,7 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
   }
 
   DecryptedData getDecryptedData(String stringToDecrypt) {
+    log('enters decrypt');
     var strDecryptedData = '';
     Map<String, dynamic>? mapData;
     String? stringData;

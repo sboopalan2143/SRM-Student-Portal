@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 
 class ExamDetailsPageTheme3 extends ConsumerStatefulWidget {
   const ExamDetailsPageTheme3({super.key});
@@ -70,58 +71,64 @@ class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                RouteDesign(
-                  route: const MainScreenPage(),
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColorTheme3,
+              colorBlendMode: BlendMode.srcOut,
+            ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  ZoomDrawer.of(context)!.toggle();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColors.whiteColor,
                 ),
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.whiteColor,
-            ),
-          ),
-          backgroundColor: AppColors.primaryColorTheme3,
-          elevation: 0,
-          title: const Text(
-            'EXAM DETAILS',
-            style: TextStyle(
-              fontSize: 22,
-              color: AppColors.whiteColor,
-              fontWeight: FontWeight.bold,
-            ),
-            overflow: TextOverflow.clip,
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await ref
-                          .read(examDetailsProvider.notifier)
-                          .getExamDetailsApi(
-                            ref.read(
-                              encryptionProvider.notifier,
-                            ),
-                          );
-                      await ref
-                          .read(examDetailsProvider.notifier)
-                          .getHiveExamDetails('');
-                    },
-                    child: const Icon(
-                      Icons.refresh,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                ],
               ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'EXAM DETAILS',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(examDetailsProvider.notifier)
+                              .getExamDetailsApi(
+                                ref.read(
+                                  encryptionProvider.notifier,
+                                ),
+                              );
+                          await ref
+                              .read(examDetailsProvider.notifier)
+                              .getHiveExamDetails('');
+                        },
+                        child: const Icon(
+                          Icons.refresh,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -129,7 +136,7 @@ class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -313,7 +320,7 @@ class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
             animationDuration: 1500,
             percent: internalResult,
             barRadius: const Radius.circular(15),
-            progressColor: AppColors.greenColor,
+            progressColor: AppColors.greenColorTheme3,
           ),
           const SizedBox(height: 10),
           Row(
@@ -342,7 +349,7 @@ class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
             animationDuration: 1500,
             percent: externalResult,
             barRadius: const Radius.circular(15),
-            progressColor: AppColors.greenColor,
+            progressColor: AppColors.greenColorTheme3,
           ),
           const SizedBox(height: 20),
           const Divider(color: AppColors.grey4, height: 1),

@@ -87,12 +87,12 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is LibraryTrancsactionStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        _showToast(context, next.successMessage, AppColors.greenColorTheme3);
       }
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -101,7 +101,7 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
@@ -155,7 +155,7 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -227,7 +227,7 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
+                            color: AppColors.primaryColorTheme3,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Column(
@@ -317,7 +317,7 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
                             singleString = answerSelected.join(',');
                           });
                         },
-                        activeColor: AppColors.primaryColor,
+                        activeColor: AppColors.primaryColorTheme3,
                       ),
                   ],
                 ),

@@ -2,7 +2,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
@@ -56,7 +55,6 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-         
             AppBar(
               leading: IconButton(
                 onPressed: () {
@@ -362,7 +360,6 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     ),
                   ),
                 ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

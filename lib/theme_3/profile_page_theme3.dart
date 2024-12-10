@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
+import 'package:sample/designs/_designs.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/theme_3/login_screen_theme3.dart';
 
 class ProfilePageTheme3 extends ConsumerStatefulWidget {
   const ProfilePageTheme3({super.key});
@@ -171,7 +175,7 @@ class _ProfilePageTheme3State extends ConsumerState<ProfilePageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: provider is ProfileDetailsStateLoading
             ? Padding(
                 padding: const EdgeInsets.only(top: 100),
@@ -427,6 +431,49 @@ class _ProfilePageTheme3State extends ConsumerState<ProfilePageTheme3> {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ),
+                              Divider(
+                                height: 1,
+                                color: AppColors.blackColor.withOpacity(0.5),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  ref
+                                      .read(mainProvider.notifier)
+                                      .setNavString('Logout');
+                                  TokensManagement.clearSharedPreference();
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    RouteDesign(route: const LoginPageTheme3()),
+                                    (route) => false,
+                                  );
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 75,
+                                        child: Icon(
+                                          Icons.logout,
+                                          size: 25,
+                                          color: AppColors.blackColor
+                                              .withOpacity(0.8),
+                                        ),
+                                      ),
+                                      Text(
+                                        'LOGOUT',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppColors.blackColor
+                                              .withOpacity(0.7),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

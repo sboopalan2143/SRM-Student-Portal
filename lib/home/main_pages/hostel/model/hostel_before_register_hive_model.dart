@@ -21,7 +21,6 @@ class HostelBeforeRegisterHiveData {
     cautiondepositamt = json['cautiondepositamt'] as String?;
     status = json['status'] as String?;
   }
- 
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -43,7 +42,6 @@ class HostelBeforeRegisterHiveData {
     status: '',
   );
 
-
   @HiveField(0)
   String? applnfeeamount;
 
@@ -61,6 +59,4 @@ class HostelBeforeRegisterHiveData {
 
   @HiveField(5)
   String? status;
-
- 
 }

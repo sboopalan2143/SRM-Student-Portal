@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_3/hostel/hostel_leave_reg_page_theme3.dart';
 import 'package:sample/theme_3/hostel/hostel_reg_page_theme3.dart';
 
@@ -73,7 +72,7 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
     });
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: AppColors.secondaryColor,
+      backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: Stack(
@@ -82,21 +81,16 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
               'assets/images/wave.svg',
               fit: BoxFit.fill,
               width: double.infinity,
-              color: AppColors.primaryColor,
+              color: AppColors.primaryColorTheme3,
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const MainScreenPage(),
-                    ),
-                  );
+                  ZoomDrawer.of(context)!.toggle();
                 },
                 icon: const Icon(
-                  Icons.arrow_back_ios_new,
+                  Icons.menu,
                   color: AppColors.whiteColor,
                 ),
               ),
@@ -142,7 +136,7 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
+        color: AppColors.primaryColorTheme3,
         child: Column(
           children: [
             Padding(
@@ -156,12 +150,12 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
                           style: ElevatedButton.styleFrom(
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(9),
+                                Radius.circular(20),
                               ),
                             ),
                             elevation: 0,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor: AppColors.greenColorTheme3,
                             shadowColor: Colors.transparent,
                           ),
                           onPressed: () {
@@ -175,7 +169,11 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
                           child: const FittedBox(
                             child: Text(
                               'Leave Application',
-                              style: TextStyles.fontStyle13,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -186,12 +184,12 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
                           style: ElevatedButton.styleFrom(
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(9),
+                                Radius.circular(20),
                               ),
                             ),
                             elevation: 0,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor: AppColors.primaryColorTheme3,
                             shadowColor: Colors.transparent,
                           ),
                           onPressed: () {
@@ -205,7 +203,11 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
                           child: const FittedBox(
                             child: Text(
                               'Registration',
-                              style: TextStyles.fontStyle13,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -251,13 +253,11 @@ class _HostelPageTheme3State extends ConsumerState<HostelPageTheme3> {
           ],
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
-
     final provider = ref.watch(hostelProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),

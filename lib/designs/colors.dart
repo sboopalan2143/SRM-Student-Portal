@@ -40,6 +40,8 @@ class AppColors {
         primary: primaryColor2,
       );
 
+  static const Color greenColorTheme3 = Color(0xff78B33D);
+
   static const Color loadingWrapperColor = Color(0xffC0DDF3);
 
   static const Color homepagecolor1 = Color(0xffFFF3E7);
@@ -80,8 +82,6 @@ class AppColors {
 
   static const Color skeletonColor = Color(0xffE0E0E0);
 
-  static var fontStyle3;
-
   static Future<void> setPrimaryColor(String color) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('primaryColor', color);
@@ -110,4 +110,21 @@ class AppColors {
     );
     secondaryColor = parseColor;
   }
+
+  static const Color theme4color1 = Color(0xffed9255);
+
+  static const Color theme4color2 = Color(0xfffb6c5b);
+
+  static const Color theme4color3 = Color(0xff4678a9);
+
+  static const Color secondaryColorTheme4 = Color.fromARGB(255, 240, 240, 241);
+
+  static const LinearGradient primaryColorTheme4 = LinearGradient(
+    colors: [
+      Color(0xffed9255),
+      Color(0xfffb6c5b),
+    ], // Gradient colors
+    begin: Alignment.topCenter, // Start point
+    end: Alignment.bottomCenter, // End point
+  );
 }

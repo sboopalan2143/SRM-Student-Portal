@@ -68,32 +68,32 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
   final List<Map<String, dynamic>> carouselItems1 = [
     {
       'title': 'Exam Details',
-      'image': 'assets/images/GraduationCap.png',
+      'image': 'assets/images/Examdetails.png',
       'route': const Theme01ExamDetailsPage(),
     },
     {
       'title': 'Subject',
-      'image': 'assets/images/books.png',
+      'image': 'assets/images/subject.png',
       'route': const Theme01SubjectPage(),
     },
     {
       'title': 'Internal Marks',
-      'image': 'assets/images/coin.png',
+      'image': 'assets/images/internalmark.png',
       'route': const Theme01InternalMarksPage(),
     },
     {
       'title': 'Attendance',
-      'image': 'assets/images/hostelimage.png',
+      'image': 'assets/images/attendance.png',
       'route': const Theme01AttendancePage(),
     },
     {
       'title': 'Hour Attendance',
-      'image': 'assets/images/coin.png',
+      'image': 'assets/images/hourwiseattendace.png',
       'route': const Theme01HourAttendancePage(),
     },
     {
       'title': 'Cumulat Attendance',
-      'image': 'assets/images/hostelimage.png',
+      'image': 'assets/images/Cumulatattendance.png',
       'route': const Theme01CumulativeAttendancePage(),
     },
   ];
@@ -143,12 +143,12 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     Alerts.checkForAppUpdate(context: context, forcefully: false);
   }
 
-
   Future<void> _initialProcess() async {
     await TokensManagement.getStudentId();
     await ref.read(loginProvider.notifier).getAppVersion();
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
 
 //>>>PROFILE
 
@@ -305,6 +305,7 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(profileProvider);
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -346,16 +347,16 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                               color: AppColors.theme01primaryColor,
                             ),
                           ),
-                          Text(
-                            TokensManagement.studentName == ''
-                                ? '-'
-                                : TokensManagement.studentName,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.theme01primaryColor,
-                            ),
-                          ),
+                          // Text(
+                          //   '${provider.profileDataHive.studentname}' == ''
+                          //       ? '-'
+                          //       : '${provider.profileDataHive.studentname}',
+                          //   style: TextStyle(
+                          //     fontSize: 20,
+                          //     fontWeight: FontWeight.bold,
+                          //     color: AppColors.theme01primaryColor,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -455,8 +456,8 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                                           padding: const EdgeInsets.all(8),
                                           child: Image.asset(
                                             item['image']! as String,
-                                            height: 50,
-                                            width: 50,
+                                            height: 35,
+                                            width: 35,
                                           ),
                                         ),
                                         const SizedBox(width: 10),

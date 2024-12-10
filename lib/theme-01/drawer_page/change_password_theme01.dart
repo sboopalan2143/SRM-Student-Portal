@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
-import 'package:sample/theme-01/theme01_homepage.dart';
 
 class Theme01ChangePasswordPage extends ConsumerStatefulWidget {
   const Theme01ChangePasswordPage({super.key});
@@ -53,6 +51,7 @@ class _Theme01ChangePasswordPageState
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
   }
 
   Future<void> showNotification(RemoteMessage message) async {

@@ -22,6 +22,16 @@ class CircularProgressIndicators {
     ),
   );
 
+  static final theme02primaryColorProgressIndication = SizedBox(
+    height: 30,
+    width: 30,
+    child: CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(
+        AppColors.theme02secondaryColor1,
+      ),
+    ),
+  );
+
   static final secondaryColorProgressIndication = SizedBox(
     height: 30,
     width: 30,

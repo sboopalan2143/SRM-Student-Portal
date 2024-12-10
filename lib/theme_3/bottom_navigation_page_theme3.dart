@@ -6,6 +6,8 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/theme_3/change_password_page_theme3.dart';
 import 'package:sample/theme_3/home_screen_theme3.dart';
 import 'package:sample/theme_3/profile_page_theme3.dart';
+import 'package:sample/theme_3/theme_03_selectedtheme_page.dart';
+import 'package:sample/theme_3/theme_03_setting_page.dart';
 import 'package:sample/theme_3/theme_page_theme3.dart';
 
 class MainScreenPage extends ConsumerStatefulWidget {
@@ -19,9 +21,9 @@ class _MainScreenPageState extends ConsumerState<MainScreenPage> {
   int myCurrentIndex = 0;
   final pages = const [
     HomePageTheme3(),
-    ChangePasswordTheme3(),
+    Theme03settingPage(),
     ProfilePageTheme3(),
-    ThemePageTheme3(),
+    Theme03Page(),
   ];
 
   @override

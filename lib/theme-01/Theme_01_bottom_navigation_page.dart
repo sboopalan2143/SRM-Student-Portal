@@ -6,6 +6,7 @@ import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
 import 'package:sample/theme-01/setting_page.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
+import 'package:sample/theme-01/theme_01_selectedtheme_page.dart';
 
 class Theme01MainScreenPage extends ConsumerStatefulWidget {
   const Theme01MainScreenPage({super.key});
@@ -19,8 +20,8 @@ class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
   final pages = const [
     Theme01Homepage(),
     Theme01settingPage(),
-    ProfilePage(),
-    ThemePage(),
+    Theme01ProfilePage(),
+    Theme01Page(),
   ];
   @override
   Widget build(BuildContext context) {

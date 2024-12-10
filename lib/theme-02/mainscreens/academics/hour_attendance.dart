@@ -115,7 +115,8 @@ class _Theme02HourAttendancePageState
                       await ref
                           .read(hourwiseProvider.notifier)
                           .gethourwiseDetails(
-                              ref.read(encryptionProvider.notifier));
+                            ref.read(encryptionProvider.notifier),
+                          );
                       await ref
                           .read(hourwiseProvider.notifier)
                           .getHiveHourwise('');
@@ -342,7 +343,6 @@ class _Theme02HourAttendancePageState
                             ),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h1 ==
                                         'A'
@@ -371,7 +371,6 @@ class _Theme02HourAttendancePageState
                             SizedBox(width: width * 0.03),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h2 ==
                                         'A'
@@ -400,7 +399,6 @@ class _Theme02HourAttendancePageState
                             SizedBox(width: width * 0.03),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h3 ==
                                         'A'
@@ -429,7 +427,6 @@ class _Theme02HourAttendancePageState
                             SizedBox(width: width * 0.03),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h5 ==
                                         'A'
@@ -458,7 +455,6 @@ class _Theme02HourAttendancePageState
                             SizedBox(width: width * 0.03),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h6 ==
                                         'A'
@@ -487,7 +483,6 @@ class _Theme02HourAttendancePageState
                             SizedBox(width: width * 0.03),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
-                                padding: const EdgeInsets.all(7),
                                 badgeColor: provider
                                             .listHourWiseHiveData[index].h7 ==
                                         'A'

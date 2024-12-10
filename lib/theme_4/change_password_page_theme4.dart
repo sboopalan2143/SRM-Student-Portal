@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
@@ -20,6 +21,47 @@ class _ChangePasswordTheme4State extends ConsumerState<ChangePasswordTheme4>
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       // backgroundColor: AppColors.primaryColorTheme3,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(
+          children: [
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
+            ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(
+                    context,
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'Change password',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+            ),
+          ],
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(gradient: AppColors.primaryColorTheme4),
         child: Padding(
@@ -27,16 +69,6 @@ class _ChangePasswordTheme4State extends ConsumerState<ChangePasswordTheme4>
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: height * 0.10),
-              const Text(
-                'CHANGE PASSWORD',
-                style: TextStyle(
-                  color: AppColors.whiteColor,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 40),
               SizedBox(
                 height: 45,
                 child: TextField(

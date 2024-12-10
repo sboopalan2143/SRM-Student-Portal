@@ -16,18 +16,17 @@ import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
-import 'package:sample/theme-01/login/theme01_login_screen.dart';
-import 'package:sample/theme-01/theme01_homepage.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme_3/change_password_page_theme3.dart';
 
-class Theme01settingPage extends ConsumerStatefulWidget {
-  const Theme01settingPage({super.key});
+class Theme03settingPage extends ConsumerStatefulWidget {
+  const Theme03settingPage({super.key});
 
   @override
-  ConsumerState createState() => _Theme01settingPageState();
+  ConsumerState createState() => _Theme03settingPageState();
 }
 
-class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
+class _Theme03settingPageState extends ConsumerState<Theme03settingPage>
     with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -84,13 +83,13 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
       });
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: AppColors.theme01secondaryColor4,
+      backgroundColor: AppColors.primaryColorTheme3,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.theme01secondaryColor3,
-              AppColors.theme01secondaryColor4,
+              AppColors.primaryColorTheme3,
+              AppColors.primaryColorTheme3,
             ],
             begin: Alignment.topLeft,
             end: Alignment.topRight,
@@ -99,25 +98,12 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
         child: Stack(
           children: [
             AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const Theme01MainScreenPage(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
+              automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: Text(
+              title: const Text(
                 'Setting',
-                style: TextStyles.fontStyle01theme,
+                style: TextStyles.fontStyle1,
                 overflow: TextOverflow.clip,
               ),
               centerTitle: true,
@@ -135,9 +121,9 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                             .read(profileProvider.notifier)
                             .getProfileHive('');
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.refresh,
-                        color: AppColors.theme01primaryColor,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                     const SizedBox(
@@ -163,7 +149,7 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                         height: MediaQuery.of(context).size.height,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                            color: AppColors.primaryColorTheme3,
                             // borderRadius: const BorderRadius.only(
                             //   topRight: Radius.circular(30),
                             //   topLeft: Radius.circular(30),
@@ -185,9 +171,7 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                                     Navigator.push(
                                       context,
                                       RouteDesign(
-                                        // route: const ChangePassword(),
-                                        route:
-                                            const Theme01ChangePasswordPage(),
+                                        route: const ChangePasswordTheme3(),
                                       ),
                                     );
                                   },
@@ -233,7 +217,6 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
           ],
         ),
       ),
-      drawer: const DrawerDesign(),
     );
   }
 

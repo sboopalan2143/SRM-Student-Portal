@@ -30,6 +30,7 @@ class TokensManagement {
   static String model = '';
   static String sdkVersion = '';
   static String appVersion = '';
+  static String storedselectedTheme = '';
 
   static Map<String, String> headers = {};
 
@@ -80,6 +81,19 @@ class TokensManagement {
     appVersion = storedAppVersion ?? '';
   }
 
+  static Future<void> setTheme({
+    required String selectedTheme,
+  }) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('selectedTheme', selectedTheme);
+  }
+
+  static Future<void> getTheme() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final storedTheme = sharedPreferences.getString('selectedTheme');
+    storedselectedTheme = storedTheme ?? '';
+  }
+
   static Future<void> getStudentId() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     final storedId = sharedPreferences.getString('studentId');
@@ -100,6 +114,7 @@ class TokensManagement {
     await sharedPreferences.setString('model', model);
     await sharedPreferences.setString('sdkVersion', sdkVersion);
     await sharedPreferences.setString('appversion', appVersion);
+    // await sharedPreferences.setString('selectedTheme', storedselectedTheme);
     await sharedPreferences.clear();
   }
 

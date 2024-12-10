@@ -1,12 +1,12 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/theme_4/change_password_page_theme4.dart';
 import 'package:sample/theme_4/home_screen_theme4.dart';
 import 'package:sample/theme_4/profile_page_theme4.dart';
-import 'package:sample/theme_4/theme_page_theme4.dart';
+import 'package:sample/theme_4/theme_04_selectedtheme_page.dart';
+import 'package:sample/theme_4/theme_04_setting_page.dart';
 
 class MainScreenPage4 extends ConsumerStatefulWidget {
   const MainScreenPage4({super.key});
@@ -20,7 +20,7 @@ class _MainScreenPage4State extends ConsumerState<MainScreenPage4> {
   int myCurrentIndex = 0;
   final pages = const [
     HomePageTheme4(),
-    ChangePasswordTheme4(),
+    Theme04settingPage(),
     ProfilePageTheme4(),
     ThemePageTheme4(),
   ];

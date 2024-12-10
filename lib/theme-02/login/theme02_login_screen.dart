@@ -12,7 +12,6 @@ import 'package:sample/designs/status_bar_navigation_bar_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
-import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
 
 class Theme02LoginScreen extends ConsumerStatefulWidget {

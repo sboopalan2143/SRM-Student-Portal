@@ -20,21 +20,39 @@ class _ChangePasswordTheme3State extends ConsumerState<ChangePasswordTheme3>
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.primaryColorTheme3,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(
+          children: [
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(
+                    context,
+                  );
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'Change password',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+            ),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(40),
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: height * 0.10),
-            const Text(
-              'CHANGE PASSWORD',
-              style: TextStyle(
-                color: AppColors.whiteColor,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 40),
             SizedBox(
               height: 45,
               child: TextField(

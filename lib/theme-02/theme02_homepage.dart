@@ -63,6 +63,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
     await ref.read(loginProvider.notifier).getAppVersion();
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
 
 //>>>PROFILE
 
@@ -126,7 +127,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
     }
     await examDetails.close();
 
-    //>>>Hourwise Attendance
+//>>>Hourwise Attendance
 
     final hourwiseAttendance = await Hive.openBox<HourwiseHiveData>(
       'hourwisedata',
@@ -141,7 +142,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
     }
     await hourwiseAttendance.close();
 
-    //>>>Internal Marks
+//>>>Internal Marks
 
     final internalMarks = await Hive.openBox<InternalMarkHiveData>(
       'internalmarkdata',
@@ -156,7 +157,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
     }
     await internalMarks.close();
 
-    //>>>Subject
+//>>>Subject
 
     final subjects = await Hive.openBox<SubjectHiveData>('subjecthive');
     if (subjects.isEmpty) {
@@ -224,43 +225,30 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.theme02primaryColor,
-                AppColors.theme02secondaryColor1,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
-          ),
-          child: AppBar(
-            title: Row(
-              children: [
-                const Text(
-                  'Hello, ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+            child: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              title: const Text(
+                'Home',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Text(
-                  TokensManagement.studentName == ''
-                      ? '-'
-                      : TokensManagement.studentName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-        ),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -325,9 +313,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        // route: const SubjectsHomeTheme3(),
                         route: const Theme02SubjectPage(),
-                        // route: const Theme01SubjectPage(),
                       ),
                     );
                   },

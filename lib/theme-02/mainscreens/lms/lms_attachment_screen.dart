@@ -95,9 +95,11 @@ class Theme02LmsAttachmentDetailsDataPageState
           ),
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(
-                context,
-              );
+              ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                    ref.read(encryptionProvider.notifier),
+                    widget.classworkID,
+                  );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -262,9 +264,11 @@ class Theme02LmsAttachmentDetailsDataPageState
                 size: 24,
               ),
               SizedBox(width: 8),
-              Text(
-                'Tap to download Excel',
-                style: TextStyles.fontStyle3,
+              Expanded(
+                child: Text(
+                  'Tap to download Excel',
+                  style: TextStyles.fontStyle3,
+                ),
               ),
             ],
           ),

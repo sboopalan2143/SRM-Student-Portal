@@ -162,7 +162,7 @@ class LmsAttachmentDetailsDataPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
@@ -171,14 +171,14 @@ class LmsAttachmentDetailsDataPageState
                     ),
                   )
                 else if (provider.lmsAttachmentDetailsData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                    provider is! LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                          'No Data Yet!',
+                          style: TextStyles.fontStyle,
                         ),
                       ),
                     ],

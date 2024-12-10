@@ -71,6 +71,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
 
 //ACADEMICS
 

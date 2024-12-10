@@ -222,7 +222,7 @@ class _Theme02CumulativeAttendancePageState
                   ),
                 ),
                 SizedBox(
-                  width: width / 5,
+                  width: width / 6,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

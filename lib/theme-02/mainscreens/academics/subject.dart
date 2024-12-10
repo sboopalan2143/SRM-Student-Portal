@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme02SubjectPage extends ConsumerStatefulWidget {
@@ -179,92 +180,94 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
     final data = provider.subjectHiveData[index].subjectdetails;
     final subjectData = data!.split('##');
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.theme02primaryColor,
-            AppColors.theme02secondaryColor1,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme02primaryColor,
+              AppColors.theme02secondaryColor1,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    'SEMESTER : ${subjectData[0]}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.theme02buttonColor2,
-                      fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Text(
+                      'SEMESTER : ${subjectData[0]}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.theme02buttonColor2,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    'Code : ${subjectData[1]}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Text(
+                      'Code : ${subjectData[1]}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            const Divider(
-              color: AppColors.grey4,
-              height: 1,
-            ),
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    'Subject : ${subjectData[2]}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+                ],
+              ),
+              const SizedBox(height: 15),
+              const Divider(
+                color: AppColors.grey4,
+                height: 1,
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Text(
+                      'Subject : ${subjectData[2]}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    'Credit : ${subjectData[3]}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Text(
+                      'Credit : ${subjectData[3]}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Divider(
-              thickness: 2,
-              color: AppColors.theme02secondaryColor1,
-              height: 1,
-            ),
-            const SizedBox(height: 10),
-          ],
+                ],
+              ),
+              const SizedBox(height: 20),
+              Divider(
+                thickness: 2,
+                color: AppColors.theme02secondaryColor1,
+                height: 1,
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,20 +13,12 @@ import 'package:sample/firebase_options.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/route/route_builder.dart';
 import 'package:sample/route/route_names.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await TokensManagement.getStudentId();
-  final sharedPreferences = await SharedPreferences.getInstance();
-  if (sharedPreferences.getString('primaryColor') != null) {
-    await AppColors.setPrimaryColor(
-      sharedPreferences.getString('primaryColor')!,
-    );
-    await AppColors.setSecondaryColor(
-      sharedPreferences.getString('secondaryColor')!,
-    );
-  }
+  await TokensManagement.getTheme();
+  log('Theme: ${TokensManagement.storedselectedTheme}');
   HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp(options: PlatformOptions.currentPlatform);
   await FirebaseMessaging.instance.requestPermission();

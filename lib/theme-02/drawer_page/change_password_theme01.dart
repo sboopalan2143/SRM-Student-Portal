@@ -52,6 +52,7 @@ class _Theme01ChangePasswordPageState
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
   }
 
   Future<void> showNotification(RemoteMessage message) async {

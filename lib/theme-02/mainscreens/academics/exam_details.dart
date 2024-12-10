@@ -182,7 +182,6 @@ class _Theme02ExamDetailsPageThemeState
   }
 
   Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(examDetailsProvider);
     final internal = double.parse(
       '${provider.examDetailsHiveData[index].internal}',

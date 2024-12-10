@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -16,18 +17,18 @@ import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
-import 'package:sample/theme-01/login/theme01_login_screen.dart';
-import 'package:sample/theme-01/theme01_homepage.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme_3/change_password_page_theme3.dart';
+import 'package:sample/theme_4/change_password_page_theme4.dart';
 
-class Theme01settingPage extends ConsumerStatefulWidget {
-  const Theme01settingPage({super.key});
+class Theme04settingPage extends ConsumerStatefulWidget {
+  const Theme04settingPage({super.key});
 
   @override
-  ConsumerState createState() => _Theme01settingPageState();
+  ConsumerState createState() => _Theme04settingPageState();
 }
 
-class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
+class _Theme04settingPageState extends ConsumerState<Theme04settingPage>
     with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -83,14 +84,45 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
         }
       });
     return Scaffold(
+      backgroundColor: AppColors.secondaryColorTheme3,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(
+          children: [
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
+            ),
+            AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text(
+                'Setting',
+                style: TextStyles.fontStyle4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+            ),
+          ],
+        ),
+      ),
       key: _scaffoldKey,
-      backgroundColor: AppColors.theme01secondaryColor4,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.theme01secondaryColor3,
-              AppColors.theme01secondaryColor4,
+              AppColors.secondaryColorTheme4,
+              AppColors.secondaryColorTheme4,
             ],
             begin: Alignment.topLeft,
             end: Alignment.topRight,
@@ -98,55 +130,6 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
         ),
         child: Stack(
           children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const Theme01MainScreenPage(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Text(
-                'Setting',
-                style: TextStyles.fontStyle01theme,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await ref.read(profileProvider.notifier).getProfileApi(
-                              ref.read(
-                                encryptionProvider.notifier,
-                              ),
-                            );
-                        await ref
-                            .read(profileProvider.notifier)
-                            .getProfileHive('');
-                      },
-                      child: Icon(
-                        Icons.refresh,
-                        color: AppColors.theme01primaryColor,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                  ],
-                ),
-              ],
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -162,8 +145,8 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                       SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                          decoration: const BoxDecoration(
+                            color: AppColors.secondaryColorTheme4,
                             // borderRadius: const BorderRadius.only(
                             //   topRight: Radius.circular(30),
                             //   topLeft: Radius.circular(30),
@@ -185,9 +168,7 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
                                     Navigator.push(
                                       context,
                                       RouteDesign(
-                                        // route: const ChangePassword(),
-                                        route:
-                                            const Theme01ChangePasswordPage(),
+                                        route: const ChangePasswordTheme4(),
                                       ),
                                     );
                                   },
@@ -233,7 +214,6 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
           ],
         ),
       ),
-      drawer: const DrawerDesign(),
     );
   }
 
@@ -248,13 +228,18 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
           Icon(
             icon,
             size: 30,
-            color: Colors.white,
+            color: AppColors.theme4color2,
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               label,
-              style: TextStyles.fontStyle3,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppColors.theme4color2,
+                letterSpacing: 1.2,
+              ),
             ),
           ),
         ],

@@ -437,45 +437,6 @@ class _ProfilePageTheme3State extends ConsumerState<ProfilePageTheme3> {
                                 height: 1,
                                 color: AppColors.blackColor.withOpacity(0.5),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  ref
-                                      .read(mainProvider.notifier)
-                                      .setNavString('Logout');
-                                  TokensManagement.clearSharedPreference();
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    RouteDesign(route: const LoginPageTheme3()),
-                                    (route) => false,
-                                  );
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 75,
-                                        child: Icon(
-                                          Icons.logout,
-                                          size: 25,
-                                          color: AppColors.blackColor
-                                              .withOpacity(0.8),
-                                        ),
-                                      ),
-                                      Text(
-                                        'LOGOUT',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppColors.blackColor
-                                              .withOpacity(0.7),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),

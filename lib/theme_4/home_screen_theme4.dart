@@ -79,6 +79,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
 
 //>>>PROFILE
 
@@ -235,6 +236,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(profileProvider);
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -271,13 +273,24 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
             ),
             AppBar(
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.transparent,
-              title: const Text(
-                'HOME',
-                style: TextStyles.fontStyle4,
-                overflow: TextOverflow.clip,
+              title:const Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize
+                      .min, // Ensures the Row takes up minimal space.
+                  children: const [
+                    Text(
+                      'Home',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
             )
           ]),
         ),

@@ -220,8 +220,14 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: width / 5,
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
                     child: Text(
                       '${provider.attendancehiveData[index].presentpercentage}' ==
                               ''

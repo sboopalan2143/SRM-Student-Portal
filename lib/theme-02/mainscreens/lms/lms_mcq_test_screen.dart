@@ -201,57 +201,58 @@ class _Theme02McqTestViewPageState
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .getMcqAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .saveMCQAnswerDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.mcqscheduleid,
-                                singleString,
-                                widget.marksperquestion,
-                              );
+                if (provider.mcqQuestionAndAnswerData.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 150,
+                        child: GestureDetector(
+                          onTap: () async {
+                            await ref
+                                .read(lmsProvider.notifier)
+                                .getMcqAnswerDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                            await ref
+                                .read(lmsProvider.notifier)
+                                .saveMCQAnswerDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                  widget.mcqscheduleid,
+                                  singleString,
+                                  widget.marksperquestion,
+                                );
 
-                          await Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: const Theme02McqGetAnswerPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme02secondaryColor1,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Submit',
-                                  style: TextStyles.fontStyle13,
-                                  textAlign: TextAlign.center,
-                                ),
+                            await Navigator.push(
+                              context,
+                              RouteDesign(
+                                route: const Theme02McqGetAnswerPage(),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.theme02secondaryColor1,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Submit',
+                                    style: TextStyles.fontStyle13,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),

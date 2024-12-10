@@ -79,6 +79,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
     /// Remove the command line after firebase setup
     await TokensManagement.getPhoneToken();
     await TokensManagement.getAppDeviceInfo();
+    await TokensManagement.getTheme();
 
 //>>>PROFILE
 
@@ -268,12 +269,72 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
   }
 
   Widget menuScreen() {
-    final height = MediaQuery.of(context).size.height;
+    final provider = ref.watch(profileProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: height * 0.10),
+          const SizedBox(
+            height: 40,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              left: 30,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Hello, ',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+                // Text(
+                //   '${provider.profileDataHive.studentname}' == ''
+                //       ? '-'
+                //       : '${provider.profileDataHive.studentname}',
+                //   style: const TextStyle(
+                //     fontSize: 20,
+                //     fontWeight: FontWeight.bold,
+                //     color: AppColors.whiteColor,
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              left: 30,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Welcome to ',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+                Text(
+                  'SRM Portal',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

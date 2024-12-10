@@ -10,9 +10,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_classwork_detail_screen.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_comment_screen.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_faculty_comment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
@@ -310,10 +307,10 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                   ],
                 ),
                 const SizedBox(height: 18), // Extra space for buttons
-
-                // Action Buttons with Icons and Smooth Hover Effects
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.spaceBetween,
                   children: [
                     _buildActionButton(
                       label: 'View',

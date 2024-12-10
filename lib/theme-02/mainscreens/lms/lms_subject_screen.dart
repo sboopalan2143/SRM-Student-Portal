@@ -139,7 +139,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                          .theme02primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.lmsSubjectData.isEmpty &&
@@ -197,7 +197,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
           children: [
             // Base Layer
             Container(
-              height: 210,
+              height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: LinearGradient(
@@ -249,42 +249,42 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                               color: Colors.black87,
                             ),
                           ),
-                          Text(
-                            '${provider.lmsSubjectData[index].subjectcode}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.theme02buttonColor2,
+                          Expanded(
+                            child: Text(
+                              '${provider.lmsSubjectData[index].subjectcode}',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.theme02buttonColor2,
+                              ),
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 12),
-
-                      // Staff Name and Credit
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.person,
-                                color: AppColors.theme02buttonColor2,
-                                size: 18,
+                          Icon(
+                            Icons.person,
+                            color: AppColors.theme02buttonColor2,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Staff : ${provider.lmsSubjectData[index].staffname}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Staff : ${provider.lmsSubjectData[index].staffname}',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black87,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
+
+                      // Staff Name and Credit
+
                       const SizedBox(height: 12),
                       Row(
                         children: [

@@ -4,6 +4,7 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/theme02_homepage.dart';
+import 'package:sample/theme-02/theme_02_selectedtheme_page.dart';
 import 'package:sample/theme-02/theme_02setting_page.dart';
 
 class Theme02MainScreenPage extends ConsumerStatefulWidget {
@@ -19,7 +20,7 @@ class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
     Theme02Homepage(),
     Theme02settingPage(),
     Theme02ProfilePage(),
-    ThemePage(),
+    Theme02Page(),
   ];
   @override
   Widget build(BuildContext context) {

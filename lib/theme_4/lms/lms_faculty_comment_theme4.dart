@@ -79,16 +79,25 @@ class _LmsFacultyCommentScreen4State
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
                 },
                 icon: const Icon(

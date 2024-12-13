@@ -436,7 +436,7 @@ class _TransportRegisterPageTheme3State
                               ),
                               const SizedBox(width: 5),
                               SizedBox(
-                                width: width * 0.80,
+                                // width: width * 0.80,
                                 child: Text(
                                   '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
                                           ''

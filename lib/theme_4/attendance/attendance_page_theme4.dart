@@ -217,7 +217,7 @@ class _AttendancePageTheme4State extends ConsumerState<AttendancePageTheme4> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: width / 2 + 40,
+                    // width: width / 2 + 40,
                     child: Text(
                       '${provider.attendancehiveData[index].subjectdesc}' == ''
                           ? '-'
@@ -229,19 +229,28 @@ class _AttendancePageTheme4State extends ConsumerState<AttendancePageTheme4> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: width / 5,
-                    child: Text(
-                      '${provider.attendancehiveData[index].presentpercentage}' ==
-                              ''
-                          ? '-'
-                          : '${provider.attendancehiveData[index].presentpercentage} %',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: AppColors.theme4color3,
-                        fontWeight: FontWeight.bold,
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                      width: width / 5,
+                      child: Text(
+                        '${provider.attendancehiveData[index].presentpercentage}' ==
+                                ''
+                            ? '-'
+                            : '${provider.attendancehiveData[index].presentpercentage} %',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: AppColors.theme4color3,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.right,
                       ),
-                      textAlign: TextAlign.right,
                     ),
                   ),
                 ],

@@ -34,7 +34,6 @@ class HostelProvider extends StateNotifier<HostelState> {
         hostelLeaveData: <HostelLeaveHiveData>[],
       );
 
-      
 //not required
   Future<void> getHostelDetails(EncryptionProvider encrypt) async {
     _setLoading();

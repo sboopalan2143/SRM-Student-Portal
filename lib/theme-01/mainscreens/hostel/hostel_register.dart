@@ -87,7 +87,7 @@ class _Theme01RegistrationPageState
                   children: [
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: Icon(
                         Icons.menu,

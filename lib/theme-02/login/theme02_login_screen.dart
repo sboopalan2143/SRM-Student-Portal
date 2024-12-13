@@ -225,8 +225,12 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
                       child: provider is LoginStateLoading
-                          ? CircularProgressIndicator(
-                              color: AppColors.secondaryColor,
+                          ? SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(
+                                color: AppColors.secondaryColor,
+                              ),
                             )
                           : const Text(
                               'Log in',

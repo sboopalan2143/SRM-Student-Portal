@@ -46,9 +46,14 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(calendarProvider.notifier).getHiveCalendar('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(calendarProvider.notifier)
+            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getHiveCalendar('');
+      },
+    );
   }
 
   @override
@@ -108,7 +113,8 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                       await ref
                           .read(calendarProvider.notifier)
                           .getCalendarDetails(
-                              ref.read(encryptionProvider.notifier));
+                            ref.read(encryptionProvider.notifier),
+                          );
                       await ref
                           .read(calendarProvider.notifier)
                           .getHiveCalendar('');
@@ -131,41 +137,37 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (provider is CalendarStateLoading)
+              if (provider is CalendarStateLoading) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
                         .primaryColorProgressIndication,
                   ),
-                )
-              else if (provider.calendarHiveData.isEmpty &&
-                  provider is! CalendarStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
-                      ),
-                    ),
-                  ],
                 ),
-              if (provider.calendarHiveData.isNotEmpty)
-                const SizedBox(height: 5),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: ListView.builder(
-                  itemCount: provider.calendarHiveData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
+              ] else if (provider.calendarHiveData.isEmpty &&
+                  provider is! CalendarStateLoading) ...[
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
                 ),
-              ),
+              ] else ...[
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: ListView.builder(
+                    itemCount: provider.calendarHiveData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -210,18 +212,20 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Text(
-                          '${provider.calendarHiveData[index].day}' == ''
-                              ? '-'
-                              : '${provider.calendarHiveData[index].day}',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: provider.calendarHiveData[index]
-                                        .holidaystatus ==
-                                    '0'
-                                ? AppColors.whiteColor
-                                : AppColors.whiteColor,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            '${provider.calendarHiveData[index].day}' == ''
+                                ? '-'
+                                : '${provider.calendarHiveData[index].day}',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: provider.calendarHiveData[index]
+                                          .holidaystatus ==
+                                      '0'
+                                  ? AppColors.whiteColor
+                                  : AppColors.whiteColor,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

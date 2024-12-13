@@ -344,7 +344,7 @@ class _Theme02ExamDetailsPageThemeState
                 Column(
                   children: [
                     const Text(
-                      'External',
+                      'EXTERNAL',
                       style: TextStyles.fontStyle3,
                     ),
                     const SizedBox(height: 10),

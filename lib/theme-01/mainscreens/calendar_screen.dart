@@ -45,12 +45,14 @@ class _Theme01CalendarPageState extends ConsumerState<Theme01CalendarPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref
-          .read(calendarProvider.notifier)
-          .getCalendarDetails(ref.read(encryptionProvider.notifier));
-      await ref.read(calendarProvider.notifier).getHiveCalendar('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(calendarProvider.notifier)
+            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getHiveCalendar('');
+      },
+    );
   }
 
   @override

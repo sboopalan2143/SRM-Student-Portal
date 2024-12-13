@@ -49,8 +49,11 @@ class _Theme02GrievanceReportPageState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(grievanceProvider.notifier).getStudentWiseGrievanceDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
     });
   }
 

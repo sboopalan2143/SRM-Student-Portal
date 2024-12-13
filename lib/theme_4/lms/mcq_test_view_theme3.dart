@@ -11,9 +11,10 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme_3/lms/mcq_getanswer_data_theme3.dart';
+import 'package:sample/theme_4/lms/mcq_getanswer_data_theme3.dart';
 
-class McqTestViewPageTheme3 extends ConsumerStatefulWidget {
-  const McqTestViewPageTheme3({
+class McqTestViewPageTheme4 extends ConsumerStatefulWidget {
+  const McqTestViewPageTheme4({
     required this.mcqtemplateid,
     required this.mcqscheduleid,
     required this.subjectid,
@@ -29,10 +30,10 @@ class McqTestViewPageTheme3 extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _McqTestViewPageTheme3State();
+      _McqTestViewPageTheme4State();
 }
 
-class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
+class _McqTestViewPageTheme4State extends ConsumerState<McqTestViewPageTheme4> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -97,16 +98,25 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
                 },
                 icon: const Icon(
@@ -221,13 +231,13 @@ class _McqTestViewPageTheme3State extends ConsumerState<McqTestViewPageTheme3> {
                           await Navigator.push(
                             context,
                             RouteDesign(
-                              route: const McqGetAnswerPageTheme3(),
+                              route: const McqGetAnswerPageTheme4(),
                             ),
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColorTheme3,
+                            color: AppColors.theme4color2,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Column(

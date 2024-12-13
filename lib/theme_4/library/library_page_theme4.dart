@@ -47,9 +47,14 @@ class _LibraryPageTheme4State extends ConsumerState<LibraryPageTheme4> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
+      },
+    );
   }
 
   @override
@@ -158,7 +163,7 @@ class _LibraryPageTheme4State extends ConsumerState<LibraryPageTheme4> {
                             ),
                             elevation: 0,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: AppColors.theme4color3,
+                            backgroundColor: AppColors.theme4color1,
                             shadowColor: Colors.transparent,
                           ),
                           onPressed: () {

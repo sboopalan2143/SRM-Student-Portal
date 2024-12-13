@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -105,9 +107,9 @@ class _LibraryBookSearchTheme3State
                       ),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.search,
-                        color: AppColors.whiteColor.withOpacity(0.8),
+                        color: AppColors.whiteColor,
                       ),
                       onPressed: () async {
                         final provider = ref.watch(libraryProvider);
@@ -119,16 +121,32 @@ class _LibraryBookSearchTheme3State
                           );
                         } else if (provider.filter.text.length < 3) {
                           Alerts.errorAlert(
-                            message: 'Enter Morethan 3 Characters',
+                            message: 'Enter More than 3 Characters',
                             context: context,
                           );
                         } else {
-                          await ref
-                              .read(libraryProvider.notifier)
-                              .saveLibrartBookSearchDetails(
-                                ref.read(encryptionProvider.notifier),
-                              );
+                          unawaited(
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            ),
+                          );
+                          try {
+                            await ref
+                                .read(libraryProvider.notifier)
+                                .saveLibrartBookSearchDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                          } finally {
+                            Navigator.of(context).pop();
+                          }
                         }
+
                         provider.filter.clear();
                       },
                     ),
@@ -378,7 +396,7 @@ class _LibraryBookSearchTheme3State
             ),
           ),
           const SizedBox(height: 15),
-          const Divider(height: 1, color: AppColors.whiteColor)
+          const Divider(height: 1, color: AppColors.whiteColor),
         ],
       ),
     );

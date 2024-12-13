@@ -132,7 +132,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: const Icon(
                         Icons.menu,

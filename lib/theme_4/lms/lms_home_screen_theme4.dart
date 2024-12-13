@@ -342,7 +342,7 @@ class _LmsHomePageTheme4State extends ConsumerState<LmsHomePageTheme4> {
                       ),
                       elevation: 0,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: AppColors.primaryColorTheme3,
+                      backgroundColor: AppColors.theme4color2,
                       shadowColor: Colors.transparent,
                     ),
                     onPressed: () {
@@ -365,7 +365,7 @@ class _LmsHomePageTheme4State extends ConsumerState<LmsHomePageTheme4> {
                       style: TextStyles.fontStyle13,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -11,6 +11,7 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme_3/lms/mcq_test_view_theme3.dart';
+import 'package:sample/theme_4/lms/mcq_test_view_theme3.dart';
 // import 'package:sample/home/riverpod/main_state.dart';
 
 class McqEntryPageTheme4 extends ConsumerStatefulWidget {
@@ -79,16 +80,25 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
                 },
                 icon: const Icon(
@@ -110,14 +120,7 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsMcqSheduleDetails(
-                                ref.read(encryptionProvider.notifier),
-                                widget.mcqscheduleid,
-                              );
-                        },
+                        onTap: () {},
                         child: const Icon(
                           Icons.refresh,
                           color: AppColors.whiteColor,
@@ -208,7 +211,7 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Text('MCQ Entry ', style: TextStyles.titleFontStyle),
+                  const Text('MCQ Entry ', style: TextStyles.fontStyle18),
                   const SizedBox(height: 20),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -285,7 +288,7 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
                               Navigator.push(
                                 context,
                                 RouteDesign(
-                                  route: McqTestViewPageTheme3(
+                                  route: McqTestViewPageTheme4(
                                       mcqscheduleid:
                                           '${provider.mcqSheduleData[index].scheduleid}',
                                       mcqtemplateid:
@@ -301,7 +304,7 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppColors.primaryColorTheme3,
+                                color: AppColors.theme4color2,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: const Column(
@@ -310,41 +313,6 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
                                   Center(
                                     child: Text(
                                       'Take test',
-                                      style: TextStyles.fontStyle5,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: SizedBox(
-                          height: 30,
-                          width: 150,
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   RouteDesign(
-                              //     route: const McqEnteryPage(),
-                              //   ),
-                              // );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColorTheme3,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Top 3',
                                       style: TextStyles.fontStyle5,
                                       textAlign: TextAlign.center,
                                     ),

@@ -144,16 +144,25 @@ class LmsSaveWorkReplayDataPageTheme4State
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
                 },
                 icon: const Icon(
@@ -273,10 +282,12 @@ class LmsSaveWorkReplayDataPageTheme4State
                                 width: 40,
                                 child: Card(
                                   shape: RoundedRectangleBorder(
-                                    side: const BorderSide(color: Colors.grey),
+                                    side: const BorderSide(
+                                      color: AppColors.theme4color2,
+                                    ),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
-                                  color: Colors.blue,
+                                  color: AppColors.theme4color2,
                                   child: const Padding(
                                     padding: EdgeInsets.all(8),
                                     child: Icon(
@@ -397,7 +408,7 @@ class LmsSaveWorkReplayDataPageTheme4State
                               );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryColorTheme3,
+                          backgroundColor: AppColors.theme4color2,
                           elevation: 5,
                         ),
                         child: const Text(

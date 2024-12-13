@@ -186,7 +186,7 @@ class _HourAttendancePageTheme4State
                             ),
                           ),
                         ),
-                        SizedBox(width: width * 0.03),
+                        SizedBox(width: width * 0.01),
                         badges.Badge(
                           badgeStyle: const badges.BadgeStyle(
                             padding: EdgeInsets.all(7),
@@ -205,7 +205,7 @@ class _HourAttendancePageTheme4State
                             ),
                           ),
                         ),
-                        SizedBox(width: width * 0.03),
+                        SizedBox(width: width * 0.01),
                         badges.Badge(
                           badgeStyle: const badges.BadgeStyle(
                             padding: EdgeInsets.all(7),
@@ -380,7 +380,7 @@ class _HourAttendancePageTheme4State
                                 ),
                               ),
                             ),
-                            SizedBox(width: width * 0.03),
+                            SizedBox(width: width * 0.02),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
                                 padding: const EdgeInsets.all(7),
@@ -409,7 +409,7 @@ class _HourAttendancePageTheme4State
                                 ),
                               ),
                             ),
-                            SizedBox(width: width * 0.03),
+                            SizedBox(width: width * 0.01),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
                                 padding: const EdgeInsets.all(7),
@@ -438,7 +438,7 @@ class _HourAttendancePageTheme4State
                                 ),
                               ),
                             ),
-                            SizedBox(width: width * 0.03),
+                            SizedBox(width: width * 0.01),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
                                 padding: const EdgeInsets.all(7),
@@ -467,7 +467,7 @@ class _HourAttendancePageTheme4State
                                 ),
                               ),
                             ),
-                            SizedBox(width: width * 0.03),
+                            SizedBox(width: width * 0.01),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
                                 padding: const EdgeInsets.all(7),
@@ -496,7 +496,7 @@ class _HourAttendancePageTheme4State
                                 ),
                               ),
                             ),
-                            SizedBox(width: width * 0.03),
+                            SizedBox(width: width * 0.02),
                             badges.Badge(
                               badgeStyle: badges.BadgeStyle(
                                 padding: const EdgeInsets.all(7),

@@ -135,7 +135,7 @@ class _TransportTransactionPageState
                       ),
                       IconButton(
                         onPressed: () {
-                          scaffoldKey.currentState?.openEndDrawer();
+                          // scaffoldKey.currentState?.openEndDrawer();
                         },
                         icon: const Icon(
                           Icons.menu,
@@ -256,8 +256,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].officeid}' ==
-                              ''
+                      '${provider.transportStatusData[index].officeid}' == ''
                           ? '-'
                           : '''${provider.transportStatusData[index].officeid}''',
                       style: TextStyles.fontStyle10,
@@ -341,8 +340,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].regconfig}' ==
-                              ''
+                      '${provider.transportStatusData[index].regconfig}' == ''
                           ? '-'
                           : ''
                               '${provider.transportStatusData[index].regconfig}'
@@ -399,8 +397,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].status}' ==
-                              ''
+                      '${provider.transportStatusData[index].status}' == ''
                           ? '-'
                           : ''
                               '${provider.transportStatusData[index].status}'

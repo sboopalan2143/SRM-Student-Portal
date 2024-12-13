@@ -20,15 +20,13 @@ class _Theme02LibraryBookSearchState
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  //   @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //      ref.read(libraryProvider.notifier).saveLibrartBookSearchDetails(
-  //               ref.read(encryptionProvider.notifier),
-  //             );
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +34,9 @@ class _Theme02LibraryBookSearchState
     ref.listen(libraryProvider, (previous, next) {
       if (next is LibraryTrancsactionStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
+      } else if (next is LibraryTrancsactionStateSuccessful) {
+        _showToast(context, next.successMessage, AppColors.greenColor);
       }
-      //  else if (next is LibraryTrancsactionStateSuccessful) {
-      //   _showToast(context, next.successMessage, AppColors.greenColor);
-      // }
     });
     return Scaffold(
       key: scaffoldKey,
@@ -111,6 +108,34 @@ class _Theme02LibraryBookSearchState
                         color: AppColors.theme02secondaryColor1,
                       ),
                     ),
+                    // suffixIcon: IconButton(
+                    //   icon: Icon(
+                    //     Icons.search,
+                    //     color: AppColors.theme02buttonColor2,
+                    //   ),
+                    //   onPressed: () async {
+                    //     final provider = ref.watch(libraryProvider);
+
+                    //     if (provider.filter.text == '') {
+                    //       Alerts.errorAlert(
+                    //         message: 'Filter empty',
+                    //         context: context,
+                    //       );
+                    //     } else if (provider.filter.text.length < 3) {
+                    //       Alerts.errorAlert(
+                    //         message: 'Enter Morethan 3 Characters',
+                    //         context: context,
+                    //       );
+                    //     } else {
+                    //       await ref
+                    //           .read(libraryProvider.notifier)
+                    //           .saveLibrartBookSearchDetails(
+                    //             ref.read(encryptionProvider.notifier),
+                    //           );
+                    //     }
+                    //     provider.filter.clear();
+                    //   },
+                    // ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         Icons.search,
@@ -126,16 +151,30 @@ class _Theme02LibraryBookSearchState
                           );
                         } else if (provider.filter.text.length < 3) {
                           Alerts.errorAlert(
-                            message: 'Enter Morethan 3 Characters',
+                            message: 'Enter More than 3 Characters',
                             context: context,
                           );
                         } else {
-                          await ref
-                              .read(libraryProvider.notifier)
-                              .saveLibrartBookSearchDetails(
-                                ref.read(encryptionProvider.notifier),
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
+                            },
+                          );
+                          try {
+                            await ref
+                                .read(libraryProvider.notifier)
+                                .saveLibrartBookSearchDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                          } finally {
+                            Navigator.of(context).pop();
+                          }
                         }
+
                         provider.filter.clear();
                       },
                     ),
@@ -191,7 +230,6 @@ class _Theme02LibraryBookSearchState
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

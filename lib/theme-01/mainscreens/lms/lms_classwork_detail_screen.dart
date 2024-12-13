@@ -86,6 +86,15 @@ class _Theme01LmsClassworkDetailPageState
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.listen(lmsProvider, (previous, next) {
+                    if (next is LibraryTrancsactionStateError) {
+                      _showToast(
+                          context, next.errorMessage, AppColors.redColor);
+                    } else if (next is LibraryTrancsactionStateSuccessful) {
+                      _showToast(
+                          context, next.successMessage, AppColors.greenColor);
+                    }
+                  });
                   Navigator.pop(context);
                 },
                 icon: Icon(
@@ -137,24 +146,25 @@ class _Theme01LmsClassworkDetailPageState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LmsStateLoading)
-                  const Center(
-                      child: Padding(
-                    padding: EdgeInsets.only(top: 100),
-                    child: Text(
-                      'No List Added',
-                      style: TextStyles.fontStyle1,
+                if (provider is LibraryTrancsactionStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
                     ),
-                  ),)
+                  )
                 else if (provider.classWorkDetailsData.isEmpty &&
-                    provider is! LmsStateLoading)
+                    provider is! LibraryTrancsactionStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      Center(
-                        child: CircularProgressIndicators
-                            .theme01primaryColorProgressIndication,
-                      )
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle,
+                        ),
+                      ),
                     ],
                   ),
                 if (provider.classWorkDetailsData.isNotEmpty)
@@ -256,8 +266,111 @@ class _Theme01LmsClassworkDetailPageState
                   width,
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     SizedBox(
+                //       height: 30,
+                //       width: 150,
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           ref
+                //               .read(lmsProvider.notifier)
+                //               .getLmsAttachmentDetails(
+                //                 ref.read(encryptionProvider.notifier),
+                //                 '${provider.classWorkDetailsData[index].classworkid}',
+                //               );
+
+                //           Navigator.push(
+                //             context,
+                //             RouteDesign(
+                //               route: Theme01LmsAttachmentDetailsDataPage(
+                //                 classworkID:
+                //                     '${provider.classWorkDetailsData[index].classworkid}',
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             color: AppColors.theme01primaryColor,
+                //             borderRadius: BorderRadius.circular(10),
+                //           ),
+                //           child: const Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               Center(
+                //                 child: Text(
+                //                   'Attachments',
+                //                   style: TextStyles.fontStyle5,
+                //                   textAlign: TextAlign.center,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 10,
+                //     ),
+                //     SizedBox(
+                //       height: 30,
+                //       width: 150,
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           // Navigator.push(
+                //           //   context,
+                //           //   RouteDesign(
+                //           //     route: LmsStudentAttachmentDetailsDataPage(
+                //           //       classworkID:
+                //           //           '${provider.classWorkDetailsData[index].classworkid}',
+                //           //     ),
+                //           //   ),
+                //           // );
+                //           ref
+                //               .read(lmsProvider.notifier)
+                //               .getLmsStudentAttachmentDetails(
+                //                 ref.read(encryptionProvider.notifier),
+                //                 '${provider.classWorkDetailsData[index].classworkreplyid}',
+                //               );
+                //           Navigator.push(
+                //             context,
+                //             RouteDesign(
+                //               route: Theme01LmsStudentAttachmentDetailsDataPage(
+                //                 classworkreplyid:
+                //                     '${provider.classWorkDetailsData[index].classworkreplyid}',
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             color: AppColors.theme01primaryColor,
+                //             borderRadius: BorderRadius.circular(10),
+                //           ),
+                //           child: const Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               Center(
+                //                 child: Text(
+                //                   'Student Attachments',
+                //                   style: TextStyles.fontStyle5,
+                //                   textAlign: TextAlign.center,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                Wrap(
+                  spacing: 10, // Horizontal spacing between buttons
+                  runSpacing:
+                      10, // Vertical spacing when wrapping to the next line
+                  alignment: WrapAlignment.center, // Center the buttons
                   children: [
                     SizedBox(
                       height: 30,
@@ -286,44 +399,28 @@ class _Theme01LmsClassworkDetailPageState
                             color: AppColors.theme01primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Attachments',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                          child: const Center(
+                            child: Text(
+                              'Attachments',
+                              style: TextStyles.fontStyle5,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
                     ),
                     SizedBox(
                       height: 30,
                       width: 150,
                       child: GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   RouteDesign(
-                          //     route: LmsStudentAttachmentDetailsDataPage(
-                          //       classworkID:
-                          //           '${provider.classWorkDetailsData[index].classworkid}',
-                          //     ),
-                          //   ),
-                          // );
                           ref
                               .read(lmsProvider.notifier)
                               .getLmsStudentAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 '${provider.classWorkDetailsData[index].classworkreplyid}',
                               );
+
                           Navigator.push(
                             context,
                             RouteDesign(
@@ -339,28 +436,26 @@ class _Theme01LmsClassworkDetailPageState
                             color: AppColors.theme01primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Student Attachments',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                          child: const Center(
+                            child: Text(
+                              'Student Attachments',
+                              style: TextStyles.fontStyle5,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
+
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.center,
                   children: [
                     if (provider.classWorkDetailsData[index].classworkreplyid ==
                         '0')
@@ -390,24 +485,16 @@ class _Theme01LmsClassworkDetailPageState
                               color: AppColors.theme01primaryColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    'Save Attachment',
-                                    style: TextStyles.fontStyle5,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
+                            child: const Center(
+                              child: Text(
+                                'Save Attachment',
+                                style: TextStyles.fontStyle5,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    const SizedBox(
-                      width: 10,
-                    ),
                     SizedBox(
                       height: 30,
                       width: 150,
@@ -428,23 +515,19 @@ class _Theme01LmsClassworkDetailPageState
                             color: AppColors.theme01primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'MCQ Test',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                          child: const Center(
+                            child: Text(
+                              'MCQ Test',
+                              style: TextStyles.fontStyle5,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 20),
               ],
             ),

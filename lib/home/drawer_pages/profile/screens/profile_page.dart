@@ -126,7 +126,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: const Icon(
                         Icons.menu,

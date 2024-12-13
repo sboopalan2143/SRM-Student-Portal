@@ -27,7 +27,6 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
- 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -218,19 +217,28 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: width / 5,
-                    child: Text(
-                      '${provider.attendancehiveData[index].presentpercentage}' ==
-                              ''
-                          ? '-'
-                          : '${provider.attendancehiveData[index].presentpercentage} %',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: AppColors.greenColorTheme3,
-                        fontWeight: FontWeight.bold,
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                      width: width / 5,
+                      child: Text(
+                        '${provider.attendancehiveData[index].presentpercentage}' ==
+                                ''
+                            ? '-'
+                            : '${provider.attendancehiveData[index].presentpercentage} %',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: AppColors.greenColorTheme3,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.right,
                       ),
-                      textAlign: TextAlign.right,
                     ),
                   ),
                 ],

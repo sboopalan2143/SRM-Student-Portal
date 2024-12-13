@@ -95,11 +95,11 @@ class Theme02LmsAttachmentDetailsDataPageState
           ),
           leading: IconButton(
             onPressed: () {
-              ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                    ref.read(encryptionProvider.notifier),
-                    widget.classworkID,
-                  );
-              Navigator.pop(context);
+                ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                        ref.read(encryptionProvider.notifier),
+                        widget.classworkID,
+                      );
+                  Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -149,11 +149,13 @@ class Theme02LmsAttachmentDetailsDataPageState
               children: [
                 const SizedBox(height: 20),
                 if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: Text(
+                        'No List Added',
+                        style: TextStyles.fontStyle1,
+                      ),
                     ),
                   )
                 else if (provider.lmsAttachmentDetailsData.isEmpty &&
@@ -161,11 +163,9 @@ class Theme02LmsAttachmentDetailsDataPageState
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
-                        ),
+                      Center(
+                        child: CircularProgressIndicators
+                            .primaryColorProgressIndication,
                       ),
                     ],
                   ),
@@ -180,6 +180,43 @@ class Theme02LmsAttachmentDetailsDataPageState
                   ),
               ],
             ),
+
+            //  Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     const SizedBox(height: 20),
+            //     if (provider is LibraryTrancsactionStateLoading)
+            //       Padding(
+            //         padding: const EdgeInsets.only(top: 100),
+            //         child: Center(
+            //           child: CircularProgressIndicators
+            //               .primaryColorProgressIndication,
+            //         ),
+            //       )
+            //     else if (provider.lmsAttachmentDetailsData.isEmpty &&
+            //         provider is! LibraryTrancsactionStateLoading)
+            //       Column(
+            //         children: [
+            //           SizedBox(height: MediaQuery.of(context).size.height / 5),
+            //           const Center(
+            //             child: Text(
+            //               'No List Added Yet!',
+            //               style: TextStyles.fontStyle1,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     if (provider.lmsAttachmentDetailsData.isNotEmpty)
+            //       ListView.builder(
+            //         itemCount: provider.lmsAttachmentDetailsData.length,
+            //         controller: _listController,
+            //         shrinkWrap: true,
+            //         itemBuilder: (BuildContext context, int index) {
+            //           return cardDesign(index);
+            //         },
+            //       ),
+            //   ],
+            // ),
           ),
         ),
       ),

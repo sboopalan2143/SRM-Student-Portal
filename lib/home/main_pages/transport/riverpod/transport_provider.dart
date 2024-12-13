@@ -661,9 +661,6 @@ class TrasportProvider extends StateNotifier<TransportState> {
       final decryptedData = encrypt.getDecryptedData('$data');
       log('Transport Register >>>>>>>> ${decryptedData.mapData}');
 
-      // var transportRegisterDetails = TransportRegisterHiveData.empty;
-
-      // var transportAfterRegisterDetails = TransportAfterRegisterData.empty;
       log('status>>>>${decryptedData.mapData!['Data'][0]['status']}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         if (decryptedData.mapData!['Data'][0]['status'] == '0' &&

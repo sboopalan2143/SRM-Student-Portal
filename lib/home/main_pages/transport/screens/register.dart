@@ -143,7 +143,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: const Icon(
                         Icons.menu,

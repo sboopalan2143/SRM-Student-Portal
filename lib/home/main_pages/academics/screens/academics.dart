@@ -67,7 +67,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: const Icon(
                         Icons.menu,

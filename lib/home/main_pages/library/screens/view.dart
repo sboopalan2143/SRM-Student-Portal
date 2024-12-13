@@ -84,7 +84,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        scaffoldKey.currentState?.openEndDrawer();
+                        // scaffoldKey.currentState?.openEndDrawer();
                       },
                       icon: const Icon(
                         Icons.menu,

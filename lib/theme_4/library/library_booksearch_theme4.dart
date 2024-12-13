@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -119,7 +121,7 @@ class _LibraryBookSearchTheme4State
                     suffixIcon: IconButton(
                       icon: Icon(
                         Icons.search,
-                        color: AppColors.blackColor.withOpacity(0.8),
+                        color: AppColors.theme02buttonColor2,
                       ),
                       onPressed: () async {
                         final provider = ref.watch(libraryProvider);
@@ -131,16 +133,30 @@ class _LibraryBookSearchTheme4State
                           );
                         } else if (provider.filter.text.length < 3) {
                           Alerts.errorAlert(
-                            message: 'Enter Morethan 3 Characters',
+                            message: 'Enter More than 3 Characters',
                             context: context,
                           );
                         } else {
-                          await ref
-                              .read(libraryProvider.notifier)
-                              .saveLibrartBookSearchDetails(
-                                ref.read(encryptionProvider.notifier),
+                          unawaited(showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
+                            },
+                          ));
+                          try {
+                            await ref
+                                .read(libraryProvider.notifier)
+                                .saveLibrartBookSearchDetails(
+                                  ref.read(encryptionProvider.notifier),
+                                );
+                          } finally {
+                            Navigator.of(context).pop();
+                          }
                         }
+
                         provider.filter.clear();
                       },
                     ),

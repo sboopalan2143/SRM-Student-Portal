@@ -44,6 +44,7 @@ import 'package:sample/theme-01/mainscreens/grievances/grievances_screen.dart';
 import 'package:sample/theme-01/mainscreens/hostel/hostel_screen.dart';
 import 'package:sample/theme-01/mainscreens/library/library_screen.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_subject_screen.dart';
+import 'package:sample/theme-01/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-01/mainscreens/transport/transport_screen.dart';
 
 class Theme01Homepage extends ConsumerStatefulWidget {
@@ -122,7 +123,7 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
     {
       'title': 'Transport',
       'image': 'assets/images/Bus.png',
-      'route': const Theme01TransportTransactionPage(),
+      'route': const Theme01TransportRegisterPage(),
     },
     {
       'title': 'LMS',

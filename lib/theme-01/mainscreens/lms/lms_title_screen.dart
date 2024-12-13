@@ -246,133 +246,190 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
                   width,
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 30,
-                      width: 70,
-                      child: GestureDetector(
+                    _buildActionButton(
+                      label: 'View',
+                      icon: Icons.visibility,
+                      onTap: () {
+                        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                              ref.read(encryptionProvider.notifier),
+                              '${provider.lmsTitleData[index].classworkid}',
+                            );
+                        Navigator.push(
+                          context,
+                          RouteDesign(
+                            route: Theme01LmsClassworkDetailPage(
+                              classworkID:
+                                  '${provider.lmsTitleData[index].classworkid}',
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildActionButton(
+                      label: 'Comments',
+                      icon: Icons.comment,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          RouteDesign(
+                            route: Theme01LmsCommentScreen(
+                              classworkID:
+                                  '${provider.lmsTitleData[index].classworkid}',
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    if (provider.lmsTitleData[index].privatecomment != '0')
+                      _buildActionButton(
+                        label: 'Faculty Chat',
+                        icon: Icons.chat,
                         onTap: () {
-                          ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                                ref.read(encryptionProvider.notifier),
-                                '${provider.lmsTitleData[index].classworkid}',
-                              );
-
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: Theme01LmsClassworkDetailPage(
+                              route: Theme01LmsFacultyCommentScreen(
                                 classworkID:
                                     '${provider.lmsTitleData[index].classworkid}',
                               ),
                             ),
                           );
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'View',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
-                    ),
-                    // if (provider.lmsTitleData[index].classcomment != '0')
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          width: 100,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: Theme01LmsCommentScreen(
-                                    classworkID:
-                                        '${provider.lmsTitleData[index].classworkid}',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.theme01primaryColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      'Comments',
-                                      style: TextStyles.fontStyle5,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        if (provider.lmsTitleData[index].privatecomment != '0')
-                          SizedBox(
-                            height: 30,
-                            width: 100,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  RouteDesign(
-                                    route: Theme01LmsFacultyCommentScreen(
-                                      classworkID:
-                                          '${provider.lmsTitleData[index].classworkid}',
-                                      // studentclassworkcommentid:
-                                      //     '${provider.lmsfacultygetcommentData[index].studentclassworkcommentid}',
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.theme01primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        'Faculty Chat',
-                                        style: TextStyles.fontStyle5,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
                   ],
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     SizedBox(
+                //       height: 30,
+                //       width: 70,
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                //                 ref.read(encryptionProvider.notifier),
+                //                 '${provider.lmsTitleData[index].classworkid}',
+                //               );
+
+                //           Navigator.push(
+                //             context,
+                //             RouteDesign(
+                //               route: Theme01LmsClassworkDetailPage(
+                //                 classworkID:
+                //                     '${provider.lmsTitleData[index].classworkid}',
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             color: AppColors.theme01primaryColor,
+                //             borderRadius: BorderRadius.circular(12),
+                //           ),
+                //           child: const Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             children: [
+                //               Center(
+                //                 child: Text(
+                //                   'View',
+                //                   style: TextStyles.fontStyle5,
+                //                   textAlign: TextAlign.center,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     // if (provider.lmsTitleData[index].classcomment != '0')
+                //     Column(
+                //       children: [
+                //         SizedBox(
+                //           height: 30,
+                //           width: 100,
+                //           child: GestureDetector(
+                //             onTap: () {
+                //               Navigator.push(
+                //                 context,
+                //                 RouteDesign(
+                //                   route: Theme01LmsCommentScreen(
+                //                     classworkID:
+                //                         '${provider.lmsTitleData[index].classworkid}',
+                //                   ),
+                //                 ),
+                //               );
+                //             },
+                //             child: Container(
+                //               decoration: BoxDecoration(
+                //                 color: AppColors.theme01primaryColor,
+                //                 borderRadius: BorderRadius.circular(12),
+                //               ),
+                //               child: const Column(
+                //                 mainAxisAlignment: MainAxisAlignment.center,
+                //                 children: [
+                //                   Center(
+                //                     child: Text(
+                //                       'Comments',
+                //                       style: TextStyles.fontStyle5,
+                //                       textAlign: TextAlign.center,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //     Column(
+                //       children: [
+                //         if (provider.lmsTitleData[index].privatecomment != '0')
+                //           SizedBox(
+                //             height: 30,
+                //             width: 100,
+                //             child: GestureDetector(
+                //               onTap: () {
+                //                 Navigator.push(
+                //                   context,
+                //                   RouteDesign(
+                //                     route: Theme01LmsFacultyCommentScreen(
+                //                       classworkID:
+                //                           '${provider.lmsTitleData[index].classworkid}',
+                //                       // studentclassworkcommentid:
+                //                       //     '${provider.lmsfacultygetcommentData[index].studentclassworkcommentid}',
+                //                     ),
+                //                   ),
+                //                 );
+                //               },
+                //               child: Container(
+                //                 decoration: BoxDecoration(
+                //                   color: AppColors.theme01primaryColor,
+                //                   borderRadius: BorderRadius.circular(10),
+                //                 ),
+                //                 child: const Column(
+                //                   mainAxisAlignment: MainAxisAlignment.center,
+                //                   children: [
+                //                     Center(
+                //                       child: Text(
+                //                         'Faculty Chat',
+                //                         style: TextStyles.fontStyle5,
+                //                         textAlign: TextAlign.center,
+                //                       ),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(height: 20),
               ],
             ),
@@ -408,6 +465,55 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildActionButton({
+    required String label,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 40, // Adequate height for buttons
+        width: 100, // Optimized width
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme01primaryColor,
+              AppColors.theme01primaryColor,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.theme01primaryColor.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: AppColors.whiteColor, size: 16),
+              const SizedBox(width: 5),
+              Text(
+                label,
+                style: const TextStyle(
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

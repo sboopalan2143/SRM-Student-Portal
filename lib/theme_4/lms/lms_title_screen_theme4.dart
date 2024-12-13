@@ -11,11 +11,10 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_Faculty_comment_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme_4/lms/lms_classwork_detail_theme4.dart';
 import 'package:sample/theme_4/lms/lms_comment_screen_theme4.dart';
+import 'package:sample/theme_4/lms/lms_faculty_comment_theme4.dart';
 
 class LmsTitlePageTheme4 extends ConsumerStatefulWidget {
   const LmsTitlePageTheme4({
@@ -83,12 +82,18 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
@@ -97,12 +102,6 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                         ref.read(encryptionProvider.notifier),
                       );
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   RouteDesign(
-                  //     route: const HomePage2(),
-                  //   ),
-                  // );
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios_new,
@@ -377,7 +376,7 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: LmsClassworkDetailPage(
+                              route: LmsClassworkDetailPageTheme4(
                                 classworkID:
                                     '${provider.lmsTitleData[index].classworkid}',
                               ),
@@ -386,7 +385,7 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.primaryColorTheme3,
+                            color: AppColors.theme4color2,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Column(
@@ -424,7 +423,7 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppColors.primaryColorTheme3,
+                                color: AppColors.theme4color2,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: const Column(
@@ -455,7 +454,7 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                                 Navigator.push(
                                   context,
                                   RouteDesign(
-                                    route: LmsFacultyCommentScreen(
+                                    route: LmsFacultyCommentScreen4(
                                       classworkID:
                                           '${provider.lmsTitleData[index].classworkid}',
                                       // studentclassworkcommentid:
@@ -466,7 +465,7 @@ class _LmsTitlePageTheme4State extends ConsumerState<LmsTitlePageTheme4> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: AppColors.primaryColorTheme3,
+                                  color: AppColors.theme4color2,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: const Column(

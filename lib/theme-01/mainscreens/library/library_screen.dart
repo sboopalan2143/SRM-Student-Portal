@@ -47,9 +47,14 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(libraryProvider.notifier).getLibraryMemberDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
+      },
+    );
   }
 
   @override

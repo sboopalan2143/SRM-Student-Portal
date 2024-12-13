@@ -234,18 +234,20 @@ class _CalendarPageTheme4State extends ConsumerState<CalendarPageTheme4> {
                                   : AppColors.grey,
                             )),
                         const SizedBox(width: 20),
-                        Text(
-                          '${provider.calendarHiveData[index].day}' == ''
-                              ? '-'
-                              : '${provider.calendarHiveData[index].day}',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: provider.calendarHiveData[index]
-                                        .holidaystatus ==
-                                    '0'
-                                ? AppColors.whiteColor
-                                : AppColors.grey,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            '${provider.calendarHiveData[index].day}' == ''
+                                ? '-'
+                                : '${provider.calendarHiveData[index].day}',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: provider.calendarHiveData[index]
+                                          .holidaystatus ==
+                                      '0'
+                                  ? AppColors.whiteColor
+                                  : AppColors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

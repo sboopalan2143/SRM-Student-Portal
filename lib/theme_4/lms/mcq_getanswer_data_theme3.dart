@@ -11,16 +11,16 @@ import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exa
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
-class McqGetAnswerPageTheme3 extends ConsumerStatefulWidget {
-  const McqGetAnswerPageTheme3({super.key});
+class McqGetAnswerPageTheme4 extends ConsumerStatefulWidget {
+  const McqGetAnswerPageTheme4({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _McqGetAnswerPageTheme3State();
+      _McqGetAnswerPageTheme4State();
 }
 
-class _McqGetAnswerPageTheme3State
-    extends ConsumerState<McqGetAnswerPageTheme3> {
+class _McqGetAnswerPageTheme4State
+    extends ConsumerState<McqGetAnswerPageTheme4> {
   final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,16 +71,25 @@ class _McqGetAnswerPageTheme3State
         preferredSize: const Size.fromHeight(60),
         child: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColorTheme3,
-              colorBlendMode: BlendMode.srcOut,
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return AppColors.primaryColorTheme4.createShader(bounds);
+              },
+              blendMode: BlendMode.srcIn,
+              child: SvgPicture.asset(
+                'assets/images/wave.svg',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                color: AppColors.whiteColor,
+                colorBlendMode: BlendMode.srcOut,
+              ),
             ),
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
                 },
                 icon: const Icon(

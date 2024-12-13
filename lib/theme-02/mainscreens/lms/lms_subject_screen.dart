@@ -32,8 +32,8 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+      (_) async {
+        await ref.read(lmsProvider.notifier).getLmsSubgetDetails(
               ref.read(encryptionProvider.notifier),
             );
       },
@@ -46,11 +46,13 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsSubgetDetails(
-            ref.read(encryptionProvider.notifier),
-          );
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
   }
 
   @override
@@ -134,22 +136,22 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
                       child: CircularProgressIndicators
-                          .theme02primaryColorProgressIndication,
+                          .primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.lmsSubjectData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                    provider is! LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
+                          'No List Added',
                           style: TextStyles.fontStyle1,
                         ),
                       ),

@@ -183,7 +183,6 @@ class Theme01LmsStudentAttachmentDetailsDataPageState
     );
   }
 
-
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);

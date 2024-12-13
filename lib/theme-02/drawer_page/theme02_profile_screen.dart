@@ -65,7 +65,6 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-
       body: LiquidPullToRefresh(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
@@ -495,27 +494,27 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 50,
-                                    child: Icon(Icons.sync, size: 25),
-                                  ),
-                                  Text(
-                                    'Last Updated : ',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color:
-                                          AppColors.blackColor.withOpacity(0.7),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 10),
+                            //   child: Row(
+                            //     children: [
+                            //       const SizedBox(
+                            //         width: 50,
+                            //         child: Icon(Icons.sync, size: 25),
+                            //       ),
+                            //       Text(
+                            //         'Last Updated : ',
+                            //         style: TextStyle(
+                            //           fontSize: 16,
+                            //           color:
+                            //               AppColors.blackColor.withOpacity(0.7),
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             SizedBox(
                               height: height * 0.05,
                             ),

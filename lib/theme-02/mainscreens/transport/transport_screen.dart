@@ -51,8 +51,13 @@ class _Theme02TransportTransactionPageState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(transportProvider.notifier).getTransportStatusDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+      await ref
+          .read(transportProvider.notifier)
+          .getTransportStatusHiveDetails('');
     });
   }
 

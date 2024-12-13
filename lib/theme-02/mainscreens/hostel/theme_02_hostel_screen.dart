@@ -250,8 +250,8 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
                   ),
                 ],
               ),
-              collapsedIconColor: AppColors.theme01primaryColor,
-              iconColor: AppColors.theme01primaryColor,
+              collapsedIconColor: AppColors.whiteColor,
+              iconColor: AppColors.whiteColor,
               children: [
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(

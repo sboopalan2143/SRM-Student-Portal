@@ -16,6 +16,7 @@ import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.da
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme_3/lms/lms_classwork_detail_theme3.dart';
 import 'package:sample/theme_3/lms/lms_comment_screen_theme3.dart';
+import 'package:sample/theme_3/lms/lms_faculty_comment_theme3.dart';
 
 class LmsTitlePageTheme3 extends ConsumerStatefulWidget {
   const LmsTitlePageTheme3({
@@ -377,7 +378,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
                           Navigator.push(
                             context,
                             RouteDesign(
-                              route: LmsClassworkDetailPage(
+                              route: LmsClassworkDetailPageTheme3(
                                 classworkID:
                                     '${provider.lmsTitleData[index].classworkid}',
                               ),
@@ -455,7 +456,7 @@ class _LmsTitlePageTheme3State extends ConsumerState<LmsTitlePageTheme3> {
                                 Navigator.push(
                                   context,
                                   RouteDesign(
-                                    route: LmsFacultyCommentScreen(
+                                    route: LmsFacultyCommentScreen03(
                                       classworkID:
                                           '${provider.lmsTitleData[index].classworkid}',
                                       // studentclassworkcommentid:

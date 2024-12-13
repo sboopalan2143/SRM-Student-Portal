@@ -95,7 +95,16 @@ class _LmsClassworkDetailPageTheme3State
             AppBar(
               leading: IconButton(
                 onPressed: () {
+                  ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                        ref.read(encryptionProvider.notifier),
+                      );
                   Navigator.pop(context);
+                  // Navigator.push(
+                  //   context,
+                  //   RouteDesign(
+                  //     route: const HomePage2(),
+                  //   ),
+                  // );
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios_new,

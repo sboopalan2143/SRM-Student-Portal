@@ -49,11 +49,18 @@ class _FeesPageTheme3State extends ConsumerState<FeesPageTheme3> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(feesProvider.notifier).getHiveFeesDetails('');
-
-      ref.read(feesProvider.notifier).getHiveFinanceDetails('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(feesProvider.notifier)
+            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+        await ref
+            .read(feesProvider.notifier)
+            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFinanceDetails('');
+      },
+    );
   }
 
   @override
@@ -243,7 +250,7 @@ class _FeesPageTheme3State extends ConsumerState<FeesPageTheme3> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
@@ -253,7 +260,7 @@ class _FeesPageTheme3State extends ConsumerState<FeesPageTheme3> {
               ),
               const SizedBox(width: 5),
               SizedBox(
-                width: width / 2.5 + 25,
+                // width: width / 2.5 + 25,
                 child: Text(
                   '${provider.feesDetailsHiveData[index].duename}' == ''
                       ? '-'
@@ -266,8 +273,10 @@ class _FeesPageTheme3State extends ConsumerState<FeesPageTheme3> {
                   textAlign: TextAlign.left,
                 ),
               ),
+              const SizedBox(
+                width: 30,
+              ),
               SizedBox(
-                width: width / 5,
                 child: Text(
                   '${provider.feesDetailsHiveData[index].duedescription}' == ''
                       ? '-'
@@ -283,8 +292,8 @@ class _FeesPageTheme3State extends ConsumerState<FeesPageTheme3> {
             ],
           ),
           // const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [

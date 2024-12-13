@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
+import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
 import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
@@ -42,6 +43,8 @@ class ButtonDesign {
 
         if (text == 'Submit') {
           final provider = ref.watch(grievanceProvider);
+          final watchprovider = ref.watch(changePasswordProvider);
+
           if (provider.subject.text == '') {
             Alerts.errorAlert(
               message: 'subject cannot be empty',
@@ -76,6 +79,23 @@ class ButtonDesign {
             await ref
                 .read(grievanceProvider.notifier)
                 .saveGrievanceDetails(ref.read(encryptionProvider.notifier));
+          }
+
+          if (watchprovider.confirmPassword.text == '') {
+            Alerts.errorAlert(
+              message: 'confirmPassword cannot be empty',
+              context: context,
+            );
+          } else if (watchprovider.currentPassword.text == '') {
+            Alerts.errorAlert(
+              message: 'currentPassword  cannot be empty',
+              context: context,
+            );
+          } else if (watchprovider.newPassword.text == '') {
+            Alerts.errorAlert(
+              message: 'newPassword  cannot be empty',
+              context: context,
+            );
           }
         }
       },

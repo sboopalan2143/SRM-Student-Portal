@@ -37,10 +37,10 @@ import 'package:sample/theme-02/mainscreens/academics/subject.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
 import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
 import 'package:sample/theme-02/mainscreens/grievances/grievances_screen.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_screen.dart';
+import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
 import 'package:sample/theme-02/mainscreens/library/library_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
-import 'package:sample/theme-02/mainscreens/transport/transport_screen.dart';
+import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 
 class Theme02Homepage extends ConsumerStatefulWidget {
   const Theme02Homepage({super.key});
@@ -221,34 +221,37 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    // final provider = ref.watch(transportProvider);
+    // log(provider.transportAfterRegisterDetails!.regconfig)
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.theme02primaryColor,
-                  AppColors.theme02secondaryColor1,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: const Text(
-                'Home',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -634,7 +637,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02HostelPage(),
+                        route: const Theme02RegistrationPage(),
                       ),
                     );
                   },
@@ -894,6 +897,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
               ],
             ),
             const SizedBox(height: 20),
+            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -902,7 +906,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02TransportTransactionPage(),
+                        route: const Theme02TransportRegisterPage(),
                       ),
                     );
                   },

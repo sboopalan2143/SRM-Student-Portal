@@ -123,7 +123,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                       ),
                       IconButton(
                         onPressed: () {
-                          scaffoldKey.currentState?.openEndDrawer();
+                          // scaffoldKey.currentState?.openEndDrawer();
                         },
                         icon: const Icon(
                           Icons.menu,

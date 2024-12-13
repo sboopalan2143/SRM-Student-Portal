@@ -48,11 +48,18 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(feesProvider.notifier).getHiveFeesDetails('');
-
-      ref.read(feesProvider.notifier).getHiveFinanceDetails('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(feesProvider.notifier)
+            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+        await ref
+            .read(feesProvider.notifier)
+            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFinanceDetails('');
+      },
+    );
   }
 
   @override
@@ -253,7 +260,6 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Icon(
@@ -263,7 +269,7 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
               ),
               const SizedBox(width: 5),
               SizedBox(
-                width: width / 2.5 + 25,
+                // width: width / 2.5 + 25,
                 child: Text(
                   '${provider.feesDetailsHiveData[index].duename}' == ''
                       ? '-'
@@ -276,8 +282,11 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                   textAlign: TextAlign.left,
                 ),
               ),
+              const SizedBox(
+                width: 30,
+              ),
               SizedBox(
-                width: width / 5,
+                // width: width / 5,
                 child: Text(
                   '${provider.feesDetailsHiveData[index].duedescription}' == ''
                       ? '-'
@@ -292,15 +301,15 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
               ),
             ],
           ),
-          // const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(height: 15),
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   const Icon(
                     Icons.money,
-                    color: AppColors.whiteColor,
+                    color: AppColors.theme4color2,
                     size: 25,
                   ),
                   const SizedBox(width: 15),
@@ -317,6 +326,7 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                   ),
                 ],
               ),
+              const SizedBox(height: 15),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

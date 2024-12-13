@@ -108,6 +108,16 @@ class _Theme02GrievanceEntryPageState
           ),
           leading: IconButton(
             onPressed: () {
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                await ref
+                    .read(grievanceProvider.notifier)
+                    .getStudentWiseGrievanceDetails(
+                      ref.read(encryptionProvider.notifier),
+                    );
+                await ref
+                    .read(grievanceProvider.notifier)
+                    .getHiveGrievanceDetails('');
+              });
               Navigator.pop(
                 context,
               );

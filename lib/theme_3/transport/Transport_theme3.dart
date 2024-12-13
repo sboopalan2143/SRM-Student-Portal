@@ -30,10 +30,7 @@ class _TransportTransactionPageTheme3State
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-      
-       
-      },
+      (_) async {},
     );
 
     final completer = Completer<void>();

@@ -49,11 +49,18 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(feesProvider.notifier).getHiveFeesDetails('');
-
-      ref.read(feesProvider.notifier).getHiveFinanceDetails('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(feesProvider.notifier)
+            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+        await ref
+            .read(feesProvider.notifier)
+            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getHiveFinanceDetails('');
+      },
+    );
   }
 
   @override

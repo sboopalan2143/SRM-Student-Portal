@@ -258,8 +258,11 @@ class _CumulativeAttendancePageTheme4State
                   ],
                 ),
               ),
+              const SizedBox(
+                width: 5,
+              ),
               SizedBox(
-                width: width / 5,
+                // width: width / 5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

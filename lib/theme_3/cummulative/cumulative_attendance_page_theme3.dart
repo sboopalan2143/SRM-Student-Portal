@@ -224,7 +224,6 @@ class _CumulativeAttendancePageTheme3State
                 ),
               ),
               SizedBox(
-                width: width / 5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -249,8 +248,10 @@ class _CumulativeAttendancePageTheme3State
                   ],
                 ),
               ),
+              const SizedBox(
+                width: 10,
+              ),
               SizedBox(
-                width: width / 5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

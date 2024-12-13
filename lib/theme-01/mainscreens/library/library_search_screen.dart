@@ -4,7 +4,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/library/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
@@ -58,15 +57,6 @@ class _Theme01ViewLibraryPageState
               colorBlendMode: BlendMode.srcOut,
             ),
             AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
               backgroundColor: AppColors.theme01secondaryColor4,
               elevation: 0,
               title: Text(
@@ -183,7 +173,6 @@ class _Theme01ViewLibraryPageState
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

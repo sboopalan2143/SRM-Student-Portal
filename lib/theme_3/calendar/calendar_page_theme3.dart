@@ -48,9 +48,14 @@ class _CalendarPageTheme3State extends ConsumerState<CalendarPageTheme3> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(calendarProvider.notifier).getHiveCalendar('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(calendarProvider.notifier)
+            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getHiveCalendar('');
+      },
+    );
   }
 
   @override
@@ -215,18 +220,20 @@ class _CalendarPageTheme3State extends ConsumerState<CalendarPageTheme3> {
                                   : AppColors.grey,
                             )),
                         const SizedBox(width: 20),
-                        Text(
-                          '${provider.calendarHiveData[index].day}' == ''
-                              ? '-'
-                              : '${provider.calendarHiveData[index].day}',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: provider.calendarHiveData[index]
-                                        .holidaystatus ==
-                                    '0'
-                                ? AppColors.whiteColor
-                                : AppColors.grey,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            '${provider.calendarHiveData[index].day}' == ''
+                                ? '-'
+                                : '${provider.calendarHiveData[index].day}',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: provider.calendarHiveData[index]
+                                          .holidaystatus ==
+                                      '0'
+                                  ? AppColors.whiteColor
+                                  : AppColors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

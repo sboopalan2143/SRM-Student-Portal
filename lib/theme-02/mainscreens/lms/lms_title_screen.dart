@@ -39,8 +39,8 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(lmsProvider.notifier).getLmsTitleDetails(
+      (_) async {
+        await ref.read(lmsProvider.notifier).getLmsTitleDetails(
               ref.read(encryptionProvider.notifier),
               widget.subjectID,
             );
@@ -54,8 +54,8 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(lmsProvider.notifier).getLmsTitleDetails(
             ref.read(encryptionProvider.notifier),
             widget.subjectID,
           );
@@ -93,9 +93,10 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
           ),
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(
-                context,
-              );
+              ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+                    ref.read(encryptionProvider.notifier),
+                  );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -144,26 +145,26 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.lmsTitleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                if (provider is LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      const Padding(
+                        padding: EdgeInsets.only(top: 100),
+                        child: Center(
+                          child: Text(
+                            'No List Added',
+                            style: TextStyles.fontStyle1,
+                          ),
                         ),
                       ),
                     ],
+                  )
+                else if (provider.lmsTitleData.isEmpty &&
+                    provider is! LmsStateLoading)
+                  Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
                 if (provider.lmsTitleData.isNotEmpty)
                   ListView.builder(
@@ -176,6 +177,43 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                   ),
               ],
             ),
+
+            //  Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     const SizedBox(height: 20),
+            //     if (provider is LibraryTrancsactionStateLoading)
+            //       Padding(
+            //         padding: const EdgeInsets.only(top: 100),
+            //         child: Center(
+            //           child: CircularProgressIndicators
+            //               .primaryColorProgressIndication,
+            //         ),
+            //       )
+            //     else if (provider.lmsTitleData.isEmpty &&
+            //         provider is! LibraryTrancsactionStateLoading)
+            //       Column(
+            //         children: [
+            //           SizedBox(height: MediaQuery.of(context).size.height / 5),
+            //           const Center(
+            //             child: Text(
+            //               'No List Added Yet!',
+            //               style: TextStyles.fontStyle1,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     if (provider.lmsTitleData.isNotEmpty)
+            //       ListView.builder(
+            //         itemCount: provider.lmsTitleData.length,
+            //         controller: _listController,
+            //         shrinkWrap: true,
+            //         itemBuilder: (BuildContext context, int index) {
+            //           return cardDesign(index);
+            //         },
+            //       ),
+            //   ],
+            // ),
           ),
         ),
       ),

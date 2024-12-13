@@ -97,10 +97,6 @@ class Theme02LmsStudentAttachmentDetailsDataPageState
           ),
           leading: IconButton(
             onPressed: () {
-              ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
-                    ref.read(encryptionProvider.notifier),
-                    widget.classworkreplyid,
-                  );
               Navigator.pop(context);
             },
             icon: const Icon(

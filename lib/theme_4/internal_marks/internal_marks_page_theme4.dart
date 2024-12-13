@@ -226,7 +226,6 @@ class _InternalMarksPageTheme4State
                     ),
                   ),
                   SizedBox(
-                    width: width / 5,
                     child: Text(
                       '${provider.internalMarkHiveData[index].sumofmarks}' == ''
                           ? '-'

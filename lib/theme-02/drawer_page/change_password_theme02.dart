@@ -18,15 +18,15 @@ import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 
-class Theme01ChangePasswordPage extends ConsumerStatefulWidget {
-  const Theme01ChangePasswordPage({super.key});
+class Theme02ChangePasswordPage extends ConsumerStatefulWidget {
+  const Theme02ChangePasswordPage({super.key});
 
   @override
-  ConsumerState createState() => _Theme01ChangePasswordPageState();
+  ConsumerState createState() => _Theme02ChangePasswordPageState();
 }
 
-class _Theme01ChangePasswordPageState
-    extends ConsumerState<Theme01ChangePasswordPage>
+class _Theme02ChangePasswordPageState
+    extends ConsumerState<Theme02ChangePasswordPage>
     with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -84,7 +84,7 @@ class _Theme01ChangePasswordPageState
       });
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: AppColors.theme01secondaryColor4,
+      backgroundColor: AppColors.whiteColor,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -98,54 +98,103 @@ class _Theme01ChangePasswordPageState
         ),
         child: Stack(
           children: [
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: const Theme01Homepage(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.theme01primaryColor,
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Text(
-                'CHANGE PASSWORD',
-                style: TextStyles.fontStyle01theme,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await ref.read(profileProvider.notifier).getProfileApi(
-                              ref.read(
-                                encryptionProvider.notifier,
-                              ),
-                            );
-                        await ref
-                            .read(profileProvider.notifier)
-                            .getProfileHive('');
-                      },
-                      child: Icon(
-                        Icons.refresh,
-                        color: AppColors.theme01primaryColor,
+            // AppBar(
+            //   flexibleSpace: Container(
+            //     decoration: BoxDecoration(
+            //       gradient: LinearGradient(
+            //         colors: [
+            //           AppColors.theme02primaryColor,
+            //           AppColors.theme02secondaryColor1,
+            //         ],
+            //         begin: Alignment.topRight,
+            //         end: Alignment.center,
+            //       ),
+            //     ),
+            //   ),
+            //   leading: IconButton(
+            //     onPressed: () {
+            //       Navigator.pop(
+            //         context,
+            //       );
+            //     },
+            //     icon: const Icon(
+            //       Icons.arrow_back_ios_new,
+            //       color: AppColors.whiteColor,
+            //     ),
+            //   ),
+            //   backgroundColor: Colors.transparent,
+            //   elevation: 0,
+            //   title: const Text(
+            //     'CHANGE PASSWORD',
+            //     style: TextStyles.fontStyle4,
+            //     overflow: TextOverflow.clip,
+            //   ),
+            //   centerTitle: true,
+            //   actions: [
+            //     Row(
+            //       children: [
+            //         GestureDetector(
+            //           onTap: () async {
+            //             await ref.read(profileProvider.notifier).getProfileApi(
+            //                   ref.read(
+            //                     encryptionProvider.notifier,
+            //                   ),
+            //                 );
+            //             await ref
+            //                 .read(profileProvider.notifier)
+            //                 .getProfileHive('');
+            //           },
+            //           child: const Icon(
+            //             Icons.refresh,
+            //             color: AppColors.whiteColor,
+            //           ),
+            //         ),
+            //         const SizedBox(
+            //           width: 15,
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            PreferredSize(
+              preferredSize: const Size.fromHeight(60),
+              child: Stack(
+                children: [
+                  AppBar(
+                    flexibleSpace: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.theme02primaryColor,
+                            AppColors.theme02secondaryColor1,
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.center,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 15,
+                    leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(
+                          context,
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: AppColors.whiteColor,
+                      ),
                     ),
-                  ],
-                ),
-              ],
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    title: const Text(
+                      'Change password',
+                      style: TextStyles.fontStyle4,
+                      overflow: TextOverflow.clip,
+                    ),
+                    centerTitle: true,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -158,8 +207,8 @@ class _Theme01ChangePasswordPageState
                       const SizedBox(height: 120),
                       SizedBox(
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme01primaryColor,
+                          decoration: const BoxDecoration(
+                            color: AppColors.whiteColor,
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -180,8 +229,8 @@ class _Theme01ChangePasswordPageState
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          'Current Password',
-                                          style: TextStyles.fontStyletheme2,
+                                          'Enter Current Password',
+                                          style: TextStyles.fontStyle2,
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -223,8 +272,8 @@ class _Theme01ChangePasswordPageState
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          'New Password',
-                                          style: TextStyles.fontStyletheme2,
+                                          'Enter New Password',
+                                          style: TextStyles.fontStyle2,
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -264,8 +313,8 @@ class _Theme01ChangePasswordPageState
                                           CrossAxisAlignment.start,
                                       children: [
                                         const Text(
-                                          'Confirm Password',
-                                          style: TextStyles.fontStyletheme2,
+                                          'Enter Confirm Password',
+                                          style: TextStyles.fontStyle2,
                                         ),
                                         const SizedBox(
                                           height: 5,

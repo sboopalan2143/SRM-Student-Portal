@@ -7,6 +7,7 @@ import 'package:sample/home/drawer_pages/change_password/riverpod/change_passwor
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
 import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
+import 'package:sample/theme-06/mainscreens/grievances/grievance_entry_screen.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;
 
@@ -36,7 +37,7 @@ class ButtonDesign {
           await Navigator.push(
             context,
             RouteDesign(
-              route: const Theme02GrievanceEntryPage(),
+              route: const Theme06GrievanceEntryPage(),
             ),
           );
         }

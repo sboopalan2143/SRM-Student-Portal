@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
+import 'package:sample/theme-06/theme06_homepage.dart';
+import 'package:sample/theme-06/theme_06_bottom_navigation_page.dart';
 import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_4/bottom_navigation_page_theme4.dart';
 
@@ -155,6 +158,42 @@ class _Theme02PageState extends ConsumerState<Theme02Page> {
                         },
                         child: Image.asset(
                           'assets/images/unselectedtheme04.png',
+                          width: 150,
+                          height: 250,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          await TokensManagement.setTheme(
+                            selectedTheme: 'Theme5',
+                          );
+                          await Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: const HomePage2(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          'assets/images/unselectedtheme05.png',
+                          width: 150,
+                          height: 250,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          await TokensManagement.setTheme(
+                            selectedTheme: 'Theme6',
+                          );
+                          await Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: const Theme06MainScreenPage(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          'assets/images/unselectedtheme02.png',
                           width: 150,
                           height: 250,
                         ),

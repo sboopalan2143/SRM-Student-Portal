@@ -22,7 +22,6 @@ class _MainScreenPageState extends ConsumerState<MainScreenPage> {
   final pages = const [
     HomePageTheme3(),
     Theme03settingPage(),
-    ProfilePageTheme3(),
     Theme03Page(),
   ];
 
@@ -49,12 +48,8 @@ class _MainScreenPageState extends ConsumerState<MainScreenPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Profile',
+            icon: Icon(Icons.dashboard),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phonelink_setup_outlined),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
-import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
-import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
 import 'package:sample/theme-01/setting_page.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
@@ -20,7 +18,6 @@ class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
   final pages = const [
     Theme01Homepage(),
     Theme01settingPage(),
-    Theme01ProfilePage(),
     Theme01Page(),
   ];
   @override
@@ -30,9 +27,9 @@ class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: myCurrentIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.theme01primaryColor,
-        selectedItemColor: AppColors.theme01secondaryColor1,
-        unselectedItemColor: AppColors.whiteColor,
+        backgroundColor: AppColors.theme01secondaryColor4,
+        selectedItemColor: AppColors.theme02buttonColor1,
+        unselectedItemColor: AppColors.theme01primaryColor,
         iconSize: 25,
         onTap: (index) {
           setState(() {
@@ -46,12 +43,8 @@ class _Theme01MainScreenPageState extends ConsumerState<Theme01MainScreenPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Profile',
+            icon: Icon(Icons.dashboard),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phonelink_setup_outlined),

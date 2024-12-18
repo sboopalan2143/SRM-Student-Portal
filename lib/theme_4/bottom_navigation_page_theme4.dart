@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
-import 'package:sample/theme_4/change_password_page_theme4.dart';
 import 'package:sample/theme_4/home_screen_theme4.dart';
 import 'package:sample/theme_4/profile_page_theme4.dart';
 import 'package:sample/theme_4/theme_04_selectedtheme_page.dart';
@@ -21,7 +20,6 @@ class _MainScreenPage4State extends ConsumerState<MainScreenPage4> {
   final pages = const [
     HomePageTheme4(),
     Theme04settingPage(),
-    ProfilePageTheme4(),
     ThemePageTheme4(),
   ];
 
@@ -47,12 +45,8 @@ class _MainScreenPage4State extends ConsumerState<MainScreenPage4> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Profile',
+            icon: Icon(Icons.dashboard),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phonelink_setup_outlined),

@@ -13,6 +13,7 @@ import 'package:sample/firebase_options.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/route/route_builder.dart';
 import 'package:sample/route/route_names.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await TokensManagement.getStudentId();
@@ -66,7 +67,6 @@ class _InitialState extends ConsumerState<Initial> {
       // home: TokensManagement.authToken == ''
       //     ? const LoginPage()
       //     : const HomePage(),
-      
     );
   }
 }

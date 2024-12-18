@@ -134,6 +134,12 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle loginfontStyle1 = TextStyle(
+    fontSize: 18,
+    color: AppColors.theme02primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static const fontStyle2 = TextStyle(
     fontSize: 14,
     color: AppColors.grey,

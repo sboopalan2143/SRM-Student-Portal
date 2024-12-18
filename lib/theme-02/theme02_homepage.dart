@@ -26,8 +26,12 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
+import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
+import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/exam_details.dart';
@@ -297,7 +301,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/examdetailstheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Exam Details',
@@ -347,7 +351,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/subjectstheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Subjects',
@@ -453,7 +457,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/hourattendancetheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Hour Attendance',
@@ -510,7 +514,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/cumulativeattendancetheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Cumulative Attendance',
@@ -561,7 +565,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/attendancetheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Attendance',
@@ -617,7 +621,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/lmstheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'LMS',
@@ -668,7 +672,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/hosteltheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Hostel',
@@ -724,7 +728,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/feestheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Fees',
@@ -775,7 +779,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/grievancestheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Grievances',
@@ -880,7 +884,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                         SvgPicture.asset(
                           'assets/images/librarytheme3.svg',
                           color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 12,
+                          height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
                           'Library',
@@ -952,13 +956,177 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     ),
                   ),
                 ),
-                Container(
-                  height: 160,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  padding: const EdgeInsets.all(15),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const Theme02ChangePasswordPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.password,
+                          size: MediaQuery.of(context).size.height / 12,
+                          color: AppColors.whiteColor,
+                        ),
+                        const Text(
+                          'Change Password',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
+                // Container(
+                //   height: 160,
+                //   width: MediaQuery.of(context).size.width / 2.5,
+                //   padding: const EdgeInsets.all(15),
+                // ),
               ],
             ),
+            const SizedBox(height: 20),
+            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const Theme02ProfilePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          size: MediaQuery.of(context).size.height / 12,
+                          color: AppColors.whiteColor,
+                        ),
+                        const Text(
+                          'Profile',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    ref.read(mainProvider.notifier).setNavString('Logout');
+                    TokensManagement.clearSharedPreference();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      RouteDesign(
+                        route: const Theme02LoginScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          size: MediaQuery.of(context).size.height / 12,
+                          color: AppColors.whiteColor,
+                        ),
+                        const Text(
+                          'Logout',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Container(
+                //   height: 160,
+                //   width: MediaQuery.of(context).size.width / 2.5,
+                //   padding: const EdgeInsets.all(15),
+                // ),
+              ],
+            ),
+
+            const SizedBox(height: 20),
           ],
         ),
       ),

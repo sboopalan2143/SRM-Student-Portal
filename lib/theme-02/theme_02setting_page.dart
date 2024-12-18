@@ -221,7 +221,7 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       RouteDesign(
-                                          route: const Theme02LoginScreen()),
+                                          route: const Theme02LoginScreen(),),
                                       (route) => false,
                                     );
                                   },

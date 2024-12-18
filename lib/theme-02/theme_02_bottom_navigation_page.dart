@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
-import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/theme02_homepage.dart';
 import 'package:sample/theme-02/theme_02_selectedtheme_page.dart';
 import 'package:sample/theme-02/theme_02setting_page.dart';
@@ -18,7 +17,6 @@ class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
   final pages = const [
     Theme02Homepage(),
     Theme02settingPage(),
-    Theme02ProfilePage(),
     Theme02Page(),
   ];
   @override
@@ -43,13 +41,13 @@ class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Settings',
+            icon: Icon(Icons.dashboard_sharp),
+            label: 'Explore',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Profile',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.person_2_outlined),
+          //   label: 'Profile',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.phonelink_setup_outlined),
             label: 'Theme',

@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
 import 'package:sample/home/riverpod/main_state.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/login/screen/login_Page2.dart';
 import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
 import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
+import 'package:sample/theme-02/login/theme02_login_screen.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
   const DrawerDesign({super.key});
@@ -29,7 +33,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.64,
       child: Drawer(
-        backgroundColor: AppColors.theme01primaryColor,
+        backgroundColor: AppColors.secondaryColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -39,8 +43,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.theme01secondaryColor3, // Start color
-                      AppColors.theme01secondaryColor2, // End color
+                      AppColors.primaryColor,
+                      AppColors.primaryColor,
                     ],
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -77,7 +81,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                         TokensManagement.studentName == ''
                             ? '-'
                             : TokensManagement.studentName,
-                        style: TextStyles.buttonStyle01theme,
+                        style: TextStyles.fontStyle3,
                       ),
                     ],
                   ),
@@ -89,7 +93,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Home',
-                    style: TextStyles.fontStyle3,
+                    style: TextStyles.smallerBlackColorFontStyle,
                   ),
                 ],
               ),
@@ -97,18 +101,37 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    // route: const HomePage2(),
-                    route: const Theme01Homepage(),
+                    route: const HomePage2(),
+                    // route: const Theme01Homepage(),
                   ),
                 );
               },
             ), //
+              ListTile(
+              title: const Row(
+                children: [
+                  Text(
+                    'Explore',
+                    style: TextStyles.smallerBlackColorFontStyle,
+                  ),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const HomePage2(),
+                    // route: const Theme01Homepage(),
+                  ),
+                );
+              },
+            ), 
             ListTile(
               title: const Row(
                 children: [
                   Text(
                     'Profile',
-                    style: TextStyles.fontStyle3,
+                    style: TextStyles.smallerBlackColorFontStyle,
                   ),
                 ],
               ),
@@ -116,8 +139,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    // route: const ProfilePage(),
-                    route: const Theme01ProfilePage(),
+                    route: const ProfilePage(),
+                    // route: const Theme01ProfilePage(),
                   ),
                 );
               },
@@ -127,7 +150,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Theme',
-                    style: TextStyles.fontStyle3,
+                    style: TextStyles.smallerBlackColorFontStyle,
                   ),
                 ],
               ),
@@ -135,7 +158,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const ThemePage(),
+                    route: const Theme05Page(),
                   ),
                 );
               },
@@ -146,7 +169,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Change Password',
-                    style: TextStyles.fontStyle3,
+                    style: TextStyles.smallerBlackColorFontStyle,
                   ),
                 ],
               ),
@@ -154,8 +177,8 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    // route: const ChangePassword(),
-                    route: const Theme01ChangePasswordPage(),
+                    route: const ChangePassword(),
+                    // route: const Theme01ChangePasswordPage(),
                   ),
                 );
               },
@@ -166,7 +189,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
             //     children: [
             //       Text(
             //         'Terms & Conditions',
-            //         style: TextStyles.fontStyle3,
+            //         style: TextStyles.smallerBlackColorFontStyle,
             //       ),
             //     ],
             //   ),
@@ -183,7 +206,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 children: [
                   Text(
                     'Logout',
-                    style: TextStyles.fontStyle3,
+                    style: TextStyles.smallerBlackColorFontStyle,
                   ),
                 ],
               ),
@@ -192,7 +215,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 TokensManagement.clearSharedPreference();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  RouteDesign(route: const LoginPage2()),
+                  RouteDesign(route: const Theme02LoginScreen()),
                   (route) => false,
                 );
                 // log('${}}');

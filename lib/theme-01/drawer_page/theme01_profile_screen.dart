@@ -148,39 +148,81 @@ class _Theme01ProfilePageState extends ConsumerState<Theme01ProfilePage> {
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.end,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        await ref
-                                                            .read(
-                                                              profileProvider
-                                                                  .notifier,
-                                                            )
-                                                            .getProfileApi(
-                                                              ref.read(
-                                                                encryptionProvider
-                                                                    .notifier,
+                                                    Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                Navigator.pop(
+                                                                  context,
+                                                                );
+                                                              },
+                                                              child: const Icon(
+                                                                Icons
+                                                                    .arrow_back_ios_sharp,
+                                                                color: AppColors
+                                                                    .whiteColor,
+                                                                size: 30,
                                                               ),
-                                                            );
-                                                        await ref
-                                                            .read(
-                                                              profileProvider
-                                                                  .notifier,
-                                                            )
-                                                            .getProfileHive(
-                                                              '',
-                                                            );
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.refresh,
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        size: 30,
-                                                      ),
+                                                            ),
+                                                            SizedBox(
+                                                              width:
+                                                                  width * 0.03,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      width: width * 0.03,
+                                                    Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                await ref
+                                                                    .read(
+                                                                      profileProvider
+                                                                          .notifier,
+                                                                    )
+                                                                    .getProfileApi(
+                                                                      ref.read(
+                                                                        encryptionProvider
+                                                                            .notifier,
+                                                                      ),
+                                                                    );
+                                                                await ref
+                                                                    .read(
+                                                                      profileProvider
+                                                                          .notifier,
+                                                                    )
+                                                                    .getProfileHive(
+                                                                      '',
+                                                                    );
+                                                              },
+                                                              child: const Icon(
+                                                                Icons.refresh,
+                                                                color: AppColors
+                                                                    .whiteColor,
+                                                                size: 30,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width:
+                                                                  width * 0.03,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),

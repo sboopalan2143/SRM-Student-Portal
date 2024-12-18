@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
+import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/route/route_names.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
+import 'package:sample/theme-06/theme_06_bottom_navigation_page.dart';
 import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_4/bottom_navigation_page_theme4.dart';
 // import 'package:sample/theme-01/bottom_navigation_page.dart';
@@ -14,6 +16,7 @@ class RouteBuilder {
     /// Login Page
     // Routes.login: (_) => const LoginPage2(),
     // if (TokensManagement.storedselectedTheme == 'Theme1')
+
     Routes.login: (_) => const Theme02LoginScreen(),
 
     // if (TokensManagement.storedselectedTheme == 'Theme2')
@@ -38,6 +41,12 @@ class RouteBuilder {
 
     if (TokensManagement.storedselectedTheme == 'Theme4')
       Routes.home: (_) => const MainScreenPage4(),
+
+    if (TokensManagement.storedselectedTheme == 'Theme5')
+      Routes.home: (_) => const HomePage2(),
+
+    if (TokensManagement.storedselectedTheme == 'Theme6')
+      Routes.home: (_) => const Theme06MainScreenPage(),
 
     /// Profile Page
     // Routes.profile: (_) => const ProfilePage(),

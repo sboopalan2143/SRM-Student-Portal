@@ -28,11 +28,14 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme_4/attendance/attendance_page_theme4.dart';
 import 'package:sample/theme_4/calendar/calendar_page_theme4.dart';
+import 'package:sample/theme_4/change_password_page_theme4.dart';
 import 'package:sample/theme_4/cummulative/cumulative_attendance_page_theme4.dart';
 import 'package:sample/theme_4/exam/exam_details_page_theme4.dart';
 import 'package:sample/theme_4/fees/fees_page_theme4.dart';
@@ -42,6 +45,7 @@ import 'package:sample/theme_4/hourwise_attendance/hour_wise_attendance_theme4.d
 import 'package:sample/theme_4/internal_marks/internal_marks_page_theme4.dart';
 import 'package:sample/theme_4/library/library_page_theme4.dart';
 import 'package:sample/theme_4/lms/lms_home_screen_theme4.dart';
+import 'package:sample/theme_4/profile_page_theme4.dart';
 import 'package:sample/theme_4/subjects/subjects_page_theme4.dart';
 import 'package:sample/theme_4/transport/transport_register_theme4.dart';
 
@@ -254,47 +258,48 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
         }
       });
     return Scaffold(
-        backgroundColor: AppColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Stack(children: [
-            ShaderMask(
-              shaderCallback: (Rect bounds) {
-                return AppColors.primaryColorTheme4.createShader(bounds);
-              },
-              blendMode: BlendMode.srcIn,
-              child: SvgPicture.asset(
-                'assets/images/wave.svg',
-                fit: BoxFit.fill,
-                width: double.infinity,
-                color: AppColors.whiteColor,
-                colorBlendMode: BlendMode.srcOut,
+      backgroundColor: AppColors.whiteColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(children: [
+          ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return AppColors.primaryColorTheme4.createShader(bounds);
+            },
+            blendMode: BlendMode.srcIn,
+            child: SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.whiteColor,
+              colorBlendMode: BlendMode.srcOut,
+            ),
+          ),
+          AppBar(
+            automaticallyImplyLeading: false,
+            title: const Center(
+              child: Row(
+                mainAxisSize:
+                    MainAxisSize.min, // Ensures the Row takes up minimal space.
+                children: const [
+                  Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
-            AppBar(
-              automaticallyImplyLeading: false,
-              title:const Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize
-                      .min, // Ensures the Row takes up minimal space.
-                  children: const [
-                    Text(
-                      'Home',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            )
-          ]),
-        ),
-        body: menuScreen(),);
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )
+        ]),
+      ),
+      body: menuScreen(),
+    );
   }
 
   Widget menuScreen() {
@@ -331,7 +336,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/librarytheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Library',
@@ -369,7 +374,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/examdetailstheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Exam Details',
@@ -413,7 +418,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/attendancetheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Attendance',
@@ -451,7 +456,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/hourattendancetheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Hour Attendance',
@@ -496,7 +501,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/cumulativeattendancetheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Cumulative Attendance',
@@ -535,7 +540,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/subjectstheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Subjects',
@@ -579,7 +584,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/lmstheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'LMS',
@@ -618,7 +623,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/hosteltheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Hostel',
@@ -662,7 +667,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/feestheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Fees',
@@ -701,7 +706,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                       SvgPicture.asset(
                         'assets/images/grievancestheme3.svg',
                         color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
+                        height: MediaQuery.of(context).size.height / 16,
                       ),
                       const Text(
                         'Grievances',
@@ -765,16 +770,14 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const InternalMarksPageTheme4(),
+                      route: const ChangePasswordTheme4(),
                     ),
                   );
                 },
                 child: Container(
                   height: 160,
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  padding: const EdgeInsets.all(
-                    15,
-                  ),
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.all(15),
                   decoration: const BoxDecoration(
                     gradient: AppColors.primaryColorTheme4,
                   ),
@@ -782,12 +785,12 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(
-                        Icons.numbers_outlined,
+                        Icons.password,
                         size: MediaQuery.of(context).size.height / 12,
                         color: AppColors.whiteColor,
                       ),
                       const Text(
-                        'Internal Marks',
+                        'Change Password',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -798,9 +801,15 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   ),
                 ),
               ),
+              // Container(
+              //   height: 160,
+              //   width: MediaQuery.of(context).size.width / 2.5,
+              //   padding: const EdgeInsets.all(15),
+              // ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
+          // if (provider.transportAfterRegisterDetails!.regconfig == '1')
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -809,13 +818,13 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   Navigator.push(
                     context,
                     RouteDesign(
-                      route: const TransportRegisterPageTheme4(),
+                      route: const ProfilePageTheme4(),
                     ),
                   );
                 },
                 child: Container(
                   height: 160,
-                  width: MediaQuery.of(context).size.width / 2.2,
+                  width: MediaQuery.of(context).size.width / 2.5,
                   padding: const EdgeInsets.all(
                     15,
                   ),
@@ -825,43 +834,53 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SvgPicture.asset(
-                        'assets/images/transporttheme3.svg',
-                        color: AppColors.whiteColor,
-                        height: MediaQuery.of(context).size.height / 12,
-                      ),
-                      const Text(
-                        'Transport',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              //dummy block
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 160,
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  padding: const EdgeInsets.all(
-                    15,
-                  ),
-                  color: AppColors.whiteColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
                       Icon(
-                        Icons.numbers_outlined,
+                        Icons.account_circle,
                         size: MediaQuery.of(context).size.height / 12,
                         color: AppColors.whiteColor,
                       ),
                       const Text(
-                        'Transport',
+                        'Profile',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.whiteColor,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  ref.read(mainProvider.notifier).setNavString('Logout');
+                  TokensManagement.clearSharedPreference();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    RouteDesign(
+                      route: const Theme02LoginScreen(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                child: Container(
+                  height: 160,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                    gradient: AppColors.primaryColorTheme4,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        size: MediaQuery.of(context).size.height / 12,
+                        color: AppColors.whiteColor,
+                      ),
+                      const Text(
+                        'Logout',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -872,8 +891,15 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   ),
                 ),
               ),
+              // Container(
+              //   height: 160,
+              //   width: MediaQuery.of(context).size.width / 2.5,
+              //   padding: const EdgeInsets.all(15),
+              // ),
             ],
-          )
+          ),
+
+          const SizedBox(height: 20),
         ],
       ),
     );

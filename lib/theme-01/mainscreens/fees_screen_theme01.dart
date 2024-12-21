@@ -6,7 +6,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme01FeesPage extends ConsumerStatefulWidget {
@@ -113,7 +112,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                           await ref
                               .read(feesProvider.notifier)
                               .getFeesDetailsApi(
-                                  ref.read(encryptionProvider.notifier));
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(feesProvider.notifier)
                               .getHiveFeesDetails('');
@@ -360,7 +360,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
               title: Row(
                 children: [
                   SizedBox(
-                    width: width / 2 - 100,
+                    width: width / 2 - 120,
                     child: Text(
                       'Receipt no :',
                       style: TextStyles.buttonStyle01theme2,

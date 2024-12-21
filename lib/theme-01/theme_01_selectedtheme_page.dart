@@ -117,7 +117,7 @@ class _Theme01PageState extends ConsumerState<Theme01Page> {
                           );
                         },
                         child: Image.asset(
-                          'assets/images/theme01.png',
+                          'assets/images/slectedtheme01.png',
                           width: 150,
                           height: 250,
                         ),
@@ -190,7 +190,7 @@ class _Theme01PageState extends ConsumerState<Theme01Page> {
                           );
                         },
                         child: Image.asset(
-                          'assets/images/unselectedtheme02.png',
+                          'assets/images/unselectedtheme06.png',
                           width: 150,
                           height: 250,
                         ),

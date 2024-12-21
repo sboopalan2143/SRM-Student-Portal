@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/colors.dart';
+import 'package:sample/theme-02/dhasboard_02_page.dart';
 import 'package:sample/theme-02/theme02_homepage.dart';
 import 'package:sample/theme-02/theme_02_selectedtheme_page.dart';
 import 'package:sample/theme-02/theme_02setting_page.dart';
@@ -15,8 +16,8 @@ class Theme02MainScreenPage extends ConsumerStatefulWidget {
 class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
   int myCurrentIndex = 0;
   final pages = const [
+    Theme02dhasboardPage(),
     Theme02Homepage(),
-    Theme02settingPage(),
     Theme02Page(),
   ];
   @override

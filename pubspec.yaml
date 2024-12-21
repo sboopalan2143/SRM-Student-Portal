@@ -38,7 +38,7 @@ dependencies:
   hive:
   # hive_flutter:
   path_provider:
-  open_file: 
+  open_file:
   blinking_text:
   file_picker:
   flutter_pdfview:
@@ -51,13 +51,16 @@ dependencies:
   # animated_cards_carousel:
   carousel_slider:
   sidebarx:
-  percent_indicator: 
+  percent_indicator:
   flutter_zoom_drawer:
   badges:
   fl_chart:
   flutter_animate:
   table_calendar:
-
+  d_chart:
+  graphic:
+  pie_chart:
+  
 
 dev_dependencies:
   flutter_test:

@@ -365,7 +365,7 @@ class _Theme02FeesPageState extends ConsumerState<Theme02FeesPage> {
               title: Row(
                 children: [
                   SizedBox(
-                    width: width / 2 - 100,
+                    width: width / 2 - 120,
                     child: const Text(
                       'Receipt no :',
                       style: TextStyles.fontStyle13,

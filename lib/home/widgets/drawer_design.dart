@@ -8,12 +8,9 @@ import 'package:sample/home/drawer_pages/change_password/screen/change_password.
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/drawer_pages/theme/screens/theme.dart';
+import 'package:sample/home/main_pages/dhasboard_05_page.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/login/screen/login_Page2.dart';
-import 'package:sample/theme-01/drawer_page/change_password_theme01.dart';
-import 'package:sample/theme-01/drawer_page/theme01_profile_screen.dart';
-import 'package:sample/theme-01/theme01_homepage.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
@@ -101,13 +98,13 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const HomePage2(),
+                    route: const Theme05dhasboardPage(),
                     // route: const Theme01Homepage(),
                   ),
                 );
               },
             ), //
-              ListTile(
+            ListTile(
               title: const Row(
                 children: [
                   Text(
@@ -125,7 +122,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                   ),
                 );
               },
-            ), 
+            ),
             ListTile(
               title: const Row(
                 children: [

@@ -101,7 +101,7 @@ class _Theme06PageState extends ConsumerState<Theme06Page> {
                           );
                         },
                         child: Image.asset(
-                          'assets/images/theme02.png',
+                          'assets/images/unselectedtheme02.png',
                           width: 150,
                           height: 250,
                         ),
@@ -119,7 +119,7 @@ class _Theme06PageState extends ConsumerState<Theme06Page> {
                           );
                         },
                         child: Image.asset(
-                          'assets/images/unselectedtheme01.png',
+                          'assets/images/unselectedthemeback01.png',
                           width: 150,
                           height: 250,
                         ),
@@ -192,7 +192,7 @@ class _Theme06PageState extends ConsumerState<Theme06Page> {
                           );
                         },
                         child: Image.asset(
-                          'assets/images/unselectedtheme02.png',
+                          'assets/images/selectedtheme06.png',
                           width: 150,
                           height: 250,
                         ),

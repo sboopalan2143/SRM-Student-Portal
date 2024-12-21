@@ -212,7 +212,7 @@ class _Theme01GrievanceReportPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Grievance id :',
+                      'ID:',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),

@@ -194,7 +194,7 @@ class _Theme01LmsHomePageState extends ConsumerState<Theme01LmsHomePage> {
                   SizedBox(
                     width: width / 2 - 100,
                     child: Text(
-                      'Subject Id :',
+                      'Sub ID :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),

@@ -145,7 +145,7 @@ class _CumulativeAttendancePageTheme4State
                     child: const Text(
                       'CUMMULATIVE ATTENDANCE',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.bold,
                       ),

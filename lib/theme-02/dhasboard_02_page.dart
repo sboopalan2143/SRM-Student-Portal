@@ -61,7 +61,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     super.initState();
     _initialProcess();
     Alerts.checkForAppUpdate(context: context, forcefully: false);
-  
   }
 
   Future<void> _initialProcess() async {
@@ -310,7 +309,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           clipBehavior: Clip.none,
                           children: [
                             IconButton(
-                              iconSize: 35,
+                              iconSize: 25,
                               color: Colors.white,
                               icon: const Icon(Icons.notifications),
                               onPressed: () {},
@@ -881,7 +880,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           ),
           const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.group,
@@ -903,7 +901,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             height: 5,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -929,7 +926,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             height: 5,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.person_off,

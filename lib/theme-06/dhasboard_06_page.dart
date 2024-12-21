@@ -290,7 +290,7 @@ class _Theme06dhasboardPageState extends ConsumerState<Theme06dhasboardPage>
                           clipBehavior: Clip.none,
                           children: [
                             IconButton(
-                              iconSize: 35,
+                              iconSize: 25,
                               color: Colors.white,
                               icon: const Icon(Icons.notifications),
                               onPressed: () {},
@@ -862,7 +862,6 @@ class _Theme06dhasboardPageState extends ConsumerState<Theme06dhasboardPage>
           ),
           const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.group,
@@ -884,7 +883,6 @@ class _Theme06dhasboardPageState extends ConsumerState<Theme06dhasboardPage>
             height: 5,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -910,7 +908,6 @@ class _Theme06dhasboardPageState extends ConsumerState<Theme06dhasboardPage>
             height: 5,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.person_off,

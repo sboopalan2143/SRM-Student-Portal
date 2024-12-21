@@ -105,7 +105,7 @@ class _ExamDetailsPageTheme4State extends ConsumerState<ExamDetailsPageTheme4> {
               title: const Text(
                 'EXAM DETAILS',
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   color: AppColors.whiteColor,
                   fontWeight: FontWeight.bold,
                 ),

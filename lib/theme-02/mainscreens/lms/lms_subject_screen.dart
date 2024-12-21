@@ -297,7 +297,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'subject id : ${provider.lmsSubjectData[index].subjectid}',
+                            'subject ID : ${provider.lmsSubjectData[index].subjectid}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black87,

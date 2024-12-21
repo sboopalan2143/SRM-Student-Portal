@@ -165,7 +165,7 @@ class TextStyles {
   );
 
   static const fontStyle4 = TextStyle(
-    fontSize: 22,
+    fontSize: 18,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
@@ -279,7 +279,7 @@ class TextStyles {
   );
 
   static TextStyle buttonStyle01theme4 = TextStyle(
-    fontSize: 22,
+    fontSize: 18,
     color: AppColors.theme01primaryColor,
     fontWeight: FontWeight.bold,
   );

@@ -360,9 +360,9 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
               title: Row(
                 children: [
                   SizedBox(
-                    width: width / 2 - 120,
+                    width: width / 2 - 100,
                     child: Text(
-                      'Receipt no :',
+                      'Rec no :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),

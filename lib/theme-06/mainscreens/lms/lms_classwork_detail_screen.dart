@@ -220,7 +220,7 @@ class _Theme62LmsClassworkDetailPageState
                   SizedBox(
                     width: width / 2 - 100,
                     child: const Text(
-                      'Classwork id :',
+                      'id :',
                       style: TextStyles.fontStyle13,
                     ),
                   ),

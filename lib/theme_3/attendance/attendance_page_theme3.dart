@@ -91,7 +91,7 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
               title: const Text(
                 'ATTENDANCE',
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   color: AppColors.whiteColor,
                   fontWeight: FontWeight.bold,
                 ),

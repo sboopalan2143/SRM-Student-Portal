@@ -102,7 +102,7 @@ class _SubjectPageTheme4State extends ConsumerState<SubjectPageTheme4> {
               title: const Text(
                 'SUBJECTS',
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   color: AppColors.whiteColor,
                   fontWeight: FontWeight.bold,
                 ),

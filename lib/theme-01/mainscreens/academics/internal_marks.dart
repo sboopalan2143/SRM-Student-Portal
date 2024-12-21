@@ -193,9 +193,9 @@ class _Theme01InternalMarksPageState
               title: Row(
                 children: [
                   SizedBox(
-                    width: width / 2 - 100,
+                    width: width / 2 - 80,
                     child: Text(
-                      'Subject Code :',
+                      'Sub Code :',
                       style: TextStyles.buttonStyle01theme2,
                     ),
                   ),

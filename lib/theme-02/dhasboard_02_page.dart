@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -305,42 +306,42 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                             ),
                           ),
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            IconButton(
-                              iconSize: 25,
-                              color: Colors.white,
-                              icon: const Icon(Icons.notifications),
-                              onPressed: () {},
-                            ),
-                            Positioned(
-                              right: 2,
-                              top: 2,
-                              child: Container(
-                                padding: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
-                                constraints: const BoxConstraints(
-                                  minWidth: 20,
-                                  minHeight: 20,
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Stack(
+                        //   clipBehavior: Clip.none,
+                        //   children: [
+                        //     IconButton(
+                        //       iconSize: 25,
+                        //       color: Colors.white,
+                        //       icon: const Icon(Icons.notifications),
+                        //       onPressed: () {},
+                        //     ),
+                        //     Positioned(
+                        //       right: 2,
+                        //       top: 2,
+                        //       child: Container(
+                        //         padding: const EdgeInsets.all(5),
+                        //         decoration: const BoxDecoration(
+                        //           color: Colors.red,
+                        //           shape: BoxShape.circle,
+                        //         ),
+                        //         constraints: const BoxConstraints(
+                        //           minWidth: 20,
+                        //           minHeight: 20,
+                        //         ),
+                        //         child: const Center(
+                        //           child: Text(
+                        //             '2',
+                        //             style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontSize: 12,
+                        //             ),
+                        //             textAlign: TextAlign.center,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -383,21 +384,21 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   const Row(
                     children: [
                       Text(
-                        'Welcome to ',
+                        'Welcome...!',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      Text(
-                        'SRM Portal',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
+                      // Text(
+                      //   'SRM Portal',
+                      //   style: TextStyle(
+                      //     fontSize: 18,
+                      //     fontWeight: FontWeight.bold,
+                      //     color: AppColors.whiteColor,
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -448,28 +449,64 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                             ),
                             const SizedBox(width: 8),
-                            AnimatedContainer(
-                              duration: const Duration(seconds: 1),
-                              width: 30,
-                              height: 30,
+                            // AnimatdContainer(
+                            //   duration: const Duration(seconds: 1),
+                            //   width: 30,
+                            //   height: 30,
+                            //   decoration: BoxDecoration(
+                            //     shape: BoxShape.circle,
+                            //     color: Colors.redAccent.withOpacity(0.8),
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: Colors.redAccent.withOpacity(0.5),
+                            //         blurRadius: 12,
+                            //         spreadRadius: 3,
+                            //       ),
+                            //     ],
+                            //   ),
+                            //   child: const Center(
+                            //     child: Text(
+                            //       'New',
+                            //       style: TextStyle(
+                            //         color: Colors.white,
+                            //         fontWeight: FontWeight.bold,
+                            //         fontSize: 12,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            Container(
+                              width: 40,
+                              height: 40,
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.redAccent.withOpacity(0.8),
+                                gradient: const LinearGradient(
+                                  colors: [Colors.green, Colors.lightGreen],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.redAccent.withOpacity(0.5),
-                                    blurRadius: 12,
-                                    spreadRadius: 3,
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: const Offset(2, 3),
                                   ),
                                 ],
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
                                   'New',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                    fontSize: 14,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 3,
+                                        color: Colors.black.withOpacity(0.3),
+                                        offset: const Offset(1, 1),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -507,28 +544,38 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                             ),
                             const SizedBox(width: 8),
-                            AnimatedContainer(
-                              duration: const Duration(seconds: 1),
-                              width: 30,
-                              height: 30,
+                            Container(
+                              width: 40,
+                              height: 40,
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.redAccent.withOpacity(0.8),
+                                gradient: const LinearGradient(
+                                  colors: [Colors.green, Colors.lightGreen],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.redAccent.withOpacity(0.5),
-                                    blurRadius: 12,
-                                    spreadRadius: 3,
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: const Offset(2, 3),
                                   ),
                                 ],
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
                                   'New',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12,
+                                    fontSize: 14,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 3,
+                                        color: Colors.black.withOpacity(0.3),
+                                        offset: const Offset(1, 1),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -566,7 +613,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    height: 320,
+                    height: 340,
                     width: double.infinity,
                     child: Container(
                       padding: const EdgeInsets.all(16),
@@ -605,6 +652,176 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                         cardDesignAttendanceHrs(),
                       ],
                     ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              child: const Text(
+                                'Current Due',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                'Rs. 103500',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 170,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Title Section
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              // color: Colors.blue,
+                              child: const Text(
+                                'S.G.P.A',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            // Value Section
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                '2.68',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 170, // Adjust the width as needed
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Title Section
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(12),
+                              // color: Colors.blue,
+                              child: const Text(
+                                'C.G.P.A',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            // Value Section
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                '2.68',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -775,53 +992,56 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
 
   Widget cardDesign(int index) {
     final provider = ref.watch(attendanceProvider);
-    return ListView(
-      shrinkWrap: true,
+    return Padding(
       padding: const EdgeInsets.all(16),
-      children: [
-        const Text(
-          'Course wise attendance (%)',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 12),
-        AspectRatio(
-          aspectRatio: 13 / 9,
-          child: DChartBarO(
-            groupList: [
-              OrdinalGroup(
-                id: '1',
-                color: AppColors.primaryColor2,
-                data: List.generate(
-                  provider.attendancehiveData.length,
-                  (index) => OrdinalData(
-                    domain: '${provider.attendancehiveData[index].subjectcode}',
-                    measure:
-                        provider.attendancehiveData[index].presentpercentage ==
-                                ''
-                            ? 0.0
-                            : double.parse(
-                                  '${provider.attendancehiveData[index].presentpercentage}',
-                                ) *
-                                (7 / 7),
-                  ),
-                ),
-              ),
-            ],
-            domainAxis: const DomainAxis(
-              lineStyle: LineStyle(
-                color: AppColors.primaryColor2,
-                thickness: 2,
-              ),
-              labelRotation: 45,
-              minimumPaddingBetweenLabels: 50,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Course wise attendance (%)',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 12),
+          AspectRatio(
+            aspectRatio: 13 / 9,
+            child: DChartBarO(
+              groupList: [
+                OrdinalGroup(
+                  id: '1',
+                  color: AppColors.primaryColor2,
+                  data: List.generate(
+                    provider.attendancehiveData.length,
+                    (index) => OrdinalData(
+                      domain:
+                          '${provider.attendancehiveData[index].subjectcode}',
+                      measure: provider.attendancehiveData[index]
+                                  .presentpercentage ==
+                              ''
+                          ? 0.0
+                          : double.parse(
+                                '${provider.attendancehiveData[index].presentpercentage}',
+                              ) *
+                              (7 / 7),
+                    ),
+                  ),
+                ),
+              ],
+              domainAxis: const DomainAxis(
+                lineStyle: LineStyle(
+                  color: AppColors.primaryColor2,
+                  thickness: 2,
+                ),
+                labelRotation: 45,
+                minimumPaddingBetweenLabels: 50,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -844,8 +1064,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     );
 
     final totalSessions = totalPresent + totalAbsent;
-    final attendancePercentage =
+
+    // Calculate individual percentages
+    final presentPercentage =
         totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
+    final absentPercentage =
+        totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+    final allPercentage = totalSessions > 0 ? (totalall / totalSessions) : 0.0;
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -860,25 +1085,49 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ),
           const SizedBox(height: 20),
-          CircularPercentIndicator(
-            radius: 60,
-            lineWidth: 10,
-            percent: attendancePercentage,
-            center: Text(
-              '${(attendancePercentage * 100).toStringAsFixed(1)}%',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blackColor,
+
+          Stack(
+            children: [
+              CircularPercentIndicator(
+                radius: 60,
+                lineWidth: 10,
+                percent: allPercentage,
+                center: Text(
+                  '${(presentPercentage * 100).toStringAsFixed(1)}%',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blackColor,
+                  ),
+                ),
+                progressColor: Colors.blue,
+                backgroundColor: AppColors.blackColor.withOpacity(0.2),
+                circularStrokeCap: CircularStrokeCap.round,
               ),
-            ),
-            progressColor: attendancePercentage < 0.5
-                ? Colors.red
-                : (attendancePercentage < 0.75 ? Colors.yellow : Colors.blue),
-            backgroundColor: AppColors.blackColor.withOpacity(0.2),
-            circularStrokeCap: CircularStrokeCap.round,
+              CircularPercentIndicator(
+                radius: 60,
+                lineWidth: 10,
+                percent: presentPercentage,
+                center: const SizedBox.shrink(),
+                progressColor: Colors.green,
+                backgroundColor: Colors.transparent,
+                circularStrokeCap: CircularStrokeCap.round,
+              ),
+              CircularPercentIndicator(
+                radius: 60,
+                lineWidth: 10,
+                percent: absentPercentage,
+                center: const SizedBox.shrink(),
+                progressColor: Colors.red,
+                backgroundColor: Colors.transparent,
+                circularStrokeCap: CircularStrokeCap.round,
+              ),
+            ],
           ),
+
           const SizedBox(height: 20),
+
+          // Total Sessions Row
           Row(
             children: [
               Icon(

@@ -5,6 +5,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/home/drawer_pages/theme/screens/riverpod/theme_state.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/screen/home_page2.dart';
+import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
@@ -171,7 +172,7 @@ class _Theme03PageState extends ConsumerState<Theme03Page> {
                           await Navigator.push(
                             context,
                             RouteDesign(
-                              route: const HomePage2(),
+                              route: const Theme05MainScreenPage(),
                             ),
                           );
                         },

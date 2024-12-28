@@ -85,44 +85,44 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 ),
               ),
             ),
-            ListTile(
-              title: const Row(
-                children: [
-                  Text(
-                    'Home',
-                    style: TextStyles.smallerBlackColorFontStyle,
-                  ),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const Theme05dhasboardPage(),
-                    // route: const Theme01Homepage(),
-                  ),
-                );
-              },
-            ), //
-            ListTile(
-              title: const Row(
-                children: [
-                  Text(
-                    'Explore',
-                    style: TextStyles.smallerBlackColorFontStyle,
-                  ),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const HomePage2(),
-                    // route: const Theme01Homepage(),
-                  ),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: const Row(
+            //     children: [
+            //       Text(
+            //         'Home',
+            //         style: TextStyles.smallerBlackColorFontStyle,
+            //       ),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       RouteDesign(
+            //         route: const Theme05dhasboardPage(),
+            //         // route: const Theme01Homepage(),
+            //       ),
+            //     );
+            //   },
+            // ), //
+            // ListTile(
+            //   title: const Row(
+            //     children: [
+            //       Text(
+            //         'Explore',
+            //         style: TextStyles.smallerBlackColorFontStyle,
+            //       ),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       RouteDesign(
+            //         route: const HomePage2(),
+            //         // route: const Theme01Homepage(),
+            //       ),
+            //     );
+            //   },
+            // ),
             ListTile(
               title: const Row(
                 children: [
@@ -142,24 +142,24 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                 );
               },
             ),
-            ListTile(
-              title: const Row(
-                children: [
-                  Text(
-                    'Theme',
-                    style: TextStyles.smallerBlackColorFontStyle,
-                  ),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const Theme05Page(),
-                  ),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: const Row(
+            //     children: [
+            //       Text(
+            //         'Theme',
+            //         style: TextStyles.smallerBlackColorFontStyle,
+            //       ),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       RouteDesign(
+            //         route: const Theme05Page(),
+            //       ),
+            //     );
+            //   },
+            // ),
 
             ListTile(
               title: const Row(

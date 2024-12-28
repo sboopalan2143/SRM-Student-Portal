@@ -213,6 +213,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
+import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
 import 'package:sample/theme-06/theme_06_bottom_navigation_page.dart';
@@ -377,7 +378,7 @@ class _Theme05PageState extends ConsumerState<Theme05Page> {
                           await Navigator.push(
                             context,
                             RouteDesign(
-                              route: const MainScreenPage4(),
+                              route: const Theme05MainScreenPage(),
                             ),
                           );
                         },

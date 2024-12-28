@@ -60,7 +60,6 @@ dependencies:
   d_chart:
   graphic:
   pie_chart:
-  
 
 dev_dependencies:
   flutter_test:
@@ -71,21 +70,30 @@ dev_dependencies:
   change_app_package_name:
   hive_generator:
   build_runner:
+  icons_launcher:
 
 # flutter pub run flutter_launcher_icons
-flutter_icons:
-  #  image_path: "assets/images/Asset365 splash screen.png"
-  image_path: "assets/images/SRMLogo.png"
-  android: "launcher_icon"
-  ios: true
+# flutter_icons:
+#   #  image_path: "assets/images/Asset365 splash screen.png"
+#   image_path: "assets/images/srmgrouplogo.png"
+#   android: "launcher_icon"
+#   ios:
+
+icons_launcher:
+  image_path: "assets/images/srmgrouplogo.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:
-  background_image: "assets/images/SRMSplashLogo.png"
+  background_image: "assets/images/srmgroupsplash.png"
   android: true
   ios: true
   android_12:
-    image: assets/images/SRMSplashLogo.png
+    image: assets/images/srmgroupsplash.png
 
     color: "#FFFFFF"
 

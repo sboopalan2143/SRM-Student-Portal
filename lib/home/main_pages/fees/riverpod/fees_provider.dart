@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
@@ -148,7 +150,7 @@ class FeesProvider extends StateNotifier<FeesState> {
       final returnData = financeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
+      log('decryptedData: $decryptedData');
       // var feesDetailsHiveData = state.feesDetailsHiveData;
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;

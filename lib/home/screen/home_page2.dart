@@ -11,7 +11,9 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
+import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
@@ -33,10 +35,12 @@ import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
 import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_home_screen.dart';
 import 'package:sample/home/main_pages/transport/screens/transport.dart';
+import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
+import 'package:sample/theme-02/login/theme02_login_screen.dart';
 
 class HomePage2 extends ConsumerStatefulWidget {
   const HomePage2({super.key});
@@ -914,33 +918,33 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     Navigator.push(
                                       context,
                                       RouteDesign(
-                                        route: const LmsHomePage(),
+                                        route: const ProfilePage(),
                                       ),
                                     );
                                   },
                                   child: Container(
-                                    // height: 120,
+                                    height: 120,
                                     width:
                                         MediaQuery.of(context).size.width / 2.5,
                                     padding: const EdgeInsets.all(
                                       15,
                                     ),
-                                    // decoration: BoxDecoration(
-                                    //   // color: Colors.lightGreenAccent,
-                                    //   color: AppColors.homepagecolor3,
-                                    //   borderRadius: BorderRadius.circular(
-                                    //     20,
-                                    //   ),
-                                    // ),
-                                    child: const Column(
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor3,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
                                       children: [
-                                        // Image.asset(
-                                        //   'assets/images/LMS.png',
-                                        //   height: MediaQuery.of(context)
-                                        //           .size
-                                        //           .height /
-                                        //       12,
-                                        // ),
+                                        Image.asset(
+                                          'assets/images/profile_icon.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
                                         // Image.asset(
                                         //   'assets/images/bus2.png',
                                         //   height: MediaQuery.of(context)
@@ -963,14 +967,162 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         //       12,
                                         // ),
                                         const SizedBox(width: 10),
-                                        // Text(
-                                        //   'LMS',
-                                        //   style: TextStyle(
-                                        //     fontSize: 20,
-                                        //     fontWeight: FontWeight.bold,
-                                        //     color: Colors.blue[800],
-                                        //   ),
+                                        Text(
+                                          'Profile',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const ChangePassword(),
+                                        // route: const Theme01ChangePasswordPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    // height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor1,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/changepassword_icon.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/bus2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
                                         // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus3.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        const SizedBox(width: 10),
+                                        Center(
+                                          child: Text(
+                                            'Change Password',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blue[800],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    ref
+                                        .read(mainProvider.notifier)
+                                        .setNavString('Logout');
+                                    TokensManagement.clearSharedPreference();
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      RouteDesign(
+                                        route: const Theme02LoginScreen(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    padding: const EdgeInsets.all(
+                                      15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.lightGreenAccent,
+                                      color: AppColors.homepagecolor3,
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        // Image.asset(
+                                        //   'assets/images/LMS.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        // Image.asset(
+                                        //   'assets/images/bus2.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        Image.asset(
+                                          'assets/images/logout_icon.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              12,
+                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/bus1.png',
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height /
+                                        //       12,
+                                        // ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          'Logout',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue[800],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

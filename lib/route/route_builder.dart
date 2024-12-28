@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/home/screen/home_page2.dart';
+import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/route/route_names.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
@@ -43,7 +44,7 @@ class RouteBuilder {
       Routes.home: (_) => const MainScreenPage4(),
 
     if (TokensManagement.storedselectedTheme == 'Theme5')
-      Routes.home: (_) => const HomePage2(),
+      Routes.home: (_) => const Theme05MainScreenPage(),
 
     if (TokensManagement.storedselectedTheme == 'Theme6')
       Routes.home: (_) => const Theme06MainScreenPage(),

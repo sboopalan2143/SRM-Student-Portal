@@ -24,7 +24,7 @@ class AppColors {
 
   static Color theme02buttonColor2 = const Color(0xffF15D25);
 
-  static Color theme06primaryColor = const Color(0xff0268B2);
+  static Color theme06primaryColor = const Color(0xff6495ED);
 
   static Color primaryColorTheme3 = const Color(0xffAD1457);
 

@@ -30,18 +30,26 @@ import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
+import 'package:sample/theme-02/drawer_page/profile_home_page.dart';
 import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
+import 'package:sample/theme-02/mainscreens/academics/attendance_home_page.dart';
 import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/exam_details.dart';
 import 'package:sample/theme-02/mainscreens/academics/hour_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/internal_marks.dart';
 import 'package:sample/theme-02/mainscreens/academics/subject.dart';
+import 'package:sample/theme-02/mainscreens/academics_home_page.dart';
+import 'package:sample/theme-02/mainscreens/calendar_home_page_screen.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
 import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
+import 'package:sample/theme-02/mainscreens/grade_home_screen.dart';
+import 'package:sample/theme-02/mainscreens/grievances/grievances_home_page.dart';
 import 'package:sample/theme-02/mainscreens/grievances/grievances_screen.dart';
+import 'package:sample/theme-02/mainscreens/hostel/hostel_home_page.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
+import 'package:sample/theme-02/mainscreens/library/library_home_screen.dart';
 import 'package:sample/theme-02/mainscreens/library/library_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
 import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
@@ -270,113 +278,8 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02ExamDetailsPageTheme(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/examdetailstheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Exam Details',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02SubjectPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/subjectstheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Subjects',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02InternalMarksPage(),
+                        // route: const Theme02ProfilePage(),
+                        route: const ProfileHomePage(),
                       ),
                     );
                   },
@@ -405,119 +308,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Icon(
-                          Icons.numbers_outlined,
+                          Icons.account_circle,
                           size: MediaQuery.of(context).size.height / 12,
                           color: AppColors.whiteColor,
                         ),
                         const Text(
-                          'Internal Marks',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02HourAttendancePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/hourattendancetheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Hour Attendance',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02CumulativeAttendancePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/cumulativeattendancetheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Cumulative Attendance',
+                          'Profile',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -534,277 +330,8 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02AttendancePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/attendancetheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Attendance',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02LmsHomePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/lmstheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'LMS',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02RegistrationPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/hosteltheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Hostel',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02FeesPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/feestheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Fees',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02GrievanceReportPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/grievancestheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Grievances',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02CalendarPage(),
+                        // route: const Theme02CalendarPage(),
+                        route: const CalendarHomePage(),
                       ),
                     );
                   },
@@ -850,12 +377,178 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     ),
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02LibraryPage(),
+                        // route: const Theme02AttendancePage(),
+                        route: const AttendanceHomePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/attendancetheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 16,
+                        ),
+                        const Text(
+                          'Attendance',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const GradeHomePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/hourattendancetheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 16,
+                        ),
+                        const Text(
+                          'Grades',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        // route: const Theme02CumulativeAttendancePage(),
+                        route: const AcademicsHomePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/cumulativeattendancetheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 16,
+                        ),
+                        const Text(
+                          'Academics',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const LibraryHomePage(),
                       ),
                     );
                   },
@@ -901,10 +594,60 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
               ],
             ),
             const SizedBox(height: 20),
-            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        // route: const Theme02GrievanceReportPage(),
+                        route: const GrievanceHomePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/grievancestheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 16,
+                        ),
+                        const Text(
+                          'Grievances',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -951,6 +694,62 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                             color: AppColors.whiteColor,
                           ),
                           textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const HostelHomePage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.theme02primaryColor,
+                          AppColors.theme02secondaryColor1,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/hosteltheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 16,
+                        ),
+                        const Text(
+                          'Hostel',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                       ],
                     ),
@@ -1004,69 +803,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     ),
                   ),
                 ),
-                // Container(
-                //   height: 160,
-                //   width: MediaQuery.of(context).size.width / 2.5,
-                //   padding: const EdgeInsets.all(15),
-                // ),
               ],
             ),
             const SizedBox(height: 20),
-            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02ProfilePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          Icons.account_circle,
-                          size: MediaQuery.of(context).size.height / 12,
-                          color: AppColors.whiteColor,
-                        ),
-                        const Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 GestureDetector(
                   onTap: () {
                     ref.read(mainProvider.notifier).setNavString('Logout');
@@ -1118,13 +860,398 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     ),
                   ),
                 ),
-                // Container(
-                //   height: 160,
-                //   width: MediaQuery.of(context).size.width / 2.5,
-                //   padding: const EdgeInsets.all(15),
-                // ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const Theme02InternalMarksPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width / 2.5,
+                    padding: const EdgeInsets.all(
+                      15,
+                    ),
+                    // decoration: BoxDecoration(
+                    //   gradient: LinearGradient(
+                    //     colors: [
+                    //       AppColors.theme02primaryColor,
+                    //       AppColors.theme02secondaryColor1,
+                    //     ],
+                    //     begin: Alignment.topCenter,
+                    //     end: Alignment.bottomCenter,
+                    //   ),
+                    //   borderRadius: const BorderRadius.all(
+                    //     Radius.circular(
+                    //       20,
+                    //     ),
+                    //   ),
+                    // ),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Icon(
+                        //   Icons.numbers_outlined,
+                        //   size: MediaQuery.of(context).size.height / 12,
+                        //   color: AppColors.whiteColor,
+                        // ),
+                        // const Text(
+                        //   'Internal Marks',
+                        //   style: TextStyle(
+                        //     fontSize: 16,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: AppColors.whiteColor,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
+            const SizedBox(height: 20),
+            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02FeesPage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/feestheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Fees',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02LmsHomePage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/lmstheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'LMS',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     // Container(
+            //     //   height: 160,
+            //     //   width: MediaQuery.of(context).size.width / 2.5,
+            //     //   padding: const EdgeInsets.all(15),
+            //     // ),
+            //   ],
+            // ),
+            // const SizedBox(height: 20),
+            // if (provider.transportAfterRegisterDetails!.regconfig == '1')
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02ExamDetailsPageTheme(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/examdetailstheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Exam Details',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02SubjectPage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/subjectstheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Subjects',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     // Container(
+            //     //   height: 160,
+            //     //   width: MediaQuery.of(context).size.width / 2.5,
+            //     //   padding: const EdgeInsets.all(15),
+            //     // ),
+            //   ],
+            // ),
+
+            // const SizedBox(height: 20),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02HourAttendancePage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/hourattendancetheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Hour Attendance',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const Theme02CumulativeAttendancePage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/cumulativeattendancetheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Cumulative Attendance',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     // Container(
+            //     //   height: 160,
+            //     //   width: MediaQuery.of(context).size.width / 2.5,
+            //     //   padding: const EdgeInsets.all(15),
+            //     // ),
+            //   ],
+            // ),
 
             const SizedBox(height: 20),
           ],

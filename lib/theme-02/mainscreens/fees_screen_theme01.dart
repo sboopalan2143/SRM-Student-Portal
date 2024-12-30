@@ -172,13 +172,13 @@ class _Theme02FeesPageState extends ConsumerState<Theme02FeesPage> {
                       children: [
                         Expanded(
                           child: navContainerDesign(
-                            text: 'Paid Details',
+                            text: 'Due',
                           ),
                         ),
                         const SizedBox(width: 5),
                         Expanded(
                           child: navContainerDesign(
-                            text: 'Online Trans',
+                            text: 'Receipt',
                           ),
                         ),
                       ],

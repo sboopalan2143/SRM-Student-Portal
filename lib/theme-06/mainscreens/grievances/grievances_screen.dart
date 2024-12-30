@@ -21,7 +21,6 @@ class Theme06GrievanceReportPage extends ConsumerStatefulWidget {
 class _Theme06GrievanceReportPageState
     extends ConsumerState<Theme06GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -61,7 +60,6 @@ class _Theme06GrievanceReportPageState
   Widget build(BuildContext context) {
     final provider = ref.watch(grievanceProvider);
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

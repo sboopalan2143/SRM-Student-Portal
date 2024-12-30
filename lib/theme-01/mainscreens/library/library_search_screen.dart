@@ -19,7 +19,6 @@ class Theme01ViewLibraryPage extends ConsumerStatefulWidget {
 class _Theme01ViewLibraryPageState
     extends ConsumerState<Theme01ViewLibraryPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   //   @override
   // void initState() {
@@ -43,7 +42,6 @@ class _Theme01ViewLibraryPageState
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.theme01primaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -22,7 +22,6 @@ class McqGetAnswerPageTheme3 extends ConsumerStatefulWidget {
 class _McqGetAnswerPageTheme3State
     extends ConsumerState<McqGetAnswerPageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -65,7 +64,6 @@ class _McqGetAnswerPageTheme3State
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

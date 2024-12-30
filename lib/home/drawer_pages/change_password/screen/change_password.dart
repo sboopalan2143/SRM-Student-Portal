@@ -17,13 +17,11 @@ class ChangePassword extends ConsumerStatefulWidget {
 
 class _ChangePasswordState extends ConsumerState<ChangePassword>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(changePasswordProvider);
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -39,11 +37,8 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: const Icon(

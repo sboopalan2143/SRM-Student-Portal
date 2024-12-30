@@ -22,7 +22,6 @@ class AttendancePageTheme3 extends ConsumerStatefulWidget {
 
 class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -63,7 +62,6 @@ class _AttendancePageTheme3State extends ConsumerState<AttendancePageTheme3> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

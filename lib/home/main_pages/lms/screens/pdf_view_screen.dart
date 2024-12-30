@@ -23,8 +23,6 @@ class PDFViewScreen extends ConsumerStatefulWidget {
 }
 
 class PDFViewScreenState extends ConsumerState<PDFViewScreen> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   static int refreshNum = 10;
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);

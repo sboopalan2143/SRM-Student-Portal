@@ -18,7 +18,6 @@ class Theme02FeesPage extends ConsumerStatefulWidget {
 
 class _Theme02FeesPageState extends ConsumerState<Theme02FeesPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -76,7 +75,6 @@ class _Theme02FeesPageState extends ConsumerState<Theme02FeesPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -26,7 +26,6 @@ class Theme06McqEnteryPage extends ConsumerStatefulWidget {
 
 class _Theme06McqEnteryPageState extends ConsumerState<Theme06McqEnteryPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -72,7 +71,6 @@ class _Theme06McqEnteryPageState extends ConsumerState<Theme06McqEnteryPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

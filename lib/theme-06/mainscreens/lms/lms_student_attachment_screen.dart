@@ -29,7 +29,6 @@ class Theme06LmsStudentAttachmentDetailsDataPage
 class Theme06LmsStudentAttachmentDetailsDataPageState
     extends ConsumerState<Theme06LmsStudentAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -78,7 +77,6 @@ class Theme06LmsStudentAttachmentDetailsDataPageState
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

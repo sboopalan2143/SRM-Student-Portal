@@ -27,7 +27,6 @@ class Theme026msFacultyCommentScreen extends ConsumerStatefulWidget {
 class _Theme06LmsFacultyCommentScreenState
     extends ConsumerState<Theme026msFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
 
@@ -73,7 +72,6 @@ class _Theme06LmsFacultyCommentScreenState
     }
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -25,7 +25,6 @@ class HourAttendancePage extends ConsumerStatefulWidget {
 
 class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -70,7 +69,6 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

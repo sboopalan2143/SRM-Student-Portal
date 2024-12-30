@@ -14,7 +14,6 @@ class ChangePasswordTheme4 extends ConsumerStatefulWidget {
 
 class _ChangePasswordTheme4State extends ConsumerState<ChangePasswordTheme4>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(changePasswordProvider);

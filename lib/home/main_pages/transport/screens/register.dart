@@ -23,8 +23,6 @@ class TransportRegisterPage extends ConsumerStatefulWidget {
 }
 
 class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -74,7 +72,6 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

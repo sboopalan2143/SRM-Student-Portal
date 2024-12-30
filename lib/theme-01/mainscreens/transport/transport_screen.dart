@@ -23,7 +23,6 @@ class Theme01TransportTransactionPage extends ConsumerStatefulWidget {
 class _Theme01TransportTransactionPageState
     extends ConsumerState<Theme01TransportTransactionPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -60,7 +59,6 @@ class _Theme01TransportTransactionPageState
   Widget build(BuildContext context) {
     final provider = ref.watch(transportProvider);
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.theme01primaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

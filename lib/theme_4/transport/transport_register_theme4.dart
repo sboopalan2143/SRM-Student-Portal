@@ -22,8 +22,6 @@ class TransportRegisterPageTheme4 extends ConsumerStatefulWidget {
 
 class _TransportRegisterPageTheme4State
     extends ConsumerState<TransportRegisterPageTheme4> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -93,7 +91,6 @@ class _TransportRegisterPageTheme4State
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

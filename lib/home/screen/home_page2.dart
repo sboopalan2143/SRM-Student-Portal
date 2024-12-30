@@ -223,14 +223,14 @@ class _HomePage2State extends ConsumerState<HomePage2>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              iconSize: 35,
-                              color: AppColors.whiteColor,
-                              icon: const Icon(Icons.menu),
-                              onPressed: () {
-                                _scaffoldKey.currentState?.openDrawer();
-                              },
-                            ),
+                            // IconButton(
+                            //   iconSize: 35,
+                            //   color: AppColors.whiteColor,
+                            //   icon: const Icon(Icons.menu),
+                            //   onPressed: () {
+                            //     _scaffoldKey.currentState?.openDrawer();
+                            //   },
+                            // ),
                             if (imageBytes == '' && imageBytes.isEmpty)
                               const CircleAvatar(
                                 radius: 25,
@@ -931,7 +931,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ),
                                     decoration: BoxDecoration(
                                       // color: Colors.lightGreenAccent,
-                                      color: AppColors.homepagecolor3,
+                                      color: AppColors.homepagecolor2,
                                       borderRadius: BorderRadius.circular(
                                         20,
                                       ),
@@ -943,7 +943,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              12,
+                                              14,
                                         ),
                                         // Image.asset(
                                         //   'assets/images/bus2.png',
@@ -1044,7 +1044,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                         const SizedBox(width: 10),
                                         Center(
                                           child: Text(
-                                            'Change Password',
+                                            'Password',
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -1105,7 +1105,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              12,
+                                              14,
                                         ),
                                         // Image.asset(
                                         //   'assets/images/bus1.png',

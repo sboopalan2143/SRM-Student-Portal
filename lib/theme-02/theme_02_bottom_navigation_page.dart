@@ -4,7 +4,6 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/theme-02/dhasboard_02_page.dart';
 import 'package:sample/theme-02/theme02_homepage.dart';
 import 'package:sample/theme-02/theme_02_selectedtheme_page.dart';
-import 'package:sample/theme-02/theme_02setting_page.dart';
 
 class Theme02MainScreenPage extends ConsumerStatefulWidget {
   const Theme02MainScreenPage({super.key});

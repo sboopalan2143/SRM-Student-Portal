@@ -21,7 +21,6 @@ class ExamDetailsPage extends ConsumerStatefulWidget {
 
 class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -66,7 +65,6 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

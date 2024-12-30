@@ -19,7 +19,6 @@ class SubjectPageTheme3 extends ConsumerStatefulWidget {
 
 class _SubjectPageTheme3State extends ConsumerState<SubjectPageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -62,7 +61,6 @@ class _SubjectPageTheme3State extends ConsumerState<SubjectPageTheme3> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         leading: IconButton(

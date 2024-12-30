@@ -22,7 +22,6 @@ class LeaveApplicationPage extends ConsumerStatefulWidget {
 }
 
 class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _listController = ScrollController();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -70,7 +69,6 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

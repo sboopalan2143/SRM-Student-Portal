@@ -26,7 +26,6 @@ class McqEnteryPage extends ConsumerStatefulWidget {
 
 class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -72,7 +71,6 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

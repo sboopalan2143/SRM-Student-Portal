@@ -16,8 +16,6 @@ class Theme02ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {

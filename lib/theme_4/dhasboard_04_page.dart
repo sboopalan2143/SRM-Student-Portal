@@ -72,8 +72,32 @@ class _Theme04dhasboardPageState extends ConsumerState<Theme04dhasboardPage>
     await TokensManagement.getTheme();
 
 //ACADEMICS
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(profileProvider.notifier).getProfileApi(
+              ref.read(
+                encryptionProvider.notifier,
+              ),
+            );
+        await ref.read(profileProvider.notifier).getProfileHive('');
+      },
+    );
 
 //>>>Attendance
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+              ref.read(
+                encryptionProvider.notifier,
+              ),
+            );
+        await ref
+            .read(attendanceProvider.notifier)
+            .getHiveAttendanceDetails('');
+      },
+    );
+
     final attendance = await Hive.openBox<AttendanceHiveData>(
       'Attendance',
     );
@@ -563,47 +587,67 @@ class _Theme04dhasboardPageState extends ConsumerState<Theme04dhasboardPage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 150,
+                        width: 180,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
+                          gradient: LinearGradient(
+                            colors: [Colors.red.shade200, Colors.red.shade400],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.shade300,
+                              color: Colors.red.shade100.withOpacity(0.5),
+                              blurRadius: 10,
+                              offset: const Offset(4, 4),
+                            ),
+                            const BoxShadow(
+                              color: Colors.white,
+                              blurRadius: 10,
+                              offset: Offset(-4, -4),
                             ),
                           ],
                         ),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(12),
-                              child: const Text(
-                                'Current Due',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
+                            // Icon Section
+                            const Padding(
+                              padding: EdgeInsets.only(top: 16),
+                              child: Icon(
+                                Icons.account_balance_wallet_rounded,
+                                color: Colors.white,
+                                size: 40,
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            // Title Section
+                            const Text(
+                              'Current Due',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
                             const SizedBox(height: 16),
+                            // Value Section
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
+                                horizontal: 16,
+                                vertical: 10,
                               ),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red),
-                                borderRadius: BorderRadius.circular(4),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Text(
-                                'Rs. 103500',
+                              child: Text(
+                                'Rs. 103,500',
                                 style: TextStyle(
-                                  color: Colors.red,
+                                  color: Colors.red.shade400,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: 22,
                                 ),
                               ),
                             ),
@@ -614,119 +658,159 @@ class _Theme04dhasboardPageState extends ConsumerState<Theme04dhasboardPage>
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 170,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
+                  SizedBox(
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // SGPA Card
+                        Container(
+                          width: 140,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue.shade300,
+                                Colors.blueAccent.shade700,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Title Section
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(12),
-                              // color: Colors.blue,
-                              child: const Text(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blue.shade200.withOpacity(0.6),
+                                blurRadius: 12,
+                                offset: const Offset(4, 4),
+                              ),
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.8),
+                                blurRadius: 12,
+                                offset: const Offset(-4, -4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Icon Section
+                              const Padding(
+                                // ignore: unnecessary_const
+                                padding: const EdgeInsets.only(top: 12),
+                                child: Icon(
+                                  Icons.school_rounded,
+                                  color: Colors.white,
+                                  size: 36,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              // Title Section
+                              const Text(
                                 'S.G.P.A',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            // Value Section
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                '2.68',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
+                              const SizedBox(height: 16),
+                              // Value Section
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '2.68',
+                                  style: TextStyle(
+                                    color: Colors.blueAccent.shade700,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        width: 170, // Adjust the width as needed
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
+                        const SizedBox(width: 20),
+                        // CGPA Card
+                        Container(
+                          width: 140,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.purple.shade300,
+                                Colors.purpleAccent.shade700,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Title Section
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(12),
-                              // color: Colors.blue,
-                              child: const Text(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.purple.shade200.withOpacity(0.6),
+                                blurRadius: 12,
+                                offset: const Offset(4, 4),
+                              ),
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0.8),
+                                blurRadius: 12,
+                                offset: const Offset(-4, -4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Icon Section
+                              const Padding(
+                                padding: EdgeInsets.only(top: 12),
+                                child: Icon(
+                                  Icons.bar_chart_rounded,
+                                  color: Colors.white,
+                                  size: 36,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              // Title Section
+                              const Text(
                                 'C.G.P.A',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            // Value Section
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: const Text(
-                                '2.68',
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
+                              const SizedBox(height: 16),
+                              // Value Section
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '2.68',
+                                  style: TextStyle(
+                                    color: Colors.purpleAccent.shade700,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Container(

@@ -27,7 +27,6 @@ class Theme02LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
 class Theme02LmsAttachmentDetailsDataPageState
     extends ConsumerState<Theme02LmsAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -76,7 +75,6 @@ class Theme02LmsAttachmentDetailsDataPageState
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -95,11 +93,11 @@ class Theme02LmsAttachmentDetailsDataPageState
           ),
           leading: IconButton(
             onPressed: () {
-                ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-                        ref.read(encryptionProvider.notifier),
-                        widget.classworkID,
-                      );
-                  Navigator.pop(context);
+              ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                    ref.read(encryptionProvider.notifier),
+                    widget.classworkID,
+                  );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,

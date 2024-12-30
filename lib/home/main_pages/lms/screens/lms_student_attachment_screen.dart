@@ -30,7 +30,6 @@ class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
 class LmsStudentAttachmentDetailsDataPageState
     extends ConsumerState<LmsStudentAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -79,7 +78,6 @@ class LmsStudentAttachmentDetailsDataPageState
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

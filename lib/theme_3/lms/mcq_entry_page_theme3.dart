@@ -27,7 +27,6 @@ class McqEntryPageTheme3 extends ConsumerStatefulWidget {
 
 class _McqEntryPageTheme3State extends ConsumerState<McqEntryPageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -73,7 +72,6 @@ class _McqEntryPageTheme3State extends ConsumerState<McqEntryPageTheme3> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

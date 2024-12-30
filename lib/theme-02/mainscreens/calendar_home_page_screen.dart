@@ -20,8 +20,6 @@ class CalendarHomePage extends ConsumerStatefulWidget {
 }
 
 class _CalendarHomePageState extends ConsumerState<CalendarHomePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -58,7 +56,6 @@ class _CalendarHomePageState extends ConsumerState<CalendarHomePage> {
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

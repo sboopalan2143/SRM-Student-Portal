@@ -35,7 +35,6 @@ class Theme06LmsClassworkDetailPage extends ConsumerStatefulWidget {
 class _Theme62LmsClassworkDetailPageState
     extends ConsumerState<Theme06LmsClassworkDetailPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -81,7 +80,6 @@ class _Theme62LmsClassworkDetailPageState
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

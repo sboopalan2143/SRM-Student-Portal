@@ -24,7 +24,6 @@ class Theme02GrievanceEntryPage extends ConsumerStatefulWidget {
 
 class _Theme02GrievanceEntryPageState
     extends ConsumerState<Theme02GrievanceEntryPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   String? selectedGrievanceCategory;
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -89,7 +88,6 @@ class _Theme02GrievanceEntryPageState
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -20,8 +20,6 @@ class RegistrationPageTheme4 extends ConsumerStatefulWidget {
 
 class _RegistrationPageTheme4State
     extends ConsumerState<RegistrationPageTheme4> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -49,7 +47,6 @@ class _RegistrationPageTheme4State
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -34,7 +34,6 @@ class McqTestViewPage extends ConsumerStatefulWidget {
 
 class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -91,7 +90,6 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -23,7 +23,6 @@ class CumulativeAttendancePage extends ConsumerStatefulWidget {
 class _CumulativeAttendancePageState
     extends ConsumerState<CumulativeAttendancePage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -73,7 +72,6 @@ class _CumulativeAttendancePageState
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

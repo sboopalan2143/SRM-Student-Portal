@@ -15,11 +15,11 @@
 // }
 
 // class _ThemePageState extends ConsumerState<ThemePage> {
-//   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+//
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       key: scaffoldKey,
+//
 //       backgroundColor: AppColors.theme01primaryColor,
 //       appBar: PreferredSize(
 //         preferredSize: const Size.fromHeight(60),
@@ -228,8 +228,6 @@ class Theme05Page extends ConsumerStatefulWidget {
 }
 
 class _Theme05PageState extends ConsumerState<Theme05Page> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   // late String selectedTheme;
 
   @override
@@ -250,7 +248,6 @@ class _Theme05PageState extends ConsumerState<Theme05Page> {
     // );
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

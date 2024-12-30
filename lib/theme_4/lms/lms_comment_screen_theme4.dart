@@ -27,7 +27,6 @@ class LmsCommentScreenTheme4 extends ConsumerStatefulWidget {
 class _LmsCommentScreenTheme4State
     extends ConsumerState<LmsCommentScreenTheme4> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -74,7 +73,6 @@ class _LmsCommentScreenTheme4State
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

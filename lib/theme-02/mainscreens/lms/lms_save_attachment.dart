@@ -38,8 +38,6 @@ enum SampleItem {
 
 class Theme02LmsSaveWorkReplayDetailsDataPageState
     extends ConsumerState<Theme02LmsSaveWorkReplayDetailsDataPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   static int refreshNum = 10;
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
@@ -100,7 +98,6 @@ class Theme02LmsSaveWorkReplayDetailsDataPageState
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

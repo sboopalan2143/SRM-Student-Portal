@@ -27,7 +27,6 @@ class LmsStudentAttachmentDataPageTheme3 extends ConsumerStatefulWidget {
 class LmsStudentAttachmentDataPageTheme3State
     extends ConsumerState<LmsStudentAttachmentDataPageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -76,7 +75,6 @@ class LmsStudentAttachmentDataPageTheme3State
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

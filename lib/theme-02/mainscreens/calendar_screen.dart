@@ -20,7 +20,6 @@ class Theme02CalendarPage extends ConsumerStatefulWidget {
 
 class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -67,7 +66,6 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

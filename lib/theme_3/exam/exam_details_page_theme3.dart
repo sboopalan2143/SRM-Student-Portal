@@ -22,7 +22,6 @@ class ExamDetailsPageTheme3 extends ConsumerStatefulWidget {
 
 class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -67,7 +66,6 @@ class _ExamDetailsPageTheme3State extends ConsumerState<ExamDetailsPageTheme3> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

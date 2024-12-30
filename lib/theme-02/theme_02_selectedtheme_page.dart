@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
@@ -19,8 +18,6 @@ class Theme02Page extends ConsumerStatefulWidget {
 }
 
 class _Theme02PageState extends ConsumerState<Theme02Page> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   // late String selectedTheme;
 
   @override
@@ -41,7 +38,6 @@ class _Theme02PageState extends ConsumerState<Theme02Page> {
     // );
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

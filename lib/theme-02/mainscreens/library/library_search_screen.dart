@@ -18,7 +18,6 @@ class Theme02LibraryBookSearch extends ConsumerStatefulWidget {
 class _Theme02LibraryBookSearchState
     extends ConsumerState<Theme02LibraryBookSearch> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _Theme02LibraryBookSearchState
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -19,14 +19,11 @@ class AcademicsPage extends ConsumerStatefulWidget {
 }
 
 class _AcademicsPageState extends ConsumerState<AcademicsPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -42,11 +39,8 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: const Icon(

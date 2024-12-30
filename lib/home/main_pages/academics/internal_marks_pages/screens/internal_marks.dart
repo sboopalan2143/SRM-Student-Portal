@@ -21,7 +21,6 @@ class InternalMarksPage extends ConsumerStatefulWidget {
 
 class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -64,7 +63,6 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

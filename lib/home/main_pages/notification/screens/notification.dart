@@ -17,7 +17,6 @@ class NotificationPage extends ConsumerStatefulWidget {
 
 class _NotificationPageState extends ConsumerState<NotificationPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -43,7 +42,6 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -57,11 +55,8 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: const Icon(

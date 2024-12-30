@@ -23,8 +23,6 @@ class ProfilePageTheme3 extends ConsumerStatefulWidget {
 }
 
 class _ProfilePageTheme3State extends ConsumerState<ProfilePageTheme3> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {

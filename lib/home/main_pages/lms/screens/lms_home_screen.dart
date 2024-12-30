@@ -23,7 +23,6 @@ class LmsHomePage extends ConsumerStatefulWidget {
 
 class _LmsHomePageState extends ConsumerState<LmsHomePage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -67,7 +66,6 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -83,11 +81,8 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: const Icon(

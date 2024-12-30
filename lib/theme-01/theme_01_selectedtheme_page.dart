@@ -19,8 +19,6 @@ class Theme01Page extends ConsumerStatefulWidget {
 }
 
 class _Theme01PageState extends ConsumerState<Theme01Page> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   // late String selectedTheme;
 
   @override
@@ -41,7 +39,6 @@ class _Theme01PageState extends ConsumerState<Theme01Page> {
     // );
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

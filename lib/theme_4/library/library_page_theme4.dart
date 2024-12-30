@@ -21,7 +21,6 @@ class LibraryPageTheme4 extends ConsumerStatefulWidget {
 
 class _LibraryPageTheme4State extends ConsumerState<LibraryPageTheme4> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -68,7 +67,6 @@ class _LibraryPageTheme4State extends ConsumerState<LibraryPageTheme4> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColorTheme3,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

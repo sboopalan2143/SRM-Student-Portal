@@ -23,8 +23,6 @@ class GradeHomePage extends ConsumerStatefulWidget {
 }
 
 class _GradeHomePageState extends ConsumerState<GradeHomePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -61,7 +59,6 @@ class _GradeHomePageState extends ConsumerState<GradeHomePage> {
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

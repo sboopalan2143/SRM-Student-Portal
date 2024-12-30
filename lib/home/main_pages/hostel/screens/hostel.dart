@@ -21,7 +21,6 @@ class HostelPage extends ConsumerStatefulWidget {
 
 class _HostelPageState extends ConsumerState<HostelPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -70,7 +69,6 @@ class _HostelPageState extends ConsumerState<HostelPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -86,10 +84,8 @@ class _HostelPageState extends ConsumerState<HostelPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<HomePage2>(
-                      builder: (context) => const HomePage2(),
-                    ),
+                  Navigator.pop(
+                    context,
                   );
                 },
                 icon: const Icon(

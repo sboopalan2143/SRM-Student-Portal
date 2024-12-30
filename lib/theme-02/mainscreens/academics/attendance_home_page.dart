@@ -22,8 +22,6 @@ class AttendanceHomePage extends ConsumerStatefulWidget {
 }
 
 class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -59,7 +57,6 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

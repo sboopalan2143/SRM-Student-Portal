@@ -23,7 +23,6 @@ class Theme01LeaveApplicationPage extends ConsumerStatefulWidget {
 
 class _Theme01LeaveApplicationPageState
     extends ConsumerState<Theme01LeaveApplicationPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _listController = ScrollController();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -71,7 +70,6 @@ class _Theme01LeaveApplicationPageState
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.theme01primaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

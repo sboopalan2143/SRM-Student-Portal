@@ -22,8 +22,6 @@ class HostelHomePage extends ConsumerStatefulWidget {
 }
 
 class _HostelHomePageState extends ConsumerState<HostelHomePage> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
@@ -60,7 +58,6 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
     });
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

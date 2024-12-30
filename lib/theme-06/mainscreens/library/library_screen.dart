@@ -21,7 +21,7 @@
 
 // class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
 //   final ScrollController _listController = ScrollController();
-//   // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+//   //
 
 //   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
 //       GlobalKey<LiquidPullToRefreshState>();
@@ -63,7 +63,7 @@
 //       }
 //     });
 //     return Scaffold(
-//      key: scaffoldKey,
+//
 //       backgroundColor: AppColors.theme01primaryColor,
 //       appBar: PreferredSize(
 //         preferredSize: const Size.fromHeight(60),
@@ -396,7 +396,6 @@ class Theme06LibraryPage extends ConsumerStatefulWidget {
 
 class _Theme06LibraryPageState extends ConsumerState<Theme06LibraryPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -443,7 +442,6 @@ class _Theme06LibraryPageState extends ConsumerState<Theme06LibraryPage> {
       }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

@@ -23,7 +23,6 @@ class GrievanceReportPage extends ConsumerStatefulWidget {
 
 class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -60,7 +59,6 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   Widget build(BuildContext context) {
     final provider = ref.watch(grievanceProvider);
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -76,11 +74,8 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
             AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    RouteDesign(
-                      route: const HomePage2(),
-                    ),
                   );
                 },
                 icon: const Icon(

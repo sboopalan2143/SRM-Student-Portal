@@ -15,7 +15,6 @@ class ThemePageTheme3 extends ConsumerStatefulWidget {
 }
 
 class _ThemePageTheme3State extends ConsumerState<ThemePageTheme3> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -21,7 +21,6 @@ class Theme06ExamDetailsPageTheme extends ConsumerStatefulWidget {
 
 class _Theme06ExamDetailsPageThemeState
     extends ConsumerState<Theme06ExamDetailsPageTheme> {
-  final ScrollController _listController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -56,7 +55,9 @@ class _Theme06ExamDetailsPageThemeState
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final provider = ref.watch(examDetailsProvider);
     ref.listen(examDetailsProvider, (previous, next) {
       if (next is ExamDetailsError) {
@@ -162,15 +163,256 @@ class _Theme06ExamDetailsPageThemeState
                 ),
               if (provider.examDetailsHiveData.isNotEmpty)
                 const SizedBox(height: 5),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: ListView.builder(
+              //     itemCount: provider.examDetailsHiveData.length,
+              //     controller: _listController,
+              //     shrinkWrap: true,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return cardDesign(0);
+              //     },
+              //   ),
+              // ),
               Padding(
-                padding: const EdgeInsets.all(10),
-                child: ListView.builder(
-                  itemCount: provider.examDetailsHiveData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.theme06primaryColor,
+                        AppColors.theme06primaryColor,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (int i = 1; i <= 6; i++) ...[
+                          if (provider.examDetailsHiveData
+                              .any((exam) => exam.semester == '$i')) ...[
+                            ExpansionTile(
+                              title: Text(
+                                'Semester $i',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              children: [
+                                for (final exam
+                                    in provider.examDetailsHiveData.where(
+                                  (exam) => exam.semester == '$i',
+                                )) ...[
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/examdetailstheme3.svg',
+                                        color: AppColors.theme02buttonColor2,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                30,
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          exam.subjectdesc!.isEmpty
+                                              ? '-'
+                                              : '${exam.subjectdesc}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.whiteColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      const SizedBox(width: 30),
+                                      Expanded(
+                                        child: Text(
+                                          exam.subjectcode!.isEmpty
+                                              ? 'subjectcode: -'
+                                              : 'subjectcode: ${exam.subjectcode}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.whiteColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 30),
+                                      Text(
+                                        exam.grade!.isEmpty
+                                            ? 'GRADE: -'
+                                            : 'GRADE: ${exam.grade}',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.whiteColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Icon(
+                                        Icons.grade,
+                                        color: AppColors.theme02buttonColor2,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    children: [
+                                      const SizedBox(width: 30),
+                                      Expanded(
+                                        child: Text(
+                                          exam.semester!.isEmpty
+                                              ? 'SEMESTER  -'
+                                              : 'SEMESTER ${exam.semester}',
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.whiteColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 30),
+                                      Expanded(
+                                        child: Text(
+                                          exam.credit!.isEmpty
+                                              ? 'CREDIT -'
+                                              : 'CREDIT ${exam.credit}',
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.whiteColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 15),
+                                  const Divider(
+                                    color: AppColors.grey4,
+                                    height: 1,
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          const Text(
+                                            'INTERNAL',
+                                            style: TextStyles.fontStyle3,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          CircularPercentIndicator(
+                                            radius: 50,
+                                            lineWidth: 15,
+                                            animation: true,
+                                            animationDuration: 1000,
+                                            percent: exam.internal != null &&
+                                                    exam.internal!.isNotEmpty
+                                                ? (double.tryParse(
+                                                          exam.internal!,
+                                                        ) ??
+                                                        0.0) /
+                                                    100.0
+                                                : 0.0,
+                                            center: Text(
+                                              exam.internal!.isEmpty
+                                                  ? '-'
+                                                  : '${exam.internal}',
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.whiteColor,
+                                              ),
+                                            ),
+                                            circularStrokeCap:
+                                                CircularStrokeCap.round,
+                                            progressColor:
+                                                AppColors.theme02buttonColor2,
+                                            backgroundColor:
+                                                AppColors.whiteColor,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Column(
+                                        children: [
+                                          const Text(
+                                            'EXTERNAL',
+                                            style: TextStyles.fontStyle3,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          CircularPercentIndicator(
+                                            radius: 50,
+                                            lineWidth: 15,
+                                            animation: true,
+                                            animationDuration: 1000,
+                                            percent: exam.external != null &&
+                                                    exam.external!.isNotEmpty
+                                                ? (double.tryParse(
+                                                          exam.external!,
+                                                        ) ??
+                                                        0.0) /
+                                                    100.0
+                                                : 0.0,
+                                            center: Text(
+                                              exam.external!.isEmpty
+                                                  ? '-'
+                                                  : '${exam.external}',
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.whiteColor,
+                                              ),
+                                            ),
+                                            circularStrokeCap:
+                                                CircularStrokeCap.round,
+                                            progressColor:
+                                                AppColors.theme02buttonColor2,
+                                            backgroundColor:
+                                                AppColors.whiteColor,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Divider(
+                                    thickness: 2,
+                                    color: AppColors.theme02secondaryColor1,
+                                    height: 1,
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ],
+                            ),
+                          ],
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -208,178 +450,202 @@ class _Theme06ExamDetailsPageThemeState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Subject Description
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/examdetailstheme3.svg',
-                  color: AppColors.theme02buttonColor2,
-                  height: MediaQuery.of(context).size.height / 30,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].subjectdesc!.isEmpty
-                        ? '-'
-                        : '${provider.examDetailsHiveData[index].subjectdesc}',
+            // Loop through semesters (1 to 6)
+            for (int i = 1; i <= 6; i++) ...[
+              if (provider.examDetailsHiveData
+                  .any((exam) => exam.semester == '$i')) ...[
+                // ExpansionTile for each semester
+                ExpansionTile(
+                  title: Text(
+                    'Semester $i',
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       color: AppColors.whiteColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-
-            // Grade
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].subjectcode!.isEmpty
-                        ? 'subjectcode: -'
-                        : 'subjectcode: ${provider.examDetailsHiveData[index].subjectcode}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 30),
-                Text(
-                  provider.examDetailsHiveData[index].grade!.isEmpty
-                      ? 'GRADE: -'
-                      : 'GRADE: ${provider.examDetailsHiveData[index].grade}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.grade,
-                  color: AppColors.theme02buttonColor2,
-                  size: 16,
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].semester!.isEmpty
-                        ? 'SEMESTER  -'
-                        : 'SEMESTER ${provider.examDetailsHiveData[index].semester}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].credit!.isEmpty
-                        ? 'CREDIT -'
-                        : 'CREDIT ${provider.examDetailsHiveData[index].credit}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            const Divider(
-              color: AppColors.grey4,
-              height: 1,
-            ),
-
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
                   children: [
-                    const Text(
-                      'INTERNAL',
-                      style: TextStyles.fontStyle3,
-                    ),
-                    const SizedBox(height: 10),
-                    CircularPercentIndicator(
-                      radius: 50,
-                      lineWidth: 15,
-                      animation: true,
-                      animationDuration: 1000,
-                      percent: internalResult,
-                      center: Text(
-                        provider.examDetailsHiveData[index].internal!.isEmpty
-                            ? '-'
-                            : '${provider.examDetailsHiveData[index].internal}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
-                        ),
+                    // Display items for the specific semester
+                    for (final exam in provider.examDetailsHiveData
+                        .where((exam) => exam.semester == '$i')) ...[
+                      // Subject Description
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/examdetailstheme3.svg',
+                            color: AppColors.theme02buttonColor2,
+                            height: MediaQuery.of(context).size.height / 30,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              exam.subjectdesc!.isEmpty
+                                  ? '-'
+                                  : '${exam.subjectdesc}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: AppColors.theme02buttonColor2,
-                      backgroundColor: AppColors.whiteColor,
-                    ),
+                      const SizedBox(height: 10),
+
+                      // Grade and Subject Code
+                      Row(
+                        children: [
+                          const SizedBox(width: 30),
+                          Expanded(
+                            child: Text(
+                              exam.subjectcode!.isEmpty
+                                  ? 'subjectcode: -'
+                                  : 'subjectcode: ${exam.subjectcode}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 30),
+                          Text(
+                            exam.grade!.isEmpty
+                                ? 'GRADE: -'
+                                : 'GRADE: ${exam.grade}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Icon(
+                            Icons.grade,
+                            color: AppColors.theme02buttonColor2,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+
+                      // Semester and Credit
+                      Row(
+                        children: [
+                          const SizedBox(width: 30),
+                          Expanded(
+                            child: Text(
+                              exam.semester!.isEmpty
+                                  ? 'SEMESTER  -'
+                                  : 'SEMESTER ${exam.semester}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 30),
+                          Expanded(
+                            child: Text(
+                              exam.credit!.isEmpty
+                                  ? 'CREDIT -'
+                                  : 'CREDIT ${exam.credit}',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      const Divider(
+                        color: AppColors.grey4,
+                        height: 1,
+                      ),
+
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                'INTERNAL',
+                                style: TextStyles.fontStyle3,
+                              ),
+                              const SizedBox(height: 10),
+                              CircularPercentIndicator(
+                                radius: 50,
+                                lineWidth: 15,
+                                animation: true,
+                                animationDuration: 1000,
+                                percent: internalResult,
+                                center: Text(
+                                  exam.internal!.isEmpty
+                                      ? '-'
+                                      : '${exam.internal}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: AppColors.theme02buttonColor2,
+                                backgroundColor: AppColors.whiteColor,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 20),
+                          Column(
+                            children: [
+                              const Text(
+                                'EXTERNAL',
+                                style: TextStyles.fontStyle3,
+                              ),
+                              const SizedBox(height: 10),
+                              CircularPercentIndicator(
+                                radius: 50,
+                                lineWidth: 15,
+                                animation: true,
+                                animationDuration: 1000,
+                                percent: internalResult,
+                                center: Text(
+                                  exam.external!.isEmpty
+                                      ? '-'
+                                      : '${exam.external}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.whiteColor,
+                                  ),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: AppColors.theme02buttonColor2,
+                                backgroundColor: AppColors.whiteColor,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Divider(
+                        thickness: 2,
+                        color: AppColors.theme02secondaryColor1,
+                        height: 1,
+                      ),
+
+                      const SizedBox(height: 10),
+                    ],
                   ],
                 ),
-                const SizedBox(width: 20),
-                Column(
-                  children: [
-                    const Text(
-                      'EXTERNAL',
-                      style: TextStyles.fontStyle3,
-                    ),
-                    const SizedBox(height: 10),
-                    CircularPercentIndicator(
-                      radius: 50,
-                      lineWidth: 15,
-                      animation: true,
-                      animationDuration: 1000,
-                      percent: internalResult,
-                      center: Text(
-                        provider.examDetailsHiveData[index].external!.isEmpty
-                            ? '-'
-                            : '${provider.examDetailsHiveData[index].external}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: AppColors.theme02buttonColor2,
-                      backgroundColor: AppColors.whiteColor,
-                    ),
-                  ],
-                ),
               ],
-            ),
-            const SizedBox(height: 20),
-            Divider(
-              thickness: 2,
-              color: AppColors.theme02secondaryColor1,
-              height: 1,
-            ),
-
-            const SizedBox(height: 10),
+            ],
           ],
         ),
       ),

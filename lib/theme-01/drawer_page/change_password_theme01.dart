@@ -407,13 +407,11 @@ class Theme01ChangePasswordPage extends ConsumerStatefulWidget {
 class _Theme01ChangePasswordPageState
     extends ConsumerState<Theme01ChangePasswordPage>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(changePasswordProvider);
 
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

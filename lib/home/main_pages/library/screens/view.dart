@@ -19,7 +19,6 @@ class ViewLibraryPage extends ConsumerStatefulWidget {
 
 class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   //   @override
   // void initState() {
@@ -43,7 +42,6 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
       // }
     });
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),

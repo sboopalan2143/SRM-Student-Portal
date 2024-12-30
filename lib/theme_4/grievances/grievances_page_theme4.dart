@@ -25,7 +25,6 @@ class GrievanceReportPageTheme4 extends ConsumerStatefulWidget {
 class _GrievanceReportPageTheme4State
     extends ConsumerState<GrievanceReportPageTheme4> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
       GlobalKey<LiquidPullToRefreshState>();
@@ -100,7 +99,6 @@ class _GrievanceReportPageTheme4State
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        key: scaffoldKey,
         backgroundColor: AppColors.secondaryColorTheme3,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),

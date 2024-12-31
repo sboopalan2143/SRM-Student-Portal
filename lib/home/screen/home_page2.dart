@@ -51,7 +51,6 @@ class HomePage2 extends ConsumerStatefulWidget {
 
 class _HomePage2State extends ConsumerState<HomePage2>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -200,7 +199,6 @@ class _HomePage2State extends ConsumerState<HomePage2>
         }
       });
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [

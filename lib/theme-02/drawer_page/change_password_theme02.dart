@@ -28,7 +28,7 @@
 // class _Theme02ChangePasswordPageState
 //     extends ConsumerState<Theme02ChangePasswordPage>
 //     with WidgetsBindingObserver {
-//   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+//
 //   @override
 //   void didChangeAppLifecycleState(AppLifecycleState state) {
 //     if (state == AppLifecycleState.resumed) {
@@ -83,7 +83,7 @@
 //         }
 //       });
 //     return Scaffold(
-//       key: _scaffoldKey,
+//
 //       backgroundColor: AppColors.whiteColor,
 //       body:
 //        Container(

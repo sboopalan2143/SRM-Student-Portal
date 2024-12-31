@@ -27,7 +27,6 @@ class Theme02settingPage extends ConsumerStatefulWidget {
 
 class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -81,7 +80,6 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
         }
       });
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       body: Container(
         decoration: BoxDecoration(
@@ -220,7 +218,8 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       RouteDesign(
-                                          route: const Theme02LoginScreen(),),
+                                        route: const Theme02LoginScreen(),
+                                      ),
                                       (route) => false,
                                     );
                                   },

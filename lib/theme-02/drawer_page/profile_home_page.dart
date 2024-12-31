@@ -107,107 +107,251 @@ class _ProfileHomePageState extends ConsumerState<ProfileHomePage> {
       body: Column(
         children: [
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 8,
-                    backgroundColor: AppColors.theme02buttonColor2,
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     SizedBox(
+          //       width: 200,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           padding: const EdgeInsets.symmetric(
+          //             horizontal: 24,
+          //             vertical: 12,
+          //           ),
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(12),
+          //           ),
+          //           elevation: 8,
+          //           backgroundColor: AppColors.theme02buttonColor2,
+          //         ),
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             RouteDesign(
+          //               route: const Theme02ProfilePage(),
+          //             ),
+          //           );
+          //         },
+          //         child: const Row(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             Text(
+          //               'Porfile',
+          //               style: TextStyle(
+          //                 fontSize: 14,
+          //                 fontWeight: FontWeight.bold,
+          //                 color: Colors.white,
+          //               ),
+          //             ),
+          //             SizedBox(width: 8),
+          //             Icon(
+          //               Icons.arrow_forward_ios,
+          //               size: 16,
+          //               color: Colors.white,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const Theme02ProfilePage(),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02ProfilePage(),
-                      ),
-                    );
-                  },
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Porfile',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          size: 28,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Go to Profile',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
                           color: Colors.white,
                         ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 8,
-                    backgroundColor: AppColors.theme02buttonColor2,
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const Theme02FeesPage(),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02FeesPage(),
-                      ),
-                    );
-                  },
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Fees Details',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.monetization_on,
+                          size: 28,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Fees Details',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
                           color: Colors.white,
                         ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     SizedBox(
+          //       width: 200,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           padding: const EdgeInsets.symmetric(
+          //             horizontal: 24,
+          //             vertical: 12,
+          //           ),
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(12),
+          //           ),
+          //           elevation: 8,
+          //           backgroundColor: AppColors.theme02buttonColor2,
+          //         ),
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             RouteDesign(
+          //               route: const Theme02FeesPage(),
+          //             ),
+          //           );
+          //         },
+          //         child: const Row(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             Text(
+          //               'Fees Details',
+          //               style: TextStyle(
+          //                 fontSize: 14,
+          //                 fontWeight: FontWeight.bold,
+          //                 color: Colors.white,
+          //               ),
+          //             ),
+          //             SizedBox(width: 8),
+          //             Icon(
+          //               Icons.arrow_forward_ios,
+          //               size: 16,
+          //               color: Colors.white,
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

@@ -33,7 +33,7 @@
 
 // class _HomePageState extends ConsumerState<HomePage>
 //     with WidgetsBindingObserver {
-//   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+//  
 
 //   @override
 //   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -107,7 +107,7 @@
 //         }
 //       });
 //     return Scaffold(
-//       key: _scaffoldKey,
+//       
 //       backgroundColor: AppColors.secondaryColor,
 //       appBar: PreferredSize(
 //         preferredSize: const Size.fromHeight(60),

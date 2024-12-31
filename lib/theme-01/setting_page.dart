@@ -29,7 +29,6 @@ class Theme01settingPage extends ConsumerStatefulWidget {
 
 class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
     with WidgetsBindingObserver {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -83,7 +82,6 @@ class _Theme01settingPageState extends ConsumerState<Theme01settingPage>
         }
       });
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: AppColors.theme01secondaryColor4,
       body: Container(
         decoration: BoxDecoration(

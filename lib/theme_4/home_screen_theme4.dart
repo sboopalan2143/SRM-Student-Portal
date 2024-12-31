@@ -58,7 +58,7 @@ class HomePageTheme4 extends ConsumerStatefulWidget {
 
 class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
     with WidgetsBindingObserver {
-  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  //
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {

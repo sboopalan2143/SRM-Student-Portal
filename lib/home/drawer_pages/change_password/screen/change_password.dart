@@ -58,9 +58,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        // scaffoldKey.currentState?.openEndDrawer();
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.menu,
                         size: 35,

@@ -12,15 +12,15 @@ import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
 
 import '../../home/drawer_pages/profile/riverpod/profile_state.dart';
 
-class ProfileHomePage extends ConsumerStatefulWidget {
-  const ProfileHomePage({super.key});
+class FeesDetailsHomePage extends ConsumerStatefulWidget {
+  const FeesDetailsHomePage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ProfileHomePageState();
+      _FeesDetailsHomePageState();
 }
 
-class _ProfileHomePageState extends ConsumerState<ProfileHomePage> {
+class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
   @override
   void initState() {
     super.initState();
@@ -163,7 +163,7 @@ class _ProfileHomePageState extends ConsumerState<ProfileHomePage> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const Theme02ProfilePage(),
+                    route: const Theme02FeesPage(),
                   ),
                 );
               },
@@ -199,13 +199,13 @@ class _ProfileHomePageState extends ConsumerState<ProfileHomePage> {
                     Row(
                       children: [
                         Icon(
-                          Icons.account_circle,
+                          Icons.monetization_on,
                           size: 28,
                           color: Colors.white.withOpacity(0.9),
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Go to Profile',
+                          'Fees Due',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -274,13 +274,13 @@ class _ProfileHomePageState extends ConsumerState<ProfileHomePage> {
                     Row(
                       children: [
                         Icon(
-                          Icons.monetization_on,
+                          Icons.receipt,
                           size: 28,
                           color: Colors.white.withOpacity(0.9),
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Fees Details',
+                          'Fees Receipt',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

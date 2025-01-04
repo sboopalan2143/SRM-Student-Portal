@@ -31,6 +31,7 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
 import 'package:sample/theme-02/drawer_page/profile_home_page.dart';
+import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-02/mainscreens/academics/attendance_home_page.dart';
 import 'package:sample/theme-02/mainscreens/academics/internal_marks.dart';
@@ -266,8 +267,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        // route: const Theme02ProfilePage(),
-                        route: const ProfileHomePage(),
+                        route: const Theme02ProfilePage(),
                       ),
                     );
                   },
@@ -319,7 +319,8 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       context,
                       RouteDesign(
                         // route: const Theme02CalendarPage(),
-                        route: const CalendarHomePage(),
+                        // route: const CalendarHomePage(),
+                        route: const FeesDetailsHomePage(),
                       ),
                     );
                   },
@@ -348,12 +349,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Icon(
-                          Icons.calendar_month_outlined,
+                          Icons.monetization_on,
                           size: MediaQuery.of(context).size.height / 12,
                           color: AppColors.whiteColor,
                         ),
                         const Text(
-                          'Calendar',
+                          'Fees Details',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -368,114 +369,114 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
               ],
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        // route: const Theme02AttendancePage(),
-                        route: const AttendanceHomePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/attendancetheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Attendance',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const GradeHomePage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    padding: const EdgeInsets.all(
-                      15,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.theme02primaryColor,
-                          AppColors.theme02secondaryColor1,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          20,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/hourattendancetheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 16,
-                        ),
-                        const Text(
-                          'Grades',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             // route: const Theme02AttendancePage(),
+            //             route: const AttendanceHomePage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/attendancetheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Attendance',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           RouteDesign(
+            //             route: const GradeHomePage(),
+            //           ),
+            //         );
+            //       },
+            //       child: Container(
+            //         height: 160,
+            //         width: MediaQuery.of(context).size.width / 2.5,
+            //         padding: const EdgeInsets.all(
+            //           15,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           gradient: LinearGradient(
+            //             colors: [
+            //               AppColors.theme02primaryColor,
+            //               AppColors.theme02secondaryColor1,
+            //             ],
+            //             begin: Alignment.topCenter,
+            //             end: Alignment.bottomCenter,
+            //           ),
+            //           borderRadius: const BorderRadius.all(
+            //             Radius.circular(
+            //               20,
+            //             ),
+            //           ),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             SvgPicture.asset(
+            //               'assets/images/hourattendancetheme3.svg',
+            //               color: AppColors.whiteColor,
+            //               height: MediaQuery.of(context).size.height / 16,
+            //             ),
+            //             const Text(
+            //               'Grades',
+            //               style: TextStyle(
+            //                 fontSize: 16,
+            //                 fontWeight: FontWeight.bold,
+            //                 color: AppColors.whiteColor,
+            //               ),
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -590,8 +591,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        // route: const Theme02GrievanceReportPage(),
-                        route: const GrievanceHomePage(),
+                        route: const HostelHomePage(),
                       ),
                     );
                   },
@@ -620,12 +620,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SvgPicture.asset(
-                          'assets/images/grievancestheme3.svg',
+                          'assets/images/hosteltheme3.svg',
                           color: AppColors.whiteColor,
                           height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
-                          'Grievances',
+                          'Hostel',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -698,7 +698,8 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const HostelHomePage(),
+                        // route: const Theme02GrievanceReportPage(),
+                        route: const GrievanceHomePage(),
                       ),
                     );
                   },
@@ -727,12 +728,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SvgPicture.asset(
-                          'assets/images/hosteltheme3.svg',
+                          'assets/images/grievancestheme3.svg',
                           color: AppColors.whiteColor,
                           height: MediaQuery.of(context).size.height / 16,
                         ),
                         const Text(
-                          'Hostel',
+                          'Grievances',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -850,12 +851,13 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme02InternalMarksPage(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   RouteDesign(
+                    //     // route: const Theme02CalendarPage(),
+                    //     route: const CalendarHomePage(),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     height: 160,
@@ -878,9 +880,6 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                     //     ),
                     //   ),
                     // ),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    ),
                   ),
                 ),
               ],

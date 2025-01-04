@@ -90,23 +90,40 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Image.asset(
-                      'assets/images/srmgrouplogo.png',
-                      width: MediaQuery.of(context).size.width - 180,
-                      fit: BoxFit.cover,
+                  // Center(
+                  //   child: Image.asset(
+                  //     'assets/images/srmgrouplogo.png',
+                  //     width: MediaQuery.of(context).size.width - 180,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
+                  Text(
+                    'SRM Group Of',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.theme02secondaryColor1,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Education Institution',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.theme02secondaryColor1,
                     ),
                   ),
                   const SizedBox(height: 50),
                   Text(
-                    'Log In',
+                    'Student portal LogIn',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.theme02primaryColor,
+                      color: AppColors.theme02secondaryColor1,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 50),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -114,7 +131,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         children: [
                           Text(
                             'Username',
-                            style: TextStyles.loginfontStyle1,
+                            style: TextStyles.loginfontStyle2,
                           ),
                           const SizedBox(height: 5),
                           const Text(
@@ -153,7 +170,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         children: [
                           Text(
                             'Password',
-                            style: TextStyles.loginfontStyle1,
+                            style: TextStyles.loginfontStyle2,
                           ),
                           const SizedBox(height: 5),
                           const Text(
@@ -200,8 +217,8 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          AppColors.theme02buttonColor1,
-                          AppColors.theme02buttonColor2,
+                          AppColors.theme02secondaryColor1,
+                          AppColors.theme02secondaryColor1,
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,

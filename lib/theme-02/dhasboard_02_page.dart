@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -25,17 +26,18 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/model/inte
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:sample/home/main_pages/notification/screens/notification.dart';
+import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/dhasboard_notification_page.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
-import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
+import 'package:sample/theme-02/notification_home_page.dart';
 
 class Theme02dhasboardPage extends ConsumerStatefulWidget {
   const Theme02dhasboardPage({super.key});
@@ -83,6 +85,18 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
         await ref.read(profileProvider.notifier).getProfileHive('');
       },
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(cgpaProvider.notifier).getCgpaDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(sgpaProvider.notifier).getSgpaDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
 
 //>>>Attendance
 
@@ -236,6 +250,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     );
   }
 
+  final ScrollController _listController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     ref
@@ -259,6 +275,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     final providerProfile = ref.watch(profileProvider);
     final base64Image = '${providerProfile.profileDataHive.studentphoto}';
     final imageBytes = base64Decode(base64Image);
+    final provider = ref.watch(cgpaProvider);
+    final sgpaprovider = ref.watch(sgpaProvider);
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor2,
@@ -306,42 +324,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                             ),
                           ),
-                        // Stack(
-                        //   clipBehavior: Clip.none,
-                        //   children: [
-                        //     IconButton(
-                        //       iconSize: 25,
-                        //       color: Colors.white,
-                        //       icon: const Icon(Icons.notifications),
-                        //       onPressed: () {},
-                        //     ),
-                        //     Positioned(
-                        //       right: 2,
-                        //       top: 2,
-                        //       child: Container(
-                        //         padding: const EdgeInsets.all(5),
-                        //         decoration: const BoxDecoration(
-                        //           color: Colors.red,
-                        //           shape: BoxShape.circle,
-                        //         ),
-                        //         constraints: const BoxConstraints(
-                        //           minWidth: 20,
-                        //           minHeight: 20,
-                        //         ),
-                        //         child: const Center(
-                        //           child: Text(
-                        //             '2',
-                        //             style: TextStyle(
-                        //               color: Colors.white,
-                        //               fontSize: 12,
-                        //             ),
-                        //             textAlign: TextAlign.center,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
@@ -358,14 +340,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      // Text(
-                      //   'Student',
-                      //   style: TextStyle(
-                      //     fontSize: 20,
-                      //     fontWeight: FontWeight.bold,
-                      //     color: AppColors.whiteColor,
-                      //   ),
-                      // ),
                       Text(
                         TokensManagement.studentName == ''
                             ? '-'
@@ -391,233 +365,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      // Text(
-                      //   'SRM Portal',
-                      //   style: TextStyle(
-                      //     fontSize: 18,
-                      //     fontWeight: FontWeight.bold,
-                      //     color: AppColors.whiteColor,
-                      //   ),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // Container(
-                  //   width: double.infinity,
-                  //   padding: const EdgeInsets.all(16),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(16),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //         color: Colors.grey.withOpacity(0.2),
-                  //         blurRadius: 8,
-                  //         offset: const Offset(0, 4),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: Column(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     children: [
-                  //       const Text(
-                  //         'Notice Board',
-                  //         style: TextStyle(
-                  //           fontSize: 18,
-                  //           fontWeight: FontWeight.bold,
-                  //           color: Colors.black87,
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 12),
-                  //       Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           Icon(
-                  //             Icons.paste_rounded,
-                  //             size: 32,
-                  //             color: Colors.grey[600],
-                  //           ),
-                  //           const SizedBox(
-                  //             width: 10,
-                  //           ),
-                  //           const Expanded(
-                  //             child: Text(
-                  //               'Regarding fee payment for academic year 2024-25',
-                  //               style: TextStyle(
-                  //                 fontSize: 12,
-                  //                 color: AppColors.primaryColor2,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           const SizedBox(width: 8),
-                  //           // AnimatdContainer(
-                  //           //   duration: const Duration(seconds: 1),
-                  //           //   width: 30,
-                  //           //   height: 30,
-                  //           //   decoration: BoxDecoration(
-                  //           //     shape: BoxShape.circle,
-                  //           //     color: Colors.redAccent.withOpacity(0.8),
-                  //           //     boxShadow: [
-                  //           //       BoxShadow(
-                  //           //         color: Colors.redAccent.withOpacity(0.5),
-                  //           //         blurRadius: 12,
-                  //           //         spreadRadius: 3,
-                  //           //       ),
-                  //           //     ],
-                  //           //   ),
-                  //           //   child: const Center(
-                  //           //     child: Text(
-                  //           //       'New',
-                  //           //       style: TextStyle(
-                  //           //         color: Colors.white,
-                  //           //         fontWeight: FontWeight.bold,
-                  //           //         fontSize: 12,
-                  //           //       ),
-                  //           //     ),
-                  //           //   ),
-                  //           // ),
-                  //           Container(
-                  //             width: 40,
-                  //             height: 40,
-                  //             decoration: BoxDecoration(
-                  //               gradient: const LinearGradient(
-                  //                 colors: [Colors.green, Colors.lightGreen],
-                  //                 begin: Alignment.topLeft,
-                  //                 end: Alignment.bottomRight,
-                  //               ),
-                  //               borderRadius: BorderRadius.circular(10),
-                  //               boxShadow: [
-                  //                 BoxShadow(
-                  //                   color: Colors.black.withOpacity(0.2),
-                  //                   blurRadius: 5,
-                  //                   offset: const Offset(2, 3),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             child: Center(
-                  //               child: Text(
-                  //                 'New',
-                  //                 style: TextStyle(
-                  //                   color: Colors.white,
-                  //                   fontWeight: FontWeight.bold,
-                  //                   fontSize: 14,
-                  //                   shadows: [
-                  //                     Shadow(
-                  //                       blurRadius: 3,
-                  //                       color: Colors.black.withOpacity(0.3),
-                  //                       offset: const Offset(1, 1),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       const SizedBox(
-                  //         height: 5,
-                  //       ),
-                  //       Divider(
-                  //         height: 1,
-                  //         color: AppColors.redColor.withOpacity(0.5),
-                  //       ),
-                  //       const SizedBox(
-                  //         height: 5,
-                  //       ),
-                  //       Row(
-                  //         mainAxisAlignment: MainAxisAlignment.center,
-                  //         children: [
-                  //           Icon(
-                  //             Icons.paste_rounded,
-                  //             size: 32,
-                  //             color: Colors.grey[600],
-                  //           ),
-                  //           const SizedBox(
-                  //             width: 10,
-                  //           ),
-                  //           const Expanded(
-                  //             child: Text(
-                  //               'Regarding fee payment for academic year 2024-25',
-                  //               style: TextStyle(
-                  //                 fontSize: 12,
-                  //                 color: AppColors.primaryColor2,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           const SizedBox(width: 8),
-                  //           Container(
-                  //             width: 40,
-                  //             height: 40,
-                  //             decoration: BoxDecoration(
-                  //               gradient: const LinearGradient(
-                  //                 colors: [Colors.green, Colors.lightGreen],
-                  //                 begin: Alignment.topLeft,
-                  //                 end: Alignment.bottomRight,
-                  //               ),
-                  //               borderRadius: BorderRadius.circular(10),
-                  //               boxShadow: [
-                  //                 BoxShadow(
-                  //                   color: Colors.black.withOpacity(0.2),
-                  //                   blurRadius: 5,
-                  //                   offset: const Offset(2, 3),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             child: Center(
-                  //               child: Text(
-                  //                 'New',
-                  //                 style: TextStyle(
-                  //                   color: Colors.white,
-                  //                   fontWeight: FontWeight.bold,
-                  //                   fontSize: 14,
-                  //                   shadows: [
-                  //                     Shadow(
-                  //                       blurRadius: 3,
-                  //                       color: Colors.black.withOpacity(0.3),
-                  //                       offset: const Offset(1, 1),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       const SizedBox(height: 16),
-                  //       Container(
-                  //         width: double.infinity,
-                  //         decoration: BoxDecoration(
-                  //           color: const Color(0xFFE0E7FF),
-                  //           borderRadius: BorderRadius.circular(12),
-                  //         ),
-                  //         child: TextButton(
-                  //           onPressed: () {
-                  //             Navigator.push(
-                  //               context,
-                  //               RouteDesign(
-                  //                 route: const DhasboardNotificationPage(),
-                  //               ),
-                  //             );
-                  //           },
-                  //           style: TextButton.styleFrom(
-                  //             foregroundColor: const Color(0xFF4A56E2),
-                  //             padding: const EdgeInsets.symmetric(vertical: 8),
-                  //             shape: RoundedRectangleBorder(
-                  //               borderRadius: BorderRadius.circular(12),
-                  //             ),
-                  //           ),
-                  //           child: const Text(
-                  //             'More info',
-                  //             style: TextStyle(
-                  //               fontSize: 14,
-                  //               fontWeight: FontWeight.w500,
-                  //               color: AppColors.primaryColor2,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -642,11 +393,97 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               size: 40,
                               color: Colors.indigoAccent,
                             ),
-                            const SizedBox(width: 12),
+                            SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
+                                  Text(
+                                    "Today's Status",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'Working Day',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                RouteDesign(
+                                  route: const DhasboardNotificationPage(),
+                                ),
+                              );
+                            },
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                            ),
+                            child: const Text(
+                              'View Timetable',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 12,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.campaign_rounded,
+                              size: 40,
+                              color: Colors.indigoAccent,
+                            ),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
                                     'Notice Board',
                                     style: TextStyle(
@@ -697,7 +534,9 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               const SizedBox(width: 10),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 4),
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.redAccent,
                                   borderRadius: BorderRadius.circular(20),
@@ -749,7 +588,9 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               const SizedBox(width: 10),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 4),
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.redAccent,
                                   borderRadius: BorderRadius.circular(20),
@@ -787,7 +628,9 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               Navigator.push(
                                 context,
                                 RouteDesign(
-                                  route: const DhasboardNotificationPage(),
+                                  // route: const DhasboardNotificationPage(),
+                                  // route: const NotificationPage(),
+                                  route: const NotificationHomePage(),
                                 ),
                               );
                             },
@@ -829,6 +672,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                     ),
                   ),
                   const SizedBox(height: 20),
+
+                  const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
@@ -850,236 +695,415 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       ],
                     ),
                   ),
+
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 180,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.red.shade200, Colors.red.shade400],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.red.shade100.withOpacity(0.5),
-                              blurRadius: 10,
-                              offset: const Offset(4, 4),
-                            ),
-                            const BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 10,
-                              offset: Offset(-4, -4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Icon Section
-                            const Padding(
-                              padding: EdgeInsets.only(top: 16),
-                              child: Icon(
-                                Icons.account_balance_wallet_rounded,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            // Title Section
-                            const Text(
-                              'Current Due',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 16),
-                            // Value Section
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                'Rs. 103,500',
-                                style: TextStyle(
-                                  color: Colors.red.shade400,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 22,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Container(
+                  //       // width: 180,
+                  //       decoration: BoxDecoration(
+                  //         gradient: const LinearGradient(
+                  //           colors: [Colors.white, Colors.white],
+                  //           begin: Alignment.topLeft,
+                  //           end: Alignment.bottomRight,
+                  //         ),
+                  //         borderRadius: BorderRadius.circular(16),
+                  //         // boxShadow: [
+                  //         //   // BoxShadow(
+                  //         //   //   color: Colors.red.shade100.withOpacity(0.5),
+                  //         //   //   blurRadius: 10,
+                  //         //   //   offset: const Offset(4, 4),
+                  //         //   // ),
+                  //         //   const BoxShadow(
+                  //         //     color: Colors.white,
+                  //         //     blurRadius: 10,
+                  //         //     offset: Offset(-4, -4),
+                  //         //   ),
+                  //         // ],
+                  //       ),
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: [
+                  //           // Icon Section
+                  //           Padding(
+                  //             padding: const EdgeInsets.only(top: 16),
+                  //             child: Icon(
+                  //               Icons.account_balance_wallet_rounded,
+                  //               color: AppColors.theme02secondaryColor1,
+                  //               size: 40,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 8),
+                  //           // Title Section
+                  //           Text(
+                  //             'Current Due',
+                  //             style: TextStyle(
+                  //               color: AppColors.theme02secondaryColor1,
+                  //               fontWeight: FontWeight.bold,
+                  //               fontSize: 18,
+                  //             ),
+                  //             textAlign: TextAlign.center,
+                  //           ),
+                  //           const SizedBox(height: 16),
+                  //           // Value Section
+                  //           Container(
+                  //             padding: const EdgeInsets.symmetric(
+                  //               horizontal: 16,
+                  //               vertical: 10,
+                  //             ),
+                  //             decoration: BoxDecoration(
+                  //               color: AppColors.theme02secondaryColor1,
+                  //               borderRadius: BorderRadius.circular(12),
+                  //             ),
+                  //             child: const Text(
+                  //               'Rs. 103,500',
+                  //               style: TextStyle(
+                  //                 color: Colors.white,
+                  //                 fontWeight: FontWeight.bold,
+                  //                 fontSize: 22,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 16),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  Container(
                     width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // SGPA Card
-                        Container(
-                          width: 140,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blue.shade300,
-                                Colors.blueAccent.shade700,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.shade200.withOpacity(0.6),
-                                blurRadius: 12,
-                                offset: const Offset(4, 4),
-                              ),
-                              BoxShadow(
-                                color: Colors.white.withOpacity(0.8),
-                                blurRadius: 12,
-                                offset: const Offset(-4, -4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // Icon Section
-                              const Padding(
-                                // ignore: unnecessary_const
-                                padding: const EdgeInsets.only(top: 12),
-                                child: Icon(
-                                  Icons.school_rounded,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Title Section
-                              const Text(
-                                'S.G.P.A',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              // Value Section
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  '2.68',
-                                  style: TextStyle(
-                                    color: Colors.blueAccent.shade700,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        // CGPA Card
-                        Container(
-                          width: 140,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.purple.shade300,
-                                Colors.purpleAccent.shade700,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.purple.shade200.withOpacity(0.6),
-                                blurRadius: 12,
-                                offset: const Offset(4, 4),
-                              ),
-                              BoxShadow(
-                                color: Colors.white.withOpacity(0.8),
-                                blurRadius: 12,
-                                offset: const Offset(-4, -4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              // Icon Section
-                              const Padding(
-                                padding: EdgeInsets.only(top: 12),
-                                child: Icon(
-                                  Icons.bar_chart_rounded,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Title Section
-                              const Text(
-                                'C.G.P.A',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              // Value Section
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  '2.68',
-                                  style: TextStyle(
-                                    color: Colors.purpleAccent.shade700,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                            ],
-                          ),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
+                    child: Container(
+                      // width: 180,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Colors.white, Colors.white],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                        // boxShadow: [
+                        //   // BoxShadow(
+                        //   //   color: Colors.red.shade100.withOpacity(0.5),
+                        //   //   blurRadius: 10,
+                        //   //   offset: const Offset(4, 4),
+                        //   // ),
+                        //   const BoxShadow(
+                        //     color: Colors.white,
+                        //     blurRadius: 10,
+                        //     offset: Offset(-4, -4),
+                        //   ),
+                        // ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Icon Section
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Icon(
+                              Icons.account_balance_wallet_rounded,
+                              color: AppColors.theme02secondaryColor1,
+                              size: 40,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          // Title Section
+                          Text(
+                            'Current Due',
+                            style: TextStyle(
+                              color: AppColors.theme02secondaryColor1,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          // Value Section
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.redColor,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Text(
+                              'Rs. 103,500',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // SGPA Card
+                          Container(
+                            width: 130,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade300,
+                                  Colors.blueAccent.shade700,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blue.shade200.withOpacity(0.6),
+                                  blurRadius: 12,
+                                  offset: const Offset(4, 4),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white.withOpacity(0.8),
+                                  blurRadius: 12,
+                                  offset: const Offset(-4, -4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // Icon Section
+                                const Padding(
+                                  // ignore: unnecessary_const
+                                  padding: const EdgeInsets.only(top: 12),
+                                  child: Icon(
+                                    Icons.school_rounded,
+                                    color: Colors.white,
+                                    size: 36,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                // Title Section
+                                const Text(
+                                  'S.G.P.A',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                // Value Section
+                                // Container(
+                                //   padding: const EdgeInsets.symmetric(
+                                //     horizontal: 16,
+                                //     vertical: 10,
+                                //   ),
+                                //   decoration: BoxDecoration(
+                                //     color: Colors.white,
+                                //     borderRadius: BorderRadius.circular(12),
+                                //   ),
+                                //   child: Text(
+                                //     '2.68',
+                                //     style: TextStyle(
+                                //       color: Colors.blueAccent.shade700,
+                                //       fontWeight: FontWeight.bold,
+                                //       fontSize: 22,
+                                //     ),
+                                //   ),
+                                // ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 24,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        if (sgpaprovider is SgpaLoading)
+                                          Center(
+                                            child: CircularProgressIndicators
+                                                .primaryColorProgressIndication,
+                                          )
+                                        else if (sgpaprovider
+                                                .sgpaData.isEmpty &&
+                                            sgpaprovider is! CgpaLoading)
+                                          const Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  'No Data!',
+                                                  style: TextStyles.fontStyle1,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        if (sgpaprovider.sgpaData.isNotEmpty)
+                                          ListView.builder(
+                                            itemCount:
+                                                sgpaprovider.sgpaData.length,
+                                            controller: _listController,
+                                            shrinkWrap: true,
+                                            itemBuilder: (
+                                              BuildContext context,
+                                              int index,
+                                            ) {
+                                              return sgpacardDesign(index);
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          // CGPA Card
+                          Container(
+                            width: 130,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.purple.shade300,
+                                  Colors.purpleAccent.shade700,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      Colors.purple.shade200.withOpacity(0.6),
+                                  blurRadius: 12,
+                                  offset: const Offset(4, 4),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white.withOpacity(0.8),
+                                  blurRadius: 12,
+                                  offset: const Offset(-4, -4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // Icon Section
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Icon(
+                                    Icons.bar_chart_rounded,
+                                    color: Colors.white,
+                                    size: 36,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                // Title Section
+                                const Text(
+                                  'C.G.P.A',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                SizedBox(
+                                  width: 100,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 24,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        if (provider is CgpaLoading)
+                                          Center(
+                                            child: CircularProgressIndicators
+                                                .primaryColorProgressIndication,
+                                          )
+                                        else if (provider.cgpaData.isEmpty &&
+                                            provider is! CgpaLoading)
+                                          const Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                  'No Data!',
+                                                  style: TextStyles.fontStyle1,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        if (provider.cgpaData.isNotEmpty)
+                                          ListView.builder(
+                                            itemCount: provider.cgpaData.length,
+                                            controller: _listController,
+                                            shrinkWrap: true,
+                                            itemBuilder: (
+                                              BuildContext context,
+                                              int index,
+                                            ) {
+                                              return cgpacardDesign(index);
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                // Value Section
+
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
@@ -1099,7 +1123,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                          'Registrations',
+                          'Current Activities',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -1107,134 +1131,306 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE0E7FF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              foregroundColor: const Color(0xFF4A56E2),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: const Text(
-                              'Exam Registration',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primaryColor2,
-                              ),
+                        TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xFF4A56E2),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE0E7FF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () async {
-                              await Navigator.push(
-                                context,
-                                RouteDesign(
-                                  // route: const TransportRegisterPage(),
-                                  route: const Theme02TransportRegisterPage(),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // SGPA Card
+                                    Container(
+                                      width: 130,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.cyan.shade400, // Cool cyan
+                                            Colors
+                                                .indigo.shade500, // Rich indigo
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.blue.shade200
+                                                .withOpacity(0.6),
+                                            blurRadius: 12,
+                                            offset: const Offset(4, 4),
+                                          ),
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            blurRadius: 12,
+                                            offset: const Offset(-4, -4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // Icon Section
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Icon(
+                                              Icons.app_registration_rounded,
+                                              color: Colors.white,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          // Title Section
+                                          Text(
+                                            'Exam',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Registration',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    Container(
+                                      width: 130,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.lightBlue
+                                                .shade300, // Light aqua
+                                            Colors.teal.shade500, // Deep teal
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.purple.shade200
+                                                .withOpacity(0.6),
+                                            blurRadius: 12,
+                                            offset: const Offset(4, 4),
+                                          ),
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            blurRadius: 12,
+                                            offset: const Offset(-4, -4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // Icon Section
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Icon(
+                                              Icons.emoji_transportation,
+                                              color: Colors.white,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+
+                                          Text(
+                                            'Transport',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Registration',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                              await ref
-                                  .read(transportProvider.notifier)
-                                  .gettransportRegisterDetails(
-                                    ref.read(encryptionProvider.notifier),
-                                  );
-                              await ref
-                                  .read(transportProvider.notifier)
-                                  .getRouteIdDetails(
-                                    ref.read(encryptionProvider.notifier),
-                                  );
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor: const Color(0xFF4A56E2),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
                               ),
-                            ),
-                            child: const Text(
-                              'Transport Registration',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primaryColor2,
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE0E7FF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: const Theme02RegistrationPage(),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    // SGPA Card
+                                    Container(
+                                      width: 130,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors
+                                                .green.shade400, // Fresh green
+                                            Colors.blue.shade300, // Sky blue
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.blue.shade200
+                                                .withOpacity(0.6),
+                                            blurRadius: 12,
+                                            offset: const Offset(4, 4),
+                                          ),
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            blurRadius: 12,
+                                            offset: const Offset(-4, -4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // Icon Section
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Icon(
+                                              Icons.hotel_sharp,
+                                              color: Colors.white,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+
+                                          Text(
+                                            'Hostel',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Registration',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    // CGPA Card
+                                    Container(
+                                      width: 130,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.cyan.shade400, // Cool cyan
+                                            Colors
+                                                .indigo.shade500, // Rich indigo
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.purple.shade200
+                                                .withOpacity(0.6),
+                                            blurRadius: 12,
+                                            offset: const Offset(4, 4),
+                                          ),
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            blurRadius: 12,
+                                            offset: const Offset(-4, -4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // Icon Section
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Icon(
+                                              Icons.assessment,
+                                              color: Colors.white,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+
+                                          Text(
+                                            'Staff',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Assessment',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor: const Color(0xFF4A56E2),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
                               ),
-                            ),
-                            child: const Text(
-                              'Hostel Registration',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primaryColor2,
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE0E7FF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              foregroundColor: const Color(0xFF4A56E2),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: const Text(
-                              'Staff Assessment',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primaryColor2,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -1450,6 +1646,52 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget cgpacardDesign(int index) {
+    final provider = ref.watch(cgpaProvider);
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              '${provider.cgpaData[index].cgpa}' == 'null'
+                  ? '-'
+                  : '''${provider.cgpaData[index].cgpa}''',
+              style: TextStyle(
+                color: Colors.purpleAccent.shade700,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget sgpacardDesign(int index) {
+    final sgpaprovider = ref.watch(sgpaProvider);
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              '${sgpaprovider.sgpaData[index].attrvalue}' == 'null'
+                  ? '-'
+                  : '''${sgpaprovider.sgpaData[index].attrvalue}''',
+              style: TextStyle(
+                color: Colors.blueAccent.shade700,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

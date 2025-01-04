@@ -140,45 +140,45 @@ class _Theme02LibraryPageState extends ConsumerState<Theme02LibraryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                            ),
-                            elevation: 0,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            backgroundColor: AppColors.theme02secondaryColor1,
-                            shadowColor: Colors.transparent,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              RouteDesign(
-                                route: const Theme02LibraryBookSearch(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Book Search',
-                            style: TextStyles.fontStyle13,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //   child: Center(
+              //     child: Column(
+              //       children: [
+              //         SizedBox(
+              //           width: 200,
+              //           child: ElevatedButton(
+              //             style: ElevatedButton.styleFrom(
+              //               shape: const RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.all(
+              //                   Radius.circular(20),
+              //                 ),
+              //               ),
+              //               elevation: 0,
+              //               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //               backgroundColor: AppColors.theme02secondaryColor1,
+              //               shadowColor: Colors.transparent,
+              //             ),
+              //             onPressed: () {
+              //               Navigator.push(
+              //                 context,
+              //                 RouteDesign(
+              //                   route: const Theme02LibraryBookSearch(),
+              //                 ),
+              //               );
+              //             },
+              //             child: const Text(
+              //               'Book Search',
+              //               style: TextStyles.fontStyle13,
+              //             ),
+              //           ),
+              //         ),
+              //         const SizedBox(height: 10),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               if (provider is LibraryTrancsactionStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),

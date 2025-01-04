@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-01/mainscreens/hostel/hostel_leave_application.dart';
-import 'package:sample/theme-01/mainscreens/hostel/hostel_register.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_leave_application.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
 

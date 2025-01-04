@@ -309,16 +309,27 @@ class _Theme02HourAttendancePageState
                     isLoading: provider is HourwiseStateLoading,
                     child: Container(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [
-                            AppColors.theme02primaryColor,
-                            AppColors.theme02secondaryColor1,
+                            AppColors.lightAshColor,
+                            AppColors.lightAshColor,
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
+                      // decoration: BoxDecoration(
+                      //   gradient: LinearGradient(
+                      //     colors: [
+                      //       AppColors.theme02primaryColor,
+                      //       AppColors.theme02secondaryColor1,
+                      //     ],
+                      //     begin: Alignment.topCenter,
+                      //     end: Alignment.bottomCenter,
+                      //   ),
+                      //   borderRadius: BorderRadius.circular(20),
+                      // ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,

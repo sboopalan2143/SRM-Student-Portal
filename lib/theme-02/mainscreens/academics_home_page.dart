@@ -10,8 +10,11 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:sample/theme-02/mainscreens/academics/attendance_home_page.dart';
 import 'package:sample/theme-02/mainscreens/academics/subject.dart';
+import 'package:sample/theme-02/mainscreens/calendar_home_page_screen.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
+import 'package:sample/theme-02/mainscreens/grade_home_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
 
 class AcademicsHomePage extends ConsumerStatefulWidget {
@@ -107,6 +110,82 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                 Navigator.push(
                   context,
                   RouteDesign(
+                    // route: const Theme02SubjectPage(),
+                    route: const CalendarHomePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_month_outlined,
+                          size: MediaQuery.of(context).size.height / 22,
+                          color: AppColors.whiteColor,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Calendar',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
                     route: const Theme02SubjectPage(),
                   ),
                 );
@@ -149,7 +228,235 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Subjects',
+                          'Corse',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    // route: const Theme02SubjectPage(),
+                    route: const CalendarHomePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_view_month,
+                          size: MediaQuery.of(context).size.height / 22,
+                          color: AppColors.whiteColor,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'TimeTable',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    // route: const Theme02SubjectPage(),
+                    route: const AttendanceHomePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/attendancetheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 24,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Attendance',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    // route: const Theme02SubjectPage(),
+                    route: const GradeHomePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width *
+                    0.75, // Responsive width
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
+
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.theme02primaryColor,
+                      AppColors.theme02secondaryColor1,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 6),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/hourattendancetheme3.svg',
+                          color: AppColors.whiteColor,
+                          height: MediaQuery.of(context).size.height / 24,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Grades',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

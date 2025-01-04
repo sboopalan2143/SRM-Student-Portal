@@ -98,7 +98,7 @@ class _Theme01LeaveApplicationPageState
               //     children: [
               //       IconButton(
               //         onPressed: () {
-              //           scaffoldKey.currentState?.openEndDrawer();
+              //
               //         },
               //         icon: const Icon(
               //           Icons.menu,

@@ -189,7 +189,7 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
                     0.75, // Responsive width
                 padding: const EdgeInsets.symmetric(
                   vertical: 16,
-                  horizontal: 20,
+                  horizontal: 16,
                 ),
 
                 decoration: BoxDecoration(
@@ -222,7 +222,7 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Leave Application',
+                          'Hostel Leave Entry',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -264,7 +264,7 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
                     0.75, // Responsive width
                 padding: const EdgeInsets.symmetric(
                   vertical: 16,
-                  horizontal: 20,
+                  horizontal: 18,
                 ),
 
                 decoration: BoxDecoration(
@@ -297,7 +297,7 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Leave Status',
+                          'Hostel Leave Status',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

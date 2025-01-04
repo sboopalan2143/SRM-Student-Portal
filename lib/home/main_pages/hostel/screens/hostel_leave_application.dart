@@ -109,7 +109,7 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
               //     children: [
               //       IconButton(
               //         onPressed: () {
-              //           scaffoldKey.currentState?.openEndDrawer();
+              //
               //         },
               //         icon: const Icon(
               //           Icons.menu,
@@ -144,9 +144,7 @@ class _LeaveApplicationPageState extends ConsumerState<LeaveApplicationPage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          // scaffoldKey.currentState?.openEndDrawer();
-                        },
+                        onPressed: () {},
                         icon: const Icon(
                           Icons.menu,
                           size: 35,

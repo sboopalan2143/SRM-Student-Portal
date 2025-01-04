@@ -92,21 +92,217 @@ class _DhasboardNotificationPageState
           centerTitle: true,
         ),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Center(
-            child: Text(
-              'No Data...!',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+          const SizedBox(height: 20),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFFF3F4F6),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.paste_outlined,
+                  size: 36,
+                  color: Colors.indigo[400],
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Regarding fee payment for academic year 2024-25',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.redAccent.withOpacity(0.4),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Text(
+                    'New',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(height: 16),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFFF3F4F6),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.paste_outlined,
+                  size: 36,
+                  color: Colors.indigo[400],
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Additional notice regarding upcoming events',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.redAccent.withOpacity(0.4),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Text(
+                    'New',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFFF3F4F6),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.paste_outlined,
+                  size: 36,
+                  color: Colors.indigo[400],
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Additional notice regarding upcoming events',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // Container(
+                //   padding:
+                //       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                //   decoration: BoxDecoration(
+                //     color: Colors.redAccent,
+                //     borderRadius: BorderRadius.circular(20),
+                //     boxShadow: [
+                //       BoxShadow(
+                //         color: Colors.redAccent.withOpacity(0.4),
+                //         blurRadius: 8,
+                //         offset: const Offset(0, 4),
+                //       ),
+                //     ],
+                //   ),
+                //   // child: const Text(
+                //   //   'New',
+                //   //   style: TextStyle(
+                //   //     color: Colors.white,
+                //   //     fontWeight: FontWeight.w600,
+                //   //     fontSize: 12,
+                //   //   ),
+                //   // ),
+                // ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: const Color(0xFFF3F4F6),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.paste_outlined,
+                  size: 36,
+                  color: Colors.indigo[400],
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Additional notice regarding upcoming events',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // Container(
+                //   padding:
+                //       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                //   decoration: BoxDecoration(
+                //     color: Colors.redAccent,
+                //     borderRadius: BorderRadius.circular(20),
+                //     boxShadow: [
+                //       BoxShadow(
+                //         color: Colors.redAccent.withOpacity(0.4),
+                //         blurRadius: 8,
+                //         offset: const Offset(0, 4),
+                //       ),
+                //     ],
+                //   ),
+                //   // child: const Text(
+                //   //   'New',
+                //   //   style: TextStyle(
+                //   //     color: Colors.white,
+                //   //     fontWeight: FontWeight.w600,
+                //   //     fontSize: 12,
+                //   //   ),
+                //   // ),
+                // ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );

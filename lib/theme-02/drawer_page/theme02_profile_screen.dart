@@ -318,11 +318,11 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
-                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -353,11 +353,11 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
-                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -367,17 +367,17 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                         SizedBox(
                                           width: 75,
                                           child: Icon(
-                                            Icons.corporate_fare,
+                                            Icons.person,
                                             size: 25,
                                             color: AppColors.blackColor
                                                 .withOpacity(0.8),
                                           ),
                                         ),
                                         Text(
-                                          '${provider.profileDataHive.universityname}' ==
+                                          '${provider.profileDataHive.sex}' ==
                                                   ''
                                               ? '-'
-                                              : '''${provider.profileDataHive.universityname}''',
+                                              : '''${provider.profileDataHive.sex}''',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: AppColors.blackColor
@@ -388,11 +388,11 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
-                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -403,6 +403,44 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           width: 75,
                                           child: Icon(
                                             Icons.school,
+                                            size: 25,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.8),
+                                          ),
+                                        ),
+                                        Text(
+                                          '${provider.profileDataHive.universityname}' ==
+                                                  ''
+                                              ? '-'
+                                              : '${provider.profileDataHive.universityname}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.7),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 15,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 75,
+                                          child: Icon(
+                                            Icons.web_stories,
                                             size: 25,
                                             color: AppColors.blackColor
                                                 .withOpacity(0.8),
@@ -420,17 +458,14 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
-                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -440,17 +475,17 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                         SizedBox(
                                           width: 75,
                                           child: Icon(
-                                            Icons.web_stories,
+                                            Icons.batch_prediction,
                                             size: 25,
                                             color: AppColors.blackColor
                                                 .withOpacity(0.8),
                                           ),
                                         ),
                                         Text(
-                                          '${provider.profileDataHive.semester}' ==
+                                          '${provider.profileDataHive.academicyear}' ==
                                                   ''
                                               ? '-'
-                                              : '${provider.profileDataHive.semester}',
+                                              : '${provider.profileDataHive.academicyear} Section',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: AppColors.blackColor
@@ -461,11 +496,46 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 15,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 75,
+                                          child: Icon(
+                                            Icons.calendar_month,
+                                            size: 25,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.8),
+                                          ),
+                                        ),
+                                        Text(
+                                          '${provider.profileDataHive.semester}' ==
+                                                  ''
+                                              ? '-'
+                                              : '''${provider.profileDataHive.semester}''',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.7),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -485,7 +555,7 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           '${provider.profileDataHive.sectiondesc}' ==
                                                   ''
                                               ? '-'
-                                              : '${provider.profileDataHive.sectiondesc} Section',
+                                              : '''${provider.profileDataHive.sectiondesc}''',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: AppColors.blackColor
@@ -496,11 +566,11 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                       ],
                                     ),
                                   ),
-                                  Divider(
-                                    height: 1,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.5),
-                                  ),
+                                  // Divider(
+                                  //   height: 1,
+                                  //   color:
+                                  //       AppColors.blackColor.withOpacity(0.5),
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 15,
@@ -510,22 +580,24 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                         SizedBox(
                                           width: 75,
                                           child: Icon(
-                                            Icons.calendar_month,
+                                            Icons.location_on,
                                             size: 25,
                                             color: AppColors.blackColor
                                                 .withOpacity(0.8),
                                           ),
                                         ),
-                                        Text(
-                                          '${provider.profileDataHive.academicyear}' ==
-                                                  ''
-                                              ? '-'
-                                              : '''${provider.profileDataHive.academicyear}''',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: AppColors.blackColor
-                                                .withOpacity(0.7),
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Text(
+                                            '${provider.profileDataHive.address}' ==
+                                                    ''
+                                                ? '-'
+                                                : '''${provider.profileDataHive.address}''',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: AppColors.blackColor
+                                                  .withOpacity(0.7),
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ],

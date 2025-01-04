@@ -98,7 +98,7 @@ class _TransportTransactionPageState
                 //   children: [
                 //     IconButton(
                 //       onPressed: () {
-                //         scaffoldKey.currentState?.openEndDrawer();
+                //
                 //       },
                 //       icon: const Icon(
                 //         Icons.menu,
@@ -129,9 +129,7 @@ class _TransportTransactionPageState
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          // scaffoldKey.currentState?.openEndDrawer();
-                        },
+                        onPressed: () {},
                         icon: const Icon(
                           Icons.menu,
                           size: 35,

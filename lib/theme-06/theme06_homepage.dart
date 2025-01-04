@@ -295,7 +295,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -311,15 +311,15 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                         ),
                         // SvgPicture.asset(
                         //   'assets/images/examtdetailstheme06.svg',
-                        //   color: AppColors.whiteColor,
+                        //   color: AppColors.theme06TextColor,
                         //   height: MediaQuery.of(context).size.height / 16,
                         // ),
-                        const Text(
+                        Text(
                           'Exam Details',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -342,7 +342,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -360,12 +360,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/subjecttheme06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Subjects',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -388,7 +388,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -402,12 +402,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/internalmarksthemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Internal Marks',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -436,7 +436,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -450,12 +450,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/hourattenthemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Hour Attendance',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -479,7 +479,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -493,12 +493,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/cumulativeattetheme06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Cumulative Attendance',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -522,7 +522,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -536,12 +536,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/attendancetheme08png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Attendance',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -570,7 +570,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -584,12 +584,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/lmsthmem07png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'LMS',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -613,7 +613,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -627,12 +627,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/hostelthemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Hostel',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -655,7 +655,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -669,12 +669,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/feesthemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Fees',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -704,7 +704,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -718,12 +718,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/grievancesthemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Grievances',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -746,7 +746,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -760,12 +760,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/attendancetheme08png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Calendar',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -787,7 +787,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     width: MediaQuery.of(context).size.width / 3.5,
                     padding: const EdgeInsets.all(15),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -801,12 +801,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/librarythemeicon06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Library',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -836,7 +836,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -850,12 +850,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/transporttheme06png.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Transport',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -877,7 +877,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     width: MediaQuery.of(context).size.width / 3.5,
                     padding: const EdgeInsets.all(15),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -891,12 +891,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/changepasswordthme06.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Change Password',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],
@@ -919,7 +919,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                       15,
                     ),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -933,12 +933,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/profiletheme06.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Profile',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -970,7 +970,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     width: MediaQuery.of(context).size.width / 3.5,
                     padding: const EdgeInsets.all(15),
                     decoration: const BoxDecoration(
-                      color: AppColors.lightAshColor,
+                      color: AppColors.grey2,
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           20,
@@ -984,12 +984,12 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                           'assets/images/logouttheme06.png',
                           height: MediaQuery.of(context).size.height / 14,
                         ),
-                        const Text(
+                        Text(
                           'Logout',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+                            color: AppColors.theme06TextColor,
                           ),
                         ),
                       ],

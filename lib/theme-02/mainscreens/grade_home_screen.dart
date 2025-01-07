@@ -10,10 +10,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/exam_details.dart';
-import 'package:sample/theme-02/mainscreens/academics/hour_attendance.dart';
 import 'package:sample/theme-02/mainscreens/academics/internal_marks.dart';
 
 class GradeHomePage extends ConsumerStatefulWidget {

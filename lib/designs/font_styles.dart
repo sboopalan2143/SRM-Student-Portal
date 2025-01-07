@@ -140,9 +140,15 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-   static TextStyle loginfontStyle2 = TextStyle(
+  static TextStyle loginfontStyle2 = TextStyle(
     fontSize: 18,
     color: AppColors.theme02secondaryColor1,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle logintheme02fontStyle2 = TextStyle(
+    fontSize: 18,
+    color: Colors.blue.shade800,
     fontWeight: FontWeight.bold,
   );
 

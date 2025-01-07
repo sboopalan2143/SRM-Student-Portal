@@ -30,7 +30,7 @@ import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
-import 'package:sample/theme-02/drawer_page/profile_home_page.dart';
+import 'package:sample/theme-02/mainscreens/fees/fees_home_page.dart';
 import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-02/mainscreens/academics/attendance_home_page.dart';

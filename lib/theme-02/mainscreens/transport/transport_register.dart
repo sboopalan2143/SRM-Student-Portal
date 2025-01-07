@@ -62,19 +62,37 @@ class _Theme02TransportRegisterPageState
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
-      ref.read(transportProvider.notifier).getRouteIdHiveDetails(
-            '',
-          );
-      ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
-            '',
-          );
-      ref.read(transportProvider.notifier).getTransportHiveRegisterDetails('');
-      ref
-          .read(transportProvider.notifier)
-          .getTransportHiveAfterRegisterDetails('');
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(transportProvider.notifier).getTransportStatusDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportStatusHiveDetails('');
+        await ref.read(transportProvider.notifier).getRouteIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getRouteIdHiveDetails(
+              '',
+            );
+        await ref.read(transportProvider.notifier).getBoardingIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+              '',
+            );
+        await ref.read(transportProvider.notifier).gettransportRegisterDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportHiveRegisterDetails('');
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportHiveAfterRegisterDetails('');
+      },
+    );
   }
 
   @override
@@ -83,13 +101,13 @@ class _Theme02TransportRegisterPageState
     final readProvider = ref.read(transportProvider.notifier);
     final width = MediaQuery.of(context).size.width;
     // log('status data in design>>>${provider.transportRegisterDetails!.status}, ${provider.transportRegisterDetails!.regconfig}');
-    ref.listen(transportProvider, (previous, next) {
-      if (next is TransportStateError) {
-        _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is TransportStateError) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
-      }
-    });
+    // ref.listen(transportProvider, (previous, next) {
+    //   if (next is TransportStateError) {
+    //     _showToast(context, next.errorMessage, AppColors.redColor);
+    //   } else if (next is TransportStateError) {
+    //     _showToast(context, next.successMessage, AppColors.greenColor);
+    //   }
+    // });
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: PreferredSize(

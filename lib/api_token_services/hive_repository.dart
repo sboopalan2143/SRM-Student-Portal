@@ -53,7 +53,7 @@ class HiveRepository {
         ..registerAdapter(HourwiseHiveDataAdapter())
         ..registerAdapter(InternalMarkHiveDataAdapter())
         ..registerAdapter(FinanceHiveDataAdapter())
-        ..registerAdapter(GetFeesHiveDataAdapter())
+        // ..registerAdapter(GetFeesHiveDataAdapter())
         ..registerAdapter(GrievanceCategoryHiveDataAdapter())
         ..registerAdapter(GrievanceSubTypeHiveDataAdapter())
         ..registerAdapter(GrievanceTypeHiveDataAdapter())
@@ -76,8 +76,7 @@ class HiveRepository {
         ..registerAdapter(TransportAfterRegisterHiveDataAdapter())
         ..registerAdapter(TransportRegisterHiveDataAdapter())
         ..registerAdapter(TransportStatusHiveDataAdapter())
-        ..registerAdapter(CalendarHiveModelDataAdapter())
-        ;
+        ..registerAdapter(CalendarHiveModelDataAdapter());
 
       initializeHiveFlag();
     }

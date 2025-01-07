@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
@@ -26,18 +27,24 @@ import 'package:sample/home/main_pages/academics/internal_marks_pages/model/inte
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
 import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
+import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/notification/screens/notification.dart';
+import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
+import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
-import 'package:sample/theme-02/dhasboard_notification_page.dart';
+import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
+import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
+import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-02/notification_home_page.dart';
+import 'package:sample/theme-02/notification_page.dart';
 
 class Theme02dhasboardPage extends ConsumerStatefulWidget {
   const Theme02dhasboardPage({super.key});
@@ -98,7 +105,67 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           );
     });
 
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(feesProvider.notifier)
+            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref
+            .read(feesProvider.notifier)
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+      },
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref
+            .read(calendarProvider.notifier)
+            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getHiveCalendar('');
+      },
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        await ref.read(transportProvider.notifier).getTransportStatusDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportStatusHiveDetails('');
+        await ref.read(transportProvider.notifier).getRouteIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getRouteIdHiveDetails(
+              '',
+            );
+        await ref.read(transportProvider.notifier).getBoardingIdDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
+              '',
+            );
+        await ref.read(transportProvider.notifier).gettransportRegisterDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportHiveRegisterDetails('');
+        await ref
+            .read(transportProvider.notifier)
+            .getTransportHiveAfterRegisterDetails('');
+      },
+    );
+
 //>>>Attendance
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(notificationProvider.notifier).getNotificationDetails(
+              ref.read(encryptionProvider.notifier),
+            );
+      },
+    );
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
@@ -278,6 +345,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     final provider = ref.watch(cgpaProvider);
     final sgpaprovider = ref.watch(sgpaProvider);
 
+    final notificaionprovider = ref.watch(notificationProvider);
+
+    final calenderprovider = ref.watch(calendarProvider);
+
     return Scaffold(
       backgroundColor: AppColors.primaryColor2,
       body: SingleChildScrollView(
@@ -388,39 +459,59 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       children: [
                         const Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.campaign_rounded,
                               size: 40,
                               color: Colors.indigoAccent,
                             ),
-                            SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Today's Status",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'Working Day',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Today's Status",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            // const Icon(
+                            //   Icons.campaign_rounded,
+                            //   size: 40,
+                            //   color: Colors.indigoAccent,
+                            // ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                child: ListView.builder(
+                                  itemCount: calenderprovider
+                                      .calendarCurrentDateData.length,
+                                  controller: _listController,
+                                  shrinkWrap: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final formattedDate =
+                                        DateFormat('dd-MM-yyyy')
+                                            .format(DateTime.now());
+                                    log('date >>> ${calenderprovider.calendarHiveData[index].date}');
+                                    log('date to string >>> ${formattedDate}');
+                                    return calenderStatuscardDesign(index); //
+
+                                    // return cardDesign(index);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // const SizedBox(height: 20),
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -434,7 +525,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               Navigator.push(
                                 context,
                                 RouteDesign(
-                                  route: const DhasboardNotificationPage(),
+                                  route: const Theme02CalendarPage(),
+                                  // route: const StudentLoginPage(),
                                 ),
                               );
                             },
@@ -513,104 +605,49 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                             color: const Color(0xFFF3F4F6),
                           ),
                           padding: const EdgeInsets.all(16),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
-                                Icons.paste_outlined,
-                                size: 36,
-                                color: Colors.indigo[400],
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  'Regarding fee payment for academic year 2024-25',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey[800],
+                              const SizedBox(height: 20),
+                              if (provider is NotificationLoading)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 100),
+                                  child: Center(
+                                    child: CircularProgressIndicators
+                                        .primaryColorProgressIndication,
                                   ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.redAccent.withOpacity(0.4),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 4),
+                                )
+                              else if (notificaionprovider
+                                      .notificationData.isEmpty &&
+                                  provider is! NotificationLoading)
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                5),
+                                    const Center(
+                                      child: Text(
+                                        'No List Added Yet!',
+                                        style: TextStyles.fontStyle1,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                child: const Text(
-                                  'New',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                  ),
+                              if (notificaionprovider
+                                  .notificationData.isNotEmpty)
+                                ListView.builder(
+                                  itemCount: notificaionprovider
+                                      .notificationData.length,
+                                  controller: _listController,
+                                  shrinkWrap: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return index < 2
+                                        ? notificationcardDesign(index)
+                                        : null;
+                                  },
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: const Color(0xFFF3F4F6),
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.paste_outlined,
-                                size: 36,
-                                color: Colors.indigo[400],
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  'Additional notice regarding upcoming events',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey[800],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.redAccent.withOpacity(0.4),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: const Text(
-                                  'New',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -821,10 +858,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           ),
                           const SizedBox(height: 8),
                           // Title Section
-                          Text(
+                          const Text(
                             'Current Due',
                             style: TextStyle(
-                              color: AppColors.theme02secondaryColor1,
+                              color: AppColors.blackColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
@@ -1214,68 +1251,80 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                       ),
                                     ),
                                     const SizedBox(width: 20),
-                                    Container(
-                                      width: 130,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.lightBlue
-                                                .shade300, // Light aqua
-                                            Colors.teal.shade500, // Deep teal
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          RouteDesign(
+                                            route:
+                                                const Theme02TransportRegisterPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 130,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.lightBlue
+                                                  .shade300, // Light aqua
+                                              Colors.teal.shade500, // Deep teal
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.purple.shade200
+                                                  .withOpacity(0.6),
+                                              blurRadius: 12,
+                                              offset: const Offset(4, 4),
+                                            ),
+                                            BoxShadow(
+                                              color:
+                                                  Colors.white.withOpacity(0.8),
+                                              blurRadius: 12,
+                                              offset: const Offset(-4, -4),
+                                            ),
                                           ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
                                         ),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.purple.shade200
-                                                .withOpacity(0.6),
-                                            blurRadius: 12,
-                                            offset: const Offset(4, 4),
-                                          ),
-                                          BoxShadow(
-                                            color:
-                                                Colors.white.withOpacity(0.8),
-                                            blurRadius: 12,
-                                            offset: const Offset(-4, -4),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // Icon Section
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 12),
-                                            child: Icon(
-                                              Icons.emoji_transportation,
-                                              color: Colors.white,
-                                              size: 36,
+                                        child: const Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            // Icon Section
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 12),
+                                              child: Icon(
+                                                Icons.emoji_transportation,
+                                                color: Colors.white,
+                                                size: 36,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 8),
+                                            SizedBox(height: 8),
 
-                                          Text(
-                                            'Transport',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            Text(
+                                              'Transport',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Text(
-                                            'Registration',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Registration',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 16),
-                                        ],
+                                            SizedBox(height: 16),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -1291,68 +1340,80 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     // SGPA Card
-                                    Container(
-                                      width: 130,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors
-                                                .green.shade400, // Fresh green
-                                            Colors.blue.shade300, // Sky blue
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          RouteDesign(
+                                            route:
+                                                const Theme02RegistrationPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 130,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.green
+                                                  .shade400, // Fresh green
+                                              Colors.blue.shade300, // Sky blue
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.blue.shade200
+                                                  .withOpacity(0.6),
+                                              blurRadius: 12,
+                                              offset: const Offset(4, 4),
+                                            ),
+                                            BoxShadow(
+                                              color:
+                                                  Colors.white.withOpacity(0.8),
+                                              blurRadius: 12,
+                                              offset: const Offset(-4, -4),
+                                            ),
                                           ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
                                         ),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.blue.shade200
-                                                .withOpacity(0.6),
-                                            blurRadius: 12,
-                                            offset: const Offset(4, 4),
-                                          ),
-                                          BoxShadow(
-                                            color:
-                                                Colors.white.withOpacity(0.8),
-                                            blurRadius: 12,
-                                            offset: const Offset(-4, -4),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // Icon Section
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 12),
-                                            child: Icon(
-                                              Icons.hotel_sharp,
-                                              color: Colors.white,
-                                              size: 36,
+                                        child: const Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            // Icon Section
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 12),
+                                              child: Icon(
+                                                Icons.hotel_sharp,
+                                                color: Colors.white,
+                                                size: 36,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 8),
+                                            SizedBox(height: 8),
 
-                                          Text(
-                                            'Hostel',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            Text(
+                                              'Hostel',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Text(
-                                            'Registration',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Registration',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 16),
-                                        ],
+                                            SizedBox(height: 16),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 20),
@@ -1538,7 +1599,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ),
           const SizedBox(height: 20),
-
           Stack(
             children: [
               CircularPercentIndicator(
@@ -1689,6 +1749,170 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget notificationcardDesign(int index) {
+    final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(notificationProvider);
+    return GestureDetector(
+      onTap: () {
+        // ref.read(lmsProvider.notifier).getLmsTitleDetails(
+        //       ref.read(encryptionProvider.notifier),
+        //       '${provider.lmsSubjectData[index].subjectid}',
+        //     );
+        Navigator.push(
+          context,
+          RouteDesign(route: const Theme02NotificationPage()),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: const Color(0xFFF3F4F6),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.paste_outlined,
+                    size: 36,
+                    color: Colors.indigo[400],
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      '${provider.notificationData[index].notificationsubject}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        RouteDesign(route: const Theme02NotificationPage()),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(20),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     color: Colors.blue,
+                        //     blurRadius: 4,
+                        //     offset: const Offset(0, 4),
+                        //   ),
+                        // ],
+                      ),
+                      child: const Text(
+                        'View',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget calenderStatuscardDesign(int index) {
+    final provider = ref.watch(calendarProvider);
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.theme02primaryColor,
+            AppColors.theme02secondaryColor1,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const SizedBox(height: 5),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${provider.calendarCurrentDateData[index].date}' == ''
+                          ? 'No Date'
+                          : '${provider.calendarCurrentDateData[index].date}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${provider.calendarCurrentDateData[index].daystatus}' ==
+                              ''
+                          ? 'No Data'
+                          : '${provider.calendarCurrentDateData[index].daystatus}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

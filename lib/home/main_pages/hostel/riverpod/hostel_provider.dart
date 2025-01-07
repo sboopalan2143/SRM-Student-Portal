@@ -218,6 +218,8 @@ class HostelProvider extends StateNotifier<HostelState> {
 
       final decryptedData = encrypt.getDecryptedData('$data');
 
+      log('roomtype details>>>>${decryptedData.mapData}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         state = HostelStateSuccessful(
           successMessage: '${decryptedData.mapData!['Status']}',
@@ -312,12 +314,15 @@ class HostelProvider extends StateNotifier<HostelState> {
       final data = returnData['#text'];
 
       final decryptedData = encrypt.getDecryptedData('$data');
+
+      log('hostel mapdata>>>${decryptedData.mapData}');
+      log('hostel stringdata>>>${decryptedData.stringData}');
       // var hostelData = <HostelData>[];
       // try {
       //   final hostelDataResponse = HostelModel.fromJson(decryptedData.mapData!);
       //   hostelData = hostelDataResponse.data!;
       //   state = state.copyWith(hostelData: hostelData);
-      final listData = decryptedData.mapData!['Data'] as String;
+      final listData = decryptedData.mapData!['Data'] as List<dynamic>;
       final box = await Hive.openBox<HostelHiveData>(
         'hostel',
       );
@@ -331,6 +336,7 @@ class HostelProvider extends StateNotifier<HostelState> {
         }
       } else {
         await box.clear();
+
         for (var i = 0; i < listData.length; i++) {
           final parseData = HostelHiveData.fromJson(
             listData[i] as Map<String, dynamic>,
@@ -340,6 +346,7 @@ class HostelProvider extends StateNotifier<HostelState> {
         }
       }
       await box.close();
+
       if (decryptedData.mapData!['Status'] == 'Success') {
       } else {
         state = HostelStateError(
@@ -446,7 +453,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       //       RoomTypeModel.fromJson(decryptedData.mapData!);
       //   roomType = roomTypeDataResponse.data!;
       //   state = state.copyWith(roomTypeData: roomType);
-      final listData = decryptedData.mapData!['Data'] as String;
+      final listData = decryptedData.mapData!['Data'] as List<dynamic>;
       final box = await Hive.openBox<RoomTypeHiveData>(
         'roomTypeData',
       );

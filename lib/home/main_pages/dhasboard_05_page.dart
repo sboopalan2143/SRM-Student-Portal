@@ -416,14 +416,16 @@ class _Theme05dhasboardPageState extends ConsumerState<Theme05dhasboardPage>
                       //     color: AppColors.whiteColor,
                       //   ),
                       // ),
-                      Text(
-                        TokensManagement.studentName == ''
-                            ? '-'
-                            : TokensManagement.studentName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
+                      Expanded(
+                        child: Text(
+                          TokensManagement.studentName == ''
+                              ? '-'
+                              : TokensManagement.studentName,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                       ),
                     ],

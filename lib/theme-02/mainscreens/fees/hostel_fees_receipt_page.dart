@@ -7,16 +7,17 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
-class FeesPage extends ConsumerStatefulWidget {
-  const FeesPage({super.key});
+class Theme02FeesReceiptPage extends ConsumerStatefulWidget {
+  const Theme02FeesReceiptPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _FeesPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _Theme02FeesReceiptPageState();
 }
 
-class _FeesPageState extends ConsumerState<FeesPage> {
+class _Theme02FeesReceiptPageState
+    extends ConsumerState<Theme02FeesReceiptPage> {
   final ScrollController _listController = ScrollController();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
@@ -71,63 +72,38 @@ class _FeesPageState extends ConsumerState<FeesPage> {
       backgroundColor: AppColors.secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
-            AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.whiteColor,
-                ),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.theme02primaryColor,
+                  AppColors.theme02secondaryColor1,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: const Text(
-                'FEES',
-                style: TextStyles.fontStyle4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFeedDueDetails(
-                                  ref.read(encryptionProvider.notifier),);
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFinanceDetailsApi(
-                                ref.read(encryptionProvider.notifier),
-                              );
-                        },
-                        child: const Icon(
-                          Icons.refresh,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
-          ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Fees Receipt',
+            style: TextStyles.fontStyle4,
+            overflow: TextOverflow.clip,
+          ),
+          centerTitle: true,
         ),
       ),
       body: LiquidPullToRefresh(
@@ -139,93 +115,32 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  height: 45,
-                  width: width - 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.grey1,
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(
-                      color: AppColors.grey1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: navContainerDesign(
-                            text: 'Paid Details',
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Expanded(
-                          child: navContainerDesign(
-                            text: 'Online Trans',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 SizedBox(
                   height: height * 0.02,
                 ),
-                //       const Text(
-                //         '2023 - 2024    Total: Rs. 15,000.00',
-                //         textAlign: TextAlign.center,
-                //         style: TextStyles.fontStyle7,
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                if (provider is FeesStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.financeHiveData.isEmpty &&
-                    provider is! FeesStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle6,
-                        ),
-                      ),
-                    ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
                   ),
-                if (provider.financeHiveData.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    child: ListView.builder(
-                      itemCount: provider.navFeesString == 'Paid Details'
-                          ? provider.feesDetailsData.length
-                          : provider.financeHiveData.length,
-                      controller: _listController,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return provider.navFeesString == 'Paid Details'
-                            ? cardDesign(index)
-                            : cardDesignTrans(index);
-                      },
-                    ),
+                  child: ListView.builder(
+                    itemCount: provider.navFeesString == 'Paid Details'
+                        ? provider.feesDetailsData.length
+                        : provider.financeHiveData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return provider.navFeesString == 'Paid Details'
+                          ? cardDesign(index)
+                          : cardDesignTrans(index);
+                    },
                   ),
+                ),
               ],
             ),
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

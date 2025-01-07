@@ -226,7 +226,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                             //   color: AppColors.whiteColor,
                             //   icon: const Icon(Icons.menu),
                             //   onPressed: () {
-                            //     _scaffoldKey.currentState?.openDrawer();
+                            //    .openDrawer();
                             //   },
                             // ),
                             if (imageBytes == '' && imageBytes.isEmpty)
@@ -493,6 +493,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     ref
                                         .read(feesProvider.notifier)
                                         .setFeesNavString('Online Trans');
+
                                     Navigator.push(
                                       context,
                                       RouteDesign(

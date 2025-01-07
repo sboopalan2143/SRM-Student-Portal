@@ -100,18 +100,18 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                   Text(
                     'SRM Group Of',
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.theme02secondaryColor1,
+                      color: Colors.blue.shade800,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Text(
                     'Education Institution',
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.theme02secondaryColor1,
+                      color: Colors.blue.shade800,
                     ),
                   ),
                   const SizedBox(height: 50),
@@ -120,7 +120,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.theme02secondaryColor1,
+                      color: Colors.blue.shade800,
                     ),
                   ),
                   const SizedBox(height: 50),
@@ -131,7 +131,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         children: [
                           Text(
                             'Username',
-                            style: TextStyles.loginfontStyle2,
+                            style: TextStyles.logintheme02fontStyle2,
                           ),
                           const SizedBox(height: 5),
                           const Text(
@@ -145,20 +145,32 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         controller: provider.userName,
                         style: TextStyles.fontStyle2,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(
+                          prefixIcon: Icon(
                             Icons.account_circle,
-                            color: AppColors.grey2,
+                            color: Colors.blue.shade800,
                           ),
                           hintText: 'Enter UserName',
-                          hintStyle: TextStyles.smallLightAshColorFontStyle,
-                          filled: true,
-                          fillColor: AppColors.secondaryColor,
-                          contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontSize: 12,
+                          ),
+                          border: const OutlineInputBorder(),
                         ),
+                        // decoration: InputDecoration(
+                        //   prefixIcon: const Icon(
+                        //     Icons.account_circle,
+                        //     color: AppColors.grey2,
+                        //   ),
+                        //   hintText: 'Enter UserName',
+                        //   hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        //   filled: true,
+                        //   fillColor: AppColors.secondaryColor,
+                        //   contentPadding: const EdgeInsets.all(10),
+                        //   enabledBorder:
+                        //       BorderBoxButtonDecorations.loginTextFieldStyle,
+                        //   focusedBorder:
+                        //       BorderBoxButtonDecorations.loginTextFieldStyle,
+                        // ),
                       ),
                     ],
                   ),
@@ -170,7 +182,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         children: [
                           Text(
                             'Password',
-                            style: TextStyles.loginfontStyle2,
+                            style: TextStyles.logintheme02fontStyle2,
                           ),
                           const SizedBox(height: 5),
                           const Text(
@@ -184,20 +196,41 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         controller: provider.password,
                         obscureText: !_isPasswordVisible,
                         style: TextStyles.fontStyle2,
+                        // decoration: InputDecoration(
+                        //   prefixIcon: const Icon(
+                        //     Icons.lock,
+                        //     color: AppColors.grey2,
+                        //   ),
+                        //   hintText: 'Enter Password',
+                        //   hintStyle: TextStyles.smallLightAshColorFontStyle,
+                        //   filled: true,
+                        //   fillColor: AppColors.secondaryColor,
+                        //   contentPadding: const EdgeInsets.all(10),
+                        //   enabledBorder:
+                        //       BorderBoxButtonDecorations.loginTextFieldStyle,
+                        //   focusedBorder:
+                        //       BorderBoxButtonDecorations.loginTextFieldStyle,
+                        //   suffixIcon: IconButton(
+                        //     icon: Icon(
+                        //       _isPasswordVisible
+                        //           ? Icons.visibility
+                        //           : Icons.visibility_off,
+                        //       color: AppColors.grey2,
+                        //     ),
+                        //     onPressed: _togglePasswordVisibility,
+                        //   ),
+                        // ),
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: AppColors.grey2,
+                          prefixIcon: Icon(
+                            Icons.key_sharp,
+                            color: Colors.blue.shade800,
                           ),
-                          hintText: 'Enter Password',
-                          hintStyle: TextStyles.smallLightAshColorFontStyle,
-                          filled: true,
-                          fillColor: AppColors.secondaryColor,
-                          contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          hintText: 'Password',
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontSize: 12,
+                          ),
+                          border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _isPasswordVisible
@@ -213,7 +246,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                   ),
                   const SizedBox(height: 30),
                   Container(
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -227,36 +260,68 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                         10,
                       ),
                     ),
-                    child: ElevatedButton(
+                    child:
+                        //  ElevatedButton(
+                        //   onPressed: () async {
+                        //     await ref.read(loginProvider.notifier).login(
+                        //           ref.read(encryptionProvider.notifier),
+                        //         );
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: Colors.transparent,
+                        //     shadowColor: Colors.transparent,
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(30),
+                        //     ),
+                        //     padding: const EdgeInsets.symmetric(vertical: 14),
+                        //   ),
+                        //   child: provider is LoginStateLoading
+                        //       ? SizedBox(
+                        //           height: 24,
+                        //           width: 24,
+                        //           child: CircularProgressIndicator(
+                        //             color: AppColors.secondaryColor,
+                        //           ),
+                        //         )
+                        //       : const Text(
+                        //           'Log in',
+                        //           style: TextStyle(
+                        //             color: AppColors.whiteColor,
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 16,
+                        //           ),
+                        //         ),
+                        // ),
+
+                        ElevatedButton(
+                      iconAlignment: IconAlignment.start,
                       onPressed: () async {
                         await ref.read(loginProvider.notifier).login(
                               ref.read(encryptionProvider.notifier),
                             );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
+                        elevation: 10,
+                        fixedSize: const Size(175, 50),
+                        backgroundColor: Colors.blue.shade800,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(16),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      child: provider is LoginStateLoading
-                          ? SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: CircularProgressIndicator(
+                      child: Center(
+                        child: provider is LoginStateLoading
+                            ? CircularProgressIndicator(
                                 color: AppColors.secondaryColor,
+                              )
+                            : const Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
                               ),
-                            )
-                          : const Text(
-                              'Log in',
-                              style: TextStyle(
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
+                      ),
                     ),
                   ),
                 ],

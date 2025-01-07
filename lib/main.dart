@@ -57,8 +57,7 @@ class _InitialState extends ConsumerState<Initial> {
 
       title: 'App Title',
 
-      initialRoute:
-          TokensManagement.studentId == '' ? Routes.login : Routes.home,
+      initialRoute:          TokensManagement.studentId == '' ? Routes.login : Routes.home,
       //  :
       // Routes.home,
       routes: RouteBuilder.routes,
@@ -70,6 +69,7 @@ class _InitialState extends ConsumerState<Initial> {
     );
   }
 }
+
 
 class MyHttpOverrides extends HttpOverrides {
   @override

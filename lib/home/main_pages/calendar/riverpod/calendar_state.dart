@@ -12,21 +12,25 @@ class CalendarState {
     required this.successMessage,
     required this.errorMessage,
     required this.calendarHiveData,
+    required this.calendarCurrentDateData,
   });
 
   final String successMessage;
   final String errorMessage;
   final List<CalendarHiveModelData> calendarHiveData;
+   final List<CalendarHiveModelData> calendarCurrentDateData;
 
   CalendarState copyWith({
     String? successMessage,
     String? errorMessage,
     List<CalendarHiveModelData>? calendarHiveData,
+    List<CalendarHiveModelData>? calendarCurrentDateData,
   }) =>
       CalendarState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         calendarHiveData: calendarHiveData ?? this.calendarHiveData,
+        calendarCurrentDateData: calendarCurrentDateData ?? this.calendarCurrentDateData,
       );
 }
 
@@ -36,6 +40,7 @@ class CalendarInitial extends CalendarState {
           successMessage: '',
           errorMessage: '',
           calendarHiveData: <CalendarHiveModelData>[],
+          calendarCurrentDateData: <CalendarHiveModelData>[],
         );
 }
 
@@ -44,6 +49,7 @@ class CalendarStateLoading extends CalendarState {
     required super.successMessage,
     required super.errorMessage,
     required super.calendarHiveData,
+    required super.calendarCurrentDateData,
   });
 }
 
@@ -52,6 +58,7 @@ class CalendarSuccessFull extends CalendarState {
     required super.successMessage,
     required super.errorMessage,
     required super.calendarHiveData,
+    required super.calendarCurrentDateData,
   });
 }
 
@@ -60,6 +67,7 @@ class CalendarError extends CalendarState {
     required super.successMessage,
     required super.errorMessage,
     required super.calendarHiveData,
+    required super.calendarCurrentDateData,
   });
 }
 
@@ -68,6 +76,7 @@ class CalendarStateSuccessful extends CalendarState {
     required super.successMessage,
     required super.errorMessage,
     required super.calendarHiveData,
+    required super.calendarCurrentDateData,
   });
 }
 
@@ -76,5 +85,6 @@ class NoNetworkAvailableCalendar extends CalendarState {
     required super.successMessage,
     required super.errorMessage,
     required super.calendarHiveData,
+    required super.calendarCurrentDateData,
   });
 }

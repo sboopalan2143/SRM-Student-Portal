@@ -8,9 +8,11 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
+import 'package:sample/theme-02/mainscreens/fees/fees_due_page.dart';
 import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
+import 'package:sample/theme-02/mainscreens/fees/hostel_fees_receipt_page.dart';
 
-import '../../home/drawer_pages/profile/riverpod/profile_state.dart';
+import '../../../home/drawer_pages/profile/riverpod/profile_state.dart';
 
 class FeesDetailsHomePage extends ConsumerStatefulWidget {
   const FeesDetailsHomePage({super.key});
@@ -35,7 +37,6 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
       //   print('An error occurred: $e');
       // }
 
-      await ref.read(hostelProvider.notifier).getHostelNameHiveData('');
       await ref.read(hostelProvider.notifier).getRoomTypeHiveData('');
 
       final profile = await Hive.openBox<ProfileHiveData>('profile');
@@ -97,7 +98,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Profile',
+            'Fees',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),
@@ -163,7 +164,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const Theme02FeesPage(),
+                    route: const Theme02FeesDuePage(),
                   ),
                 );
               },
@@ -238,7 +239,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const Theme02FeesPage(),
+                    route: const Theme02FeesReceiptPage(),
                   ),
                 );
               },

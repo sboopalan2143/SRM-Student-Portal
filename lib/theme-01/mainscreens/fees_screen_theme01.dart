@@ -31,8 +31,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
       (_) async {
         await ref
             .read(feesProvider.notifier)
-            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -51,8 +51,8 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
       (_) async {
         await ref
             .read(feesProvider.notifier)
-            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -109,12 +109,12 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                         onTap: () async {
                           await ref
                               .read(feesProvider.notifier)
-                              .getFeesDetailsApi(
+                              .getFeedDueDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
                           await ref
                               .read(feesProvider.notifier)
-                              .getHiveFeesDetails('');
+                              .getFeedDueDetails(ref.read(encryptionProvider.notifier));
                           await ref
                               .read(feesProvider.notifier)
                               .getFinanceDetailsApi(
@@ -218,7 +218,7 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                     ),
                     child: ListView.builder(
                       itemCount: provider.navFeesString == 'Paid Details'
-                          ? provider.feesDetailsHiveData.length
+                          ? provider.feesDetailsData.length
                           : provider.financeHiveData.length,
                       controller: _listController,
                       shrinkWrap: true,
@@ -274,9 +274,9 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                   ),
                   Expanded(
                     child: Text(
-                      '${provider.feesDetailsHiveData[index].duename}' == ''
+                      '${provider.feesDetailsData[index].duename}' == ''
                           ? '-'
-                          : '${provider.feesDetailsHiveData[index].duename}',
+                          : '${provider.feesDetailsData[index].duename}',
                       style: TextStyles.fontStyle2,
                     ),
                   ),
@@ -288,37 +288,37 @@ class _Theme01FeesPageState extends ConsumerState<Theme01FeesPage> {
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
                   'Amt Collected :',
-                  '${provider.feesDetailsHiveData[index].amtcollected}' == ''
+                  '${provider.feesDetailsData[index].amtcollected}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].amtcollected}',
+                      : '${provider.feesDetailsData[index].amtcollected}',
                   width,
                 ),
                 _buildRow(
                   'Current Due',
-                  '${provider.feesDetailsHiveData[index].currentdue}' == ''
+                  '${provider.feesDetailsData[index].currentdue}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].currentdue}',
+                      : '${provider.feesDetailsData[index].currentdue}',
                   width,
                 ),
                 _buildRow(
                   'Due Amount',
-                  '${provider.feesDetailsHiveData[index].dueamount}' == ''
+                  '${provider.feesDetailsData[index].dueamount}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].dueamount}',
+                      : '${provider.feesDetailsData[index].dueamount}',
                   width,
                 ),
                 _buildRow(
                   'Due Date :',
-                  '${provider.feesDetailsHiveData[index].duedate}' == ''
+                  '${provider.feesDetailsData[index].duedate}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].duedate}',
+                      : '${provider.feesDetailsData[index].duedate}',
                   width,
                 ),
                 _buildRow(
                   'Due Description',
-                  '${provider.feesDetailsHiveData[index].duedescription}' == ''
+                  '${provider.feesDetailsData[index].duedescription}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].duedescription}',
+                      : '${provider.feesDetailsData[index].duedescription}',
                   width,
                 ),
                 const SizedBox(height: 10),

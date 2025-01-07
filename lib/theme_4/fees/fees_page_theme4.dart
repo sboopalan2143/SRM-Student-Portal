@@ -31,8 +31,8 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
       (_) async {
         await ref
             .read(feesProvider.notifier)
-            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -51,8 +51,8 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
       (_) async {
         await ref
             .read(feesProvider.notifier)
-            .getFeesDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getHiveFeesDetails('');
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -125,12 +125,12 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                         onTap: () async {
                           await ref
                               .read(feesProvider.notifier)
-                              .getFeesDetailsApi(
+                              .getFeedDueDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
                           await ref
                               .read(feesProvider.notifier)
-                              .getHiveFeesDetails('');
+                              .getFeedDueDetails(ref.read(encryptionProvider.notifier));
                           await ref
                               .read(feesProvider.notifier)
                               .getFinanceDetailsApi(
@@ -229,7 +229,7 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                     ),
                     child: ListView.builder(
                       itemCount: provider.navFeesString == 'Paid Details'
-                          ? provider.feesDetailsHiveData.length
+                          ? provider.feesDetailsData.length
                           : provider.financeHiveData.length,
                       controller: _listController,
                       shrinkWrap: true,
@@ -269,9 +269,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
               SizedBox(
                 // width: width / 2.5 + 25,
                 child: Text(
-                  '${provider.feesDetailsHiveData[index].duename}' == ''
+                  '${provider.feesDetailsData[index].duename}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].duename}',
+                      : '${provider.feesDetailsData[index].duename}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: AppColors.grey,
@@ -286,9 +286,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
               SizedBox(
                 // width: width / 5,
                 child: Text(
-                  '${provider.feesDetailsHiveData[index].duedescription}' == ''
+                  '${provider.feesDetailsData[index].duedescription}' == ''
                       ? '-'
-                      : '${provider.feesDetailsHiveData[index].duedescription}',
+                      : '${provider.feesDetailsData[index].duedescription}',
                   style: const TextStyle(
                     fontSize: 14,
                     color: AppColors.theme4color2,
@@ -312,9 +312,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                   ),
                   const SizedBox(width: 15),
                   Text(
-                    '${provider.feesDetailsHiveData[index].dueamount}' == ''
+                    '${provider.feesDetailsData[index].dueamount}' == ''
                         ? '-'
-                        : '${provider.feesDetailsHiveData[index].dueamount}',
+                        : '${provider.feesDetailsData[index].dueamount}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: AppColors.grey4,
@@ -338,9 +338,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                     textAlign: TextAlign.right,
                   ),
                   Text(
-                    '${provider.feesDetailsHiveData[index].duedate}' == ''
+                    '${provider.feesDetailsData[index].duedate}' == ''
                         ? ' -'
-                        : ' ${provider.feesDetailsHiveData[index].duedate}',
+                        : ' ${provider.feesDetailsData[index].duedate}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: AppColors.redColor,
@@ -369,9 +369,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                     textAlign: TextAlign.right,
                   ),
                   Text(
-                    '${provider.feesDetailsHiveData[index].amtcollected}' == ''
+                    '${provider.feesDetailsData[index].amtcollected}' == ''
                         ? '-'
-                        : '${provider.feesDetailsHiveData[index].amtcollected}',
+                        : '${provider.feesDetailsData[index].amtcollected}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: AppColors.greenColor,
@@ -394,9 +394,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                     textAlign: TextAlign.right,
                   ),
                   Text(
-                    '${provider.feesDetailsHiveData[index].currentdue}' == ''
+                    '${provider.feesDetailsData[index].currentdue}' == ''
                         ? '-'
-                        : '${provider.feesDetailsHiveData[index].currentdue}',
+                        : '${provider.feesDetailsData[index].currentdue}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: AppColors.redColor,

@@ -30,10 +30,12 @@ import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects
 import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
 import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
@@ -105,6 +107,12 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           );
     });
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(feesDhasboardProvider.notifier).getFeesDhasboardDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
         await ref
@@ -156,6 +164,12 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             .getTransportHiveAfterRegisterDetails('');
       },
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(hostelProvider.notifier).getHostelHiveDetails(
+            '',
+          );
+    });
 
 //>>>Attendance
 
@@ -344,10 +358,15 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     final imageBytes = base64Decode(base64Image);
     final provider = ref.watch(cgpaProvider);
     final sgpaprovider = ref.watch(sgpaProvider);
+    final Feesdhasboardprovider = ref.watch(feesDhasboardProvider);
+
+    final hostelprovider = ref.watch(hostelProvider);
 
     final notificaionprovider = ref.watch(notificationProvider);
 
     final calenderprovider = ref.watch(calendarProvider);
+
+    log('student semester id >>> ${TokensManagement.semesterId}');
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor2,
@@ -411,14 +430,16 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      Text(
-                        TokensManagement.studentName == ''
-                            ? '-'
-                            : TokensManagement.studentName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor,
+                      Expanded(
+                        child: Text(
+                          TokensManagement.studentName == ''
+                              ? '-'
+                              : TokensManagement.studentName,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                       ),
                     ],
@@ -868,25 +889,74 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
-                          // Value Section
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.redColor,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Text(
-                              'Rs. 103,500',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
+                          SizedBox(
+                            width: 200,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.redColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  if (provider is FeesDhasboardLoading)
+                                    Center(
+                                      child: CircularProgressIndicators
+                                          .primaryColorProgressIndication,
+                                    )
+                                  else if (Feesdhasboardprovider
+                                          .feesDueDhasboardData.isEmpty &&
+                                      provider is! FeesDhasboardLoading)
+                                    const Column(
+                                      children: [
+                                        Center(
+                                          child: Text(
+                                            'No Data!',
+                                            style: TextStyles.fontStyle1,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  if (Feesdhasboardprovider
+                                      .feesDueDhasboardData.isNotEmpty)
+                                    ListView.builder(
+                                      itemCount: Feesdhasboardprovider
+                                          .feesDueDhasboardData.length,
+                                      controller: _listController,
+                                      shrinkWrap: true,
+                                      itemBuilder: (
+                                        BuildContext context,
+                                        int index,
+                                      ) {
+                                        return feesdhasboardcardDesign(index);
+                                      },
+                                    ),
+                                ],
                               ),
                             ),
                           ),
+                          // Value Section
+                          // Container(
+                          //   padding: const EdgeInsets.symmetric(
+                          //     horizontal: 16,
+                          //     vertical: 10,
+                          //   ),
+                          //   decoration: BoxDecoration(
+                          //     color: AppColors.redColor,
+                          //     borderRadius: BorderRadius.circular(12),
+                          //   ),
+                          //   child: const Text(
+                          //     'Rs. 103,500',
+                          //     style: TextStyle(
+                          //       color: Colors.white,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 22,
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(height: 16),
                         ],
                       ),
@@ -1186,71 +1256,91 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     // SGPA Card
-                                    Container(
-                                      width: 130,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.cyan.shade400, // Cool cyan
-                                            Colors
-                                                .indigo.shade500, // Rich indigo
+                                    // if (hostelprovider
+                                    //         .hostelRegisterDetails.regconfig ==
+                                    //     '1')
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          RouteDesign(
+                                            route:
+                                                const Theme02RegistrationPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 130,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.green
+                                                  .shade400, // Fresh green
+                                              Colors.blue.shade300, // Sky blue
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.blue.shade200
+                                                  .withOpacity(0.6),
+                                              blurRadius: 12,
+                                              offset: const Offset(4, 4),
+                                            ),
+                                            BoxShadow(
+                                              color:
+                                                  Colors.white.withOpacity(0.8),
+                                              blurRadius: 12,
+                                              offset: const Offset(-4, -4),
+                                            ),
                                           ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
                                         ),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.blue.shade200
-                                                .withOpacity(0.6),
-                                            blurRadius: 12,
-                                            offset: const Offset(4, 4),
-                                          ),
-                                          BoxShadow(
-                                            color:
-                                                Colors.white.withOpacity(0.8),
-                                            blurRadius: 12,
-                                            offset: const Offset(-4, -4),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // Icon Section
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 12),
-                                            child: Icon(
-                                              Icons.app_registration_rounded,
-                                              color: Colors.white,
-                                              size: 36,
+                                        child: const Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            // Icon Section
+
+                                            const Padding(
+                                              padding: EdgeInsets.only(top: 12),
+                                              child: Icon(
+                                                Icons.hotel_sharp,
+                                                color: Colors.white,
+                                                size: 36,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          // Title Section
-                                          Text(
-                                            'Exam',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            const SizedBox(height: 8),
+
+                                            const Text(
+                                              'Hostel',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Text(
-                                            'Registration',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
+                                            const SizedBox(height: 5),
+                                            const Text(
+                                              'Registration',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(height: 16),
-                                        ],
+                                            const SizedBox(height: 16),
+                                          ],
+                                        ),
                                       ),
                                     ),
+
                                     const SizedBox(width: 20),
+                                    // if (hostelprovider
+                                    //         .hostelRegisterDetails.regconfig ==
+                                    //     '1')
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.push(
@@ -1340,83 +1430,73 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     // SGPA Card
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          RouteDesign(
-                                            route:
-                                                const Theme02RegistrationPage(),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 130,
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Colors.green
-                                                  .shade400, // Fresh green
-                                              Colors.blue.shade300, // Sky blue
-                                            ],
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.blue.shade200
-                                                  .withOpacity(0.6),
-                                              blurRadius: 12,
-                                              offset: const Offset(4, 4),
-                                            ),
-                                            BoxShadow(
-                                              color:
-                                                  Colors.white.withOpacity(0.8),
-                                              blurRadius: 12,
-                                              offset: const Offset(-4, -4),
-                                            ),
-                                          ],
-                                        ),
-                                        child: const Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            // Icon Section
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 12),
-                                              child: Icon(
-                                                Icons.hotel_sharp,
-                                                color: Colors.white,
-                                                size: 36,
-                                              ),
-                                            ),
-                                            SizedBox(height: 8),
 
-                                            Text(
-                                              'Hostel',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              'Registration',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                            SizedBox(height: 16),
+                                    Container(
+                                      width: 130,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.cyan.shade400, // Cool cyan
+                                            Colors
+                                                .indigo.shade500, // Rich indigo
                                           ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
                                         ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.blue.shade200
+                                                .withOpacity(0.6),
+                                            blurRadius: 12,
+                                            offset: const Offset(4, 4),
+                                          ),
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            blurRadius: 12,
+                                            offset: const Offset(-4, -4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // Icon Section
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Icon(
+                                              Icons.app_registration_rounded,
+                                              color: Colors.white,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          // Title Section
+                                          Text(
+                                            'Exam',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Text(
+                                            'Registration',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                        ],
                                       ),
                                     ),
                                     const SizedBox(width: 20),
+
                                     // CGPA Card
                                     Container(
                                       width: 130,
@@ -1746,6 +1826,31 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   : '''${sgpaprovider.sgpaData[index].attrvalue}''',
               style: TextStyle(
                 color: Colors.blueAccent.shade700,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget feesdhasboardcardDesign(int index) {
+    final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
+    log('${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}');
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        child: Column(
+          children: [
+            Text(
+              '${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}' ==
+                      'null'
+                  ? '-'
+                  : '''Rs. ${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}''',
+              style: const TextStyle(
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),

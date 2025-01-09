@@ -249,78 +249,78 @@ class _HostelHomePageState extends ConsumerState<HostelHomePage> {
           const SizedBox(
             height: 20,
           ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const Theme02RegistrationPage(),
-                  ),
-                );
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width *
-                    0.75, // Responsive width
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 18,
-                ),
+          // Center(
+          //   child: GestureDetector(
+          //     onTap: () {
+          //       Navigator.push(
+          //         context,
+          //         RouteDesign(
+          //           route: const Theme02RegistrationPage(),
+          //         ),
+          //       );
+          //     },
+          //     child: Container(
+          //       width: MediaQuery.of(context).size.width *
+          //           0.75, // Responsive width
+          //       padding: const EdgeInsets.symmetric(
+          //         vertical: 16,
+          //         horizontal: 18,
+          //       ),
 
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.theme02primaryColor,
-                      AppColors.theme02secondaryColor1,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 6),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/hosteltheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 24,
-                        ),
-                        const SizedBox(width: 12),
-                        const Text(
-                          'Hostel Leave Status',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Row(
-                      children: [
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(24),
+          //         gradient: LinearGradient(
+          //           colors: [
+          //             AppColors.theme02primaryColor,
+          //             AppColors.theme02secondaryColor1,
+          //           ],
+          //           begin: Alignment.topCenter,
+          //           end: Alignment.bottomCenter,
+          //         ),
+          //         boxShadow: const [
+          //           BoxShadow(
+          //             color: Colors.black26,
+          //             offset: Offset(0, 6),
+          //             blurRadius: 12,
+          //           ),
+          //         ],
+          //       ),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           Row(
+          //             children: [
+          //               SvgPicture.asset(
+          //                 'assets/images/hosteltheme3.svg',
+          //                 color: AppColors.whiteColor,
+          //                 height: MediaQuery.of(context).size.height / 24,
+          //               ),
+          //               const SizedBox(width: 12),
+          //               const Text(
+          //                 'Hostel Leave Status',
+          //                 style: TextStyle(
+          //                   fontSize: 16,
+          //                   fontWeight: FontWeight.bold,
+          //                   color: Colors.white,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //           const Row(
+          //             children: [
+          //               SizedBox(width: 8),
+          //               Icon(
+          //                 Icons.arrow_forward_ios,
+          //                 size: 20,
+          //                 color: Colors.white,
+          //               ),
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

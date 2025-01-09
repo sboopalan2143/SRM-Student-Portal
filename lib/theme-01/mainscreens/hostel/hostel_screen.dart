@@ -145,14 +145,15 @@ class _Theme01HostelPageState extends ConsumerState<Theme01HostelPage> {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Expanded(
-                        child: ButtonDesign.buttonDesign(
-                          'Registration',
-                          AppColors.primaryColor,
-                          context,
-                          ref,
+                      if (provider.hostelRegisterDetails.regconfig == '1')
+                        Expanded(
+                          child: ButtonDesign.buttonDesign(
+                            'Registration',
+                            AppColors.primaryColor,
+                            context,
+                            ref,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

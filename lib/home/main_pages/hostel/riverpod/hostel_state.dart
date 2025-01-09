@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
+import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
@@ -36,7 +37,7 @@ class HostelState {
   final HostelHiveData selectedHostelData;
   final List<RoomTypeHiveData> roomTypeData;
   final RoomTypeHiveData selectedRoomTypeData;
-  final HostelBeforeRegisterHiveData? hostelRegisterDetails;
+  final HostelRegisterData hostelRegisterDetails;
   final HostelAfterRegisterHiveData? hostelAfterRegisterDetails;
   final List<GetHostelHiveData> gethostelData;
   final TextEditingController fromDate;
@@ -51,7 +52,7 @@ class HostelState {
     HostelHiveData? selectedHostelData,
     List<RoomTypeHiveData>? roomTypeData,
     RoomTypeHiveData? selectedRoomTypeData,
-    HostelBeforeRegisterHiveData? hostelRegisterDetails,
+    HostelRegisterData? hostelRegisterDetails,
     HostelAfterRegisterHiveData? hostelAfterRegisterDetails,
     List<GetHostelHiveData>? gethostelData,
     TextEditingController? fromDate,
@@ -87,7 +88,7 @@ class HostelInitial extends HostelState {
           selectedHostelData: HostelHiveData.empty,
           roomTypeData: <RoomTypeHiveData>[],
           selectedRoomTypeData: RoomTypeHiveData.empty,
-          hostelRegisterDetails: HostelBeforeRegisterHiveData.empty,
+          hostelRegisterDetails: HostelRegisterData.empty,
           hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
           gethostelData: <GetHostelHiveData>[],
           fromDate: TextEditingController(),

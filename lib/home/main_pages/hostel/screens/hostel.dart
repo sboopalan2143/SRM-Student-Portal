@@ -52,6 +52,10 @@ class _HostelPageState extends ConsumerState<HostelPage> {
       ref.read(hostelProvider.notifier).getHostelHiveDetails(
             '',
           );
+
+      ref
+          .read(hostelProvider.notifier)
+          .getHostelRegisterDetails(ref.read(encryptionProvider.notifier));
     });
   }
 
@@ -153,14 +157,15 @@ class _HostelPageState extends ConsumerState<HostelPage> {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Expanded(
-                        child: ButtonDesign.buttonDesign(
-                          'Registration',
-                          AppColors.primaryColor,
-                          context,
-                          ref,
+                      if (provider.hostelRegisterDetails.regconfig == '1')
+                        Expanded(
+                          child: ButtonDesign.buttonDesign(
+                            'Registration',
+                            AppColors.primaryColor,
+                            context,
+                            ref,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

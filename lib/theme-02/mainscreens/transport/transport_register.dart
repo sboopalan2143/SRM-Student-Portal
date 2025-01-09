@@ -180,10 +180,7 @@ class _Theme02TransportRegisterPageState
           ],
         ),
       ),
-      body: (provider.transportRegisterDetails!.regconfig == '1' &&
-                  provider.transportRegisterDetails!.status == '0') ||
-              (provider.transportAfterRegisterDetails!.regconfig == '1' &&
-                  provider.transportAfterRegisterDetails!.status == '0')
+      body: (provider.transportAfterRegisterDetails!.status == '0')
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Column(

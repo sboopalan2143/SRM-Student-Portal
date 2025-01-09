@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
@@ -25,7 +28,11 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(hostelProvider.notifier).getAfterHostelRegisterDetailsHive('');
-      ref.read(hostelProvider.notifier).getBeforeHostelRegisterDetailsHive('');
+      // ref.read(hostelProvider.notifier).getBeforeHostelRegisterDetailsHive('');
+      ref
+          .read(hostelProvider.notifier)
+          .getHostelRegisterDetails(ref.read(encryptionProvider.notifier));
+
       ref.read(hostelProvider.notifier).getHostelNameHiveData('');
       ref.read(hostelProvider.notifier).getRoomTypeHiveData('');
     });
@@ -35,6 +42,8 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   Widget build(BuildContext context) {
     final provider = ref.watch(hostelProvider);
     final width = MediaQuery.of(context).size.width;
+    log('regconfig >>> ${provider.hostelRegisterDetails.regconfig}');
+    log('status >>> ${provider.hostelRegisterDetails.status}');
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -93,8 +102,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
           ],
         ),
       ),
-      body: provider.hostelRegisterDetails!.regconfig == '1' &&
-              provider.hostelRegisterDetails!.status == '0'
+      body: provider.hostelRegisterDetails.status == '0'
           ? registrationForm()
           : Padding(
               padding: const EdgeInsets.all(20),

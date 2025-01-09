@@ -36,6 +36,10 @@ class _Theme02RegistrationPageState
       //   print('An error occurred: $e');
       // }
 
+      ref
+          .read(hostelProvider.notifier)
+          .getHostelRegisterDetails(ref.read(encryptionProvider.notifier));
+
       ref.read(hostelProvider.notifier).getHostelNameHiveData('');
       ref.read(hostelProvider.notifier).getRoomTypeHiveData('');
     });
@@ -94,7 +98,7 @@ class _Theme02RegistrationPageState
           centerTitle: true,
         ),
       ),
-      body: provider.hostelRegisterDetails!.regconfig == '0'
+      body: provider.hostelRegisterDetails.status == '0'
           ? registrationForm()
           : Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
@@ -130,10 +134,10 @@ class _Theme02RegistrationPageState
                               ),
                               Expanded(
                                 child: Text(
-                                  '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
+                                  '''${provider.hostelRegisterDetails.hostel}''' ==
                                           ''
                                       ? '-'
-                                      : '''${provider.hostelAfterRegisterDetails!.hostel}''',
+                                      : '''${provider.hostelRegisterDetails.hostel}''',
                                   style: TextStyles.fontStyle1,
                                 ),
                               ),
@@ -148,58 +152,58 @@ class _Theme02RegistrationPageState
                             ),
                             _buildRow(
                               'Hostel fee amount :',
-                              '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
+                              '''${provider.hostelRegisterDetails.hostelfeeamount}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
+                                  : '''${provider.hostelRegisterDetails.hostelfeeamount}''',
                               width,
                             ),
                             _buildRow(
                               'Registration date',
-                              '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
+                              '''${provider.hostelRegisterDetails.registrationdate}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
+                                  : '''${provider.hostelRegisterDetails.registrationdate}''',
                               width,
                             ),
                             _buildRow(
                               'Caution deposit amt',
-                              '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
+                              '''${provider.hostelRegisterDetails.cautiondepositamt}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
+                                  : '''${provider.hostelRegisterDetails.cautiondepositamt}''',
                               width,
                             ),
                             _buildRow(
                               'Room type :',
-                              '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
+                              '''${provider.hostelRegisterDetails.roomtype}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
+                                  : '''${provider.hostelRegisterDetails.roomtype}''',
                               width,
                             ),
                             _buildRow(
                               'Active status',
-                              '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
+                              '''${provider.hostelRegisterDetails.activestatus}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
+                                  : '''${provider.hostelRegisterDetails.activestatus}''',
                               width,
                             ),
                             _buildRow(
                               'Active status',
-                              '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
+                              '''${provider.hostelRegisterDetails.messfeeamount}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
+                                  : '''${provider.hostelRegisterDetails.messfeeamount}''',
                               width,
                             ),
                             _buildRow(
                               'Active status',
-                              '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
+                              '''${provider.hostelRegisterDetails.applnfeeamount}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
+                                  : '''${provider.hostelRegisterDetails.applnfeeamount}''',
                               width,
                             ),
                             const SizedBox(height: 10),
@@ -209,46 +213,6 @@ class _Theme02RegistrationPageState
                     ),
                     const SizedBox(
                       height: 10,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 8,
-                        backgroundColor: AppColors.theme02buttonColor2,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          RouteDesign(
-                            route: const Theme02LeaveApplicationPage(),
-                          ),
-                        );
-                      },
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Leave Application',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

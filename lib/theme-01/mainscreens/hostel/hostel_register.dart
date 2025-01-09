@@ -28,7 +28,9 @@ class _Theme01RegistrationPageState
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // ref.read(hostelProvider.notifier).getAfterHostelRegisterDetailsHive('');
-      // ref.read(hostelProvider.notifier).getBeforeHostelRegisterDetailsHive('');
+      ref
+          .read(hostelProvider.notifier)
+          .getHostelRegisterDetails(ref.read(encryptionProvider.notifier));
 
       ref
           .read(hostelProvider.notifier)
@@ -41,9 +43,10 @@ class _Theme01RegistrationPageState
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(hostelProvider);
-    log('hostelData dropdown kabir>>> ${provider.hostelData}');
-    log('roomtypeData dropdown kabir>>> ${provider.roomTypeData}');
+    log('regconfig >>> ${provider.hostelRegisterDetails.regconfig}');
+    log('status >>> ${provider.hostelRegisterDetails.status}');
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -56,190 +59,434 @@ class _Theme01RegistrationPageState
     });
 
     return Scaffold(
-        backgroundColor: AppColors.theme01primaryColor,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Stack(
-            children: [
-              SvgPicture.asset(
-                'assets/images/wave.svg',
-                fit: BoxFit.fill,
-                width: double.infinity,
-                color: AppColors.primaryColor,
-                colorBlendMode: BlendMode.srcOut,
+      backgroundColor: AppColors.theme01primaryColor,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: Stack(
+          children: [
+            SvgPicture.asset(
+              'assets/images/wave.svg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              color: AppColors.primaryColor,
+              colorBlendMode: BlendMode.srcOut,
+            ),
+            AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColors.theme01primaryColor,
+                ),
               ),
-              AppBar(
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: AppColors.theme01primaryColor,
-                  ),
+              backgroundColor: AppColors.theme01secondaryColor4,
+              elevation: 0,
+              title: Text(
+                'REGISTRATION',
+                style: TextStyles.buttonStyle01theme4,
+                overflow: TextOverflow.clip,
+              ),
+              centerTitle: true,
+              actions: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.menu,
+                        size: 35,
+                        color: AppColors.theme01primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
-                backgroundColor: AppColors.theme01secondaryColor4,
-                elevation: 0,
-                title: Text(
-                  'REGISTRATION',
-                  style: TextStyles.buttonStyle01theme4,
-                  overflow: TextOverflow.clip,
+              ],
+            ),
+          ],
+        ),
+      ),
+      body: provider.hostelRegisterDetails.status == '0'
+          ? registrationForm()
+          : Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
-                centerTitle: true,
-                actions: [
-                  Row(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.menu,
-                          size: 35,
-                          color: AppColors.theme01primaryColor,
-                        ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Hostel',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              ''' ${provider.hostelRegisterDetails.hostel}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.hostel}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Hostel Fee Amount',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.hostelfeeamount}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.hostelfeeamount}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Registration Date',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.registrationdate}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.registrationdate}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Caution Deposit Amount',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.cautiondepositamt}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.cautiondepositamt}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Room Type',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.roomtype}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.roomtype}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Active Status',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.activestatus}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.activestatus}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'Mess Fee Amount',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.messfeeamount}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.messfeeamount}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width / 2 - 80,
+                            child: const Text(
+                              'App In-Fee Amount',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                          const Text(
+                            ':',
+                            style: TextStyles.fontStyle10,
+                          ),
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: width / 2 - 60,
+                            child: Text(
+                              '''${provider.hostelRegisterDetails.applnfeeamount}''' ==
+                                      ''
+                                  ? '-'
+                                  : '''${provider.hostelRegisterDetails.applnfeeamount}''',
+                              style: TextStyles.fontStyle10,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ],
-          ),
-        ),
-        body: registrationForm()
+            ),
 
-        //  provider is HostelStateLoading
-        //     ? Padding(
-        //         padding: const EdgeInsets.only(top: 100),
-        //         child: Center(
-        //           child:
-        //               CircularProgressIndicators.primaryColorProgressIndication,
-        //         ),
-        //       )
-        //     : provider.hostelRegisterDetails!.status == '1' &&
-        //             provider is! HostelStateLoading
-        //         ? Column(
-        //             children: [
-        //               SizedBox(height: MediaQuery.of(context).size.height / 5),
-        //               const Center(
-        //                 child: Text(
-        //                   'No Data!',
-        //                   style: TextStyles.fontStyle,
-        //                 ),
-        //               ),
-        //             ],
-        //           )
-        //         : Padding(
-        //             padding:
-        //                 const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-        //             child: Material(
-        //               elevation: 5,
-        //               shadowColor:
-        //                   AppColors.theme01secondaryColor4.withOpacity(0.4),
-        //               borderRadius: BorderRadius.circular(20),
-        //               child: Container(
-        //                 decoration: BoxDecoration(
-        //                   gradient: LinearGradient(
-        //                     colors: [
-        //                       AppColors.theme01secondaryColor1,
-        //                       AppColors.theme01secondaryColor2,
-        //                     ],
-        //                     begin: Alignment.topLeft,
-        //                     end: Alignment.bottomRight,
-        //                   ),
-        //                   borderRadius: BorderRadius.circular(20),
-        //                 ),
-        //                 child: Padding(
-        //                   padding: const EdgeInsets.all(20),
-        //                   child: ExpansionTile(
-        //                     title: Row(
-        //                       children: [
-        //                         SizedBox(
-        //                           width: width / 2 - 100,
-        //                           child: Text(
-        //                             'Hostel :',
-        //                             style: TextStyles.buttonStyle01theme2,
-        //                           ),
-        //                         ),
-        //                         Expanded(
-        //                           child: Text(
-        //                             '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
-        //                                     ''
-        //                                 ? '-'
-        //                                 : '''${provider.hostelAfterRegisterDetails!.hostel}''',
-        //                             style: TextStyles.fontStyle2,
-        //                           ),
-        //                         ),
-        //                       ],
-        //                     ),
-        //                     collapsedIconColor: AppColors.theme01primaryColor,
-        //                     iconColor: AppColors.theme01primaryColor,
-        //                     children: [
-        //                       Divider(
-        //                           color: AppColors.theme01primaryColor
-        //                               .withOpacity(0.5)),
-        //                       _buildRow(
-        //                         'Hostel Fee Amount :',
-        //                         '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Registration Date',
-        //                         '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Caution Deposit Amt',
-        //                         '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Room Type :',
-        //                         '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Active Status',
-        //                         '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Active Status',
-        //                         '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
-        //                         width,
-        //                       ),
-        //                       _buildRow(
-        //                         'Active Status',
-        //                         '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
-        //                                 ''
-        //                             ? '-'
-        //                             : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
-        //                         width,
-        //                       ),
-        //                       const SizedBox(height: 10),
-        //                     ],
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        );
+      //  registrationForm()
+
+      //  provider is HostelStateLoading
+      //     ? Padding(
+      //         padding: const EdgeInsets.only(top: 100),
+      //         child: Center(
+      //           child:
+      //               CircularProgressIndicators.primaryColorProgressIndication,
+      //         ),
+      //       )
+      //     : provider.hostelRegisterDetails!.status == '1' &&
+      //             provider is! HostelStateLoading
+      //         ? Column(
+      //             children: [
+      //               SizedBox(height: MediaQuery.of(context).size.height / 5),
+      //               const Center(
+      //                 child: Text(
+      //                   'No Data!',
+      //                   style: TextStyles.fontStyle,
+      //                 ),
+      //               ),
+      //             ],
+      //           )
+      //         : Padding(
+      //             padding:
+      //                 const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      //             child: Material(
+      //               elevation: 5,
+      //               shadowColor:
+      //                   AppColors.theme01secondaryColor4.withOpacity(0.4),
+      //               borderRadius: BorderRadius.circular(20),
+      //               child: Container(
+      //                 decoration: BoxDecoration(
+      //                   gradient: LinearGradient(
+      //                     colors: [
+      //                       AppColors.theme01secondaryColor1,
+      //                       AppColors.theme01secondaryColor2,
+      //                     ],
+      //                     begin: Alignment.topLeft,
+      //                     end: Alignment.bottomRight,
+      //                   ),
+      //                   borderRadius: BorderRadius.circular(20),
+      //                 ),
+      //                 child: Padding(
+      //                   padding: const EdgeInsets.all(20),
+      //                   child: ExpansionTile(
+      //                     title: Row(
+      //                       children: [
+      //                         SizedBox(
+      //                           width: width / 2 - 100,
+      //                           child: Text(
+      //                             'Hostel :',
+      //                             style: TextStyles.buttonStyle01theme2,
+      //                           ),
+      //                         ),
+      //                         Expanded(
+      //                           child: Text(
+      //                             '''${provider.hostelAfterRegisterDetails!.hostel}''' ==
+      //                                     ''
+      //                                 ? '-'
+      //                                 : '''${provider.hostelAfterRegisterDetails!.hostel}''',
+      //                             style: TextStyles.fontStyle2,
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                     collapsedIconColor: AppColors.theme01primaryColor,
+      //                     iconColor: AppColors.theme01primaryColor,
+      //                     children: [
+      //                       Divider(
+      //                           color: AppColors.theme01primaryColor
+      //                               .withOpacity(0.5)),
+      //                       _buildRow(
+      //                         'Hostel Fee Amount :',
+      //                         '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.hostelfeeamount}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Registration Date',
+      //                         '''${provider.hostelAfterRegisterDetails!.registrationdate}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.registrationdate}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Caution Deposit Amt',
+      //                         '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.cautiondepositamt}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Room Type :',
+      //                         '''${provider.hostelAfterRegisterDetails!.roomtype}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.roomtype}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Active Status',
+      //                         '''${provider.hostelAfterRegisterDetails!.activestatus}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.activestatus}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Active Status',
+      //                         '''${provider.hostelAfterRegisterDetails!.messfeeamount}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.messfeeamount}''',
+      //                         width,
+      //                       ),
+      //                       _buildRow(
+      //                         'Active Status',
+      //                         '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''' ==
+      //                                 ''
+      //                             ? '-'
+      //                             : '''${provider.hostelAfterRegisterDetails!.applnfeeamount}''',
+      //                         width,
+      //                       ),
+      //                       const SizedBox(height: 10),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+    );
   }
 
   Widget _buildRow(String title, String value, double width) {

@@ -31,6 +31,9 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
+        await ref.read(hostelProvider.notifier).getHostelHiveDetails(
+            '',
+          );
         await ref.read(hostelProvider.notifier).getHostelDetails(
               ref.read(encryptionProvider.notifier),
             );
@@ -142,23 +145,24 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: Theme02ButtonDesign.buttonDesign(
-                          'Leave Application',
-                          AppColors.primaryColor,
-                          context,
-                          ref,
+                      if (provider.hostelRegisterDetails.regconfig == '1')
+                        Expanded(
+                          child: Theme02ButtonDesign.buttonDesign(
+                            'Registration',
+                            AppColors.primaryColor,
+                            context,
+                            ref,
+                          ),
+                        )
+                      else
+                        const Expanded(
+                          child: Center(
+                            child: Text(
+                              'Registration Not Eligible',
+                              style: TextStyles.fontStyle6,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      Expanded(
-                        child: Theme02ButtonDesign.buttonDesign(
-                          'Registration',
-                          AppColors.primaryColor,
-                          context,
-                          ref,
-                        ),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

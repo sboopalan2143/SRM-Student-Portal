@@ -59,7 +59,7 @@ class HiveRepository {
         ..registerAdapter(GrievanceTypeHiveDataAdapter())
         ..registerAdapter(StudentWiseHiveDataAdapter())
         ..registerAdapter(HostelAfterRegisterHiveDataAdapter())
-        ..registerAdapter(HostelBeforeRegisterHiveDataAdapter())
+        // ..registerAdapter(HostelBeforeRegisterHiveDataAdapter())
         ..registerAdapter(GetHostelHiveDataAdapter())
         ..registerAdapter(HostelHiveDataAdapter())
         ..registerAdapter(HostelLeaveHiveDataAdapter())

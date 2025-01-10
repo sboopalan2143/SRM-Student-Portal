@@ -43,6 +43,7 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
+import 'package:sample/theme-02/mainscreens/fees/fees_due_page.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
 import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-02/notification_home_page.dart';
@@ -619,58 +620,48 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: const Color(0xFFF3F4F6),
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 20),
-                              if (provider is NotificationLoading)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 100),
-                                  child: Center(
-                                    child: CircularProgressIndicators
-                                        .primaryColorProgressIndication,
-                                  ),
-                                )
-                              else if (notificaionprovider
-                                      .notificationData.isEmpty &&
-                                  provider is! NotificationLoading)
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                5),
-                                    const Center(
-                                      child: Text(
-                                        'No List Added Yet!',
-                                        style: TextStyles.fontStyle1,
-                                      ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20),
+                            if (provider is NotificationLoading)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 100),
+                                child: Center(
+                                  child: CircularProgressIndicators
+                                      .primaryColorProgressIndication,
+                                ),
+                              )
+                            else if (notificaionprovider
+                                    .notificationData.isEmpty &&
+                                provider is! NotificationLoading)
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              5),
+                                  const Center(
+                                    child: Text(
+                                      'No List Added Yet!',
+                                      style: TextStyles.fontStyle1,
                                     ),
-                                  ],
-                                ),
-                              if (notificaionprovider
-                                  .notificationData.isNotEmpty)
-                                ListView.builder(
-                                  itemCount: notificaionprovider
-                                      .notificationData.length,
-                                  controller: _listController,
-                                  shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return index < 2
-                                        ? notificationcardDesign(index)
-                                        : null;
-                                  },
-                                ),
-                            ],
-                          ),
+                                  ),
+                                ],
+                              ),
+                            if (notificaionprovider.notificationData.isNotEmpty)
+                              ListView.builder(
+                                itemCount:
+                                    notificaionprovider.notificationData.length,
+                                controller: _listController,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return index < 2
+                                      ? notificationcardDesign(index)
+                                      : null;
+                                },
+                              ),
+                          ],
                         ),
                         const SizedBox(height: 20),
                         Container(
@@ -829,136 +820,146 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   //     ),
                   //   ],
                   // ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: const Theme02FeesDuePage(),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                     child: Container(
-                      // width: 180,
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Colors.white, Colors.white],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
-                        // boxShadow: [
-                        //   // BoxShadow(
-                        //   //   color: Colors.red.shade100.withOpacity(0.5),
-                        //   //   blurRadius: 10,
-                        //   //   offset: const Offset(4, 4),
-                        //   // ),
-                        //   const BoxShadow(
-                        //     color: Colors.white,
-                        //     blurRadius: 10,
-                        //     offset: Offset(-4, -4),
-                        //   ),
-                        // ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Icon Section
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Icon(
-                              Icons.account_balance_wallet_rounded,
-                              color: AppColors.theme02secondaryColor1,
-                              size: 40,
-                            ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
                           ),
-                          const SizedBox(height: 8),
-                          // Title Section
-                          const Text(
-                            'Current Due',
-                            style: TextStyle(
-                              color: AppColors.blackColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: 200,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.redColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  if (provider is FeesDhasboardLoading)
-                                    Center(
-                                      child: CircularProgressIndicators
-                                          .primaryColorProgressIndication,
-                                    )
-                                  else if (Feesdhasboardprovider
-                                          .feesDueDhasboardData.isEmpty &&
-                                      provider is! FeesDhasboardLoading)
-                                    const Column(
-                                      children: [
-                                        Center(
-                                          child: Text(
-                                            'No Data!',
-                                            style: TextStyles.fontStyle1,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  if (Feesdhasboardprovider
-                                      .feesDueDhasboardData.isNotEmpty)
-                                    ListView.builder(
-                                      itemCount: Feesdhasboardprovider
-                                          .feesDueDhasboardData.length,
-                                      controller: _listController,
-                                      shrinkWrap: true,
-                                      itemBuilder: (
-                                        BuildContext context,
-                                        int index,
-                                      ) {
-                                        return feesdhasboardcardDesign(index);
-                                      },
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          // Value Section
-                          // Container(
-                          //   padding: const EdgeInsets.symmetric(
-                          //     horizontal: 16,
-                          //     vertical: 10,
-                          //   ),
-                          //   decoration: BoxDecoration(
-                          //     color: AppColors.redColor,
-                          //     borderRadius: BorderRadius.circular(12),
-                          //   ),
-                          //   child: const Text(
-                          //     'Rs. 103,500',
-                          //     style: TextStyle(
-                          //       color: Colors.white,
-                          //       fontWeight: FontWeight.bold,
-                          //       fontSize: 22,
-                          //     ),
-                          //   ),
-                          // ),
-                          const SizedBox(height: 16),
                         ],
+                      ),
+                      child: Container(
+                        // width: 180,
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Colors.white, Colors.white],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          // boxShadow: [
+                          //   // BoxShadow(
+                          //   //   color: Colors.red.shade100.withOpacity(0.5),
+                          //   //   blurRadius: 10,
+                          //   //   offset: const Offset(4, 4),
+                          //   // ),
+                          //   const BoxShadow(
+                          //     color: Colors.white,
+                          //     blurRadius: 10,
+                          //     offset: Offset(-4, -4),
+                          //   ),
+                          // ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Icon Section
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Icon(
+                                Icons.account_balance_wallet_rounded,
+                                color: AppColors.theme02secondaryColor1,
+                                size: 40,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // Title Section
+                            const Text(
+                              'Current Due',
+                              style: TextStyle(
+                                color: AppColors.blackColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              width: 200,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.redColor,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  children: [
+                                    if (provider is FeesDhasboardLoading)
+                                      Center(
+                                        child: CircularProgressIndicators
+                                            .primaryColorProgressIndication,
+                                      )
+                                    else if (Feesdhasboardprovider
+                                            .feesDueDhasboardData.isEmpty &&
+                                        provider is! FeesDhasboardLoading)
+                                      const Column(
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              'No Data!',
+                                              style: TextStyles.fontStyle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    if (Feesdhasboardprovider
+                                        .feesDueDhasboardData.isNotEmpty)
+                                      ListView.builder(
+                                        itemCount: Feesdhasboardprovider
+                                            .feesDueDhasboardData.length,
+                                        controller: _listController,
+                                        shrinkWrap: true,
+                                        itemBuilder: (
+                                          BuildContext context,
+                                          int index,
+                                        ) {
+                                          return feesdhasboardcardDesign(index);
+                                        },
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // Value Section
+                            // Container(
+                            //   padding: const EdgeInsets.symmetric(
+                            //     horizontal: 16,
+                            //     vertical: 10,
+                            //   ),
+                            //   decoration: BoxDecoration(
+                            //     color: AppColors.redColor,
+                            //     borderRadius: BorderRadius.circular(12),
+                            //   ),
+                            //   child: const Text(
+                            //     'Rs. 103,500',
+                            //     style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontWeight: FontWeight.bold,
+                            //       fontSize: 22,
+                            //     ),
+                            //   ),
+                            // ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -1862,8 +1863,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
   }
 
   Widget notificationcardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
-
     final provider = ref.watch(notificationProvider);
     return GestureDetector(
       onTap: () {
@@ -1876,85 +1875,65 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           RouteDesign(route: const Theme02NotificationPage()),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: const Color(0xFFF3F4F6),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.paste_outlined,
-                    size: 36,
-                    color: Colors.indigo[400],
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      '${provider.notificationData[index].notificationsubject}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        RouteDesign(route: const Theme02NotificationPage()),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(20),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: Colors.blue,
-                        //     blurRadius: 4,
-                        //     offset: const Offset(0, 4),
-                        //   ),
-                        // ],
-                      ),
-                      child: const Text(
-                        'View',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: const Color(0xFFF3F4F6),
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(
+              Icons.paste_outlined,
+              size: 36,
+              color: Colors.indigo[400],
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                '${provider.notificationData[index].notificationsubject}',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[800],
+                ),
               ),
             ),
-          ),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(route: const Theme02NotificationPage()),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.blue,
+                  //     blurRadius: 4,
+                  //     offset: const Offset(0, 4),
+                  //   ),
+                  // ],
+                ),
+                child: const Text(
+                  'View',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -1973,56 +1952,136 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 4),
+            blurRadius: 10,
+          ),
+        ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             const SizedBox(height: 5),
-            Column(
+            // Date Section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${provider.calendarCurrentDateData[index].date}' == ''
-                          ? 'No Date'
-                          : '${provider.calendarCurrentDateData[index].date}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
+                Icon(
+                  Icons.calendar_today,
+                  color: Colors.white.withOpacity(0.8),
+                  size: 20,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${provider.calendarCurrentDateData[index].daystatus}' ==
-                              ''
-                          ? 'No Data'
-                          : '${provider.calendarCurrentDateData[index].daystatus}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
+                Text(
+                  '${provider.calendarCurrentDateData[index].date}' == ''
+                      ? 'No Data'
+                      : '${provider.calendarCurrentDateData[index].date}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.right,
                 ),
               ],
             ),
+            const Divider(
+              color: Colors.white38,
+              thickness: 1,
+              height: 20,
+            ),
+            // Status Section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  color: Colors.white.withOpacity(0.8),
+                  size: 20,
+                ),
+                Text(
+                  '${provider.calendarCurrentDateData[index].daystatus}' == ''
+                      ? 'No Data'
+                      : '${provider.calendarCurrentDateData[index].daystatus}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            // Action Button
           ],
         ),
       ),
     );
+
+    //  Container(
+    //   decoration: BoxDecoration(
+    //     gradient: LinearGradient(
+    //       colors: [
+    //         AppColors.theme02primaryColor,
+    //         AppColors.theme02secondaryColor1,
+    //       ],
+    //       begin: Alignment.topCenter,
+    //       end: Alignment.bottomCenter,
+    //     ),
+    //     borderRadius: BorderRadius.circular(20),
+    //   ),
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(10),
+    //     child: Column(
+    //       children: [
+    //         const SizedBox(height: 5),
+    //         Column(
+    //           children: [
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 Text(
+    //                   '${provider.calendarCurrentDateData[index].date}' == ''
+    //                       ? 'No Date'
+    //                       : '${provider.calendarCurrentDateData[index].date}',
+    //                   style: const TextStyle(
+    //                     fontSize: 16,
+    //                     fontWeight: FontWeight.w700,
+    //                     color: Colors.white,
+    //                   ),
+    //                   textAlign: TextAlign.right,
+    //                 ),
+    //               ],
+    //             ),
+    //             const SizedBox(
+    //               height: 10,
+    //             ),
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 Text(
+    //                   '${provider.calendarCurrentDateData[index].daystatus}' ==
+    //                           ''
+    //                       ? 'No Data'
+    //                       : '${provider.calendarCurrentDateData[index].daystatus}',
+    //                   style: const TextStyle(
+    //                     fontSize: 16,
+    //                     fontWeight: FontWeight.w700,
+    //                     color: Colors.white,
+    //                   ),
+    //                   textAlign: TextAlign.right,
+    //                 ),
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
 

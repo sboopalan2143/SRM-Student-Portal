@@ -32,8 +32,8 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
         await ref.read(hostelProvider.notifier).getHostelHiveDetails(
-            '',
-          );
+              '',
+            );
         await ref.read(hostelProvider.notifier).getHostelDetails(
               ref.read(encryptionProvider.notifier),
             );
@@ -158,7 +158,7 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
                         const Expanded(
                           child: Center(
                             child: Text(
-                              'Registration Not Eligible',
+                              'Not Register',
                               style: TextStyles.fontStyle6,
                             ),
                           ),

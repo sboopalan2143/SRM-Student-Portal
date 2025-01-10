@@ -90,13 +90,14 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Center(
-                  //   child: Image.asset(
-                  //     'assets/images/srmgrouplogo.png',
-                  //     width: MediaQuery.of(context).size.width - 180,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/srmgrouplogo.png',
+                      width: MediaQuery.of(context).size.width - 240,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Text(
                     'SRM Group Of',
                     style: TextStyle(
@@ -114,7 +115,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                       color: Colors.blue.shade800,
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   Text(
                     'Student portal LogIn',
                     style: TextStyle(
@@ -123,7 +124,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                       color: Colors.blue.shade800,
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

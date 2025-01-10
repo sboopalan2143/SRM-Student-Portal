@@ -8,9 +8,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
 import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme02TransportRegisterPage extends ConsumerStatefulWidget {
   const Theme02TransportRegisterPage({super.key});
@@ -375,17 +372,14 @@ class _Theme02TransportRegisterPageState
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             width: width / 2,
-                            child: Text(
-                              '''${provider.transportAfterRegisterDetails!.activestatus}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.transportAfterRegisterDetails!.activestatus}''',
-                              style: const TextStyle(
+                            child: const Text(
+                              'Busroute',
+                              style: TextStyle(
                                 fontSize: 18,
                                 color: AppColors.grey,
                                 fontWeight: FontWeight.bold,
@@ -393,18 +387,17 @@ class _Theme02TransportRegisterPageState
                             ),
                           ),
                           SizedBox(
-                            width: width / 4,
+                            width: width * 0.85,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.amount}''' ==
+                              '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
                                       ''
                                   ? '-'
-                                  : '''${provider.transportAfterRegisterDetails!.amount}''',
+                                  : '''${provider.transportAfterRegisterDetails!.busroutename}''',
                               style: const TextStyle(
                                 fontSize: 18,
-                                color: AppColors.greenColor,
+                                color: AppColors.grey4,
                                 fontWeight: FontWeight.bold,
                               ),
-                              textAlign: TextAlign.right,
                             ),
                           ),
                         ],
@@ -445,76 +438,76 @@ class _Theme02TransportRegisterPageState
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          SizedBox(
-                            width: width / 2,
-                            child: const Text(
-                              'Busroute',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.bold,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2,
+                                child: const Text(
+                                  'Date',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.85,
-                            child: Text(
-                              '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.transportAfterRegisterDetails!.busroutename}''',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: AppColors.grey4,
-                                fontWeight: FontWeight.bold,
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                child: Text(
+                                  '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.grey4,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ],
                       ),
                       const SizedBox(height: 10),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: width / 2 - 50,
-                            child: const Text(
-                              'Registration date',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.bold,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: width / 2,
+                                child: const Text(
+                                  'Bus Fees',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const Text(
-                            ':',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.grey4,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          SizedBox(
-                            width: width / 2 - 60,
-                            child: Text(
-                              '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.grey4,
-                                fontWeight: FontWeight.bold,
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                child: Text(
+                                  '''${provider.transportAfterRegisterDetails!.amount}''' ==
+                                          ''
+                                      ? '-'
+                                      : '''${provider.transportAfterRegisterDetails!.amount}''',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.grey4,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

@@ -299,7 +299,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.numbers,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -334,7 +335,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.event_note,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -369,7 +371,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.person,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -404,7 +407,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.school,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -442,7 +446,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.web_stories,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -477,7 +482,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.batch_prediction,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -512,7 +518,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.calendar_month,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -547,7 +554,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.diversity_2,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),
@@ -582,7 +590,8 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           child: Icon(
                                             Icons.location_on,
                                             size: 25,
-                                            color: AppColors.blackColor
+                                            color: AppColors
+                                                .theme02secondaryColor1
                                                 .withOpacity(0.8),
                                           ),
                                         ),

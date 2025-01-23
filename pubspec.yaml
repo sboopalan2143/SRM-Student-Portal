@@ -60,12 +60,12 @@ dependencies:
   d_chart:
   graphic:
   pie_chart:
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis:
-  flutter_launcher_icons:
   flutter_native_splash:
   change_app_package_name:
   hive_generator:

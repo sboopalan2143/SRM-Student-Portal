@@ -8,10 +8,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_get_answer_data_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_get_answer_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_get_answer_screen.dart';
 import 'package:sample/theme-06/mainscreens/lms/lms_get_answer_screen.dart';
 
 class Theme06McqTestViewPage extends ConsumerStatefulWidget {
@@ -174,20 +171,20 @@ class _Theme62McqTestViewPageState
                       child: CircularProgressIndicators
                           .primaryColorProgressIndication,
                     ),
-                  )
-                else if (provider.mcqQuestionAndAnswerData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
-                        ),
-                      ),
-                    ],
                   ),
+                // else if (provider.mcqQuestionAndAnswerData.isEmpty &&
+                //     provider is! LibraryTrancsactionStateLoading)
+                //   Column(
+                //     children: [
+                //       SizedBox(height: MediaQuery.of(context).size.height / 5),
+                //       const Center(
+                //         child: Text(
+                //           'No List Added Yet!',
+                //           style: TextStyles.fontStyle1,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
                 if (provider.mcqQuestionAndAnswerData.isNotEmpty)
                   ListView.builder(
                     itemCount: provider.mcqQuestionAndAnswerData.length,

@@ -802,6 +802,12 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
                   onTap: () {
                     ref.read(mainProvider.notifier).setNavString('Logout');
                     TokensManagement.clearSharedPreference();
+
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const AddUser()));
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       RouteDesign(
@@ -895,6 +901,7 @@ class _Theme02HomepageState extends ConsumerState<Theme02Homepage>
 
 class GradientCard extends StatelessWidget {
   const GradientCard({super.key, required this.data});
+
   final CardData data;
 
   @override
@@ -943,6 +950,7 @@ class CardData {
     required this.progress,
     required this.progressText,
   });
+
   final IconData icon;
   final String title;
   final double progress;

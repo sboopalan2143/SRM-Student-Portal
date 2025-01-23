@@ -8,10 +8,8 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_get_answer_data_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_get_answer_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_get_answer_screen.dart';
+import 'package:sample/theme-06/mainscreens/lms/lms_get_answer_screen.dart';
 
 class Theme02McqTestViewPage extends ConsumerStatefulWidget {
   const Theme02McqTestViewPage({
@@ -222,12 +220,12 @@ class _Theme02McqTestViewPageState
                                   widget.marksperquestion,
                                 );
 
-                            await Navigator.push(
-                              context,
-                              RouteDesign(
-                                route: const Theme02McqGetAnswerPage(),
-                              ),
-                            );
+                            // await Navigator.push(
+                            //   context,
+                            //   RouteDesign(
+                            //     route: const Theme02McqGetAnswerPage(),
+                            //   ),
+                            // );
                           },
                           child: Container(
                             decoration: BoxDecoration(

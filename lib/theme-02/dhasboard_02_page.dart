@@ -48,6 +48,7 @@ import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart
 import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-02/notification_home_page.dart';
 import 'package:sample/theme-02/notification_page.dart';
+import 'package:sample/theme-02/time_table_page.dart';
 
 class Theme02dhasboardPage extends ConsumerStatefulWidget {
   const Theme02dhasboardPage({super.key});
@@ -470,7 +471,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                         ),
@@ -523,7 +524,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                         DateFormat('dd-MM-yyyy')
                                             .format(DateTime.now());
                                     log('date >>> ${calenderprovider.calendarHiveData[index].date}');
-                                    log('date to string >>> ${formattedDate}');
+                                    log('date to string >>> $formattedDate');
                                     return calenderStatuscardDesign(index); //
 
                                     // return cardDesign(index);
@@ -535,7 +536,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                         ),
                         // const SizedBox(height: 20),
                         Container(
-                          width: double.infinity,
+                          width: 200,
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
                               colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
@@ -547,7 +548,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               Navigator.push(
                                 context,
                                 RouteDesign(
-                                  route: const Theme02CalendarPage(),
+                                  route: const Theme02TimetablePageScreen(),
                                   // route: const StudentLoginPage(),
                                 ),
                               );
@@ -571,15 +572,15 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 12,
-                          offset: const Offset(0, 6),
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -588,42 +589,92 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       children: [
                         const Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.campaign_rounded,
                               size: 40,
                               color: Colors.indigoAccent,
                             ),
-                            SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Notice Board',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    'Latest updates and announcements',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              'Notice Board',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
                               ),
                             ),
                           ],
                         ),
+
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Icon(
+                        //       Icons.paste_rounded,
+                        //       size: 32,
+                        //       color: Colors.grey[600],
+                        //     ),
+                        //     const SizedBox(width: 10),
+                        //     Expanded(
+                        //       child: Text(
+                        //         'Regarding fee payment for academic year 2024-25',
+                        //         style: TextStyle(
+                        //           fontSize: 12,
+                        //           color: AppColors.theme01primaryColor,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 8),
+                        //     Container(
+                        //       width: 40,
+                        //       height: 40,
+                        //       decoration: BoxDecoration(
+                        //         gradient: const LinearGradient(
+                        //           colors: [Colors.green, Colors.lightGreen],
+                        //           begin: Alignment.topLeft,
+                        //           end: Alignment.bottomRight,
+                        //         ),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         boxShadow: [
+                        //           BoxShadow(
+                        //             color: Colors.black.withOpacity(0.2),
+                        //             blurRadius: 5,
+                        //             offset: const Offset(2, 3),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       child: Center(
+                        //         child: Text(
+                        //           'New',
+                        //           style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 14,
+                        //             shadows: [
+                        //               Shadow(
+                        //                 blurRadius: 3,
+                        //                 color: Colors.black.withOpacity(0.3),
+                        //                 offset: const Offset(1, 1),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // const SizedBox(height: 5),
+                        // Divider(
+                        //   height: 1,
+                        //   color: AppColors.redColor.withOpacity(0.5),
+                        // ),
+                        // const SizedBox(height: 5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 10),
                             if (provider is NotificationLoading)
                               Padding(
                                 padding: const EdgeInsets.only(top: 100),
@@ -663,9 +714,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 16),
                         Container(
-                          width: double.infinity,
+                          // width: double.infinity,
+                          width: 200,
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
                               colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
@@ -684,10 +736,15 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               );
                             },
                             style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 69, 184, 119),
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                             child: const Text(
-                              'View All Notices',
+                              'More info',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -699,6 +756,137 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       ],
                     ),
                   ),
+
+                  // Container(
+                  //   width: double.infinity,
+                  //   padding: const EdgeInsets.all(20),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(16),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: Colors.black.withOpacity(0.1),
+                  //         blurRadius: 12,
+                  //         offset: const Offset(0, 6),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: [
+                  //       const Row(
+                  //         children: [
+                  //           Icon(
+                  //             Icons.campaign_rounded,
+                  //             size: 40,
+                  //             color: Colors.indigoAccent,
+                  //           ),
+                  //           SizedBox(width: 12),
+                  //           Expanded(
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 Text(
+                  //                   'Notice Board',
+                  //                   style: TextStyle(
+                  //                     fontSize: 20,
+                  //                     fontWeight: FontWeight.w700,
+                  //                     color: Colors.black87,
+                  //                   ),
+                  //                 ),
+                  //                 SizedBox(height: 4),
+                  //                 Text(
+                  //                   'Latest updates and announcements',
+                  //                   style: TextStyle(
+                  //                     fontSize: 14,
+                  //                     fontWeight: FontWeight.w400,
+                  //                     color: Colors.grey,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           const SizedBox(height: 20),
+                  //           if (provider is NotificationLoading)
+                  //             Padding(
+                  //               padding: const EdgeInsets.only(top: 100),
+                  //               child: Center(
+                  //                 child: CircularProgressIndicators
+                  //                     .primaryColorProgressIndication,
+                  //               ),
+                  //             )
+                  //           else if (notificaionprovider
+                  //                   .notificationData.isEmpty &&
+                  //               provider is! NotificationLoading)
+                  //             Column(
+                  //               children: [
+                  //                 SizedBox(
+                  //                     height:
+                  //                         MediaQuery.of(context).size.height /
+                  //                             5),
+                  //                 const Center(
+                  //                   child: Text(
+                  //                     'No List Added Yet!',
+                  //                     style: TextStyles.fontStyle1,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           if (notificaionprovider.notificationData.isNotEmpty)
+                  //             ListView.builder(
+                  //               itemCount:
+                  //                   notificaionprovider.notificationData.length,
+                  //               controller: _listController,
+                  //               shrinkWrap: true,
+                  //               itemBuilder: (BuildContext context, int index) {
+                  //                 return index < 2
+                  //                     ? notificationcardDesign(index)
+                  //                     : null;
+                  //               },
+                  //             ),
+                  //         ],
+                  //       ),
+                  //       const SizedBox(height: 20),
+                  //       Container(
+                  //         width: double.infinity,
+                  //         decoration: BoxDecoration(
+                  //           gradient: const LinearGradient(
+                  //             colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
+                  //           ),
+                  //           borderRadius: BorderRadius.circular(12),
+                  //         ),
+                  //         child: TextButton(
+                  //           onPressed: () {
+                  //             Navigator.push(
+                  //               context,
+                  //               RouteDesign(
+                  //                 // route: const DhasboardNotificationPage(),
+                  //                 // route: const NotificationPage(),
+                  //                 route: const NotificationHomePage(),
+                  //               ),
+                  //             );
+                  //           },
+                  //           style: TextButton.styleFrom(
+                  //             padding: const EdgeInsets.symmetric(vertical: 14),
+                  //           ),
+                  //           child: const Text(
+                  //             'View All Notices',
+                  //             style: TextStyle(
+                  //               fontSize: 16,
+                  //               fontWeight: FontWeight.w600,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   const SizedBox(height: 20),
                   SizedBox(
@@ -731,7 +919,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withValues(alpha: 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -837,7 +1025,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
+                            color: Colors.grey.withValues(alpha: 0.2),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -972,7 +1160,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withValues(alpha: 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -998,12 +1186,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.blue.shade200.withOpacity(0.6),
+                                  color: Colors.blue.shade200
+                                      .withValues(alpha: 0.6),
                                   blurRadius: 12,
                                   offset: const Offset(4, 4),
                                 ),
                                 BoxShadow(
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: Colors.white.withValues(alpha: 0.8),
                                   blurRadius: 12,
                                   offset: const Offset(-4, -4),
                                 ),
@@ -1014,8 +1203,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               children: [
                                 // Icon Section
                                 const Padding(
-                                  // ignore: unnecessary_const
-                                  padding: const EdgeInsets.only(top: 12),
+                                  padding: EdgeInsets.only(top: 12),
                                   child: Icon(
                                     Icons.school_rounded,
                                     color: Colors.white,
@@ -1120,13 +1308,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color:
-                                      Colors.purple.shade200.withOpacity(0.6),
+                                  color: Colors.purple.shade200
+                                      .withValues(alpha: 0.6),
                                   blurRadius: 12,
                                   offset: const Offset(4, 4),
                                 ),
                                 BoxShadow(
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: Colors.white.withValues(alpha: 0.8),
                                   blurRadius: 12,
                                   offset: const Offset(-4, -4),
                                 ),
@@ -1221,7 +1409,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
+                          color: Colors.grey.withValues(alpha: 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -1288,13 +1476,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.blue.shade200
-                                                  .withOpacity(0.6),
+                                                  .withValues(alpha: 0.6),
                                               blurRadius: 12,
                                               offset: const Offset(4, 4),
                                             ),
                                             BoxShadow(
-                                              color:
-                                                  Colors.white.withOpacity(0.8),
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.8),
                                               blurRadius: 12,
                                               offset: const Offset(-4, -4),
                                             ),
@@ -1370,13 +1558,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.purple.shade200
-                                                  .withOpacity(0.6),
+                                                  .withValues(alpha: 0.6),
                                               blurRadius: 12,
                                               offset: const Offset(4, 4),
                                             ),
                                             BoxShadow(
-                                              color:
-                                                  Colors.white.withOpacity(0.8),
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.8),
                                               blurRadius: 12,
                                               offset: const Offset(-4, -4),
                                             ),
@@ -1449,13 +1637,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.blue.shade200
-                                                .withOpacity(0.6),
+                                                .withValues(alpha: 0.6),
                                             blurRadius: 12,
                                             offset: const Offset(4, 4),
                                           ),
                                           BoxShadow(
-                                            color:
-                                                Colors.white.withOpacity(0.8),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.8),
                                             blurRadius: 12,
                                             offset: const Offset(-4, -4),
                                           ),
@@ -1516,13 +1704,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.purple.shade200
-                                                .withOpacity(0.6),
+                                                .withValues(alpha: 0.6),
                                             blurRadius: 12,
                                             offset: const Offset(4, 4),
                                           ),
                                           BoxShadow(
-                                            color:
-                                                Colors.white.withOpacity(0.8),
+                                            color: Colors.white
+                                                .withValues(alpha: 0.8),
                                             blurRadius: 12,
                                             offset: const Offset(-4, -4),
                                           ),
@@ -1607,21 +1795,27 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               groupList: [
                 OrdinalGroup(
                   id: '1',
-                  color: AppColors.primaryColor2,
+                  color: AppColors.primaryColor2, // Default color
                   data: List.generate(
                     provider.attendancehiveData.length,
-                    (index) => OrdinalData(
-                      domain:
-                          '${provider.attendancehiveData[index].subjectcode}',
-                      measure: provider.attendancehiveData[index]
+                    (index) {
+                      double percentage = provider.attendancehiveData[index]
                                   .presentpercentage ==
                               ''
                           ? 0.0
                           : double.parse(
-                                '${provider.attendancehiveData[index].presentpercentage}',
-                              ) *
-                              (7 / 7),
-                    ),
+                              '${provider.attendancehiveData[index].presentpercentage}',
+                            );
+
+                      return OrdinalData(
+                        domain:
+                            '${provider.attendancehiveData[index].subjectcode}',
+                        measure: percentage * (7 / 7),
+                        color: percentage < 75
+                            ? AppColors.redColor // Color for <75%
+                            : AppColors.primaryColor2, // Default color
+                      );
+                    },
                   ),
                 ),
               ],
@@ -1634,11 +1828,197 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                 minimumPaddingBetweenLabels: 50,
               ),
             ),
-          ),
+          )
+
+          // AspectRatio(
+          //   aspectRatio: 13 / 9,
+          //   child: DChartBarO(
+          //     groupList: [
+          //       OrdinalGroup(
+          //         id: '1',
+          //         color: AppColors.primaryColor2,
+          //         data: List.generate(
+          //           provider.attendancehiveData.length,
+          //           (index) => OrdinalData(
+          //             domain:
+          //                 '${provider.attendancehiveData[index].subjectcode}',
+          //             measure: provider.attendancehiveData[index]
+          //                         .presentpercentage ==
+          //                     ''
+          //                 ? 0.0
+          //                 : double.parse(
+          //                       '${provider.attendancehiveData[index].presentpercentage}',
+          //                     ) *
+          //                     (7 / 7),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //     domainAxis: const DomainAxis(
+          //       lineStyle: LineStyle(
+          //         color: AppColors.primaryColor2,
+          //         thickness: 2,
+          //       ),
+          //       labelRotation: 45,
+          //       minimumPaddingBetweenLabels: 50,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
   }
+
+  // Widget cardDesignAttendanceHrs() {
+  //   final provider = ref.watch(attendanceProvider);
+  //
+  //   final totalPresent = provider.attendancehiveData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.present ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalAbsent = provider.attendancehiveData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalall = provider.attendancehiveData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.total ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalSessions = totalPresent + totalAbsent;
+  //
+  //   // Calculate individual percentages
+  //   final presentPercentage =
+  //       totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
+  //   final absentPercentage =
+  //       totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+  //   final allPercentage = totalSessions > 0 ? (totalall / totalSessions) : 0.0;
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20),
+  //     child: Column(
+  //       children: [
+  //         const Text(
+  //           'Attendance Hours',
+  //           style: TextStyle(
+  //             fontSize: 18,
+  //             fontWeight: FontWeight.bold,
+  //             color: AppColors.blackColor,
+  //           ),
+  //         ),
+  //         const SizedBox(height: 20),
+  //         Stack(
+  //           children: [
+  //             // CircularPercentIndicator(
+  //             //   radius: 60,
+  //             //   lineWidth: 10,
+  //             //   percent: allPercentage,
+  //             //   center: Text(
+  //             //     '${(presentPercentage * 100).toStringAsFixed(1)}%',
+  //             //     style: const TextStyle(
+  //             //       fontSize: 16,
+  //             //       fontWeight: FontWeight.bold,
+  //             //       color: AppColors.blackColor,
+  //             //     ),
+  //             //   ),
+  //             //   progressColor: Colors.blue,
+  //             //   backgroundColor: AppColors.blackColor.withValues(alpha: 0.2),
+  //             //   circularStrokeCap: CircularStrokeCap.round,
+  //             // ),
+  //             CircularPercentIndicator(
+  //               radius: 60,
+  //               lineWidth: 10,
+  //               percent: presentPercentage,
+  //               center: const SizedBox.shrink(),
+  //               progressColor: Colors.green,
+  //               backgroundColor: Colors.black26,
+  //               circularStrokeCap: CircularStrokeCap.round,
+  //             ),
+  //             CircularPercentIndicator(
+  //               radius: 60,
+  //               lineWidth: 10,
+  //               percent: absentPercentage,
+  //               center: const SizedBox.shrink(),
+  //               progressColor: Colors.red,
+  //               backgroundColor: Colors.transparent,
+  //               circularStrokeCap: CircularStrokeCap.round,
+  //             ),
+  //           ],
+  //         ),
+  //
+  //         const SizedBox(height: 20),
+  //
+  //         // Total Sessions Row
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               Icons.group,
+  //               color: AppColors.theme02buttonColor2,
+  //               size: 20,
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Total: $totalall',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: AppColors.primaryColor2,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(
+  //           height: 5,
+  //         ),
+  //         Row(
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.how_to_reg,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 20,
+  //                 ),
+  //                 const SizedBox(width: 10),
+  //                 Text(
+  //                   'Present: $totalPresent',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.green,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(
+  //           height: 5,
+  //         ),
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               Icons.person_off,
+  //               color: AppColors.theme02buttonColor2,
+  //               size: 20,
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Absent: $totalAbsent',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.red,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget cardDesignAttendanceHrs() {
     final provider = ref.watch(attendanceProvider);
@@ -1653,11 +2033,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
       (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
     );
 
-    final totalall = provider.attendancehiveData.fold<int>(
-      0,
-      (sum, item) => sum + (int.tryParse(item.total ?? '0') ?? 0),
-    );
-
     final totalSessions = totalPresent + totalAbsent;
 
     // Calculate individual percentages
@@ -1665,7 +2040,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
         totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
     final absentPercentage =
         totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
-    final allPercentage = totalSessions > 0 ? (totalall / totalSessions) : 0.0;
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -1680,48 +2054,43 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ),
           const SizedBox(height: 20),
-          Stack(
-            children: [
-              CircularPercentIndicator(
-                radius: 60,
-                lineWidth: 10,
-                percent: allPercentage,
-                center: Text(
-                  '${(presentPercentage * 100).toStringAsFixed(1)}%',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blackColor,
-                  ),
+          // Single CircularPercentIndicator for both present and absent
+          CircularPercentIndicator(
+            radius: 60,
+            lineWidth: 10,
+            percent: 1.0,
+            // Full circle (100%)
+            center: Stack(
+              children: [
+                // Present Circle (Green)
+                CircularPercentIndicator(
+                  radius: 60,
+                  lineWidth: 10,
+                  percent: presentPercentage,
+                  // Show present percentage
+                  center: const SizedBox.shrink(),
+                  progressColor: Colors.green,
+                  backgroundColor: Colors.transparent,
+                  circularStrokeCap: CircularStrokeCap.round,
                 ),
-                progressColor: Colors.blue,
-                backgroundColor: AppColors.blackColor.withOpacity(0.2),
-                circularStrokeCap: CircularStrokeCap.round,
-              ),
-              CircularPercentIndicator(
-                radius: 60,
-                lineWidth: 10,
-                percent: presentPercentage,
-                center: const SizedBox.shrink(),
-                progressColor: Colors.green,
-                backgroundColor: Colors.transparent,
-                circularStrokeCap: CircularStrokeCap.round,
-              ),
-              CircularPercentIndicator(
-                radius: 60,
-                lineWidth: 10,
-                percent: absentPercentage,
-                center: const SizedBox.shrink(),
-                progressColor: Colors.red,
-                backgroundColor: Colors.transparent,
-                circularStrokeCap: CircularStrokeCap.round,
-              ),
-            ],
+                // Absent Circle (Red) - This is stacked on top of the present circle
+                CircularPercentIndicator(
+                  radius: 60,
+                  lineWidth: 10,
+                  percent: absentPercentage,
+                  // Show absent percentage
+                  center: const SizedBox.shrink(),
+                  progressColor: Colors.red,
+                  backgroundColor: Colors.transparent,
+                  circularStrokeCap: CircularStrokeCap.round,
+                ),
+              ],
+            ),
+            backgroundColor: Colors.black26,
+            // Background of the whole circle
+            circularStrokeCap: CircularStrokeCap.round,
           ),
-
           const SizedBox(height: 20),
-
-          // Total Sessions Row
           Row(
             children: [
               Icon(
@@ -1731,7 +2100,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               ),
               const SizedBox(width: 10),
               Text(
-                'Total: $totalall',
+                'Total: ${totalPresent + totalAbsent}',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -1740,34 +2109,26 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               ),
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Row(
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.how_to_reg,
-                    color: AppColors.theme02buttonColor2,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    'Present: $totalPresent',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                  ),
-                ],
+              Icon(
+                Icons.how_to_reg,
+                color: AppColors.theme02buttonColor2,
+                size: 20,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'Present: $totalPresent',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Row(
             children: [
               Icon(
@@ -1876,26 +2237,26 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
         );
       },
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: const Color(0xFFF3F4F6),
-        ),
+        // decoration: BoxDecoration(
+        //
+        //   borderRadius: BorderRadius.circular(12),
+        //   color: const Color(0xFFF3F4F6),
+        // ),
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
             Icon(
-              Icons.paste_outlined,
-              size: 36,
-              color: Colors.indigo[400],
+              Icons.paste_rounded,
+              size: 32,
+              color: Colors.grey[600],
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 '${provider.notificationData[index].notificationsubject}',
                 style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[800],
+                  fontSize: 12,
+                  color: AppColors.theme01primaryColor,
                 ),
               ),
             ),
@@ -1932,6 +2293,11 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   ),
                 ),
               ),
+            ),
+            const SizedBox(height: 5),
+            Divider(
+              height: 1,
+              color: AppColors.redColor.withOpacity(0.5),
             ),
           ],
         ),
@@ -1971,7 +2337,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               children: [
                 Icon(
                   Icons.calendar_today,
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   size: 20,
                 ),
                 Text(
@@ -1998,7 +2364,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               children: [
                 Icon(
                   Icons.info_outline,
-                  color: Colors.white.withOpacity(0.8),
+                  color: Colors.white.withValues(alpha: 0.8),
                   size: 20,
                 ),
                 Text(
@@ -2091,6 +2457,7 @@ class CircularHistoryIndicator extends StatelessWidget {
     required this.percentage,
     super.key,
   });
+
   final String title;
   final double percentage;
 

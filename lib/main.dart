@@ -59,7 +59,7 @@ class _InitialState extends ConsumerState<Initial> {
 
       initialRoute:
           TokensManagement.studentId == '' ? Routes.login : Routes.home,
-      //  :
+      //  :home
       // Routes.home,
       routes: RouteBuilder.routes,
 

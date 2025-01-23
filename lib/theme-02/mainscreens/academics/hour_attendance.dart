@@ -223,25 +223,6 @@ class _Theme02HourAttendancePageState
                           badgeContent: const Padding(
                             padding: EdgeInsets.all(2),
                             child: Text(
-                              '4',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: width * 0.03),
-                        badges.Badge(
-                          badgeStyle: badges.BadgeStyle(
-                            padding: const EdgeInsets.all(7),
-                            badgeColor: AppColors.theme02buttonColor2,
-                          ),
-                          position: badges.BadgePosition.topEnd(top: -10),
-                          badgeContent: const Padding(
-                            padding: EdgeInsets.all(2),
-                            child: Text(
                               '5',
                               style: TextStyle(
                                 fontSize: 14,
@@ -262,6 +243,25 @@ class _Theme02HourAttendancePageState
                             padding: EdgeInsets.all(2),
                             child: Text(
                               '6',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: width * 0.03),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            padding: const EdgeInsets.all(7),
+                            badgeColor: AppColors.theme02buttonColor2,
+                          ),
+                          position: badges.BadgePosition.topEnd(top: -10),
+                          badgeContent: const Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              '7',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.whiteColor,

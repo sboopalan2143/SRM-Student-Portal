@@ -228,7 +228,7 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Corse',
+                          'Course',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

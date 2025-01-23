@@ -11,6 +11,7 @@ import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/theme-02/calendar_status_page.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
+import 'package:sample/theme-02/time_table_page.dart';
 
 class CalendarHomePage extends ConsumerStatefulWidget {
   const CalendarHomePage({super.key});
@@ -230,7 +231,7 @@ class _CalendarHomePageState extends ConsumerState<CalendarHomePage> {
                 Navigator.push(
                   context,
                   RouteDesign(
-                    route: const Theme02CalendarPage(),
+                    route: const Theme02TimetablePageScreen(),
                   ),
                 );
               },

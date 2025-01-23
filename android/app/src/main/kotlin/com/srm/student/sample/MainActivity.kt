@@ -1,0 +1,5 @@
+package com.srm.student.sample
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()

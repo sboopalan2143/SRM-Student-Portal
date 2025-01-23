@@ -9,7 +9,7 @@ class StudentLoginPage extends StatefulWidget {
 }
 
 class StudentLoginPageState extends State<StudentLoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController pwdController = TextEditingController();
   String message = '';
@@ -68,7 +68,7 @@ class StudentLoginPageState extends State<StudentLoginPage> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Form(
-                  key: _formKey,
+                  // key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

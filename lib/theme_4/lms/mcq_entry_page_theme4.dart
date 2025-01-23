@@ -19,6 +19,7 @@ class McqEntryPageTheme4 extends ConsumerStatefulWidget {
     required this.mcqscheduleid,
     super.key,
   });
+
   final String mcqscheduleid;
 
   @override
@@ -29,8 +30,7 @@ class McqEntryPageTheme4 extends ConsumerStatefulWidget {
 class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -133,7 +133,6 @@ class _McqEntryPageTheme4State extends ConsumerState<McqEntryPageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(

@@ -24,8 +24,7 @@ class AttendancePageTheme4 extends ConsumerStatefulWidget {
 class _AttendancePageTheme4State extends ConsumerState<AttendancePageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -140,7 +139,6 @@ class _AttendancePageTheme4State extends ConsumerState<AttendancePageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme4color1,
         child: SingleChildScrollView(

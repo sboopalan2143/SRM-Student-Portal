@@ -23,8 +23,7 @@ class HostelPageTheme4 extends ConsumerStatefulWidget {
 class _HostelPageTheme4State extends ConsumerState<HostelPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   // static int refreshNum = 10;
   // Stream<int> counterStream =
@@ -143,7 +142,6 @@ class _HostelPageTheme4State extends ConsumerState<HostelPageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme4color1,
         child: Column(

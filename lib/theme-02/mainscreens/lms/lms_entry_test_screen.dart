@@ -16,6 +16,7 @@ class Theme02McqEnteryPage extends ConsumerStatefulWidget {
     required this.mcqscheduleid,
     super.key,
   });
+
   final String mcqscheduleid;
 
   @override
@@ -26,8 +27,7 @@ class Theme02McqEnteryPage extends ConsumerStatefulWidget {
 class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -128,49 +128,44 @@ class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.mcqSheduleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
-                        ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              if (provider is LibraryTrancsactionStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.mcqSheduleData.isEmpty &&
+                  provider is! LibraryTrancsactionStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
                       ),
-                    ],
-                  ),
-                if (provider.mcqSheduleData.isNotEmpty)
-                  ListView.builder(
-                    itemCount: provider.mcqSheduleData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              if (provider.mcqSheduleData.isNotEmpty)
+                ListView.builder(
+                  itemCount: provider.mcqSheduleData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+            ],
           ),
         ),
       ),

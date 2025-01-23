@@ -310,7 +310,7 @@
 //         ),
 //       ),
 //       body: LiquidPullToRefresh(
-//         key: _refreshIndicatorKey,
+//
 //         onRefresh: _handleRefresh,
 //         color: AppColors.primaryColorTheme3,
 //         child: SingleChildScrollView(

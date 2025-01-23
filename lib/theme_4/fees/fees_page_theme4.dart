@@ -19,8 +19,7 @@ class FeesPageTheme4 extends ConsumerStatefulWidget {
 class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -32,7 +31,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
         await ref
             .read(feesProvider.notifier)
             .getFeedDueDetails(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref
+            .read(feesProvider.notifier)
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -52,7 +53,9 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
         await ref
             .read(feesProvider.notifier)
             .getFeedDueDetails(ref.read(encryptionProvider.notifier));
-        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref
+            .read(feesProvider.notifier)
+            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
         await ref
             .read(feesProvider.notifier)
             .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
@@ -130,7 +133,8 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
                               );
                           await ref
                               .read(feesProvider.notifier)
-                              .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+                              .getFeedDueDetails(
+                                  ref.read(encryptionProvider.notifier));
                           await ref
                               .read(feesProvider.notifier)
                               .getFinanceDetailsApi(
@@ -160,7 +164,6 @@ class _FeesPageTheme4State extends ConsumerState<FeesPageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme4color1,
         child: Padding(

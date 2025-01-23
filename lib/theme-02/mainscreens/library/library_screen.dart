@@ -23,8 +23,7 @@ class Theme02LibraryPage extends ConsumerStatefulWidget {
 class _Theme02LibraryPageState extends ConsumerState<Theme02LibraryPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -131,86 +130,81 @@ class _Theme02LibraryPageState extends ConsumerState<Theme02LibraryPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.theme02secondaryColor1,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //   child: Center(
-              //     child: Column(
-              //       children: [
-              //         SizedBox(
-              //           width: 200,
-              //           child: ElevatedButton(
-              //             style: ElevatedButton.styleFrom(
-              //               shape: const RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.all(
-              //                   Radius.circular(20),
-              //                 ),
-              //               ),
-              //               elevation: 0,
-              //               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //               backgroundColor: AppColors.theme02secondaryColor1,
-              //               shadowColor: Colors.transparent,
-              //             ),
-              //             onPressed: () {
-              //               Navigator.push(
-              //                 context,
-              //                 RouteDesign(
-              //                   route: const Theme02LibraryBookSearch(),
-              //                 ),
-              //               );
-              //             },
-              //             child: const Text(
-              //               'Book Search',
-              //               style: TextStyles.fontStyle13,
-              //             ),
-              //           ),
-              //         ),
-              //         const SizedBox(height: 10),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              if (provider is LibraryTrancsactionStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                )
-              else if (provider.libraryTransactionData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle,
-                      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            //   child: Center(
+            //     child: Column(
+            //       children: [
+            //         SizedBox(
+            //           width: 200,
+            //           child: ElevatedButton(
+            //             style: ElevatedButton.styleFrom(
+            //               shape: const RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.all(
+            //                   Radius.circular(20),
+            //                 ),
+            //               ),
+            //               elevation: 0,
+            //               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            //               backgroundColor: AppColors.theme02secondaryColor1,
+            //               shadowColor: Colors.transparent,
+            //             ),
+            //             onPressed: () {
+            //               Navigator.push(
+            //                 context,
+            //                 RouteDesign(
+            //                   route: const Theme02LibraryBookSearch(),
+            //                 ),
+            //               );
+            //             },
+            //             child: const Text(
+            //               'Book Search',
+            //               style: TextStyles.fontStyle13,
+            //             ),
+            //           ),
+            //         ),
+            //         const SizedBox(height: 10),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            if (provider is LibraryTrancsactionStateLoading)
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              )
+            else if (provider.libraryTransactionData.isEmpty &&
+                provider is! LibraryTrancsactionStateLoading)
+              Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height / 5),
+                  const Center(
+                    child: Text(
+                      'No List Added Yet!',
+                      style: TextStyles.fontStyle,
                     ),
-                  ],
-                ),
-              if (provider.libraryTransactionData.isNotEmpty)
-                ListView.builder(
-                  itemCount: provider.libraryTransactionData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
-                ),
-            ],
-          ),
+                  ),
+                ],
+              ),
+            if (provider.libraryTransactionData.isNotEmpty)
+              ListView.builder(
+                itemCount: provider.libraryTransactionData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardDesign(index);
+                },
+              ),
+          ],
         ),
       ),
     );

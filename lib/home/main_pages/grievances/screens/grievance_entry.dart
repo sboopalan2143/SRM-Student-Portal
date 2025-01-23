@@ -28,8 +28,7 @@ class GrievanceEntryPage extends ConsumerStatefulWidget {
 class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
   String? selectedGrievanceCategory;
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -144,7 +143,6 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
         child: SingleChildScrollView(

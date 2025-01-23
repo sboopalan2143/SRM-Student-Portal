@@ -16,7 +16,9 @@ class Theme02LmsFacultyCommentScreen extends ConsumerStatefulWidget {
     // required this.studentclassworkcommentid,
     super.key,
   });
+
   final String classworkID;
+
   // final String studentclassworkcommentid;
 
   @override
@@ -27,8 +29,8 @@ class Theme02LmsFacultyCommentScreen extends ConsumerStatefulWidget {
 class _Theme02LmsFacultyCommentScreenState
     extends ConsumerState<Theme02LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -126,100 +128,93 @@ class _Theme02LmsFacultyCommentScreenState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              if (provider is LibraryTrancsactionStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                )
-              else if (provider.lmsfacultygetcommentData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
-                  child: Center(
-                    child: Text(
-                      'No List Added Yet!',
-                      style: TextStyles.fontStyle,
-                    ),
-                  ),
-                )
-              else if (provider.lmsfacultygetcommentData.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: provider.lmsfacultygetcommentData.length,
-                    controller: _listController,
-                    itemBuilder: (BuildContext context, int index) {
-                      return facultychatCardDesign(index);
-                    },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            if (provider is LibraryTrancsactionStateLoading)
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              )
+            else if (provider.lmsfacultygetcommentData.isEmpty &&
+                provider is! LibraryTrancsactionStateLoading)
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    'No List Added Yet!',
+                    style: TextStyles.fontStyle,
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(
-                            30,
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              offset: Offset(2, 2),
-                            ),
-                          ],
+              )
+            else if (provider.lmsfacultygetcommentData.isNotEmpty)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: provider.lmsfacultygetcommentData.length,
+                  controller: _listController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return facultychatCardDesign(index);
+                  },
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(
+                          30,
                         ),
-                        child: TextField(
-                          controller: provider.comment,
-                          decoration: const InputDecoration(
-                            hintText: 'Type a Comment...',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4,
+                            offset: Offset(2, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: provider.comment,
+                        decoration: const InputDecoration(
+                          hintText: 'Type a Comment...',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
                           ),
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.send,
-                        color: AppColors.theme02buttonColor2,
-                      ), // Blue send icon
-                      onPressed: () async {
-                        await ref.read(lmsProvider.notifier).saveCommentfield(
-                              ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
-                            );
-                        await ref
-                            .read(lmsProvider.notifier)
-                            .getLmscommentDetails(
-                              ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
-                            );
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      color: AppColors.theme02buttonColor2,
+                    ), // Blue send icon
+                    onPressed: () async {
+                      await ref.read(lmsProvider.notifier).saveCommentfield(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                      await ref.read(lmsProvider.notifier).getLmscommentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       endDrawer: const DrawerDesign(),

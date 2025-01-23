@@ -22,6 +22,7 @@ class Theme06LmsTitlePage extends ConsumerStatefulWidget {
     required this.subjectID,
     super.key,
   });
+
   final String subjectID;
 
   @override
@@ -32,8 +33,7 @@ class Theme06LmsTitlePage extends ConsumerStatefulWidget {
 class _Theme06LmsTitlePageState extends ConsumerState<Theme06LmsTitlePage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -137,7 +137,6 @@ class _Theme06LmsTitlePageState extends ConsumerState<Theme06LmsTitlePage> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
         child: SingleChildScrollView(
@@ -229,11 +228,12 @@ class _Theme06LmsTitlePageState extends ConsumerState<Theme06LmsTitlePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       child: Material(
-        borderRadius: BorderRadius.circular(18), // Rounded corners for elegance
+        borderRadius: BorderRadius.circular(18),
+        // Rounded corners for elegance
         color: Colors.white,
         elevation: 5,
-        shadowColor:
-            AppColors.theme01primaryColor.withOpacity(0.1), // Soft shadow
+        shadowColor: AppColors.theme01primaryColor.withOpacity(0.1),
+        // Soft shadow
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,

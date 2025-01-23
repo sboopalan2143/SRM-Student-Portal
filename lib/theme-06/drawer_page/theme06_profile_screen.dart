@@ -10,6 +10,7 @@ import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 
 class Theme06ProfilePage extends ConsumerStatefulWidget {
   const Theme06ProfilePage({super.key});
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _Theme06ProfilePageState();
@@ -32,8 +33,7 @@ class _Theme06ProfilePageState extends ConsumerState<Theme06ProfilePage> {
     Timer(const Duration(seconds: 1), completer.complete);
   }
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   @override
   void initState() {
@@ -64,7 +64,6 @@ class _Theme06ProfilePageState extends ConsumerState<Theme06ProfilePage> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
         child: provider is ProfileDetailsStateLoading

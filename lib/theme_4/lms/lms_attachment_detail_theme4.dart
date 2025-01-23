@@ -23,6 +23,7 @@ class LmsAttachmentDetailsDataPageTheme4 extends ConsumerStatefulWidget {
     required this.classworkID,
     super.key,
   });
+
   final String classworkID;
 
   @override
@@ -34,8 +35,7 @@ class LmsAttachmentDetailsDataPageTheme4State
     extends ConsumerState<LmsAttachmentDetailsDataPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -148,7 +148,6 @@ class LmsAttachmentDetailsDataPageTheme4State
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(
@@ -546,6 +545,7 @@ class Pdfview extends StatelessWidget {
     super.key,
     required this.url,
   });
+
   final String url;
 
   @override

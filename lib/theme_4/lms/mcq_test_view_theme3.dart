@@ -37,8 +37,7 @@ class McqTestViewPageTheme4 extends ConsumerStatefulWidget {
 class _McqTestViewPageTheme4State extends ConsumerState<McqTestViewPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   final Map<int, String> selectedAnswers = {};
   final answerSelected = <String>[];
@@ -162,7 +161,6 @@ class _McqTestViewPageTheme4State extends ConsumerState<McqTestViewPageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColorTheme3,
         child: SingleChildScrollView(

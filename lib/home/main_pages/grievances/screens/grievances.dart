@@ -24,8 +24,7 @@ class GrievanceReportPage extends ConsumerStatefulWidget {
 class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -134,59 +133,54 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: ButtonDesign.buttonDesign(
-                    'Grievance Entry',
-                    AppColors.primaryColor,
-                    context,
-                    ref.read(mainProvider.notifier),
-                    ref,
-                  ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                width: 200,
+                child: ButtonDesign.buttonDesign(
+                  'Grievance Entry',
+                  AppColors.primaryColor,
+                  context,
+                  ref.read(mainProvider.notifier),
+                  ref,
                 ),
-                const SizedBox(height: 10),
-                if (provider is CummulativeAttendanceStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.studentwisegrievanceData.isEmpty &&
-                    provider is! CummulativeAttendanceStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
-                        ),
+              ),
+              const SizedBox(height: 10),
+              if (provider is CummulativeAttendanceStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.studentwisegrievanceData.isEmpty &&
+                  provider is! CummulativeAttendanceStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
                       ),
-                    ],
-                  ),
-                if (provider.studentwisegrievanceData.isNotEmpty)
-                  const SizedBox(height: 5),
-                ListView.builder(
-                  itemCount: provider.studentwisegrievanceData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              if (provider.studentwisegrievanceData.isNotEmpty)
+                const SizedBox(height: 5),
+              ListView.builder(
+                itemCount: provider.studentwisegrievanceData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardDesign(index);
+                },
+              ),
+            ],
           ),
         ),
       ),

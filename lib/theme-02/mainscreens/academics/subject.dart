@@ -20,8 +20,7 @@ class Theme02SubjectPage extends ConsumerStatefulWidget {
 class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   // static int refreshNum = 10;
   // Stream<int> counterStream =
@@ -123,49 +122,43 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        color: AppColors.theme02secondaryColor1,
-        backgroundColor: AppColors.theme02secondaryColor1,
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              children: [
-                if (provider is SubjectStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.subjectHiveData.isEmpty &&
-                    provider is! SubjectStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle,
-                        ),
-                      ),
-                    ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            children: [
+              if (provider is SubjectStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
-                if (provider.subjectHiveData.isNotEmpty)
-                  const SizedBox(height: 5),
-                ListView.builder(
-                  itemCount: provider.subjectHiveData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardDesign(index);
-                  },
+                )
+              else if (provider.subjectHiveData.isEmpty &&
+                  provider is! SubjectStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              if (provider.subjectHiveData.isNotEmpty)
+                const SizedBox(height: 5),
+              ListView.builder(
+                itemCount: provider.subjectHiveData.length,
+                controller: _listController,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardDesign(index);
+                },
+              ),
+            ],
           ),
         ),
       ),

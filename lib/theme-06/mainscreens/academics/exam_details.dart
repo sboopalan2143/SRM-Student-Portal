@@ -21,8 +21,7 @@ class Theme06ExamDetailsPageTheme extends ConsumerStatefulWidget {
 
 class _Theme06ExamDetailsPageThemeState
     extends ConsumerState<Theme06ExamDetailsPageTheme> {
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -131,7 +130,6 @@ class _Theme06ExamDetailsPageThemeState
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(

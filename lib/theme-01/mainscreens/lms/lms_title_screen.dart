@@ -19,6 +19,7 @@ class Theme01LmsTitlePage extends ConsumerStatefulWidget {
     required this.subjectID,
     super.key,
   });
+
   final String subjectID;
 
   @override
@@ -29,8 +30,7 @@ class Theme01LmsTitlePage extends ConsumerStatefulWidget {
 class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -125,7 +125,6 @@ class _Theme01LmsTitlePageState extends ConsumerState<Theme01LmsTitlePage> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(

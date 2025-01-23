@@ -21,8 +21,7 @@ class Theme02HostelPage extends ConsumerStatefulWidget {
 class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   // static int refreshNum = 10;
   // Stream<int> counterStream =
@@ -133,76 +132,71 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      if (provider.hostelRegisterDetails.regconfig == '1')
-                        Expanded(
-                          child: Theme02ButtonDesign.buttonDesign(
-                            'Registration',
-                            AppColors.primaryColor,
-                            context,
-                            ref,
-                          ),
-                        )
-                      else
-                        const Expanded(
-                          child: Center(
-                            child: Text(
-                              'Not Register',
-                              style: TextStyles.fontStyle6,
-                            ),
-                          ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    if (provider.hostelRegisterDetails.regconfig == '1')
+                      Expanded(
+                        child: Theme02ButtonDesign.buttonDesign(
+                          'Registration',
+                          AppColors.primaryColor,
+                          context,
+                          ref,
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  if (provider is HostelStateLoading)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: Center(
-                        child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
-                      ),
-                    )
-                  else if (provider.gethostelData.isEmpty &&
-                      provider is! HostelStateLoading)
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 5,
-                        ),
-                        const Center(
+                      )
+                    else
+                      const Expanded(
+                        child: Center(
                           child: Text(
-                            'No List Added Yet!',
+                            'Not Register',
                             style: TextStyles.fontStyle6,
                           ),
                         ),
-                      ],
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                if (provider is HostelStateLoading)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
                     ),
-                  if (provider.gethostelData.isNotEmpty)
-                    ListView.builder(
-                      itemCount: provider.gethostelData.length,
-                      controller: _listController,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return cardDesign(index);
-                      },
-                    ),
-                ],
-              ),
+                  )
+                else if (provider.gethostelData.isEmpty &&
+                    provider is! HostelStateLoading)
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 5,
+                      ),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle6,
+                        ),
+                      ),
+                    ],
+                  ),
+                if (provider.gethostelData.isNotEmpty)
+                  ListView.builder(
+                    itemCount: provider.gethostelData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
+                  ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       endDrawer: const DrawerDesign(),
     );

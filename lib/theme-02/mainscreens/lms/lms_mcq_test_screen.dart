@@ -20,6 +20,7 @@ class Theme02McqTestViewPage extends ConsumerStatefulWidget {
     required this.marksperquestion,
     super.key,
   });
+
   final String mcqtemplateid;
   final String mcqscheduleid;
   final String subjectid;
@@ -35,8 +36,7 @@ class _Theme02McqTestViewPageState
     extends ConsumerState<Theme02McqTestViewPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   final Map<int, String> selectedAnswers = {};
   final answerSelected = <String>[];
@@ -153,104 +153,99 @@ class _Theme02McqTestViewPageState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.mcqQuestionAndAnswerData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
-                        ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              if (provider is LibraryTrancsactionStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
+                  ),
+                )
+              else if (provider.mcqQuestionAndAnswerData.isEmpty &&
+                  provider is! LibraryTrancsactionStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle1,
                       ),
-                    ],
-                  ),
-                if (provider.mcqQuestionAndAnswerData.isNotEmpty)
-                  ListView.builder(
-                    itemCount: provider.mcqQuestionAndAnswerData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-                const SizedBox(
-                  height: 10,
+                    ),
+                  ],
                 ),
-                if (provider.mcqQuestionAndAnswerData.isNotEmpty)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 30,
-                        width: 150,
-                        child: GestureDetector(
-                          onTap: () async {
-                            await ref
-                                .read(lmsProvider.notifier)
-                                .getMcqAnswerDetails(
-                                  ref.read(encryptionProvider.notifier),
-                                );
-                            await ref
-                                .read(lmsProvider.notifier)
-                                .saveMCQAnswerDetails(
-                                  ref.read(encryptionProvider.notifier),
-                                  widget.mcqscheduleid,
-                                  singleString,
-                                  widget.marksperquestion,
-                                );
+              if (provider.mcqQuestionAndAnswerData.isNotEmpty)
+                ListView.builder(
+                  itemCount: provider.mcqQuestionAndAnswerData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+              const SizedBox(
+                height: 10,
+              ),
+              if (provider.mcqQuestionAndAnswerData.isNotEmpty)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      width: 150,
+                      child: GestureDetector(
+                        onTap: () async {
+                          await ref
+                              .read(lmsProvider.notifier)
+                              .getMcqAnswerDetails(
+                                ref.read(encryptionProvider.notifier),
+                              );
+                          await ref
+                              .read(lmsProvider.notifier)
+                              .saveMCQAnswerDetails(
+                                ref.read(encryptionProvider.notifier),
+                                widget.mcqscheduleid,
+                                singleString,
+                                widget.marksperquestion,
+                              );
 
-                            // await Navigator.push(
-                            //   context,
-                            //   RouteDesign(
-                            //     route: const Theme02McqGetAnswerPage(),
-                            //   ),
-                            // );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.theme02secondaryColor1,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyles.fontStyle13,
-                                    textAlign: TextAlign.center,
-                                  ),
+                          // await Navigator.push(
+                          //   context,
+                          //   RouteDesign(
+                          //     route: const Theme02McqGetAnswerPage(),
+                          //   ),
+                          // );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.theme02secondaryColor1,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Submit',
+                                  style: TextStyles.fontStyle13,
+                                  textAlign: TextAlign.center,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
-              ],
-            ),
+                    ),
+                  ],
+                ),
+            ],
           ),
         ),
       ),

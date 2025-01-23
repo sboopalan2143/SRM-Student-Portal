@@ -17,6 +17,7 @@ class Theme02LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
     required this.classworkID,
     super.key,
   });
+
   final String classworkID;
 
   @override
@@ -28,8 +29,7 @@ class Theme02LmsAttachmentDetailsDataPageState
     extends ConsumerState<Theme02LmsAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -135,87 +135,82 @@ class Theme02LmsAttachmentDetailsDataPageState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                if (provider is LibraryTrancsactionStateLoading)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: Text(
-                        'No List Added',
-                        style: TextStyles.fontStyle1,
-                      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              if (provider is LibraryTrancsactionStateLoading)
+                const Padding(
+                  padding: EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: Text(
+                      'No List Added',
+                      style: TextStyles.fontStyle1,
                     ),
-                  )
-                else if (provider.lmsAttachmentDetailsData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      Center(
-                        child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
-                      ),
-                    ],
                   ),
-                if (provider.lmsAttachmentDetailsData.isNotEmpty)
-                  ListView.builder(
-                    itemCount: provider.lmsAttachmentDetailsData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-              ],
-            ),
-
-            //  Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     const SizedBox(height: 20),
-            //     if (provider is LibraryTrancsactionStateLoading)
-            //       Padding(
-            //         padding: const EdgeInsets.only(top: 100),
-            //         child: Center(
-            //           child: CircularProgressIndicators
-            //               .primaryColorProgressIndication,
-            //         ),
-            //       )
-            //     else if (provider.lmsAttachmentDetailsData.isEmpty &&
-            //         provider is! LibraryTrancsactionStateLoading)
-            //       Column(
-            //         children: [
-            //           SizedBox(height: MediaQuery.of(context).size.height / 5),
-            //           const Center(
-            //             child: Text(
-            //               'No List Added Yet!',
-            //               style: TextStyles.fontStyle1,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     if (provider.lmsAttachmentDetailsData.isNotEmpty)
-            //       ListView.builder(
-            //         itemCount: provider.lmsAttachmentDetailsData.length,
-            //         controller: _listController,
-            //         shrinkWrap: true,
-            //         itemBuilder: (BuildContext context, int index) {
-            //           return cardDesign(index);
-            //         },
-            //       ),
-            //   ],
-            // ),
+                )
+              else if (provider.lmsAttachmentDetailsData.isEmpty &&
+                  provider is! LibraryTrancsactionStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    Center(
+                      child: CircularProgressIndicators
+                          .primaryColorProgressIndication,
+                    ),
+                  ],
+                ),
+              if (provider.lmsAttachmentDetailsData.isNotEmpty)
+                ListView.builder(
+                  itemCount: provider.lmsAttachmentDetailsData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+            ],
           ),
+
+          //  Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     const SizedBox(height: 20),
+          //     if (provider is LibraryTrancsactionStateLoading)
+          //       Padding(
+          //         padding: const EdgeInsets.only(top: 100),
+          //         child: Center(
+          //           child: CircularProgressIndicators
+          //               .primaryColorProgressIndication,
+          //         ),
+          //       )
+          //     else if (provider.lmsAttachmentDetailsData.isEmpty &&
+          //         provider is! LibraryTrancsactionStateLoading)
+          //       Column(
+          //         children: [
+          //           SizedBox(height: MediaQuery.of(context).size.height / 5),
+          //           const Center(
+          //             child: Text(
+          //               'No List Added Yet!',
+          //               style: TextStyles.fontStyle1,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     if (provider.lmsAttachmentDetailsData.isNotEmpty)
+          //       ListView.builder(
+          //         itemCount: provider.lmsAttachmentDetailsData.length,
+          //         controller: _listController,
+          //         shrinkWrap: true,
+          //         itemBuilder: (BuildContext context, int index) {
+          //           return cardDesign(index);
+          //         },
+          //       ),
+          //   ],
+          // ),
         ),
       ),
       endDrawer: const DrawerDesign(),

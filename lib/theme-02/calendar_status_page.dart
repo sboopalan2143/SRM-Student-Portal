@@ -25,8 +25,7 @@ class _Theme02CalendarStatusPageState
     extends ConsumerState<Theme02CalendarStatusPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -308,52 +307,47 @@ class _Theme02CalendarStatusPageState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColorTheme3,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              if (provider is CalendarStateLoading) ...[
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            if (provider is CalendarStateLoading) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
                 ),
-              ] else if (provider.calendarHiveData.isEmpty &&
-                  provider is! CalendarStateLoading) ...[
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
+              ),
+            ] else if (provider.calendarHiveData.isEmpty &&
+                provider is! CalendarStateLoading) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
                 ),
-              ] else ...[
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: ListView.builder(
-                    itemCount: provider.calendarCurrentDateData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      final formattedDate =
-                          DateFormat('dd-MM-yyyy').format(DateTime.now());
-                      log('date >>> ${provider.calendarHiveData[index].date}');
-                      log('date to string >>> ${formattedDate}');
-                      return cardDesign(index); //
+              ),
+            ] else ...[
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ListView.builder(
+                  itemCount: provider.calendarCurrentDateData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    final formattedDate =
+                        DateFormat('dd-MM-yyyy').format(DateTime.now());
+                    log('date >>> ${provider.calendarHiveData[index].date}');
+                    log('date to string >>> ${formattedDate}');
+                    return cardDesign(index); //
 
-                      // return cardDesign(index);
-                    },
-                  ),
+                    // return cardDesign(index);
+                  },
                 ),
-              ],
+              ),
             ],
-          ),
+          ],
         ),
       ),
       endDrawer: const DrawerDesign(),

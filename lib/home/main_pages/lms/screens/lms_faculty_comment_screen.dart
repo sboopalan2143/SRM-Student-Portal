@@ -16,7 +16,9 @@ class LmsFacultyCommentScreen extends ConsumerStatefulWidget {
     // required this.studentclassworkcommentid,
     super.key,
   });
+
   final String classworkID;
+
   // final String studentclassworkcommentid;
 
   @override
@@ -27,8 +29,8 @@ class LmsFacultyCommentScreen extends ConsumerStatefulWidget {
 class _LmsFacultyCommentScreenState
     extends ConsumerState<LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -126,7 +128,6 @@ class _LmsFacultyCommentScreenState
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColor,
         child: Padding(

@@ -15,6 +15,7 @@ class Theme02LmsCommentScreen extends ConsumerStatefulWidget {
     required this.classworkID,
     super.key,
   });
+
   final String classworkID;
 
   @override
@@ -26,8 +27,7 @@ class _Theme02LmsCommentScreenState
     extends ConsumerState<Theme02LmsCommentScreen> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -129,106 +129,99 @@ class _Theme02LmsCommentScreenState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.theme02secondaryColor1,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              if (provider is LibraryTrancsactionStateLoading)
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                )
-              else if (provider.lmsgetcommentData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text(
-                          'No List Added ',
-                          style: TextStyles.fontStyle1,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              else if (provider.lmsgetcommentData.isNotEmpty)
-                Expanded(
-                  // Allows the list to take available space and be scrollable
-                  child: ListView.builder(
-                    itemCount: provider.lmsgetcommentData.length,
-                    controller: _listController,
-                    itemBuilder: (BuildContext context, int index) {
-                      return chatCardDesign(index);
-                    },
-                  ),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            if (provider is LibraryTrancsactionStateLoading)
               Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
+                padding: const EdgeInsets.only(top: 100),
+                child: Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              )
+            else if (provider.lmsgetcommentData.isEmpty &&
+                provider is! LibraryTrancsactionStateLoading)
+              const Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(
-                            30,
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              offset: Offset(2, 2),
-                            ),
-                          ],
-                        ),
-                        child: TextField(
-                          controller: provider.comment,
-                          decoration: const InputDecoration(
-                            hintText: 'Type a Comment...',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
-                          ),
-                        ),
+                    Center(
+                      child: Text(
+                        'No List Added ',
+                        style: TextStyles.fontStyle1,
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.send,
-                        color: AppColors.theme02buttonColor2,
-                      ), // Blue send icon
-                      onPressed: () async {
-                        await ref.read(lmsProvider.notifier).saveCommentfield(
-                              ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
-                            );
-                        await ref
-                            .read(lmsProvider.notifier)
-                            .getLmscommentDetails(
-                              ref.read(encryptionProvider.notifier),
-                              widget.classworkID,
-                            );
-                      },
                     ),
                   ],
                 ),
+              )
+            else if (provider.lmsgetcommentData.isNotEmpty)
+              Expanded(
+                // Allows the list to take available space and be scrollable
+                child: ListView.builder(
+                  itemCount: provider.lmsgetcommentData.length,
+                  controller: _listController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return chatCardDesign(index);
+                  },
+                ),
               ),
-            ],
-          ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(
+                          30,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4,
+                            offset: Offset(2, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: provider.comment,
+                        decoration: const InputDecoration(
+                          hintText: 'Type a Comment...',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      color: AppColors.theme02buttonColor2,
+                    ), // Blue send icon
+                    onPressed: () async {
+                      await ref.read(lmsProvider.notifier).saveCommentfield(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                      await ref.read(lmsProvider.notifier).getLmscommentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            widget.classworkID,
+                          );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       endDrawer: const DrawerDesign(),

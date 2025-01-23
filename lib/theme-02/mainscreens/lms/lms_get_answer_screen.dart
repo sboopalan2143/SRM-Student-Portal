@@ -13,6 +13,7 @@ import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme02McqGetAnswerPage extends ConsumerStatefulWidget {
   const Theme02McqGetAnswerPage({super.key});
+
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _Theme02McqGetAnswerPageState();
 }
@@ -22,7 +23,7 @@ class _Theme02McqGetAnswerPageState
   final ScrollController _listController = ScrollController();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-  GlobalKey<LiquidPullToRefreshState>();
+      GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -46,9 +47,11 @@ class _Theme02McqGetAnswerPageState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(lmsProvider.notifier).getMcqAnswerDetails(
-      ref.read(encryptionProvider.notifier),);
+            ref.read(encryptionProvider.notifier),
+          );
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(lmsProvider);
@@ -111,7 +114,6 @@ class _Theme02McqGetAnswerPageState
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(

@@ -24,8 +24,7 @@ class _Theme02TransportTransactionPageState
     extends ConsumerState<Theme02TransportTransactionPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   // static int refreshNum = 10;
   // Stream<int> counterStream =
@@ -126,67 +125,61 @@ class _Theme02TransportTransactionPageState
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      child: TransportButtonDesign.buttonDesign(
-                        'Register',
-                        AppColors.primaryColor,
-                        context,
-                        ref.read(mainProvider.notifier),
-                        ref,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: TransportButtonDesign.buttonDesign(
+                      'Register',
+                      AppColors.primaryColor,
+                      context,
+                      ref.read(mainProvider.notifier),
+                      ref,
                     ),
-                    const SizedBox(height: 10),
-                    if (provider is TransportStateLoading)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 100),
-                        child: Center(
-                          child: CircularProgressIndicators
-                              .primaryColorProgressIndication,
+                  ),
+                  const SizedBox(height: 10),
+                  if (provider is TransportStateLoading)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: Center(
+                        child: CircularProgressIndicators
+                            .primaryColorProgressIndication,
+                      ),
+                    )
+                  else if (provider.transportStatusData.isEmpty &&
+                      provider is! TransportStateLoading)
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 5,
                         ),
-                      )
-                    else if (provider.transportStatusData.isEmpty &&
-                        provider is! TransportStateLoading)
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,
+                        const Center(
+                          child: Text(
+                            'No List Added Yet!',
+                            style: TextStyles.fontStyle1,
                           ),
-                          const Center(
-                            child: Text(
-                              'No List Added Yet!',
-                              style: TextStyles.fontStyle1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    if (provider.transportStatusData.isNotEmpty)
-                      const SizedBox(height: 5),
-                    ListView.builder(
-                      itemCount: provider.transportStatusData.length,
-                      controller: _listController,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return cardDesign(index);
-                      },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  if (provider.transportStatusData.isNotEmpty)
+                    const SizedBox(height: 5),
+                  ListView.builder(
+                    itemCount: provider.transportStatusData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       endDrawer: const DrawerDesign(),

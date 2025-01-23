@@ -23,8 +23,7 @@ class _Theme06McqGetAnswerPageState
     extends ConsumerState<Theme06McqGetAnswerPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -122,7 +121,6 @@ class _Theme06McqGetAnswerPageState
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme02secondaryColor1,
         child: SingleChildScrollView(

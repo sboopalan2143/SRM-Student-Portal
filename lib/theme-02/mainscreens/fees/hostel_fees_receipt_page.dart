@@ -20,8 +20,7 @@ class _Theme02FeesReceiptPageState
     extends ConsumerState<Theme02FeesReceiptPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -106,38 +105,33 @@ class _Theme02FeesReceiptPageState
           centerTitle: true,
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: height * 0.02,
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: ListView.builder(
-                    itemCount: provider.navFeesString == 'Paid Details'
-                        ? provider.feesDetailsData.length
-                        : provider.financeHiveData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return provider.navFeesString == 'Paid Details'
-                          ? cardDesign(index)
-                          : cardDesignTrans(index);
-                    },
-                  ),
+                child: ListView.builder(
+                  itemCount: provider.navFeesString == 'Paid Details'
+                      ? provider.feesDetailsData.length
+                      : provider.financeHiveData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return provider.navFeesString == 'Paid Details'
+                        ? cardDesign(index)
+                        : cardDesignTrans(index);
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

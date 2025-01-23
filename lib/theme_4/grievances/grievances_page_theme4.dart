@@ -26,8 +26,7 @@ class _GrievanceReportPageTheme4State
     extends ConsumerState<GrievanceReportPageTheme4> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKeyEntry =
       GlobalKey<LiquidPullToRefreshState>();
@@ -250,7 +249,6 @@ class _GrievanceReportPageTheme4State
   Widget grievances() {
     final provider = ref.watch(grievanceProvider);
     return LiquidPullToRefresh(
-      key: _refreshIndicatorKey,
       onRefresh: _handleRefresh,
       color: AppColors.theme4color1,
       child: Padding(

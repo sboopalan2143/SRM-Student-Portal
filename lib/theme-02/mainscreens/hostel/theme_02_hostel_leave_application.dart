@@ -21,8 +21,7 @@ class _Theme02LeaveApplicationPageState
     extends ConsumerState<Theme02LeaveApplicationPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -98,213 +97,201 @@ class _Theme02LeaveApplicationPageState
           centerTitle: true,
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: provider is HostelStateLoading
-            ? Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
-                ),
-              )
-            : provider.hostelLeaveData.isEmpty &&
-                    provider is! HostelStateLoading
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 10,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'FromDate',
-                                    style: TextStyles.alertContentStyle,
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.whiteColor,
-                                      borderRadius: BorderRadius.circular(7),
-                                      border: Border.all(
-                                        color: AppColors.grey2,
-                                      ),
-                                    ),
-                                    height: 40,
-                                    child: TextField(
-                                      onChanged: (value) =>
-                                          providerRead.setValue(),
-                                      onTap: () async {
-                                        final pickedDate = await showDatePicker(
-                                          context: context,
-
-                                          // initialDate: DateTime(2005, 9, 14),
-                                          firstDate: DateTime(1923),
-                                          lastDate: DateTime.now(),
-                                        );
-                                        if (pickedDate != null) {
-                                          setState(() {
-                                            provider.fromDate.text =
-                                                DateFormat('MM-dd-yyyy')
-                                                    .format(pickedDate);
-                                          });
-                                        }
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      style: TextStyles.fontStyle2,
-                                      controller: provider.fromDate,
-                                      decoration: InputDecoration(
-                                        hintText: 'Select FromDate',
-                                        hintStyle: TextStyles
-                                            .smallLightAshColorFontStyle,
-                                        filled: true,
-                                        fillColor: AppColors.whiteColor,
-                                        contentPadding:
-                                            const EdgeInsets.all(10),
-                                        enabledBorder:
-                                            BorderBoxButtonDecorations
-                                                .loginTextFieldStyle,
-                                        focusedBorder:
-                                            BorderBoxButtonDecorations
-                                                .loginTextFieldStyle,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'ToDate',
-                                    style: TextStyles.alertContentStyle,
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.whiteColor,
-                                      borderRadius: BorderRadius.circular(7),
-                                      border: Border.all(
-                                        color: AppColors.grey2,
-                                      ),
-                                    ),
-                                    height: 40,
-                                    child: TextField(
-                                      onChanged: (value) =>
-                                          providerRead.setValue(),
-                                      onTap: () async {
-                                        final pickedDate = await showDatePicker(
-                                          context: context,
-
-                                          // initialDate: DateTime(2005, 9, 14),
-                                          firstDate: DateTime(1923),
-                                          lastDate: DateTime.now(),
-                                        );
-                                        if (pickedDate != null) {
-                                          setState(() {
-                                            provider.toDate.text =
-                                                DateFormat('MM-dd-yyyy')
-                                                    .format(pickedDate);
-                                          });
-                                        }
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      style: TextStyles.fontStyle2,
-                                      controller: provider.toDate,
-                                      decoration: InputDecoration(
-                                        hintText: 'Select ToDate',
-                                        hintStyle: TextStyles
-                                            .smallLightAshColorFontStyle,
-                                        filled: true,
-                                        fillColor: AppColors.whiteColor,
-                                        contentPadding:
-                                            const EdgeInsets.all(10),
-                                        enabledBorder:
-                                            BorderBoxButtonDecorations
-                                                .loginTextFieldStyle,
-                                        focusedBorder:
-                                            BorderBoxButtonDecorations
-                                                .loginTextFieldStyle,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Reason for Leave',
-                              style: TextStyles.alertContentStyle,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            SizedBox(
-                              child: TextField(
-                                controller: provider.leaveReason,
-                                maxLines: 4,
-                                keyboardType: TextInputType.number,
-                                style: TextStyles.fontStyle2,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.whiteColor,
-                                  contentPadding: const EdgeInsets.all(10),
-                                  enabledBorder: BorderBoxButtonDecorations
-                                      .loginTextFieldStyle,
-                                  focusedBorder: BorderBoxButtonDecorations
-                                      .loginTextFieldStyle,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ButtonDesign.buttonDesign(
-                                'Submit',
-                                AppColors.primaryColor,
-                                context,
-                                ref,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: provider.hostelLeaveData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
+      body: provider is HostelStateLoading
+          ? Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: Center(
+                child:
+                    CircularProgressIndicators.primaryColorProgressIndication,
+              ),
+            )
+          : provider.hostelLeaveData.isEmpty && provider is! HostelStateLoading
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 10,
                   ),
-      ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'FromDate',
+                                  style: TextStyles.alertContentStyle,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                      color: AppColors.grey2,
+                                    ),
+                                  ),
+                                  height: 40,
+                                  child: TextField(
+                                    onChanged: (value) =>
+                                        providerRead.setValue(),
+                                    onTap: () async {
+                                      final pickedDate = await showDatePicker(
+                                        context: context,
+
+                                        // initialDate: DateTime(2005, 9, 14),
+                                        firstDate: DateTime(1923),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (pickedDate != null) {
+                                        setState(() {
+                                          provider.fromDate.text =
+                                              DateFormat('MM-dd-yyyy')
+                                                  .format(pickedDate);
+                                        });
+                                      }
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    style: TextStyles.fontStyle2,
+                                    controller: provider.fromDate,
+                                    decoration: InputDecoration(
+                                      hintText: 'Select FromDate',
+                                      hintStyle: TextStyles
+                                          .smallLightAshColorFontStyle,
+                                      filled: true,
+                                      fillColor: AppColors.whiteColor,
+                                      contentPadding: const EdgeInsets.all(10),
+                                      enabledBorder: BorderBoxButtonDecorations
+                                          .loginTextFieldStyle,
+                                      focusedBorder: BorderBoxButtonDecorations
+                                          .loginTextFieldStyle,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'ToDate',
+                                  style: TextStyles.alertContentStyle,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                      color: AppColors.grey2,
+                                    ),
+                                  ),
+                                  height: 40,
+                                  child: TextField(
+                                    onChanged: (value) =>
+                                        providerRead.setValue(),
+                                    onTap: () async {
+                                      final pickedDate = await showDatePicker(
+                                        context: context,
+
+                                        // initialDate: DateTime(2005, 9, 14),
+                                        firstDate: DateTime(1923),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (pickedDate != null) {
+                                        setState(() {
+                                          provider.toDate.text =
+                                              DateFormat('MM-dd-yyyy')
+                                                  .format(pickedDate);
+                                        });
+                                      }
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    style: TextStyles.fontStyle2,
+                                    controller: provider.toDate,
+                                    decoration: InputDecoration(
+                                      hintText: 'Select ToDate',
+                                      hintStyle: TextStyles
+                                          .smallLightAshColorFontStyle,
+                                      filled: true,
+                                      fillColor: AppColors.whiteColor,
+                                      contentPadding: const EdgeInsets.all(10),
+                                      enabledBorder: BorderBoxButtonDecorations
+                                          .loginTextFieldStyle,
+                                      focusedBorder: BorderBoxButtonDecorations
+                                          .loginTextFieldStyle,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Reason for Leave',
+                            style: TextStyles.alertContentStyle,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            child: TextField(
+                              controller: provider.leaveReason,
+                              maxLines: 4,
+                              keyboardType: TextInputType.number,
+                              style: TextStyles.fontStyle2,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppColors.whiteColor,
+                                contentPadding: const EdgeInsets.all(10),
+                                enabledBorder: BorderBoxButtonDecorations
+                                    .loginTextFieldStyle,
+                                focusedBorder: BorderBoxButtonDecorations
+                                    .loginTextFieldStyle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ButtonDesign.buttonDesign(
+                              'Submit',
+                              AppColors.primaryColor,
+                              context,
+                              ref,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: provider.hostelLeaveData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
       // endDrawer: const DrawerDesign(),
     );
   }

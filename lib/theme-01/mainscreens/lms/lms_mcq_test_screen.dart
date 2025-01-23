@@ -20,6 +20,7 @@ class Theme01McqTestViewPage extends ConsumerStatefulWidget {
     required this.marksperquestion,
     super.key,
   });
+
   final String mcqtemplateid;
   final String mcqscheduleid;
   final String subjectid;
@@ -35,8 +36,7 @@ class _Theme01McqTestViewPageState
     extends ConsumerState<Theme01McqTestViewPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   final Map<int, String> selectedAnswers = {};
   final answerSelected = <String>[];
@@ -144,7 +144,6 @@ class _Theme01McqTestViewPageState
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme01primaryColor,
         child: SingleChildScrollView(

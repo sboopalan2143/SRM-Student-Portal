@@ -19,6 +19,7 @@ class Theme02LmsTitlePage extends ConsumerStatefulWidget {
     required this.subjectID,
     super.key,
   });
+
   final String subjectID;
 
   @override
@@ -29,8 +30,7 @@ class Theme02LmsTitlePage extends ConsumerStatefulWidget {
 class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -132,87 +132,82 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                if (provider is LmsStateLoading)
-                  Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 100),
-                        child: Center(
-                          child: Text(
-                            'No List Added',
-                            style: TextStyles.fontStyle1,
-                          ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              if (provider is LmsStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 100),
+                      child: Center(
+                        child: Text(
+                          'No List Added',
+                          style: TextStyles.fontStyle1,
                         ),
                       ),
-                    ],
-                  )
-                else if (provider.lmsTitleData.isEmpty &&
-                    provider is! LmsStateLoading)
-                  Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
-                  ),
-                if (provider.lmsTitleData.isNotEmpty)
-                  ListView.builder(
-                    itemCount: provider.lmsTitleData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-              ],
-            ),
-
-            //  Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     const SizedBox(height: 20),
-            //     if (provider is LibraryTrancsactionStateLoading)
-            //       Padding(
-            //         padding: const EdgeInsets.only(top: 100),
-            //         child: Center(
-            //           child: CircularProgressIndicators
-            //               .primaryColorProgressIndication,
-            //         ),
-            //       )
-            //     else if (provider.lmsTitleData.isEmpty &&
-            //         provider is! LibraryTrancsactionStateLoading)
-            //       Column(
-            //         children: [
-            //           SizedBox(height: MediaQuery.of(context).size.height / 5),
-            //           const Center(
-            //             child: Text(
-            //               'No List Added Yet!',
-            //               style: TextStyles.fontStyle1,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     if (provider.lmsTitleData.isNotEmpty)
-            //       ListView.builder(
-            //         itemCount: provider.lmsTitleData.length,
-            //         controller: _listController,
-            //         shrinkWrap: true,
-            //         itemBuilder: (BuildContext context, int index) {
-            //           return cardDesign(index);
-            //         },
-            //       ),
-            //   ],
-            // ),
+                    ),
+                  ],
+                )
+              else if (provider.lmsTitleData.isEmpty &&
+                  provider is! LmsStateLoading)
+                Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
+                ),
+              if (provider.lmsTitleData.isNotEmpty)
+                ListView.builder(
+                  itemCount: provider.lmsTitleData.length,
+                  controller: _listController,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return cardDesign(index);
+                  },
+                ),
+            ],
           ),
+
+          //  Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     const SizedBox(height: 20),
+          //     if (provider is LibraryTrancsactionStateLoading)
+          //       Padding(
+          //         padding: const EdgeInsets.only(top: 100),
+          //         child: Center(
+          //           child: CircularProgressIndicators
+          //               .primaryColorProgressIndication,
+          //         ),
+          //       )
+          //     else if (provider.lmsTitleData.isEmpty &&
+          //         provider is! LibraryTrancsactionStateLoading)
+          //       Column(
+          //         children: [
+          //           SizedBox(height: MediaQuery.of(context).size.height / 5),
+          //           const Center(
+          //             child: Text(
+          //               'No List Added Yet!',
+          //               style: TextStyles.fontStyle1,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     if (provider.lmsTitleData.isNotEmpty)
+          //       ListView.builder(
+          //         itemCount: provider.lmsTitleData.length,
+          //         controller: _listController,
+          //         shrinkWrap: true,
+          //         itemBuilder: (BuildContext context, int index) {
+          //           return cardDesign(index);
+          //         },
+          //       ),
+          //   ],
+          // ),
         ),
       ),
       endDrawer: const DrawerDesign(),
@@ -225,11 +220,12 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       child: Material(
-        borderRadius: BorderRadius.circular(18), // Rounded corners for elegance
+        borderRadius: BorderRadius.circular(18),
+        // Rounded corners for elegance
         color: Colors.white,
         elevation: 5,
-        shadowColor:
-            AppColors.theme01primaryColor.withOpacity(0.1), // Soft shadow
+        shadowColor: AppColors.theme01primaryColor.withOpacity(0.1),
+        // Soft shadow
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,

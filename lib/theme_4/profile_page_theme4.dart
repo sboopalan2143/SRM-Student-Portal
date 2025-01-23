@@ -13,6 +13,7 @@ import 'package:sample/theme_4/login_screen_theme4.dart';
 
 class ProfilePageTheme4 extends ConsumerStatefulWidget {
   const ProfilePageTheme4({super.key});
+
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _ProfilePageTheme4State();
@@ -35,8 +36,7 @@ class _ProfilePageTheme4State extends ConsumerState<ProfilePageTheme4> {
     Timer(const Duration(seconds: 1), completer.complete);
   }
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   @override
   void initState() {
@@ -201,7 +201,6 @@ class _ProfilePageTheme4State extends ConsumerState<ProfilePageTheme4> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.primaryColorTheme3,
         child: provider is ProfileDetailsStateLoading

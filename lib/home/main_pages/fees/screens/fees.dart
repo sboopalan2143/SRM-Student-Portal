@@ -19,8 +19,7 @@ class FeesPage extends ConsumerStatefulWidget {
 class _FeesPageState extends ConsumerState<FeesPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -110,7 +109,8 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                           await ref
                               .read(feesProvider.notifier)
                               .getFeedDueDetails(
-                                  ref.read(encryptionProvider.notifier),);
+                                ref.read(encryptionProvider.notifier),
+                              );
                           await ref
                               .read(feesProvider.notifier)
                               .getFinanceDetailsApi(
@@ -130,98 +130,93 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           ],
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 45,
-                  width: width - 40,
-                  decoration: BoxDecoration(
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 45,
+                width: width - 40,
+                decoration: BoxDecoration(
+                  color: AppColors.grey1,
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(
                     color: AppColors.grey1,
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(
-                      color: AppColors.grey1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: navContainerDesign(
-                            text: 'Paid Details',
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Expanded(
-                          child: navContainerDesign(
-                            text: 'Online Trans',
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                //       const Text(
-                //         '2023 - 2024    Total: Rs. 15,000.00',
-                //         textAlign: TextAlign.center,
-                //         style: TextStyles.fontStyle7,
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                if (provider is FeesStateLoading)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
-                    ),
-                  )
-                else if (provider.financeHiveData.isEmpty &&
-                    provider is! FeesStateLoading)
-                  Column(
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
-                        child: Text(
-                          'No List Added Yet!',
-                          style: TextStyles.fontStyle6,
+                      Expanded(
+                        child: navContainerDesign(
+                          text: 'Paid Details',
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: navContainerDesign(
+                          text: 'Online Trans',
                         ),
                       ),
                     ],
                   ),
-                if (provider.financeHiveData.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    child: ListView.builder(
-                      itemCount: provider.navFeesString == 'Paid Details'
-                          ? provider.feesDetailsData.length
-                          : provider.financeHiveData.length,
-                      controller: _listController,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return provider.navFeesString == 'Paid Details'
-                            ? cardDesign(index)
-                            : cardDesignTrans(index);
-                      },
-                    ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              //       const Text(
+              //         '2023 - 2024    Total: Rs. 15,000.00',
+              //         textAlign: TextAlign.center,
+              //         style: TextStyles.fontStyle7,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              if (provider is FeesStateLoading)
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Center(
+                    child: CircularProgressIndicators
+                        .primaryColorProgressIndication,
                   ),
-              ],
-            ),
+                )
+              else if (provider.financeHiveData.isEmpty &&
+                  provider is! FeesStateLoading)
+                Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
+                    const Center(
+                      child: Text(
+                        'No List Added Yet!',
+                        style: TextStyles.fontStyle6,
+                      ),
+                    ),
+                  ],
+                ),
+              if (provider.financeHiveData.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  child: ListView.builder(
+                    itemCount: provider.navFeesString == 'Paid Details'
+                        ? provider.feesDetailsData.length
+                        : provider.financeHiveData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return provider.navFeesString == 'Paid Details'
+                          ? cardDesign(index)
+                          : cardDesignTrans(index);
+                    },
+                  ),
+                ),
+            ],
           ),
         ),
       ),

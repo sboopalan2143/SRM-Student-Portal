@@ -22,8 +22,7 @@ class Theme01LibraryPage extends ConsumerStatefulWidget {
 class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -120,7 +119,6 @@ class _Theme01LibraryPageState extends ConsumerState<Theme01LibraryPage> {
         ),
       ),
       body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,
         color: AppColors.theme01primaryColor,
         child: Padding(

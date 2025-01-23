@@ -20,8 +20,7 @@ class Theme02FeesDuePage extends ConsumerStatefulWidget {
 class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
   final ScrollController _listController = ScrollController();
 
-  final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
@@ -106,45 +105,40 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
           centerTitle: true,
         ),
       ),
-      body: LiquidPullToRefresh(
-        key: _refreshIndicatorKey,
-        onRefresh: _handleRefresh,
-        color: AppColors.primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                if (provider.financeHiveData.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    child: ListView.builder(
-                      itemCount: provider.feesDetailsData.length,
-                      controller: _listController,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return cardDesign(index);
-                      },
-                    ),
-
-                    //  ListView.builder(
-                    //   itemCount: provider.navFeesString == 'Paid Details'
-                    //       ? provider.feesDetailsData.length
-                    //       : provider.financeHiveData.length,
-                    //   controller: _listController,
-                    //   shrinkWrap: true,
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return provider.navFeesString == 'Paid Details'
-                    //         ? cardDesignTrans(index)
-                    //         : cardDesign(index);
-                    //   },
-                    // ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (provider.financeHiveData.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
                   ),
-              ],
-            ),
+                  child: ListView.builder(
+                    itemCount: provider.feesDetailsData.length,
+                    controller: _listController,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardDesign(index);
+                    },
+                  ),
+
+                  //  ListView.builder(
+                  //   itemCount: provider.navFeesString == 'Paid Details'
+                  //       ? provider.feesDetailsData.length
+                  //       : provider.financeHiveData.length,
+                  //   controller: _listController,
+                  //   shrinkWrap: true,
+                  //   itemBuilder: (BuildContext context, int index) {
+                  //     return provider.navFeesString == 'Paid Details'
+                  //         ? cardDesignTrans(index)
+                  //         : cardDesign(index);
+                  //   },
+                  // ),
+                ),
+            ],
           ),
         ),
       ),

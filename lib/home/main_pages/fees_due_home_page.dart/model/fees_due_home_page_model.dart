@@ -6,8 +6,8 @@ class StudentHomePageFeeDueModel {
   StudentHomePageFeeDueModel({this.status, this.message, this.data});
 
   StudentHomePageFeeDueModel.fromJson(Map<String, dynamic> json) {
-    status = json['Status']as String?;
-    message = json['Message']as String?;
+    status = json['Status'] as String?;
+    message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <FeesDueHomePageData>[];
       json['Data'].forEach((v) {
@@ -33,7 +33,7 @@ class FeesDueHomePageData {
   FeesDueHomePageData({this.currentdue});
 
   FeesDueHomePageData.fromJson(Map<String, dynamic> json) {
-    currentdue = json['currentdue']as String?;
+    currentdue = json['currentdue'] as String?;
   }
 
   Map<String, dynamic> toJson() {

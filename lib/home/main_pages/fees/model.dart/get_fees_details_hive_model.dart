@@ -21,7 +21,6 @@
 //     amtcollected = json['amtcollected'] as String?;
 //     currentdue = json['currentdue'] as String?;
 //   }
- 
 
 //   Map<String, dynamic> toJson() {
 //     final data = <String, dynamic>{};
@@ -33,7 +32,6 @@
 //     data['currentdue'] = currentdue;
 //     return data;
 //   }
-
 
 //   @HiveField(0)
 //   String? duedate;
@@ -53,5 +51,4 @@
 //   @HiveField(5)
 //   String? currentdue;
 
-  
 // }

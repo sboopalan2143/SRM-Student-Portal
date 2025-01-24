@@ -39,7 +39,6 @@
 //     sectiondesc = json['sectiondesc'] as String?;
 //     studentphoto = json['studentphoto'] as String?;
 //   }
- 
 
 //   Map<String, dynamic> toJson() {
 //     final data = <String, dynamic>{};
@@ -124,14 +123,13 @@
 //   String? studentphoto;
 // }
 
-
 import 'package:hive/hive.dart';
 
 part 'profile_hive_model.g.dart';
 
 @HiveType(typeId: 0)
 class ProfileHiveData {
- ProfileHiveData({
+  ProfileHiveData({
     this.academicyear,
     this.address,
     this.studentname,
@@ -166,7 +164,6 @@ class ProfileHiveData {
     sectiondesc = json['sectiondesc'] as String?;
     studentphoto = json['studentphoto'] as String?;
   }
- 
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

@@ -58,7 +58,8 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
           if (box.isEmpty) {
             for (var i = 0; i < listData.length; i++) {
               final parseData = InternalMarkHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>,);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }
@@ -66,7 +67,8 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
             await box.clear();
             for (var i = 0; i < listData.length; i++) {
               final parseData = InternalMarkHiveData.fromJson(
-                  listData[i] as Map<String, dynamic>,);
+                listData[i] as Map<String, dynamic>,
+              );
 
               await box.add(parseData);
             }

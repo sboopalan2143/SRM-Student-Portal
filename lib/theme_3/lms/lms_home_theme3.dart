@@ -10,12 +10,10 @@ class LMSHomeTheme3 extends ConsumerStatefulWidget {
   const LMSHomeTheme3({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LMSHomeTheme3State();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LMSHomeTheme3State();
 }
 
-class _LMSHomeTheme3State
-    extends ConsumerState<LMSHomeTheme3> {
+class _LMSHomeTheme3State extends ConsumerState<LMSHomeTheme3> {
   MenuItem currentItem = MenuItems.home;
 
   @override

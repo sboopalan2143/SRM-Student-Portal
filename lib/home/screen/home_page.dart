@@ -33,7 +33,7 @@
 
 // class _HomePageState extends ConsumerState<HomePage>
 //     with WidgetsBindingObserver {
-//  
+//
 
 //   @override
 //   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -107,7 +107,7 @@
 //         }
 //       });
 //     return Scaffold(
-//       
+//
 //       backgroundColor: AppColors.secondaryColor,
 //       appBar: PreferredSize(
 //         preferredSize: const Size.fromHeight(60),
@@ -125,7 +125,7 @@
 //               children: [
 //                 IconButton(
 //                   onPressed: () {
-//                 
+//
 //                   },
 //                   icon: const Icon(
 //                     Icons.menu,
@@ -431,7 +431,7 @@
 //                 child: ElevatedButton(
 //                   style: BorderBoxButtonDecorations.homePageButtonStyle,
 //                   onPressed: ()  {
-                   
+
 //                     Navigator.push(
 //                       context,
 //                       RouteDesign(

@@ -6,7 +6,7 @@ class GetTitleListModel {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <LmsGetTitleData>[];
-      
+
       for (final v in json['Data'] as List<dynamic>) {
         data!.add(LmsGetTitleData.fromJson(v as Map<String, dynamic>));
       }

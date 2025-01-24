@@ -72,7 +72,6 @@
 //   });
 // }
 
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_provider.dart';

@@ -90,8 +90,8 @@ class LmsState {
         classWorkDetailsData: classWorkDetailsData ?? this.classWorkDetailsData,
         lmsAttachmentDetailsData:
             lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
-        lmsStudentAttachmentDetailsData:
-            lmsStudentAttachmentDetailsData ?? this.lmsStudentAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData ??
+            this.lmsStudentAttachmentDetailsData,
         comment: comment ?? this.comment,
         lmsgetcommentData: lmsgetcommentData ?? this.lmsgetcommentData,
         lmsReplayfacultycommentData:

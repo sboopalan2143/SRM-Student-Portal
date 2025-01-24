@@ -20,7 +20,6 @@ class ChangePasswordProvider extends StateNotifier<ChangePasswordState> {
       );
 
   Future<void> changePassword(EncryptionProvider encrypt) async {
-    
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><oldpassword>${state.currentPassword.text}</oldpassword><newpassword>${state.currentPassword.text}</newpassword><confirmpassword>${state.currentPassword.text}</confirmpassword>',
     );

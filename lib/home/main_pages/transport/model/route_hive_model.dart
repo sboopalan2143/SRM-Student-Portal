@@ -10,7 +10,6 @@ class RouteDetailsHiveData {
     busrouteid = json['busrouteid'] as String?;
     busroutename = json['busroutename'] as String?;
   }
- 
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

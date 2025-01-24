@@ -8,6 +8,7 @@ import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
 import 'package:sample/theme-06/theme_06_bottom_navigation_page.dart';
 import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_4/bottom_navigation_page_theme4.dart';
+
 // import 'package:sample/theme-01/bottom_navigation_page.dart';
 // import 'package:sample/theme-01/login/theme01_login_screen.dart';
 
@@ -27,26 +28,20 @@ class RouteBuilder {
 
     // Routes.login: (_) => const LoginPageTheme4(),
 
-    /// Home Page
-    // Routes.home: (_) => const HomePage2(),
-
     if (TokensManagement.storedselectedTheme == 'Theme1')
+      Routes.home: (_) => const Theme02MainScreenPage()
+    else if (TokensManagement.storedselectedTheme == 'Theme2')
+      Routes.home: (_) => const Theme01MainScreenPage()
+    else if (TokensManagement.storedselectedTheme == 'Theme3')
+      Routes.home: (_) => const MainScreenPage()
+    else if (TokensManagement.storedselectedTheme == 'Theme4')
+      Routes.home: (_) => const MainScreenPage4()
+    else if (TokensManagement.storedselectedTheme == 'Theme5')
+      Routes.home: (_) => const Theme05MainScreenPage()
+    else if (TokensManagement.storedselectedTheme == 'Theme6')
+      Routes.home: (_) => const Theme06MainScreenPage()
+    else
       Routes.home: (_) => const Theme02MainScreenPage(),
-
-    if (TokensManagement.storedselectedTheme == 'Theme2')
-      Routes.home: (_) => const Theme01MainScreenPage(),
-
-    if (TokensManagement.storedselectedTheme == 'Theme3')
-      Routes.home: (_) => const MainScreenPage(),
-
-    if (TokensManagement.storedselectedTheme == 'Theme4')
-      Routes.home: (_) => const MainScreenPage4(),
-
-    if (TokensManagement.storedselectedTheme == 'Theme5')
-      Routes.home: (_) => const Theme05MainScreenPage(),
-
-    if (TokensManagement.storedselectedTheme == 'Theme6')
-      Routes.home: (_) => const Theme06MainScreenPage(),
 
     /// Profile Page
     // Routes.profile: (_) => const ProfilePage(),

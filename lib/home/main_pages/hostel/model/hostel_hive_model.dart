@@ -10,7 +10,6 @@ class HostelHiveData {
     hostelname = json['hostelname'] as String?;
     hostelid = json['hostelid'] as String?;
   }
-  
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -19,13 +18,12 @@ class HostelHiveData {
     return data;
   }
 
-  static final empty = HostelHiveData(hostelname: 'Select Hostel', hostelid: '');
+  static final empty =
+      HostelHiveData(hostelname: 'Select Hostel', hostelid: '');
 
   @HiveField(0)
   String? hostelname;
 
   @HiveField(1)
   String? hostelid;
-
-  
 }

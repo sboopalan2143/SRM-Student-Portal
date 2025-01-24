@@ -49,7 +49,7 @@ class HttpService {
         final jsonMap = _convertXmlElementToJson(document.rootElement);
         return (response.statusCode, jsonMap);
       }
-    } 
+    }
     // catch (e) {
     //   return (0, {'message': '$e'});
     // }
@@ -58,7 +58,7 @@ class HttpService {
         'Url: ${Api.mainUrl}\n'
         'No Internet Connection',
       );
-    return (0, {'message': 'No Internet Connection'});
+      return (0, {'message': 'No Internet Connection'});
     }
   }
 
@@ -82,8 +82,8 @@ class HttpService {
           } else {
             result[nodeName] = [
               result[nodeName],
-              _convertXmlElementToJson(node)
-            ,];
+              _convertXmlElementToJson(node),
+            ];
           }
         } else {
           result[nodeName] = _convertXmlElementToJson(node);

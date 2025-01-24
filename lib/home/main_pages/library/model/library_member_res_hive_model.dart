@@ -19,7 +19,6 @@ class LibraryMemberHiveData {
     membername = json['membername'] as String?;
     status = json['status'] as String?;
   }
-  
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -39,7 +38,6 @@ class LibraryMemberHiveData {
     status: '',
   );
 
-
   @HiveField(0)
   String? membercode;
 
@@ -54,6 +52,4 @@ class LibraryMemberHiveData {
 
   @HiveField(4)
   String? status;
-
- 
 }

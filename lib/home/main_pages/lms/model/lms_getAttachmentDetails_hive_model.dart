@@ -23,5 +23,4 @@ class GetAttachmentDetailsHiveData {
 
   @HiveField(1)
   String? actualname;
-  
 }

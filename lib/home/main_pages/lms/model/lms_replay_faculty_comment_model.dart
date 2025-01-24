@@ -6,7 +6,7 @@ class ReplayFacultyComment {
     message = json['Message'] as String?;
     if (json['Data'] != null) {
       data = <ReplayFacultyCommentData>[];
-     for (final v in json['Data'] as List<dynamic>)  {
+      for (final v in json['Data'] as List<dynamic>) {
         data!.add(ReplayFacultyCommentData.fromJson(v as Map<String, dynamic>));
       }
     }
@@ -27,8 +27,11 @@ class ReplayFacultyComment {
 }
 
 class ReplayFacultyCommentData {
-  ReplayFacultyCommentData(
-      {this.replynames, this.replytime, this.replycomments,});
+  ReplayFacultyCommentData({
+    this.replynames,
+    this.replytime,
+    this.replycomments,
+  });
 
   ReplayFacultyCommentData.fromJson(Map<String, dynamic> json) {
     replynames = json['replynames'] as String?;

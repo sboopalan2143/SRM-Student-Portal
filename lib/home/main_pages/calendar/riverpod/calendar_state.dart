@@ -18,7 +18,7 @@ class CalendarState {
   final String successMessage;
   final String errorMessage;
   final List<CalendarHiveModelData> calendarHiveData;
-   final List<CalendarHiveModelData> calendarCurrentDateData;
+  final List<CalendarHiveModelData> calendarCurrentDateData;
 
   CalendarState copyWith({
     String? successMessage,
@@ -30,7 +30,8 @@ class CalendarState {
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         calendarHiveData: calendarHiveData ?? this.calendarHiveData,
-        calendarCurrentDateData: calendarCurrentDateData ?? this.calendarCurrentDateData,
+        calendarCurrentDateData:
+            calendarCurrentDateData ?? this.calendarCurrentDateData,
       );
 }
 

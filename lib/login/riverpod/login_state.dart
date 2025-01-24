@@ -86,7 +86,5 @@ class NoNetworkAvailable extends LoginState {
     required super.userName,
     required super.password,
     required super.studentData,
-
- 
   });
 }

@@ -9,7 +9,6 @@ class GetSubjectModel {
       for (final v in json['Data'] as List<dynamic>) {
         data!.add(LmsSubjectData.fromJson(v as Map<String, dynamic>));
       }
-      
     }
   }
   String? status;
@@ -28,8 +27,12 @@ class GetSubjectModel {
 }
 
 class LmsSubjectData {
-  LmsSubjectData(
-      {this.staffname, this.subjectcode, this.subjectid, this.subjectdesc,});
+  LmsSubjectData({
+    this.staffname,
+    this.subjectcode,
+    this.subjectid,
+    this.subjectdesc,
+  });
 
   LmsSubjectData.fromJson(Map<String, dynamic> json) {
     staffname = json['staffname'] as String?;

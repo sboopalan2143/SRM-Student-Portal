@@ -28,21 +28,21 @@ class McqSheduleModel {
 }
 
 class McqSheduleData {
-
-  McqSheduleData(
-      {this.date,
-      this.endtime,
-      this.minmarktopass,
-      this.subjectid,
-      this.timelimit,
-      this.subjectdesc,
-      this.noofquestions,
-      this.termsandconditionremarks,
-      this.mcqtemplateid,
-      this.examdate,
-      this.examenddate,
-      this.scheduleid,
-      this.marksperquestions,});
+  McqSheduleData({
+    this.date,
+    this.endtime,
+    this.minmarktopass,
+    this.subjectid,
+    this.timelimit,
+    this.subjectdesc,
+    this.noofquestions,
+    this.termsandconditionremarks,
+    this.mcqtemplateid,
+    this.examdate,
+    this.examenddate,
+    this.scheduleid,
+    this.marksperquestions,
+  });
   McqSheduleData.fromJson(Map<String, dynamic> json) {
     date = json['date'] as String?;
     endtime = json['endtime'] as String?;

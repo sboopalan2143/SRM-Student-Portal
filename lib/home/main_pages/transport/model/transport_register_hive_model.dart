@@ -23,7 +23,6 @@ class TransportRegisterHiveData {
     academicyearid = json['academicyearid'] as String?;
     status = json['status'] as String?;
   }
-  
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

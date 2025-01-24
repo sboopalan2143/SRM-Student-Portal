@@ -110,11 +110,11 @@ class CalendarProvider extends StateNotifier<CalendarState> {
       final calendarDetailsHive = <CalendarHiveModelData>[...box.values];
       final currentDateData = <CalendarHiveModelData>[];
       final formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    for(final currentData in calendarDetailsHive){
-      if(currentData.date == formattedDate){
-        currentDateData.add(currentData);
+      for (final currentData in calendarDetailsHive) {
+        if (currentData.date == formattedDate) {
+          currentDateData.add(currentData);
+        }
       }
-    }
 
       state = state.copyWith(
         calendarHiveData: calendarDetailsHive,

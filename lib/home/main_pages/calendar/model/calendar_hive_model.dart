@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 
-
 part 'calendar_hive_model.g.dart';
 
 @HiveType(typeId: 31)

@@ -119,8 +119,8 @@ class CummulativeAttendanceProvider
         'cumulativeattendance',
       );
       final cumulativeattendance = <CumulativeAttendanceHiveData>[
-        ...box.values
-      ,];
+        ...box.values,
+      ];
 
       state = state.copyWith(
         cummulativeHiveAttendanceData: cumulativeattendance,

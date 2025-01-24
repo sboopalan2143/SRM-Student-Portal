@@ -206,7 +206,7 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                         const SizedBox(width: 20),
                         Expanded(
                           child: Text(
-                            '${provider.calendarHiveData[index].day}' == ''
+                            '${provider.calendarHiveData[index].dayorder}' == ''
                                 ? '-'
                                 : '${provider.calendarHiveData[index].day}',
                             style: TextStyle(
@@ -228,7 +228,7 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                     child: Text(
                       '${provider.calendarHiveData[index].daystatus}' == ''
                           ? '-'
-                          : '${provider.calendarHiveData[index].daystatus}',
+                          : '${provider.calendarHiveData[index].holidaystatus}',
                       style: TextStyle(
                         fontSize: 20,
                         color: provider.calendarHiveData[index].holidaystatus ==

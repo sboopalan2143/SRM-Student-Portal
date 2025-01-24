@@ -10,6 +10,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/lms/screens/lms_title_screen.dart';
+import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/theme-02/notification_page.dart';
 
@@ -50,6 +51,10 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
       ref.read(notificationProvider.notifier).getNotificationDetails(
             ref.read(encryptionProvider.notifier),
           );
+
+      ref.read(notificationCountProvider.notifier).getreadNotificationDetails(
+            ref.read(encryptionProvider.notifier),
+          );
     });
   }
 
@@ -57,10 +62,10 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(notificationProvider);
-    ref.listen(lmsProvider, (previous, next) {
-      if (next is LibraryTrancsactionStateError) {
+    ref.listen(notificationCountProvider, (previous, next) {
+      if (next is NotificationCountError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is LibraryTrancsactionStateSuccessful) {
+      } else if (next is NotificationCountSuccessFull) {
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
     });
@@ -92,6 +97,16 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
               ),
               leading: IconButton(
                 onPressed: () {
+                  // ref
+                  //     .read(notificationCountProvider.notifier)
+                  //     .getNotificationCountDetails(
+                  //       ref.read(encryptionProvider.notifier),
+                  //     );
+                  // ref
+                  //     .read(notificationCountProvider.notifier)
+                  //     .getreadNotificationDetails(
+                  //       ref.read(encryptionProvider.notifier),
+                  //     );
                   Navigator.pop(
                     context,
                   );
@@ -104,7 +119,7 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'NOTIFICATION',
+                'NOTIFICATION List',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),

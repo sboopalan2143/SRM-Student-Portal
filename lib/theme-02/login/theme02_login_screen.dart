@@ -456,7 +456,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.theme02primaryColor,
+                      color: AppColors.theme06primaryColor,
                     ),
                   ),
                   Text(
@@ -464,7 +464,7 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.theme02primaryColor,
+                      color: AppColors.theme06primaryColor,
                     ),
                   ),
                   const SizedBox(height: 20),

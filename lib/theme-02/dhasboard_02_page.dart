@@ -25,6 +25,7 @@ import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_mo
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
@@ -36,6 +37,7 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_h
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
@@ -111,6 +113,20 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(feesDhasboardProvider.notifier).getFeesDhasboardDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(notificationCountProvider.notifier).getNotificationCountDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(overallattendanceProvider.notifier)
+          .getSubjectWiseOverallAttendanceDetails(
             ref.read(encryptionProvider.notifier),
           );
     });
@@ -335,6 +351,11 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
 
   final ScrollController _listController = ScrollController();
 
+  String? selectedDomain;
+  double? selectedMeasure;
+  Offset? tooltipPosition;
+  bool showTooltip = false;
+
   @override
   Widget build(BuildContext context) {
     ref
@@ -360,6 +381,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     final imageBytes = base64Decode(base64Image);
     final provider = ref.watch(cgpaProvider);
     final sgpaprovider = ref.watch(sgpaProvider);
+    final notificatioCountprovider = ref.watch(notificationCountProvider);
     final Feesdhasboardprovider = ref.watch(feesDhasboardProvider);
 
     final hostelprovider = ref.watch(hostelProvider);
@@ -367,6 +389,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     final notificaionprovider = ref.watch(notificationProvider);
 
     final calenderprovider = ref.watch(calendarProvider);
+
+    final overallattendanceprovider = ref.watch(overallattendanceProvider);
 
     log('student semester id >>> ${TokensManagement.semesterId}');
 
@@ -393,29 +417,129 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (imageBytes == '' && imageBytes.isEmpty)
-                          const CircleAvatar(
-                            radius: 25,
-                            backgroundColor: AppColors.whiteColor,
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/profile.png',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (imageBytes == '' && imageBytes.isEmpty)
+                              const CircleAvatar(
+                                radius: 25,
+                                backgroundColor: AppColors.whiteColor,
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                    'assets/images/profile.png',
+                                  ),
+                                  radius: 48,
+                                ),
                               ),
-                              radius: 48,
-                            ),
-                          ),
-                        if (imageBytes != '' && imageBytes.isNotEmpty)
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.memory(
-                                imageBytes,
-                                fit: BoxFit.cover,
+                            if (imageBytes != '' && imageBytes.isNotEmpty)
+                              SizedBox(
+                                height: 45,
+                                width: 45,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.memory(
+                                    imageBytes,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                IconButton(
+                                  iconSize: 28,
+                                  color: Colors.white,
+                                  icon: const Icon(Icons.notifications),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const NotificationHomePage(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                if (notificatioCountprovider
+                                    .notificationCountData.isEmpty)
+                                  Positioned(
+                                    right: 2,
+                                    top: 2,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      constraints: const BoxConstraints(
+                                        minWidth: 20,
+                                        minHeight: 20,
+                                      ),
+                                      child:
+
+                                          //     const Center(
+                                          //   child: Text(
+                                          //     '2',
+                                          //     style: TextStyle(
+                                          //       color: Colors.white,
+                                          //       fontSize: 12,
+                                          //     ),
+                                          //     textAlign: TextAlign.center,
+                                          //   ),
+                                          // ),
+                                          SizedBox(
+                                        width: 5,
+                                        child: Column(
+                                          children: [
+                                            // if (notificatioCountprovider
+                                            //     .notificationCountData.isEmpty)
+                                            //   const Column(
+                                            //     children: [
+                                            //       Center(
+                                            //         child: Text(
+                                            //           '0',
+                                            //           style: const TextStyle(
+                                            //             color: Colors.white,
+                                            //             fontWeight:
+                                            //                 FontWeight.bold,
+                                            //             fontSize: 12,
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            if (notificatioCountprovider
+                                                .notificationCountData
+                                                .isNotEmpty)
+                                              ListView.builder(
+                                                itemCount:
+                                                    notificatioCountprovider
+                                                        .notificationCountData
+                                                        .length,
+                                                controller: _listController,
+                                                shrinkWrap: true,
+                                                itemBuilder: (
+                                                  BuildContext context,
+                                                  int index,
+                                                ) {
+                                                  return NotificationCountCardDesign(
+                                                    index,
+                                                  );
+                                                },
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
-                          ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -502,11 +626,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                         ),
                         Row(
                           children: [
-                            // const Icon(
-                            //   Icons.campaign_rounded,
-                            //   size: 40,
-                            //   color: Colors.indigoAccent,
-                            // ),
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -535,239 +654,21 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                           ],
                         ),
                         // const SizedBox(height: 20),
-                        Container(
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  route: const Theme02TimetablePageScreen(),
-                                  // route: const StudentLoginPage(),
-                                ),
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            child: const Text(
-                              'View Timetable',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Row(
-                          children: [
-                            const Icon(
-                              Icons.campaign_rounded,
-                              size: 40,
-                              color: Colors.indigoAccent,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              'Notice Board',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Icon(
-                        //       Icons.paste_rounded,
-                        //       size: 32,
-                        //       color: Colors.grey[600],
-                        //     ),
-                        //     const SizedBox(width: 10),
-                        //     Expanded(
-                        //       child: Text(
-                        //         'Regarding fee payment for academic year 2024-25',
-                        //         style: TextStyle(
-                        //           fontSize: 12,
-                        //           color: AppColors.theme01primaryColor,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     const SizedBox(width: 8),
-                        //     Container(
-                        //       width: 40,
-                        //       height: 40,
-                        //       decoration: BoxDecoration(
-                        //         gradient: const LinearGradient(
-                        //           colors: [Colors.green, Colors.lightGreen],
-                        //           begin: Alignment.topLeft,
-                        //           end: Alignment.bottomRight,
-                        //         ),
-                        //         borderRadius: BorderRadius.circular(10),
-                        //         boxShadow: [
-                        //           BoxShadow(
-                        //             color: Colors.black.withOpacity(0.2),
-                        //             blurRadius: 5,
-                        //             offset: const Offset(2, 3),
-                        //           ),
-                        //         ],
-                        //       ),
-                        //       child: Center(
-                        //         child: Text(
-                        //           'New',
-                        //           style: TextStyle(
-                        //             color: Colors.white,
-                        //             fontWeight: FontWeight.bold,
-                        //             fontSize: 14,
-                        //             shadows: [
-                        //               Shadow(
-                        //                 blurRadius: 3,
-                        //                 color: Colors.black.withOpacity(0.3),
-                        //                 offset: const Offset(1, 1),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // const SizedBox(height: 5),
-                        // Divider(
-                        //   height: 1,
-                        //   color: AppColors.redColor.withOpacity(0.5),
-                        // ),
-                        // const SizedBox(height: 5),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                            if (provider is NotificationLoading)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 100),
-                                child: Center(
-                                  child: CircularProgressIndicators
-                                      .primaryColorProgressIndication,
-                                ),
-                              )
-                            else if (notificaionprovider
-                                    .notificationData.isEmpty &&
-                                provider is! NotificationLoading)
-                              Column(
-                                children: [
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              5),
-                                  const Center(
-                                    child: Text(
-                                      'No List Added Yet!',
-                                      style: TextStyles.fontStyle1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            if (notificaionprovider.notificationData.isNotEmpty)
-                              ListView.builder(
-                                itemCount:
-                                    notificaionprovider.notificationData.length,
-                                controller: _listController,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return index < 2
-                                      ? notificationcardDesign(index)
-                                      : null;
-                                },
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Container(
-                          // width: double.infinity,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                RouteDesign(
-                                  // route: const DhasboardNotificationPage(),
-                                  // route: const NotificationPage(),
-                                  route: const NotificationHomePage(),
-                                ),
-                              );
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor:
-                                  const Color.fromARGB(255, 69, 184, 119),
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: const Text(
-                              'More info',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
+                  // const SizedBox(height: 20),
                   // Container(
                   //   width: double.infinity,
-                  //   padding: const EdgeInsets.all(20),
+                  //   padding: const EdgeInsets.all(16),
                   //   decoration: BoxDecoration(
                   //     color: Colors.white,
                   //     borderRadius: BorderRadius.circular(16),
                   //     boxShadow: [
                   //       BoxShadow(
-                  //         color: Colors.black.withOpacity(0.1),
-                  //         blurRadius: 12,
-                  //         offset: const Offset(0, 6),
+                  //         color: Colors.grey.withOpacity(0.2),
+                  //         blurRadius: 8,
+                  //         offset: const Offset(0, 4),
                   //       ),
                   //     ],
                   //   ),
@@ -776,42 +677,30 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   //     children: [
                   //       const Row(
                   //         children: [
-                  //           Icon(
+                  //           const Icon(
                   //             Icons.campaign_rounded,
                   //             size: 40,
                   //             color: Colors.indigoAccent,
                   //           ),
-                  //           SizedBox(width: 12),
-                  //           Expanded(
-                  //             child: Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 Text(
-                  //                   'Notice Board',
-                  //                   style: TextStyle(
-                  //                     fontSize: 20,
-                  //                     fontWeight: FontWeight.w700,
-                  //                     color: Colors.black87,
-                  //                   ),
-                  //                 ),
-                  //                 SizedBox(height: 4),
-                  //                 Text(
-                  //                   'Latest updates and announcements',
-                  //                   style: TextStyle(
-                  //                     fontSize: 14,
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.grey,
-                  //                   ),
-                  //                 ),
-                  //               ],
+                  //           SizedBox(
+                  //             width: 20,
+                  //           ),
+                  //           Text(
+                  //             'Notice Board',
+                  //             style: TextStyle(
+                  //               fontSize: 20,
+                  //               fontWeight: FontWeight.w700,
+                  //               color: Colors.black87,
                   //             ),
                   //           ),
                   //         ],
                   //       ),
+                  //
+                  //
                   //       Column(
                   //         crossAxisAlignment: CrossAxisAlignment.start,
                   //         children: [
-                  //           const SizedBox(height: 20),
+                  //           const SizedBox(height: 10),
                   //           if (provider is NotificationLoading)
                   //             Padding(
                   //               padding: const EdgeInsets.only(top: 100),
@@ -851,9 +740,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   //             ),
                   //         ],
                   //       ),
-                  //       const SizedBox(height: 20),
+                  //       const SizedBox(height: 16),
                   //       Container(
-                  //         width: double.infinity,
+                  //         // width: double.infinity,
+                  //         width: 200,
                   //         decoration: BoxDecoration(
                   //           gradient: const LinearGradient(
                   //             colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
@@ -872,10 +762,15 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   //             );
                   //           },
                   //           style: TextButton.styleFrom(
-                  //             padding: const EdgeInsets.symmetric(vertical: 14),
+                  //             foregroundColor:
+                  //                 const Color.fromARGB(255, 69, 184, 119),
+                  //             padding: const EdgeInsets.symmetric(vertical: 8),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(12),
+                  //             ),
                   //           ),
                   //           child: const Text(
-                  //             'View All Notices',
+                  //             'More info',
                   //             style: TextStyle(
                   //               fontSize: 16,
                   //               fontWeight: FontWeight.w600,
@@ -909,8 +804,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                     ),
                   ),
                   const SizedBox(height: 20),
-
-                  const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
@@ -933,81 +826,69 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                     ),
                   ),
 
-                  const SizedBox(height: 20),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  // const SizedBox(height: 20),
+                  // Column(
+                  //   mainAxisSize: MainAxisSize.min,
                   //   children: [
-                  //     Container(
-                  //       // width: 180,
-                  //       decoration: BoxDecoration(
-                  //         gradient: const LinearGradient(
-                  //           colors: [Colors.white, Colors.white],
-                  //           begin: Alignment.topLeft,
-                  //           end: Alignment.bottomRight,
+                  //     // Icon Section
+                  //
+                  //     SizedBox(
+                  //       width: 900,
+                  //       child: Container(
+                  //         padding: const EdgeInsets.symmetric(
+                  //           horizontal: 24,
+                  //           vertical: 10,
                   //         ),
-                  //         borderRadius: BorderRadius.circular(16),
-                  //         // boxShadow: [
-                  //         //   // BoxShadow(
-                  //         //   //   color: Colors.red.shade100.withOpacity(0.5),
-                  //         //   //   blurRadius: 10,
-                  //         //   //   offset: const Offset(4, 4),
-                  //         //   // ),
-                  //         //   const BoxShadow(
-                  //         //     color: Colors.white,
-                  //         //     blurRadius: 10,
-                  //         //     offset: Offset(-4, -4),
-                  //         //   ),
-                  //         // ],
-                  //       ),
-                  //       child: Column(
-                  //         mainAxisSize: MainAxisSize.min,
-                  //         children: [
-                  //           // Icon Section
-                  //           Padding(
-                  //             padding: const EdgeInsets.only(top: 16),
-                  //             child: Icon(
-                  //               Icons.account_balance_wallet_rounded,
-                  //               color: AppColors.theme02secondaryColor1,
-                  //               size: 40,
-                  //             ),
-                  //           ),
-                  //           const SizedBox(height: 8),
-                  //           // Title Section
-                  //           Text(
-                  //             'Current Due',
-                  //             style: TextStyle(
-                  //               color: AppColors.theme02secondaryColor1,
-                  //               fontWeight: FontWeight.bold,
-                  //               fontSize: 18,
-                  //             ),
-                  //             textAlign: TextAlign.center,
-                  //           ),
-                  //           const SizedBox(height: 16),
-                  //           // Value Section
-                  //           Container(
-                  //             padding: const EdgeInsets.symmetric(
-                  //               horizontal: 16,
-                  //               vertical: 10,
-                  //             ),
-                  //             decoration: BoxDecoration(
-                  //               color: AppColors.theme02secondaryColor1,
-                  //               borderRadius: BorderRadius.circular(12),
-                  //             ),
-                  //             child: const Text(
-                  //               'Rs. 103,500',
-                  //               style: TextStyle(
-                  //                 color: Colors.white,
-                  //                 fontWeight: FontWeight.bold,
-                  //                 fontSize: 22,
+                  //         decoration: BoxDecoration(
+                  //           color: Colors.white,
+                  //           borderRadius: BorderRadius.circular(12),
+                  //         ),
+                  //         child: Column(
+                  //           children: [
+                  //             if (overallattendanceprovider
+                  //                 is OverallAttendanceStateLoading)
+                  //               Center(
+                  //                 child: CircularProgressIndicators
+                  //                     .primaryColorProgressIndication,
+                  //               )
+                  //             else if (overallattendanceprovider
+                  //                     .OverallattendanceData.isEmpty &&
+                  //                 overallattendanceprovider is! CgpaLoading)
+                  //               const Column(
+                  //                 children: [
+                  //                   Center(
+                  //                     child: Text(
+                  //                       'No Data!',
+                  //                       style: TextStyles.fontStyle1,
+                  //                     ),
+                  //                   ),
+                  //                 ],
                   //               ),
-                  //             ),
-                  //           ),
-                  //           const SizedBox(height: 16),
-                  //         ],
+                  //             if (overallattendanceprovider
+                  //                 .OverallattendanceData.isNotEmpty)
+                  //               ListView.builder(
+                  //                 itemCount: overallattendanceprovider
+                  //                     .OverallattendanceData.length,
+                  //                 controller: _listController,
+                  //                 shrinkWrap: true,
+                  //                 itemBuilder: (
+                  //                   BuildContext context,
+                  //                   int index,
+                  //                 ) {
+                  //                   return cardDesignOverallAttendanceHrs(
+                  //                       index);
+                  //                 },
+                  //               ),
+                  //           ],
+                  //         ),
                   //       ),
                   //     ),
+                  //     const SizedBox(height: 16),
                   //   ],
                   // ),
+
+                  const SizedBox(height: 20),
+
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -1040,18 +921,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          // boxShadow: [
-                          //   // BoxShadow(
-                          //   //   color: Colors.red.shade100.withOpacity(0.5),
-                          //   //   blurRadius: 10,
-                          //   //   offset: const Offset(4, 4),
-                          //   // ),
-                          //   const BoxShadow(
-                          //     color: Colors.white,
-                          //     blurRadius: 10,
-                          //     offset: Offset(-4, -4),
-                          //   ),
-                          // ],
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -1126,25 +995,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                 ),
                               ),
                             ),
-                            // Value Section
-                            // Container(
-                            //   padding: const EdgeInsets.symmetric(
-                            //     horizontal: 16,
-                            //     vertical: 10,
-                            //   ),
-                            //   decoration: BoxDecoration(
-                            //     color: AppColors.redColor,
-                            //     borderRadius: BorderRadius.circular(12),
-                            //   ),
-                            //   child: const Text(
-                            //     'Rs. 103,500',
-                            //     style: TextStyle(
-                            //       color: Colors.white,
-                            //       fontWeight: FontWeight.bold,
-                            //       fontSize: 22,
-                            //     ),
-                            //   ),
-                            // ),
+
                             const SizedBox(height: 16),
                           ],
                         ),
@@ -1789,46 +1640,134 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ),
           const SizedBox(height: 12),
-          AspectRatio(
-            aspectRatio: 13 / 9,
-            child: DChartBarO(
-              groupList: [
-                OrdinalGroup(
-                  id: '1',
-                  color: AppColors.primaryColor2, // Default color
-                  data: List.generate(
-                    provider.attendancehiveData.length,
-                    (index) {
-                      double percentage = provider.attendancehiveData[index]
-                                  .presentpercentage ==
-                              ''
-                          ? 0.0
-                          : double.parse(
-                              '${provider.attendancehiveData[index].presentpercentage}',
-                            );
+          // AspectRatio(
+          //   aspectRatio: 13 / 9,
+          //   child: DChartBarO(
+          //     groupList: [
+          //       OrdinalGroup(
+          //         id: '1',
+          //         color: AppColors.primaryColor2, // Default color
+          //         data: List.generate(
+          //           provider.attendancehiveData.length,
+          //           (index) {
+          //             double percentage = provider.attendancehiveData[index]
+          //                         .presentpercentage ==
+          //                     ''
+          //                 ? 0.0
+          //                 : double.parse(
+          //                     '${provider.attendancehiveData[index].presentpercentage}',
+          //                   );
+          //
+          //             return OrdinalData(
+          //               domain:
+          //                   '${provider.attendancehiveData[index].subjectcode}',
+          //               measure: percentage * (7 / 7),
+          //               color: percentage < 75
+          //                   ? AppColors.redColor // Color for <75%
+          //                   : AppColors.primaryColor2, // Default color
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //     ],
+          //     domainAxis: const DomainAxis(
+          //       lineStyle: LineStyle(
+          //         color: AppColors.primaryColor2,
+          //         thickness: 2,
+          //       ),
+          //       labelRotation: 45,
+          //       minimumPaddingBetweenLabels: 50,
+          //     ),
+          //   ),
+          // )
+          Stack(
+            children: [
+              AspectRatio(
+                aspectRatio: 13 / 9,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTapDown: (details) {
+                    setState(() {
+                      tooltipPosition = details.localPosition;
+                      showTooltip = true;
+                    });
+                  },
+                  child: DChartBarO(
+                    groupList: [
+                      OrdinalGroup(
+                        id: '1',
+                        color: AppColors.primaryColor2, // Default color
+                        data: List.generate(
+                          provider.attendancehiveData.length,
+                          (index) {
+                            double percentage = provider
+                                        .attendancehiveData[index]
+                                        .presentpercentage ==
+                                    ''
+                                ? 0.0
+                                : double.parse(
+                                    '${provider.attendancehiveData[index].presentpercentage}',
+                                  );
 
-                      return OrdinalData(
-                        domain:
-                            '${provider.attendancehiveData[index].subjectcode}',
-                        measure: percentage * (7 / 7),
-                        color: percentage < 75
-                            ? AppColors.redColor // Color for <75%
-                            : AppColors.primaryColor2, // Default color
-                      );
+                            return OrdinalData(
+                              domain:
+                                  '${provider.attendancehiveData[index].subjectcode}',
+                              measure: percentage * (7 / 7),
+                              color: percentage < 75
+                                  ? AppColors.redColor // Color for <75%
+                                  : AppColors.primaryColor2, // Default color
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                    domainAxis: const DomainAxis(
+                      lineStyle: LineStyle(
+                        color: AppColors.primaryColor2,
+                        thickness: 2,
+                      ),
+                      labelRotation: 55,
+                      minimumPaddingBetweenLabels: 50,
+                    ),
+                    onChangedListener: (OrdinalData data) {
+                      setState(() {
+                        selectedDomain = data.domain;
+                        selectedMeasure = data.measure as double?;
+                      });
                     },
                   ),
                 ),
-              ],
-              domainAxis: const DomainAxis(
-                lineStyle: LineStyle(
-                  color: AppColors.primaryColor2,
-                  thickness: 2,
-                ),
-                labelRotation: 45,
-                minimumPaddingBetweenLabels: 50,
               ),
-            ),
-          )
+              if (showTooltip &&
+                  selectedDomain != null &&
+                  tooltipPosition != null)
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 300),
+                  left: tooltipPosition!.dx - 30,
+                  // Centering adjustment
+                  top: tooltipPosition!.dy - 60,
+                  // Adjust height above the bar
+                  child: Material(
+                    color: Colors.transparent,
+                    child: AnimatedOpacity(
+                      opacity: 1,
+                      duration: const Duration(milliseconds: 300),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '${selectedMeasure!.toStringAsFixed(2)}%',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
 
           // AspectRatio(
           //   aspectRatio: 13 / 9,
@@ -2021,25 +1960,45 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
   // }
 
   Widget cardDesignAttendanceHrs() {
-    final provider = ref.watch(attendanceProvider);
+    final provider = ref.watch(overallattendanceProvider);
 
-    final totalPresent = provider.attendancehiveData.fold<int>(
+    final totalPresent = provider.OverallattendanceData.fold<int>(
       0,
       (sum, item) => sum + (int.tryParse(item.present ?? '0') ?? 0),
     );
 
-    final totalAbsent = provider.attendancehiveData.fold<int>(
+    final totalAbsent = provider.OverallattendanceData.fold<int>(
       0,
       (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
     );
 
+    final totalML = provider.OverallattendanceData.fold<int>(
+      0,
+      (sum, item) => sum + (int.tryParse(item.ml ?? '0') ?? 0),
+    );
+
+    final totalMLOD = provider.OverallattendanceData.fold<int>(
+      0,
+      (sum, item) => sum + (int.tryParse(item.mLODper ?? '0') ?? 0),
+    );
+
+    // Calculate total sessions
     final totalSessions = totalPresent + totalAbsent;
 
-    // Calculate individual percentages
+    // Calculate overall percentage (weighted average)
+    final overallPercentage =
+        totalSessions > 0 ? (totalPresent / totalSessions * 100) : 0.0;
+
+    // Calculate present percentage
     final presentPercentage =
         totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
+
+    // Calculate absent percentage
     final absentPercentage =
         totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+
+    log('Present % >>> $presentPercentage');
+    log('Overall % >>> $overallPercentage');
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -2054,12 +2013,10 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ),
           const SizedBox(height: 20),
-          // Single CircularPercentIndicator for both present and absent
           CircularPercentIndicator(
             radius: 60,
             lineWidth: 10,
             percent: 1.0,
-            // Full circle (100%)
             center: Stack(
               children: [
                 // Present Circle (Green)
@@ -2067,19 +2024,15 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                   radius: 60,
                   lineWidth: 10,
                   percent: presentPercentage,
-                  // Show present percentage
-                  center: const SizedBox.shrink(),
                   progressColor: Colors.green,
                   backgroundColor: Colors.transparent,
                   circularStrokeCap: CircularStrokeCap.round,
                 ),
-                // Absent Circle (Red) - This is stacked on top of the present circle
+                // Absent Circle (Red)
                 CircularPercentIndicator(
                   radius: 60,
                   lineWidth: 10,
                   percent: absentPercentage,
-                  // Show absent percentage
-                  center: const SizedBox.shrink(),
                   progressColor: Colors.red,
                   backgroundColor: Colors.transparent,
                   circularStrokeCap: CircularStrokeCap.round,
@@ -2087,17 +2040,12 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               ],
             ),
             backgroundColor: Colors.black26,
-            // Background of the whole circle
             circularStrokeCap: CircularStrokeCap.round,
           ),
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(
-                Icons.group,
-                color: AppColors.theme02buttonColor2,
-                size: 20,
-              ),
+              Icon(Icons.group, color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Total: ${totalPresent + totalAbsent}',
@@ -2112,11 +2060,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(
-                Icons.how_to_reg,
-                color: AppColors.theme02buttonColor2,
-                size: 20,
-              ),
+              Icon(Icons.how_to_reg,
+                  color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Present: $totalPresent',
@@ -2131,11 +2076,8 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(
-                Icons.person_off,
-                color: AppColors.theme02buttonColor2,
-                size: 20,
-              ),
+              Icon(Icons.person_off,
+                  color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Absent: $totalAbsent',
@@ -2147,7 +2089,557 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
               ),
             ],
           ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Icon(Icons.percent,
+                  color: AppColors.theme02buttonColor2, size: 20),
+              const SizedBox(width: 10),
+              Text(
+                'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor2,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Icon(Icons.percent,
+                  color: AppColors.theme02buttonColor2, size: 20),
+              const SizedBox(width: 10),
+              Text(
+                'Present % : ${(overallPercentage * 100).toStringAsFixed(2)}%',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor2,
+                ),
+              ),
+            ],
+          ),
         ],
+      ),
+    );
+  }
+
+  // Widget cardDesignAttendanceHrs() {
+  //   // final provider = ref.watch(attendanceProvider);
+  //
+  //   final provider = ref.watch(overallattendanceProvider);
+  //
+  //   final totalPresent = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.present ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalAbsent = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalML = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.ml ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalMLOD = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.mLODper ?? '0') ?? 0),
+  //   );
+  //
+  //   final OverallPersentage = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.overallpercent ?? '0') ?? 0),
+  //   );
+  //
+  //   final presentPersentage = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.presentper ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalSessions = totalPresent + totalAbsent;
+  //
+  //   // Calculate individual percentages
+  //   final presentPercentage =
+  //       totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
+  //   final absentPercentage =
+  //       totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+  //
+  //   log('Present % >>> ${presentPersentage}');
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20),
+  //     child: Column(
+  //       children: [
+  //         const Text(
+  //           'Attendance Hours',
+  //           style: TextStyle(
+  //             fontSize: 18,
+  //             fontWeight: FontWeight.bold,
+  //             color: AppColors.blackColor,
+  //           ),
+  //         ),
+  //         const SizedBox(height: 20),
+  //         // Single CircularPercentIndicator for both present and absent
+  //         CircularPercentIndicator(
+  //           radius: 60,
+  //           lineWidth: 10,
+  //           percent: 1.0,
+  //           // Full circle (100%)
+  //           center: Stack(
+  //             children: [
+  //               // Present Circle (Green)
+  //               CircularPercentIndicator(
+  //                 radius: 60,
+  //                 lineWidth: 10,
+  //                 percent: presentPercentage,
+  //                 // Show present percentage
+  //                 center: const SizedBox.shrink(),
+  //                 progressColor: Colors.green,
+  //                 backgroundColor: Colors.transparent,
+  //                 circularStrokeCap: CircularStrokeCap.round,
+  //               ),
+  //               // Absent Circle (Red) - This is stacked on top of the present circle
+  //               CircularPercentIndicator(
+  //                 radius: 60,
+  //                 lineWidth: 10,
+  //                 percent: absentPercentage,
+  //                 // Show absent percentage
+  //                 center: const SizedBox.shrink(),
+  //                 progressColor: Colors.red,
+  //                 backgroundColor: Colors.transparent,
+  //                 circularStrokeCap: CircularStrokeCap.round,
+  //               ),
+  //             ],
+  //           ),
+  //           backgroundColor: Colors.black26,
+  //           // Background of the whole circle
+  //           circularStrokeCap: CircularStrokeCap.round,
+  //         ),
+  //         const SizedBox(height: 20),
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               Icons.group,
+  //               color: AppColors.theme02buttonColor2,
+  //               size: 20,
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Total: ${totalPresent + totalAbsent}',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: AppColors.primaryColor2,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               Icons.how_to_reg,
+  //               color: AppColors.theme02buttonColor2,
+  //               size: 20,
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Present: $totalPresent',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.green,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               Icons.person_off,
+  //               color: AppColors.theme02buttonColor2,
+  //               size: 20,
+  //             ),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Absent: $totalAbsent',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.red,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.person_off,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 20,
+  //                 ),
+  //                 const SizedBox(width: 10),
+  //                 Text(
+  //                   'ML: $totalML',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.red,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.person_off,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 20,
+  //                 ),
+  //                 const SizedBox(width: 10),
+  //                 Text(
+  //                   'ML OD: $totalMLOD',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.red,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.person_off,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 20,
+  //                 ),
+  //                 const SizedBox(width: 10),
+  //                 Text(
+  //                   'Overall % : $OverallPersentage',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.red,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.person_off,
+  //                   color: AppColors.theme02buttonColor2,
+  //                   size: 20,
+  //                 ),
+  //                 const SizedBox(width: 10),
+  //                 Text(
+  //                   'Present % : $presentPersentage',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Colors.red,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget cardDesignOverallAttendanceHrs(int index) {
+    final width = MediaQuery.of(context).size.width;
+
+    final provider = ref.watch(overallattendanceProvider);
+    return GestureDetector(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'Total',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].total}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].total}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'ml',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].ml}' == 'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].ml}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'subjectdesc',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].subjectdesc}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].subjectdesc}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'subjectcode',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].subjectcode}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].subjectcode}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'mLODper',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].mLODper}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].mLODper}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'absent',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].absent}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].absent}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'present',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].present}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].present}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'overallpercent',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].overallpercent}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].overallpercent}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: width / 2 - 80,
+                      child: const Text(
+                        'presentper',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                    const Text(
+                      ':',
+                      style: TextStyles.fontStyle10,
+                    ),
+                    const SizedBox(width: 5),
+                    SizedBox(
+                      width: width / 2 - 60,
+                      child: Text(
+                        '${provider.OverallattendanceData[index].presentper}' ==
+                                'null'
+                            ? '-'
+                            : '''${provider.OverallattendanceData[index].presentper}''',
+                        style: TextStyles.fontStyle10,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -2194,6 +2686,27 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget NotificationCountCardDesign(int index) {
+    final notificatioCountprovider = ref.watch(notificationCountProvider);
+    return GestureDetector(
+      onTap: () {},
+      child: Column(
+        children: [
+          Text(
+            '${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}' ==
+                    'null'
+                ? '-'
+                : '''${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}''',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -2308,146 +2821,113 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
   Widget calenderStatuscardDesign(int index) {
     final provider = ref.watch(calendarProvider);
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.theme02primaryColor,
-            AppColors.theme02secondaryColor1,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(0, 4),
-            blurRadius: 10,
-          ),
-        ],
-      ),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
-            const SizedBox(height: 5),
-            // Date Section
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.calendar_today,
-                  color: Colors.white.withValues(alpha: 0.8),
-                  size: 20,
+                const SizedBox(height: 5),
+                // Date Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.calendar_today,
+                      color: Colors.indigoAccent,
+                      size: 20,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '${provider.calendarCurrentDateData[index].date}' == ''
+                          ? 'No Data'
+                          : '${provider.calendarCurrentDateData[index].date}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
                 ),
-                Text(
-                  '${provider.calendarCurrentDateData[index].date}' == ''
-                      ? 'No Data'
-                      : '${provider.calendarCurrentDateData[index].date}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.right,
+                const SizedBox(
+                  width: 30,
+                ),
+                // const Divider(
+                //   color: Colors.white38,
+                //   thickness: 1,
+                //   height: 20,
+                // ),
+                // Status Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: Colors.indigoAccent,
+                      size: 20,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '${provider.calendarCurrentDateData[index].daystatus}' ==
+                              ''
+                          ? 'No Data'
+                          : '${provider.calendarCurrentDateData[index].daystatus}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
                 ),
               ],
             ),
-            const Divider(
-              color: Colors.white38,
-              thickness: 1,
-              height: 20,
-            ),
-            // Status Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.info_outline,
-                  color: Colors.white.withValues(alpha: 0.8),
-                  size: 20,
-                ),
-                Text(
-                  '${provider.calendarCurrentDateData[index].daystatus}' == ''
-                      ? 'No Data'
-                      : '${provider.calendarCurrentDateData[index].daystatus}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+            if (provider.calendarCurrentDateData[index].daystatus != 'Holiday')
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  textAlign: TextAlign.right,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: const Theme02TimetablePageScreen(),
+                          // route: const StudentLoginPage(),
+                        ),
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    child: const Text(
+                      'View Timetable',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            // Action Button
+              ),
           ],
         ),
       ),
     );
-
-    //  Container(
-    //   decoration: BoxDecoration(
-    //     gradient: LinearGradient(
-    //       colors: [
-    //         AppColors.theme02primaryColor,
-    //         AppColors.theme02secondaryColor1,
-    //       ],
-    //       begin: Alignment.topCenter,
-    //       end: Alignment.bottomCenter,
-    //     ),
-    //     borderRadius: BorderRadius.circular(20),
-    //   ),
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(10),
-    //     child: Column(
-    //       children: [
-    //         const SizedBox(height: 5),
-    //         Column(
-    //           children: [
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Text(
-    //                   '${provider.calendarCurrentDateData[index].date}' == ''
-    //                       ? 'No Date'
-    //                       : '${provider.calendarCurrentDateData[index].date}',
-    //                   style: const TextStyle(
-    //                     fontSize: 16,
-    //                     fontWeight: FontWeight.w700,
-    //                     color: Colors.white,
-    //                   ),
-    //                   textAlign: TextAlign.right,
-    //                 ),
-    //               ],
-    //             ),
-    //             const SizedBox(
-    //               height: 10,
-    //             ),
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Text(
-    //                   '${provider.calendarCurrentDateData[index].daystatus}' ==
-    //                           ''
-    //                       ? 'No Data'
-    //                       : '${provider.calendarCurrentDateData[index].daystatus}',
-    //                   style: const TextStyle(
-    //                     fontSize: 16,
-    //                     fontWeight: FontWeight.w700,
-    //                     color: Colors.white,
-    //                   ),
-    //                   textAlign: TextAlign.right,
-    //                 ),
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
 

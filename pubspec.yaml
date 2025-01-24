@@ -61,6 +61,7 @@ dependencies:
   graphic:
   pie_chart:
   flutter_launcher_icons: ^0.14.3
+  persistent_bottom_nav_bar:
 
 dev_dependencies:
   flutter_test:

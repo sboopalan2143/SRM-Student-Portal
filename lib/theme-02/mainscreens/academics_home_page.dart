@@ -16,6 +16,7 @@ import 'package:sample/theme-02/mainscreens/calendar_home_page_screen.dart';
 import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
 import 'package:sample/theme-02/mainscreens/grade_home_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
+import 'package:sample/theme-02/time_table_page.dart';
 
 class AcademicsHomePage extends ConsumerStatefulWidget {
   const AcademicsHomePage({super.key});
@@ -111,7 +112,7 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                   context,
                   RouteDesign(
                     // route: const Theme02SubjectPage(),
-                    route: const CalendarHomePage(),
+                    route: const Theme02CalendarPage(),
                   ),
                 );
               },
@@ -262,7 +263,7 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                   context,
                   RouteDesign(
                     // route: const Theme02SubjectPage(),
-                    route: const CalendarHomePage(),
+                    route: const Theme02TimetablePageScreen(),
                   ),
                 );
               },

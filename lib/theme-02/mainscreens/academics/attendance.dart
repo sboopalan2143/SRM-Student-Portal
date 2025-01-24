@@ -10,6 +10,7 @@ import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
 class Theme02AttendancePage extends ConsumerStatefulWidget {
@@ -53,11 +54,20 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(overallattendanceProvider.notifier)
+          .getSubjectWiseOverallAttendanceDetails(
+            ref.read(encryptionProvider.notifier),
+          );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(attendanceProvider);
+    // final provider = ref.watch(attendanceProvider);
+    final provider = ref.watch(overallattendanceProvider);
 
     ref.listen(attendanceProvider, (previous, next) {
       if (next is AttendanceStateError) {
@@ -132,7 +142,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (provider is AttendanceStateLoading)
+            if (provider is OverallAttendanceStateLoading)
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
@@ -140,8 +150,8 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                       CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.attendancehiveData.isEmpty &&
-                provider is! AttendanceStateLoading)
+            else if (provider.OverallattendanceData.isEmpty &&
+                provider is! OverallAttendanceStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
@@ -153,12 +163,12 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   ),
                 ],
               ),
-            if (provider.attendancehiveData.isNotEmpty)
+            if (provider.OverallattendanceData.isNotEmpty)
               const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
-                itemCount: provider.attendancehiveData.length,
+                itemCount: provider.OverallattendanceData.length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -176,7 +186,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
 
-    final provider = ref.watch(attendanceProvider);
+    final provider = ref.watch(overallattendanceProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
       child: Container(
@@ -201,9 +211,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   SizedBox(
                     width: width / 2 + 40,
                     child: Text(
-                      '${provider.attendancehiveData[index].subjectdesc}' == ''
+                      '${provider.OverallattendanceData[index].subjectdesc}' ==
+                              ''
                           ? '-'
-                          : '${provider.attendancehiveData[index].subjectdesc}',
+                          : '${provider.OverallattendanceData[index].subjectdesc}',
                       style: const TextStyle(
                         fontSize: 18,
                         color: AppColors.whiteColor,
@@ -220,10 +231,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   Expanded(
                     flex: 2,
                     child: Text(
-                      '${provider.attendancehiveData[index].presentpercentage}' ==
+                      '${provider.OverallattendanceData[index].overallpercent}' ==
                               ''
                           ? '-'
-                          : '${provider.attendancehiveData[index].presentpercentage} %',
+                          : '${provider.OverallattendanceData[index].overallpercent} %',
                       style: TextStyle(
                         fontSize: 18,
                         color: AppColors.theme02buttonColor2,
@@ -254,10 +265,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                         SizedBox(
                           width: width / 2 - 120,
                           child: Text(
-                            '${provider.attendancehiveData[index].subjectcode}' ==
+                            '${provider.OverallattendanceData[index].subjectcode}' ==
                                     ''
                                 ? '-'
-                                : '${provider.attendancehiveData[index].subjectcode}',
+                                : '${provider.OverallattendanceData[index].subjectcode}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.whiteColor,
@@ -283,9 +294,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                         SizedBox(
                           width: width / 3 - 100,
                           child: Text(
-                            '${provider.attendancehiveData[index].total}' == ''
+                            '${provider.OverallattendanceData[index].total}' ==
+                                    ''
                                 ? '-'
-                                : '${provider.attendancehiveData[index].total}',
+                                : '${provider.OverallattendanceData[index].total}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.whiteColor,
@@ -311,10 +323,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                         SizedBox(
                           width: width / 3 - 100,
                           child: Text(
-                            '${provider.attendancehiveData[index].present}' ==
+                            '${provider.OverallattendanceData[index].present}' ==
                                     ''
                                 ? '-'
-                                : '${provider.attendancehiveData[index].present}',
+                                : '${provider.OverallattendanceData[index].present}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.whiteColor,
@@ -340,9 +352,10 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                         SizedBox(
                           width: width / 3 - 100,
                           child: Text(
-                            '${provider.attendancehiveData[index].absent}' == ''
+                            '${provider.OverallattendanceData[index].absent}' ==
+                                    ''
                                 ? '-'
-                                : '${provider.attendancehiveData[index].absent}',
+                                : '${provider.OverallattendanceData[index].absent}',
                             style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.whiteColor,
@@ -356,6 +369,165 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text('presentper',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                  const Text(
+                    ':',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].presentper}' ==
+                              'null'
+                          ? '-'
+                          : '''${provider.OverallattendanceData[index].presentper}''',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Overall Percent',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].presentper}' ==
+                              'null'
+                          ? '-'
+                          : '''${provider.OverallattendanceData[index].presentper}''',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'ML',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].overallpercent}' ==
+                              'null'
+                          ? '-'
+                          : '''${provider.OverallattendanceData[index].ml}''',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'ML OD Per',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].mLODper}' ==
+                              'null'
+                          ? '-'
+                          : '''${provider.OverallattendanceData[index].mLODper}''',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
             ],
           ),
         ),

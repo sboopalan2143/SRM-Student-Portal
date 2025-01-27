@@ -111,32 +111,43 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
           child: Column(
             children: [
               if (provider.financeHiveData.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Get unique terms from the data
+                      ...provider.feesDetailsData
+                          .map((data) => data.duedescription)
+                          .toSet() // Ensure unique terms
+                          .map((term) {
+                        return ExpansionTile(
+                          title: Text(
+                            '$term', // Use the term value
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.theme06primaryColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          // Start collapsed by default
+                          backgroundColor:
+                              AppColors.theme02primaryColor.withOpacity(0.2),
+                          iconColor: AppColors.whiteColor,
+                          textColor: AppColors.whiteColor,
+                          children: [
+                            // Filter data by the unique term and map to cardDesignTrans
+                            ...provider.feesDetailsData
+                                .where((item) => item.duedescription == term)
+                                .map((filteredData) {
+                              final index = provider.feesDetailsData
+                                  .indexOf(filteredData);
+                              return cardDesign(index);
+                            }).toList(),
+                          ],
+                        );
+                      }).toList(),
+                    ],
                   ),
-                  child: ListView.builder(
-                    itemCount: provider.feesDetailsData.length,
-                    controller: _listController,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return cardDesign(index);
-                    },
-                  ),
-
-                  //  ListView.builder(
-                  //   itemCount: provider.navFeesString == 'Paid Details'
-                  //       ? provider.feesDetailsData.length
-                  //       : provider.financeHiveData.length,
-                  //   controller: _listController,
-                  //   shrinkWrap: true,
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return provider.navFeesString == 'Paid Details'
-                  //         ? cardDesignTrans(index)
-                  //         : cardDesign(index);
-                  //   },
-                  // ),
                 ),
             ],
           ),
@@ -150,7 +161,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
 
     final provider = ref.watch(feesProvider);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -331,220 +342,220 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
     );
   }
 
-  Widget cardDesignTrans(int index) {
-    final width = MediaQuery.of(context).size.width;
-    final provider = ref.watch(feesProvider);
-    log('${provider.financeHiveData[index].receiptnum}');
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Receipt No',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].receiptnum}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].receiptnum}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Due Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].duedate}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].duedate}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Mode of Transaction',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].modeoftransaction}' ==
-                              ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].modeoftransaction}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Due Amount',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].dueamount}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].dueamount}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Term',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].term}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].term}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Amount Collected',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].amountcollected}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].amountcollected}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Received Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].receiptdate}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].receiptdate}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 5),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget cardDesignTrans(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+  //   final provider = ref.watch(feesProvider);
+  //   log('${provider.financeHiveData[index].receiptnum}');
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.grey.withOpacity(0.2),
+  //             spreadRadius: 5,
+  //             blurRadius: 7,
+  //             offset: const Offset(0, 3), // changes position of shadow
+  //           ),
+  //         ],
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(20),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Receipt No',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].receiptnum}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].receiptnum}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Due Date',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].duedate}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].duedate}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Mode of Transaction',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].modeoftransaction}' ==
+  //                             ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].modeoftransaction}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Due Amount',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].dueamount}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].dueamount}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Term',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].term}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].term}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Amount Collected',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].amountcollected}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].amountcollected}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.end,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 70,
+  //                   child: const Text(
+  //                     'Received Date',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.financeHiveData[index].receiptdate}' == ''
+  //                         ? '-'
+  //                         : '${provider.financeHiveData[index].receiptdate}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(width: 5),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget navContainerDesign({
     required String text,

@@ -218,7 +218,7 @@ class _GrievanceHomePageState extends ConsumerState<GrievanceHomePage> {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          'assets/images/grievancestheme1.svg',
+                          'assets/images/grievancestheme3.svg',
                           color: AppColors.whiteColor,
                           height: MediaQuery.of(context).size.height / 26,
                         ),

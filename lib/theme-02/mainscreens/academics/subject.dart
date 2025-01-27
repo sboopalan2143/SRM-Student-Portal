@@ -150,13 +150,56 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
                 ),
               if (provider.subjectHiveData.isNotEmpty)
                 const SizedBox(height: 5),
-              ListView.builder(
-                itemCount: provider.subjectHiveData.length,
-                controller: _listController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(index);
-                },
+              // ListView.builder(
+              //   itemCount: provider.subjectHiveData.length,
+              //   controller: _listController,
+              //   shrinkWrap: true,
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return cardDesign(index);
+              //   },
+              // ),
+
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (int i = 1; i <= 8; i++) ...[
+                      if (provider.subjectHiveData.any((data) =>
+                          data.subjectdetails!.split('##')[0] == '$i')) ...[
+                        ExpansionTile(
+                          title: Text(
+                            'Semester $i',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.theme06primaryColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          // Start collapsed by default
+                          backgroundColor:
+                              AppColors.theme02primaryColor.withOpacity(0.2),
+                          iconColor: AppColors.whiteColor,
+                          textColor: AppColors.whiteColor,
+                          children: [
+                            ...provider.subjectHiveData
+                                .where((data) =>
+                                    data.subjectdetails!.split('##')[0] == '$i')
+                                .map((data) {
+                              final subjectData =
+                                  data.subjectdetails!.split('##');
+                              return cardDesign(subjectData);
+                            }).toList(),
+                          ],
+                        ),
+                        const Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: AppColors.grey4,
+                        ),
+                      ]
+                    ]
+                  ],
+                ),
               ),
             ],
           ),
@@ -166,11 +209,7 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
     );
   }
 
-  Widget cardDesign(int index) {
-    final provider = ref.watch(subjectProvider);
-    final data = provider.subjectHiveData[index].subjectdetails;
-    final subjectData = data!.split('##');
-
+  Widget cardDesign(List<String> subjectData) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Container(
@@ -191,7 +230,6 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              const SizedBox(height: 15),
               Row(
                 children: [
                   const SizedBox(width: 30),
@@ -263,6 +301,104 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
       ),
     );
   }
+
+  // Widget cardDesign(int index) {
+  //   final provider = ref.watch(subjectProvider);
+  //   final data = provider.subjectHiveData[index].subjectdetails;
+  //   final subjectData = data!.split('##');
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         gradient: LinearGradient(
+  //           colors: [
+  //             AppColors.theme02primaryColor,
+  //             AppColors.theme02secondaryColor1,
+  //           ],
+  //           begin: Alignment.topCenter,
+  //           end: Alignment.bottomCenter,
+  //         ),
+  //         borderRadius: BorderRadius.circular(20),
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             const SizedBox(height: 10),
+  //             const SizedBox(height: 15),
+  //             Row(
+  //               children: [
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'SEMESTER : ${subjectData[0]}',
+  //                     style: TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.theme02buttonColor2,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Code : ${subjectData[1]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 15),
+  //             const Divider(
+  //               color: AppColors.grey4,
+  //               height: 1,
+  //             ),
+  //             const SizedBox(height: 15),
+  //             Row(
+  //               children: [
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Subject : ${subjectData[2]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Credit : ${subjectData[3]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 20),
+  //             Divider(
+  //               thickness: 2,
+  //               color: AppColors.theme02secondaryColor1,
+  //               height: 1,
+  //             ),
+  //             const SizedBox(height: 10),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

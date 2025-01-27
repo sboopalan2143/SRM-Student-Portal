@@ -367,149 +367,161 @@ class _Theme02TransportRegisterPageState
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width / 2,
-                            child: const Text(
-                              'Busroute',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
+                child: Column(
+                  children: [
+                    if (provider.transportAfterRegisterDetails!.busroutename ==
+                        '')
+                      const Center(child: CircularProgressIndicator()),
+                    // Loading state
+                    if (provider.transportAfterRegisterDetails!.busroutename !=
+                        '') // Display details if not loading
+                      ...[
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: width / 2,
+                                  child: const Text(
+                                    'Busroute',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: AppColors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: width * 0.85,
+                                  child: Text(
+                                    '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
+                                            ''
+                                        ? '-'
+                                        : '''${provider.transportAfterRegisterDetails!.busroutename}''',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: AppColors.grey4,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            width: width * 0.85,
-                            child: Text(
-                              '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.transportAfterRegisterDetails!.busroutename}''',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: AppColors.grey4,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: width / 2,
+                                      child: const Text(
+                                        'Boardingpoint',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                      child: Text(
+                                        '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
+                                                ''
+                                            ? '-'
+                                            : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey4,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: width / 2,
+                                      child: const Text(
+                                        'Date',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                      child: Text(
+                                        '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
+                                                ''
+                                            ? '-'
+                                            : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey4,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: width / 2,
+                                      child: const Text(
+                                        'Bus Fees',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                      child: Text(
+                                        '''${provider.transportAfterRegisterDetails!.amount}''' ==
+                                                ''
+                                            ? '-'
+                                            : '''${provider.transportAfterRegisterDetails!.amount}''',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.grey4,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2,
-                                child: const Text(
-                                  'Boardingpoint',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                child: Text(
-                                  '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey4,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2,
-                                child: const Text(
-                                  'Date',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                child: Text(
-                                  '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey4,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width / 2,
-                                child: const Text(
-                                  'Bus Fees',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                child: Text(
-                                  '''${provider.transportAfterRegisterDetails!.amount}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.transportAfterRegisterDetails!.amount}''',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.grey4,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
                     ],
-                  ),
+                  ],
                 ),
               ),
             ),

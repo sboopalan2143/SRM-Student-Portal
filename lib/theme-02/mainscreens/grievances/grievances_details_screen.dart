@@ -9,18 +9,17 @@ import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart'
 import 'package:sample/home/main_pages/grievances/widgets/button_design.dart';
 import 'package:sample/home/riverpod/main_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/grievances/grievances_details_screen.dart';
 
-class Theme02GrievanceReportPage extends ConsumerStatefulWidget {
-  const Theme02GrievanceReportPage({super.key});
+class Theme02GrievanceFullDetailPage extends ConsumerStatefulWidget {
+  const Theme02GrievanceFullDetailPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02GrievanceReportPageState();
+      _Theme02GrievanceFullDetailPageState();
 }
 
-class _Theme02GrievanceReportPageState
-    extends ConsumerState<Theme02GrievanceReportPage> {
+class _Theme02GrievanceFullDetailPageState
+    extends ConsumerState<Theme02GrievanceFullDetailPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
@@ -177,65 +176,6 @@ class _Theme02GrievanceReportPageState
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //
-  //   final provider = ref.watch(grievanceProvider);
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         gradient: LinearGradient(
-  //           colors: [
-  //             AppColors.theme02primaryColor,
-  //             AppColors.theme02secondaryColor1,
-  //           ],
-  //           begin: Alignment.topLeft,
-  //           end: Alignment.bottomRight,
-  //         ),
-  //         borderRadius: BorderRadius.circular(15),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.black.withOpacity(0.1),
-  //             blurRadius: 8,
-  //             offset: const Offset(0, 4),
-  //           ),
-  //         ],
-  //         border: Border.all(
-  //           color: Colors.white.withOpacity(0.2),
-  //         ),
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(16),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             infoRowModern(
-  //               icon: Icons.confirmation_number,
-  //               label: "Grievance ID",
-  //               value:
-  //                   provider.studentwisegrievanceData[index].grievanceid ?? '-',
-  //               highlight: true,
-  //             ),
-  //             infoRowModern(
-  //               icon: Icons.category,
-  //               label: "Category",
-  //               value: provider
-  //                       .studentwisegrievanceData[index].grievancecategory ??
-  //                   '-',
-  //             ),
-  //             infoRowModern(
-  //               icon: Icons.info,
-  //               label: "Status",
-  //               value: provider.studentwisegrievanceData[index].status ?? '-',
-  //               highlight: true,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
 
@@ -271,64 +211,54 @@ class _Theme02GrievanceReportPageState
             children: [
               infoRowModern(
                 icon: Icons.confirmation_number,
-                label: 'Grievance ID',
+                label: "Grievance ID",
                 value:
                     provider.studentwisegrievanceData[index].grievanceid ?? '-',
                 highlight: true,
               ),
               infoRowModern(
                 icon: Icons.category,
-                label: 'Category',
+                label: "Category",
                 value: provider
                         .studentwisegrievanceData[index].grievancecategory ??
                     '-',
               ),
               infoRowModern(
+                icon: Icons.description,
+                label: "Description",
+                value: provider.studentwisegrievanceData[index].grievancedesc ??
+                    '-',
+              ),
+              infoRowModern(
+                icon: Icons.access_time,
+                label: "Time",
+                value: provider.studentwisegrievanceData[index].grievancetime ??
+                    '-',
+              ),
+              infoRowModern(
+                icon: Icons.type_specimen,
+                label: "Type",
+                value: provider.studentwisegrievanceData[index].grievancetype ??
+                    '-',
+              ),
+              infoRowModern(
+                icon: Icons.subject,
+                label: "Subject",
+                value: provider.studentwisegrievanceData[index].subject ?? '-',
+              ),
+              infoRowModern(
                 icon: Icons.info,
-                label: 'Status',
+                label: "Status",
                 value: provider.studentwisegrievanceData[index].status ?? '-',
                 highlight: true,
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const Theme02GrievanceFullDetailPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: AppColors.theme02buttonColor2,
-                        borderRadius: BorderRadius.circular(20),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: Colors.blue,
-                        //     blurRadius: 4,
-                        //     offset: const Offset(0, 4),
-                        //   ),
-                        // ],
-                      ),
-                      child: const Text(
-                        'View',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ), // Add spacing before the button
+              infoRowModern(
+                icon: Icons.check_circle,
+                label: "Active Status",
+                value: provider.studentwisegrievanceData[index].activestatus ??
+                    '-',
+                highlight: true,
+              ),
             ],
           ),
         ),

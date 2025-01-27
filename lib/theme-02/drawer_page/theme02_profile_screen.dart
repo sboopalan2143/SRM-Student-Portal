@@ -490,7 +490,7 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                           '${provider.profileDataHive.academicyear}' ==
                                                   ''
                                               ? '-'
-                                              : '${provider.profileDataHive.academicyear} Section',
+                                              : '${provider.profileDataHive.academicyear}',
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: AppColors.blackColor
@@ -599,7 +599,7 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                                             '${provider.profileDataHive.address}' ==
                                                     ''
                                                 ? '-'
-                                                : '''${provider.profileDataHive.address}''',
+                                                : '''${provider.profileDataHive.academicyear}''',
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: AppColors.blackColor

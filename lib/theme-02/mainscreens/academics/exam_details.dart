@@ -163,480 +163,706 @@ class _Theme02ExamDetailsPageThemeState
             //     },
             //   ),
             // ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.theme02primaryColor,
-                      AppColors.theme02secondaryColor1,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (int i = 1; i <= 6; i++) ...[
-                        if (provider.examDetailsHiveData
-                            .any((exam) => exam.semester == '$i')) ...[
-                          ExpansionTile(
-                            collapsedIconColor: AppColors.whiteColor,
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 16,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.theme02buttonColor2,
-                                    borderRadius: BorderRadius.circular(
-                                      8,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'Semester $i',
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.whiteColor,
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                const Divider(
-                                  color: AppColors.whiteColor,
-                                  thickness: 1,
-                                ),
-                              ],
-                            ),
-                            children: [
-                              for (final exam
-                                  in provider.examDetailsHiveData.where(
-                                (exam) => exam.semester == '$i',
-                              )) ...[
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/examdetailstheme3.svg',
-                                      color: AppColors.theme02buttonColor2,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              30,
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        exam.subjectdesc!.isEmpty
-                                            ? '-'
-                                            : '${exam.subjectdesc}',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 30),
-                                    Expanded(
-                                      child: Text(
-                                        exam.subjectcode!.isEmpty
-                                            ? 'subjectcode: -'
-                                            : 'subjectcode: ${exam.subjectcode}',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Text(
-                                      exam.grade!.isEmpty
-                                          ? 'GRADE: -'
-                                          : 'GRADE: ${exam.grade}',
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: AppColors.whiteColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Icon(
-                                      Icons.grade,
-                                      color: AppColors.theme02buttonColor2,
-                                      size: 16,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 30),
-                                    Expanded(
-                                      child: Text(
-                                        exam.semester!.isEmpty
-                                            ? 'SEMESTER  -'
-                                            : 'SEMESTER ${exam.semester}',
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Expanded(
-                                      child: Text(
-                                        exam.credit!.isEmpty
-                                            ? 'CREDIT -'
-                                            : 'CREDIT ${exam.credit}',
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                const Divider(
-                                  color: AppColors.grey4,
-                                  height: 1,
-                                ),
-                                const SizedBox(height: 15),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        const Text(
-                                          'INTERNAL',
-                                          style: TextStyles.fontStyle3,
-                                        ),
-                                        const SizedBox(height: 10),
-                                        CircularPercentIndicator(
-                                          radius: 50,
-                                          lineWidth: 15,
-                                          animation: true,
-                                          animationDuration: 1000,
-                                          percent: exam.internal != null &&
-                                                  exam.internal!.isNotEmpty
-                                              ? (double.tryParse(
-                                                        exam.internal!,
-                                                      ) ??
-                                                      0.0) /
-                                                  100.0
-                                              : 0.0,
-                                          center: Text(
-                                            exam.internal!.isEmpty
-                                                ? '-'
-                                                : '${exam.internal}',
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                          circularStrokeCap:
-                                              CircularStrokeCap.round,
-                                          progressColor:
-                                              AppColors.theme02buttonColor2,
-                                          backgroundColor: AppColors.whiteColor,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 20),
-                                    Column(
-                                      children: [
-                                        const Text(
-                                          'EXTERNAL',
-                                          style: TextStyles.fontStyle3,
-                                        ),
-                                        const SizedBox(height: 10),
-                                        CircularPercentIndicator(
-                                          radius: 50,
-                                          lineWidth: 15,
-                                          animation: true,
-                                          animationDuration: 1000,
-                                          percent: exam.external != null &&
-                                                  exam.external!.isNotEmpty
-                                              ? (double.tryParse(
-                                                        exam.external!,
-                                                      ) ??
-                                                      0.0) /
-                                                  100.0
-                                              : 0.0,
-                                          center: Text(
-                                            exam.external!.isEmpty
-                                                ? '-'
-                                                : '${exam.external}',
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                          circularStrokeCap:
-                                              CircularStrokeCap.round,
-                                          progressColor:
-                                              AppColors.theme02buttonColor2,
-                                          backgroundColor: AppColors.whiteColor,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Divider(
-                                  thickness: 2,
-                                  color: AppColors.theme02secondaryColor1,
-                                  height: 1,
-                                ),
-                                const SizedBox(height: 10),
-                              ],
-                            ],
+            // Padding(
+            //   padding: const EdgeInsets.all(8),
+            //   child: Container(
+            //     margin: const EdgeInsets.only(bottom: 10),
+            //     decoration: BoxDecoration(
+            //       gradient: LinearGradient(
+            //         colors: [
+            //           AppColors.theme02primaryColor,
+            //           AppColors.theme02secondaryColor1,
+            //         ],
+            //         begin: Alignment.topCenter,
+            //         end: Alignment.bottomCenter,
+            //       ),
+            //       borderRadius: BorderRadius.circular(20),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.symmetric(
+            //         horizontal: 20,
+            //         vertical: 10,
+            //       ),
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           for (int i = 1; i <= 8; i++) ...[
+            //             if (provider.examDetailsHiveData
+            //                 .any((exam) => exam.semester == '$i')) ...[
+            //               ExpansionTile(
+            //                 collapsedIconColor: AppColors.whiteColor,
+            //                 title: Column(
+            //                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                   children: [
+            //                     Text(
+            //                       'Semester $i',
+            //                       style: const TextStyle(
+            //                         fontSize: 18,
+            //                         color: AppColors.whiteColor,
+            //                         fontWeight: FontWeight.w600,
+            //                         letterSpacing: 0.5,
+            //                       ),
+            //                     ),
+            //                     const SizedBox(
+            //                       height: 8,
+            //                     ),
+            //                     const Divider(
+            //                       color: AppColors.whiteColor,
+            //                       thickness: 1,
+            //                     ),
+            //                   ],
+            //                 ),
+            //                 children: [
+            //                   for (final exam
+            //                       in provider.examDetailsHiveData.where(
+            //                     (exam) => exam.semester == '$i',
+            //                   )) ...[
+            //                     Row(
+            //                       crossAxisAlignment: CrossAxisAlignment.start,
+            //                       children: [
+            //                         SvgPicture.asset(
+            //                           'assets/images/examdetailstheme3.svg',
+            //                           color: AppColors.theme02buttonColor2,
+            //                           height:
+            //                               MediaQuery.of(context).size.height /
+            //                                   30,
+            //                         ),
+            //                         const SizedBox(width: 10),
+            //                         Expanded(
+            //                           child: Text(
+            //                             exam.subjectdesc!.isEmpty
+            //                                 ? '-'
+            //                                 : '${exam.subjectdesc}',
+            //                             style: const TextStyle(
+            //                               fontSize: 14,
+            //                               color: AppColors.whiteColor,
+            //                               fontWeight: FontWeight.bold,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 10),
+            //                     Row(
+            //                       children: [
+            //                         const SizedBox(width: 30),
+            //                         Expanded(
+            //                           child: Text(
+            //                             exam.subjectcode!.isEmpty
+            //                                 ? 'subjectcode: -'
+            //                                 : 'subjectcode: ${exam.subjectcode}',
+            //                             style: const TextStyle(
+            //                               fontSize: 14,
+            //                               color: AppColors.whiteColor,
+            //                               fontWeight: FontWeight.bold,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                         const SizedBox(width: 30),
+            //                         Text(
+            //                           exam.grade!.isEmpty
+            //                               ? 'GRADE: -'
+            //                               : 'GRADE: ${exam.grade}',
+            //                           style: const TextStyle(
+            //                             fontSize: 12,
+            //                             color: AppColors.whiteColor,
+            //                             fontWeight: FontWeight.bold,
+            //                           ),
+            //                         ),
+            //                         const SizedBox(width: 10),
+            //                         Icon(
+            //                           Icons.grade,
+            //                           color: AppColors.theme02buttonColor2,
+            //                           size: 16,
+            //                         ),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 15),
+            //                     Row(
+            //                       children: [
+            //                         const SizedBox(width: 30),
+            //                         Expanded(
+            //                           child: Text(
+            //                             exam.semester!.isEmpty
+            //                                 ? 'SEMESTER  -'
+            //                                 : 'SEMESTER ${exam.semester}',
+            //                             style: const TextStyle(
+            //                               fontSize: 12,
+            //                               color: AppColors.whiteColor,
+            //                               fontWeight: FontWeight.bold,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                         const SizedBox(width: 30),
+            //                         Expanded(
+            //                           child: Text(
+            //                             exam.credit!.isEmpty
+            //                                 ? 'CREDIT -'
+            //                                 : 'CREDIT ${exam.credit}',
+            //                             style: const TextStyle(
+            //                               fontSize: 12,
+            //                               color: AppColors.whiteColor,
+            //                               fontWeight: FontWeight.bold,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 15),
+            //                     const Divider(
+            //                       color: AppColors.grey4,
+            //                       height: 1,
+            //                     ),
+            //                     const SizedBox(height: 15),
+            //                     Row(
+            //                       mainAxisAlignment:
+            //                           MainAxisAlignment.spaceEvenly,
+            //                       children: [
+            //                         Column(
+            //                           children: [
+            //                             const Text(
+            //                               'INTERNAL',
+            //                               style: TextStyles.fontStyle3,
+            //                             ),
+            //                             const SizedBox(height: 10),
+            //                             CircularPercentIndicator(
+            //                               radius: 50,
+            //                               lineWidth: 15,
+            //                               animation: true,
+            //                               animationDuration: 1000,
+            //                               percent: exam.internal != null &&
+            //                                       exam.internal!.isNotEmpty
+            //                                   ? (double.tryParse(
+            //                                             exam.internal!,
+            //                                           ) ??
+            //                                           0.0) /
+            //                                       100.0
+            //                                   : 0.0,
+            //                               center: Text(
+            //                                 exam.internal!.isEmpty
+            //                                     ? '-'
+            //                                     : '${exam.internal}',
+            //                                 style: const TextStyle(
+            //                                   fontSize: 18,
+            //                                   fontWeight: FontWeight.bold,
+            //                                   color: AppColors.whiteColor,
+            //                                 ),
+            //                               ),
+            //                               circularStrokeCap:
+            //                                   CircularStrokeCap.round,
+            //                               progressColor:
+            //                                   AppColors.theme02buttonColor2,
+            //                               backgroundColor: AppColors.whiteColor,
+            //                             ),
+            //                           ],
+            //                         ),
+            //                         const SizedBox(width: 20),
+            //                         Column(
+            //                           children: [
+            //                             const Text(
+            //                               'EXTERNAL',
+            //                               style: TextStyles.fontStyle3,
+            //                             ),
+            //                             const SizedBox(height: 10),
+            //                             CircularPercentIndicator(
+            //                               radius: 50,
+            //                               lineWidth: 15,
+            //                               animation: true,
+            //                               animationDuration: 1000,
+            //                               percent: exam.external != null &&
+            //                                       exam.external!.isNotEmpty
+            //                                   ? (double.tryParse(
+            //                                             exam.external!,
+            //                                           ) ??
+            //                                           0.0) /
+            //                                       100.0
+            //                                   : 0.0,
+            //                               center: Text(
+            //                                 exam.external!.isEmpty
+            //                                     ? '-'
+            //                                     : '${exam.external}',
+            //                                 style: const TextStyle(
+            //                                   fontSize: 18,
+            //                                   fontWeight: FontWeight.bold,
+            //                                   color: AppColors.whiteColor,
+            //                                 ),
+            //                               ),
+            //                               circularStrokeCap:
+            //                                   CircularStrokeCap.round,
+            //                               progressColor:
+            //                                   AppColors.theme02buttonColor2,
+            //                               backgroundColor: AppColors.whiteColor,
+            //                             ),
+            //                           ],
+            //                         ),
+            //                       ],
+            //                     ),
+            //                     const SizedBox(height: 20),
+            //                     Divider(
+            //                       thickness: 2,
+            //                       color: AppColors.theme02secondaryColor1,
+            //                       height: 1,
+            //                     ),
+            //                     const SizedBox(height: 10),
+            //                   ],
+            //                 ],
+            //               ),
+            //             ],
+            //           ],
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (int i = 1; i <= 8; i++) ...[
+                    if (provider.examDetailsHiveData
+                        .any((data) => data.semester == '$i')) ...[
+                      ExpansionTile(
+                        title: Text(
+                          'Semester $i',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.theme06primaryColor,
                           ),
+                        ),
+                        initiallyExpanded: false,
+                        // Start collapsed by default
+                        backgroundColor:
+                            AppColors.theme02primaryColor.withOpacity(0.2),
+                        iconColor: AppColors.whiteColor,
+                        textColor: AppColors.whiteColor,
+                        children: [
+                          ...provider.examDetailsHiveData
+                              .where((data) => data.semester == '$i')
+                              .map((data) {
+                            final index =
+                                provider.examDetailsHiveData.indexOf(data);
+                            return examCardDesign(index);
+                          }).toList(),
                         ],
-                      ],
-                    ],
-                  ),
-                ),
+                      ),
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: AppColors.grey4,
+                      ),
+                    ]
+                  ]
+                ],
               ),
             ),
           ],
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 
-  Widget cardDesign(int index) {
+  Widget examCardDesign(int index) {
     final provider = ref.watch(examDetailsProvider);
     final internal = double.parse(
-      '${provider.examDetailsHiveData[index].internal}',
-    ); // Example number
+      provider.examDetailsHiveData[index].internal ?? '0',
+    );
+    final external = double.parse(
+      provider.examDetailsHiveData[index].external ?? '0',
+    );
     final internalResult = internal / 100;
-    double.parse(
-      '${provider.examDetailsHiveData[index].external}',
-    ); // Example number
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.theme02primaryColor,
-            AppColors.theme02secondaryColor1,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    final externalResult = external / 100;
+
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.theme02primaryColor,
+              AppColors.theme02secondaryColor1,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Subject Description
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/examdetailstheme3.svg',
-                  color: AppColors.theme02buttonColor2,
-                  height: MediaQuery.of(context).size.height / 30,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].subjectdesc!.isEmpty
-                        ? '-'
-                        : '${provider.examDetailsHiveData[index].subjectdesc}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Subject Description
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/examdetailstheme3.svg',
+                    color: AppColors.theme02buttonColor2,
+                    height: 30,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      provider.examDetailsHiveData[index].subjectdesc!.isEmpty
+                          ? '-'
+                          : provider.examDetailsHiveData[index].subjectdesc!,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
+                ],
+              ),
+              const SizedBox(height: 10),
 
-            // Grade
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].subjectcode!.isEmpty
-                        ? 'subjectcode: -'
-                        : 'subjectcode: ${provider.examDetailsHiveData[index].subjectcode}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+              // Grade and Subject Code
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Subject Code: ${provider.examDetailsHiveData[index].subjectcode ?? '-'}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 30),
-                Text(
-                  provider.examDetailsHiveData[index].grade!.isEmpty
-                      ? 'GRADE: -'
-                      : 'GRADE: ${provider.examDetailsHiveData[index].grade}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.grade,
-                  color: AppColors.theme02buttonColor2,
-                  size: 16,
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].semester!.isEmpty
-                        ? 'SEMESTER  -'
-                        : 'SEMESTER ${provider.examDetailsHiveData[index].semester}',
+                  const SizedBox(width: 10),
+                  Text(
+                    'Grade: ${provider.examDetailsHiveData[index].grade ?? '-'}',
                     style: const TextStyle(
                       fontSize: 12,
                       color: AppColors.whiteColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Text(
-                    provider.examDetailsHiveData[index].credit!.isEmpty
-                        ? 'CREDIT -'
-                        : 'CREDIT ${provider.examDetailsHiveData[index].credit}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
+                  const SizedBox(width: 10),
+                  Icon(
+                    Icons.grade,
+                    color: AppColors.theme02buttonColor2,
+                    size: 16,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+
+              // Semester and Credit
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Semester: ${provider.examDetailsHiveData[index].semester ?? '-'}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            const Divider(
-              color: AppColors.grey4,
-              height: 1,
-            ),
-
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    const Text(
-                      'INTERNAL',
-                      style: TextStyles.fontStyle3,
+                  Expanded(
+                    child: Text(
+                      'Credit: ${provider.examDetailsHiveData[index].credit ?? '-'}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    CircularPercentIndicator(
-                      radius: 50,
-                      lineWidth: 15,
-                      animation: true,
-                      animationDuration: 1000,
-                      percent: internalResult,
-                      center: Text(
-                        provider.examDetailsHiveData[index].internal!.isEmpty
-                            ? '-'
-                            : '${provider.examDetailsHiveData[index].internal}',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              const Divider(color: AppColors.grey4, height: 1),
+
+              // Internal and External Marks
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      CircularPercentIndicator(
+                        radius: 50,
+                        lineWidth: 15,
+                        animation: true,
+                        animationDuration: 1000,
+                        percent: internalResult,
+                        center: Text(
+                          '${provider.examDetailsHiveData[index].internal ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: AppColors.theme02buttonColor2,
+                        backgroundColor: AppColors.whiteColor,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'Internal',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: AppColors.theme02buttonColor2,
-                      backgroundColor: AppColors.whiteColor,
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 20),
-                Column(
-                  children: [
-                    const Text(
-                      'EXTERNAL',
-                      style: TextStyles.fontStyle3,
-                    ),
-                    const SizedBox(height: 10),
-                    CircularPercentIndicator(
-                      radius: 50,
-                      lineWidth: 15,
-                      animation: true,
-                      animationDuration: 1000,
-                      percent: internalResult,
-                      center: Text(
-                        provider.examDetailsHiveData[index].external!.isEmpty
-                            ? '-'
-                            : '${provider.examDetailsHiveData[index].external}',
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      CircularPercentIndicator(
+                        radius: 50,
+                        lineWidth: 15,
+                        animation: true,
+                        animationDuration: 1000,
+                        percent: externalResult,
+                        center: Text(
+                          '${provider.examDetailsHiveData[index].external ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: AppColors.theme02secondaryColor1,
+                        backgroundColor: AppColors.whiteColor,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'External',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: AppColors.whiteColor,
                         ),
                       ),
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: AppColors.theme02buttonColor2,
-                      backgroundColor: AppColors.whiteColor,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Divider(
-              thickness: 2,
-              color: AppColors.theme02secondaryColor1,
-              height: 1,
-            ),
-
-            const SizedBox(height: 10),
-          ],
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  // Widget cardDesign(int index) {
+  //   final provider = ref.watch(examDetailsProvider);
+  //   final internal = double.parse(
+  //     '${provider.examDetailsHiveData[index].internal}',
+  //   ); // Example number
+  //   final internalResult = internal / 100;
+  //   double.parse(
+  //     '${provider.examDetailsHiveData[index].external}',
+  //   ); // Example number
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 10),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         colors: [
+  //           AppColors.theme02primaryColor,
+  //           AppColors.theme02secondaryColor1,
+  //         ],
+  //         begin: Alignment.topCenter,
+  //         end: Alignment.bottomCenter,
+  //       ),
+  //       borderRadius: BorderRadius.circular(20),
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           // Subject Description
+  //           Row(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               SvgPicture.asset(
+  //                 'assets/images/examdetailstheme3.svg',
+  //                 color: AppColors.theme02buttonColor2,
+  //                 height: MediaQuery.of(context).size.height / 30,
+  //               ),
+  //               const SizedBox(width: 10),
+  //               Expanded(
+  //                 child: Text(
+  //                   provider.examDetailsHiveData[index].subjectdesc!.isEmpty
+  //                       ? '-'
+  //                       : '${provider.examDetailsHiveData[index].subjectdesc}',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     color: AppColors.whiteColor,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 10),
+  //
+  //           // Grade
+  //           Row(
+  //             children: [
+  //               const SizedBox(width: 30),
+  //               Expanded(
+  //                 child: Text(
+  //                   provider.examDetailsHiveData[index].subjectcode!.isEmpty
+  //                       ? 'subjectcode: -'
+  //                       : 'subjectcode: ${provider.examDetailsHiveData[index].subjectcode}',
+  //                   style: const TextStyle(
+  //                     fontSize: 14,
+  //                     color: AppColors.whiteColor,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 30),
+  //               Text(
+  //                 provider.examDetailsHiveData[index].grade!.isEmpty
+  //                     ? 'GRADE: -'
+  //                     : 'GRADE: ${provider.examDetailsHiveData[index].grade}',
+  //                 style: const TextStyle(
+  //                   fontSize: 12,
+  //                   color: AppColors.whiteColor,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 10),
+  //               Icon(
+  //                 Icons.grade,
+  //                 color: AppColors.theme02buttonColor2,
+  //                 size: 16,
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 15),
+  //
+  //           Row(
+  //             children: [
+  //               const SizedBox(width: 30),
+  //               Expanded(
+  //                 child: Text(
+  //                   provider.examDetailsHiveData[index].semester!.isEmpty
+  //                       ? 'SEMESTER  -'
+  //                       : 'SEMESTER ${provider.examDetailsHiveData[index].semester}',
+  //                   style: const TextStyle(
+  //                     fontSize: 12,
+  //                     color: AppColors.whiteColor,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 30),
+  //               Expanded(
+  //                 child: Text(
+  //                   provider.examDetailsHiveData[index].credit!.isEmpty
+  //                       ? 'CREDIT -'
+  //                       : 'CREDIT ${provider.examDetailsHiveData[index].credit}',
+  //                   style: const TextStyle(
+  //                     fontSize: 12,
+  //                     color: AppColors.whiteColor,
+  //                     fontWeight: FontWeight.bold,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 15),
+  //           const Divider(
+  //             color: AppColors.grey4,
+  //             height: 1,
+  //           ),
+  //
+  //           const SizedBox(height: 15),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             children: [
+  //               Column(
+  //                 children: [
+  //                   const Text(
+  //                     'INTERNAL',
+  //                     style: TextStyles.fontStyle3,
+  //                   ),
+  //                   const SizedBox(height: 10),
+  //                   CircularPercentIndicator(
+  //                     radius: 50,
+  //                     lineWidth: 15,
+  //                     animation: true,
+  //                     animationDuration: 1000,
+  //                     percent: internalResult,
+  //                     center: Text(
+  //                       provider.examDetailsHiveData[index].internal!.isEmpty
+  //                           ? '-'
+  //                           : '${provider.examDetailsHiveData[index].internal}',
+  //                       style: const TextStyle(
+  //                         fontSize: 18,
+  //                         fontWeight: FontWeight.bold,
+  //                         color: AppColors.whiteColor,
+  //                       ),
+  //                     ),
+  //                     circularStrokeCap: CircularStrokeCap.round,
+  //                     progressColor: AppColors.theme02buttonColor2,
+  //                     backgroundColor: AppColors.whiteColor,
+  //                   ),
+  //                 ],
+  //               ),
+  //               const SizedBox(width: 20),
+  //               Column(
+  //                 children: [
+  //                   const Text(
+  //                     'EXTERNAL',
+  //                     style: TextStyles.fontStyle3,
+  //                   ),
+  //                   const SizedBox(height: 10),
+  //                   CircularPercentIndicator(
+  //                     radius: 50,
+  //                     lineWidth: 15,
+  //                     animation: true,
+  //                     animationDuration: 1000,
+  //                     percent: internalResult,
+  //                     center: Text(
+  //                       provider.examDetailsHiveData[index].external!.isEmpty
+  //                           ? '-'
+  //                           : '${provider.examDetailsHiveData[index].external}',
+  //                       style: const TextStyle(
+  //                         fontSize: 18,
+  //                         fontWeight: FontWeight.bold,
+  //                         color: AppColors.whiteColor,
+  //                       ),
+  //                     ),
+  //                     circularStrokeCap: CircularStrokeCap.round,
+  //                     progressColor: AppColors.theme02buttonColor2,
+  //                     backgroundColor: AppColors.whiteColor,
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 20),
+  //           Divider(
+  //             thickness: 2,
+  //             color: AppColors.theme02secondaryColor1,
+  //             height: 1,
+  //           ),
+  //
+  //           const SizedBox(height: 10),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

@@ -9,6 +9,7 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class Theme02CalendarPage extends ConsumerStatefulWidget {
   const Theme02CalendarPage({super.key});
@@ -206,7 +207,7 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                         const SizedBox(width: 20),
                         Expanded(
                           child: Text(
-                            '${provider.calendarHiveData[index].dayorder}' == ''
+                            '${provider.calendarHiveData[index].day}' == ''
                                 ? '-'
                                 : '${provider.calendarHiveData[index].day}',
                             style: TextStyle(
@@ -226,7 +227,7 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                   SizedBox(
                     // width: width / 2 - 60,
                     child: Text(
-                      '${provider.calendarHiveData[index].daystatus}' == ''
+                      '${provider.calendarHiveData[index].holidaystatus}' == ''
                           ? '-'
                           : '${provider.calendarHiveData[index].holidaystatus}',
                       style: TextStyle(
@@ -266,6 +267,43 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                       '${provider.calendarHiveData[index].weekdayno}' == ''
                           ? '-'
                           : 'Week Day No ${provider.calendarHiveData[index].weekdayno}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: provider.calendarHiveData[index].holidaystatus ==
+                                '0'
+                            ? AppColors.whiteColor
+                            : AppColors.whiteColor,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    // width: width / 2 - 60,
+                    child: Text(
+                      '${provider.calendarHiveData[index].daystatus}' == ''
+                          ? '-'
+                          : '${provider.calendarHiveData[index].daystatus} ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: provider.calendarHiveData[index].holidaystatus ==
+                                '0'
+                            ? AppColors.whiteColor
+                            : AppColors.whiteColor,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    // width: width / 2 - 20,
+                    child: Text(
+                      '${provider.calendarHiveData[index].date}' == ''
+                          ? '-'
+                          : 'Date :${provider.calendarHiveData[index].date}',
                       style: TextStyle(
                         fontSize: 18,
                         color: provider.calendarHiveData[index].holidaystatus ==

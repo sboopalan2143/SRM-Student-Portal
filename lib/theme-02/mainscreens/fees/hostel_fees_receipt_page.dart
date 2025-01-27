@@ -113,22 +113,42 @@ class _Theme02FeesReceiptPageState
               SizedBox(
                 height: height * 0.02,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
-                child: ListView.builder(
-                  itemCount: provider.navFeesString == 'Paid Details'
-                      ? provider.feesDetailsData.length
-                      : provider.financeHiveData.length,
-                  controller: _listController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return provider.navFeesString == 'Paid Details'
-                        ? cardDesign(index)
-                        : cardDesignTrans(index);
-                  },
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Get unique terms from the data
+                    ...provider.financeHiveData
+                        .map((data) => data.term)
+                        .toSet() // Ensure unique terms
+                        .map((term) {
+                      return ExpansionTile(
+                        title: Text(
+                          '$term', // Use the term value
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.theme06primaryColor,
+                          ),
+                        ),
+                        initiallyExpanded: false,
+                        // Start collapsed by default
+                        backgroundColor:
+                            AppColors.theme02primaryColor.withOpacity(0.2),
+                        iconColor: AppColors.whiteColor,
+                        textColor: AppColors.whiteColor,
+                        children: [
+                          // Filter data by the unique term and map to cardDesignTrans
+                          ...provider.financeHiveData
+                              .where((item) => item.term == term)
+                              .map((filteredData) {
+                            final index =
+                                provider.financeHiveData.indexOf(filteredData);
+                            return cardDesignTrans(index);
+                          }).toList(),
+                        ],
+                      );
+                    }).toList(),
+                  ],
                 ),
               ),
             ],
@@ -329,7 +349,7 @@ class _Theme02FeesReceiptPageState
     final provider = ref.watch(feesProvider);
     log('${provider.financeHiveData[index].receiptnum}');
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

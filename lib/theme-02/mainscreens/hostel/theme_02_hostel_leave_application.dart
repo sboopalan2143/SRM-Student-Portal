@@ -253,7 +253,7 @@ class _Theme02LeaveApplicationPageState
                             child: TextField(
                               controller: provider.leaveReason,
                               maxLines: 4,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               style: TextStyles.fontStyle2,
                               decoration: InputDecoration(
                                 filled: true,

@@ -153,7 +153,7 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
                       const Expanded(
                         child: Center(
                           child: Text(
-                            'Not Register',
+                            'Hostel Not Registered',
                             style: TextStyles.fontStyle6,
                           ),
                         ),
@@ -178,7 +178,7 @@ class _Theme02HostelPageState extends ConsumerState<Theme02HostelPage> {
                       ),
                       const Center(
                         child: Text(
-                          'No List Added Yet!',
+                          '',
                           style: TextStyles.fontStyle6,
                         ),
                       ),

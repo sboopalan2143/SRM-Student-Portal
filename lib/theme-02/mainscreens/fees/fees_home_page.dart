@@ -98,7 +98,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Fees',
+            'Fee',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),
@@ -206,7 +206,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Fees Due',
+                          'Fee Due',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -281,7 +281,7 @@ class _FeesDetailsHomePageState extends ConsumerState<FeesDetailsHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Fees Receipt',
+                          'Fee Receipt',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

@@ -98,7 +98,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Fees Due',
+            'Fee Due',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),
@@ -130,8 +130,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                           ),
                           initiallyExpanded: false,
                           // Start collapsed by default
-                          backgroundColor:
-                              AppColors.theme02primaryColor.withOpacity(0.2),
+                          backgroundColor: AppColors.grey3,
                           iconColor: AppColors.whiteColor,
                           textColor: AppColors.whiteColor,
                           children: [
@@ -185,7 +184,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Due name',
+                      'Fee Head',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -211,85 +210,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Amt collected',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].amtcollected}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].amtcollected}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Current due',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].currentdue}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].currentdue}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due amount',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].dueamount}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].dueamount}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due date',
+                      'Due Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -315,7 +236,7 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Due description',
+                      'Due Amount',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -327,9 +248,61 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.feesDetailsData[index].duedescription}' == ''
+                      '${provider.feesDetailsData[index].dueamount}' == ''
                           ? '-'
-                          : '${provider.feesDetailsData[index].duedescription}',
+                          : '${provider.feesDetailsData[index].dueamount}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Amount Collected',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feesDetailsData[index].amtcollected}' == ''
+                          ? '-'
+                          : '${provider.feesDetailsData[index].amtcollected}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Current Due',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.feesDetailsData[index].currentdue}' == ''
+                          ? '-'
+                          : '${provider.feesDetailsData[index].currentdue}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

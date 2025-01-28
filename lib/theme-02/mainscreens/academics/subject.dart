@@ -90,7 +90,7 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Subject',
+            'Course',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),
@@ -176,8 +176,7 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
                           ),
                           initiallyExpanded: false,
                           // Start collapsed by default
-                          backgroundColor:
-                              AppColors.theme02primaryColor.withOpacity(0.2),
+                          backgroundColor: AppColors.grey3,
                           iconColor: AppColors.whiteColor,
                           textColor: AppColors.whiteColor,
                           children: [
@@ -209,94 +208,238 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
     );
   }
 
+  // Widget cardDesign(List<String> subjectData) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         gradient: LinearGradient(
+  //           colors: [
+  //             AppColors.theme02primaryColor,
+  //             AppColors.theme02secondaryColor1,
+  //           ],
+  //           begin: Alignment.topCenter,
+  //           end: Alignment.bottomCenter,
+  //         ),
+  //         borderRadius: BorderRadius.circular(20),
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             const SizedBox(height: 10),
+  //             Row(
+  //               children: [
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'SEMESTER : ${subjectData[0]}',
+  //                     style: TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.theme02buttonColor2,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Code : ${subjectData[1]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 15),
+  //             const Divider(
+  //               color: AppColors.grey4,
+  //               height: 1,
+  //             ),
+  //             const SizedBox(height: 15),
+  //             Row(
+  //               children: [
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Course : ${subjectData[2]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(width: 30),
+  //                 Expanded(
+  //                   child: Text(
+  //                     'Credit : ${subjectData[3]}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       color: AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 20),
+  //             Divider(
+  //               thickness: 2,
+  //               color: AppColors.theme02secondaryColor1,
+  //               height: 1,
+  //             ),
+  //             const SizedBox(height: 10),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget cardDesign(List<String> subjectData) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.theme02primaryColor,
-              AppColors.theme02secondaryColor1,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+          color: Colors.white, // Clean background
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          border: Border.all(
+            color: Colors.grey.shade300,
+            width: 1,
           ),
-          borderRadius: BorderRadius.circular(20),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Row(
+        child: Column(
+          children: [
+            // Header Section
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              decoration: const BoxDecoration(
+                color: Colors.white, // Light blue header background
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(width: 30),
-                  Expanded(
-                    child: Text(
-                      'SEMESTER : ${subjectData[0]}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.theme02buttonColor2,
-                        fontWeight: FontWeight.bold,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Semester',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
+                      Text(
+                        subjectData[0],
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.blue.shade800,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 30),
-                  Expanded(
-                    child: Text(
-                      'Code : ${subjectData[1]}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Code',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
+                      Text(
+                        subjectData[1],
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.blue.shade800,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
-              const Divider(
-                color: AppColors.grey4,
-                height: 1,
-              ),
-              const SizedBox(height: 15),
-              Row(
+            ),
+            // Divider
+            Divider(
+              color: Colors.grey.shade300,
+              thickness: 1,
+            ),
+            // Details Section
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(width: 30),
                   Expanded(
-                    child: Text(
-                      'Subject : ${subjectData[2]}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Course',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.shade600,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          subjectData[2],
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 30),
-                  Expanded(
-                    child: Text(
-                      'Credit : ${subjectData[3]}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Credit',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
+                      Text(
+                        subjectData[3],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              Divider(
-                thickness: 2,
-                color: AppColors.theme02secondaryColor1,
-                height: 1,
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
+            ),
+            // Footer Section
+          ],
         ),
       ),
     );

@@ -518,16 +518,16 @@ class _Theme02LibraryBookSearchState
                 'Author Name',
                 provider.librarysearchData[index].authorname,
               ),
-              buildInfoRow(
-                Icons.apartment,
-                'Department',
-                provider.librarysearchData[index].department,
-              ),
-              buildInfoRow(
-                Icons.category,
-                'Classification',
-                provider.librarysearchData[index].classificationNumber,
-              ),
+              // buildInfoRow(
+              //   Icons.apartment,
+              //   'Department',
+              //   provider.librarysearchData[index].department,
+              // ),
+              // buildInfoRow(
+              //   Icons.category,
+              //   'Classification',
+              //   provider.librarysearchData[index].classificationNumber,
+              // ),
               buildInfoRow(
                 Icons.info,
                 'Edition',
@@ -535,11 +535,11 @@ class _Theme02LibraryBookSearchState
               ),
               // buildInfoRow(Icons.availability, 'Availability',
               // provider.librarysearchData[index].availability),
-              buildInfoRow(
-                Icons.bookmark,
-                'Book Number',
-                provider.librarysearchData[index].booknumber,
-              ),
+              // buildInfoRow(
+              //   Icons.bookmark,
+              //   'Book Number',
+              //   provider.librarysearchData[index].booknumber,
+              // ),
               const SizedBox(height: 15),
               // Divider
               const Divider(height: 1, color: AppColors.whiteColor),

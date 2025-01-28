@@ -275,22 +275,68 @@ class _Theme02InternalMarksPageState
                   ),
                   const SizedBox(width: 12),
                   LinearPercentIndicator(
-                    trailing: Text(
-                      '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
-                                  '' ||
-                              '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
-                                  'null'
-                          ? '-'
-                          : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                    trailing: SizedBox(
+                      width: width / 5,
+                      child: Text(
+                        (provider.internalMarkHiveData[index].sumofmaxmarks ==
+                                    null ||
+                                provider
+                                    .internalMarkHiveData[index].sumofmaxmarks
+                                    .toString()
+                                    .isEmpty)
+                            ? '-'
+                            : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: AppColors.theme02buttonColor2,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
                     ),
-                    width: MediaQuery.of(context).size.width - 250,
+                    width: MediaQuery.of(context).size.width - 255,
                     animation: true,
                     lineHeight: 10,
                     animationDuration: 1000,
-                    percent: externalResult,
+                    percent:
+                        (provider.internalMarkHiveData[index].sumofmarks !=
+                                    null &&
+                                provider.internalMarkHiveData[index]
+                                        .sumofmaxmarks !=
+                                    null &&
+                                double.tryParse(provider
+                                        .internalMarkHiveData[index]
+                                        .sumofmaxmarks
+                                        .toString())! >
+                                    0)
+                            ? (double.tryParse(provider
+                                    .internalMarkHiveData[index].sumofmarks
+                                    .toString())! /
+                                double.tryParse(provider
+                                    .internalMarkHiveData[index].sumofmaxmarks
+                                    .toString())!)
+                            : 0.0,
                     barRadius: const Radius.circular(15),
                     progressColor: AppColors.theme02buttonColor2,
                   ),
+
+                  // LinearPercentIndicator(
+                  //   trailing: Text(
+                  //     '${provider.internalMarkHiveData[index].sumofmarks}' ==
+                  //                 '' ||
+                  //             '${provider.internalMarkHiveData[index].sumofmarks}' ==
+                  //                 'null'
+                  //         ? '-'
+                  //         : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                  //   ),
+                  //   width: MediaQuery.of(context).size.width - 250,
+                  //   animation: true,
+                  //   lineHeight: 10,
+                  //   animationDuration: 1000,
+                  //   percent: externalResult,
+                  //   barRadius: const Radius.circular(15),
+                  //   progressColor: AppColors.theme02buttonColor2,
+                  // ),
                   const SizedBox(height: 20),
                 ],
               ),

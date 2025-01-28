@@ -305,7 +305,7 @@ class _AcademicsHomePageState extends ConsumerState<AcademicsHomePage> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'TimeTable',
+                          'Timetable',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

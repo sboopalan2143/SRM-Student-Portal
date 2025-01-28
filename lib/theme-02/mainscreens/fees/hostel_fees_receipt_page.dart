@@ -98,7 +98,7 @@ class _Theme02FeesReceiptPageState
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Fees Receipt',
+            'Fee Receipt',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),
@@ -132,8 +132,7 @@ class _Theme02FeesReceiptPageState
                         ),
                         initiallyExpanded: false,
                         // Start collapsed by default
-                        backgroundColor:
-                            AppColors.theme02primaryColor.withOpacity(0.2),
+                        backgroundColor: AppColors.grey3,
                         iconColor: AppColors.whiteColor,
                         textColor: AppColors.whiteColor,
                         children: [
@@ -158,191 +157,191 @@ class _Theme02FeesReceiptPageState
     );
   }
 
-  Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
-
-    final provider = ref.watch(feesProvider);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due name',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].duename}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].duename}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Amt collected',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].amtcollected}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].amtcollected}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Current due',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].currentdue}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].currentdue}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due amount',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].dueamount}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].dueamount}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].duedate}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].duedate}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Due description',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.feesDetailsData[index].duedescription}' == ''
-                          ? '-'
-                          : '${provider.feesDetailsData[index].duedescription}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+  //
+  //   final provider = ref.watch(feesProvider);
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.grey.withOpacity(0.2),
+  //             spreadRadius: 5,
+  //             blurRadius: 7,
+  //             offset: const Offset(0, 3),
+  //           ),
+  //         ],
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(20),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Due name',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].duename}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].duename}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Amt collected',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].amtcollected}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].amtcollected}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Current due',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].currentdue}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].currentdue}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Due amount',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].dueamount}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].dueamount}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Due date',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].duedate}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].duedate}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Due description',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.feesDetailsData[index].duedescription}' == ''
+  //                         ? '-'
+  //                         : '${provider.feesDetailsData[index].duedescription}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget cardDesignTrans(int index) {
     final width = MediaQuery.of(context).size.width;
@@ -453,7 +452,7 @@ class _Theme02FeesReceiptPageState
                   SizedBox(
                     width: width / 2 - 70,
                     child: const Text(
-                      'Due Amount',
+                      'Receipt Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -465,35 +464,9 @@ class _Theme02FeesReceiptPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeHiveData[index].dueamount}' == ''
+                      '${provider.financeHiveData[index].receiptdate}' == ''
                           ? '-'
-                          : '${provider.financeHiveData[index].dueamount}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Term',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].term}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].term}',
+                          : '${provider.financeHiveData[index].receiptdate}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -520,32 +493,6 @@ class _Theme02FeesReceiptPageState
                       '${provider.financeHiveData[index].amountcollected}' == ''
                           ? '-'
                           : '${provider.financeHiveData[index].amountcollected}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Received Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].receiptdate}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].receiptdate}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

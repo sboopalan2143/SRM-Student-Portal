@@ -287,37 +287,37 @@ class _Theme02ProfilePageState extends ConsumerState<Theme02ProfilePage> {
                               padding: const EdgeInsets.all(30),
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 15,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 75,
-                                          child: Icon(
-                                            Icons.numbers,
-                                            size: 25,
-                                            color: AppColors
-                                                .theme02secondaryColor1
-                                                .withOpacity(0.8),
-                                          ),
-                                        ),
-                                        Text(
-                                          '${provider.profileDataHive.registerno}' ==
-                                                  ''
-                                              ? '-'
-                                              : '${provider.profileDataHive.registerno}',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: AppColors.blackColor
-                                                .withOpacity(0.7),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     vertical: 15,
+                                  //   ),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       SizedBox(
+                                  //         width: 75,
+                                  //         child: Icon(
+                                  //           Icons.numbers,
+                                  //           size: 25,
+                                  //           color: AppColors
+                                  //               .theme02secondaryColor1
+                                  //               .withOpacity(0.8),
+                                  //         ),
+                                  //       ),
+                                  //       Text(
+                                  //         '${provider.profileDataHive.registerno}' ==
+                                  //                 ''
+                                  //             ? '-'
+                                  //             : '${provider.profileDataHive.registerno}',
+                                  //         style: TextStyle(
+                                  //           fontSize: 16,
+                                  //           color: AppColors.blackColor
+                                  //               .withOpacity(0.7),
+                                  //           fontWeight: FontWeight.bold,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   // Divider(
                                   //   height: 1,
                                   //   color:

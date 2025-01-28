@@ -414,46 +414,6 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Overall Percent',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.OverallattendanceData[index].presentper}' ==
-                              'null'
-                          ? '-'
-                          : '''${provider.OverallattendanceData[index].presentper}''',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
                       'ML',
                       style: const TextStyle(
                         fontSize: 14,
@@ -518,6 +478,46 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                               'null'
                           ? '-'
                           : '''${provider.OverallattendanceData[index].mLODper}''',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Overall Percent',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].presentper}' ==
+                              'null'
+                          ? '-'
+                          : '''${provider.OverallattendanceData[index].presentper}''',
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.whiteColor,

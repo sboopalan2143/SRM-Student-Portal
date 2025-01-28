@@ -8,12 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
-import 'package:sample/home/main_pages/calendar/model/calendar_hive_model.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
 import 'package:sample/home/main_pages/calendar/riverpod/time_table_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 
 //
 // // class Theme02TimetablePageScreen extends ConsumerStatefulWidget {
@@ -716,7 +711,7 @@ class _Theme02TimetablePageScreenState
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: const Text(
-              'Time Table Page',
+              'Timetable',
               style: TextStyles.fontStyle4,
               overflow: TextOverflow.clip,
             ),
@@ -724,7 +719,7 @@ class _Theme02TimetablePageScreenState
             bottom: const TabBar(
               labelColor: Colors.white,
               // Selected tab text and icon color
-              unselectedLabelColor: Colors.grey,
+              unselectedLabelColor: Colors.black,
               // Unselected tab text and icon color
               indicatorColor: Colors.white,
               // Indicator (underline) color
@@ -733,7 +728,7 @@ class _Theme02TimetablePageScreenState
                   text: 'Today',
                 ),
                 Tab(
-                  text: 'Time Table',
+                  text: 'Timetable',
                 ),
               ],
             ),
@@ -1161,7 +1156,7 @@ class _Theme02TimetablePageScreenState
                 children: [
                   // Time slot section
                   Container(
-                    width: width * 0.30,
+                    width: width * 0.20,
                     padding: const EdgeInsets.symmetric(vertical: 40),
                     decoration: BoxDecoration(
                       border: Border(
@@ -1174,26 +1169,26 @@ class _Theme02TimetablePageScreenState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          '${data.dayorderdesc ?? '-'}',
-                          style: TextStyles.fontStyle10
-                              .copyWith(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 10),
+                        // Text(
+                        //   '${data.dayorderdesc ?? '-'}',
+                        //   style: TextStyles.fontStyle10
+                        //       .copyWith(fontWeight: FontWeight.bold),
+                        //   textAlign: TextAlign.center,
+                        // ),
+                        // const SizedBox(height: 10),
                         Text(
                           '${data.hourid ?? '-'}',
                           style: TextStyles.fontStyle10
                               .copyWith(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          '${data.hourtime ?? '-'}',
-                          style: TextStyles.fontStyle10
-                              .copyWith(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                        // const SizedBox(height: 10),
+                        // Text(
+                        //   '${data.hourtime ?? '-'}',
+                        //   style: TextStyles.fontStyle10
+                        //       .copyWith(fontWeight: FontWeight.bold),
+                        //   textAlign: TextAlign.center,
+                        // ),
                       ],
                     ),
                   ),

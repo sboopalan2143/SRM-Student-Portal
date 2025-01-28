@@ -189,59 +189,65 @@ class _Theme02GrievanceEntryPageState
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Grievances Sub Type',
-                    style: TextStyles.alertContentStyle,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(7),
-                      border: Border.all(
-                        color: AppColors.grey2,
+              if (provider
+                      .selectedgrievanceCaregoryDataList.grievancekcategory ==
+                  'Harassment')
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Grievances Sub Type',
+                        style: TextStyles.alertContentStyle,
                       ),
-                    ),
-                    height: 40,
-                    child: DropdownSearch<GrievanceSubTypeHiveData>(
-                      dropdownDecoratorProps: const DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
-                          // border: BorderRadius.circular(10),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(bottom: 2, top: 2),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                            color: AppColors.grey2,
+                          ),
+                        ),
+                        height: 40,
+                        child: DropdownSearch<GrievanceSubTypeHiveData>(
+                          dropdownDecoratorProps: const DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              // border: BorderRadius.circular(10),
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.only(bottom: 2, top: 2),
+                            ),
+                          ),
+                          itemAsString: (item) =>
+                              item.grievancesubcategorydesc!,
+                          items: provider.grievanceSubType,
+                          popupProps: const PopupProps.menu(
+                            constraints: BoxConstraints(maxHeight: 250),
+                          ),
+                          selectedItem:
+                              provider.selectedgrievanceSubTypeDataList,
+                          onChanged: (value) {
+                            readProvider.setsubtype(
+                              value!,
+                            );
+                          },
+                          dropdownBuilder:
+                              (BuildContext context, grievencesSubtype) {
+                            return Text(
+                              '''  ${grievencesSubtype?.grievancesubcategorydesc}''',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
                         ),
                       ),
-                      itemAsString: (item) => item.grievancesubcategorydesc!,
-                      items: provider.grievanceSubType,
-                      popupProps: const PopupProps.menu(
-                        constraints: BoxConstraints(maxHeight: 250),
-                      ),
-                      selectedItem: provider.selectedgrievanceSubTypeDataList,
-                      onChanged: (value) {
-                        readProvider.setsubtype(
-                          value!,
-                        );
-                      },
-                      dropdownBuilder:
-                          (BuildContext context, grievencesSubtype) {
-                        return Text(
-                          '''  ${grievencesSubtype?.grievancesubcategorydesc}''',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        );
-                      },
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
               const SizedBox(
                 height: 20,
               ),

@@ -169,189 +169,331 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
     );
   }
 
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width;
+  //   final provider = ref.watch(calendarProvider);
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 25),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         gradient: LinearGradient(
+  //           colors: [
+  //             AppColors.theme02primaryColor,
+  //             AppColors.theme02secondaryColor1,
+  //           ],
+  //           begin: Alignment.topCenter,
+  //           end: Alignment.bottomCenter,
+  //         ),
+  //         borderRadius: BorderRadius.circular(20),
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(20),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               children: [
+  //                 Expanded(
+  //                   // width: width / 2 - 60,
+  //                   child: Row(
+  //                     children: [
+  //                       SizedBox(
+  //                         width: 15,
+  //                         child: Icon(
+  //                           Icons.calendar_month,
+  //                           color: AppColors.theme02buttonColor2,
+  //                         ),
+  //                       ),
+  //                       const SizedBox(width: 20),
+  //                       Expanded(
+  //                         child: Text(
+  //                           '${provider.calendarHiveData[index].day}' == ''
+  //                               ? '-'
+  //                               : '${provider.calendarHiveData[index].day}',
+  //                           style: TextStyle(
+  //                             fontSize: 25,
+  //                             color: provider.calendarHiveData[index]
+  //                                         .holidaystatus ==
+  //                                     '0'
+  //                                 ? AppColors.whiteColor
+  //                                 : AppColors.whiteColor,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 SizedBox(
+  //                   // width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.calendarHiveData[index].holidaystatus}' == ''
+  //                         ? '-'
+  //                         : '${provider.calendarHiveData[index].holidaystatus}',
+  //                     style: TextStyle(
+  //                       fontSize: 20,
+  //                       color: provider.calendarHiveData[index].holidaystatus ==
+  //                               '0'
+  //                           ? AppColors.whiteColor
+  //                           : AppColors.whiteColor,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 5),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Expanded(
+  //                   // width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.calendarHiveData[index].semester}' == ''
+  //                         ? '-'
+  //                         : 'Semester : ${provider.calendarHiveData[index].semester} ',
+  //                     style: TextStyle(
+  //                       fontSize: 18,
+  //                       color: provider.calendarHiveData[index].holidaystatus ==
+  //                               '0'
+  //                           ? AppColors.whiteColor
+  //                           : AppColors.whiteColor,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Expanded(
+  //                   // width: width / 2 - 20,
+  //                   child: Text(
+  //                     '${provider.calendarHiveData[index].weekdayno}' == ''
+  //                         ? '-'
+  //                         : 'Week Day No ${provider.calendarHiveData[index].weekdayno}',
+  //                     style: TextStyle(
+  //                       fontSize: 18,
+  //                       color: provider.calendarHiveData[index].holidaystatus ==
+  //                               '0'
+  //                           ? AppColors.whiteColor
+  //                           : AppColors.whiteColor,
+  //                     ),
+  //                     textAlign: TextAlign.right,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 5),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Expanded(
+  //                   // width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.calendarHiveData[index].daystatus}' == ''
+  //                         ? '-'
+  //                         : '${provider.calendarHiveData[index].daystatus} ',
+  //                     style: TextStyle(
+  //                       fontSize: 18,
+  //                       color: provider.calendarHiveData[index].holidaystatus ==
+  //                               '0'
+  //                           ? AppColors.whiteColor
+  //                           : AppColors.whiteColor,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Expanded(
+  //                   // width: width / 2 - 20,
+  //                   child: Text(
+  //                     '${provider.calendarHiveData[index].date}' == ''
+  //                         ? '-'
+  //                         : 'Date :${provider.calendarHiveData[index].date}',
+  //                     style: TextStyle(
+  //                       fontSize: 18,
+  //                       color: provider.calendarHiveData[index].holidaystatus ==
+  //                               '0'
+  //                           ? AppColors.whiteColor
+  //                           : AppColors.whiteColor,
+  //                     ),
+  //                     textAlign: TextAlign.right,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             const SizedBox(height: 20),
+  //             if (provider.calendarHiveData[index].remarks != '' ||
+  //                 provider.calendarHiveData[index].remarks != '-')
+  //               Row(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   SizedBox(
+  //                     width: 15,
+  //                     child: Icon(
+  //                       Icons.report,
+  //                       color: AppColors.theme02buttonColor2,
+  //                     ),
+  //                   ),
+  //                   const SizedBox(width: 20),
+  //                   SizedBox(
+  //                     width: width / 1.5,
+  //                     child: Text(
+  //                       '${provider.calendarHiveData[index].remarks}' == ''
+  //                           ? '-'
+  //                           : '${provider.calendarHiveData[index].remarks}',
+  //                       style: TextStyle(
+  //                         fontSize: 14,
+  //                         color:
+  //                             provider.calendarHiveData[index].holidaystatus ==
+  //                                     '0'
+  //                                 ? AppColors.whiteColor
+  //                                 : AppColors.whiteColor,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(calendarProvider);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.theme02primaryColor,
-              AppColors.theme02secondaryColor1,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        // Navigate or perform an action when the card is tapped
+      },
+      child: Column(
+        children: [
+          // if (provider.calendarHiveData[index].dayorder == 'Monday')
+          // Row(
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.only(top: 10, bottom: 10),
+          //       child: Container(
+          //         width: width * 0.89,
+          //         child: Card(
+          //           elevation: 10,
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(10),
+          //           ),
+          //           child: Padding(
+          //             padding: const EdgeInsets.symmetric(vertical: 10),
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.center,
+          //               children: [
+          //                 Text(
+          //                   '${provider.calendarHiveData[index].dayorder ?? '-'}',
+          //                   style: TextStyles.fontStyle.copyWith(
+          //                     fontWeight: FontWeight.bold,
+          //                   ),
+          //                 ),
+          //
+          //                 // Username Input
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Row(
                 children: [
-                  Expanded(
-                    // width: width / 2 - 60,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 15,
-                          child: Icon(
-                            Icons.calendar_month,
-                            color: AppColors.theme02buttonColor2,
-                          ),
+                  // Time slot section
+                  Container(
+                    width: width * 0.25,
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        right: BorderSide(
+                          color: AppColors.theme06primaryColor,
+                          width: 6,
                         ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Text(
-                            '${provider.calendarHiveData[index].day}' == ''
-                                ? '-'
-                                : '${provider.calendarHiveData[index].day}',
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: provider.calendarHiveData[index]
-                                          .holidaystatus ==
-                                      '0'
-                                  ? AppColors.whiteColor
-                                  : AppColors.whiteColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${provider.calendarHiveData[index].dayorder ?? '-'}',
+                          style: TextStyles.fontStyle10
+                              .copyWith(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '${provider.calendarHiveData[index].date ?? '-'}',
+                          style: TextStyles.fontStyle10
+                              .copyWith(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    // width: width / 2 - 60,
-                    child: Text(
-                      '${provider.calendarHiveData[index].holidaystatus}' == ''
-                          ? '-'
-                          : '${provider.calendarHiveData[index].holidaystatus}',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: provider.calendarHiveData[index].holidaystatus ==
-                                '0'
-                            ? AppColors.whiteColor
-                            : AppColors.whiteColor,
-                        fontWeight: FontWeight.bold,
+                  // Session details sect
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Semester : ${provider.calendarHiveData[index].semester ?? '-'}',
+                            style: TextStyles.fontStyle8
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Daystatus : ${provider.calendarHiveData[index].daystatus ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black87),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Remarks : ${provider.calendarHiveData[index].remarks ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black54),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Weekdayno : ${provider.calendarHiveData[index].weekdayno ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black54),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Holidaystatus : ${provider.calendarHiveData[index].holidaystatus ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black54),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    // width: width / 2 - 60,
-                    child: Text(
-                      '${provider.calendarHiveData[index].semester}' == ''
-                          ? '-'
-                          : '${provider.calendarHiveData[index].semester} Semester',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: provider.calendarHiveData[index].holidaystatus ==
-                                '0'
-                            ? AppColors.whiteColor
-                            : AppColors.whiteColor,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    // width: width / 2 - 20,
-                    child: Text(
-                      '${provider.calendarHiveData[index].weekdayno}' == ''
-                          ? '-'
-                          : 'Week Day No ${provider.calendarHiveData[index].weekdayno}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: provider.calendarHiveData[index].holidaystatus ==
-                                '0'
-                            ? AppColors.whiteColor
-                            : AppColors.whiteColor,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    // width: width / 2 - 60,
-                    child: Text(
-                      '${provider.calendarHiveData[index].daystatus}' == ''
-                          ? '-'
-                          : '${provider.calendarHiveData[index].daystatus} ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: provider.calendarHiveData[index].holidaystatus ==
-                                '0'
-                            ? AppColors.whiteColor
-                            : AppColors.whiteColor,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    // width: width / 2 - 20,
-                    child: Text(
-                      '${provider.calendarHiveData[index].date}' == ''
-                          ? '-'
-                          : 'Date :${provider.calendarHiveData[index].date}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: provider.calendarHiveData[index].holidaystatus ==
-                                '0'
-                            ? AppColors.whiteColor
-                            : AppColors.whiteColor,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              if (provider.calendarHiveData[index].remarks != '' ||
-                  provider.calendarHiveData[index].remarks != '-')
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 15,
-                      child: Icon(
-                        Icons.report,
-                        color: AppColors.theme02buttonColor2,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    SizedBox(
-                      width: width / 1.5,
-                      child: Text(
-                        '${provider.calendarHiveData[index].remarks}' == ''
-                            ? '-'
-                            : '${provider.calendarHiveData[index].remarks}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color:
-                              provider.calendarHiveData[index].holidaystatus ==
-                                      '0'
-                                  ? AppColors.whiteColor
-                                  : AppColors.whiteColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

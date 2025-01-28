@@ -236,7 +236,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                           ),
                           const SizedBox(width: 8),
                           const Text(
-                            'Subject Code : ',
+                            'Course Code : ',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -250,6 +250,28 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.theme02buttonColor2,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.description,
+                            color: AppColors.theme02buttonColor2,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Course : ${provider.lmsSubjectData[index].subjectdesc}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
                               ),
                             ),
                           ),
@@ -293,29 +315,6 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 12),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.description,
-                            color: AppColors.theme02buttonColor2,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              'Description : ${provider.lmsSubjectData[index].subjectdesc}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
                             ),
                           ),
                         ],

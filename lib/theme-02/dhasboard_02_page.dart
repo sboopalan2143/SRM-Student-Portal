@@ -25,6 +25,7 @@ import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_mo
 import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
 import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
@@ -946,6 +947,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 16),
+
                             SizedBox(
                               width: 200,
                               child: Container(
@@ -996,7 +998,39 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               ),
                             ),
 
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      RouteDesign(
+                                        route: const Theme02FeesDuePage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.redColor,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: const Text(
+                                      'View',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
                           ],
                         ),
                       ),
@@ -1961,6 +1995,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
 
   Widget cardDesignAttendanceHrs() {
     final provider = ref.watch(overallattendanceProvider);
+    // final provider = ref.watch(DhasboardoverallattendanceProvider);
 
     final totalPresent = provider.OverallattendanceData.fold<int>(
       0,

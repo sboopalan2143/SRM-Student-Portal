@@ -417,7 +417,7 @@ class _Theme02ExamDetailsPageThemeState
             SingleChildScrollView(
               child: Column(
                 children: [
-                  for (int i = 1; i <= 8; i++) ...[
+                  for (int i = 8; i >= 1; i--) ...[
                     if (provider.examDetailsHiveData
                         .any((data) => data.semester == '$i')) ...[
                       ExpansionTile(
@@ -430,8 +430,7 @@ class _Theme02ExamDetailsPageThemeState
                           ),
                         ),
                         initiallyExpanded: false,
-                        // Start collapsed by default
-                        backgroundColor: AppColors.grey3,
+                        backgroundColor: AppColors.theme06ashColor,
                         iconColor: AppColors.whiteColor,
                         textColor: AppColors.whiteColor,
                         children: [

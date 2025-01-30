@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
@@ -19,12 +17,6 @@ class Theme02SubjectPage extends ConsumerStatefulWidget {
 
 class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
   final ScrollController _listController = ScrollController();
-
-  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
-
-  // static int refreshNum = 10;
-  // Stream<int> counterStream =
-  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -158,11 +150,11 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
               //     return cardDesign(index);
               //   },
               // ),
-
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    for (int i = 1; i <= 8; i++) ...[
+                    // Reverse the loop to display semesters in reverse order (anticlockwise)
+                    for (int i = 8; i >= 1; i--) ...[
                       if (provider.subjectHiveData.any((data) =>
                           data.subjectdetails!.split('##')[0] == '$i')) ...[
                         ExpansionTile(
@@ -176,8 +168,8 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
                           ),
                           initiallyExpanded: false,
                           // Start collapsed by default
-                          backgroundColor: AppColors.grey3,
-                          iconColor: AppColors.whiteColor,
+                          backgroundColor: AppColors.theme06ashColor,
+                          iconColor: AppColors.blackColor,
                           textColor: AppColors.whiteColor,
                           children: [
                             ...provider.subjectHiveData
@@ -199,12 +191,54 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
                     ]
                   ],
                 ),
-              ),
+              )
+
+              // SingleChildScrollView(
+              //   child: Column(
+              //     children: [
+              //       for (int i = 1; i <= 8; i++) ...[
+              //         if (provider.subjectHiveData.any((data) =>
+              //             data.subjectdetails!.split('##')[0] == '$i')) ...[
+              //           ExpansionTile(
+              //             title: Text(
+              //               'Semester $i',
+              //               style: TextStyle(
+              //                 fontSize: 18,
+              //                 fontWeight: FontWeight.bold,
+              //                 color: AppColors.theme06primaryColor,
+              //               ),
+              //             ),
+              //
+              //             initiallyExpanded: false,
+              //             // Start collapsed by default
+              //             backgroundColor: AppColors.theme06ashColor,
+              //             iconColor: AppColors.blackColor,
+              //             textColor: AppColors.whiteColor,
+              //             children: [
+              //               ...provider.subjectHiveData
+              //                   .where((data) =>
+              //                       data.subjectdetails!.split('##')[0] == '$i')
+              //                   .map((data) {
+              //                 final subjectData =
+              //                     data.subjectdetails!.split('##');
+              //                 return cardDesign(subjectData);
+              //               }).toList(),
+              //             ],
+              //           ),
+              //           const Divider(
+              //             height: 1,
+              //             thickness: 1,
+              //             color: AppColors.grey4,
+              //           ),
+              //         ]
+              //       ]
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 
@@ -317,7 +351,6 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
           ],
           border: Border.all(
             color: Colors.grey.shade300,
-            width: 1,
           ),
         ),
         child: Column(

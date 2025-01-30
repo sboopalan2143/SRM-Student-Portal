@@ -56,7 +56,7 @@ class _Theme02RegistrationPageState
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is HostelStateSuccessful) {
         /// Handle route to next page.
-        _showToast(context, next.successMessage, AppColors.greenColor);
+        // _showToast(context, next.successMessage, AppColors.greenColor);
       }
     });
 

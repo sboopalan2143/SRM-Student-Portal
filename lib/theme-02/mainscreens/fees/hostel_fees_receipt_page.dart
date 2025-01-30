@@ -373,6 +373,32 @@ class _Theme02FeesReceiptPageState
                   SizedBox(
                     width: width / 2 - 70,
                     child: const Text(
+                      'Fee Head',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.financeHiveData[index].duename}' == ''
+                          ? '-'
+                          : '${provider.financeHiveData[index].duename}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 70,
+                    child: const Text(
                       'Receipt No',
                       style: TextStyles.fontStyle10,
                     ),
@@ -393,59 +419,33 @@ class _Theme02FeesReceiptPageState
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Due Date',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].duedate}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].duedate}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 70,
-                    child: const Text(
-                      'Mode of Transaction',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.financeHiveData[index].modeoftransaction}' ==
-                              ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].modeoftransaction}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.end,
+              //   children: [
+              //     SizedBox(
+              //       width: width / 2 - 70,
+              //       child: const Text(
+              //         'Due Date',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //     const Text(
+              //       ':',
+              //       style: TextStyles.fontStyle10,
+              //     ),
+              //     const SizedBox(width: 5),
+              //     SizedBox(
+              //       width: width / 2 - 60,
+              //       child: Text(
+              //         '${provider.financeHiveData[index].duedate}' == ''
+              //             ? '-'
+              //             : '${provider.financeHiveData[index].duedate}',
+              //         style: TextStyles.fontStyle10,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -478,7 +478,34 @@ class _Theme02FeesReceiptPageState
                   SizedBox(
                     width: width / 2 - 70,
                     child: const Text(
-                      'Amount Collected',
+                      'Mode of Payment',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.financeHiveData[index].modeoftransaction}' ==
+                              ''
+                          ? '-'
+                          : '${provider.financeHiveData[index].modeoftransaction}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 70,
+                    child: const Text(
+                      'Amount Paid',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

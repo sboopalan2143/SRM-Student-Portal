@@ -11,6 +11,7 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_pdf_view_page.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_pdf_view_page.dart';
 
 class Theme02LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   const Theme02LmsAttachmentDetailsDataPage({
@@ -250,7 +251,7 @@ class Theme02LmsAttachmentDetailsDataPageState
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => Theme01PDFViewPage(
+              builder: (_) => Theme02PDFViewPage(
                 pdfData: fileBytes,
                 fileName: actualname,
               ),

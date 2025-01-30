@@ -62,6 +62,10 @@ dependencies:
   pie_chart:
   flutter_launcher_icons: ^0.14.3
   persistent_bottom_nav_bar:
+  pdfx:
+  flutter_tts:
+  flutter_pdf_text:
+  syncfusion_flutter_pdf:
 
 dev_dependencies:
   flutter_test:

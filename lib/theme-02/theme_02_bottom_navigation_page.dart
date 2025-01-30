@@ -40,7 +40,7 @@ class _Theme02MainScreenPageState extends ConsumerState<Theme02MainScreenPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_sharp),
-            label: 'Dhasboard',
+            label: 'Dashboard',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

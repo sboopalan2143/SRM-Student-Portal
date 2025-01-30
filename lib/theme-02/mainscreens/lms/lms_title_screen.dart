@@ -249,7 +249,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                 Row(
                   children: [
                     const Text(
-                      'Title : ',
+                      'Work Type : ',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -260,7 +260,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                       child: Text(
                         '${provider.lmsTitleData[index].title}' == 'null'
                             ? '-'
-                            : '${provider.lmsTitleData[index].title}',
+                            : '${provider.lmsTitleData[index].classworktypedesc}',
                         style: TextStyle(
                           color: AppColors.theme02buttonColor2,
                           fontSize: 18,
@@ -275,7 +275,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                 Row(
                   children: [
                     const Text(
-                      'Subject Description: ',
+                      'Title: ',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -287,7 +287,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                         '${provider.lmsTitleData[index].classworktypedesc}' ==
                                 'null'
                             ? '-'
-                            : '${provider.lmsTitleData[index].classworktypedesc}',
+                            : '${provider.lmsTitleData[index].title}',
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 16,
@@ -358,26 +358,29 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                             route: Theme02LmsClassworkDetailPage(
                               classworkID:
                                   '${provider.lmsTitleData[index].classworkid}',
+                              // classworkreplyid:
+                              //     '${provider.classWorkDetailsData[index].classworkid}',
                             ),
                           ),
                         );
                       },
                     ),
-                    _buildActionButton(
-                      label: 'Comments',
-                      icon: Icons.comment,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          RouteDesign(
-                            route: Theme02LmsCommentScreen(
-                              classworkID:
-                                  '${provider.lmsTitleData[index].classworkid}',
+                    if (provider.lmsTitleData[index].classcomment != '0')
+                      _buildActionButton(
+                        label: 'Comments',
+                        icon: Icons.comment,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: Theme02LmsCommentScreen(
+                                classworkID:
+                                    '${provider.lmsTitleData[index].classworkid}',
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
                     if (provider.lmsTitleData[index].privatecomment != '0')
                       _buildActionButton(
                         label: 'Faculty Chat',

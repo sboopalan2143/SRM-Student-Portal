@@ -479,12 +479,12 @@ class _Theme02CalendarPageState extends ConsumerState<Theme02CalendarPage> {
                             style: TextStyles.fontStyle10
                                 .copyWith(color: Colors.black54),
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Holidaystatus : ${provider.calendarHiveData[index].holidaystatus ?? '-'}',
-                            style: TextStyles.fontStyle10
-                                .copyWith(color: Colors.black54),
-                          ),
+                          // const SizedBox(height: 5),
+                          // Text(
+                          //   'Holidaystatus : ${provider.calendarHiveData[index].holidaystatus ?? '-'}',
+                          //   style: TextStyles.fontStyle10
+                          //       .copyWith(color: Colors.black54),
+                          // ),
                         ],
                       ),
                     ),

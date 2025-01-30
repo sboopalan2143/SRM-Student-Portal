@@ -10,6 +10,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_state.dart';
 import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
 import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
@@ -29,6 +30,10 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref
+          .read(DhasboardoverallattendanceProvider.notifier)
+          .getDhasboardOverallAttendanceDetails(
+              ref.read(encryptionProvider.notifier));
       await ref.read(hostelProvider.notifier).getHostelNameHiveData('');
       await ref.read(hostelProvider.notifier).getRoomTypeHiveData('');
 
@@ -360,47 +365,208 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
     );
   }
 
+  // Widget cardDesignAttendanceHrs() {
+  //   final provider = ref.watch(overallattendanceProvider);
+  //   // final provider = ref.watch(DhasboardoverallattendanceProvider);
+  //
+  //   final totalPresent = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.present ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalAbsent = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalML = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.ml ?? '0') ?? 0),
+  //   );
+  //
+  //   final totalMLOD = provider.OverallattendanceData.fold<int>(
+  //     0,
+  //     (sum, item) => sum + (int.tryParse(item.mLODper ?? '0') ?? 0),
+  //   );
+  //
+  //   // Calculate total sessions
+  //   final totalSessions = totalPresent + totalAbsent;
+  //
+  //   // Calculate overall percentage (weighted average)
+  //   final overallPercentage =
+  //       totalSessions > 0 ? (totalPresent / totalSessions * 100) : 0.0;
+  //
+  //   // Calculate present percentage
+  //   final presentPercentage =
+  //       totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
+  //
+  //   // Calculate absent percentage
+  //   final absentPercentage =
+  //       totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+  //
+  //   log('Present % >>> $presentPercentage');
+  //   log('Overall % >>> $overallPercentage');
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20),
+  //     child: Column(
+  //       children: [
+  //         const Text(
+  //           'Attendance Hours',
+  //           style: TextStyle(
+  //             fontSize: 18,
+  //             fontWeight: FontWeight.bold,
+  //             color: AppColors.blackColor,
+  //           ),
+  //         ),
+  //         const SizedBox(height: 20),
+  //         CircularPercentIndicator(
+  //           radius: 60,
+  //           lineWidth: 10,
+  //           percent: 1.0,
+  //           center: Stack(
+  //             children: [
+  //               // Present Circle (Green)
+  //               CircularPercentIndicator(
+  //                 radius: 60,
+  //                 lineWidth: 10,
+  //                 percent: presentPercentage,
+  //                 progressColor: Colors.green,
+  //                 backgroundColor: Colors.transparent,
+  //                 circularStrokeCap: CircularStrokeCap.round,
+  //               ),
+  //               // Absent Circle (Red)
+  //               CircularPercentIndicator(
+  //                 radius: 60,
+  //                 lineWidth: 10,
+  //                 percent: absentPercentage,
+  //                 progressColor: Colors.red,
+  //                 backgroundColor: Colors.transparent,
+  //                 circularStrokeCap: CircularStrokeCap.round,
+  //               ),
+  //             ],
+  //           ),
+  //           backgroundColor: Colors.black26,
+  //           circularStrokeCap: CircularStrokeCap.round,
+  //         ),
+  //         const SizedBox(height: 20),
+  //         Row(
+  //           children: [
+  //             Icon(Icons.group, color: AppColors.theme02buttonColor2, size: 20),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Total: ${totalPresent + totalAbsent}',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: AppColors.primaryColor2,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(Icons.how_to_reg,
+  //                 color: AppColors.theme02buttonColor2, size: 20),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Present: $totalPresent',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.green,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(Icons.person_off,
+  //                 color: AppColors.theme02buttonColor2, size: 20),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Absent: $totalAbsent',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.red,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(Icons.percent,
+  //                 color: AppColors.theme02buttonColor2, size: 20),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: AppColors.primaryColor2,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 5),
+  //         Row(
+  //           children: [
+  //             Icon(Icons.percent,
+  //                 color: AppColors.theme02buttonColor2, size: 20),
+  //             const SizedBox(width: 10),
+  //             Text(
+  //               'Present % : ${(overallPercentage * 100).toStringAsFixed(2)}%',
+  //               style: const TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: AppColors.primaryColor2,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget cardDesignAttendanceHrs() {
-    final provider = ref.watch(overallattendanceProvider);
-    // final provider = ref.watch(DhasboardoverallattendanceProvider);
+    final provider = ref.watch(DhasboardoverallattendanceProvider);
 
-    final totalPresent = provider.OverallattendanceData.fold<int>(
-      0,
-      (sum, item) => sum + (int.tryParse(item.present ?? '0') ?? 0),
-    );
+    if (provider.DhasboardOverallattendanceData.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-    final totalAbsent = provider.OverallattendanceData.fold<int>(
-      0,
-      (sum, item) => sum + (int.tryParse(item.absent ?? '0') ?? 0),
-    );
+    final present = int.tryParse(
+            provider.DhasboardOverallattendanceData.first.totalpresenthours ??
+                '0') ??
+        0;
+    final absent = int.tryParse(
+            provider.DhasboardOverallattendanceData.first.absentcnt ?? '0') ??
+        0;
+    final ml = int.tryParse(
+            provider.DhasboardOverallattendanceData.first.mlcnt ?? '0') ??
+        0;
+    final mlod = int.tryParse(
+            provider.DhasboardOverallattendanceData.first.mlper ?? '0') ??
+        0.0;
+    final absentper = double.tryParse(
+            provider.DhasboardOverallattendanceData.first.absentper ?? '0') ??
+        0.0;
 
-    final totalML = provider.OverallattendanceData.fold<int>(
-      0,
-      (sum, item) => sum + (int.tryParse(item.ml ?? '0') ?? 0),
-    );
-
-    final totalMLOD = provider.OverallattendanceData.fold<int>(
-      0,
-      (sum, item) => sum + (int.tryParse(item.mLODper ?? '0') ?? 0),
-    );
-
-    // Calculate total sessions
-    final totalSessions = totalPresent + totalAbsent;
-
-    // Calculate overall percentage (weighted average)
+    final totalSessions = present + absent;
     final overallPercentage =
-        totalSessions > 0 ? (totalPresent / totalSessions * 100) : 0.0;
-
-    // Calculate present percentage
+        totalSessions > 0 ? (present / totalSessions * 100) : 0.0;
     final presentPercentage =
-        totalSessions > 0 ? (totalPresent / totalSessions) : 0.0;
-
-    // Calculate absent percentage
-    final absentPercentage =
-        totalSessions > 0 ? (totalAbsent / totalSessions) : 0.0;
+        totalSessions > 0 ? (present / totalSessions) : 0.0;
+    final absentPercentage = totalSessions > 0 ? (absent / totalSessions) : 0.0;
 
     log('Present % >>> $presentPercentage');
     log('Overall % >>> $overallPercentage');
+    log('Absent % >>> $absentper');
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -421,7 +587,6 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
             percent: 1.0,
             center: Stack(
               children: [
-                // Present Circle (Green)
                 CircularPercentIndicator(
                   radius: 60,
                   lineWidth: 10,
@@ -430,7 +595,6 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
                   backgroundColor: Colors.transparent,
                   circularStrokeCap: CircularStrokeCap.round,
                 ),
-                // Absent Circle (Red)
                 CircularPercentIndicator(
                   radius: 60,
                   lineWidth: 10,
@@ -450,7 +614,7 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
               Icon(Icons.group, color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
-                'Total: ${totalPresent + totalAbsent}',
+                'Total: $totalSessions',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -466,7 +630,7 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
                   color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
-                'Present: $totalPresent',
+                'Present: $present',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -482,7 +646,7 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
                   color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
-                'Absent: $totalAbsent',
+                'Absent: $absent',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -514,11 +678,27 @@ class _AttendanceHomePageState extends ConsumerState<AttendanceHomePage> {
                   color: AppColors.theme02buttonColor2, size: 20),
               const SizedBox(width: 10),
               Text(
-                'Present % : ${(overallPercentage * 100).toStringAsFixed(2)}%',
+                'Absent % : ${absentper.toStringAsFixed(2)}%',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor2,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Icon(Icons.percent,
+                  color: AppColors.theme02buttonColor2, size: 20),
+              const SizedBox(width: 10),
+              Text(
+                'Mlod % : ${mlod.toStringAsFixed(2)}%',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
                 ),
               ),
             ],

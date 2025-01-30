@@ -172,28 +172,30 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
 
     return GestureDetector(
       onTap: () {},
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+      child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 6),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: Stack(
-          clipBehavior: Clip.none,
+        child: Column(
           children: [
-            // Base Layer
+            // Card Header with Gradient
             Container(
-              height: 250,
+              height: 80,
+              width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
                 gradient: LinearGradient(
                   colors: [
                     AppColors.theme02primaryColor,
@@ -203,182 +205,332 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                   end: Alignment.bottomRight,
                 ),
               ),
-            ),
-            Positioned(
-              top: 20,
-              left: 20,
-              right: 20,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white.withOpacity(0.9),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+              child: Center(
+                child: Text(
+                  provider.lmsSubjectData[index].subjectdesc ?? 'Course Name',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Subject Code
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.code,
-                            color: AppColors.theme02buttonColor2,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            'Course Code : ',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${provider.lmsSubjectData[index].subjectcode}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.theme02buttonColor2,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.description,
-                            color: AppColors.theme02buttonColor2,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              'Course : ${provider.lmsSubjectData[index].subjectdesc}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.person,
-                            color: AppColors.theme02buttonColor2,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              'Staff : ${provider.lmsSubjectData[index].staffname}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      // Staff Name and Credit
-
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: AppColors.theme02buttonColor2,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'subject ID : ${provider.lmsSubjectData[index].subjectid}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
 
-            Positioned(
-              bottom: -20,
-              right: 20,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 8,
-                  backgroundColor: AppColors.theme02buttonColor2,
-                ),
-                onPressed: () {
-                  ref.read(lmsProvider.notifier).getLmsTitleDetails(
-                        ref.read(encryptionProvider.notifier),
-                        '${provider.lmsSubjectData[index].subjectid}',
-                      );
-                  Navigator.push(
-                    context,
-                    RouteDesign(
-                      route: Theme02LmsTitlePage(
-                        subjectID:
+            // Card Content
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _infoRow(Icons.code, 'Course Code',
+                      provider.lmsSubjectData[index].subjectcode),
+                  const SizedBox(height: 8),
+                  _infoRow(Icons.person, 'Staff',
+                      provider.lmsSubjectData[index].staffname),
+                ],
+              ),
+            ),
+
+            // Action Buttons
+            const Divider(height: 1, color: Colors.grey),
+            Row(
+              children: [
+                Expanded(
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                            ref.read(encryptionProvider.notifier),
                             '${provider.lmsSubjectData[index].subjectid}',
-                      ),
-                    ),
-                  );
-                },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'View',
+                          );
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: Theme02LmsTitlePage(
+                            subjectID:
+                                '${provider.lmsSubjectData[index].subjectid}',
+                          ),
+                        ),
+                      );
+                    },
+                    // icon: const Icon(Icons.book, color: Colors.white),
+                    label: Text(
+                      'Classwork Details',
                       style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                          color: AppColors.theme02buttonColor2,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                Container(width: 1, height: 50, color: Colors.grey),
+                Expanded(
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                        ),
                       ),
                     ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: Colors.white,
+                    onPressed: () {
+                      // Implement another functionality
+                    },
+                    // icon: const Icon(Icons.file_copy, color: Colors.white),
+                    label: Text(
+                      'Content Details',
+                      style: TextStyle(
+                          color: AppColors.theme02buttonColor2,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
+
+// Helper method to create info rows
+  Widget _infoRow(IconData icon, String title, String? value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: AppColors.theme02buttonColor2, size: 20),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            '$title: ${value ?? 'N/A'}',
+            style: const TextStyle(fontSize: 14, color: Colors.black87),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Widget cardDesign(int index) {
+  //   final provider = ref.watch(lmsProvider);
+  //
+  //   return GestureDetector(
+  //     onTap: () {},
+  //     child: AnimatedContainer(
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeInOut,
+  //       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(20),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.black.withOpacity(0.1),
+  //             blurRadius: 10,
+  //             offset: const Offset(0, 6),
+  //           ),
+  //         ],
+  //       ),
+  //       child: Stack(
+  //         clipBehavior: Clip.none,
+  //         children: [
+  //           // Base Layer
+  //           Container(
+  //             height: 250,
+  //             decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(20),
+  //               gradient: LinearGradient(
+  //                 colors: [
+  //                   AppColors.theme02primaryColor,
+  //                   AppColors.theme02secondaryColor1,
+  //                 ],
+  //                 begin: Alignment.topLeft,
+  //                 end: Alignment.bottomRight,
+  //               ),
+  //             ),
+  //           ),
+  //           Positioned(
+  //             top: 20,
+  //             left: 20,
+  //             right: 20,
+  //             child: Material(
+  //               color: Colors.transparent,
+  //               child: Container(
+  //                 padding: const EdgeInsets.all(16),
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(15),
+  //                   color: Colors.white.withOpacity(0.9),
+  //                   boxShadow: [
+  //                     BoxShadow(
+  //                       color: Colors.black.withOpacity(0.05),
+  //                       blurRadius: 8,
+  //                       offset: const Offset(0, 4),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     // Subject Code
+  //                     Row(
+  //                       children: [
+  //                         Icon(
+  //                           Icons.code,
+  //                           color: AppColors.theme02buttonColor2,
+  //                           size: 18,
+  //                         ),
+  //                         const SizedBox(width: 8),
+  //                         const Text(
+  //                           'Course Code : ',
+  //                           style: TextStyle(
+  //                             fontSize: 16,
+  //                             fontWeight: FontWeight.bold,
+  //                             color: Colors.black87,
+  //                           ),
+  //                         ),
+  //                         Expanded(
+  //                           child: Text(
+  //                             '${provider.lmsSubjectData[index].subjectcode}',
+  //                             style: TextStyle(
+  //                               fontSize: 16,
+  //                               fontWeight: FontWeight.w500,
+  //                               color: AppColors.theme02buttonColor2,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     const SizedBox(height: 12),
+  //
+  //                     Row(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         Icon(
+  //                           Icons.description,
+  //                           color: AppColors.theme02buttonColor2,
+  //                           size: 18,
+  //                         ),
+  //                         const SizedBox(width: 8),
+  //                         Expanded(
+  //                           child: Text(
+  //                             'Course : ${provider.lmsSubjectData[index].subjectdesc}',
+  //                             style: const TextStyle(
+  //                               fontSize: 14,
+  //                               color: Colors.black87,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     const SizedBox(height: 12),
+  //                     Row(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         Icon(
+  //                           Icons.person,
+  //                           color: AppColors.theme02buttonColor2,
+  //                           size: 18,
+  //                         ),
+  //                         const SizedBox(width: 8),
+  //                         Expanded(
+  //                           child: Text(
+  //                             'Staff : ${provider.lmsSubjectData[index].staffname}',
+  //                             style: const TextStyle(
+  //                               fontSize: 14,
+  //                               color: Colors.black87,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //
+  //                     // Staff Name and Credit
+  //
+  //                     const SizedBox(height: 12),
+  //                     Row(
+  //                       children: [
+  //                         Icon(
+  //                           Icons.star,
+  //                           color: AppColors.theme02buttonColor2,
+  //                           size: 18,
+  //                         ),
+  //                         const SizedBox(width: 8),
+  //                         Text(
+  //                           'Course ID : ${provider.lmsSubjectData[index].subjectid}',
+  //                           style: const TextStyle(
+  //                             fontSize: 14,
+  //                             color: Colors.black87,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //
+  //           Positioned(
+  //             bottom: -20,
+  //             right: 20,
+  //             child: ElevatedButton(
+  //               style: ElevatedButton.styleFrom(
+  //                 padding:
+  //                     const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+  //                 shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(12),
+  //                 ),
+  //                 elevation: 8,
+  //                 backgroundColor: AppColors.theme02buttonColor2,
+  //               ),
+  //               onPressed: () {
+  //                 ref.read(lmsProvider.notifier).getLmsTitleDetails(
+  //                       ref.read(encryptionProvider.notifier),
+  //                       '${provider.lmsSubjectData[index].subjectid}',
+  //                     );
+  //                 Navigator.push(
+  //                   context,
+  //                   RouteDesign(
+  //                     route: Theme02LmsTitlePage(
+  //                       subjectID:
+  //                           '${provider.lmsSubjectData[index].subjectid}',
+  //                     ),
+  //                   ),
+  //                 );
+  //               },
+  //               child: const Row(
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: [
+  //                   Text(
+  //                     'Classwork Details',
+  //                     style: TextStyle(
+  //                       fontSize: 14,
+  //                       fontWeight: FontWeight.bold,
+  //                       color: Colors.white,
+  //                     ),
+  //                   ),
+  //                   SizedBox(width: 8),
+  //                   Icon(
+  //                     Icons.arrow_forward_ios,
+  //                     size: 16,
+  //                     color: Colors.white,
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildRow(String title, String value, double width) {
     return Row(

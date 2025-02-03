@@ -12,6 +12,7 @@ import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
 
 class Theme02LmsTitlePage extends ConsumerStatefulWidget {
@@ -258,7 +259,8 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                     ),
                     Expanded(
                       child: Text(
-                        '${provider.lmsTitleData[index].title}' == 'null'
+                        '${provider.lmsTitleData[index].classworktypedesc}' ==
+                                'null'
                             ? '-'
                             : '${provider.lmsTitleData[index].classworktypedesc}',
                         style: TextStyle(
@@ -358,8 +360,16 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                             route: Theme02LmsClassworkDetailPage(
                               classworkID:
                                   '${provider.lmsTitleData[index].classworkid}',
-                              // classworkreplyid:
-                              //     '${provider.classWorkDetailsData[index].classworkid}',
+                              classworkreplyid:
+                                  '${provider.classWorkDetailsData[index].classworkreplyid}',
+                              classWorkDetailclassworkID:
+                                  '${provider.classWorkDetailsData[index].classworkid}',
+                              classWorkDetailclassworkreplyid:
+                                  '${provider.classWorkDetailsData[index].classworkreplyid}',
+                              fieldrequirements:
+                                  '${provider.classWorkDetailsData[index].fieldrequirement}',
+                              imageattachmentid:
+                                  '${provider.classWorkDetailsData[index].stuimageattachmentid}',
                             ),
                           ),
                         );
@@ -392,6 +402,22 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                               route: Theme02LmsFacultyCommentScreen(
                                 classworkID:
                                     '${provider.lmsTitleData[index].classworkid}',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    if (provider.lmsTitleData[index].classworktypedesc == 'Mcq')
+                      _buildActionButton(
+                        label: 'MCQ Test',
+                        icon: Icons.question_mark_sharp,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: Theme02McqEnteryPage(
+                                mcqscheduleid:
+                                    '${provider.classWorkDetailsData[index].mcqscheduleid}',
                               ),
                             ),
                           );

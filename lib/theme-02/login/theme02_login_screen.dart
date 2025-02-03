@@ -596,17 +596,17 @@ class _Theme02LoginScreenState extends ConsumerState<Theme02LoginScreen>
                     ),
                   ),
 
-                  const SizedBox(height: 20),
-                  const Center(
-                    child: Text(
-                      'Version : 0.01',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black54,
-                        fontFamily: 'Raleway',
-                      ),
-                    ),
-                  ),
+                  // const SizedBox(height: 20),
+                  // const Center(
+                  //   child: Text(
+                  //     'Version : 0.01',
+                  //     style: TextStyle(
+                  //       fontSize: 14,
+                  //       color: Colors.black54,
+                  //       fontFamily: 'Raleway',
+                  //     ),
+                  //   ),
+                  // ),
 
                   const SizedBox(height: 20),
 

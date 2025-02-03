@@ -639,7 +639,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
+                                  // horizontal: 10,
                                   vertical: 10,
                                 ),
                                 child: ListView.builder(

@@ -3,6 +3,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -13,19 +16,32 @@ import 'package:sample/home/main_pages/library/riverpod/library_member_state.dar
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_entry_test_screen.dart';
+import 'package:sample/theme-01/mainscreens/lms/lms_pdf_view_page.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_attachment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_pdf_view_page.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_save_attachment.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_student_attachment_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
 
 class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
   const Theme02LmsClassworkDetailPage({
     required this.classworkID,
+    required this.classworkreplyid,
+    required this.classWorkDetailclassworkID,
+    required this.classWorkDetailclassworkreplyid,
+    required this.fieldrequirements,
+    required this.imageattachmentid,
     super.key,
   });
 
   final String classworkID;
+  final String classworkreplyid;
+  final String classWorkDetailclassworkID;
+  final String classWorkDetailclassworkreplyid;
+  final String fieldrequirements;
+  final String imageattachmentid;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -38,6 +54,7 @@ class _Theme02LmsClassworkDetailPageState
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
+  bool isLoading = false;
   static int refreshNum = 10;
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
@@ -48,6 +65,10 @@ class _Theme02LmsClassworkDetailPageState
         ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
               ref.read(encryptionProvider.notifier),
               widget.classworkID,
+            );
+        ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
+              ref.read(encryptionProvider.notifier),
+              widget.classworkreplyid,
             );
       },
     );
@@ -69,6 +90,42 @@ class _Theme02LmsClassworkDetailPageState
             widget.classworkID,
           );
     });
+  }
+
+  List<String> imagePaths = [];
+  List<String> imageName = [];
+  List<String> sampledata = [];
+  List<Uint8List> imageBytes = [];
+  String sendData = '';
+
+  Future<void> _pickFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.any,
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        // Extracting image paths and names
+        imagePaths = result.files.map((file) => file.path!).toList();
+        imageName = result.files.map((file) => file.name).toList();
+
+        // Reading file bytes
+        imageBytes = imagePaths.map((path) {
+          return File(path).readAsBytesSync();
+        }).toList();
+
+        sampledata.clear();
+
+        for (var i = 0; i < imagePaths.length; i++) {
+          final base64String = base64Encode(imageBytes[i]);
+          sampledata.add('${imageName[i]}!^!$base64String');
+          log('Base64 Encoded Data: $imageBytes');
+          log('Combined Data: $sampledata');
+        }
+        sendData = sampledata.join(', ');
+      });
+    }
   }
 
   @override
@@ -151,23 +208,23 @@ class _Theme02LmsClassworkDetailPageState
               if (provider is LibraryTrancsactionStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
-                  child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                  child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 5),
+                      const Center(
+                        child: Text(
+                          'No List Added Yet!',
+                          style: TextStyles.fontStyle,
+                        ),
+                      ),
+                    ],
                   ),
                 )
               else if (provider.classWorkDetailsData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
-                Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
-                      child: Text(
-                        'No List Added Yet!',
-                        style: TextStyles.fontStyle,
-                      ),
-                    ),
-                  ],
+                Center(
+                  child:
+                      CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               if (provider.classWorkDetailsData.isNotEmpty)
                 ListView.builder(
@@ -458,8 +515,8 @@ class _Theme02LmsClassworkDetailPageState
   //                       ),
   //                     ),
   //                   ),
-  //                 ],
-  //               ),
+  //   ],
+  // ),
   //               const SizedBox(height: 20),
   //             ],
   //           ),
@@ -573,9 +630,12 @@ class _Theme02LmsClassworkDetailPageState
                         children: [
                           SizedBox(
                               height: MediaQuery.of(context).size.height / 5),
-                          Center(
-                              child: CircularProgressIndicators
-                                  .primaryColorProgressIndication),
+                          const Center(
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
                         ],
                       ),
                     if (provider.lmsAttachmentDetailsData.isNotEmpty)
@@ -590,89 +650,416 @@ class _Theme02LmsClassworkDetailPageState
                   ],
                 ),
                 const SizedBox(height: 10),
-
-                // Buttons section
-                Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  alignment: WrapAlignment.center,
-                  children: [
-                    // Attachments button
-                    // SizedBox(
-                    //   height: 30,
-                    //   width: 150,
-                    //   child: GestureDetector(
-                    //     onTap: () {
-                    //       ref
-                    //           .read(lmsProvider.notifier)
-                    //           .getLmsAttachmentDetails(
-                    //             ref.read(encryptionProvider.notifier),
-                    //             '${provider.classWorkDetailsData[index].classworkid}',
-                    //           );
-                    //       Navigator.push(
-                    //         context,
-                    //         RouteDesign(
-                    //           route: Theme02LmsAttachmentDetailsDataPage(
-                    //             classworkID:
-                    //                 '${provider.classWorkDetailsData[index].classworkid}',
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },
-                    //     child: Container(
-                    //       decoration: BoxDecoration(
-                    //         color: AppColors.theme02buttonColor2,
-                    //         borderRadius: BorderRadius.circular(10),
-                    //       ),
-                    //       child: const Center(
-                    //         child: Text(
-                    //           'Attachments',
-                    //           style: TextStyles.fontStyle5,
-                    //           textAlign: TextAlign.center,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Student Attachments button
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsStudentAttachmentDetails(
-                                ref.read(encryptionProvider.notifier),
-                                '${provider.classWorkDetailsData[index].classworkreplyid}',
-                              );
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: Theme02LmsStudentAttachmentDetailsDataPage(
-                                classworkreplyid:
-                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
+                if (provider.lmsStudentAttachmentDetailsData.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        if (provider is LibraryTrancsactionStateLoading)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 100),
+                            child: Center(
+                              child: CircularProgressIndicators
+                                  .primaryColorProgressIndication,
+                            ),
+                          )
+                        else if (provider
+                                .lmsStudentAttachmentDetailsData.isEmpty &&
+                            provider is! LibraryTrancsactionStateLoading)
+                          Column(
+                            children: [
+                              // SizedBox(
+                              //     height: MediaQuery.of(context).size.height / 5),
+                              const Center(
+                                child: Text(
+                                  'No Student Attacment',
+                                  style: TextStyles.smallerBlackColorFontStyle,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme02buttonColor2,
-                            borderRadius: BorderRadius.circular(10),
+                            ],
                           ),
-                          child: const Center(
-                            child: Text(
-                              'Student Attachments',
-                              style: TextStyles.fontStyle5,
-                              textAlign: TextAlign.center,
-                            ),
+                        if (provider.lmsStudentAttachmentDetailsData.isNotEmpty)
+                          ListView.builder(
+                            itemCount:
+                                provider.lmsStudentAttachmentDetailsData.length,
+                            controller: _listController,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return cardStudentAttachmentDesign(index);
+                            },
                           ),
-                        ),
+                      ],
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    elevation: 0,
+                    color: AppColors.whiteColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Classwork Replay',
+                            style: TextStyles.smallerBlackColorFontStyle,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              if (imagePaths.isEmpty)
+                                GestureDetector(
+                                  onTap: _pickFile,
+                                  child: SizedBox(
+                                    width: 110,
+                                    child: Card(
+                                      shape: const RoundedRectangleBorder(
+                                        side: BorderSide(color: Colors.grey),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ),
+                                      child: SizedBox(
+                                        width: 300,
+                                        height: 100,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 50,
+                                            color:
+                                                AppColors.theme02buttonColor2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              else
+                                Wrap(
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: imagePaths.map((image) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                        child: image.endsWith('.pdf')
+                                            ? const Icon(
+                                                Icons.picture_as_pdf,
+                                                color: Colors.red,
+                                                size: 50,
+                                              )
+                                            : image.endsWith('.xlsx') ||
+                                                    image.endsWith('.xls')
+                                                ? Icon(
+                                                    Icons.insert_drive_file,
+                                                    color: AppColors
+                                                        .theme01secondaryColor4,
+                                                    size: 50,
+                                                  )
+                                                : Image.file(
+                                                    File(image),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              Positioned(
+                                left: 65,
+                                top: 65,
+                                child: Row(
+                                  children: [
+                                    PopupMenuButton(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ),
+                                      child: SizedBox(
+                                        height: 40,
+                                        width: 40,
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                              color: AppColors
+                                                  .theme01secondaryColor4,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          color:
+                                              AppColors.theme02secondaryColor1,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Icon(
+                                              Icons.edit,
+                                              size: 16,
+                                              color:
+                                                  AppColors.theme02buttonColor2,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      onSelected: (value) {
+                                        _pickFile();
+                                      },
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry>[
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.photo_library,
+                                                color: Colors.blue,
+                                              ),
+                                              Expanded(
+                                                child: TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    _pickFile();
+                                                  },
+                                                  child: const Text(
+                                                    'Add Files',
+                                                    style:
+                                                        TextStyle(fontSize: 16),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Action',
+                                style: TextStyles.alertContentStyle,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: TextField(
+                                  controller: provider.action..text = "1",
+                                  style: TextStyles.fontStyle2,
+                                  decoration: InputDecoration(
+                                    hintStyle:
+                                        TextStyles.smallLightAshColorFontStyle,
+                                    filled: true,
+                                    fillColor: AppColors.secondaryColor,
+                                    contentPadding: const EdgeInsets.all(10),
+                                    enabledBorder: BorderBoxButtonDecorations
+                                        .loginTextFieldStyle,
+                                    focusedBorder: BorderBoxButtonDecorations
+                                        .loginTextFieldStyle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Remarks',
+                                style: TextStyles.alertContentStyle,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: TextField(
+                                  controller: provider.remarks,
+                                  style: TextStyles.fontStyle2,
+                                  decoration: InputDecoration(
+                                    hintStyle:
+                                        TextStyles.smallLightAshColorFontStyle,
+                                    filled: true,
+                                    fillColor: AppColors.secondaryColor,
+                                    contentPadding: const EdgeInsets.all(10),
+                                    enabledBorder: BorderBoxButtonDecorations
+                                        .loginTextFieldStyle,
+                                    focusedBorder: BorderBoxButtonDecorations
+                                        .loginTextFieldStyle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                // onPressed: () {
+                                //   ref
+                                //       .read(lmsProvider.notifier)
+                                //       .saveClassWorkReplay(
+                                //         ref.read(encryptionProvider.notifier),
+                                //         widget.classWorkDetailclassworkID,
+                                //         widget.imageattachmentid,
+                                //         widget.classWorkDetailclassworkreplyid,
+                                //         widget.fieldrequirements,
+                                //         sendData,
+                                //       );
+                                //   Navigator.push(
+                                //     context,
+                                //     RouteDesign(
+                                //       route: const Theme02LmsHomePage(),
+                                //     ),
+                                //   );
+                                // },
+                                onPressed: () {
+                                  if (provider.remarks.text.isEmpty ||
+                                      imagePaths.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Remarks and attachment are required'),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                    return; // Stop execution if both are empty
+                                  }
+
+                                  ref
+                                      .read(lmsProvider.notifier)
+                                      .saveClassWorkReplay(
+                                        ref.read(encryptionProvider.notifier),
+                                        widget.classWorkDetailclassworkID,
+                                        widget.imageattachmentid,
+                                        widget.classWorkDetailclassworkreplyid,
+                                        widget.fieldrequirements,
+                                        sendData,
+                                      );
+
+                                  Navigator.push(
+                                    context,
+                                    RouteDesign(
+                                      route: const Theme02LmsHomePage(),
+                                    ),
+                                  );
+                                },
+
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      AppColors.theme02secondaryColor1,
+                                  elevation: 5,
+                                ),
+                                child: const Text(
+                                  'Submit',
+                                  style: TextStyle(color: AppColors.whiteColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
+
+                const SizedBox(height: 20),
+
+                // Buttons section
+                // Wrap(
+                //   spacing: 10,
+                //   runSpacing: 10,
+                //   alignment: WrapAlignment.center,
+                //   children: [
+                //     // Attachments button
+                //     // SizedBox(
+                //     //   height: 30,
+                //     //   width: 150,
+                //     //   child: GestureDetector(
+                //     //     onTap: () {
+                //     //       ref
+                //     //           .read(lmsProvider.notifier)
+                //     //           .getLmsAttachmentDetails(
+                //     //             ref.read(encryptionProvider.notifier),
+                //     //             '${provider.classWorkDetailsData[index].classworkid}',
+                //     //           );
+                //     //       Navigator.push(
+                //     //         context,
+                //     //         RouteDesign(
+                //     //           route: Theme02LmsAttachmentDetailsDataPage(
+                //     //             classworkID:
+                //     //                 '${provider.classWorkDetailsData[index].classworkid}',
+                //     //           ),
+                //     //         ),
+                //     //       );
+                //     //     },
+                //     //     child: Container(
+                //     //       decoration: BoxDecoration(
+                //     //         color: AppColors.theme02buttonColor2,
+                //     //         borderRadius: BorderRadius.circular(10),
+                //     //       ),
+                //     //       child: const Center(
+                //     //         child: Text(
+                //     //           'Attachments',
+                //     //           style: TextStyles.fontStyle5,
+                //     //           textAlign: TextAlign.center,
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //     // Student Attachments button
+                //     SizedBox(
+                //       height: 30,
+                //       width: 150,
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           ref
+                //               .read(lmsProvider.notifier)
+                //               .getLmsStudentAttachmentDetails(
+                //                 ref.read(encryptionProvider.notifier),
+                //                 '${provider.classWorkDetailsData[index].classworkreplyid}',
+                //               );
+                //           Navigator.push(
+                //             context,
+                //             RouteDesign(
+                //               route: Theme02LmsStudentAttachmentDetailsDataPage(
+                //                 classworkreplyid:
+                //                     '${provider.classWorkDetailsData[index].classworkreplyid}',
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             color: AppColors.theme02buttonColor2,
+                //             borderRadius: BorderRadius.circular(10),
+                //           ),
+                //           child: const Center(
+                //             child: Text(
+                //               'Student Attachments',
+                //               style: TextStyles.fontStyle5,
+                //               textAlign: TextAlign.center,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(height: 10),
 
                 // Additional Buttons (e.g., Save Attachment and MCQ Test)
@@ -683,6 +1070,42 @@ class _Theme02LmsClassworkDetailPageState
                   children: [
                     if (provider.classWorkDetailsData[index].classworkreplyid ==
                         '0')
+                      // SizedBox(
+                      //   height: 30,
+                      //   width: 150,
+                      //   child: GestureDetector(
+                      //     onTap: () {
+                      //       Navigator.push(
+                      //         context,
+                      //         RouteDesign(
+                      //           route: Theme02LmsSaveWorkReplayDetailsDataPage(
+                      //             classworkID:
+                      //                 '${provider.classWorkDetailsData[index].classworkid}',
+                      //             classworkreplyid:
+                      //                 '${provider.classWorkDetailsData[index].classworkreplyid}',
+                      //             fieldrequirements:
+                      //                 '${provider.classWorkDetailsData[index].fieldrequirement}',
+                      //             imageattachmentid:
+                      //                 '${provider.classWorkDetailsData[index].stuimageattachmentid}',
+                      //           ),
+                      //         ),
+                      //       );
+                      //     },
+                      //     child: Container(
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.theme02buttonColor2,
+                      //         borderRadius: BorderRadius.circular(10),
+                      //       ),
+                      //       child: const Center(
+                      //         child: Text(
+                      //           'Classwork Attachment',
+                      //           style: TextStyles.fontStyle5,
+                      //           textAlign: TextAlign.center,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 30,
                         width: 150,
@@ -691,15 +1114,9 @@ class _Theme02LmsClassworkDetailPageState
                             Navigator.push(
                               context,
                               RouteDesign(
-                                route: Theme02LmsSaveWorkReplayDetailsDataPage(
-                                  classworkID:
-                                      '${provider.classWorkDetailsData[index].classworkid}',
-                                  classworkreplyid:
-                                      '${provider.classWorkDetailsData[index].classworkreplyid}',
-                                  fieldrequirements:
-                                      '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                  imageattachmentid:
-                                      '${provider.classWorkDetailsData[index].stuimageattachmentid}',
+                                route: Theme02McqEnteryPage(
+                                  mcqscheduleid:
+                                      '${provider.classWorkDetailsData[index].mcqscheduleid}',
                                 ),
                               ),
                             );
@@ -711,7 +1128,7 @@ class _Theme02LmsClassworkDetailPageState
                             ),
                             child: const Center(
                               child: Text(
-                                'Classwork Attachment',
+                                'MCQ Test',
                                 style: TextStyles.fontStyle5,
                                 textAlign: TextAlign.center,
                               ),
@@ -719,36 +1136,6 @@ class _Theme02LmsClassworkDetailPageState
                           ),
                         ),
                       ),
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: Theme02McqEnteryPage(
-                                mcqscheduleid:
-                                    '${provider.classWorkDetailsData[index].mcqscheduleid}',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.theme02buttonColor2,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'MCQ Test',
-                              style: TextStyles.fontStyle5,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -925,6 +1312,168 @@ class _Theme02LmsClassworkDetailPageState
     );
   }
 
+  Widget cardStudentAttachmentDesign(int index) {
+    final width = MediaQuery.of(context).size.width;
+    final provider = ref.watch(lmsProvider);
+
+    final base64File =
+        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
+    final fileBytes = base64Decode(base64File);
+
+    // File name to determine type
+    final actualname =
+        provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
+    final fileExtension = actualname.split('.').last.toLowerCase();
+
+    // Log details (optional for debugging)
+    log('File Name: $actualname');
+    log('File Extension: $fileExtension');
+
+    // Widget to display based on file type
+    Widget fileDisplayWidget;
+
+    if (['png', 'jpg', 'jpeg', 'png', 'gif'].contains(fileExtension)) {
+      // Image display
+      fileDisplayWidget = Image.memory(
+        fileBytes,
+        fit: BoxFit.cover,
+      );
+    } else if (fileExtension == 'pdf') {
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => Theme01PDFViewPage(
+                pdfData: fileBytes,
+                fileName: actualname,
+              ),
+            ),
+          );
+        },
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.picture_as_pdf,
+              color: Colors.red,
+              size: 30,
+            ),
+            SizedBox(width: 12),
+            Text(
+              'Tap to view PDF',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else if (fileExtension == 'xls' || fileExtension == 'xlsx') {
+      fileDisplayWidget = GestureDetector(
+        onTap: () {
+          showToast(
+            'Excel viewing not supported. File downloaded.',
+          );
+        },
+        child: const Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.table_chart,
+                color: Colors.green,
+                size: 24,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Tap to download Excel',
+                style: TextStyles.fontStyle3,
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      // Unsupported file type
+      fileDisplayWidget = const Center(
+        child: Text(
+          'Unsupported file type',
+          style: TextStyles.fontStyle3,
+        ),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      child: Material(
+        elevation: 5,
+        shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [
+                AppColors.theme02primaryColor,
+                AppColors.theme02secondaryColor1,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: ExpansionTile(
+              title: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      width: width - 100,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: fileDisplayWidget,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              collapsedIconColor: AppColors.theme02buttonColor2,
+              iconColor: AppColors.theme02buttonColor2,
+              children: [
+                Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
+                _buildRow(
+                  'Actual name :',
+                  '${provider.lmsStudentAttachmentDetailsData[index].actualname}' ==
+                          'null'
+                      ? '-'
+                      : '''${provider.lmsStudentAttachmentDetailsData[index].actualname}''',
+                  width,
+                ),
+                _buildRow(
+                  'File name :',
+                  '${provider.lmsStudentAttachmentDetailsData[index].filename}' ==
+                          'null'
+                      ? '-'
+                      : '''${provider.lmsStudentAttachmentDetailsData[index].filename}''',
+                  width,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void _showToast(BuildContext context, String message, Color color) {
     showToast(
       message,
@@ -937,7 +1486,7 @@ class _Theme02LmsClassworkDetailPageState
         topRight: Radius.circular(15),
         bottomLeft: Radius.circular(15),
       ),
-      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
+      // toastHorizontalMargin: MediaQuery.of(context).size.width / 1,
     );
   }
 }

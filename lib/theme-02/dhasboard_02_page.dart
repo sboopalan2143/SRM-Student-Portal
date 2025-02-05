@@ -45,7 +45,6 @@ import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
-import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
 import 'package:sample/theme-02/mainscreens/fees/fees_due_page.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
 import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
@@ -596,7 +595,6 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                     ],
                   ),
                   const SizedBox(height: 20),
-
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -2053,7 +2051,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
           CircularPercentIndicator(
             radius: 60,
             lineWidth: 10,
-            percent: 1.0,
+            percent: 1,
             center: Stack(
               children: [
                 CircularPercentIndicator(
@@ -2889,7 +2887,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       size: 20,
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     Text(
                       '${provider.calendarCurrentDateData[index].date}' == ''
@@ -2922,7 +2920,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       size: 20,
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     Text(
                       '${provider.calendarCurrentDateData[index].daystatus}' ==

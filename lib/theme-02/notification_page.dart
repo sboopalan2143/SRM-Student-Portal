@@ -195,33 +195,33 @@ class _Theme02NotificationPageState
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Notification Id',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.notificationData[index].notificationid}' ==
-                                'null'
-                            ? '-'
-                            : '''${provider.notificationData[index].notificationid}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: const Text(
+                //         'Notification Id',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //     const Text(
+                //       ':',
+                //       style: TextStyles.fontStyle10,
+                //     ),
+                //     const SizedBox(width: 5),
+                //     SizedBox(
+                //       width: width / 2 - 60,
+                //       child: Text(
+                //         '${provider.notificationData[index].notificationid}' ==
+                //                 'null'
+                //             ? '-'
+                //             : '''${provider.notificationData[index].notificationid}''',
+                //         style: TextStyles.fontStyle10,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

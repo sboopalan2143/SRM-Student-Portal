@@ -956,6 +956,12 @@ class _Theme02TimetablePageScreenState
                             style: TextStyles.fontStyle10
                                 .copyWith(color: Colors.black54),
                           ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${provider.timeTableData[index].hourtime ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black54),
+                          ),
                         ],
                       ),
                     ),
@@ -1214,6 +1220,12 @@ class _Theme02TimetablePageScreenState
                           const SizedBox(height: 5),
                           Text(
                             '${data.faculty ?? '-'}',
+                            style: TextStyles.fontStyle10
+                                .copyWith(color: Colors.black54),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${provider.timeTableData[index].hourtime ?? '-'}',
                             style: TextStyles.fontStyle10
                                 .copyWith(color: Colors.black54),
                           ),

@@ -368,27 +368,27 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Semester',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        subjectData[0],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blue.shade800,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Text(
+                  //       'Semester',
+                  //       style: TextStyle(
+                  //         fontSize: 12,
+                  //         color: Colors.grey.shade600,
+                  //         fontWeight: FontWeight.w500,
+                  //       ),
+                  //     ),
+                  //     Text(
+                  //       subjectData[0],
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         color: Colors.blue.shade800,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -402,9 +402,9 @@ class _Theme02SubjectPageState extends ConsumerState<Theme02SubjectPage> {
                       ),
                       Text(
                         subjectData[1],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.blue.shade800,
+                          color: Colors.black87,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

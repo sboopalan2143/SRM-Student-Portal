@@ -349,12 +349,14 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                     _buildActionButton(
                       label: 'View',
                       icon: Icons.visibility,
-                      onTap: () {
-                        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+                      onTap: () async {
+                        await ref
+                            .read(lmsProvider.notifier)
+                            .getLmsClassWorkDetails(
                               ref.read(encryptionProvider.notifier),
                               '${provider.lmsTitleData[index].classworkid}',
                             );
-                        Navigator.push(
+                        await Navigator.push(
                           context,
                           RouteDesign(
                             route: Theme02LmsClassworkDetailPage(
@@ -370,6 +372,8 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                                   '${provider.classWorkDetailsData[index].fieldrequirement}',
                               imageattachmentid:
                                   '${provider.classWorkDetailsData[index].stuimageattachmentid}',
+                              subjectID:
+                                  '${provider.lmsSubjectData[index].subjectid}',
                             ),
                           ),
                         );

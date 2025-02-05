@@ -352,21 +352,15 @@ class _Theme02TransportRegisterPageState
                 ],
               ),
             )
-          : Padding(
+          :
+          // Padding(
+          //         padding: const EdgeInsets.all(16),
+          //         child:
+          //       ),
+
+          Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
                 child: Column(
                   children: [
                     if (provider.transportAfterRegisterDetails!.busroutename ==
@@ -376,148 +370,40 @@ class _Theme02TransportRegisterPageState
                     if (provider.transportAfterRegisterDetails!.busroutename !=
                         '') // Display details if not loading
                       ...[
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: width / 2,
-                                  child: const Text(
-                                    'Busroute',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.grey,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.85,
-                                  child: Text(
-                                    '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
-                                            ''
-                                        ? '-'
-                                        : '''${provider.transportAfterRegisterDetails!.busroutename}''',
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.grey4,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: width / 2,
-                                      child: const Text(
-                                        'Boardingpoint',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    SizedBox(
-                                      child: Text(
-                                        '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
-                                                ''
-                                            ? '-'
-                                            : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey4,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: width / 2,
-                                      child: const Text(
-                                        'Date',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    SizedBox(
-                                      child: Text(
-                                        '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
-                                                ''
-                                            ? '-'
-                                            : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey4,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: width / 2,
-                                      child: const Text(
-                                        'Bus Fees',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    SizedBox(
-                                      child: Text(
-                                        '''${provider.transportAfterRegisterDetails!.amount}''' ==
-                                                ''
-                                            ? '-'
-                                            : '''${provider.transportAfterRegisterDetails!.amount}''',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.grey4,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                          ],
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildInfoRow(
+                                  Icons.directions_bus,
+                                  'Bus Route :',
+                                  provider.transportAfterRegisterDetails!
+                                      .busroutename),
+                              const Divider(),
+                              _buildInfoRow(
+                                  Icons.location_on,
+                                  'Point :',
+                                  provider.transportAfterRegisterDetails!
+                                      .boardingpointname),
+                              const Divider(),
+                              _buildInfoRow(
+                                  Icons.date_range,
+                                  'Date :',
+                                  provider.transportAfterRegisterDetails!
+                                      .registrationdate),
+                              const Divider(),
+                              _buildInfoRow(
+                                  Icons.monetization_on,
+                                  'Bus Fees :',
+                                  provider
+                                      .transportAfterRegisterDetails!.amount),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -525,6 +411,180 @@ class _Theme02TransportRegisterPageState
                 ),
               ),
             ),
+
+      // Padding(
+      //         padding: const EdgeInsets.all(20),
+      //         child: Container(
+      //           decoration: BoxDecoration(
+      //             color: Colors.white,
+      //             borderRadius: const BorderRadius.all(Radius.circular(20)),
+      //             boxShadow: [
+      //               BoxShadow(
+      //                 color: Colors.grey.withOpacity(0.2),
+      //                 spreadRadius: 5,
+      //                 blurRadius: 7,
+      //                 offset: const Offset(0, 3),
+      //               ),
+      //             ],
+      //           ),
+      //           child: Column(
+      //             children: [
+      //               if (provider.transportAfterRegisterDetails!.busroutename ==
+      //                   '')
+      //                 const Center(child: CircularProgressIndicator()),
+      //               // Loading state
+      //               if (provider.transportAfterRegisterDetails!.busroutename !=
+      //                   '') // Display details if not loading
+      //                 ...[
+      //                 Padding(
+      //                   padding: const EdgeInsets.all(20),
+      //                   child: Column(
+      //                     mainAxisSize: MainAxisSize.min,
+      //                     children: [
+      //                       Column(
+      //                         crossAxisAlignment: CrossAxisAlignment.start,
+      //                         children: [
+      //                           SizedBox(
+      //                             width: width / 2,
+      //                             child: const Text(
+      //                               'Busroute',
+      //                               style: TextStyle(
+      //                                 fontSize: 18,
+      //                                 color: AppColors.grey,
+      //                                 fontWeight: FontWeight.bold,
+      //                               ),
+      //                             ),
+      //                           ),
+      //                           SizedBox(
+      //                             width: width * 0.85,
+      //                             child: Text(
+      //                               '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
+      //                                       ''
+      //                                   ? '-'
+      //                                   : '''${provider.transportAfterRegisterDetails!.busroutename}''',
+      //                               style: const TextStyle(
+      //                                 fontSize: 18,
+      //                                 color: AppColors.grey4,
+      //                                 fontWeight: FontWeight.bold,
+      //                               ),
+      //                             ),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                       const SizedBox(height: 10),
+      //                       Row(
+      //                         children: [
+      //                           Column(
+      //                             crossAxisAlignment: CrossAxisAlignment.start,
+      //                             children: [
+      //                               SizedBox(
+      //                                 width: width / 2,
+      //                                 child: const Text(
+      //                                   'Boardingpoint',
+      //                                   style: TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                               const SizedBox(width: 5),
+      //                               SizedBox(
+      //                                 child: Text(
+      //                                   '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
+      //                                           ''
+      //                                       ? '-'
+      //                                       : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
+      //                                   style: const TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey4,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                             ],
+      //                           ),
+      //                         ],
+      //                       ),
+      //                       const SizedBox(height: 10),
+      //                       Row(
+      //                         children: [
+      //                           Column(
+      //                             crossAxisAlignment: CrossAxisAlignment.start,
+      //                             children: [
+      //                               SizedBox(
+      //                                 width: width / 2,
+      //                                 child: const Text(
+      //                                   'Date',
+      //                                   style: TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                               const SizedBox(width: 5),
+      //                               SizedBox(
+      //                                 child: Text(
+      //                                   '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
+      //                                           ''
+      //                                       ? '-'
+      //                                       : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
+      //                                   style: const TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey4,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                             ],
+      //                           ),
+      //                         ],
+      //                       ),
+      //                       const SizedBox(height: 10),
+      //                       Row(
+      //                         children: [
+      //                           Column(
+      //                             crossAxisAlignment: CrossAxisAlignment.start,
+      //                             children: [
+      //                               SizedBox(
+      //                                 width: width / 2,
+      //                                 child: const Text(
+      //                                   'Bus Fees',
+      //                                   style: TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                               const SizedBox(width: 5),
+      //                               SizedBox(
+      //                                 child: Text(
+      //                                   '''${provider.transportAfterRegisterDetails!.amount}''' ==
+      //                                           ''
+      //                                       ? '-'
+      //                                       : '''${provider.transportAfterRegisterDetails!.amount}''',
+      //                                   style: const TextStyle(
+      //                                     fontSize: 18,
+      //                                     color: AppColors.grey4,
+      //                                     fontWeight: FontWeight.bold,
+      //                                   ),
+      //                                 ),
+      //                               ),
+      //                             ],
+      //                           ),
+      //                         ],
+      //                       ),
+      //                       const SizedBox(height: 10),
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ],
+      //             ],
+      //           ),
+      //         ),
+      //       ),
     );
   }
 
@@ -547,13 +607,42 @@ class _Theme02TransportRegisterPageState
         ),
         const SizedBox(width: 5),
         SizedBox(
-          width: width / 2 - 60,
+          width: width / 2 - 40,
           child: Text(
             value.isEmpty ? '-' : value,
             style: TextStyles.fontStyletheme2,
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String title, String? value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.blueGrey, size: 24),
+          const SizedBox(width: 10),
+          SizedBox(
+            width: 120,
+            child: Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              (value == null || value.isEmpty) ? '-' : value,
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
+              // overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

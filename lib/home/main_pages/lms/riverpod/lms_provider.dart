@@ -346,9 +346,8 @@ class LmsProvider extends StateNotifier<LmsState> {
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-
       var classWorkDetailsData = state.classWorkDetailsData;
-      log('decrypted>>>>>>>>$decryptedData');
+      log(' classWorkDetailsData>>>>>>>>$classWorkDetailsData');
 
       try {
         final classWorkDetailsDataResponse =

@@ -107,6 +107,14 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
                   //     .getreadNotificationDetails(
                   //       ref.read(encryptionProvider.notifier),
                   //     );
+
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ref
+                        .read(notificationCountProvider.notifier)
+                        .getNotificationCountDetails(
+                          ref.read(encryptionProvider.notifier),
+                        );
+                  });
                   Navigator.pop(
                     context,
                   );
@@ -119,7 +127,7 @@ class _NotificationHomePageState extends ConsumerState<NotificationHomePage> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: const Text(
-                'NOTIFICATION List',
+                'NOTIFICATION LIST',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
               ),

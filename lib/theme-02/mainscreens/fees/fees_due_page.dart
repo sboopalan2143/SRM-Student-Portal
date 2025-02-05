@@ -120,13 +120,18 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                           .toSet() // Ensure unique terms
                           .map((term) {
                         return ExpansionTile(
-                          title: Text(
-                            '$term', // Use the term value
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.theme06primaryColor,
-                            ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '$term', // Use the term value
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.theme06primaryColor,
+                                ),
+                              ),
+                            ],
                           ),
                           initiallyExpanded: false,
                           // Start collapsed by default
@@ -251,7 +256,11 @@ class _Theme02FeesDuePageState extends ConsumerState<Theme02FeesDuePage> {
                       '${provider.feesDetailsData[index].dueamount}' == ''
                           ? '-'
                           : '${provider.feesDetailsData[index].dueamount}',
-                      style: TextStyles.fontStyle10,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.theme06primaryColor,
+                      ),
                     ),
                   ),
                 ],

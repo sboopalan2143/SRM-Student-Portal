@@ -7,8 +7,10 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:sample/theme-02/mainscreens/lms/lms_content_details_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
 
 class Theme02LmsHomePage extends ConsumerStatefulWidget {
@@ -266,7 +268,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                     label: Text(
                       'Classwork Details',
                       style: TextStyle(
-                          color: AppColors.theme02buttonColor2,
+                          color: AppColors.theme02secondaryColor1,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -283,13 +285,29 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                       ),
                     ),
                     onPressed: () {
-                      // Implement another functionality
+                      ref
+                          .read(lmsContentDetailsProvider.notifier)
+                          .getLmsContentDetails(
+                            ref.read(encryptionProvider.notifier),
+                            '${provider.lmsSubjectData[index].subjectid}',
+                          );
+                      Navigator.push(
+                        context,
+                        RouteDesign(
+                          route: Theme02LmsContentDetailsPage(
+                            subjectid:
+                                '${provider.lmsSubjectData[index].subjectid}',
+                          ),
+                        ),
+                      );
                     },
                     // icon: const Icon(Icons.file_copy, color: Colors.white),
                     label: Text(
                       'Content Details',
                       style: TextStyle(
-                          color: AppColors.theme02buttonColor2,
+                          // color: AppColors.theme02buttonColor2,
+
+                          color: AppColors.theme02secondaryColor1,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -307,7 +325,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: AppColors.theme02buttonColor2, size: 20),
+        Icon(icon, color: AppColors.theme02secondaryColor1, size: 20),
         const SizedBox(width: 8),
         Expanded(
           child: Text(

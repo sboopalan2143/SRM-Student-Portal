@@ -100,123 +100,228 @@ class _Theme02RegistrationPageState
       ),
       body: provider.hostelRegisterDetails.status == '0'
           ? registrationForm()
-          : Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-              child: Material(
-                elevation: 5,
-                shadowColor: AppColors.theme01secondaryColor4.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(20),
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            AppColors.theme02primaryColor,
-                            AppColors.theme02secondaryColor1,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ExpansionTile(
-                          title: Row(
-                            children: [
-                              SizedBox(
-                                width: width / 2 - 100,
-                                child: const Text(
-                                  'hostel :',
-                                  style: TextStyles.fontStyle1,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  '''${provider.hostelRegisterDetails.hostel}''' ==
-                                          ''
-                                      ? '-'
-                                      : '''${provider.hostelRegisterDetails.hostel}''',
-                                  style: TextStyles.fontStyle1,
-                                ),
-                              ),
-                            ],
+          : Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+                  child: Material(
+                    elevation: 5,
+                    shadowColor:
+                        AppColors.theme01secondaryColor4.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(20),
+                    child: Column(
+                      children: [
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     gradient: LinearGradient(
+                        //       colors: [
+                        //         AppColors.theme02primaryColor,
+                        //         AppColors.theme02secondaryColor1,
+                        //       ],
+                        //       begin: Alignment.topCenter,
+                        //       end: Alignment.bottomCenter,
+                        //     ),
+                        //     borderRadius: BorderRadius.circular(20),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(20),
+                        //     child: ExpansionTile(
+                        //       title: Row(
+                        //         children: [
+                        //           SizedBox(
+                        //             width: width / 2 - 100,
+                        //             child: const Text(
+                        //               'hostel :',
+                        //               style: TextStyles.fontStyle1,
+                        //             ),
+                        //           ),
+                        //           Expanded(
+                        //             child: Text(
+                        //               '''${provider.hostelRegisterDetails.hostel}''' ==
+                        //                       ''
+                        //                   ? '-'
+                        //                   : '''${provider.hostelRegisterDetails.hostel}''',
+                        //               style: TextStyles.fontStyle1,
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       collapsedIconColor: AppColors.whiteColor,
+                        //       iconColor: AppColors.whiteColor,
+                        //       children: [
+                        //         Divider(
+                        //           color: AppColors.theme01primaryColor
+                        //               .withOpacity(0.5),
+                        //         ),
+                        //         _buildRow(
+                        //           'Hostel fee amount :',
+                        //           '''${provider.hostelRegisterDetails.hostelfeeamount}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.hostelfeeamount}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Registration date',
+                        //           '''${provider.hostelRegisterDetails.registrationdate}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.registrationdate}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Caution deposit amt',
+                        //           '''${provider.hostelRegisterDetails.cautiondepositamt}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.cautiondepositamt}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Room type :',
+                        //           '''${provider.hostelRegisterDetails.roomtype}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.roomtype}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Active status',
+                        //           '''${provider.hostelRegisterDetails.activestatus}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.activestatus}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Active status',
+                        //           '''${provider.hostelRegisterDetails.messfeeamount}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.messfeeamount}''',
+                        //           width,
+                        //         ),
+                        //         _buildRow(
+                        //           'Active status',
+                        //           '''${provider.hostelRegisterDetails.applnfeeamount}''' ==
+                        //                   ''
+                        //               ? '-'
+                        //               : '''${provider.hostelRegisterDetails.applnfeeamount}''',
+                        //           width,
+                        //         ),
+                        //         const SizedBox(height: 10),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.theme02primaryColor,
+                                AppColors.theme02secondaryColor1,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          collapsedIconColor: AppColors.whiteColor,
-                          iconColor: AppColors.whiteColor,
-                          children: [
-                            Divider(
-                              color: AppColors.theme01primaryColor
-                                  .withOpacity(0.5),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text(
+                                //   'Hostel Details',
+                                //   style: TextStyles.fontStyle1.copyWith(
+                                //       fontSize: 18, fontWeight: FontWeight.bold),
+                                // ),
+                                // const SizedBox(height: 10),
+                                _buildRow(
+                                  'Hostel:',
+                                  provider.hostelRegisterDetails.hostel!.isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.hostel}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Hostel fee amount:',
+                                  provider.hostelRegisterDetails
+                                          .hostelfeeamount!.isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.hostelfeeamount}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Registration date:',
+                                  provider.hostelRegisterDetails
+                                          .registrationdate!.isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.registrationdate}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Caution deposit amt:',
+                                  provider.hostelRegisterDetails
+                                          .cautiondepositamt!.isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.cautiondepositamt}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Room type:',
+                                  provider.hostelRegisterDetails.roomtype!
+                                          .isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.roomtype}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Active status:',
+                                  provider.hostelRegisterDetails.activestatus!
+                                          .isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.activestatus}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Mess fee amount:',
+                                  provider.hostelRegisterDetails.messfeeamount!
+                                          .isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.messfeeamount}',
+                                  width,
+                                ),
+                                const Divider(),
+                                _buildRow(
+                                  'Application fee amount:',
+                                  provider.hostelRegisterDetails.applnfeeamount!
+                                          .isEmpty
+                                      ? '-'
+                                      : '${provider.hostelRegisterDetails.applnfeeamount}',
+                                  width,
+                                ),
+                                const SizedBox(height: 10),
+                              ],
                             ),
-                            _buildRow(
-                              'Hostel fee amount :',
-                              '''${provider.hostelRegisterDetails.hostelfeeamount}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.hostelfeeamount}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Registration date',
-                              '''${provider.hostelRegisterDetails.registrationdate}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.registrationdate}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Caution deposit amt',
-                              '''${provider.hostelRegisterDetails.cautiondepositamt}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.cautiondepositamt}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Room type :',
-                              '''${provider.hostelRegisterDetails.roomtype}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.roomtype}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Active status',
-                              '''${provider.hostelRegisterDetails.activestatus}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.activestatus}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Active status',
-                              '''${provider.hostelRegisterDetails.messfeeamount}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.messfeeamount}''',
-                              width,
-                            ),
-                            _buildRow(
-                              'Active status',
-                              '''${provider.hostelRegisterDetails.applnfeeamount}''' ==
-                                      ''
-                                  ? '-'
-                                  : '''${provider.hostelRegisterDetails.applnfeeamount}''',
-                              width,
-                            ),
-                            const SizedBox(height: 10),
-                          ],
+                          ),
                         ),
-                      ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
 
       //  provider is HostelStateLoading
@@ -375,7 +480,7 @@ class _Theme02RegistrationPageState
         ),
         const SizedBox(width: 5),
         SizedBox(
-          width: width / 2 - 60,
+          width: width / 2 - 20,
           child: Text(
             value.isEmpty ? '-' : value,
             style: TextStyles.fontStyle1,

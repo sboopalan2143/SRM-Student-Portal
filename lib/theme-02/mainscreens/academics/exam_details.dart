@@ -578,6 +578,28 @@ class _Theme02ExamDetailsPageThemeState
                       ),
                     ],
                   ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Result : ${provider.examDetailsHiveData[index].result ?? '-'}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.grey4,
+                        ),
+                      ),
+                      // Text(
+                      //   'Credit: ${provider.examDetailsHiveData[index].credit ?? '-'}',
+                      //   style: const TextStyle(
+                      //     fontSize: 14,
+                      //     fontWeight: FontWeight.w500,
+                      //     color: AppColors.grey4,
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -608,7 +630,7 @@ class _Theme02ExamDetailsPageThemeState
                           ),
                         ),
                         circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: AppColors.theme02buttonColor2,
+                        progressColor: AppColors.theme02secondaryColor1,
                         backgroundColor: AppColors.grey4.withOpacity(0.3),
                       ),
                       const SizedBox(height: 8),

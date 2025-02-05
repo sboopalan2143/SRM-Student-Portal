@@ -216,7 +216,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                           ? '-'
                           : '${provider.OverallattendanceData[index].subjectdesc}',
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: AppColors.whiteColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -375,7 +375,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text('presentper',
+                    child: const Text('present %',
                         style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.whiteColor,
@@ -454,7 +454,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'ML OD Per',
+                      'ML OD %',
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.whiteColor,
@@ -494,7 +494,7 @@ class _Theme02AttendancePageState extends ConsumerState<Theme02AttendancePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Overall Percent',
+                      'Overall %',
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.whiteColor,

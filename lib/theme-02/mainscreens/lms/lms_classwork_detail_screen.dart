@@ -33,6 +33,7 @@ class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
     required this.classWorkDetailclassworkreplyid,
     required this.fieldrequirements,
     required this.imageattachmentid,
+    required this.subjectID,
     super.key,
   });
 
@@ -42,6 +43,7 @@ class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
   final String classWorkDetailclassworkreplyid;
   final String fieldrequirements;
   final String imageattachmentid;
+  final String subjectID;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -158,6 +160,10 @@ class _Theme02LmsClassworkDetailPageState
           ),
           leading: IconButton(
             onPressed: () {
+              // ref.read(lmsProvider.notifier).getLmsTitleDetails(
+              //       ref.read(encryptionProvider.notifier),
+              //       widget.subjectID,
+              //     );
               Navigator.pop(
                 context,
               );
@@ -239,7 +245,6 @@ class _Theme02LmsClassworkDetailPageState
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

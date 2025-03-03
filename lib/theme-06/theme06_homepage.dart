@@ -31,19 +31,6 @@ import 'package:sample/notification.dart';
 import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
 import 'package:sample/theme-02/drawer_page/theme02_profile_screen.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
-import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/exam_details.dart';
-import 'package:sample/theme-02/mainscreens/academics/hour_attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/internal_marks.dart';
-import 'package:sample/theme-02/mainscreens/academics/subject.dart';
-import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
-import 'package:sample/theme-02/mainscreens/fees_screen_theme01.dart';
-import 'package:sample/theme-02/mainscreens/grievances/grievances_screen.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
-import 'package:sample/theme-02/mainscreens/library/library_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
-import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-06/drawer_page/change_password_theme06.dart';
 import 'package:sample/theme-06/drawer_page/theme06_profile_screen.dart';
 import 'package:sample/theme-06/mainscreens/academics/attendance.dart';
@@ -59,6 +46,8 @@ import 'package:sample/theme-06/mainscreens/hostel/theme_06_hostel_register.dart
 import 'package:sample/theme-06/mainscreens/library/library_screen.dart';
 import 'package:sample/theme-06/mainscreens/lms/lms_subject_screen.dart';
 import 'package:sample/theme-06/mainscreens/transport/transport_register.dart';
+
+import '../theme-07/login/login_page_theme07.dart';
 
 class Theme06Homepage extends ConsumerStatefulWidget {
   const Theme06Homepage({super.key});
@@ -239,8 +228,6 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    // final provider = ref.watch(transportProvider);
-    // log(provider.transportAfterRegisterDetails!.regconfig)
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -960,7 +947,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     Navigator.pushAndRemoveUntil(
                       context,
                       RouteDesign(
-                        route: const Theme02LoginScreen(),
+                        route: const Theme07LoginPage(),
                       ),
                       (route) => false,
                     );
@@ -1003,7 +990,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     Navigator.pushAndRemoveUntil(
                       context,
                       RouteDesign(
-                        route: const Theme02LoginScreen(),
+                        route: const Theme07LoginPage(),
                       ),
                       (route) => false,
                     );
@@ -1021,7 +1008,7 @@ class _Theme06HomepageState extends ConsumerState<Theme06Homepage>
                     Navigator.pushAndRemoveUntil(
                       context,
                       RouteDesign(
-                        route: const Theme02LoginScreen(),
+                        route: const Theme07LoginPage(),
                       ),
                       (route) => false,
                     );

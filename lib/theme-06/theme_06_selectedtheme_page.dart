@@ -9,6 +9,7 @@ import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
 import 'package:sample/theme-06/theme_06_bottom_navigation_page.dart';
+import 'package:sample/theme-07/theme07_homepage.dart';
 import 'package:sample/theme_3/bottom_navigation_page_theme3.dart';
 import 'package:sample/theme_4/bottom_navigation_page_theme4.dart';
 
@@ -191,6 +192,24 @@ class _Theme06PageState extends ConsumerState<Theme06Page> {
                         },
                         child: Image.asset(
                           'assets/images/selectedtheme06.png',
+                          width: 150,
+                          height: 250,
+                        ),
+                      ),
+                        GestureDetector(
+                        onTap: () async {
+                          await TokensManagement.setTheme(
+                            selectedTheme: 'Theme7',
+                          );
+                          await Navigator.push(
+                            context,
+                            RouteDesign(
+                              route: const Theme07HomePage(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          'assets/images/theme07_unselect.png',
                           width: 150,
                           height: 250,
                         ),

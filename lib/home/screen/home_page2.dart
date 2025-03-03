@@ -41,6 +41,8 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme-06/login/theme02_login_screen.dart';
+import 'package:sample/theme-07/login/login_page_theme07.dart';
 
 class HomePage2 extends ConsumerStatefulWidget {
   const HomePage2({super.key});
@@ -1064,7 +1066,7 @@ class _HomePage2State extends ConsumerState<HomePage2>
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       RouteDesign(
-                                        route: const Theme02LoginScreen(),
+                                        route: const Theme07LoginPage(),
                                       ),
                                       (route) => false,
                                     );

@@ -17,6 +17,7 @@ import 'package:sample/notification.dart';
 import 'package:sample/theme-01/theme01_homepage.dart';
 import 'package:sample/theme-02/drawer_page/change_password_theme02.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme-07/login/login_page_theme07.dart';
 
 class Theme02settingPage extends ConsumerStatefulWidget {
   const Theme02settingPage({super.key});
@@ -218,7 +219,7 @@ class _Theme02settingPageState extends ConsumerState<Theme02settingPage>
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       RouteDesign(
-                                        route: const Theme02LoginScreen(),
+                                        route: const Theme07LoginPage(),
                                       ),
                                       (route) => false,
                                     );

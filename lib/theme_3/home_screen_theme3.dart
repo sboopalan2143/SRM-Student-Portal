@@ -33,6 +33,7 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme-07/login/login_page_theme07.dart';
 import 'package:sample/theme_3/attendance/attendance_home_theme3.dart';
 import 'package:sample/theme_3/calendar/calender_home_theme3.dart';
 import 'package:sample/theme_3/change_password_page_theme3.dart';
@@ -942,7 +943,7 @@ class _HomePageTheme3State extends ConsumerState<HomePageTheme3>
                   Navigator.pushAndRemoveUntil(
                     context,
                     RouteDesign(
-                      route: const Theme02LoginScreen(),
+                      route: const Theme07LoginPage(),
                     ),
                     (route) => false,
                   );

@@ -603,7 +603,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: Colors.black.withOpacity( 0.1),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                         ),
@@ -820,7 +820,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withValues(alpha: 0.1),
+                          color: Colors.grey.withOpacity( 0.1),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -914,7 +914,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withValues(alpha: 0.2),
+                            color: Colors.grey.withOpacity( 0.2),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -1052,7 +1052,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withValues(alpha: 0.2),
+                          color: Colors.grey.withOpacity( 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -1079,12 +1079,12 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.blue.shade200
-                                      .withValues(alpha: 0.6),
+                                      .withOpacity( 0.6),
                                   blurRadius: 12,
                                   offset: const Offset(4, 4),
                                 ),
                                 BoxShadow(
-                                  color: Colors.white.withValues(alpha: 0.8),
+                                  color:Colors.white.withOpacity(0.8),
                                   blurRadius: 12,
                                   offset: const Offset(-4, -4),
                                 ),
@@ -1201,12 +1201,12 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.purple.shade200
-                                      .withValues(alpha: 0.6),
+                                      .withOpacity( 0.6),
                                   blurRadius: 12,
                                   offset: const Offset(4, 4),
                                 ),
                                 BoxShadow(
-                                  color: Colors.white.withValues(alpha: 0.8),
+                                  color: Colors.white.withOpacity(0.8),
                                   blurRadius: 12,
                                   offset: const Offset(-4, -4),
                                 ),
@@ -1301,7 +1301,7 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withValues(alpha: 0.2),
+                          color: Colors.grey.withOpacity( 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -1368,13 +1368,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.blue.shade200
-                                                  .withValues(alpha: 0.6),
+                                                  .withOpacity(0.6),
                                               blurRadius: 12,
                                               offset: const Offset(4, 4),
                                             ),
                                             BoxShadow(
                                               color: Colors.white
-                                                  .withValues(alpha: 0.8),
+                                                  .withOpacity( 0.8),
                                               blurRadius: 12,
                                               offset: const Offset(-4, -4),
                                             ),
@@ -1450,13 +1450,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.purple.shade200
-                                                  .withValues(alpha: 0.6),
+                                                  .withOpacity( 0.6),
                                               blurRadius: 12,
                                               offset: const Offset(4, 4),
                                             ),
                                             BoxShadow(
                                               color: Colors.white
-                                                  .withValues(alpha: 0.8),
+                                                  .withOpacity( 0.8),
                                               blurRadius: 12,
                                               offset: const Offset(-4, -4),
                                             ),
@@ -1529,13 +1529,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.blue.shade200
-                                                .withValues(alpha: 0.6),
+                                                .withOpacity( 0.6),
                                             blurRadius: 12,
                                             offset: const Offset(4, 4),
                                           ),
                                           BoxShadow(
                                             color: Colors.white
-                                                .withValues(alpha: 0.8),
+                                                .withOpacity( 0.8),
                                             blurRadius: 12,
                                             offset: const Offset(-4, -4),
                                           ),
@@ -1596,13 +1596,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.purple.shade200
-                                                .withValues(alpha: 0.6),
+                                                .withOpacity( 0.6),
                                             blurRadius: 12,
                                             offset: const Offset(4, 4),
                                           ),
                                           BoxShadow(
                                             color: Colors.white
-                                                .withValues(alpha: 0.8),
+                                                .withOpacity( 0.8),
                                             blurRadius: 12,
                                             offset: const Offset(-4, -4),
                                           ),

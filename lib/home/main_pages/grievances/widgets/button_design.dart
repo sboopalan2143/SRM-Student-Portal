@@ -29,7 +29,7 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.theme02secondaryColor1,
+        backgroundColor: AppColors.theme07primaryColor,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {

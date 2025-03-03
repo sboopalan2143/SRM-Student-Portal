@@ -651,6 +651,7 @@ import 'package:sample/theme-01/mainscreens/library/library_screen.dart';
 import 'package:sample/theme-01/mainscreens/lms/lms_subject_screen.dart';
 import 'package:sample/theme-01/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme-07/login/login_page_theme07.dart';
 
 class Theme01Homepage extends ConsumerStatefulWidget {
   const Theme01Homepage({super.key});
@@ -1669,7 +1670,7 @@ class _Theme01HomepageState extends ConsumerState<Theme01Homepage>
                     Navigator.pushAndRemoveUntil(
                       context,
                       RouteDesign(
-                        route: const Theme02LoginScreen(),
+                        route: const Theme07LoginPage(),
                       ),
                       (route) => false,
                     );

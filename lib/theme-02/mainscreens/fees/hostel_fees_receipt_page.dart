@@ -105,7 +105,8 @@ class _Theme02FeesReceiptPageState
           centerTitle: true,
         ),
       ),
-      body: Padding(
+      body:
+       Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(

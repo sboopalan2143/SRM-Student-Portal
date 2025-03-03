@@ -40,6 +40,11 @@ class AppColors {
 
   static Color secondaryColor = const Color(0xffF3F9FD);
 
+
+  static Color theme07primaryColor = const Color(0xff1B5465);
+
+  static Color theme07secondaryColor = const Color(0xffE9F2F8);
+
   static const Color whiteColor = Color(0xffFFFFFF);
 
   static const Color primaryColor2 = Color(0xff2762F6);
@@ -79,6 +84,8 @@ class AppColors {
   static const Color grey = Color(0xff373A41);
 
   static const Color grey1 = Color(0xff35415F);
+
+  static const Color togglebackground = Color(0xff043847);
 
   static const Color grey2 = Color(0xffCCCDD2);
 

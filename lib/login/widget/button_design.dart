@@ -22,12 +22,12 @@ class ButtonDesign {
       style: ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(20),
+            Radius.circular(5),
           ),
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.theme07primaryColor,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
@@ -43,12 +43,25 @@ class ButtonDesign {
               .changePassword(ref.read(encryptionProvider.notifier));
         }
       },
-      child: provider is LoginStateLoading
-          ? const CircularProgressIndicator()
-          : Text(
+       child: provider is LoginStateLoading
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.secondaryColor,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  :  Text(
               text,
               style: TextStyles.fontStyle1,
             ),
+      // child: provider is LoginStateLoading
+      //     ? const CircularProgressIndicator()
+      //     : Text(
+      //         text,
+      //         style: TextStyles.fontStyle1,
+      //       ),
     );
   }
 }

@@ -33,6 +33,7 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/login/theme02_login_screen.dart';
+import 'package:sample/theme-07/login/login_page_theme07.dart';
 import 'package:sample/theme_4/attendance/attendance_page_theme4.dart';
 import 'package:sample/theme_4/calendar/calendar_page_theme4.dart';
 import 'package:sample/theme_4/change_password_page_theme4.dart';
@@ -736,7 +737,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   );
                 },
                 child: Container(
-                  height: 160,
+                   height: 160,
                   width: MediaQuery.of(context).size.width / 2.2,
                   padding: const EdgeInsets.all(
                     15,
@@ -775,9 +776,11 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   );
                 },
                 child: Container(
-                  height: 160,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  padding: const EdgeInsets.all(15),
+                   height: 160,
+                  width: MediaQuery.of(context).size.width / 2.2,
+                  padding: const EdgeInsets.all(
+                    15,
+                  ),
                   decoration: const BoxDecoration(
                     gradient: AppColors.primaryColorTheme4,
                   ),
@@ -808,7 +811,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
               // ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           // if (provider.transportAfterRegisterDetails!.regconfig == '1')
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -824,7 +827,7 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                 },
                 child: Container(
                   height: 160,
-                  width: MediaQuery.of(context).size.width / 2.5,
+                  width: MediaQuery.of(context).size.width / 2.2,
                   padding: const EdgeInsets.all(
                     15,
                   ),
@@ -859,15 +862,17 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
                   Navigator.pushAndRemoveUntil(
                     context,
                     RouteDesign(
-                      route: const Theme02LoginScreen(),
+                      route: const Theme07LoginPage(),
                     ),
                     (route) => false,
                   );
                 },
                 child: Container(
                   height: 160,
-                  width: MediaQuery.of(context).size.width / 2.5,
-                  padding: const EdgeInsets.all(15),
+                  width: MediaQuery.of(context).size.width / 2.2,
+                  padding: const EdgeInsets.all(
+                    15,
+                  ),
                   decoration: const BoxDecoration(
                     gradient: AppColors.primaryColorTheme4,
                   ),

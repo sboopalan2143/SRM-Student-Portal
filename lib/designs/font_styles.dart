@@ -51,6 +51,12 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+    static final theme07smallerPrimaryColorFontStyle = TextStyle(
+    fontSize: 16,
+    color: AppColors.theme07primaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
   static const blackColorTitleFontStyle = TextStyle(
     fontSize: 23,
     color: AppColors.blackColor,

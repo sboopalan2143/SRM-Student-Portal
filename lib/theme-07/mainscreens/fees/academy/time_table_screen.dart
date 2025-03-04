@@ -60,7 +60,7 @@ class _Theme07TimetablePageScreenState
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: const Text(
-              'Timetable',
+              'TIMETABLE',
               style: TextStyles.fontStyle4,
               overflow: TextOverflow.clip,
             ),

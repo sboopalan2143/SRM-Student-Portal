@@ -62,7 +62,9 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
     });
     return Scaffold(
       backgroundColor: AppColors.theme07secondaryColor,
- appBar: PreferredSize(
+
+
+      appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
@@ -91,7 +93,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Fee',
+            'FEE',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),

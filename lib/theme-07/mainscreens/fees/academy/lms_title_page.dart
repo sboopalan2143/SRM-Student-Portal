@@ -470,13 +470,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.theme01primaryColor.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 6,
-            ),
-          ],
+
         ),
         child: Center(
           child: Row(

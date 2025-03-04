@@ -353,10 +353,6 @@ class _Theme07TransportRegisterPageState
               ),
             )
           :
-          // Padding(
-          //         padding: const EdgeInsets.all(16),
-          //         child:
-          //       ),
 
           Padding(
               padding: const EdgeInsets.all(20),
@@ -366,13 +362,12 @@ class _Theme07TransportRegisterPageState
                     if (provider.transportAfterRegisterDetails!.busroutename ==
                         '')
                       const Center(child: CircularProgressIndicator()),
-                    // Loading state
                     if (provider.transportAfterRegisterDetails!.busroutename !=
-                        '') // Display details if not loading
+                        '')
                       ...[
                       Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),),
                         elevation: 3,
                         child: Padding(
                           padding: const EdgeInsets.all(16),

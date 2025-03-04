@@ -101,7 +101,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Attendance',
+            'ATTENDANCE',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),

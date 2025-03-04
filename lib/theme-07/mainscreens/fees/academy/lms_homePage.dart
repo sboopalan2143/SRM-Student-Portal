@@ -99,7 +99,7 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'LMS Subject',
+            'LMS SUBJECT',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),

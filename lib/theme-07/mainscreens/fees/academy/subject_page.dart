@@ -52,7 +52,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
       // }
     });
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.theme07secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -82,7 +82,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Course',
+            'COURSE',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
           ),

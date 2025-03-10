@@ -219,7 +219,11 @@ class _Theme07GrievanceFullDetailPageState
                       '${provider.studentwisegrievanceData[index].grievanceid}' == ''
                           ? '-'
                           : '${provider.studentwisegrievanceData[index].grievanceid}',
-                      style: TextStyles.fontStyle10,
+                       style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.theme06primaryColor,
+                      ),
                     ),
                   ),
                 ],
@@ -360,33 +364,7 @@ class _Theme07GrievanceFullDetailPageState
                 ],
               ),
               const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Active Status',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.studentwisegrievanceData[index].activestatus}' == ''
-                          ? '-'
-                          : '${provider.studentwisegrievanceData[index].activestatus}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 5),
+            
                Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

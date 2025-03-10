@@ -5,7 +5,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+
 
 class Theme07SubjectPage extends ConsumerStatefulWidget {
   const Theme07SubjectPage({super.key});
@@ -142,14 +142,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                 ),
               if (provider.subjectHiveData.isNotEmpty)
                 const SizedBox(height: 5),
-              // ListView.builder(
-              //   itemCount: provider.subjectHiveData.length,
-              //   controller: _listController,
-              //   shrinkWrap: true,
-              //   itemBuilder: (BuildContext context, int index) {
-              //     return cardDesign(index);
-              //   },
-              // ),
+
               SingleChildScrollView(
                 child: Column(
                   children: [
@@ -162,31 +155,71 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
   data: Theme.of(context).copyWith(
     dividerColor: Colors.transparent, 
   ),
-                          child: ExpansionTile(
-                            title: Text(
-                              'Semester $i',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.theme07primaryColor,
-                              ),
-                            ),
-                            initiallyExpanded: false,
-                            // Start collapsed by default
-                            backgroundColor: AppColors.theme07secondaryColor,
-                            iconColor: AppColors.blackColor,
-                            textColor: AppColors.whiteColor,
+                          child: Column(
                             children: [
-                              ...provider.subjectHiveData
-                                  .where((data) =>
-                                      data.subjectdetails!.split('##')[0] == '$i')
-                                  .map((data) {
-                                final subjectData =
-                                    data.subjectdetails!.split('##');
-                                return cardDesign(subjectData);
-                              }).toList(),
+
+                              ExpansionTile(
+
+                                title: Text(
+                                  'Semester $i',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.theme07primaryColor,
+                                  ),
+                                ),
+                                initiallyExpanded: false,
+                                // Start collapsed by default
+                                backgroundColor: AppColors.theme07secondaryColor,
+                                iconColor: AppColors.blackColor,
+                                textColor: AppColors.whiteColor,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                          'Code',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.theme07primaryColor,
+                                          )
+
+                                      ),
+
+                                      Text(
+                                          'Course',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.theme07primaryColor,
+                                          )
+
+                                      ),Text(
+                                          'Credit',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.theme07primaryColor,
+                                          )
+
+                                      ),
+                                    ],
+                                  ),
+                                  ...provider.subjectHiveData
+                                      .where((data) =>
+                                          data.subjectdetails!.split('##')[0] == '$i')
+                                      .map((data) {
+                                    final subjectData =
+                                        data.subjectdetails!.split('##');
+                                    return cardDesign(subjectData);
+                                  }).toList(),
+                                ],
+                              ),
+
                             ],
                           ),
+
                         ),
                         const Divider(
                           height: 1,
@@ -198,148 +231,12 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                   ],
                 ),
               )
-
-              // SingleChildScrollView(
-              //   child: Column(
-              //     children: [
-              //       for (int i = 1; i <= 8; i++) ...[
-              //         if (provider.subjectHiveData.any((data) =>
-              //             data.subjectdetails!.split('##')[0] == '$i')) ...[
-              //           ExpansionTile(
-              //             title: Text(
-              //               'Semester $i',
-              //               style: TextStyle(
-              //                 fontSize: 18,
-              //                 fontWeight: FontWeight.bold,
-              //                 color: AppColors.theme06primaryColor,
-              //               ),
-              //             ),
-              //
-              //             initiallyExpanded: false,
-              //             // Start collapsed by default
-              //             backgroundColor: AppColors.theme06ashColor,
-              //             iconColor: AppColors.blackColor,
-              //             textColor: AppColors.whiteColor,
-              //             children: [
-              //               ...provider.subjectHiveData
-              //                   .where((data) =>
-              //                       data.subjectdetails!.split('##')[0] == '$i')
-              //                   .map((data) {
-              //                 final subjectData =
-              //                     data.subjectdetails!.split('##');
-              //                 return cardDesign(subjectData);
-              //               }).toList(),
-              //             ],
-              //           ),
-              //           const Divider(
-              //             height: 1,
-              //             thickness: 1,
-              //             color: AppColors.grey4,
-              //           ),
-              //         ]
-              //       ]
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
     );
   }
-
-  // Widget cardDesign(List<String> subjectData) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         gradient: LinearGradient(
-  //           colors: [
-  //             AppColors.theme02primaryColor,
-  //             AppColors.theme02secondaryColor1,
-  //           ],
-  //           begin: Alignment.topCenter,
-  //           end: Alignment.bottomCenter,
-  //         ),
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             const SizedBox(height: 10),
-  //             Row(
-  //               children: [
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'SEMESTER : ${subjectData[0]}',
-  //                     style: TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.theme02buttonColor2,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Code : ${subjectData[1]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             const SizedBox(height: 15),
-  //             const Divider(
-  //               color: AppColors.grey4,
-  //               height: 1,
-  //             ),
-  //             const SizedBox(height: 15),
-  //             Row(
-  //               children: [
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Course : ${subjectData[2]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Credit : ${subjectData[3]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             const SizedBox(height: 20),
-  //             Divider(
-  //               thickness: 2,
-  //               color: AppColors.theme02secondaryColor1,
-  //               height: 1,
-  //             ),
-  //             const SizedBox(height: 10),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget cardDesign(List<String> subjectData) {
     return Padding(
@@ -369,219 +266,97 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     Text(
-                  //       'Semester',
-                  //       style: TextStyle(
-                  //         fontSize: 12,
-                  //         color: Colors.grey.shade600,
-                  //         fontWeight: FontWeight.w500,
-                  //       ),
-                  //     ),
-                  //     Text(
-                  //       subjectData[0],
-                  //       style: TextStyle(
-                  //         fontSize: 16,
-                  //         color: Colors.blue.shade800,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Code',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        subjectData[1],
-                        style:  TextStyle(
-                          fontSize: 16,
-                          color: AppColors.theme07primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // Divider
-            Divider(
-              color: Colors.grey.shade300,
-              thickness: 1,
-            ),
-            // Details Section
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        // Text(
+                        //   'Code',
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     color: Colors.grey.shade600,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
                         Text(
-                          'Course',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          subjectData[2],
+                          subjectData[1],
                           style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black87,
+                            fontSize: 12,
+                            color: AppColors.blackColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 10,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Credit',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //   'Course',
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     color: Colors.grey.shade600,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        Text(
+                          subjectData[2],
+                           style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        subjectData[3],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold,
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 15,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20,right: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //   'Credit',
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     color: Colors.grey.shade600,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        Text(
+                          subjectData[3],
+                           style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            // Footer Section
+            // Divider
+
           ],
         ),
       ),
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final provider = ref.watch(subjectProvider);
-  //   final data = provider.subjectHiveData[index].subjectdetails;
-  //   final subjectData = data!.split('##');
-  //
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         gradient: LinearGradient(
-  //           colors: [
-  //             AppColors.theme02primaryColor,
-  //             AppColors.theme02secondaryColor1,
-  //           ],
-  //           begin: Alignment.topCenter,
-  //           end: Alignment.bottomCenter,
-  //         ),
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             const SizedBox(height: 10),
-  //             const SizedBox(height: 15),
-  //             Row(
-  //               children: [
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'SEMESTER : ${subjectData[0]}',
-  //                     style: TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.theme02buttonColor2,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Code : ${subjectData[1]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             const SizedBox(height: 15),
-  //             const Divider(
-  //               color: AppColors.grey4,
-  //               height: 1,
-  //             ),
-  //             const SizedBox(height: 15),
-  //             Row(
-  //               children: [
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Subject : ${subjectData[2]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 30),
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Credit : ${subjectData[3]}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       color: AppColors.whiteColor,
-  //                       fontWeight: FontWeight.bold,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             const SizedBox(height: 20),
-  //             Divider(
-  //               thickness: 2,
-  //               color: AppColors.theme02secondaryColor1,
-  //               height: 1,
-  //             ),
-  //             const SizedBox(height: 10),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

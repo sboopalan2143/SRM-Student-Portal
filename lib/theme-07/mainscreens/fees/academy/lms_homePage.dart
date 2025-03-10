@@ -138,7 +138,7 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme07primaryColorProgressIndication,
                   ),
                 )
               else if (provider.lmsSubjectData.isEmpty &&

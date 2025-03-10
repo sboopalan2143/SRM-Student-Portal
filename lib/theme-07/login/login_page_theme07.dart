@@ -71,14 +71,14 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage>
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/images/main.png',
-              ),
-              fit: BoxFit.none,
-            ),
-          ),
+          // decoration: const BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage(
+          //       'assets/images/main.png',
+          //     ),
+          //     fit: BoxFit.none,
+          //   ),
+          // ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 80),
@@ -86,14 +86,23 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage>
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 4 - 25),
+                  SizedBox(height: MediaQuery.of(context).size.height / 4 - 95),
+                  // Center(
+                  //   child: Image.asset(
+                  //     'assets/images/mainpic2.png',
+                  //     width: MediaQuery.of(context).size.width - 150,
+                  //     // height: MediaQuery.of(context).size.height,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
                   Center(
-                    child: Image.asset(
-                      'assets/images/mainpic2.png',
-                      width: MediaQuery.of(context).size.width - 150,
-                      // height: MediaQuery.of(context).size.height,
-                      fit: BoxFit.cover,
-                    ),
+                    child:Image.asset(
+                    'assets/images/srmgrouplogo.png',
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 3,
+                  ),
                   ),
                   const SizedBox(height: 40),
                   Center(

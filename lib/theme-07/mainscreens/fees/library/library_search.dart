@@ -1,11 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme_3/library/library_page.dart';
 
 class Theme07LibraryBookSearch extends ConsumerStatefulWidget {
   const Theme07LibraryBookSearch({super.key});
@@ -106,38 +105,11 @@ class _Theme07LibraryBookSearchState
                         color: AppColors.theme02secondaryColor1,
                       ),
                     ),
-                    // suffixIcon: IconButton(
-                    //   icon: Icon(
-                    //     Icons.search,
-                    //     color: AppColors.theme02buttonColor2,
-                    //   ),
-                    //   onPressed: () async {
-                    //     final provider = ref.watch(libraryProvider);
-
-                    //     if (provider.filter.text == '') {
-                    //       Alerts.errorAlert(
-                    //         message: 'Filter empty',
-                    //         context: context,
-                    //       );
-                    //     } else if (provider.filter.text.length < 3) {
-                    //       Alerts.errorAlert(
-                    //         message: 'Enter Morethan 3 Characters',
-                    //         context: context,
-                    //       );
-                    //     } else {
-                    //       await ref
-                    //           .read(libraryProvider.notifier)
-                    //           .saveLibrartBookSearchDetails(
-                    //             ref.read(encryptionProvider.notifier),
-                    //           );
-                    //     }
-                    //     provider.filter.clear();
-                    //   },
-                    // ),
+                    
                     suffixIcon: IconButton(
                       icon: Icon(
                         Icons.search,
-                        color: AppColors.theme02buttonColor2,
+                        color: AppColors.theme07primaryColor,
                       ),
                       onPressed: () async {
                         final provider = ref.watch(libraryProvider);
@@ -153,12 +125,14 @@ class _Theme07LibraryBookSearchState
                             context: context,
                           );
                         } else {
-                          showDialog(
+                          await showDialog(
                             context: context,
                             barrierDismissible: false,
                             builder: (context) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
+                              return  Center(
+                                 child: CircularProgressIndicators
+                              .theme07primaryColorProgressIndication,
+            
                               );
                             },
                           );
@@ -367,32 +341,7 @@ class _Theme07LibraryBookSearchState
                 ],
               ),
                const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Classification No',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.librarysearchData[index].classificationNumber}' == ''
-                          ? '-'
-                          : '${provider.librarysearchData[index].classificationNumber}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
+            
                
             ],
           ),

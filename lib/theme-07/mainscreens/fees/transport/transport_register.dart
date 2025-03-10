@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
@@ -19,42 +17,6 @@ class Theme07TransportRegisterPage extends ConsumerStatefulWidget {
 
 class _Theme07TransportRegisterPageState
     extends ConsumerState<Theme07TransportRegisterPage> {
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(transportProvider.notifier).getTransportStatusDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportStatusHiveDetails('');
-        await ref.read(transportProvider.notifier).getRouteIdDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref.read(transportProvider.notifier).getRouteIdHiveDetails(
-              '',
-            );
-        await ref.read(transportProvider.notifier).getBoardingIdDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
-              '',
-            );
-        await ref.read(transportProvider.notifier).gettransportRegisterDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportHiveRegisterDetails('');
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportHiveAfterRegisterDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -96,15 +58,6 @@ class _Theme07TransportRegisterPageState
   Widget build(BuildContext context) {
     final provider = ref.watch(transportProvider);
     final readProvider = ref.read(transportProvider.notifier);
-    final width = MediaQuery.of(context).size.width;
-    // log('status data in design>>>${provider.transportRegisterDetails!.status}, ${provider.transportRegisterDetails!.regconfig}');
-    // ref.listen(transportProvider, (previous, next) {
-    //   if (next is TransportStateError) {
-    //     _showToast(context, next.errorMessage, AppColors.redColor);
-    //   } else if (next is TransportStateError) {
-    //     _showToast(context, next.successMessage, AppColors.greenColor);
-    //   }
-    // });
     return Scaffold(
       backgroundColor: AppColors.theme07secondaryColor,
       appBar: PreferredSize(
@@ -141,40 +94,8 @@ class _Theme07TransportRegisterPageState
             overflow: TextOverflow.clip,
           ),
           centerTitle: true,
-          actions: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () async {
-                    await ref
-                        .read(transportProvider.notifier)
-                        .getRouteIdDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
-                    await ref
-                        .read(transportProvider.notifier)
-                        .getRouteIdHiveDetails(
-                          '',
-                        );
-                    await ref
-                        .read(transportProvider.notifier)
-                        .getBoardingIdDetails(
-                          ref.read(encryptionProvider.notifier),
-                        );
-                    await ref
-                        .read(transportProvider.notifier)
-                        .getBoardingPointHiveDetails(
-                          '',
-                        );
-                  },
-                  child: const Icon(
-                    Icons.refresh,
-                    color: AppColors.whiteColor,
-                  ),
-                ),
-              ],
-            ),
-          ],
+        
+        
         ),
       ),
       body: (provider.transportAfterRegisterDetails!.status == '0')
@@ -356,261 +277,61 @@ class _Theme07TransportRegisterPageState
 
           Padding(
               padding: const EdgeInsets.all(20),
-              child: Container(
-                child: Column(
-                  children: [
-                    if (provider.transportAfterRegisterDetails!.busroutename ==
-                        '')
-                      const Center(child: CircularProgressIndicator()),
-                    if (provider.transportAfterRegisterDetails!.busroutename !=
-                        '')
-                      ...[
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),),
-                        elevation: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildInfoRow(
-                                  Icons.directions_bus,
-                                  'Bus Route :',
-                                  provider.transportAfterRegisterDetails!
-                                      .busroutename),
-                              const Divider(),
-                              _buildInfoRow(
-                                  Icons.location_on,
-                                  'Point :',
-                                  provider.transportAfterRegisterDetails!
-                                      .boardingpointname),
-                              const Divider(),
-                              _buildInfoRow(
-                                  Icons.date_range,
-                                  'Date :',
-                                  provider.transportAfterRegisterDetails!
-                                      .registrationdate),
-                              const Divider(),
-                              _buildInfoRow(
-                                  Icons.monetization_on,
-                                  'Bus Fees :',
-                                  provider
-                                      .transportAfterRegisterDetails!.amount),
-                            ],
-                          ),
+              child: Column(
+                children: [
+                  if (provider.transportAfterRegisterDetails!.busroutename ==
+                      '')
+                    Center(    child: CircularProgressIndicators
+            .theme07primaryColorProgressIndication,
+          ),
+                  if (provider.transportAfterRegisterDetails!.busroutename !=
+                      '')
+                    ...[
+                    Card(
+                      color:AppColors.whiteColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),),
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildInfoRow(
+                                Icons.directions_bus,
+                                'Bus Route :',
+                                provider.transportAfterRegisterDetails!
+                                    .busroutename,),
+                            const Divider(),
+                            _buildInfoRow(
+                                Icons.location_on,
+                                'Point :',
+                                provider.transportAfterRegisterDetails!
+                                    .boardingpointname,),
+                            const Divider(),
+                            _buildInfoRow(
+                                Icons.date_range,
+                                'Date :',
+                                provider.transportAfterRegisterDetails!
+                                    .registrationdate,),
+                            const Divider(),
+                            _buildInfoRow(
+                                Icons.monetization_on,
+                                'Bus Fee :',
+                                provider
+                                    .transportAfterRegisterDetails!.amount,),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
 
-      // Padding(
-      //         padding: const EdgeInsets.all(20),
-      //         child: Container(
-      //           decoration: BoxDecoration(
-      //             color: Colors.white,
-      //             borderRadius: const BorderRadius.all(Radius.circular(20)),
-      //             boxShadow: [
-      //               BoxShadow(
-      //                 color: Colors.grey.withOpacity(0.2),
-      //                 spreadRadius: 5,
-      //                 blurRadius: 7,
-      //                 offset: const Offset(0, 3),
-      //               ),
-      //             ],
-      //           ),
-      //           child: Column(
-      //             children: [
-      //               if (provider.transportAfterRegisterDetails!.busroutename ==
-      //                   '')
-      //                 const Center(child: CircularProgressIndicator()),
-      //               // Loading state
-      //               if (provider.transportAfterRegisterDetails!.busroutename !=
-      //                   '') // Display details if not loading
-      //                 ...[
-      //                 Padding(
-      //                   padding: const EdgeInsets.all(20),
-      //                   child: Column(
-      //                     mainAxisSize: MainAxisSize.min,
-      //                     children: [
-      //                       Column(
-      //                         crossAxisAlignment: CrossAxisAlignment.start,
-      //                         children: [
-      //                           SizedBox(
-      //                             width: width / 2,
-      //                             child: const Text(
-      //                               'Busroute',
-      //                               style: TextStyle(
-      //                                 fontSize: 18,
-      //                                 color: AppColors.grey,
-      //                                 fontWeight: FontWeight.bold,
-      //                               ),
-      //                             ),
-      //                           ),
-      //                           SizedBox(
-      //                             width: width * 0.85,
-      //                             child: Text(
-      //                               '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
-      //                                       ''
-      //                                   ? '-'
-      //                                   : '''${provider.transportAfterRegisterDetails!.busroutename}''',
-      //                               style: const TextStyle(
-      //                                 fontSize: 18,
-      //                                 color: AppColors.grey4,
-      //                                 fontWeight: FontWeight.bold,
-      //                               ),
-      //                             ),
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       const SizedBox(height: 10),
-      //                       Row(
-      //                         children: [
-      //                           Column(
-      //                             crossAxisAlignment: CrossAxisAlignment.start,
-      //                             children: [
-      //                               SizedBox(
-      //                                 width: width / 2,
-      //                                 child: const Text(
-      //                                   'Boardingpoint',
-      //                                   style: TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                               const SizedBox(width: 5),
-      //                               SizedBox(
-      //                                 child: Text(
-      //                                   '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
-      //                                           ''
-      //                                       ? '-'
-      //                                       : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
-      //                                   style: const TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey4,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                             ],
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       const SizedBox(height: 10),
-      //                       Row(
-      //                         children: [
-      //                           Column(
-      //                             crossAxisAlignment: CrossAxisAlignment.start,
-      //                             children: [
-      //                               SizedBox(
-      //                                 width: width / 2,
-      //                                 child: const Text(
-      //                                   'Date',
-      //                                   style: TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                               const SizedBox(width: 5),
-      //                               SizedBox(
-      //                                 child: Text(
-      //                                   '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
-      //                                           ''
-      //                                       ? '-'
-      //                                       : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
-      //                                   style: const TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey4,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                             ],
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       const SizedBox(height: 10),
-      //                       Row(
-      //                         children: [
-      //                           Column(
-      //                             crossAxisAlignment: CrossAxisAlignment.start,
-      //                             children: [
-      //                               SizedBox(
-      //                                 width: width / 2,
-      //                                 child: const Text(
-      //                                   'Bus Fees',
-      //                                   style: TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                               const SizedBox(width: 5),
-      //                               SizedBox(
-      //                                 child: Text(
-      //                                   '''${provider.transportAfterRegisterDetails!.amount}''' ==
-      //                                           ''
-      //                                       ? '-'
-      //                                       : '''${provider.transportAfterRegisterDetails!.amount}''',
-      //                                   style: const TextStyle(
-      //                                     fontSize: 18,
-      //                                     color: AppColors.grey4,
-      //                                     fontWeight: FontWeight.bold,
-      //                                   ),
-      //                                 ),
-      //                               ),
-      //                             ],
-      //                           ),
-      //                         ],
-      //                       ),
-      //                       const SizedBox(height: 10),
-      //                     ],
-      //                   ),
-      //                 ),
-      //               ],
-      //             ],
-      //           ),
-      //         ),
-      //       ),
     );
   }
 
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.fontStyletheme2,
-          ),
-        ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyletheme2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 40,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyletheme2,
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildInfoRow(IconData icon, String title, String? value) {
     return Padding(
@@ -624,16 +345,15 @@ class _Theme07TransportRegisterPageState
             child: Text(
               title,
               style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black54),
+                  color: Colors.black54,),
             ),
           ),
           Expanded(
             child: Text(
               (value == null || value.isEmpty) ? '-' : value,
-              style: const TextStyle(fontSize: 16, color: Colors.black87),
-              // overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 14, color: Colors.black87),
             ),
           ),
         ],
@@ -641,19 +361,4 @@ class _Theme07TransportRegisterPageState
     );
   }
 
-  void _showToast(BuildContext context, String message, Color color) {
-    showToast(
-      message,
-      context: context,
-      backgroundColor: color,
-      axis: Axis.horizontal,
-      alignment: Alignment.centerLeft,
-      position: StyledToastPosition.center,
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(15),
-        bottomLeft: Radius.circular(15),
-      ),
-      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
-    );
-  }
 }

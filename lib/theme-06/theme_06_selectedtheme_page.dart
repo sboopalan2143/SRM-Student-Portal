@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/screen/home_page2.dart';
 import 'package:sample/home/screen/theme05_bottom_navigation_page.dart.dart';
 import 'package:sample/theme-01/Theme_01_bottom_navigation_page.dart';
 import 'package:sample/theme-02/theme_02_bottom_navigation_page.dart';
@@ -47,6 +46,17 @@ class _Theme06PageState extends ConsumerState<Theme06Page> {
         child: Stack(
           children: [
             AppBar(
+               leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
               automaticallyImplyLeading: false,
               backgroundColor: AppColors.theme02secondaryColor1,
               elevation: 0,

@@ -288,7 +288,7 @@ class _Theme07LmsCommentScreenState
                   // Comment Text
                   Text(
                     commentData.comments ?? '-',
-                    style: TextStyles.lessSmallerBlackColorFontStyle.copyWith(
+                    style: TextStyles.smallBlackColorFontStyle.copyWith(
                       color: isYou ? AppColors.primaryColor : Colors.black87,
                     ),
                   ),

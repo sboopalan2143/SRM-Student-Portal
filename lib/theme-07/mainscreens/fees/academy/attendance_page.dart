@@ -139,8 +139,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                     width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -173,8 +173,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                     width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -217,7 +217,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
     final provider = ref.watch(DhasboardoverallattendanceProvider);
 
     if (provider.DhasboardOverallattendanceData.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicators
+        .theme07primaryColorProgressIndication,);
     }
 
     final present = int.tryParse(
@@ -291,7 +292,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(Icons.group, color: AppColors.theme02buttonColor2, size: 20),
+              Icon(Icons.group, color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Total: $totalSessions',
@@ -307,7 +308,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           Row(
             children: [
               Icon(Icons.how_to_reg,
-                  color: AppColors.theme02buttonColor2, size: 20),
+                  color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Present: $present',
@@ -323,7 +324,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           Row(
             children: [
               Icon(Icons.person_off,
-                  color: AppColors.theme02buttonColor2, size: 20),
+                  color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Absent: $absent',
@@ -339,7 +340,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           Row(
             children: [
               Icon(Icons.percent,
-                  color: AppColors.theme02buttonColor2, size: 20),
+                  color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
@@ -355,7 +356,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           Row(
             children: [
               Icon(Icons.percent,
-                  color: AppColors.theme02buttonColor2, size: 20),
+                  color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Absent % : ${absentper.toStringAsFixed(2)}%',
@@ -371,7 +372,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           Row(
             children: [
               Icon(Icons.percent,
-                  color: AppColors.theme02buttonColor2, size: 20),
+                  color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Mlod % : ${mlod.toStringAsFixed(2)}%',

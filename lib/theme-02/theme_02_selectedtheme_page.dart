@@ -45,6 +45,18 @@ class _Theme02PageState extends ConsumerState<Theme02Page> {
         child: Stack(
           children: [
             AppBar(
+               leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
+              
               automaticallyImplyLeading: false,
               backgroundColor: AppColors.theme02secondaryColor1,
               elevation: 0,

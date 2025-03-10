@@ -5,7 +5,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
 
 class Theme07LibraryPage extends ConsumerStatefulWidget {
   const Theme07LibraryPage({super.key});
@@ -18,25 +17,11 @@ class Theme07LibraryPage extends ConsumerStatefulWidget {
 class _Theme07LibraryPageState extends ConsumerState<Theme07LibraryPage> {
   final ScrollController _listController = ScrollController();
 
-  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(libraryProvider.notifier).getLibraryMemberDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -130,51 +115,13 @@ class _Theme07LibraryPageState extends ConsumerState<Theme07LibraryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Padding(
-            //   padding:
-            //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            //   child: Center(
-            //     child: Column(
-            //       children: [
-            //         SizedBox(
-            //           width: 200,
-            //           child: ElevatedButton(
-            //             style: ElevatedButton.styleFrom(
-            //               shape: const RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.all(
-            //                   Radius.circular(20),
-            //                 ),
-            //               ),
-            //               elevation: 0,
-            //               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            //               backgroundColor: AppColors.theme02secondaryColor1,
-            //               shadowColor: Colors.transparent,
-            //             ),
-            //             onPressed: () {
-            //               Navigator.push(
-            //                 context,
-            //                 RouteDesign(
-            //                   route: const Theme02LibraryBookSearch(),
-            //                 ),
-            //               );
-            //             },
-            //             child: const Text(
-            //               'Book Search',
-            //               style: TextStyles.fontStyle13,
-            //             ),
-            //           ),
-            //         ),
-            //         const SizedBox(height: 10),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+           
             if (provider is LibraryTrancsactionStateLoading)
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
                   child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                      CircularProgressIndicators.theme07primaryColorProgressIndication,
                 ),
               )
             else if (provider.libraryTransactionData.isEmpty &&
@@ -348,108 +295,6 @@ class _Theme07LibraryPageState extends ConsumerState<Theme07LibraryPage> {
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final provider = ref.watch(libraryProvider);
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 10),
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         gradient: LinearGradient(
-  //           colors: [
-  //             AppColors.theme02primaryColor,
-  //             AppColors.theme02secondaryColor1,
-  //           ],
-  //           begin: Alignment.topCenter,
-  //           end: Alignment.bottomCenter,
-  //         ),
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(20),
-  //         child: Column(
-  //           children: [
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 Text(
-  //                   '${provider.libraryTransactionData[index].membername}' ==
-  //                           'null'
-  //                       ? '-'
-  //                       : '''${provider.libraryTransactionData[index].membername}''',
-  //                   style: const TextStyle(
-  //                     fontSize: 14,
-  //                     color: AppColors.whiteColor,
-  //                     fontWeight: FontWeight.bold,
-  //                   ),
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     Text(
-  //                       '${provider.libraryTransactionData[index].membercode}' ==
-  //                               'null'
-  //                           ? '-'
-  //                           : '''${provider.libraryTransactionData[index].membercode}''',
-  //                       style: const TextStyle(
-  //                         fontSize: 12,
-  //                         color: AppColors.whiteColor,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(width: 10),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //             const SizedBox(
-  //               height: 10,
-  //             ),
-  //             Row(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 Text(
-  //                   '${provider.libraryTransactionData[index].policyname}' ==
-  //                           'null'
-  //                       ? '-'
-  //                       : '${provider.libraryTransactionData[index].policyname}',
-  //                   style: const TextStyle(
-  //                     fontSize: 12,
-  //                     color: AppColors.whiteColor,
-  //                   ),
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const Text(
-  //                       'Status :',
-  //                       style: TextStyle(
-  //                         fontSize: 12,
-  //                         color: AppColors.whiteColor,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(width: 10),
-  //                     Container(
-  //                       height: 20,
-  //                       width: 20,
-  //                       decoration: BoxDecoration(
-  //                         borderRadius:
-  //                             const BorderRadius.all(Radius.circular(20)),
-  //                         color:
-  //                             provider.libraryTransactionData[index].status ==
-  //                                     'Active'
-  //                                 ? AppColors.greenColor
-  //                                 : AppColors.redColor,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

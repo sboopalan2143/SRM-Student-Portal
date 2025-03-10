@@ -16,7 +16,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
 
 class LmsAttachmentDetailsDataPageTheme3 extends ConsumerStatefulWidget {
   const LmsAttachmentDetailsDataPageTheme3({
@@ -197,135 +196,6 @@ class LmsAttachmentDetailsDataPageTheme3State
     );
   }
 
-  // Widget cardDesign(int index) {
-  //   final width = MediaQuery.of(context).size.width;
-  //   final provider = ref.watch(lmsProvider);
-  //   // final base64Image =
-  //   //     '${provider.lmsAttachmentDetailsData[index].imageBytes}'; // shortened for brevity
-  //   // final imageBytes = base64Decode(base64Image);
-
-  //   final pdfBytes = provider.lmsAttachmentDetailsData[index] as Uint8List?;
-
-  //   log('Attachment PDF >>> $pdfBytes');
-
-  //   // log('Attachment image >>> $imageBytes');
-  //   return GestureDetector(
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(bottom: 8),
-  //       child: Container(
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: const BorderRadius.all(Radius.circular(20)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.grey.withOpacity(0.2),
-  //               spreadRadius: 5,
-  //               blurRadius: 7,
-  //               offset: const Offset(0, 3),
-  //             ),
-  //           ],
-  //         ),
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(20),
-  //           child: Column(
-  //             children: [
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'File',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                 ],
-  //               ),
-  //               Center(
-  //                 child: SizedBox(
-  //                   height: 200,
-  //                   width: width - 100,
-  //                   child: pdfBytes != null
-  //                       ? PDFView(
-  //                           pdfData: pdfBytes,
-  //                           fitEachPage: true,
-  //                           fitPolicy: FitPolicy.BOTH,
-  //                           backgroundColor: Colors.grey[300],
-  //                         )
-  //                       : const Center(
-  //                           child: Text(
-  //                             'No PDF available',
-  //                             style: TextStyles.fontStyle10,
-  //                           ),
-  //                         ),
-  //                 ),
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'Actual name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsAttachmentDetailsData[index].actualname}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '''${provider.lmsAttachmentDetailsData[index].actualname}''',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   SizedBox(
-  //                     width: width / 2 - 80,
-  //                     child: const Text(
-  //                       'File name',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                   const Text(
-  //                     ':',
-  //                     style: TextStyles.fontStyle10,
-  //                   ),
-  //                   const SizedBox(width: 5),
-  //                   SizedBox(
-  //                     width: width / 2 - 60,
-  //                     child: Text(
-  //                       '${provider.lmsAttachmentDetailsData[index].filename}' ==
-  //                               ''
-  //                           ? '-'
-  //                           : '${provider.lmsAttachmentDetailsData[index].filename}',
-  //                       style: TextStyles.fontStyle10,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
@@ -358,66 +228,6 @@ class LmsAttachmentDetailsDataPageTheme3State
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     SizedBox(
-                //       width: width / 2 - 80,
-                //       child: const Text(
-                //         'File',
-                //         style: TextStyles.fontStyle10,
-                //       ),
-                //     ),
-                //     const Text(
-                //       ':',
-                //       style: TextStyles.fontStyle10,
-                //     ),
-                //     const SizedBox(width: 5),
-                //     ElevatedButton(
-                //       onPressed: () {
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (_) => const Pdfview(
-                //               url:
-                //                   'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //       child: const Text('PDF From URL'),
-                //     )
-                //   ],
-                // ),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     SizedBox(
-                //       width: width / 2 - 80,
-                //       child: const Text(
-                //         'Excel',
-                //         style: TextStyles.fontStyle10,
-                //       ),
-                //     ),
-                //     const Text(
-                //       ':',
-                //       style: TextStyles.fontStyle10,
-                //     ),
-                //     const SizedBox(width: 5),
-                //     const SizedBox(width: 5),
-                //     ElevatedButton(
-                //       onPressed: () {
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (_) => ExcelViewer(),
-                //           ),
-                //         );
-                //       },
-                //       child: const Text('Excel'),
-                //     )
-                //   ],
-                // ),
                 Center(
                   child: SizedBox(
                     height: 200,
@@ -436,29 +246,6 @@ class LmsAttachmentDetailsDataPageTheme3State
                           ),
                   ),
                 ),
-                // Card(
-                //   elevation: 10,
-                //   child: ElevatedButton(
-                //     child: const Text(
-                //       'View Doc',
-                //       style: TextStyle(fontSize: 20),
-                //     ),
-                //     // AppColors: Colors.blueGrey,
-                //     // textColor: Colors.white,
-                //     // highlightColor: Colors.red,
-                //     onPressed: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (_) => const Pdfview(
-                //             url:
-                //                 'https://assets.website-files.com/603d0d2db8ec32ba7d44fffe/603d0e327eb2748c8ab1053f_loremipsum.pdf',
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
                 const SizedBox(
                   height: 10,
                 ),

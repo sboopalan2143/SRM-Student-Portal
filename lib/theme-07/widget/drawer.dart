@@ -158,7 +158,7 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
            
             ListTile(
               leading:  Icon(Icons.logout,
-                  color: AppColors.theme07primaryColor), // Logout icon
+                  color: AppColors.theme07primaryColor,), 
               title: const Row(
                 children: [
                   Text(

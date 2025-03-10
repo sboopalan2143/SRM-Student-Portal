@@ -11,8 +11,6 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_Faculty_comment_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme_3/lms/lms_classwork_detail_theme3.dart';
 import 'package:sample/theme_3/lms/lms_comment_screen_theme3.dart';

@@ -105,8 +105,8 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                    width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -139,8 +139,8 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                    width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {

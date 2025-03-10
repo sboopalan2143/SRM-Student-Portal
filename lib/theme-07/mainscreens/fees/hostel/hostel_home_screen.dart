@@ -1,19 +1,16 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_leave_application.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/hostel/theme07_hostel_screen.dart';
+
+import 'hostel_registration_page.dart';
 
 class Theme07HostelHomePage extends ConsumerStatefulWidget {
   const Theme07HostelHomePage({super.key});
@@ -48,13 +45,12 @@ class _Theme07HostelHomePageState extends ConsumerState<Theme07HostelHomePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(hostelProvider);
-    log('Regconfig  : ${provider.hostelRegisterDetails!.regconfig}');
-    log('status  : ${provider.hostelRegisterDetails!.status}');
+    log('Regconfig  : ${provider.hostelRegisterDetails.regconfig}');
+    log('status  : ${provider.hostelRegisterDetails.status}');
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is HostelStateSuccessful) {
-        /// Handle route to next page.
         _showToast(context, next.successMessage, AppColors.greenColor);
       }
     });
@@ -97,238 +93,87 @@ class _Theme07HostelHomePageState extends ConsumerState<Theme07HostelHomePage> {
           centerTitle: true,
         ),
       ),
-      body: Column(
+      body:
+      Column(
         children: [
-          const SizedBox(
-            height: 10,
-          ),
 
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: height * 0.025,
           ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteDesign(
-                    route: const Theme07HostelPage(),
-                  ),
-                );
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width *
-                    0.75, // Responsive width
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 18,
-                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 120,
+              width: width * 0.36,
+                child: ElevatedButton(
+                  style: BorderBoxButtonDecorations.homePageButtonStyle,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route: const Theme07HostelPage(),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
 
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.whiteColor,
-                      AppColors.whiteColor,
+                      SizedBox(
+                        height: height * 0.006,
+                      ),
+                      Text(
+                        'Hostel Details',
+                        textAlign: TextAlign.center,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
+                      ),
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
                   ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 6),
-                      blurRadius: 12,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        // SvgPicture.asset(
-                        //   'assets/images/hosteltheme3.svg',
-                        //   color: AppColors.whiteColor,
-                        //   height: MediaQuery.of(context).size.height / 24,
-                        // ),
-                        const SizedBox(width: 12),
-                        Text(
-                          'Hostel Details',
-                          style: width > 400
-                              ? TextStyles.smallBlackColorFontStyle
-                              : TextStyles.smallerBlackColorFontStyle,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const SizedBox(width: 8),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                          color: AppColors.theme07primaryColor,
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+              SizedBox(
+                width: width * 0.06,
+              ),
+              SizedBox(
+                height: 120,
+              width: width * 0.36,
+                child: ElevatedButton(
+                  style: BorderBoxButtonDecorations.homePageButtonStyle,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      RouteDesign(
+                        route:
+                        const Theme07RegistrationPage(),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
 
-          // if (provider.hostelRegisterDetails.regconfig == '1')
-          //   Center(
-          //     child: GestureDetector(
-          //       onTap: () {
-          //         Navigator.push(
-          //           context,
-          //           RouteDesign(
-          //             route: const Theme02LeaveApplicationPage(),
-          //           ),
-          //         );
-          //       },
-          //       child: Container(
-          //         width: MediaQuery.of(context).size.width *
-          //             0.75, // Responsive width
-          //         padding: const EdgeInsets.symmetric(
-          //           vertical: 16,
-          //           horizontal: 16,
-          //         ),
-          //
-          //         decoration: BoxDecoration(
-          //           borderRadius: BorderRadius.circular(24),
-          //           gradient: LinearGradient(
-          //             colors: [
-          //               AppColors.theme02primaryColor,
-          //               AppColors.theme02secondaryColor1,
-          //             ],
-          //             begin: Alignment.topCenter,
-          //             end: Alignment.bottomCenter,
-          //           ),
-          //           boxShadow: const [
-          //             BoxShadow(
-          //               color: Colors.black26,
-          //               offset: Offset(0, 6),
-          //               blurRadius: 12,
-          //             ),
-          //           ],
-          //         ),
-          //
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 SvgPicture.asset(
-          //                   'assets/images/hosteltheme3.svg',
-          //                   color: AppColors.whiteColor,
-          //                   height: MediaQuery.of(context).size.height / 24,
-          //                 ),
-          //                 const SizedBox(width: 12),
-          //                 const Text(
-          //                   'Hostel Leave Entry',
-          //                   style: TextStyle(
-          //                     fontSize: 16,
-          //                     fontWeight: FontWeight.bold,
-          //                     color: Colors.white,
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //             const Row(
-          //               children: [
-          //                 SizedBox(width: 8),
-          //                 Icon(
-          //                   Icons.arrow_forward_ios,
-          //                   size: 20,
-          //                   color: Colors.white,
-          //                 ),
-          //               ],
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Center(
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.push(
-          //         context,
-          //         RouteDesign(
-          //           route: const Theme02RegistrationPage(),
-          //         ),
-          //       );
-          //     },
-          //     child: Container(
-          //       width: MediaQuery.of(context).size.width *
-          //           0.75, // Responsive width
-          //       padding: const EdgeInsets.symmetric(
-          //         vertical: 16,
-          //         horizontal: 18,
-          //       ),
-          //
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(24),
-          //         gradient: LinearGradient(
-          //           colors: [
-          //             AppColors.whiteColor,
-          //             AppColors.whiteColor,
-          //           ],
-          //           begin: Alignment.topCenter,
-          //           end: Alignment.bottomCenter,
-          //         ),
-          //         boxShadow: const [
-          //           BoxShadow(
-          //             color: Colors.black26,
-          //             offset: Offset(0, 6),
-          //             blurRadius: 12,
-          //           ),
-          //         ],
-          //       ),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           Row(
-          //             children: [
-          //               // SvgPicture.asset(
-          //               //   'assets/images/hosteltheme3.svg',
-          //               //   color: AppColors.whiteColor,
-          //               //   height: MediaQuery.of(context).size.height / 24,
-          //               // ),
-          //               const SizedBox(width: 12),
-          //               Text(
-          //                 'Hostel Leave Status',
-          //                 style: TextStyle(
-          //                   fontSize: 16,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: AppColors.theme07primaryColor,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //            Row(
-          //             children: [
-          //               const SizedBox(width: 8),
-          //               Icon(
-          //                 Icons.arrow_forward_ios,
-          //                 size: 20,
-          //                 color: AppColors.theme07primaryColor,
-          //               ),
-          //             ],
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
+                      SizedBox(
+                        height: height * 0.006,
+                      ),
+                      Text(
+                        'Hostel Registration',
+                        textAlign: TextAlign.center,
+                        style: width > 400
+                            ? TextStyles.smallBlackColorFontStyle
+                            : TextStyles.smallerBlackColorFontStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.025,
+          ),
         ],
       ),
     );

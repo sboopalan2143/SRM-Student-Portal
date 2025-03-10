@@ -101,9 +101,6 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 20,
-          ),
            SizedBox(
                               height: height * 0.025,
                             ),
@@ -111,8 +108,8 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                    width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () { Navigator.push(
@@ -145,8 +142,8 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                    width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {

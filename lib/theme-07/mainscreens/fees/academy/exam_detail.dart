@@ -133,7 +133,7 @@ class _Theme07ExamDetailsPageThemeState
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
                   child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                      CircularProgressIndicators.theme07primaryColorProgressIndication,
                 ),
               )
             else if (provider.examDetailsHiveData.isEmpty &&
@@ -260,33 +260,7 @@ class _Theme07ExamDetailsPageThemeState
                 ],
               ),
                const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Subject Desc',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].subjectdesc}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].subjectdesc}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(height: 5),
+            
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_title_screen.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
-import 'package:sample/theme-02/notification_page.dart';
 import 'package:sample/theme-07/notification_detailpage.dart';
 
 class Theme07NotificationHomePage extends ConsumerStatefulWidget {
@@ -32,18 +28,6 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(notificationProvider.notifier).getNotificationDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -98,17 +82,6 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
               ),
               leading: IconButton(
                 onPressed: () {
-                  // ref
-                  //     .read(notificationCountProvider.notifier)
-                  //     .getNotificationCountDetails(
-                  //       ref.read(encryptionProvider.notifier),
-                  //     );
-                  // ref
-                  //     .read(notificationCountProvider.notifier)
-                  //     .getreadNotificationDetails(
-                  //       ref.read(encryptionProvider.notifier),
-                  //     );
-
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     ref
                         .read(notificationCountProvider.notifier)
@@ -182,8 +155,6 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
   }
 
   Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width;
-
     final provider = ref.watch(notificationProvider);
     return GestureDetector(
       onTap: () {
@@ -228,7 +199,7 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
                   Icon(
                     Icons.paste_outlined,
                     size: 36,
-                    color: AppColors.theme07primaryColor
+                    color: AppColors.theme07primaryColor,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -251,7 +222,7 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
+                          horizontal: 10, vertical: 4,),
                       decoration: BoxDecoration(
                         color: AppColors.theme07primaryColor,
                         borderRadius: BorderRadius.circular(20),

@@ -415,7 +415,7 @@ class _Theme07LmsFacultyCommentScreenState
                   if (!isYou) const SizedBox(height: 8),
                   Text(
                     replyData.replycomments ?? '-',
-                    style: TextStyles.lessSmallerBlackColorFontStyle.copyWith(
+                    style: TextStyles.smallBlackColorFontStyle.copyWith(
                       color: isYou ? AppColors.primaryColor : Colors.black87,
                     ),
                   ),

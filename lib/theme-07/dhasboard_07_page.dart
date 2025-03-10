@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -49,10 +46,10 @@ import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
 import 'package:sample/theme-02/mainscreens/fees/fees_due_page.dart';
-import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_register.dart';
-import 'package:sample/theme-02/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-02/notification_page.dart';
-import 'package:sample/theme-02/time_table_page.dart';
+import 'package:sample/theme-07/mainscreens/fees/academy/time_table_screen.dart';
+import 'package:sample/theme-07/mainscreens/fees/hostel/hostel_registration_page.dart';
+import 'package:sample/theme-07/mainscreens/fees/transport/transport_register.dart';
 import 'package:sample/theme-07/notification_homepage.dart';
 import 'package:sample/theme-07/widget/drawer.dart';
 
@@ -1098,7 +1095,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                           context,
                                           RouteDesign(
                                             route:
-                                                const Theme02RegistrationPage(),
+                                                const Theme07RegistrationPage(),
                                           ),
                                         );
                                       },
@@ -1180,7 +1177,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                           context,
                                           RouteDesign(
                                             route:
-                                                const Theme02TransportRegisterPage(),
+                                                const Theme07TransportRegisterPage(),
                                           ),
                                         );
                                       },
@@ -1600,7 +1597,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(Icons.group, color: AppColors.theme02buttonColor2, size: 20),
+              Icon(Icons.group, color: AppColors.theme07primaryColor, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Total: $totalSessions',
@@ -1616,7 +1613,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           Row(
             children: [
               Icon(Icons.how_to_reg,
-                  color: AppColors.theme02buttonColor2, size: 20,),
+                  color: AppColors.theme07primaryColor, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Present: $present',
@@ -1632,7 +1629,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           Row(
             children: [
               Icon(Icons.person_off,
-                  color: AppColors.theme02buttonColor2, size: 20,),
+                  color: AppColors.theme07primaryColor, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Absent: $absent',
@@ -1648,7 +1645,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           Row(
             children: [
               Icon(Icons.percent,
-                  color: AppColors.theme02buttonColor2, size: 20,),
+                  color: AppColors.theme07primaryColor, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
@@ -2007,7 +2004,6 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
 
   Widget feesdhasboardcardDesign(int index) {
     final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
-    log('${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}');
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -2188,7 +2184,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                     Navigator.push(
                       context,
                       RouteDesign(
-                        route: const Theme02TimetablePageScreen(),
+                        route: const Theme07TimetablePageScreen(),
                         // route: const StudentLoginPage(),
                       ),
                     );

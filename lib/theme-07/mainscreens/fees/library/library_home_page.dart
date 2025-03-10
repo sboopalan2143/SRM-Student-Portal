@@ -9,8 +9,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/library/library_screen.dart';
-import 'package:sample/theme-02/mainscreens/library/library_search_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/library/library_details_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/library/library_search.dart';
 
@@ -48,8 +46,8 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(hostelProvider);
-    log('Regconfig  : ${provider.hostelRegisterDetails!.regconfig}');
-    log('status  : ${provider.hostelRegisterDetails!.status}');
+    log('Regconfig  : ${provider.hostelRegisterDetails.regconfig}');
+    log('status  : ${provider.hostelRegisterDetails.status}');
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
@@ -99,9 +97,7 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 20,
-          ),
+         
             SizedBox(
                               height: height * 0.025,
                             ),
@@ -109,8 +105,8 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                 width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -129,7 +125,7 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'Library Details',
+                                          'Library Transactions',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
@@ -143,8 +139,8 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
-                                  width: width * 0.40,
+                                  height: 120,
+                                 width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -178,154 +174,7 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                             SizedBox(
                               height: height * 0.025,
                             ),
-          // Center(
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.push(
-          //         context,
-          //         RouteDesign(
-          //           route: const Theme02LibraryPage(),
-          //         ),
-          //       );
-          //     },
-          //     child: Container(
-          //       width: MediaQuery.of(context).size.width *
-          //           0.75, // Responsive width
-          //       padding: const EdgeInsets.symmetric(
-          //         vertical: 16,
-          //         horizontal: 20,
-          //       ),
-
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(24),
-          //         gradient: LinearGradient(
-          //           colors: [
-          //             AppColors.theme02primaryColor,
-          //             AppColors.theme02secondaryColor1,
-          //           ],
-          //           begin: Alignment.topCenter,
-          //           end: Alignment.bottomCenter,
-          //         ),
-          //         boxShadow: const [
-          //           BoxShadow(
-          //             color: Colors.black26,
-          //             offset: Offset(0, 6),
-          //             blurRadius: 12,
-          //           ),
-          //         ],
-          //       ),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-                   
-          //           Row(
-          //             children: [
-          //               Icon(
-          //                 Icons.library_books,
-          //                 size: 28,
-          //                 color: Colors.white.withOpacity(0.9),
-          //               ),
-          //               const SizedBox(width: 12),
-          //               const Text(
-          //                 'Library Details',
-          //                 style: TextStyle(
-          //                   fontSize: 16,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: Colors.white,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           const Row(
-          //             children: [
-          //               SizedBox(width: 8),
-          //               Icon(
-          //                 Icons.arrow_forward_ios,
-          //                 size: 20,
-          //                 color: Colors.white,
-          //               ),
-          //             ],
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Center(
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Navigator.push(
-          //         context,
-          //         RouteDesign(
-          //           route: const Theme02LibraryBookSearch(),
-          //         ),
-          //       );
-          //     },
-          //     child: Container(
-          //       width: MediaQuery.of(context).size.width *
-          //           0.75, // Responsive width
-          //       padding: const EdgeInsets.symmetric(
-          //         vertical: 16,
-          //         horizontal: 20,
-          //       ),
-
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(24),
-          //         gradient: LinearGradient(
-          //           colors: [
-          //             AppColors.theme02primaryColor,
-          //             AppColors.theme02secondaryColor1,
-          //           ],
-          //           begin: Alignment.topCenter,
-          //           end: Alignment.bottomCenter,
-          //         ),
-          //         boxShadow: const [
-          //           BoxShadow(
-          //             color: Colors.black26,
-          //             offset: Offset(0, 6),
-          //             blurRadius: 12,
-          //           ),
-          //         ],
-          //       ),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           Row(
-          //             children: [
-          //               Icon(
-          //                 Icons.search,
-          //                 size: 28,
-          //                 color: Colors.white.withOpacity(0.9),
-          //               ),
-          //               const SizedBox(width: 12),
-          //               const Text(
-          //                 'Book Search',
-          //                 style: TextStyle(
-          //                   fontSize: 16,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: Colors.white,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           const Row(
-          //             children: [
-          //               SizedBox(width: 8),
-          //               Icon(
-          //                 Icons.arrow_forward_ios,
-          //                 size: 20,
-          //                 color: Colors.white,
-          //               ),
-          //             ],
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
+         
         ],
       ),
     );

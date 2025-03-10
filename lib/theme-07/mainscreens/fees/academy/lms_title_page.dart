@@ -1,19 +1,16 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_classworkdetails.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_comment_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_faclty_message.dart';
@@ -222,7 +219,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
    Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
-    return Padding(
+   return Padding(
       padding: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
@@ -273,7 +270,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    
+
                     child: const Text(
                       'Title',
                       style: TextStyles.fontStyle10,
@@ -296,7 +293,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                 ],
               ),
                const SizedBox(height: 5),
-             
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -345,11 +342,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                       '${provider.lmsTitleData[index].enddatetime}' == ''
                           ? '-'
                           : '${provider.lmsTitleData[index].enddatetime}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.theme06primaryColor,
-                      ),
+                     style: TextStyles.fontStyle10,
                     ),
                   ),
                 ],
@@ -386,8 +379,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                                   '${provider.classWorkDetailsData[index].fieldrequirement}',
                               imageattachmentid:
                                   '${provider.classWorkDetailsData[index].stuimageattachmentid}',
-                              subjectID:
-                                  '${provider.lmsSubjectData[index].subjectid}',
+                              subjectID:  widget.subjectID,
                             ),
                           ),
                         );

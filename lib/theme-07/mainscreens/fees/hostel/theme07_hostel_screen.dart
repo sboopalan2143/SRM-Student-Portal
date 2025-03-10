@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-02/mainscreens/hostel/theme_02_hostel_button_style.dart';
 
 class Theme07HostelPage extends ConsumerStatefulWidget {
@@ -105,31 +103,7 @@ class _Theme07HostelPageState extends ConsumerState<Theme07HostelPage> {
             overflow: TextOverflow.clip,
           ),
           centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await ref.read(hostelProvider.notifier).getHostelDetails(
-                            ref.read(encryptionProvider.notifier),
-                          );
-                      await ref
-                          .read(hostelProvider.notifier)
-                          .getHostelHiveDetails(
-                            '',
-                          );
-                    },
-                    child: const Icon(
-                      Icons.refresh,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          
         ),
       ),
       body: Column(
@@ -198,7 +172,6 @@ class _Theme07HostelPageState extends ConsumerState<Theme07HostelPage> {
           ),
         ],
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

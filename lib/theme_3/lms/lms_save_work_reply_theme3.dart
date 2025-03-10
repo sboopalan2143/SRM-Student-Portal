@@ -1,3 +1,5 @@
+// ignore_for_file: document_ignores, strict_raw_type
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';

@@ -196,7 +196,7 @@ class _Theme07GrievanceEntryPageState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Grievances Sub Type',
+                        'Category Sub Type',
                         style: TextStyles.alertContentStyle,
                       ),
                       const SizedBox(
@@ -313,12 +313,12 @@ class _Theme07GrievanceEntryPageState
                     height: 40,
                     child: TextField(
                       controller: provider.subject,
-                      style: TextStyles.alertContentStyle,
+                    style: TextStyles.smallestNoColorFontStyle,
                       decoration: InputDecoration(
                         hintText: 'Subject',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
+                      hintStyle: TextStyles.smallLightAshColorFontStyle,
                         filled: true,
-                        fillColor: AppColors.secondaryColor,
+                        fillColor: AppColors.whiteColor,
                         contentPadding: const EdgeInsets.all(10),
                         enabledBorder:
                             BorderBoxButtonDecorations.loginTextFieldStyle,
@@ -340,22 +340,20 @@ class _Theme07GrievanceEntryPageState
                   const SizedBox(
                     height: 5,
                   ),
-                  SizedBox(
-                    height: 40,
-                    child: TextField(
-                      controller: provider.description,
-                      style: TextStyles.theme01primary10smal3,
-                      decoration: InputDecoration(
-                        hintText: 'Subject Description',
-                        hintStyle: TextStyles.smallLightAshColorFontStyle,
-                        filled: true,
-                        fillColor: AppColors.secondaryColor,
-                        contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                      ),
+                  TextField(
+                    controller: provider.description,
+                    maxLines: 3,
+                    style: TextStyles.smallestNoColorFontStyle,
+                    decoration: InputDecoration(
+                      hintText: 'Subject Description',
+                      hintStyle: TextStyles.smallLightAshColorFontStyle,
+                      filled: true,
+                      fillColor: AppColors.whiteColor,
+                      contentPadding: const EdgeInsets.all(10),
+                      enabledBorder:
+                          BorderBoxButtonDecorations.loginTextFieldStyle,
+                      focusedBorder:
+                          BorderBoxButtonDecorations.loginTextFieldStyle,
                     ),
                   ),
                 ],

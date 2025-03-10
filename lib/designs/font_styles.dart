@@ -70,15 +70,15 @@ class TextStyles {
   );
 
   static const smallBlackColorFontStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 14,
     color: AppColors.blackColor,
-    fontWeight: FontWeight.bold,
+    // fontWeight: FontWeight.bold,
   );
 
   static const smallerBlackColorFontStyle = TextStyle(
-    fontSize: 16,
+    fontSize: 12,
     color: AppColors.blackColor,
-    fontWeight: FontWeight.bold,
+    // fontWeight: FontWeight.bold,
   );
 
   static const smallLightAshColorFontStyle = TextStyle(

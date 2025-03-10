@@ -6,6 +6,7 @@ import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Theme07LmsContentDetailsPage extends ConsumerStatefulWidget {
   const Theme07LmsContentDetailsPage({required this.subjectid, super.key});
@@ -138,7 +139,7 @@ class _Theme07LmsContentDetailsPageState
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme07primaryColorProgressIndication,
                   ),
                 )
               else if (provider.lmsContentData.isEmpty &&
@@ -191,33 +192,6 @@ class _Theme07LmsContentDetailsPageState
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Title',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.lmsContentData[index].title}' == ''
-                          ? '-'
-                          : '${provider.lmsContentData[index].title}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(height: 5),
              
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,60 +251,6 @@ class _Theme07LmsContentDetailsPageState
                 ],
               ),
                const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'New Content',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.lmsContentData[index].newcontent}' == ''
-                          ? '-'
-                          : '${provider.lmsContentData[index].newcontent}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Sharing ID',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.lmsContentData[index].contentsharingid}' == ''
-                          ? '-'
-                          : '${provider.lmsContentData[index].contentsharingid}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-                 const SizedBox(height: 5),
                   Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -359,29 +279,84 @@ class _Theme07LmsContentDetailsPageState
               ),
                const SizedBox(height: 5),
                Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'URL',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
+                  // SizedBox(
+                  //   width: width / 2 - 80,
+                  //   child: const Text(
+                  //     'URL',
+                  //     style: TextStyles.fontStyle10,
+                  //   ),
+                  // ),
+                  // const Text(
+                  //   ':',
+                  //   style: TextStyles.fontStyle10,
+                  // ),
                   const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.lmsContentData[index].url}' == ''
-                          ? '-'
-                          : '${provider.lmsContentData[index].url}',
-                      style: TextStyles.fontStyle10,
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse(
+                              '${provider.lmsContentData[index].url}',);
+
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(
+                              url,
+                              mode: LaunchMode.inAppWebView, // Opens within the app
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Could not launch the URL')),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12), // Rounded corners (optional)
+                          ),
+                          padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        ),
+                        child:  Text('Open URL', style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.theme07primaryColor,
+                        ),),
+                      )
+
+
+
+                    ],
                   ),
+                  // SizedBox(
+                  //   width: width / 2 - 60,
+                  //   child:InkWell(
+                  //     onTap: () async {
+                  //       final url = provider.lmsContentData[index].url;
+                  //       if (url != null && url.isNotEmpty) {
+                  //         String formattedUrl = url;
+                  //         if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+                  //           formattedUrl = 'https://$formattedUrl';
+                  //         }
+                  //         print('Attempting to launch URL: $formattedUrl');
+                  //         if (await canLaunch(formattedUrl)) {
+                  //           await launch(formattedUrl);
+                  //         } else {
+                  //           throw 'Could not launch $formattedUrl';
+                  //         }
+                  //       } else {
+                  //         print('URL is null or empty');
+                  //       }
+                  //     },
+                  //     child: Text(
+                  //       provider.lmsContentData[index].url == null || provider.lmsContentData[index].url!.isEmpty
+                  //           ? '-'
+                  //           : '${provider.lmsContentData[index].url}',
+                  //       style: TextStyles.fontStyle10,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),  const SizedBox(height: 5),
               

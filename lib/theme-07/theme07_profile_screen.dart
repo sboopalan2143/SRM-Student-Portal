@@ -1,4 +1,4 @@
-import 'dart:async';
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,21 +15,6 @@ class Theme07ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(profileProvider.notifier).getProfileApi(
-              ref.read(
-                encryptionProvider.notifier,
-              ),
-            );
-        await ref.read(profileProvider.notifier).getProfileHive('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
@@ -46,13 +31,13 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
 
     final height = MediaQuery.of(context).size.height;
     final provider = ref.watch(profileProvider);
-    ref.listen(profileProvider, (previous, next) {
-      if (next is ProfileDetailsStateError) {
-        _showToast(context, next.errorMessage, AppColors.redColor);
-      } else if (next is ProfileDetailsStateSuccessful) {
-        _showToast(context, next.successMessage, AppColors.greenColor);
-      }
-    });
+    // ref.listen(profileProvider, (previous, next) {
+    //   if (next is ProfileDetailsStateError) {
+    //     _showToast(context, next.errorMessage, AppColors.redColor);
+    //   } else if (next is ProfileDetailsStateSuccessful) {
+    //     _showToast(context, next.successMessage, AppColors.greenColor);
+    //   }
+    // });
     final base64Image = '${provider.profileDataHive.studentphoto}';
     final imageBytes = base64Decode(base64Image);
 
@@ -136,7 +121,7 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
               padding: const EdgeInsets.only(top: 100),
               child: Center(
                 child:
-                    CircularProgressIndicators.primaryColorProgressIndication,
+                    CircularProgressIndicators.theme07primaryColorProgressIndication,
               ),
             )
           : provider.profileDataHive.registerno == '' &&
@@ -318,16 +303,18 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
                                           color: AppColors.theme07primaryColor,
                                         ),
                                       ),
-                                      Text(
-                                        '${provider.profileDataHive.universityname}' ==
-                                                ''
-                                            ? '-'
-                                            : '''${provider.profileDataHive.universityname}''',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppColors.blackColor
-                                              .withOpacity(0.7),
-                                          fontWeight: FontWeight.bold,
+                                      Expanded(
+                                        child: Text(
+                                          '${provider.profileDataHive.universityname}' ==
+                                                  ''
+                                              ? '-'
+                                              : '''${provider.profileDataHive.universityname}''',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.7),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -351,16 +338,18 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
                                           color: AppColors.theme07primaryColor,
                                         ),
                                       ),
-                                      Text(
-                                        '${provider.profileDataHive.program}' ==
-                                                ''
-                                            ? '-'
-                                            : '${provider.profileDataHive.program}',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppColors.blackColor
-                                              .withOpacity(0.7),
-                                          fontWeight: FontWeight.bold,
+                                      Expanded(
+                                        child: Text(
+                                          '${provider.profileDataHive.program}' ==
+                                                  ''
+                                              ? '-'
+                                              : '${provider.profileDataHive.program}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppColors.blackColor
+                                                .withOpacity(0.7),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(

@@ -49,6 +49,17 @@ class _Theme03PageState extends ConsumerState<Theme03Page> {
         child: Stack(
           children: [
             AppBar(
+               leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
               automaticallyImplyLeading: false,
               backgroundColor: AppColors.primaryColorTheme3,
               elevation: 0,

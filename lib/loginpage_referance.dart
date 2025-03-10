@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StudentLoginPage extends StatefulWidget {
   const StudentLoginPage({super.key});
@@ -9,64 +8,24 @@ class StudentLoginPage extends StatefulWidget {
 }
 
 class StudentLoginPageState extends State<StudentLoginPage> {
-  // final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController pwdController = TextEditingController();
   String message = '';
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _obscureText = true;
-
-  // Future<void> login() async {
-  //   if (!_formKey.currentState!.validate()) {
-  //     return;
-  //   }
-
-  //   setState(() {
-  //     _isLoading = true;
-  //     message = '';
-  //   });
-
-  //   String username = nameController.text.trim();
-  //   String password = pwdController.text.trim();
-
-  //   StudentLoginService studentLoginService = StudentLoginService();
-  //   Map<String, dynamic>? response =
-  //       await studentLoginService.login(username, password);
-
-  //   if (response != null && response.containsKey('sid')) {
-  //     String sid = response['sid']?.toString() ?? '';
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => BottomBar(sid: sid), // Pass sid to MyHomePage
-  //       ),
-  //     );
-  //   } else {
-  //     message = 'Invalid User Name and Password';
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text(message)));
-  //   }
-
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // final themeProvider = Provider.of<ThemeProvide>(context);
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         decoration: const BoxDecoration(color: Colors.white),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
                 child: Form(
                   // key: _formKey,
                   child: Column(
@@ -94,9 +53,8 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                           fontWeight: FontWeight.w500,
                         ),
                         controller: nameController,
-                        obscureText: false,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(
+                          prefixIcon:  const Icon(
                             Icons.person_4_sharp,
                             // color: themeProvider.isDarkMode
                             //     ? Colors.blue.shade200
@@ -142,14 +100,11 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                               _obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              // color: themeProvider.isDarkMode
-                              //     ? Colors.blue.shade200
-                              //     : Colors.blue.shade800,
                             ),
                             onPressed: () {
                               setState(() {
                                 _obscureText =
-                                    !_obscureText; // Toggle the obscure text
+                                    !_obscureText; 
                               });
                             },
                           ),
@@ -163,7 +118,6 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        iconAlignment: IconAlignment.start,
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
@@ -182,7 +136,7 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                                   'Login',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 16.0,
+                                    fontSize: 16,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -199,7 +153,7 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                           // );
                         },
                         child: Text(
-                          "Forgot Password?",
+                          'Forgot Password?',
                           style: TextStyle(
                             fontSize: 16,
                             fontStyle: FontStyle.italic,

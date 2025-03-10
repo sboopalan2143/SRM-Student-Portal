@@ -1,6 +1,8 @@
 analyzer:
   errors:
     avoid_single_cascade_in_expression_statements: ignore
+    deprecated_member_use: ignore
+    inference_failure_on_function_invocation: ignore
     inference_failure_on_instance_creation: ignore
     lines_longer_than_80_chars: ignore
     noop_primitive_operations: ignore

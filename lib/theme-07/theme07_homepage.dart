@@ -10,7 +10,6 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
 import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
@@ -34,10 +33,7 @@ import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/grievances/screens/grievances.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
-import 'package:sample/home/main_pages/library/screens/library.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
 import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
@@ -54,6 +50,8 @@ import 'package:sample/theme-07/mainscreens/fees/transport/transport_register.da
 import 'package:sample/theme-07/theme07_change_password.dart';
 import 'package:sample/theme-07/theme07_profile_screen.dart';
 import 'package:sample/theme-07/widget/drawer.dart';
+
+import 'notification_homepage.dart';
 
 class Theme07HomePage extends ConsumerStatefulWidget {
   const Theme07HomePage({super.key});
@@ -159,7 +157,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
         await ref
             .read(DhasboardoverallattendanceProvider.notifier)
             .getDhasboardOverallAttendanceDetails(
-                ref.read(encryptionProvider.notifier));
+                ref.read(encryptionProvider.notifier),);
       },
     );
 
@@ -364,11 +362,14 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 
+  final ScrollController _listController = ScrollController();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(profileProvider);
+    final notificatioCountprovider = ref.watch(notificationCountProvider);
+
     ref
       ..listen(networkProvider, (previous, next) {
         if (previous!.connectivityResult == ConnectivityResult.none &&
@@ -409,8 +410,72 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                         child:  Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
+                                        Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            IconButton(
+                                              iconSize: 28,
+                                              color: AppColors.whiteColor,
+                                              icon: const Icon(Icons.notifications),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  RouteDesign(
+                                                    route: const Theme07NotificationHomePage(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            if (notificatioCountprovider
+                                                .notificationCountData.isEmpty)
+                                              Positioned(
+                                                right: 2,
+                                                top: 2,
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(5),
+                                                  decoration: const BoxDecoration(
+                                                    color: Colors.red,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  constraints: const BoxConstraints(
+                                                    minWidth: 20,
+                                                    minHeight: 20,
+                                                  ),
+                                                  child:
+
+                                                  SizedBox(
+                                                    width: 5,
+                                                    child: Column(
+                                                      children: [
+
+                                                        if (notificatioCountprovider
+                                                            .notificationCountData
+                                                            .isNotEmpty)
+                                                          ListView.builder(
+                                                            itemCount:
+                                                            notificatioCountprovider
+                                                                .notificationCountData
+                                                                .length,
+                                                            controller: _listController,
+                                                            shrinkWrap: true,
+                                                            itemBuilder: (
+                                                                BuildContext context,
+                                                                int index,
+                                                                ) {
+                                                              return notificationCountCardDesign(
+                                                                index,
+                                                              );
+                                                            },
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
                                         IconButton(
-                                          onPressed: () { 
+                                          onPressed: () {
                                              _scaffoldKey.currentState?. openEndDrawer();
                                           },
                                           icon: const Icon(
@@ -423,30 +488,36 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                     ),
                       ),
                     ),
-
-                    Row(
+                   if ('${provider.profileDataHive.studentname}' != '') Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
                           'Hello, ',
                           style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.whiteColor,
                           ),
                         ),
                         Text(
                          '${provider.profileDataHive.studentname}' == ''
-                              ? '-'
+                              ? ''
                               : '${provider.profileDataHive.studentname}',
                           style: const TextStyle(
-                            fontSize: 22,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                             color: AppColors.whiteColor,
                           ),
                         ),
                       ],
-                    ),
+                    ) else const Text(
+                          '',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
                    const SizedBox(height: 10,),
                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -454,7 +525,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                         Text(
                           'Welcome to ',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.whiteColor,
                           ),
@@ -462,7 +533,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                         Text(
                           'SRM Portal',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.whiteColor,
                           ),
@@ -493,7 +564,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               children: <Widget>[
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -510,11 +581,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                             'assets/images/profile07.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                          height: height * 0.008,
                                         ),
                                         Text(
                                           'Profile',
@@ -532,7 +603,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                 ),
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -549,11 +620,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                             'assets/images/fees.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Fee',
@@ -576,7 +647,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               children: <Widget>[
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -596,11 +667,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                            'assets/images/academics.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Academics',
@@ -618,7 +689,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                 ),
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -635,11 +706,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                                 'assets/images/library.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Library',
@@ -662,7 +733,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               children: <Widget>[
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -679,11 +750,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                                  'assets/images/hostel.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Hostel',
@@ -704,7 +775,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                 ),
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -721,11 +792,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                                    'assets/images/transport.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Transport',
@@ -748,7 +819,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               children: <Widget>[
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: ()  {
@@ -766,11 +837,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                             'assets/images/grievances.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Grievances',
@@ -788,7 +859,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                 ),
                                 SizedBox(
                                   height: 140,
-                                  width: width * 0.40,
+                                  width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
                                     onPressed: () {
@@ -800,11 +871,11 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                             'assets/images/changepassword07.png',
-                                            height: 80,
+                                            height: 50,
                                           ),
                                         ),
                                         SizedBox(
-                                          height: height * 0.006,
+                                           height: height * 0.008,
                                         ),
                                         Text(
                                           'Password',
@@ -820,7 +891,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               ],
                             ),
                             SizedBox(
-                              height: height * 0.025,
+                              height: height * 0.030,
                             ),
                           ],
                         ),
@@ -834,6 +905,27 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
         ],
       ),
       endDrawer: const Theme07DrawerDesign(),
+    );
+  }
+
+  Widget notificationCountCardDesign(int index) {
+    final notificatioCountprovider = ref.watch(notificationCountProvider);
+    return GestureDetector(
+      onTap: () {},
+      child: Column(
+        children: [
+          Text(
+            '${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}' ==
+                'null'
+                ? '-'
+                : '''${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}''',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

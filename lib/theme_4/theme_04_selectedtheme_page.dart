@@ -46,6 +46,17 @@ class _ThemePageTheme4State extends ConsumerState<ThemePageTheme4> {
               ),
             ),
             AppBar(
+               leading: IconButton(
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.whiteColor,
+            ),
+          ),
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               elevation: 0,

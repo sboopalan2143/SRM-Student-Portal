@@ -147,7 +147,7 @@ class _Theme07AttendancePageState extends ConsumerState<Theme07AttendancePage> {
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
                   child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                      CircularProgressIndicators.theme07primaryColorProgressIndication,
                 ),
               )
             else if (provider.OverallattendanceData.isEmpty &&
@@ -260,6 +260,33 @@ class _Theme07AttendancePageState extends ConsumerState<Theme07AttendancePage> {
                 ],
               ),
                const SizedBox(height: 5),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width / 2 - 80,
+                    child: const Text(
+                      'Total',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                  const Text(
+                    ':',
+                    style: TextStyles.fontStyle10,
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: width / 2 - 60,
+                    child: Text(
+                      '${provider.OverallattendanceData[index].total}' == ''
+                          ? '-'
+                          : '${provider.OverallattendanceData[index].total}',
+                      style: TextStyles.fontStyle10,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -397,33 +424,7 @@ class _Theme07AttendancePageState extends ConsumerState<Theme07AttendancePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Total',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.OverallattendanceData[index].total}' == ''
-                          ? '-'
-                          : '${provider.OverallattendanceData[index].total}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
+
             ],
           ),
         ),

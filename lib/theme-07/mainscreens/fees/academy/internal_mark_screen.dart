@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
@@ -132,7 +131,7 @@ class _Theme07InternalMarksPageState
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
                   child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                      CircularProgressIndicators.theme07primaryColorProgressIndication,
                 ),
               )
             else if (provider.internalMarkHiveData.isEmpty &&

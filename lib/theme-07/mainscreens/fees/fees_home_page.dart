@@ -7,6 +7,8 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
 
+import '../../../home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
+
 class Theme007FeesPage extends ConsumerStatefulWidget {
   const Theme007FeesPage({super.key});
 
@@ -15,7 +17,6 @@ class Theme007FeesPage extends ConsumerStatefulWidget {
 }
 
 class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
-  final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
@@ -23,21 +24,6 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref
-            .read(feesProvider.notifier)
-            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref
-            .read(feesProvider.notifier)
-            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -57,13 +43,13 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(feesProvider);
+    final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
+
     ref.listen(feesProvider, (previous, next) {
   
     });
     return Scaffold(
       backgroundColor: AppColors.theme07secondaryColor,
-
-
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -81,9 +67,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
           ),
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(
-                context,
-              );
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back_ios_new,
@@ -98,14 +82,54 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
             overflow: TextOverflow.clip,
           ),
           centerTitle: true,
+       // Explicitly set actions to an empty list
         ),
-      ),
-      body: Padding(
+      ), body: Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+
+                        const SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              width: width / 2 - 20,
+                              child:
+                              feesdhasboardcardDesign(0),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+          Container(
                 height: 45,
                 width: width - 100,
                 decoration: BoxDecoration(
@@ -128,7 +152,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                       const SizedBox(width: 5),
                       Expanded(
                         child: navContainerDesign(
-                          text: 'Fee Recipt',
+                          text: 'Fee Receipt',
                         ),
                       ),
                     ],
@@ -143,7 +167,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
                     child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                        .theme07primaryColorProgressIndication,
                   ),
                 )
               else if (provider.financeHiveData.isEmpty &&
@@ -196,7 +220,6 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                                   ),
                                 ],
                               ),
-                              initiallyExpanded: false,
                               backgroundColor: AppColors.theme07secondaryColor,
                               iconColor: AppColors.theme07primaryColor,
                               textColor: AppColors.theme07primaryColor,
@@ -248,11 +271,10 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                                               color: AppColors.theme07primaryColor,
                                             ),
                                           ),
-                                          initiallyExpanded: false,
                                           // Start collapsed by default
                                           backgroundColor: AppColors.theme07secondaryColor,
-                                          iconColor: AppColors.whiteColor,
-                                          textColor: AppColors.whiteColor,
+                                          iconColor: AppColors.theme07primaryColor,
+                                          textColor: AppColors.theme07primaryColor,
                                           children: [
                                             ...provider.financeHiveData
                                                 .where((item) => item.term == term)
@@ -278,7 +300,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
           ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
+
     );
   }
  Widget cardDesign(int index) {
@@ -643,6 +665,44 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
       ),
     );
   }
+
+  Widget feesdhasboardcardDesign(int index) {
+    final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
+    return Column(
+      children: [
+       const Text(
+          'Current Due',
+          style: TextStyle(
+            color: AppColors.blackColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(width: 5,),
+        GestureDetector(
+          onTap: () {},
+          child: Column(
+
+            children: [
+              Text(
+                '${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}' ==
+                    'null'
+                    ? '-'
+                    : '''Rs. ${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}''',
+                style: const TextStyle(
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget navContainerDesign({
     required String text,
   }) {

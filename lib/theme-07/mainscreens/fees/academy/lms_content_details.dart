@@ -28,19 +28,6 @@ class _Theme07LmsContentDetailsPageState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(lmsContentDetailsProvider.notifier).getLmsContentDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.subjectid,
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -133,7 +120,7 @@ class _Theme07LmsContentDetailsPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
               if (provider is LmsStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
@@ -281,84 +268,46 @@ class _Theme07LmsContentDetailsPageState
                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // SizedBox(
-                  //   width: width / 2 - 80,
-                  //   child: const Text(
-                  //     'URL',
-                  //     style: TextStyles.fontStyle10,
-                  //   ),
-                  // ),
-                  // const Text(
-                  //   ':',
-                  //   style: TextStyles.fontStyle10,
-                  // ),
+              
                   const SizedBox(width: 5),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () async {
-                          final Uri url = Uri.parse(
-                              '${provider.lmsContentData[index].url}',);
+                     ElevatedButton(
+  onPressed: () async {
+    final url = Uri.parse('${provider.lmsContentData[index].url}');
 
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(
-                              url,
-                              mode: LaunchMode.inAppWebView, // Opens within the app
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Could not launch the URL')),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12), // Rounded corners (optional)
-                          ),
-                          padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        ),
-                        child:  Text('Open URL', style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.theme07primaryColor,
-                        ),),
-                      )
-
-
-
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.inAppWebView,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not launch the URL')),
+      );
+    }
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: AppColors.theme07primaryColor, 
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12), 
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+  ),
+  child:const Text(
+    'Open URL',
+     style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                ),
+  ),
+),
                     ],
                   ),
-                  // SizedBox(
-                  //   width: width / 2 - 60,
-                  //   child:InkWell(
-                  //     onTap: () async {
-                  //       final url = provider.lmsContentData[index].url;
-                  //       if (url != null && url.isNotEmpty) {
-                  //         String formattedUrl = url;
-                  //         if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
-                  //           formattedUrl = 'https://$formattedUrl';
-                  //         }
-                  //         print('Attempting to launch URL: $formattedUrl');
-                  //         if (await canLaunch(formattedUrl)) {
-                  //           await launch(formattedUrl);
-                  //         } else {
-                  //           throw 'Could not launch $formattedUrl';
-                  //         }
-                  //       } else {
-                  //         print('URL is null or empty');
-                  //       }
-                  //     },
-                  //     child: Text(
-                  //       provider.lmsContentData[index].url == null || provider.lmsContentData[index].url!.isEmpty
-                  //           ? '-'
-                  //           : '${provider.lmsContentData[index].url}',
-                  //       style: TextStyles.fontStyle10,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
-              ),  const SizedBox(height: 5),
+              ), 
               
             ],
           ),
@@ -367,34 +316,6 @@ class _Theme07LmsContentDetailsPageState
     );
   }
 
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
-          ),
-        ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-      ],
-    );
-  }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

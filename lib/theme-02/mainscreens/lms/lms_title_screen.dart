@@ -139,7 +139,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
               if (provider is LmsStateLoading)
                 Column(
                   children: [
@@ -173,45 +173,8 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
             ],
           ),
 
-          //  Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     const SizedBox(height: 20),
-          //     if (provider is LibraryTrancsactionStateLoading)
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 100),
-          //         child: Center(
-          //           child: CircularProgressIndicators
-          //               .primaryColorProgressIndication,
-          //         ),
-          //       )
-          //     else if (provider.lmsTitleData.isEmpty &&
-          //         provider is! LibraryTrancsactionStateLoading)
-          //       Column(
-          //         children: [
-          //           SizedBox(height: MediaQuery.of(context).size.height / 5),
-          //           const Center(
-          //             child: Text(
-          //               'No List Added Yet!',
-          //               style: TextStyles.fontStyle1,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     if (provider.lmsTitleData.isNotEmpty)
-          //       ListView.builder(
-          //         itemCount: provider.lmsTitleData.length,
-          //         controller: _listController,
-          //         shrinkWrap: true,
-          //         itemBuilder: (BuildContext context, int index) {
-          //           return cardDesign(index);
-          //         },
-          //       ),
-          //   ],
-          // ),
         ),
       ),
-      endDrawer: const DrawerDesign(),
     );
   }
 

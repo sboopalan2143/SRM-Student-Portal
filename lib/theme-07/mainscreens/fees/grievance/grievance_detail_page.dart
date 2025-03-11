@@ -25,21 +25,6 @@ class _Theme07GrievanceFullDetailPageState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref
-            .read(grievanceProvider.notifier)
-            .getStudentWiseGrievanceDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref.read(grievanceProvider.notifier).getHiveGrievanceDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {

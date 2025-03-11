@@ -3,15 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_content_details_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_content_details.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_title_page.dart';
 
@@ -32,18 +29,6 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(lmsProvider.notifier).getLmsSubgetDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -132,7 +117,7 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
               if (provider is LmsStateLoading)
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
@@ -193,7 +178,7 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
           children: [
             // Card Header with Gradient
             Container(
-              height: 80,
+              height: 50,
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
@@ -213,7 +198,7 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
                 child: Text(
                   provider.lmsSubjectData[index].subjectdesc ?? 'Course Name',
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -340,34 +325,6 @@ class _Theme07LmsHomePageState extends ConsumerState<Theme07LmsHomePage> {
   }
 
  
-  Widget _buildRow(String title, String value, double width) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            title,
-            style: TextStyles.buttonStyle01theme2,
-          ),
-        ),
-        const Expanded(
-          child: Text(
-            ':',
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-        const SizedBox(width: 5),
-        SizedBox(
-          width: width / 2 - 60,
-          child: Text(
-            value.isEmpty ? '-' : value,
-            style: TextStyles.fontStyle2,
-          ),
-        ),
-      ],
-    );
-  }
 
   void _showToast(BuildContext context, String message, Color color) {
     showToast(

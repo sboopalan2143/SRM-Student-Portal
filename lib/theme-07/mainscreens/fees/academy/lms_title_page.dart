@@ -1,7 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -37,19 +36,6 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(lmsProvider.notifier).getLmsTitleDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.subjectID,
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -139,7 +125,7 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              // const SizedBox(height: 20),
               if (provider is LmsStateLoading)
                 Column(
                   children: [
@@ -172,43 +158,6 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                 ),
             ],
           ),
-
-          //  Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     const SizedBox(height: 20),
-          //     if (provider is LibraryTrancsactionStateLoading)
-          //       Padding(
-          //         padding: const EdgeInsets.only(top: 100),
-          //         child: Center(
-          //           child: CircularProgressIndicators
-          //               .theme07primaryColorProgressIndication,
-          //         ),
-          //       )
-          //     else if (provider.lmsTitleData.isEmpty &&
-          //         provider is! LibraryTrancsactionStateLoading)
-          //       Column(
-          //         children: [
-          //           SizedBox(height: MediaQuery.of(context).size.height / 5),
-          //           const Center(
-          //             child: Text(
-          //               'No List Added Yet!',
-          //               style: TextStyles.fontStyle1,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     if (provider.lmsTitleData.isNotEmpty)
-          //       ListView.builder(
-          //         itemCount: provider.lmsTitleData.length,
-          //         controller: _listController,
-          //         shrinkWrap: true,
-          //         itemBuilder: (BuildContext context, int index) {
-          //           return cardDesign(index);
-          //         },
-          //       ),
-          //   ],
-          // ),
         ),
       ),
       endDrawer: const DrawerDesign(),

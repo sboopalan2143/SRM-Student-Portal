@@ -53,23 +53,6 @@ class _Theme07LmsClassworkDetailPageState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.classworkID,
-            );
-        ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.classworkreplyid,
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -624,9 +607,7 @@ class _Theme07LmsClassworkDetailPageState
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -657,7 +638,7 @@ class _Theme07LmsClassworkDetailPageState
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

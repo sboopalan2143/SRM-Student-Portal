@@ -52,14 +52,6 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // IconButton(
-                        //   iconSize: 35,
-                        //   color: AppColors.whiteColor,
-                        //   icon: const Icon(Icons.menu),
-                        //   onPressed: () {
-                        //    .openDrawer();
-                        //   },
-                        // ),
                         if (imageBytes == '' && imageBytes.isEmpty)
                           const CircleAvatar(
                             radius: 25,

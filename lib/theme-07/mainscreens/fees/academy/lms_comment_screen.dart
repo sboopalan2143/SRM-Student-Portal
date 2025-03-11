@@ -32,19 +32,6 @@ class _Theme07LmsCommentScreenState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(lmsProvider.notifier).getLmscommentDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.classworkID,
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {

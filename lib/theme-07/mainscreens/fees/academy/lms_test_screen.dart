@@ -3,13 +3,11 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-06/mainscreens/lms/lms_get_answer_screen.dart';
 
 class Theme07McqTestViewPage extends ConsumerStatefulWidget {
   const Theme07McqTestViewPage({
@@ -47,22 +45,6 @@ class _Theme07McqTestViewPageState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(lmsProvider.notifier).getLmsMcqQuestionandAnswerDetails(
-              ref.read(encryptionProvider.notifier),
-              widget.mcqscheduleid,
-              widget.mcqtemplateid,
-              widget.subjectid,
-              widget.noofquestions,
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {

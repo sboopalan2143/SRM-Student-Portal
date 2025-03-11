@@ -25,24 +25,6 @@ class _Theme07HostelPageState extends ConsumerState<Theme07HostelPage> {
   // Stream<int> counterStream =
   //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(hostelProvider.notifier).getHostelHiveDetails(
-              '',
-            );
-        await ref.read(hostelProvider.notifier).getHostelDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref.read(hostelProvider.notifier).getHostelHiveDetails(
-              '',
-            );
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -108,28 +90,19 @@ class _Theme07HostelPageState extends ConsumerState<Theme07HostelPage> {
       ),
       body: Column(
         children: [
+            if (provider.hostelRegisterDetails.regconfig == '1')
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               children: [
                 Row(
                   children: [
-                    if (provider.hostelRegisterDetails.regconfig == '1')
                       Expanded(
                         child: Theme02ButtonDesign.buttonDesign(
                           'Registration',
                           AppColors.primaryColor,
                           context,
                           ref,
-                        ),
-                      )
-                    else
-                      const Expanded(
-                        child: Center(
-                          child: Text(
-                            'Hostel Not Registered',
-                            style: TextStyles.fontStyle6,
-                          ),
                         ),
                       ),
                   ],
@@ -169,7 +142,15 @@ class _Theme07HostelPageState extends ConsumerState<Theme07HostelPage> {
                   ),
               ],
             ),
-          ),
+          )
+          else  const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Hostel Not Registered',
+                            style: TextStyles.fontStyle6,
+                          ),
+                        ),
+                      ),
         ],
       ),
     );

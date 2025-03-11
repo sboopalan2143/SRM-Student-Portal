@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
@@ -11,14 +9,9 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_state.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/academics/attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/cumulative_attendance.dart';
-import 'package:sample/theme-02/mainscreens/academics/hour_attendance.dart';
+import 'package:sample/theme-07/mainscreens/fees/academy/hour_wise_atttendance.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/sub_wise_attendance.dart';
-
-import 'hour_wise_atttendance.dart';
 
 class Theme07AttendanceHomePage extends ConsumerStatefulWidget {
   const Theme07AttendanceHomePage({super.key});
@@ -58,10 +51,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final provider = ref.watch(hostelProvider);
-    log('Regconfig  : ${provider.hostelRegisterDetails!.regconfig}');
-    log('status  : ${provider.hostelRegisterDetails!.status}');
-    ref.listen(hostelProvider, (previous, next) {
+    ref..watch(hostelProvider)
+    ..listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is HostelStateSuccessful) {
@@ -223,19 +214,16 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
 
     final present = int.tryParse(
             provider.DhasboardOverallattendanceData.first.totalpresenthours ??
-                '0') ??
+                '0',) ??
         0;
     final absent = int.tryParse(
-            provider.DhasboardOverallattendanceData.first.absentcnt ?? '0') ??
-        0;
-    final ml = int.tryParse(
-            provider.DhasboardOverallattendanceData.first.mlcnt ?? '0') ??
+            provider.DhasboardOverallattendanceData.first.absentcnt ?? '0',) ??
         0;
     final mlod = int.tryParse(
-            provider.DhasboardOverallattendanceData.first.mlper ?? '0') ??
+            provider.DhasboardOverallattendanceData.first.mlper ?? '0',) ??
         0.0;
     final absentper = double.tryParse(
-            provider.DhasboardOverallattendanceData.first.absentper ?? '0') ??
+            provider.DhasboardOverallattendanceData.first.absentper ?? '0',) ??
         0.0;
 
     final totalSessions = present + absent;
@@ -265,7 +253,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           CircularPercentIndicator(
             radius: 60,
             lineWidth: 10,
-            percent: 1.0,
+            percent: 1,
             center: Stack(
               children: [
                 CircularPercentIndicator(
@@ -292,7 +280,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(Icons.group, color: AppColors.theme07primaryColor, size: 20),
+             const Icon(Icons.group, color: AppColors.primaryColor2,size: 20),
               const SizedBox(width: 10),
               Text(
                 'Total: $totalSessions',
@@ -307,8 +295,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.how_to_reg,
-                  color: AppColors.theme07primaryColor, size: 20),
+            const  Icon(Icons.how_to_reg,
+                  color: Colors.green,size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Present: $present',
@@ -323,8 +311,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.person_off,
-                  color: AppColors.theme07primaryColor, size: 20),
+            const   Icon(Icons.person_off,
+                  color:  Colors.red, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Absent: $absent',
@@ -339,8 +327,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.percent,
-                  color: AppColors.theme07primaryColor, size: 20),
+            const  Icon(Icons.percent,
+                  color:AppColors.primaryColor2, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
@@ -355,8 +343,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.percent,
-                  color: AppColors.theme07primaryColor, size: 20),
+            const  Icon(Icons.percent,
+                  color: Colors.red, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Absent % : ${absentper.toStringAsFixed(2)}%',
@@ -371,8 +359,8 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.percent,
-                  color: AppColors.theme07primaryColor, size: 20),
+            const  Icon(Icons.percent,
+                  color: Colors.red, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Mlod % : ${mlod.toStringAsFixed(2)}%',

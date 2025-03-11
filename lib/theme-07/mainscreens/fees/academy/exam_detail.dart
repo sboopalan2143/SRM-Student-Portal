@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
@@ -25,21 +23,6 @@ class _Theme07ExamDetailsPageThemeState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
-              ref.read(
-                encryptionProvider.notifier,
-              ),
-            );
-        await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -167,7 +150,7 @@ class _Theme07ExamDetailsPageThemeState
                           title: Text(
                             'Semester $i',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: AppColors.theme07primaryColor,
                             ),
@@ -205,14 +188,12 @@ class _Theme07ExamDetailsPageThemeState
 
   Widget cardDesign(int index) {
     final width = MediaQuery.of(context).size.width; final provider = ref.watch(examDetailsProvider);
-    final internal = double.parse(
+    double.parse(
       provider.examDetailsHiveData[index].internal ?? '0',
     );
-    final external = double.parse(
+    double.parse(
       provider.examDetailsHiveData[index].external ?? '0',
     );
-    final internalResult = internal / 100;
-    final externalResult = external / 100;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),

@@ -5,9 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-
-import '../../../home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
+import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
 
 class Theme007FeesPage extends ConsumerStatefulWidget {
   const Theme007FeesPage({super.key});
@@ -43,9 +41,9 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(feesProvider);
-    final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
+    ref..watch(feesDhasboardProvider)
 
-    ref.listen(feesProvider, (previous, next) {
+    ..listen(feesProvider, (previous, next) {
   
     });
     return Scaffold(
@@ -90,8 +88,11 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(10),
+
                 child: Container(
+                  height:  MediaQuery.of(context).size.height / 10,
+                  width:  MediaQuery.of(context).size.width / 1.5,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -104,27 +105,15 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                       ),
                     ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-
-                            const SizedBox(width: 5),
-                            SizedBox(
-                              width: width / 2 - 20,
-                              child:
-                              feesdhasboardcardDesign(0),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: width / 2 - 20,
+                        child:
+                        feesdhasboardcardDesign(0),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -670,11 +659,11 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
     final feescurrendDataProvider = ref.watch(feesDhasboardProvider);
     return Column(
       children: [
+      //  const SizedBox(height: 10,),
        const Text(
           'Current Due',
           style: TextStyle(
             color: AppColors.blackColor,
-            fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
           textAlign: TextAlign.center,
@@ -690,10 +679,9 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                     'null'
                     ? '-'
                     : '''Rs. ${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}''',
-                style: const TextStyle(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
+                style:  TextStyle(
+                  color: AppColors.theme07primaryColor,
+                  fontSize: 18,
                 ),
               ),
             ],

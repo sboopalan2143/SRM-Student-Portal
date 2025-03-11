@@ -26,35 +26,6 @@ class _Theme07GrievanceEntryPageState
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceCategoryDetails('');
-
-        await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceSubTypeDetails('');
-
-        await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
-              ref.read(encryptionProvider.notifier),
-            );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceTypeDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {

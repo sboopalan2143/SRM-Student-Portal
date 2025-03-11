@@ -621,7 +621,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                             const Text(
                               "Today's Status",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black87,
                               ),
@@ -1308,7 +1308,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                             'Exam',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -1317,7 +1317,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                             'Registration',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -1375,7 +1375,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                             'Staff',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -1384,7 +1384,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                                             'Assessment',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
                                               fontSize: 14,
                                             ),
                                           ),
@@ -1597,7 +1597,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           const SizedBox(height: 20),
           Row(
             children: [
-              Icon(Icons.group, color: AppColors.theme07primaryColor, size: 20),
+            const  Icon(Icons.group, color: AppColors.primaryColor2, size: 20),
               const SizedBox(width: 10),
               Text(
                 'Total: $totalSessions',
@@ -1612,8 +1612,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.how_to_reg,
-                  color: AppColors.theme07primaryColor, size: 20,),
+            const  Icon(Icons.how_to_reg,
+                  color: Colors.green, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Present: $present',
@@ -1628,8 +1628,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.person_off,
-                  color: AppColors.theme07primaryColor, size: 20,),
+            const  Icon(Icons.person_off,
+                  color:  Colors.red, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Absent: $absent',
@@ -1644,8 +1644,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
           const SizedBox(height: 5),
           Row(
             children: [
-              Icon(Icons.percent,
-                  color: AppColors.theme07primaryColor, size: 20,),
+            const  Icon(Icons.percent,
+                  color: AppColors.primaryColor2, size: 20,),
               const SizedBox(width: 10),
               Text(
                 'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
@@ -1951,8 +1951,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                 : '''${provider.cgpaData[index].cgpa}''',
             style: TextStyle(
               color: Colors.purpleAccent.shade700,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+              // fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
         ],
@@ -1972,8 +1972,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                 : '''${sgpaprovider.sgpaData[index].attrvalue}''',
             style: TextStyle(
               color: Colors.blueAccent.shade700,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+              // fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
         ],
@@ -2015,8 +2015,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                 : '''Rs. ${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}''',
             style: const TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+              // fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
           ),
         ],
@@ -2108,103 +2108,100 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
 
   Widget calenderStatuscardDesign(int index) {
     final provider = ref.watch(calendarProvider);
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const SizedBox(height: 5),
-              Row(
-                children: [
-                   Icon(
-                    Icons.calendar_today,
-                    color: AppColors.theme07primaryColor,
-                    size: 20,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    '${provider.calendarCurrentDateData[index].date}' == ''
-                        ? 'No Data'
-                        : '${provider.calendarCurrentDateData[index].date}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-             
-              Row(
-                children: [
-                   Icon(
-                    Icons.info_outline,
-                color: AppColors.theme07primaryColor,
-                    size: 20,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    '${provider.calendarCurrentDateData[index].daystatus}' ==
-                            ''
-                        ? 'No Data'
-                        : '${provider.calendarCurrentDateData[index].daystatus}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          if (provider.calendarCurrentDateData[index].daystatus != 'Holiday')
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                width: 200,
-                decoration: BoxDecoration(
-                  gradient:  LinearGradient(
-                    colors: [  AppColors.theme07primaryColor,  AppColors.theme07primaryColor,],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
+    return Column(
+      children: [
+       const SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                 Icon(
+                  Icons.calendar_today,
+                  color: AppColors.theme07primaryColor,
+                  size: 20,
                 ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      RouteDesign(
-                        route: const Theme07TimetablePageScreen(),
-                        // route: const StudentLoginPage(),
-                      ),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  '${provider.calendarCurrentDateData[index].date}' == ''
+                      ? 'No Data'
+                      : '${provider.calendarCurrentDateData[index].date}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
-                  child: const Text(
-                    'View Timetable',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+           
+            Row(
+              children: [
+                 Icon(
+                  Icons.info_outline,
+              color: AppColors.theme07primaryColor,
+                  size: 20,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  '${provider.calendarCurrentDateData[index].daystatus}' ==
+                          ''
+                      ? 'No Data'
+                      : '${provider.calendarCurrentDateData[index].daystatus}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
                   ),
+                  textAlign: TextAlign.right,
+                ),
+              ],
+            ),
+          ],
+        ),
+
+         const SizedBox(height: 15),
+        if (provider.calendarCurrentDateData[index].daystatus != 'Holiday')
+          Container(
+            width: 150,
+            decoration: BoxDecoration(
+              gradient:  LinearGradient(
+                colors: [  AppColors.theme07primaryColor,  AppColors.theme07primaryColor,],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  RouteDesign(
+                    route: const Theme07TimetablePageScreen(),
+                    // route: const StudentLoginPage(),
+                  ),
+                );
+              },
+              // style: TextButton.styleFrom(
+              //   padding: const EdgeInsets.symmetric(vertical: 10),
+              // ),
+              child: const Text(
+                'View Timetable',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
@@ -15,8 +14,6 @@ class Theme07ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
-
-  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   @override
   void initState() {
@@ -31,13 +28,7 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
 
     final height = MediaQuery.of(context).size.height;
     final provider = ref.watch(profileProvider);
-    // ref.listen(profileProvider, (previous, next) {
-    //   if (next is ProfileDetailsStateError) {
-    //     _showToast(context, next.errorMessage, AppColors.redColor);
-    //   } else if (next is ProfileDetailsStateSuccessful) {
-    //     _showToast(context, next.successMessage, AppColors.greenColor);
-    //   }
-    // });
+
     final base64Image = '${provider.profileDataHive.studentphoto}';
     final imageBytes = base64Decode(base64Image);
 
@@ -223,40 +214,7 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
                                        SizedBox(
                                             height: height * 0.01,
                                           ),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(
-                                //     vertical: 15,
-                                //   ),
-                                //   child: Row(
-                                //     children: [
-                                //       SizedBox(
-                                //         width: 75,
-                                //         child: Icon(
-                                //           Icons.numbers,
-                                //           size: 25,
-                                //           color: AppColors.blackColor
-                                //               .withOpacity(0.8),
-                                //         ),
-                                //       ),
-                                //       Text(
-                                //         '${provider.profileDataHive.registerno}' ==
-                                //                 ''
-                                //             ? '-'
-                                //             : '${provider.profileDataHive.registerno}',
-                                //         style: TextStyle(
-                                //           fontSize: 16,
-                                //           color: AppColors.blackColor
-                                //               .withOpacity(0.7),
-                                //           fontWeight: FontWeight.bold,
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                                // Divider(
-                                //   height: 1,
-                                //   color: AppColors.blackColor.withOpacity(0.5),
-                                // ),
+                               
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 15,
@@ -471,19 +429,4 @@ class _Theme07ProfilePageState extends ConsumerState<Theme07ProfilePage> {
     );
   }
 
-  void _showToast(BuildContext context, String message, Color color) {
-    showToast(
-      message,
-      context: context,
-      backgroundColor: color,
-      axis: Axis.horizontal,
-      alignment: Alignment.centerLeft,
-      position: StyledToastPosition.center,
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(15),
-        bottomLeft: Radius.circular(15),
-      ),
-      toastHorizontalMargin: MediaQuery.of(context).size.width / 3,
-    );
-  }
 }

@@ -28,19 +28,6 @@ class _Theme07InternalMarksPageState
   Stream<int> counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref
-            .read(internalMarksProvider.notifier)
-            .getInternalMarksDetails(ref.read(encryptionProvider.notifier));
-        await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -171,9 +158,7 @@ class _Theme07InternalMarksPageState
     final width = MediaQuery.of(context).size.width;
 
     final provider = ref.watch(internalMarksProvider);
-    final external =
-        double.parse('${provider.internalMarkHiveData[index].sumofmaxmarks}');
-    final externalResult = external / 100;
+    double.parse('${provider.internalMarkHiveData[index].sumofmaxmarks}');
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
@@ -203,7 +188,7 @@ class _Theme07InternalMarksPageState
                           ? '-'
                           : '${provider.internalMarkHiveData[index].subjectdesc}',
                       style:  TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: AppColors.theme07primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -252,7 +237,7 @@ class _Theme07InternalMarksPageState
                           ? '-'
                           : '${provider.internalMarkHiveData[index].sumofmarks}',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         color: AppColors.theme07primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -286,7 +271,7 @@ class _Theme07InternalMarksPageState
                             ? '-'
                             : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           color: AppColors.theme07primaryColor,
                           fontWeight: FontWeight.bold,
                         ),

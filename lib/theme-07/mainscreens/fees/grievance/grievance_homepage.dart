@@ -3,16 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
-import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
-import 'package:sample/theme-02/mainscreens/grievances/grievances_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/grievance/grievance_detail_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/grievance/grievance_entry_screen.dart';
 
@@ -49,10 +45,8 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final provider = ref.watch(hostelProvider);
-    log('Regconfig  : ${provider.hostelRegisterDetails!.regconfig}');
-    log('status  : ${provider.hostelRegisterDetails!.status}');
-    ref.listen(hostelProvider, (previous, next) {
+    ref..watch(hostelProvider)
+    ..listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);
       } else if (next is HostelStateSuccessful) {

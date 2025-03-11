@@ -1,10 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/circular_progress_indicators.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
@@ -23,30 +20,6 @@ class Theme07AttendancePage extends ConsumerStatefulWidget {
 
 class _Theme07AttendancePageState extends ConsumerState<Theme07AttendancePage> {
   final ScrollController _listController = ScrollController();
-
-  // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
-
-  // static int refreshNum = 10;
-  // Stream<int> counterStream =
-  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
-
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref.read(attendanceProvider.notifier).getAttendanceDetails(
-              ref.read(
-                encryptionProvider.notifier,
-              ),
-            );
-        await ref
-            .read(attendanceProvider.notifier)
-            .getHiveAttendanceDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {

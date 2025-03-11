@@ -1,30 +1,19 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-02/mainscreens/academics/attendance_home_page.dart';
-import 'package:sample/theme-02/mainscreens/academics/subject.dart';
-import 'package:sample/theme-02/mainscreens/calendar_home_page_screen.dart';
-import 'package:sample/theme-02/mainscreens/calendar_screen.dart';
-import 'package:sample/theme-02/mainscreens/grade_home_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
-import 'package:sample/theme-02/time_table_page.dart';
+import 'package:sample/theme-07/mainscreens/fees/academy/attendance_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/calendar_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/grade_homepage.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/lms_homePage.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/subject_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/time_table_screen.dart';
-import 'package:sample/theme-07/widget/drawer.dart';
-
-import 'attendance_page.dart';
 
 class Theme07AcademicsHomePage extends ConsumerStatefulWidget {
   const Theme07AcademicsHomePage({super.key});
@@ -64,8 +53,8 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(hostelProvider);
-    log('Regconfig  : ${provider.hostelRegisterDetails!.regconfig}');
-    log('status  : ${provider.hostelRegisterDetails!.status}');
+    log('Regconfig  : ${provider.hostelRegisterDetails.regconfig}');
+    log('status  : ${provider.hostelRegisterDetails.status}');
     ref.listen(hostelProvider, (previous, next) {
       if (next is HostelStateError) {
         _showToast(context, next.errorMessage, AppColors.redColor);

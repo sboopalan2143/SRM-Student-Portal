@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-
 
 class Theme07SubjectPage extends ConsumerStatefulWidget {
   const Theme07SubjectPage({super.key});
@@ -16,21 +14,7 @@ class Theme07SubjectPage extends ConsumerStatefulWidget {
 }
 
 class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
-  final ScrollController _listController = ScrollController();
 
-  Future<void> _handleRefresh() async {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await ref
-            .read(subjectProvider.notifier)
-            .getSubjectDetails(ref.read(encryptionProvider.notifier));
-        await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
-      },
-    );
-
-    final completer = Completer<void>();
-    Timer(const Duration(seconds: 1), completer.complete);
-  }
 
   @override
   void initState() {
@@ -149,7 +133,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                     // Reverse the loop to display semesters in reverse order (anticlockwise)
                     for (int i = 8; i >= 1; i--) ...[
                       if (provider.subjectHiveData.any((data) =>
-                          data.subjectdetails!.split('##')[0] == '$i')) ...[
+                          data.subjectdetails!.split('##')[0] == '$i',)) ...[
                         Theme(
 
   data: Theme.of(context).copyWith(
@@ -163,12 +147,11 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                                 title: Text(
                                   'Semester $i',
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.theme07primaryColor,
                                   ),
                                 ),
-                                initiallyExpanded: false,
                                 // Start collapsed by default
                                 backgroundColor: AppColors.theme07secondaryColor,
                                 iconColor: AppColors.blackColor,
@@ -180,35 +163,35 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                                       Text(
                                           'Code',
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
-                                          )
+                                          ),
 
                                       ),
 
                                       Text(
                                           'Course',
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
-                                          )
+                                          ),
 
                                       ),Text(
                                           'Credit',
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
-                                          )
+                                          ),
 
                                       ),
                                     ],
                                   ),
                                   ...provider.subjectHiveData
                                       .where((data) =>
-                                          data.subjectdetails!.split('##')[0] == '$i')
+                                          data.subjectdetails!.split('##')[0] == '$i',)
                                       .map((data) {
                                     final subjectData =
                                         data.subjectdetails!.split('##');
@@ -226,11 +209,11 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                           thickness: 1,
                           color: AppColors.grey4,
                         ),
-                      ]
-                    ]
+                      ],
+                    ],
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -248,8 +231,8 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              blurRadius: 1,
+              offset: const Offset(0, 2),
             ),
           ],
           border: Border.all(
@@ -271,21 +254,10 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                 ),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   'Code',
-                        //   style: TextStyle(
-                        //     fontSize: 12,
-                        //     color: Colors.grey.shade600,
-                        //     fontWeight: FontWeight.w500,
-                        //   ),
-                        // ),
                         Text(
                           subjectData[1],
                           style: const TextStyle(
@@ -302,20 +274,11 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   'Course',
-                        //   style: TextStyle(
-                        //     fontSize: 12,
-                        //     color: Colors.grey.shade600,
-                        //     fontWeight: FontWeight.w500,
-                        //   ),
-                        // ),
                         Text(
                           subjectData[2],
                            style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
                             color: AppColors.blackColor,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -327,14 +290,6 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   'Credit',
-                        //   style: TextStyle(
-                        //     fontSize: 12,
-                        //     color: Colors.grey.shade600,
-                        //     fontWeight: FontWeight.w500,
-                        //   ),
-                        // ),
                         Text(
                           subjectData[3],
                            style: const TextStyle(
@@ -349,7 +304,6 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                 ],
               ),
             ),
-            // Divider
 
           ],
         ),

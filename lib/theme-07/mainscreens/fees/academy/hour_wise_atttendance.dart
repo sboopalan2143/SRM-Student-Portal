@@ -178,19 +178,24 @@ class _Theme07HourAttendancePageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only( top: 10,bottom: 20),
-                      child: Text(
-                        'Month: $month',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: AppColors.blackColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
+  child: Container(
+    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+    decoration: BoxDecoration(
+      color: AppColors.theme07primaryColor, // Change the color as needed
+      borderRadius: BorderRadius.circular(40),
+    ),
+    child: Text(
+      'Month: $month',
+      style: const TextStyle(
+        fontSize: 18,
+        color: Colors.white, // Adjust for better contrast
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+),
+
+                  const SizedBox(height: 20),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +203,7 @@ class _Theme07HourAttendancePageState
                       SizedBox(
                         width: width / 3.5,
                         child: const Text(
-                          'Month',
+                          'Date',
                           style: TextStyle(
                             fontSize: 16,
                             color: AppColors.grey1,
@@ -398,6 +403,7 @@ class _Theme07HourAttendancePageState
                       ),
                     ),
                   ),
+                   const SizedBox(height: 20),
                 ],
               );
             }).toList(),

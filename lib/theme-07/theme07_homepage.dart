@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +49,10 @@ import 'package:sample/theme-07/mainscreens/fees/grievance/grievance_homepage.da
 import 'package:sample/theme-07/mainscreens/fees/hostel/hostel_home_screen.dart';
 import 'package:sample/theme-07/mainscreens/fees/library/library_home_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/transport/transport_register.dart';
+import 'package:sample/theme-07/notification_homepage.dart';
 import 'package:sample/theme-07/theme07_change_password.dart';
 import 'package:sample/theme-07/theme07_profile_screen.dart';
 import 'package:sample/theme-07/widget/drawer.dart';
-
-import 'notification_homepage.dart';
 
 class Theme07HomePage extends ConsumerStatefulWidget {
   const Theme07HomePage({super.key});
@@ -369,6 +370,9 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(profileProvider);
     final notificatioCountprovider = ref.watch(notificationCountProvider);
+    final providerProfile = ref.watch(profileProvider);
+    final base64Image = '${providerProfile.profileDataHive.studentphoto}';
+    final imageBytes = base64Decode(base64Image);
 
     ref
       ..listen(networkProvider, (previous, next) {
@@ -404,90 +408,141 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                 Column(
                   children: [
                     const SizedBox(height: 30),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 10),
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Stack(
-                                          clipBehavior: Clip.none,
-                                          children: [
-                                            IconButton(
-                                              iconSize: 28,
-                                              color: AppColors.whiteColor,
-                                              icon: const Icon(Icons.notifications),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  RouteDesign(
-                                                    route: const Theme07NotificationHomePage(),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            if (notificatioCountprovider
-                                                .notificationCountData.isEmpty)
-                                              Positioned(
-                                                right: 2,
-                                                top: 2,
-                                                child: Container(
-                                                  padding: const EdgeInsets.all(5),
-                                                  decoration: const BoxDecoration(
-                                                    color: Colors.red,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  constraints: const BoxConstraints(
-                                                    minWidth: 20,
-                                                    minHeight: 20,
-                                                  ),
-                                                  child:
+                   
 
-                                                  SizedBox(
-                                                    width: 5,
-                                                    child: Column(
-                                                      children: [
-
-                                                        if (notificatioCountprovider
-                                                            .notificationCountData
-                                                            .isNotEmpty)
-                                                          ListView.builder(
-                                                            itemCount:
-                                                            notificatioCountprovider
-                                                                .notificationCountData
-                                                                .length,
-                                                            controller: _listController,
-                                                            shrinkWrap: true,
-                                                            itemBuilder: (
-                                                                BuildContext context,
-                                                                int index,
-                                                                ) {
-                                                              return notificationCountCardDesign(
-                                                                index,
-                                                              );
-                                                            },
-                                                          ),
-                                                      ],
+                   Padding(
+                     padding: const EdgeInsets.all(10),
+                     child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              if (imageBytes == '' && imageBytes.isEmpty)
+                                const CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: AppColors.whiteColor,
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      'assets/images/profile.png',
+                                    ),
+                                    radius: 48,
+                                  ),
+                                ),
+                              if (imageBytes != '' && imageBytes.isNotEmpty)
+                                SizedBox(
+                                  height: 45,
+                                  width: 45,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.memory(
+                                      imageBytes,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                   Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              IconButton(
+                                                iconSize: 28,
+                                                color: AppColors.whiteColor,
+                                                icon: const Icon(Icons.notifications),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    RouteDesign(
+                                                      route: const Theme07NotificationHomePage(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              if (notificatioCountprovider
+                                                  .notificationCountData.isEmpty)
+                                                Positioned(
+                                                  right: 2,
+                                                  top: 2,
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(5),
+                                                    decoration: const BoxDecoration(
+                                                      color: Colors.red,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    constraints: const BoxConstraints(
+                                                      minWidth: 20,
+                                                      minHeight: 20,
+                                                    ),
+                                                    child:
+                     
+                                                    SizedBox(
+                                                      width: 5,
+                                                      child: Column(
+                                                        children: [
+                     
+                                                          if (notificatioCountprovider
+                                                              .notificationCountData
+                                                              .isNotEmpty)
+                                                            ListView.builder(
+                                                              itemCount:
+                                                              notificatioCountprovider
+                                                                  .notificationCountData
+                                                                  .length,
+                                                              controller: _listController,
+                                                              shrinkWrap: true,
+                                                              itemBuilder: (
+                                                                  BuildContext context,
+                                                                  int index,
+                                                                  ) {
+                                                                return notificationCountCardDesign(
+                                                                  index,
+                                                                );
+                                                              },
+                                                            ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                          ],
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                             _scaffoldKey.currentState?. openEndDrawer();
-                                          },
-                                          icon: const Icon(
-                                            Icons.menu,
-                                            size: 35,
-                                            color: AppColors.whiteColor,
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                ],
+                              ),
+                               Row(
+                                children: [
+                                  Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                     IconButton(
+                                            onPressed: () {
+                                               _scaffoldKey.currentState?. openEndDrawer();
+                                            },
+                                            icon: const Icon(
+                                              Icons.menu,
+                                              size: 35,
+                                              color: AppColors.whiteColor,
+                                            ),
+                                          ),
+                                     
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
+                                       ),
+                   ),
+
+                    
                    if ('${provider.profileDataHive.studentname}' != '') Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

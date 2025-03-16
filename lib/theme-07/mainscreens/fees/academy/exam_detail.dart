@@ -186,8 +186,8 @@ class _Theme07ExamDetailsPageThemeState
     );
   }
 
-  Widget cardDesign(int index) {
-    final width = MediaQuery.of(context).size.width; final provider = ref.watch(examDetailsProvider);
+
+   Widget cardDesign(int index) {  final width = MediaQuery.of(context).size.width; final provider = ref.watch(examDetailsProvider);
     double.parse(
       provider.examDetailsHiveData[index].internal ?? '0',
     );
@@ -196,249 +196,423 @@ class _Theme07ExamDetailsPageThemeState
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
-            ),
-          ],
+          gradient:const LinearGradient(
+            colors: [
+              AppColors.whiteColor,
+              AppColors.whiteColor,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Subject desc',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
+                    width: width / 1.5,
                     child: Text(
-                      '${provider.examDetailsHiveData[index].subjectdesc}' == ''
+                      '${provider.examDetailsHiveData[index].subjectdesc}' ==
+                              ''
                           ? '-'
                           : '${provider.examDetailsHiveData[index].subjectdesc}',
-                      style: TextStyles.fontStyle10,
+                      style:  TextStyle(
+                        fontSize: 16,
+                        color: AppColors.theme07primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ],
-              ),
-               const SizedBox(height: 5),
-            
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Sub Code',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
+                   SizedBox(
+                  
                     child: Text(
-                      '${provider.examDetailsHiveData[index].subjectcode}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].subjectcode}',
-                     
-                         style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Semester',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].semester}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].semester}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-               const SizedBox(height: 5),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Grade',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].grade}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].grade}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-                 const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Credit',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].credit}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].credit}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ), const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Internal',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].internal}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].internal}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'External',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].external}' == ''
-                          ? '-'
-                          : '${provider.examDetailsHiveData[index].external}',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                ],
-              ),
-             const SizedBox(height: 5),
-               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: width / 2 - 80,
-                    child: const Text(
-                      'Result',
-                      style: TextStyles.fontStyle10,
-                    ),
-                  ),
-                  const Text(
-                    ':',
-                    style: TextStyles.fontStyle10,
-                  ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: width / 2 - 60,
-                    child: Text(
-                      '${provider.examDetailsHiveData[index].result}' == ''
+                      '${provider.examDetailsHiveData[index].result}' ==
+                              ''
                           ? '-'
                           : '${provider.examDetailsHiveData[index].result}',
-           style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                      style:  TextStyle(
+                        fontSize: 16,
                         color: AppColors.theme07primaryColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 15,
+                          child: Icon(
+                            Icons.numbers,
+                            color: AppColors.grey4,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: width / 2 - 100,
+                          child: Text(
+                            '${provider.examDetailsHiveData[index].subjectcode}' ==
+                                    ''
+                                ? '-'
+                                : '${provider.examDetailsHiveData[index].subjectcode}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.theme07primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: width / 5,
+                    child: Text(
+                      '${provider.examDetailsHiveData[index].credit}' == ''
+                          ? '-'
+                          : 'Credit : ${provider.examDetailsHiveData[index].credit}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.theme07primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                   SizedBox(
+                    width: width / 3,
+                    child: Text(
+                      '${provider.examDetailsHiveData[index].grade}' == ''
+                          ? '-'
+                          : 'Grade : ${provider.examDetailsHiveData[index].grade}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.theme07primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                       
+                        SizedBox(
+                          width: width / 2 ,
+                          child: Text(
+                            '${provider.examDetailsHiveData[index].internal}' ==
+                                    ''
+                                ? '-'
+                                : 'Internal : ${provider.examDetailsHiveData[index].internal}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.theme07primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    child: Text(
+                      '${provider.examDetailsHiveData[index].external}' == ''
+                          ? '-'
+                          : 'External: ${provider.examDetailsHiveData[index].external}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.theme07primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  
+                ],
+              ),
+            
             ],
           ),
         ),
       ),
     );
   }
+
+  // Widget cardDesign(int index) {
+  //   final width = MediaQuery.of(context).size.width; final provider = ref.watch(examDetailsProvider);
+  //   double.parse(
+  //     provider.examDetailsHiveData[index].internal ?? '0',
+  //   );
+  //   double.parse(
+  //     provider.examDetailsHiveData[index].external ?? '0',
+  //   );
+
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.grey.withOpacity(0.2),
+  //             spreadRadius: 5,
+  //             blurRadius: 7,
+  //             offset: const Offset(0, 3),
+  //           ),
+  //         ],
+  //       ),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(20),
+  //         child: Column(
+  //           children: [
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Subject desc',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].subjectdesc}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].subjectdesc}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //              const SizedBox(height: 5),
+            
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Sub Code',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].subjectcode}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].subjectcode}',
+                     
+  //                        style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //              const SizedBox(height: 5),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Semester',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].semester}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].semester}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //              const SizedBox(height: 5),
+  //             Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Grade',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].grade}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].grade}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //                const SizedBox(height: 5),
+  //              Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Credit',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].credit}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].credit}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ), const SizedBox(height: 5),
+  //              Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Internal',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].internal}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].internal}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),const SizedBox(height: 5),
+  //              Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'External',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].external}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].external}',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //            const SizedBox(height: 5),
+  //              Row(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   width: width / 2 - 80,
+  //                   child: const Text(
+  //                     'Result',
+  //                     style: TextStyles.fontStyle10,
+  //                   ),
+  //                 ),
+  //                 const Text(
+  //                   ':',
+  //                   style: TextStyles.fontStyle10,
+  //                 ),
+  //                 const SizedBox(width: 5),
+  //                 SizedBox(
+  //                   width: width / 2 - 60,
+  //                   child: Text(
+  //                     '${provider.examDetailsHiveData[index].result}' == ''
+  //                         ? '-'
+  //                         : '${provider.examDetailsHiveData[index].result}',
+  //          style: TextStyle(
+  //                       fontSize: 14,
+  //                       fontWeight: FontWeight.bold,
+  //                       color: AppColors.theme07primaryColor,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Widget examCardDesign(int index) {
   //   final provider = ref.watch(examDetailsProvider);

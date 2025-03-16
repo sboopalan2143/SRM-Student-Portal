@@ -230,20 +230,20 @@ class _Theme07InternalMarksPageState
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: width / 5,
-                    child: Text(
-                      '${provider.internalMarkHiveData[index].sumofmarks}' == ''
-                          ? '-'
-                          : '${provider.internalMarkHiveData[index].sumofmarks}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: width / 5,
+                  //   child: Text(
+                  //     '${provider.internalMarkHiveData[index].sumofmarks}' == ''
+                  //         ? '-'
+                  //         : '${provider.internalMarkHiveData[index].sumofmarks}',
+                  //     style: TextStyle(
+                  //       fontSize: 16,
+                  //       color: AppColors.theme07primaryColor,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //     textAlign: TextAlign.right,
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -260,7 +260,7 @@ class _Theme07InternalMarksPageState
                   const SizedBox(width: 12),
                   LinearPercentIndicator(
                     trailing: SizedBox(
-                      width: width / 6,
+                      width: width / 4,
                       child: Text(
                         (provider.internalMarkHiveData[index].sumofmaxmarks ==
                                     null ||
@@ -269,7 +269,7 @@ class _Theme07InternalMarksPageState
                                     .toString()
                                     .isEmpty)
                             ? '-'
-                            : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                            : '${provider.internalMarkHiveData[index].sumofmarks}/${provider.internalMarkHiveData[index].sumofmaxmarks}',
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.theme07primaryColor,
@@ -278,7 +278,7 @@ class _Theme07InternalMarksPageState
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    width: MediaQuery.of(context).size.width - 255,
+                    width: MediaQuery.of(context).size.width - 300,
                     animation: true,
                     lineHeight: 10,
                     animationDuration: 1000,

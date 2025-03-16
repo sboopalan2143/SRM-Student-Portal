@@ -128,7 +128,13 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                        SizedBox(
+                                          child: Icon(
+        Icons.calendar_today,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 50, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -162,7 +168,13 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                       SizedBox(
+                                          child: Icon(
+        Icons.menu_book,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 50, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -202,7 +214,13 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                        SizedBox(
+                                          child:Icon(
+        Icons.calendar_view_month,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 50, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -238,7 +256,13 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                       SizedBox(
+                                          child: Icon(
+        Icons.list_alt,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 50, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -278,7 +302,13 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.grade, // Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 50, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -312,7 +342,12 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                       SizedBox(
+                                          child: Image.asset(
+                                            'assets/images/LMS.png',
+                                            height: 50,
+                                          ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),

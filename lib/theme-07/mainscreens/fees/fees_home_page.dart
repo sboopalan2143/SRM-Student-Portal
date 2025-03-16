@@ -117,6 +117,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20,),
 
           Container(
                 height: 45,
@@ -664,7 +665,7 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
           'Current Due',
           style: TextStyle(
             color: AppColors.blackColor,
-            fontSize: 18,
+            fontSize: 14,
           ),
           textAlign: TextAlign.center,
         ),
@@ -681,7 +682,8 @@ class _Theme007FeesPageState extends ConsumerState<Theme007FeesPage> {
                     : '''Rs. ${feescurrendDataProvider.feesDueDhasboardData[index].currentdue}''',
                 style:  TextStyle(
                   color: AppColors.theme07primaryColor,
-                  fontSize: 18,
+                  fontSize: 22,
+                        fontWeight: FontWeight.bold,
                 ),
               ),
             ],

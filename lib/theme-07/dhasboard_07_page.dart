@@ -45,9 +45,9 @@ import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
 import 'package:sample/notification.dart';
-import 'package:sample/theme-02/mainscreens/fees/fees_due_page.dart';
 import 'package:sample/theme-02/notification_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/academy/time_table_screen.dart';
+import 'package:sample/theme-07/mainscreens/fees/fees_home_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/hostel/hostel_registration_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/transport/transport_register.dart';
 import 'package:sample/theme-07/notification_homepage.dart';
@@ -703,7 +703,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage>
                       Navigator.push(
                         context,
                         RouteDesign(
-                          route: const Theme02FeesDuePage(),
+                          route: const Theme007FeesPage(),
                         ),
                       );
                     },

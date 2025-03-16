@@ -692,7 +692,7 @@ class _Theme07TimetablePageScreenState
     final width = MediaQuery.of(context).size.width;
 
     return DefaultTabController(
-      length: 5, // Monday to Friday
+      length: 7, // Monday to Friday
       initialIndex: _initialIndex, // Set the initial index to today's day
       child: Scaffold(
         backgroundColor: AppColors.theme07secondaryColor,
@@ -775,33 +775,7 @@ class _Theme07TimetablePageScreenState
                   ],
                 ),
                 const SizedBox(height: 5),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Class',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.profileDataHive.program}' == ''
-                            ? '-'
-                            : '${provider.profileDataHive.program}',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5),
+              
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -873,6 +847,8 @@ class _Theme07TimetablePageScreenState
                     Tab(text: 'Wed'),
                     Tab(text: 'Thu'),
                     Tab(text: 'Fri'),
+                    Tab(text: 'Sat'),
+                    Tab(text: 'Sun'),
                   ],
                 ),
               ),
@@ -885,6 +861,8 @@ class _Theme07TimetablePageScreenState
                   _buildDayTimetable('wednesday'), // Wednesday
                   _buildDayTimetable('thursday'), // Thursday
                   _buildDayTimetable('friday'), // Friday
+                   _buildDayTimetable('Saturday'),
+                    _buildDayTimetable('Sunday'),
                 ],
               ),
             ),
@@ -928,12 +906,12 @@ class _Theme07TimetablePageScreenState
               ListView.builder(
                 itemCount: provider.timeTableData
                     .where((data) =>
-                data.dayorderdesc?.toLowerCase() == day)
+                data.dayorderdesc?.toLowerCase() == day,)
                     .length,
                 controller: _listController,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return cardDesign(day, index); // Pass the day and index
+                  return cardDesign(day, index); 
                 },
               ),
           ],
@@ -989,18 +967,18 @@ class _Theme07TimetablePageScreenState
               ),
               child: Row(
                 children: [
-                  // Time slot section
+                 const SizedBox(width: 20,),
+               
                   Container(
-                    width: width * 0.20,
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        right: BorderSide(
-                          color: AppColors.theme07primaryColor,
-                          width: 6,
-                        ),
-                      ),
-                    ),
+                    width: width * 0.10,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+  border: Border.all(
+    color: AppColors.theme07primaryColor, // Border color
+    width: 0.5, // Border width
+  ),
+),
+
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -1017,15 +995,15 @@ class _Theme07TimetablePageScreenState
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
+                          horizontal: 15, vertical: 10,),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${data.subjectcode ?? '-'}',
-                            style: TextStyles.fontStyle8
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
+                          // Text(
+                          //   '${data.subjectcode ?? '-'}',
+                          //   style: TextStyles.fontStyle8
+                          //       .copyWith(fontWeight: FontWeight.bold),
+                          // ),
                           const SizedBox(height: 5),
                           Text(
                             '${data.subjectdesc ?? '-'}',
@@ -1039,10 +1017,20 @@ class _Theme07TimetablePageScreenState
                                 .copyWith(color: Colors.black54),
                           ),
                           const SizedBox(height: 5),
-                          Text(
-                            '${data.hourtime ?? '-'}',
-                            style: TextStyles.fontStyle10
-                                .copyWith(color: Colors.black54),
+                          Row(
+                            children: [
+                             const  Icon(
+                            Icons.login,
+                            color:Colors.black54,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 5,),
+                              Text(
+                                '${data.hourtime ?? '-'}',
+                                style: TextStyles.fontStyle10
+                                    .copyWith(color: Colors.black54),
+                              ),
+                            ],
                           ),
                         ],
                       ),

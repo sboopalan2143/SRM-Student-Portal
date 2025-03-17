@@ -432,8 +432,8 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                 ),
                               if (imageBytes != '' && imageBytes.isNotEmpty)
                                 SizedBox(
-                                  height: 45,
-                                  width: 45,
+                                  height: 35,
+                                  width: 35,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Image.memory(

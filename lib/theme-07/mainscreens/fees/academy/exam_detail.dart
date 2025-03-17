@@ -223,9 +223,9 @@ class _Theme07ExamDetailsPageThemeState
                               ''
                           ? '-'
                           : '${provider.examDetailsHiveData[index].subjectdesc}',
-                      style:  TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
+                      style:const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -237,11 +237,14 @@ class _Theme07ExamDetailsPageThemeState
                               ''
                           ? '-'
                           : '${provider.examDetailsHiveData[index].result}',
-                      style:  TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+                        
+                     style: TextStyle(
+    fontSize: 14,
+    color: provider.examDetailsHiveData[index].result == 'PASS' 
+        ? AppColors.greenColor 
+        : AppColors.redColor, 
+    fontWeight: FontWeight.bold,
+  ),
                     ),
                   ),
                 ],
@@ -270,11 +273,11 @@ class _Theme07ExamDetailsPageThemeState
                                     ''
                                 ? '-'
                                 : '${provider.examDetailsHiveData[index].subjectcode}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.theme07primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                             style:const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.blackColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                           ),
                         ),
                       ],
@@ -286,9 +289,9 @@ class _Theme07ExamDetailsPageThemeState
                       '${provider.examDetailsHiveData[index].credit}' == ''
                           ? '-'
                           : 'Credit : ${provider.examDetailsHiveData[index].credit}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
+                     style:const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,
@@ -300,9 +303,9 @@ class _Theme07ExamDetailsPageThemeState
                       '${provider.examDetailsHiveData[index].grade}' == ''
                           ? '-'
                           : 'Grade : ${provider.examDetailsHiveData[index].grade}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
+                      style:const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,
@@ -326,11 +329,11 @@ class _Theme07ExamDetailsPageThemeState
                                     ''
                                 ? '-'
                                 : 'Internal : ${provider.examDetailsHiveData[index].internal}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.theme07primaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style:const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.blackColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                           ),
                         ),
                       ],
@@ -341,9 +344,9 @@ class _Theme07ExamDetailsPageThemeState
                       '${provider.examDetailsHiveData[index].external}' == ''
                           ? '-'
                           : 'External: ${provider.examDetailsHiveData[index].external}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.theme07primaryColor,
+                      style:const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.right,

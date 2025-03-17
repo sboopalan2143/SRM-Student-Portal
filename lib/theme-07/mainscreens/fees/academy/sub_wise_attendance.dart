@@ -185,7 +185,7 @@ class _Theme07AttendancePageState extends ConsumerState<Theme07AttendancePage> {
                   SizedBox(
                     width: width / 2 - 80,
                     child: const Text(
-                      'Subject desc',
+                      'Subject Desc',
                       style: TextStyles.fontStyle10,
                     ),
                   ),

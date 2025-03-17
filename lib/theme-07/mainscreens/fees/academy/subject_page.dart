@@ -163,7 +163,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                                       Text(
                                           'Code',
                                           style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
                                           ),
@@ -173,7 +173,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                                       Text(
                                           'Course',
                                           style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
                                           ),
@@ -181,7 +181,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                                       ),Text(
                                           'Credit',
                                           style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.theme07primaryColor,
                                           ),
@@ -243,7 +243,7 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
           children: [
             // Header Section
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
               decoration: const BoxDecoration(
                 color: Colors.white, // Light blue header background
                 borderRadius: BorderRadius.only(
@@ -258,12 +258,11 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text(
-                          subjectData[1],
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: AppColors.blackColor,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                    padding: const EdgeInsets.only(left: 20,right: 40),
+                          child: Text(
+                            subjectData[1],
+                            style: TextStyles.fontStyle10,
                           ),
                         ),
                       ],
@@ -277,9 +276,9 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                         Text(
                           subjectData[2],
                            style: const TextStyle(
-                            fontSize: 14,
-                            color: AppColors.blackColor,
-                          ),
+                          fontSize: 12,
+                          color: AppColors.blackColor,
+                        ),
                         ),
                       ],
                     ),
@@ -295,7 +294,6 @@ class _Theme07SubjectPageState extends ConsumerState<Theme07SubjectPage> {
                            style: const TextStyle(
                             fontSize: 12,
                             color: AppColors.blackColor,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

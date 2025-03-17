@@ -188,7 +188,7 @@ class _Theme07InternalMarksPageState
                           ? '-'
                           : '${provider.internalMarkHiveData[index].subjectdesc}',
                       style:  TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: AppColors.theme07primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -220,9 +220,9 @@ class _Theme07InternalMarksPageState
                                     ''
                                 ? '-'
                                 : '${provider.internalMarkHiveData[index].subjectcode}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.theme07primaryColor,
+                            style:const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.blackColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -230,55 +230,56 @@ class _Theme07InternalMarksPageState
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   width: width / 5,
-                  //   child: Text(
-                  //     '${provider.internalMarkHiveData[index].sumofmarks}' == ''
-                  //         ? '-'
-                  //         : '${provider.internalMarkHiveData[index].sumofmarks}',
-                  //     style: TextStyle(
-                  //       fontSize: 16,
-                  //       color: AppColors.theme07primaryColor,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //     textAlign: TextAlign.right,
-                  //   ),
-                  // ),
+                  SizedBox(
+                    width: width / 2,
+                    child: Text(
+                      '${provider.internalMarkHiveData[index].sumofmarks}' == ''
+                          ? '-'
+                               : '${provider.internalMarkHiveData[index].sumofmarks}/${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                      
+                       style:const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.blackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
               Row(
                 children: [
-                   Text(
+                  const Text(
                     'Max Marks :',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.theme07primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                      style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.blackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
                   ),
                   const SizedBox(width: 12),
                   LinearPercentIndicator(
-                    trailing: SizedBox(
-                      width: width / 4,
-                      child: Text(
-                        (provider.internalMarkHiveData[index].sumofmaxmarks ==
-                                    null ||
-                                provider
-                                    .internalMarkHiveData[index].sumofmaxmarks
-                                    .toString()
-                                    .isEmpty)
-                            ? '-'
-                            : '${provider.internalMarkHiveData[index].sumofmarks}/${provider.internalMarkHiveData[index].sumofmaxmarks}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.theme07primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    width: MediaQuery.of(context).size.width - 300,
+                    // trailing: SizedBox(
+                    //   width: width / 4,
+                    //   // child: Text(
+                    //   //   (provider.internalMarkHiveData[index].sumofmaxmarks ==
+                    //   //               null ||
+                    //   //           provider
+                    //   //               .internalMarkHiveData[index].sumofmaxmarks
+                    //   //               .toString()
+                    //   //               .isEmpty)
+                    //   //       ? '-'
+                    //   //       : '${provider.internalMarkHiveData[index].sumofmarks}/${provider.internalMarkHiveData[index].sumofmaxmarks}',
+                    //   //   style: TextStyle(
+                    //   //     fontSize: 16,
+                    //   //     color: AppColors.theme07primaryColor,
+                    //   //     fontWeight: FontWeight.bold,
+                    //   //   ),
+                    //   //   textAlign: TextAlign.right,
+                    //   // ),
+                    // ),
+                    width: MediaQuery.of(context).size.width - 200,
                     animation: true,
                     lineHeight: 10,
                     animationDuration: 1000,

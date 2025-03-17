@@ -206,8 +206,7 @@ class _Theme07CalendarPageState extends ConsumerState<Theme07CalendarPage> {
                         ),
                         Text(
                           '${provider.calendarHiveData[index].date ?? '-'}',
-                          style: TextStyles.fontStyle10
-                              .copyWith(fontWeight: FontWeight.bold),
+                          style: TextStyles.fontStyle10,
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -223,14 +222,12 @@ class _Theme07CalendarPageState extends ConsumerState<Theme07CalendarPage> {
                         children: [
                           Text(
                             'Semester : ${provider.calendarHiveData[index].semester ?? '-'}',
-                            style: TextStyles.fontStyle8
-                                .copyWith(fontWeight: FontWeight.bold),
+                         style: TextStyles.fontStyle10,
                           ),
                           const SizedBox(height: 5),
                           Text(
                             'Daystatus : ${provider.calendarHiveData[index].daystatus ?? '-'}',
-                            style: TextStyles.fontStyle10
-                                .copyWith(color: Colors.black87),
+                           style: TextStyles.fontStyle10,
                           ),
                           const SizedBox(height: 5),
                           Text(

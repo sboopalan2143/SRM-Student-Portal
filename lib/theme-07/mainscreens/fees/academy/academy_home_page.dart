@@ -128,7 +128,7 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                        SizedBox(
+                                       const  SizedBox(
                                           child: Icon(
         Icons.calendar_today,// Grade icon
         color: AppColors.grey1, // Gold color
@@ -168,7 +168,7 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       SizedBox(
+                                      const SizedBox(
                                           child: Icon(
         Icons.menu_book,// Grade icon
         color: AppColors.grey1, // Gold color
@@ -214,7 +214,7 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                        SizedBox(
+                                      const  SizedBox(
                                           child:Icon(
         Icons.calendar_view_month,// Grade icon
         color: AppColors.grey1, // Gold color
@@ -256,7 +256,7 @@ class _Theme07AcademicsHomePageState extends ConsumerState<Theme07AcademicsHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       SizedBox(
+                                      const SizedBox(
                                           child: Icon(
         Icons.list_alt,// Grade icon
         color: AppColors.grey1, // Gold color

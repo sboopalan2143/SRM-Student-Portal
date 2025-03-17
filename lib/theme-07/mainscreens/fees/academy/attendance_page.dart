@@ -285,7 +285,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Total: $totalSessions',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primaryColor2,
                 ),
@@ -301,7 +301,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Present: $present',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.green,
                 ),
@@ -317,7 +317,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Absent: $absent',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
@@ -333,7 +333,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Overall % : ${overallPercentage.toStringAsFixed(2)}%',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primaryColor2,
                 ),
@@ -349,7 +349,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Absent % : ${absentper.toStringAsFixed(2)}%',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
@@ -365,7 +365,7 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
               Text(
                 'Mlod % : ${mlod.toStringAsFixed(2)}%',
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),

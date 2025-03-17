@@ -187,7 +187,7 @@ class _Theme07HourAttendancePageState
     child: Text(
       'Month: $month',
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 12,
         color: Colors.white, // Adjust for better contrast
         fontWeight: FontWeight.bold,
       ),
@@ -205,7 +205,7 @@ class _Theme07HourAttendancePageState
                         child: const Text(
                           'Date',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             color: AppColors.grey1,
                             fontWeight: FontWeight.bold,
                           ),

@@ -841,15 +841,14 @@ class _Theme07TimetablePageScreenState
                     fontWeight: FontWeight.normal,
                     fontFamily: 'Roboto', // Custom font
                   ),
-                  tabs: const [
-                    Tab(text: 'Mon'),
-                    Tab(text: 'Tue'),
-                    Tab(text: 'Wed'),
-                    Tab(text: 'Thu'),
-                    Tab(text: 'Fri'),
-                    Tab(text: 'Sat'),
-                    Tab(text: 'Sun'),
-                  ],
+                tabs: const [
+  Tab(child: Text('Mon', style: TextStyle(fontSize: 10))),
+  Tab(child: Text('Tue', style: TextStyle(fontSize: 10))),
+  Tab(child: Text('Wed', style: TextStyle(fontSize: 10))),
+  Tab(child: Text('Thu', style: TextStyle(fontSize: 10))),
+  Tab(child: Text('Fri', style: TextStyle(fontSize: 10))),
+  Tab(child: Text('Sat', style: TextStyle(fontSize: 10))),
+],
                 ),
               ),
             ),
@@ -862,7 +861,6 @@ class _Theme07TimetablePageScreenState
                   _buildDayTimetable('thursday'), // Thursday
                   _buildDayTimetable('friday'), // Friday
                    _buildDayTimetable('Saturday'),
-                    _buildDayTimetable('Sunday'),
                 ],
               ),
             ),
@@ -970,21 +968,22 @@ class _Theme07TimetablePageScreenState
                  const SizedBox(width: 20,),
                
                   Container(
-                    width: width * 0.10,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    width: width * 0.15,
+                    padding: const EdgeInsets.symmetric(vertical: 25),
                   decoration: BoxDecoration(
+
+                borderRadius: BorderRadius.circular(10),
   border: Border.all(
-    color: AppColors.theme07primaryColor, // Border color
+    color: AppColors.grey2, // Border color
     width: 0.5, // Border width
   ),
 ),
-
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           '${data.hourid ?? '-'}',
-                          style: TextStyles.fontStyle10
+                          style: TextStyles.fontStyle8
                               .copyWith(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
@@ -1006,27 +1005,34 @@ class _Theme07TimetablePageScreenState
                           // ),
                           const SizedBox(height: 5),
                           Text(
-                            '${data.subjectdesc ?? '-'}',
+                            data.subjectdesc ?? '-',
                             style: TextStyles.fontStyle10
                                 .copyWith(color: Colors.black87),
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            '${data.faculty ?? '-'}',
+                            data.faculty ?? '-',
                             style: TextStyles.fontStyle10
                                 .copyWith(color: Colors.black54),
                           ),
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                             const  Icon(
-                            Icons.login,
-                            color:Colors.black54,
-                            size: 18,
-                          ),
+                          //    const  Icon(
+                          //   Icons.login,
+                          //   color:Colors.black54,
+                          //   size: 18,
+                          // ),
+                          Image.asset(
+                    'assets/images/out.png',
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 30,
+                  ),
                           const SizedBox(width: 5,),
                               Text(
-                                '${data.hourtime ?? '-'}',
+                                data.hourtime ?? '-',
                                 style: TextStyles.fontStyle10
                                     .copyWith(color: Colors.black54),
                               ),

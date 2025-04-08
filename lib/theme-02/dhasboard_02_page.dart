@@ -350,13 +350,13 @@ class _Theme02dhasboardPageState extends ConsumerState<Theme02dhasboardPage>
     await grievanceTypeData.close();
   }
 
-  Future<void> showNotification(RemoteMessage message) async {
-    await AppNotification.createNotification(
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
-      networkImagePath: message.data['image'] as String?,
-    );
-  }
+  // Future<void> showNotification(RemoteMessage message) async {
+  //   await AppNotification.createNotification(
+  //     title: message.notification?.title ?? '',
+  //     body: message.notification?.body ?? '',
+  //     networkImagePath: message.data['image'] as String?,
+  //   );
+  // }
 
   final ScrollController _listController = ScrollController();
 

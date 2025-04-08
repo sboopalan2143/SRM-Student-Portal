@@ -145,7 +145,16 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                        Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.list_alt_outlined,
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -156,6 +165,10 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+                                       
+                                       
                                       ],
                                     ),
                                   ),
@@ -179,17 +192,30 @@ class _Theme07AttendanceHomePageState extends ConsumerState<Theme07AttendanceHom
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                          Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.list_alt_outlined,
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'Sub Wise Attendance',
+                                           'Sub Wise Attendance',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+                                      
+                                        
                                       ],
                                     ),
                                   ),

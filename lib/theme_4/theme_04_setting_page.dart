@@ -57,13 +57,13 @@ class _Theme04settingPageState extends ConsumerState<Theme04settingPage>
     await TokensManagement.getTheme();
   }
 
-  Future<void> showNotification(RemoteMessage message) async {
-    await AppNotification.createNotification(
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
-      networkImagePath: message.data['image'] as String?,
-    );
-  }
+  // Future<void> showNotification(RemoteMessage message) async {
+  //   await AppNotification.createNotification(
+  //     title: message.notification?.title ?? '',
+  //     body: message.notification?.body ?? '',
+  //     networkImagePath: message.data['image'] as String?,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

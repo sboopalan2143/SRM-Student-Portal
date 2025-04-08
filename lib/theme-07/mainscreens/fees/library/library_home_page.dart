@@ -120,17 +120,30 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                          Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.library_add_check,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'Library Transactions',
+                                       'Library Transactions',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+                                       
+                                      
                                       ],
                                     ),
                                   ),
@@ -154,17 +167,30 @@ class _Theme07LibraryHomePageState extends ConsumerState<Theme07LibraryHomePage>
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                         Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.search,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'Book Search',
+                                        'Book Search',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+                                      
+                                       
                                       ],
                                     ),
                                   ),

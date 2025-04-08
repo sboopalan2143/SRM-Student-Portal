@@ -196,7 +196,7 @@ class _Theme07ExamDetailsPageThemeState
     );
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+         padding: const EdgeInsets.only(top: 5, bottom: 5, right: 10, left: 10),
       child: Container(
         decoration: BoxDecoration(
           gradient:const LinearGradient(
@@ -239,12 +239,12 @@ class _Theme07ExamDetailsPageThemeState
                           : '${provider.examDetailsHiveData[index].result}',
                         
                      style: TextStyle(
-    fontSize: 14,
-    color: provider.examDetailsHiveData[index].result == 'PASS' 
+            fontSize: 14,
+            color: provider.examDetailsHiveData[index].result == 'PASS' 
         ? AppColors.greenColor 
         : AppColors.redColor, 
-    fontWeight: FontWeight.bold,
-  ),
+            fontWeight: FontWeight.bold,
+      ),
                     ),
                   ),
                 ],

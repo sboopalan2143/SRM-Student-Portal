@@ -71,14 +71,14 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage>
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          // decoration: const BoxDecoration(
-          //   image: DecorationImage(
-          //     image: AssetImage(
-          //       'assets/images/main.png',
-          //     ),
-          //     fit: BoxFit.none,
-          //   ),
-          // ),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                'assets/images/srmbg3.png',
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 80),
@@ -86,7 +86,7 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage>
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height / 4 - 95),
+                  SizedBox(height: MediaQuery.of(context).size.height / 2.3),
                   // Center(
                   //   child: Image.asset(
                   //     'assets/images/mainpic2.png',
@@ -95,16 +95,34 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage>
                   //     fit: BoxFit.cover,
                   //   ),
                   // ),
-                  Center(
-                    child:Image.asset(
-                    'assets/images/srmgrouplogo.png',
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 3,
-                  ),
-                  ),
-                  const SizedBox(height: 40),
+                  // Center(
+                  //   child:Image.asset(
+                  //   'assets/images/srmgrouplogo.png',
+                  //   width: MediaQuery
+                  //       .of(context)
+                  //       .size
+                  //       .width / 3,
+                  // ),
+                  // ),
+                  //  Center(
+                  //   child:Image.asset(
+                  //   'assets/images/manlogo.png',
+                  //   width: MediaQuery
+                  //       .of(context)
+                  //       .size
+                  //       .width / 0.5,
+                  // ),
+                  // ),
+                  //  Center(
+                  //   child:Image.asset(
+                  //   'assets/images/Studentsimage.png',
+                  //   width: MediaQuery
+                  //       .of(context)
+                  //       .size
+                  //       .width / 0.4,
+                  // ),
+                  // ),
+                  // const SizedBox(height: 0),
                   Center(
                     child: Text(
                       'Login',

@@ -119,17 +119,30 @@ class _Theme07HostelHomePageState extends ConsumerState<Theme07HostelHomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                       Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       SizedBox(
+                                          child: SizedBox(
+                                          child: Image.asset(
+                                                 'assets/images/hostel.png',
+                                                height: 40,
+                                          ),
+                                        ),
+                                        ),
+                                        SizedBox(
+                                          height: height * 0.006,
+                                        ),
+                                        Text(
+                                          'Hostel Details',
+                                          textAlign: TextAlign.center,
+                                          style: width > 400
+                                              ? TextStyles.smallBlackColorFontStyle
+                                              : TextStyles.smallerBlackColorFontStyle,
+                                        ),
+                                      ],
+                                    ),
 
-                      SizedBox(
-                        height: height * 0.006,
-                      ),
-                      Text(
-                        'Hostel Details',
-                        textAlign: TextAlign.center,
-                        style: width > 400
-                            ? TextStyles.smallBlackColorFontStyle
-                            : TextStyles.smallerBlackColorFontStyle,
-                      ),
                     ],
                   ),
                 ),
@@ -154,17 +167,30 @@ class _Theme07HostelHomePageState extends ConsumerState<Theme07HostelHomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.app_registration,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
+                                        SizedBox(
+                                          height: height * 0.006,
+                                        ),
+                                        Text(
+                                       'Library Transactions',
+                                          textAlign: TextAlign.center,
+                                          style: width > 400
+                                              ? TextStyles.smallBlackColorFontStyle
+                                              : TextStyles.smallerBlackColorFontStyle,
+                                        ),
+                                      ],
+                                    ),
 
-                      SizedBox(
-                        height: height * 0.006,
-                      ),
-                      Text(
-                        'Hostel Registration',
-                        textAlign: TextAlign.center,
-                        style: width > 400
-                            ? TextStyles.smallBlackColorFontStyle
-                            : TextStyles.smallerBlackColorFontStyle,
-                      ),
+                      
                     ],
                   ),
                 ),

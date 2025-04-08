@@ -117,6 +117,16 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                        
+                                       Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.note_alt_outlined, // Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -127,6 +137,8 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
                                       ],
                                     ),
                                   ),
@@ -150,7 +162,16 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                      
+                                        Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                       const SizedBox(
+                                          child: Icon(
+        Icons.inventory_rounded,// Grade icon
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
@@ -161,6 +182,10 @@ class _Theme07GradeHomePageState extends ConsumerState<Theme07GradeHomePage> {
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+                                      
+                                       
                                       ],
                                     ),
                                   ),

@@ -206,7 +206,7 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
                     child: Text(
                       '${provider.notificationData[index].notificationsubject}',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[800],
                       ),

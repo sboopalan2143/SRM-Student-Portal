@@ -142,10 +142,10 @@ class _GrievanceHomePageState extends ConsumerState<GrievanceHomePage> {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/grievancestheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 26,
+                        Icon(
+                    Icons.list,
+                          size: 28,
+                          color: Colors.white.withOpacity(0.9),
                         ),
                         const SizedBox(width: 12),
                         const Text(
@@ -217,10 +217,10 @@ class _GrievanceHomePageState extends ConsumerState<GrievanceHomePage> {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/grievancestheme3.svg',
-                          color: AppColors.whiteColor,
-                          height: MediaQuery.of(context).size.height / 26,
+                        Icon(
+                          Icons.list,
+                          size: 28,
+                          color: Colors.white.withOpacity(0.9),
                         ),
                         const SizedBox(width: 12),
                         const Text(

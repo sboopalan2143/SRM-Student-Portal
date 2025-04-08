@@ -117,17 +117,33 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                         Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      const SizedBox(
+                                          child: SizedBox(
+                                          child: Icon(
+        Icons.edit_note_sharp,
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'Grievances Entry',
+                                              'Grievances Entry',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ),
+
+                                       
+                                    
                                       ],
                                     ),
                                   ),
@@ -151,17 +167,30 @@ class _Theme07GrievanceHomePageState extends ConsumerState<Theme07GrievanceHomeP
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
-                                       
+                                            Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      const  SizedBox(
+                                          child: SizedBox(
+                                          child: Icon(
+        Icons.list_alt_outlined,
+        color: AppColors.grey1, // Gold color
+        size: 40, // Icon size
+      ),
+                                        ),
+                                        ),
                                         SizedBox(
                                           height: height * 0.006,
                                         ),
                                         Text(
-                                          'My Grievances',
+                                              'My Grievances',
                                           textAlign: TextAlign.center,
                                           style: width > 400
                                               ? TextStyles.smallBlackColorFontStyle
                                               : TextStyles.smallerBlackColorFontStyle,
                                         ),
+                                      ],
+                                    ), 
                                       ],
                                     ),
                                   ),

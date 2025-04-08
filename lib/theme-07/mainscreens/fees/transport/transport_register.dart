@@ -345,7 +345,7 @@ class _Theme07TransportRegisterPageState
             child: Text(
               title,
               style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.black54,),
             ),
@@ -353,7 +353,7 @@ class _Theme07TransportRegisterPageState
           Expanded(
             child: Text(
               (value == null || value.isEmpty) ? '-' : value,
-              style: const TextStyle(fontSize: 14, color: Colors.black87),
+              style: const TextStyle(fontSize: 12, color: Colors.black87),
             ),
           ),
         ],

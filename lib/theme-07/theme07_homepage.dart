@@ -352,13 +352,13 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
     await grievanceTypeData.close();
   }
 
-  Future<void> showNotification(RemoteMessage message) async {
-    await AppNotification.createNotification(
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
-      networkImagePath: message.data['image'] as String?,
-    );
-  }
+  // Future<void> showNotification(RemoteMessage message) async {
+  //   await AppNotification.createNotification(
+  //     title: message.notification?.title ?? '',
+  //     body: message.notification?.body ?? '',
+  //     networkImagePath: message.data['image'] as String?,
+  //   );
+  // }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -407,9 +407,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 30),
-                   
-
+                    const SizedBox(height: 20),
                    Padding(
                      padding: const EdgeInsets.all(10),
                      child: Center(
@@ -618,7 +616,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
+                                  height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -657,7 +655,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -675,7 +673,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                         SizedBox(
                                           child: Image.asset(
                                             'assets/images/fees.png',
-                                            height: 50,
+                                            height: 40,
                                           ),
                                         ),
                                         SizedBox(
@@ -701,7 +699,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -743,7 +741,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -787,7 +785,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -829,7 +827,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -873,7 +871,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,
@@ -913,7 +911,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                                   width: width * 0.06,
                                 ),
                                 SizedBox(
-                                  height: 140,
+                                 height: 120,
                                   width: width * 0.36,
                                   child: ElevatedButton(
                                     style: BorderBoxButtonDecorations.homePageButtonStyle,

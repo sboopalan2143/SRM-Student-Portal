@@ -10,7 +10,6 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/hive_repository.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/firebase_options.dart';
-import 'package:sample/notification.dart';
 import 'package:sample/route/route_builder.dart';
 import 'package:sample/route/route_names.dart';
 
@@ -22,7 +21,6 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp(options: PlatformOptions.currentPlatform);
   await FirebaseMessaging.instance.requestPermission();
-  await AppNotification.initializeNotification();
   SystemChrome.setSystemUIOverlayStyle(
     StatusBarNavigationBarDesigns.statusBarNavigationBarDesign,
   );

@@ -231,13 +231,13 @@ class _HomePageTheme4State extends ConsumerState<HomePageTheme4>
     await grievanceTypeData.close();
   }
 
-  Future<void> showNotification(RemoteMessage message) async {
-    await AppNotification.createNotification(
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
-      networkImagePath: message.data['image'] as String?,
-    );
-  }
+  // Future<void> showNotification(RemoteMessage message) async {
+  //   await AppNotification.createNotification(
+  //     title: message.notification?.title ?? '',
+  //     body: message.notification?.body ?? '',
+  //     networkImagePath: message.data['image'] as String?,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

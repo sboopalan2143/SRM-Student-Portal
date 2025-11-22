@@ -22,18 +22,13 @@ class _FeesPageState extends ConsumerState<FeesPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(feesProvider.notifier)
-            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref
-            .read(feesProvider.notifier)
-            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
       },
     );
 
@@ -45,9 +40,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(feesProvider.notifier)
-          .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+      ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
 
       ref.read(feesProvider.notifier).getHiveFinanceDetails('');
     });
@@ -93,7 +86,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'FEES',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -106,14 +99,10 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFeedDueDetails(
+                          await ref.read(feesProvider.notifier).getFeedDueDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(feesProvider.notifier)
-                              .getFinanceDetailsApi(
+                          await ref.read(feesProvider.notifier).getFinanceDetailsApi(
                                 ref.read(encryptionProvider.notifier),
                               );
                         },
@@ -180,19 +169,21 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.financeHiveData.isEmpty &&
-                  provider is! FeesStateLoading)
+              else if (provider.financeHiveData.isEmpty && provider is! FeesStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -210,9 +201,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                     controller: _listController,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
-                      return provider.navFeesString == 'Paid Details'
-                          ? cardDesign(index)
-                          : cardDesignTrans(index);
+                      return provider.navFeesString == 'Paid Details' ? cardDesign(index) : cardDesignTrans(index);
                     },
                   ),
                 ),
@@ -252,12 +241,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Due name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -278,12 +267,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Amt collected',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -304,12 +293,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Current due',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -330,12 +319,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Due amount',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -356,12 +345,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Due date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -382,12 +371,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Due description',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -439,12 +428,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Receipt No',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -465,12 +454,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Due Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -491,12 +480,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Mode of Transaction',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -504,8 +493,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeHiveData[index].modeoftransaction}' ==
-                              ''
+                      '${provider.financeHiveData[index].modeoftransaction}' == ''
                           ? '-'
                           : '${provider.financeHiveData[index].modeoftransaction}',
                       style: TextStyles.fontStyle10,
@@ -518,12 +506,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Due Amount',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -544,12 +532,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Term',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -557,9 +545,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.financeHiveData[index].term}' == ''
-                          ? '-'
-                          : '${provider.financeHiveData[index].term}',
+                      '${provider.financeHiveData[index].term}' == '' ? '-' : '${provider.financeHiveData[index].term}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -570,12 +556,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Amount Collected',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -596,12 +582,12 @@ class _FeesPageState extends ConsumerState<FeesPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 70,
-                    child: const Text(
+                    child: Text(
                       'Received Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -643,9 +629,7 @@ class _FeesPageState extends ConsumerState<FeesPage> {
           ),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          backgroundColor: text == provider.navFeesString
-              ? AppColors.primaryColor
-              : AppColors.grey1,
+          backgroundColor: text == provider.navFeesString ? AppColors.primaryColor : AppColors.grey1,
           shadowColor: Colors.transparent,
         ),
         onPressed: () {

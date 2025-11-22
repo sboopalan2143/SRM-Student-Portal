@@ -23,8 +23,7 @@ class NotificationProvider extends StateNotifier<NotificationState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getNoticeBoardDetailsjson', data);
+    final response = await HttpService.sendSoapRequest('getNoticeBoardDetailsjson', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableNotification(
         successMessage: '',
@@ -33,17 +32,15 @@ class NotificationProvider extends StateNotifier<NotificationState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getNoticeBoardDetailsjsonResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getNoticeBoardDetailsjsonResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var notificationData = state.notificationData;
-      log('decrypted>>>>>>>>$decryptedData');
+      log('decrypted >>>>>>>>${decryptedData.mapData}');
 //change model
       try {
-        final notificationDataResponse =
-            NotificationModel.fromJson(decryptedData.mapData!);
+        final notificationDataResponse = NotificationModel.fromJson(decryptedData.mapData!);
 
         notificationData = notificationDataResponse.data!;
         state = state.copyWith(notificationData: notificationData);

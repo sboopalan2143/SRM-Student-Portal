@@ -109,7 +109,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Username',
                         style: TextStyles.fontStyle2,
                       ),
@@ -144,7 +144,7 @@ class _LoginPageState extends ConsumerState<LoginPage>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Password',
                         style: TextStyles.fontStyle2,
                       ),
@@ -188,7 +188,6 @@ class _LoginPageState extends ConsumerState<LoginPage>
                       Expanded(
                         child: ButtonDesign.buttonDesign(
                           'Log In',
-                          AppColors.primaryColor,
                           context,
                           ref.read(mainProvider.notifier),
                           ref,

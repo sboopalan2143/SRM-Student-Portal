@@ -12,7 +12,7 @@ import 'package:sample/login/riverpod/login_state.dart';
 class ButtonDesign {
   static Widget buttonDesign(
     String text,
-    Color color,
+    // Color color,
     BuildContext context,
     MainProvider provider,
     WidgetRef ref,
@@ -27,32 +27,28 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.theme07primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
         // provider.setNavString('Home');
         if (text == 'Log In') {
-          await ref
-              .read(loginProvider.notifier)
-              .login(ref.read(encryptionProvider.notifier));
+          await ref.read(loginProvider.notifier).login(ref.read(encryptionProvider.notifier));
         }
         if (text == 'Save') {
-          await ref
-              .read(changePasswordProvider.notifier)
-              .changePassword(ref.read(encryptionProvider.notifier));
+          await ref.read(changePasswordProvider.notifier).changePassword(ref.read(encryptionProvider.notifier));
         }
       },
-       child: provider is LoginStateLoading
-                                  ? SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        color: AppColors.secondaryColor,
-                                        strokeWidth: 2,
-                                      ),
-                                    )
-                                  :  Text(
+      child: provider is LoginStateLoading
+          ? SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                color: AppColors.secondaryColor,
+                strokeWidth: 2,
+              ),
+            )
+          : Text(
               text,
               style: TextStyles.fontStyle1,
             ),

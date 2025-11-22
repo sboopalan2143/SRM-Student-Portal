@@ -21,7 +21,7 @@ class _ThemePageState extends ConsumerState<ThemePage> {
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: Column(
         children: [
-          const Text(
+          Text(
             'Select your prefered theme color',
             style: TextStyles.smallBlackColorFontStyle,
           ),

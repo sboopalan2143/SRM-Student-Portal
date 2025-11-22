@@ -27,19 +27,16 @@ class LmsClassworkDetailPage extends ConsumerStatefulWidget {
   final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LmsClassworkDetailPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LmsClassworkDetailPageState();
 }
 
-class _LmsClassworkDetailPageState
-    extends ConsumerState<LmsClassworkDetailPage> {
+class _LmsClassworkDetailPageState extends ConsumerState<LmsClassworkDetailPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -102,7 +99,7 @@ class _LmsClassworkDetailPageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Class Work Details',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -147,19 +144,21 @@ class _LmsClassworkDetailPageState
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: CircularProgressIndicators.primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.classWorkDetailsData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                else if (provider.classWorkDetailsData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],
@@ -198,8 +197,7 @@ class _LmsClassworkDetailPageState
           context,
           RouteDesign(
             route: LmsAttachmentDetailsDataPage(
-              classworkID:
-                  '${provider.classWorkDetailsData[index].classworkid}',
+              classworkID: '${provider.classWorkDetailsData[index].classworkid}',
             ),
           ),
         );
@@ -228,12 +226,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Classwork Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -241,8 +239,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].classworkid}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].classworkid}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].classworkid}''',
                         style: TextStyles.fontStyle10,
@@ -255,12 +252,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Classwork reply Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -268,8 +265,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].classworkreplyid}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].classworkreplyid}' == ''
                             ? '-'
                             : '${provider.classWorkDetailsData[index].classworkreplyid}',
                         style: TextStyles.fontStyle10,
@@ -282,12 +278,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Classwork typed desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -295,8 +291,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].classworktypedesc}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].classworktypedesc}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].classworktypedesc}''',
                         style: TextStyles.fontStyle10,
@@ -309,12 +304,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Classwork type id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -322,8 +317,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].classworktypeid}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].classworktypeid}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].classworktypeid}''',
                         style: TextStyles.fontStyle10,
@@ -336,12 +330,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Cnt',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -362,12 +356,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Dpend date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -375,8 +369,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].dpenddatetime}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].dpenddatetime}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].dpenddatetime}''',
                         style: TextStyles.fontStyle10,
@@ -389,12 +382,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Dpstart date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -402,8 +395,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].dpstartdatetime}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].dpstartdatetime}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].dpstartdatetime}''',
                         style: TextStyles.fontStyle10,
@@ -416,12 +408,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Field requirement',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -429,8 +421,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].fieldrequirement}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].fieldrequirement}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].fieldrequirement}''',
                         style: TextStyles.fontStyle10,
@@ -443,12 +434,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Instructions',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -456,8 +447,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].instructions}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].instructions}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].instructions}''',
                         style: TextStyles.fontStyle10,
@@ -470,12 +460,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Mcqmarksperquestions',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -483,8 +473,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].mcqmarksperquestions}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].mcqmarksperquestions}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].mcqmarksperquestions}''',
                         style: TextStyles.fontStyle10,
@@ -497,12 +486,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Mcq min mark to pass',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -510,8 +499,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].mcqminmarktopass}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].mcqminmarktopass}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].mcqminmarktopass}''',
                         style: TextStyles.fontStyle10,
@@ -524,12 +512,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Mcqtime limit',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -537,8 +525,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].mcqtimelimit}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].mcqtimelimit}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].mcqtimelimit}''',
                         style: TextStyles.fontStyle10,
@@ -551,12 +538,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Remarks',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -577,12 +564,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Stuimage attachment id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -590,8 +577,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].stuimageattachmentid}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].stuimageattachmentid}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].stuimageattachmentid}''',
                         style: TextStyles.fontStyle10,
@@ -604,12 +590,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Title Tam',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -630,12 +616,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Topic Tam',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -656,12 +642,12 @@ class _LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Title desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -669,8 +655,7 @@ class _LmsClassworkDetailPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.classWorkDetailsData[index].topicdesc}' ==
-                                ''
+                        '${provider.classWorkDetailsData[index].topicdesc}' == ''
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].topicdesc}''',
                         style: TextStyles.fontStyle10,
@@ -689,9 +674,7 @@ class _LmsClassworkDetailPageState
                       width: 150,
                       child: GestureDetector(
                         onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsAttachmentDetails(
+                          ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 '${provider.classWorkDetailsData[index].classworkid}',
                               );
@@ -700,8 +683,7 @@ class _LmsClassworkDetailPageState
                             context,
                             RouteDesign(
                               route: LmsAttachmentDetailsDataPage(
-                                classworkID:
-                                    '${provider.classWorkDetailsData[index].classworkid}',
+                                classworkID: '${provider.classWorkDetailsData[index].classworkid}',
                               ),
                             ),
                           );
@@ -711,7 +693,7 @@ class _LmsClassworkDetailPageState
                             color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
@@ -748,9 +730,7 @@ class _LmsClassworkDetailPageState
                           //     ),
                           //   ),
                           // );
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsStudentAttachmentDetails(
+                          ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 '${provider.classWorkDetailsData[index].classworkreplyid}',
                               );
@@ -758,8 +738,7 @@ class _LmsClassworkDetailPageState
                             context,
                             RouteDesign(
                               route: LmsStudentAttachmentDetailsDataPage(
-                                classworkreplyid:
-                                    '${provider.classWorkDetailsData[index].classworkreplyid}',
+                                classworkreplyid: '${provider.classWorkDetailsData[index].classworkreplyid}',
                               ),
                             ),
                           );
@@ -769,7 +748,7 @@ class _LmsClassworkDetailPageState
                             color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
@@ -789,8 +768,7 @@ class _LmsClassworkDetailPageState
                 const SizedBox(
                   height: 10,
                 ),
-                if (provider.classWorkDetailsData[index].classworkreplyid ==
-                    '0')
+                if (provider.classWorkDetailsData[index].classworkreplyid == '0')
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -803,14 +781,10 @@ class _LmsClassworkDetailPageState
                               context,
                               RouteDesign(
                                 route: LmsSaveWorkReplayDetailsDataPage(
-                                  classworkID:
-                                      '${provider.classWorkDetailsData[index].classworkid}',
-                                  classworkreplyid:
-                                      '${provider.classWorkDetailsData[index].classworkreplyid}',
-                                  fieldrequirements:
-                                      '${provider.classWorkDetailsData[index].fieldrequirement}',
-                                  imageattachmentid:
-                                      '${provider.classWorkDetailsData[index].stuimageattachmentid}',
+                                  classworkID: '${provider.classWorkDetailsData[index].classworkid}',
+                                  classworkreplyid: '${provider.classWorkDetailsData[index].classworkreplyid}',
+                                  fieldrequirements: '${provider.classWorkDetailsData[index].fieldrequirement}',
+                                  imageattachmentid: '${provider.classWorkDetailsData[index].stuimageattachmentid}',
                                 ),
                               ),
                             );
@@ -820,7 +794,7 @@ class _LmsClassworkDetailPageState
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Center(
@@ -840,46 +814,46 @@ class _LmsClassworkDetailPageState
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            RouteDesign(
-                              route: McqEnteryPage(
-                                mcqscheduleid:
-                                    '${provider.classWorkDetailsData[index].mcqscheduleid}',
-                              ),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'MCQ Test',
-                                  style: TextStyles.fontStyle5,
-                                  textAlign: TextAlign.center,
+                if (provider.lmsTitleData[index].classworktypedesc == 'Mcq')
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 150,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              RouteDesign(
+                                route: McqEnteryPage(
+                                  mcqscheduleid: '${provider.classWorkDetailsData[index].mcqscheduleid}',
                                 ),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'MCQ Test',
+                                    style: TextStyles.fontStyle5,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),

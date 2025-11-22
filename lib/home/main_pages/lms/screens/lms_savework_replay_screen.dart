@@ -161,7 +161,7 @@ class LmsSaveWorkReplayDetailsDataPageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Save Attachments',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -323,7 +323,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Action',
                         style: TextStyles.fontStyle2,
                       ),
@@ -353,7 +353,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Remarks',
                         style: TextStyles.fontStyle2,
                       ),

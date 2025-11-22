@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -41,17 +43,16 @@ class CalendarProvider extends StateNotifier<CalendarState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final financeRes = details['getAcademyCalenderEntryDetailsResponse']
-          as Map<String, dynamic>;
+      final financeRes = details['getAcademyCalenderEntryDetailsResponse'] as Map<String, dynamic>;
       final returnData = financeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('Calendar for Timetable >>>> ${decryptedData.mapData}');
 
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
-          final box =
-              await Hive.openBox<CalendarHiveModelData>('calendardetail');
+          final box = await Hive.openBox<CalendarHiveModelData>('calendardetail');
           if (box.isEmpty) {
             for (var i = 0; i < listData.length; i++) {
               final parseData = CalendarHiveModelData.fromJson(

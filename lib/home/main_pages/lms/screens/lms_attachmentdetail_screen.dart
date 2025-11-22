@@ -116,7 +116,7 @@ class LmsAttachmentDetailsDataPageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Attachment Details',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -172,7 +172,7 @@ class LmsAttachmentDetailsDataPageState
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No Data Yet!',
                           style: TextStyles.fontStyle,
@@ -401,16 +401,16 @@ class LmsAttachmentDetailsDataPageState
             'Excel viewing not supported. File downloaded.',
           );
         },
-        child: const Center(
+        child: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.table_chart,
                 color: Colors.green,
                 size: 24,
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 'Tap to download Excel',
                 style: TextStyles.fontStyle10,
@@ -421,7 +421,7 @@ class LmsAttachmentDetailsDataPageState
       );
     } else {
       // Unsupported file type
-      fileDisplayWidget = const Center(
+      fileDisplayWidget = Center(
         child: Text(
           'Unsupported file type',
           style: TextStyles.fontStyle10,
@@ -544,12 +544,12 @@ class LmsAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Actual name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -571,12 +571,12 @@ class LmsAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'File name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),

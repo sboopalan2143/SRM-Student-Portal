@@ -25,8 +25,7 @@ class NotificationCountProvider extends StateNotifier<NotificationCountState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getViewUnReadNotification', data);
+    final response = await HttpService.sendSoapRequest('getViewUnReadNotification', data);
     if (response.$1 == 0) {
       state = NoNetworkCountAvailableNotification(
         successMessage: '',
@@ -35,8 +34,7 @@ class NotificationCountProvider extends StateNotifier<NotificationCountState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getViewUnReadNotificationResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getViewUnReadNotificationResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -44,8 +42,7 @@ class NotificationCountProvider extends StateNotifier<NotificationCountState> {
       log('notificationCountData >>>>>>>>$notificationCountData');
 //change model
       try {
-        final notificationCountDataResponse =
-            NotificationCountModel.fromJson(decryptedData.mapData!);
+        final notificationCountDataResponse = NotificationCountModel.fromJson(decryptedData.mapData!);
 
         notificationCountData = notificationCountDataResponse.data!;
         state = state.copyWith(notificationCountData: notificationCountData);
@@ -84,8 +81,8 @@ class NotificationCountProvider extends StateNotifier<NotificationCountState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('saveReadNotification', data);
+    // log(data);
+    final response = await HttpService.sendSoapRequest('saveReadNotification', data);
     if (response.$1 == 0) {
       state = NoNetworkCountAvailableNotification(
         successMessage: '',
@@ -94,17 +91,15 @@ class NotificationCountProvider extends StateNotifier<NotificationCountState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getViewUnReadNotificationResponse'] as Map<String, dynamic>;
+      final hostelRes = details['saveReadNotificationResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var notificationCountData = state.notificationCountData;
-      log('notificationCountData >>>>>>>>$notificationCountData');
+      log('notificationCountData >>>>>>>>${decryptedData.mapData}');
 //change model
       try {
-        final notificationCountDataResponse =
-            NotificationCountModel.fromJson(decryptedData.mapData!);
+        final notificationCountDataResponse = NotificationCountModel.fromJson(decryptedData.mapData!);
 
         notificationCountData = notificationCountDataResponse.data!;
         state = state.copyWith(notificationCountData: notificationCountData);

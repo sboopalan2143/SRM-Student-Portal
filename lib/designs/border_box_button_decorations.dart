@@ -130,14 +130,12 @@ class BorderBoxButtonDecorations {
 
   static final homePageButtonStyle = ButtonStyle(
     shadowColor: MaterialStateProperty.all(AppColors.grey.withOpacity(0.5)),
-    elevation: MaterialStateProperty.all(0),
+    elevation: MaterialStateProperty.all(8),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(27)),
       ),
     ),
     backgroundColor: MaterialStateProperty.all<Color>(AppColors.whiteColor),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.whiteColor),
-    overlayColor: MaterialStateProperty.all<Color>(AppColors.whiteColor),
   );
 }

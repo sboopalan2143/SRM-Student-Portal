@@ -107,7 +107,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'LMS Title',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -161,10 +161,14 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                     Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],
@@ -227,7 +231,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
             child: Column(
               children: [
                 if (provider.lmsTitleData[index].newwork != '0')
-                  const BlinkText(
+                   BlinkText(
                     'New',
                     style: TextStyles.fontStyle6,
                     endColor: Colors.redAccent,
@@ -252,12 +256,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Start date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -279,12 +283,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'End date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -331,12 +335,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Classwork type desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -384,7 +388,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                             color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Column(
+                          child:  Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
@@ -422,7 +426,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Column(
+                              child:  Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Center(
@@ -464,7 +468,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                                   color: AppColors.primaryColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: const Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Center(

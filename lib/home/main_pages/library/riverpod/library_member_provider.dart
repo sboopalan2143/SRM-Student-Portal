@@ -10,8 +10,7 @@ import 'package:sample/home/main_pages/library/model/library_search_model.dart';
 import 'package:sample/home/main_pages/library/model/library_transaction_res_hive_model.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 
-class LibraryTransactionProvider
-    extends StateNotifier<LibraryTrancsactionState> {
+class LibraryTransactionProvider extends StateNotifier<LibraryTrancsactionState> {
   LibraryTransactionProvider() : super(LibraryMemberInitial());
 
   void disposeState() => state = LibraryMemberInitial();
@@ -43,8 +42,7 @@ class LibraryTransactionProvider
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getLibraryTransaction', data);
+    final response = await HttpService.sendSoapRequest('getLibraryTransaction', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLibraryMember(
         successMessage: '',
@@ -57,14 +55,13 @@ class LibraryTransactionProvider
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final libraryMemberRes =
-          details['getLibraryTransactionResponse'] as Map<String, dynamic>;
+      final libraryMemberRes = details['getLibraryTransactionResponse'] as Map<String, dynamic>;
       final returnData = libraryMemberRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       if (decryptedData.mapData!['Status'] == 'Success') {
         // var libraryTransactionData = state.libraryTransactionData;
-        // log('decrypted>>>>>>>>$decryptedData');
+        log('decrypted>>>>>>>>${decryptedData.mapData}');
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
           final box = await Hive.openBox<LibraryTransactionHiveData>(
@@ -118,8 +115,7 @@ class LibraryTransactionProvider
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = LibraryTrancsactionStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           libraryTransactionData: state.libraryTransactionData,
           studentId: TextEditingController(),
           officeid: TextEditingController(),
@@ -178,8 +174,7 @@ class LibraryTransactionProvider
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final libraryMemberRes =
-          details['getBookSearchResponse'] as Map<String, dynamic>;
+      final libraryMemberRes = details['getBookSearchResponse'] as Map<String, dynamic>;
       final returnData = libraryMemberRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -188,16 +183,14 @@ class LibraryTransactionProvider
       log('decrypted search >>>>>>>> ${decryptedData.mapData}');
 
       try {
-        final librarySearchResponse =
-            BooksearchList.fromJson(decryptedData.mapData!);
+        final librarySearchResponse = BooksearchList.fromJson(decryptedData.mapData!);
         librarysearchData = librarySearchResponse.data!;
         state = state.copyWith(librarysearchData: librarysearchData);
         if (librarySearchResponse.status == 'Success') {
         } else if (librarySearchResponse.status != 'Success') {
           state = LibraryTrancsactionStateError(
             successMessage: '',
-            errorMessage:
-                '''${librarySearchResponse.status!}, ${librarySearchResponse.message!}''',
+            errorMessage: '''${librarySearchResponse.status!}, ${librarySearchResponse.message!}''',
             libraryTransactionData: state.libraryTransactionData,
             studentId: TextEditingController(),
             officeid: TextEditingController(),

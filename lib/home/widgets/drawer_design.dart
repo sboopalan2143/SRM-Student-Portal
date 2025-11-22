@@ -8,7 +8,6 @@ import 'package:sample/home/drawer_pages/change_password/screen/change_password.
 import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
 import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/theme-02/login/theme02_login_screen.dart';
 import 'package:sample/theme-07/login/login_page_theme07.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
@@ -122,7 +121,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
             //   },
             // ),
             ListTile(
-              title: const Row(
+              title: Row(
                 children: [
                   Text(
                     'Profile',
@@ -160,7 +159,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
             // ),
 
             ListTile(
-              title: const Row(
+              title: Row(
                 children: [
                   Text(
                     'Change Password',
@@ -197,7 +196,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
             // ),
 
             ListTile(
-              title: const Row(
+              title: Row(
                 children: [
                   Text(
                     'Logout',

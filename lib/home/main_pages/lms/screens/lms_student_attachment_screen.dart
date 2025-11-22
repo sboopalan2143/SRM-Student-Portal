@@ -106,7 +106,7 @@ class LmsStudentAttachmentDetailsDataPageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Student Attachment Details',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -162,10 +162,14 @@ class LmsStudentAttachmentDetailsDataPageState
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],
@@ -242,7 +246,7 @@ class LmsStudentAttachmentDetailsDataPageState
             ),
           );
         },
-        child: const Center(
+        child: Center(
           child: Text(
             'Tap to view PDF',
             style: TextStyles.fontStyle10,
@@ -258,7 +262,7 @@ class LmsStudentAttachmentDetailsDataPageState
             'Excel viewing not supported. File downloaded.',
           );
         },
-        child: const Center(
+        child: Center(
           child: Text(
             'Tap to download Excel',
             style: TextStyles.fontStyle10,
@@ -267,7 +271,7 @@ class LmsStudentAttachmentDetailsDataPageState
       );
     } else {
       // Unsupported file type
-      fileDisplayWidget = const Center(
+      fileDisplayWidget = Center(
         child: Text(
           'Unsupported file type',
           style: TextStyles.fontStyle10,
@@ -300,12 +304,12 @@ class LmsStudentAttachmentDetailsDataPageState
                 //   children: [
                 //     SizedBox(
                 //       width: width / 2 - 80,
-                //       child: const Text(
+                //       child: Text(
                 //         'Image',
                 //         style: TextStyles.fontStyle10,
                 //       ),
                 //     ),
-                //     const Text(
+                //     Text(
                 //       ':',
                 //       style: TextStyles.fontStyle10,
                 //     ),
@@ -327,12 +331,12 @@ class LmsStudentAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Actual name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -354,12 +358,12 @@ class LmsStudentAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'File name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),

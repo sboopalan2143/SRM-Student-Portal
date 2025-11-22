@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
 import 'package:sample/theme-07/dhasboard_07_page.dart';
 import 'package:sample/theme-07/login/login_page_theme07.dart';
 import 'package:sample/theme-07/theme07_homepage.dart';
-import 'package:sample/theme-07/theme07_theme_page.dart';
 
 class Theme07DrawerDesign extends ConsumerStatefulWidget {
   const Theme07DrawerDesign({super.key});
@@ -34,14 +32,12 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
           children: [
             SizedBox(
               height: 200,
-              child:
-                  DrawerHeader(
+              child: DrawerHeader(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       AppColors.theme07primaryColor,
-                      AppColors
-                          .theme07primaryColor, // You could use a secondary color here for contrast
+                      AppColors.theme07primaryColor, // You could use a secondary color here for contrast
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -71,34 +67,34 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
                               borderRadius: BorderRadius.circular(50),
                               child: Image.memory(
                                 imageBytes,
-                                fit: BoxFit.cover, 
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                         
                       ],
                     ),
-                    const SizedBox(height: 10,),
-                     Text(
-                          TokensManagement.studentName == ''
-                              ? '-'
-                              : TokensManagement.studentName,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      TokensManagement.studentName == '' ? '-' : TokensManagement.studentName,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
                   ],
                 ),
-                
               ),
             ),
-             ListTile(
+            ListTile(
               hoverColor: AppColors.whiteColor,
-              leading:  Icon(Icons.home,
-                  color: AppColors.theme07primaryColor,), 
-              title: const Row(
+              leading: Icon(
+                Icons.home,
+                color: AppColors.theme07primaryColor,
+              ),
+              title: Row(
                 children: [
                   Text(
                     'Home',
@@ -107,15 +103,16 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
                 ],
               ),
               onTap: () async {
-               
-          await Navigator.push(context, RouteDesign(route: const Theme07HomePage()));
+                await Navigator.push(context, RouteDesign(route: const Theme07HomePage()));
               },
             ),
             ListTile(
               hoverColor: AppColors.whiteColor,
-              leading:  Icon(Icons.dashboard,
-                  color: AppColors.theme07primaryColor,), 
-              title: const Row(
+              leading: Icon(
+                Icons.dashboard,
+                color: AppColors.theme07primaryColor,
+              ),
+              title: Row(
                 children: [
                   Text(
                     'Dashboard',
@@ -124,34 +121,33 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
                 ],
               ),
               onTap: () async {
-             
-          await Navigator.push(context, RouteDesign(route: const Theme07dhasboardPage()));
-             
+                await Navigator.push(context, RouteDesign(route: const Theme07dhasboardPage()));
               },
             ),
-           
-           
+
+            // ListTile(
+            //   hoverColor: AppColors.whiteColor,
+            //   leading:  Icon(Icons.menu,
+            //       color: AppColors.theme07primaryColor,),
+            //   title: Row(
+            //     children: [
+            //       Text(
+            //         'Theme',
+            //         style: TextStyles.smallerBlackColorFontStyle,
+            //       ),
+            //     ],
+            //   ),
+            //   onTap: ()  async {
+            //    await Navigator.push(context, RouteDesign(route: const Theme07Page()));
+            //   },
+            // ),
+
             ListTile(
-              hoverColor: AppColors.whiteColor,
-              leading:  Icon(Icons.menu,
-                  color: AppColors.theme07primaryColor,), 
-              title: const Row(
-                children: [
-                  Text(
-                    'Theme',
-                    style: TextStyles.smallerBlackColorFontStyle,
-                  ),
-                ],
+              leading: Icon(
+                Icons.logout,
+                color: AppColors.theme07primaryColor,
               ),
-              onTap: ()  async {
-               await Navigator.push(context, RouteDesign(route: const Theme07Page()));
-              },
-            ),
-           
-            ListTile(
-              leading:  Icon(Icons.logout,
-                  color: AppColors.theme07primaryColor,), 
-              title: const Row(
+              title: Row(
                 children: [
                   Text(
                     'Logout',
@@ -159,7 +155,6 @@ class _Theme07DrawerDesignState extends ConsumerState<Theme07DrawerDesign> {
                   ),
                 ],
               ),
-
               onTap: () async {
                 await Navigator.push(context, RouteDesign(route: const Theme07LoginPage()));
               },

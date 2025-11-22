@@ -28,7 +28,7 @@ class _OfflinePageState extends ConsumerState<OfflinePage> {
               ),
             ),
             const SizedBox(height: 50),
-            const Text(
+            Text(
               'No Internet Available',
               style: TextStyles.lessSmallerBlackColorFontStyle,
             ),

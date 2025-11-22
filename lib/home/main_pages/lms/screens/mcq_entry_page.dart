@@ -95,7 +95,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'MCQ Entry Screen',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -148,10 +148,14 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                   Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -202,7 +206,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                 children: [
                   Text('MCQ Entry ', style: TextStyles.titleFontStyle),
                   const SizedBox(height: 20),
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -219,7 +223,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                       Text(
                         'Last Submission Date : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -235,7 +239,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                       Text(
                         'Test : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -249,7 +253,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                       Text(
                         'no of questions: ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -260,7 +264,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const BlinkText(
+                   BlinkText(
                     'New',
                     style: TextStyles.fontStyle6,
                     endColor: Colors.redAccent,
@@ -296,7 +300,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Center(
@@ -331,7 +335,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: const Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Center(

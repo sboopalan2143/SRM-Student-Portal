@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -38,8 +40,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
 
-    final response =
-        await HttpService.sendSoapRequest('getGrievanceCategory', data);
+    final response = await HttpService.sendSoapRequest('getGrievanceCategory', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
@@ -48,8 +49,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceType: state.grievanceType,
         selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -59,11 +59,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final grievanceCaregoryRes =
-          details['getGrievanceCategoryResponse'] as Map<String, dynamic>;
+      final grievanceCaregoryRes = details['getGrievanceCategoryResponse'] as Map<String, dynamic>;
       final returnData = grievanceCaregoryRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('1 >>>>>> ${decryptedData.mapData}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         // var grievanceCaregoryData = state.grievanceCaregoryData;
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
@@ -102,10 +102,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
             grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
+            selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+            selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
             selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
             description: TextEditingController(),
             studentId: TextEditingController(),
@@ -117,14 +115,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: <GrievanceCategoryHiveData>[],
           grievanceSubType: state.grievanceSubType,
           grievanceType: state.grievanceType,
           selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
+          selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
           description: TextEditingController(),
           studentId: TextEditingController(),
@@ -141,8 +137,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceType: state.grievanceType,
         selectedgrievanceCaregoryDataList: GrievanceCategoryHiveData.empty,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -181,8 +176,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getGrievanceSubType', data);
+    final response = await HttpService.sendSoapRequest('getGrievanceSubType', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
@@ -190,8 +184,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: <GrievanceSubTypeHiveData>[],
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
         selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
@@ -202,11 +195,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final grievanceSubTypeRes =
-          details['getGrievanceSubTypeResponse'] as Map<String, dynamic>;
+      final grievanceSubTypeRes = details['getGrievanceSubTypeResponse'] as Map<String, dynamic>;
       final returnData = grievanceSubTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('2 >>>>>> ${decryptedData.mapData}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         // var grievanceSubType = state.grievanceSubType;
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
@@ -245,8 +238,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: <GrievanceSubTypeHiveData>[],
             grievanceType: state.grievanceType,
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
+            selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
             selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
             selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
             description: TextEditingController(),
@@ -259,13 +251,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceSubType: <GrievanceSubTypeHiveData>[],
           grievanceType: state.grievanceType,
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
+          selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
           selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
           description: TextEditingController(),
@@ -282,8 +272,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceSubType: <GrievanceSubTypeHiveData>[],
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
         selectedgrievanceSubTypeDataList: GrievanceSubTypeHiveData.empty,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: TextEditingController(),
@@ -319,12 +308,13 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
   }
 
   Future<void> getGrievanceTypeDetails(EncryptionProvider encrypt) async {
+    log("encrpyt");
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getGrievanceType', data);
+    final response = await HttpService.sendSoapRequest('getGrievanceType', data);
+    log('Response ${response}');
     if (response.$1 == 0) {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
@@ -332,10 +322,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: <GrievanceTypeHiveData>[],
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -345,11 +333,11 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final grievanceTypeRes =
-          details['getGrievanceTypeResponse'] as Map<String, dynamic>;
+      final grievanceTypeRes = details['getGrievanceTypeResponse'] as Map<String, dynamic>;
       final returnData = grievanceTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('Sub Type >>>>>> ${decryptedData.mapData}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
@@ -390,10 +378,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
             grievanceCaregoryData: state.grievanceCaregoryData,
             grievanceSubType: state.grievanceSubType,
             grievanceType: <GrievanceTypeHiveData>[],
-            selectedgrievanceCaregoryDataList:
-                state.selectedgrievanceCaregoryDataList,
-            selectedgrievanceSubTypeDataList:
-                state.selectedgrievanceSubTypeDataList,
+            selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+            selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
             selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
             description: TextEditingController(),
             studentId: TextEditingController(),
@@ -405,15 +391,12 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceSubType: state.grievanceSubType,
           grievanceType: <GrievanceTypeHiveData>[],
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
+          selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+          selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
           selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
           description: TextEditingController(),
           studentId: TextEditingController(),
@@ -429,10 +412,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceSubType: state.grievanceSubType,
         grievanceType: <GrievanceTypeHiveData>[],
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: GrievanceTypeHiveData.empty,
         description: TextEditingController(),
         studentId: TextEditingController(),
@@ -470,6 +451,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>',
     );
+    log('<studentid>${TokensManagement.studentId}</studentid><grievancetypeid>${state.selectedgrievanceTypeDataList.grievancetypeid}</grievancetypeid><grievancecatid>${state.selectedgrievanceCaregoryDataList.grievancekcategoryid}</grievancecatid><grievancesubcatid>${state.selectedgrievanceSubTypeDataList.grievancesubcategoryid}</grievancesubcatid><subject>${state.subject.text}</subject><username>${TokensManagement.studentName}</username><subjectdesc>${state.description.text}</subjectdesc>');
     final response = await HttpService.sendSoapRequest('saveGrievance', data);
 
     if (response.$1 == 0) {
@@ -479,10 +461,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: state.description,
         studentId: state.studentId,
@@ -492,8 +472,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final saveGrievanceRes =
-          details['saveGrievanceResponse'] as Map<String, dynamic>;
+      final saveGrievanceRes = details['saveGrievanceResponse'] as Map<String, dynamic>;
       final returnData = saveGrievanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -521,10 +500,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
           grievanceSubType: state.grievanceSubType,
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceType: state.grievanceType,
-          selectedgrievanceCaregoryDataList:
-              state.selectedgrievanceCaregoryDataList,
-          selectedgrievanceSubTypeDataList:
-              state.selectedgrievanceSubTypeDataList,
+          selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+          selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
           selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
           description: state.description,
           studentId: state.studentId,
@@ -540,10 +517,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
         grievanceSubType: state.grievanceSubType,
         grievanceCaregoryData: state.grievanceCaregoryData,
         grievanceType: state.grievanceType,
-        selectedgrievanceCaregoryDataList:
-            state.selectedgrievanceCaregoryDataList,
-        selectedgrievanceSubTypeDataList:
-            state.selectedgrievanceSubTypeDataList,
+        selectedgrievanceCaregoryDataList: state.selectedgrievanceCaregoryDataList,
+        selectedgrievanceSubTypeDataList: state.selectedgrievanceSubTypeDataList,
         selectedgrievanceTypeDataList: state.selectedgrievanceTypeDataList,
         description: state.description,
         studentId: state.studentId,
@@ -561,8 +536,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getStudentWiseGrievances', data);
+    final response = await HttpService.sendSoapRequest('getStudentWiseGrievances', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableGrievance(
         successMessage: '',
@@ -581,10 +555,8 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final studetwisegrievanceTypeRes =
-          details['getStudentWiseGrievancesResponse'] as Map<String, dynamic>;
-      final returnData =
-          studetwisegrievanceTypeRes['return'] as Map<String, dynamic>;
+      final studetwisegrievanceTypeRes = details['getStudentWiseGrievancesResponse'] as Map<String, dynamic>;
+      final returnData = studetwisegrievanceTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       if (decryptedData.mapData!['Status'] == 'Success') {
@@ -641,8 +613,7 @@ class GrievanceProvider extends StateNotifier<GrievanceState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = GrievanceStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Message']}''',
           grievanceSubType: state.grievanceSubType,
           grievanceCaregoryData: state.grievanceCaregoryData,
           grievanceType: state.grievanceType,

@@ -15,8 +15,7 @@ class ChangePassword extends ConsumerStatefulWidget {
   ConsumerState createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends ConsumerState<ChangePassword>
-    with WidgetsBindingObserver {
+class _ChangePasswordState extends ConsumerState<ChangePassword> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(changePasswordProvider);
@@ -48,7 +47,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'CHANGE PASSWORD',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -85,7 +84,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Current Password',
                       style: TextStyles.fontStyle2,
                     ),
@@ -107,10 +106,8 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                           filled: true,
                           fillColor: AppColors.secondaryColor,
                           contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
                     ),
@@ -120,7 +117,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'New Password',
                       style: TextStyles.fontStyle2,
                     ),
@@ -142,10 +139,8 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                           filled: true,
                           fillColor: AppColors.secondaryColor,
                           contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
                     ),
@@ -155,7 +150,7 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Confirm Password',
                       style: TextStyles.fontStyle2,
                     ),
@@ -177,10 +172,8 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                           filled: true,
                           fillColor: AppColors.secondaryColor,
                           contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
                     ),
@@ -192,7 +185,6 @@ class _ChangePasswordState extends ConsumerState<ChangePassword>
                     Expanded(
                       child: ButtonDesign.buttonDesign(
                         'Save',
-                        AppColors.primaryColor,
                         context,
                         ref.read(mainProvider.notifier),
                         ref,

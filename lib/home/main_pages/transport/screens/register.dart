@@ -101,7 +101,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'TRANSPORT',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -162,7 +162,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Busroute ID',
                         style: TextStyles.fontStyle2,
                       ),
@@ -215,7 +215,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Boardingpoint ID',
                         style: TextStyles.fontStyle2,
                       ),
@@ -305,12 +305,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Academicyear id',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -332,12 +332,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Transport status',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -359,12 +359,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Actives tatus',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -386,12 +386,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child:  Text(
                               'Amount',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                           Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -413,12 +413,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child:  Text(
                               'Application fees',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                           Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -440,12 +440,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child:  Text(
                               'Boardingpoint name',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                           Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -467,12 +467,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child:  Text(
                               'Busroute name',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                           Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -494,12 +494,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child:  Text(
                               'Controller id',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                           Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -521,12 +521,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Office id',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -548,12 +548,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Regconfig',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -575,12 +575,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child: const Text(
+                            child: Text(
                               'Registration date',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),

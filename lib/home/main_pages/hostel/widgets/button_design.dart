@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/screens/hostel_leave_application.dart';
-import 'package:sample/home/main_pages/hostel/screens/registration.dart';
-import 'package:sample/theme-01/mainscreens/hostel/hostel_leave_application.dart';
-import 'package:sample/theme-01/mainscreens/hostel/hostel_register.dart';
+import 'package:sample/theme-07/mainscreens/hostel/hostel_registration_page.dart';
+import 'package:sample/theme-07/mainscreens/hostel/theme_02_hostel_leave_application.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -33,7 +31,7 @@ class ButtonDesign {
             context,
             RouteDesign(
               // route: const LeaveApplicationPage(),
-              route: const Theme01LeaveApplicationPage(),
+              route: const Theme02LeaveApplicationPage(),
             ),
           );
         }
@@ -42,7 +40,7 @@ class ButtonDesign {
             context,
             RouteDesign(
               // route: const RegistrationPage(),
-              route: const Theme01RegistrationPage(),
+              route: const Theme07RegistrationPage(),
             ),
           );
         }

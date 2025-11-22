@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
@@ -96,7 +95,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
+          title: Text(
             'LMS Subject',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
@@ -144,10 +143,14 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added',
-                        style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -561,7 +564,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
             style: TextStyles.buttonStyle01theme2,
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Text(
             ':',
             style: TextStyles.fontStyle2,

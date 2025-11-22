@@ -24,7 +24,7 @@ class Alerts {
                   width: 100,
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                 Text(
                   'New version available. Please update and continue.',
                   style: TextStyles.alertContentStyle,
                   textAlign: TextAlign.center,
@@ -91,7 +91,7 @@ class Alerts {
       shape: BorderBoxButtonDecorations.primaryRectangleBorder,
       backgroundColor: AppColors.whiteColor,
       actionsPadding: const EdgeInsets.only(right: 10, bottom: 10),
-      title: const Text(
+      title: Text(
         'Error',
         style: TextStyles.smallBlackColorFontStyle,
       ),

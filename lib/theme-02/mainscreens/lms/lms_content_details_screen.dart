@@ -2,14 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
 
 class Theme02LmsContentDetailsPage extends ConsumerStatefulWidget {
   const Theme02LmsContentDetailsPage({required this.subjectid, super.key});
@@ -99,7 +95,7 @@ class _Theme02LmsContentDetailsPageState
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
+          title: Text(
             'LMS CONTENT DETAILS',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
@@ -150,10 +146,14 @@ class _Theme02LmsContentDetailsPageState
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added',
-                        style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -232,18 +232,18 @@ class _Theme02LmsContentDetailsPageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _infoRow('Emp Name',
-                      provider.lmsContentData[index].employeefirstandmidname),
+                      provider.lmsContentData[index].employeefirstandmidname,),
                   const SizedBox(height: 8),
                   _infoRow('Upload Date',
-                      provider.lmsContentData[index].uploadeddate),
+                      provider.lmsContentData[index].uploadeddate,),
                   const SizedBox(height: 8),
                   _infoRow(
-                      'New Content', provider.lmsContentData[index].newcontent),
+                      'New Content', provider.lmsContentData[index].newcontent,),
                   const SizedBox(height: 8),
                   _infoRow('Sharing Id',
-                      provider.lmsContentData[index].contentsharingid),
+                      provider.lmsContentData[index].contentsharingid,),
                   _infoRow('Description',
-                      provider.lmsContentData[index].description),
+                      provider.lmsContentData[index].description,),
                   const SizedBox(height: 8),
                   _infoRow('Url', provider.lmsContentData[index].url),
                   const SizedBox(height: 8),
@@ -282,17 +282,17 @@ class _Theme02LmsContentDetailsPageState
           SizedBox(
             width: 120, // Adjust width based on expected title length
             child: Text(
-              '$title',
+              title,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           const Text(
             ' : ',
-            style: const TextStyle(fontSize: 20, color: Colors.black),
+            style: TextStyle(fontSize: 20, color: Colors.black),
           ),
           Expanded(
             child: Text(
-              '$value' ?? 'N/A',
+              value ?? 'N/A',
               style: const TextStyle(fontSize: 16, color: Colors.black),
             ),
           ),
@@ -312,7 +312,7 @@ class _Theme02LmsContentDetailsPageState
             style: TextStyles.buttonStyle01theme2,
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Text(
             ':',
             style: TextStyles.fontStyle2,

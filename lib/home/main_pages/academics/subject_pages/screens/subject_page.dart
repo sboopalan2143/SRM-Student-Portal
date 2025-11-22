@@ -30,9 +30,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(subjectProvider.notifier)
-            .getSubjectDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(subjectProvider.notifier).getSubjectDetails(ref.read(encryptionProvider.notifier));
         await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
       },
     );
@@ -91,7 +89,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'SUBJECTS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -104,14 +102,10 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(subjectProvider.notifier)
-                              .getSubjectDetails(
+                          await ref.read(subjectProvider.notifier).getSubjectDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(subjectProvider.notifier)
-                              .getHiveSubjectDetails('');
+                          await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -137,7 +131,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                   children: [
                     SizedBox(
                       width: width / 8,
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -150,7 +144,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     const SizedBox(width: 5),
                     SizedBox(
                       width: width / 8,
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -163,7 +157,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     const SizedBox(width: 5),
                     SizedBox(
                       width: width / 2.3,
-                      child: const Column(
+                      child: Column(
                         children: [
                           Text(
                             'Subject',
@@ -175,7 +169,7 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                     const SizedBox(width: 5),
                     SizedBox(
                       width: width / 8,
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -192,28 +186,28 @@ class _SubjectPageState extends ConsumerState<SubjectPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.subjectHiveData.isEmpty &&
-                  provider is! SubjectStateLoading)
+              else if (provider.subjectHiveData.isEmpty && provider is! SubjectStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
                 ),
-              if (provider.subjectHiveData.isNotEmpty)
-                const SizedBox(height: 5),
+              if (provider.subjectHiveData.isNotEmpty) const SizedBox(height: 5),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 child: ListView.builder(
                   itemCount: provider.subjectHiveData.length,
                   controller: _listController,

@@ -16,31 +16,24 @@ class CumulativeAttendancePage extends ConsumerStatefulWidget {
   const CumulativeAttendancePage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CumulativeAttendancePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CumulativeAttendancePageState();
 }
 
-class _CumulativeAttendancePageState
-    extends ConsumerState<CumulativeAttendancePage> {
+class _CumulativeAttendancePageState extends ConsumerState<CumulativeAttendancePage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(cummulativeAttendanceProvider.notifier)
-            .getCummulativeAttendanceDetails(
+        await ref.read(cummulativeAttendanceProvider.notifier).getCummulativeAttendanceDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(cummulativeAttendanceProvider.notifier)
-            .getHiveCummulativeDetails('');
+        await ref.read(cummulativeAttendanceProvider.notifier).getHiveCummulativeDetails('');
       },
     );
 
@@ -52,9 +45,7 @@ class _CumulativeAttendancePageState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(cummulativeAttendanceProvider.notifier)
-          .getHiveCummulativeDetails('');
+      ref.read(cummulativeAttendanceProvider.notifier).getHiveCummulativeDetails('');
     });
   }
 
@@ -100,7 +91,7 @@ class _CumulativeAttendancePageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'CUMMULATIVE ATTENDANCE',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -113,14 +104,10 @@ class _CumulativeAttendancePageState
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(cummulativeAttendanceProvider.notifier)
-                              .getCummulativeAttendanceDetails(
+                          await ref.read(cummulativeAttendanceProvider.notifier).getCummulativeAttendanceDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(cummulativeAttendanceProvider.notifier)
-                              .getHiveCummulativeDetails('');
+                          await ref.read(cummulativeAttendanceProvider.notifier).getHiveCummulativeDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -142,25 +129,26 @@ class _CumulativeAttendancePageState
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.cummulativeHiveAttendanceData.isEmpty &&
-                provider is! CummulativeAttendanceStateLoading)
+            else if (provider.cummulativeHiveAttendanceData.isEmpty && provider is! CummulativeAttendanceStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.alertContentStyle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
               ),
-            if (provider.cummulativeHiveAttendanceData.isNotEmpty)
-              const SizedBox(height: 5),
+            if (provider.cummulativeHiveAttendanceData.isNotEmpty) const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
@@ -205,7 +193,7 @@ class _CumulativeAttendancePageState
             children: [
               SizedBox(
                 width: width / 2 - 80,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -236,7 +224,7 @@ class _CumulativeAttendancePageState
                   ],
                 ),
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(

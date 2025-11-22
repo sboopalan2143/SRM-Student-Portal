@@ -98,7 +98,7 @@ class _LmsFacultyCommentScreenState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Faculty Comment',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -146,11 +146,15 @@ class _LmsFacultyCommentScreenState
                 )
               else if (provider.lmsfacultygetcommentData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
+                Expanded(
                   child: Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 )

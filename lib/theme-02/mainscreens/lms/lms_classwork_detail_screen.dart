@@ -9,21 +9,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-01/mainscreens/lms/lms_pdf_view_page.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_attachment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_pdf_view_page.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_save_attachment.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_student_attachment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
+import 'package:sample/theme-07/mainscreens/academy/lms_pdf_pagetheme07.dart';
 
 class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
   const Theme02LmsClassworkDetailPage({
@@ -46,20 +39,17 @@ class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
   final String subjectID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsClassworkDetailPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsClassworkDetailPageState();
 }
 
-class _Theme02LmsClassworkDetailPageState
-    extends ConsumerState<Theme02LmsClassworkDetailPage> {
+class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassworkDetailPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   bool isLoading = false;
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -175,7 +165,7 @@ class _Theme02LmsClassworkDetailPageState
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
+          title: Text(
             'Class Work Details',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
@@ -217,20 +207,22 @@ class _Theme02LmsClassworkDetailPageState
                   child: Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],
                   ),
                 )
-              else if (provider.classWorkDetailsData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.classWorkDetailsData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               if (provider.classWorkDetailsData.isNotEmpty)
                 ListView.builder(
@@ -563,15 +555,14 @@ class _Theme02LmsClassworkDetailPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 100,
-                      child: const Text(
+                      child: Text(
                         'ID :',
                         style: TextStyles.fontStyle13,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        '${provider.classWorkDetailsData[index].classworkid}' ==
-                                'null'
+                        '${provider.classWorkDetailsData[index].classworkid}' == 'null'
                             ? '-'
                             : '''${provider.classWorkDetailsData[index].classworkid}''',
                         style: TextStyles.theme02fontStyle2,
@@ -579,32 +570,26 @@ class _Theme02LmsClassworkDetailPageState
                     ),
                   ],
                 ),
-                Divider(
-                    color: AppColors.theme01primaryColor,
-                    thickness: 1,
-                    height: 20),
+                Divider(color: AppColors.theme01primaryColor, thickness: 1, height: 20),
 
                 // Data rows
                 _buildRow(
                   'Class work type desc:',
-                  '${provider.classWorkDetailsData[index].classworktypedesc}' ==
-                          'null'
+                  '${provider.classWorkDetailsData[index].classworktypedesc}' == 'null'
                       ? '-'
                       : '''${provider.classWorkDetailsData[index].classworktypedesc}''',
                   width,
                 ),
                 _buildRow(
                   'Dp start date time:',
-                  '${provider.classWorkDetailsData[index].dpstartdatetime}' ==
-                          'null'
+                  '${provider.classWorkDetailsData[index].dpstartdatetime}' == 'null'
                       ? '-'
                       : '''${provider.classWorkDetailsData[index].dpstartdatetime}''',
                   width,
                 ),
                 _buildRow(
                   'Dp end date time:',
-                  '${provider.classWorkDetailsData[index].dpenddatetime}' ==
-                          'null'
+                  '${provider.classWorkDetailsData[index].dpenddatetime}' == 'null'
                       ? '-'
                       : '''${provider.classWorkDetailsData[index].dpenddatetime}''',
                   width,
@@ -623,22 +608,19 @@ class _Theme02LmsClassworkDetailPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (provider is LibraryTrancsactionStateLoading)
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added',
                           style: TextStyles.fontStyle1,
                         ),
                       )
-                    else if (provider.lmsAttachmentDetailsData.isEmpty &&
-                        provider is! LibraryTrancsactionStateLoading)
+                    else if (provider.lmsAttachmentDetailsData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                       Column(
                         children: [
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height / 5),
+                          SizedBox(height: MediaQuery.of(context).size.height / 5),
                           const Center(
                             child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
                           )
                         ],
@@ -657,8 +639,7 @@ class _Theme02LmsClassworkDetailPageState
                 const SizedBox(height: 10),
                 if (provider.lmsStudentAttachmentDetailsData.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -667,18 +648,16 @@ class _Theme02LmsClassworkDetailPageState
                           Padding(
                             padding: const EdgeInsets.only(top: 100),
                             child: Center(
-                              child: CircularProgressIndicators
-                                  .primaryColorProgressIndication,
+                              child: CircularProgressIndicators.primaryColorProgressIndication,
                             ),
                           )
-                        else if (provider
-                                .lmsStudentAttachmentDetailsData.isEmpty &&
+                        else if (provider.lmsStudentAttachmentDetailsData.isEmpty &&
                             provider is! LibraryTrancsactionStateLoading)
                           Column(
                             children: [
                               // SizedBox(
                               //     height: MediaQuery.of(context).size.height / 5),
-                              const Center(
+                              Center(
                                 child: Text(
                                   'No Student Attacment',
                                   style: TextStyles.smallerBlackColorFontStyle,
@@ -688,8 +667,7 @@ class _Theme02LmsClassworkDetailPageState
                           ),
                         if (provider.lmsStudentAttachmentDetailsData.isNotEmpty)
                           ListView.builder(
-                            itemCount:
-                                provider.lmsStudentAttachmentDetailsData.length,
+                            itemCount: provider.lmsStudentAttachmentDetailsData.length,
                             controller: _listController,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
@@ -709,7 +687,7 @@ class _Theme02LmsClassworkDetailPageState
                       child: Column(
                         // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Classwork Replay',
                             style: TextStyles.smallerBlackColorFontStyle,
                           ),
@@ -726,8 +704,7 @@ class _Theme02LmsClassworkDetailPageState
                                     child: Card(
                                       shape: const RoundedRectangleBorder(
                                         side: BorderSide(color: Colors.grey),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(12)),
+                                        borderRadius: BorderRadius.all(Radius.circular(12)),
                                       ),
                                       child: SizedBox(
                                         width: 300,
@@ -736,8 +713,7 @@ class _Theme02LmsClassworkDetailPageState
                                           child: Icon(
                                             Icons.add,
                                             size: 50,
-                                            color:
-                                                AppColors.theme02buttonColor2,
+                                            color: AppColors.theme02buttonColor2,
                                           ),
                                         ),
                                       ),
@@ -760,12 +736,10 @@ class _Theme02LmsClassworkDetailPageState
                                                 color: Colors.red,
                                                 size: 50,
                                               )
-                                            : image.endsWith('.xlsx') ||
-                                                    image.endsWith('.xls')
+                                            : image.endsWith('.xlsx') || image.endsWith('.xls')
                                                 ? Icon(
                                                     Icons.insert_drive_file,
-                                                    color: AppColors
-                                                        .theme01secondaryColor4,
+                                                    color: AppColors.theme01secondaryColor4,
                                                     size: 50,
                                                   )
                                                 : Image.file(
@@ -783,8 +757,7 @@ class _Theme02LmsClassworkDetailPageState
                                   children: [
                                     PopupMenuButton(
                                       shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(12)),
+                                        borderRadius: BorderRadius.all(Radius.circular(12)),
                                       ),
                                       child: SizedBox(
                                         height: 40,
@@ -792,21 +765,17 @@ class _Theme02LmsClassworkDetailPageState
                                         child: Card(
                                           shape: RoundedRectangleBorder(
                                             side: BorderSide(
-                                              color: AppColors
-                                                  .theme01secondaryColor4,
+                                              color: AppColors.theme01secondaryColor4,
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(30),
+                                            borderRadius: BorderRadius.circular(30),
                                           ),
-                                          color:
-                                              AppColors.theme02secondaryColor1,
+                                          color: AppColors.theme02secondaryColor1,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Icon(
                                               Icons.edit,
                                               size: 16,
-                                              color:
-                                                  AppColors.theme02buttonColor2,
+                                              color: AppColors.theme02buttonColor2,
                                             ),
                                           ),
                                         ),
@@ -814,8 +783,7 @@ class _Theme02LmsClassworkDetailPageState
                                       onSelected: (value) {
                                         _pickFile();
                                       },
-                                      itemBuilder: (BuildContext context) =>
-                                          <PopupMenuEntry>[
+                                      itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                                         PopupMenuItem(
                                           child: Row(
                                             children: [
@@ -831,8 +799,7 @@ class _Theme02LmsClassworkDetailPageState
                                                   },
                                                   child: const Text(
                                                     'Add Files',
-                                                    style:
-                                                        TextStyle(fontSize: 16),
+                                                    style: TextStyle(fontSize: 16),
                                                   ),
                                                 ),
                                               ),
@@ -850,7 +817,7 @@ class _Theme02LmsClassworkDetailPageState
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Action',
                                 style: TextStyles.alertContentStyle,
                               ),
@@ -863,15 +830,12 @@ class _Theme02LmsClassworkDetailPageState
                                   controller: provider.action..text = "1",
                                   style: TextStyles.fontStyle2,
                                   decoration: InputDecoration(
-                                    hintStyle:
-                                        TextStyles.smallLightAshColorFontStyle,
+                                    hintStyle: TextStyles.smallLightAshColorFontStyle,
                                     filled: true,
                                     fillColor: AppColors.secondaryColor,
                                     contentPadding: const EdgeInsets.all(10),
-                                    enabledBorder: BorderBoxButtonDecorations
-                                        .loginTextFieldStyle,
-                                    focusedBorder: BorderBoxButtonDecorations
-                                        .loginTextFieldStyle,
+                                    enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                                    focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                                   ),
                                 ),
                               ),
@@ -881,7 +845,7 @@ class _Theme02LmsClassworkDetailPageState
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Remarks',
                                 style: TextStyles.alertContentStyle,
                               ),
@@ -894,15 +858,12 @@ class _Theme02LmsClassworkDetailPageState
                                   controller: provider.remarks,
                                   style: TextStyles.fontStyle2,
                                   decoration: InputDecoration(
-                                    hintStyle:
-                                        TextStyles.smallLightAshColorFontStyle,
+                                    hintStyle: TextStyles.smallLightAshColorFontStyle,
                                     filled: true,
                                     fillColor: AppColors.secondaryColor,
                                     contentPadding: const EdgeInsets.all(10),
-                                    enabledBorder: BorderBoxButtonDecorations
-                                        .loginTextFieldStyle,
-                                    focusedBorder: BorderBoxButtonDecorations
-                                        .loginTextFieldStyle,
+                                    enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                                    focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                                   ),
                                 ),
                               ),
@@ -932,21 +893,17 @@ class _Theme02LmsClassworkDetailPageState
                                 //   );
                                 // },
                                 onPressed: () {
-                                  if (provider.remarks.text.isEmpty ||
-                                      imagePaths.isEmpty) {
+                                  if (provider.remarks.text.isEmpty || imagePaths.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content: Text(
-                                            'Remarks and attachment are required'),
+                                        content: Text('Remarks and attachment are required'),
                                         backgroundColor: Colors.red,
                                       ),
                                     );
                                     return; // Stop execution if both are empty
                                   }
 
-                                  ref
-                                      .read(lmsProvider.notifier)
-                                      .saveClassWorkReplay(
+                                  ref.read(lmsProvider.notifier).saveClassWorkReplay(
                                         ref.read(encryptionProvider.notifier),
                                         widget.classWorkDetailclassworkID,
                                         widget.imageattachmentid,
@@ -964,8 +921,7 @@ class _Theme02LmsClassworkDetailPageState
                                 },
 
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      AppColors.theme02secondaryColor1,
+                                  backgroundColor: AppColors.theme02secondaryColor1,
                                   elevation: 5,
                                 ),
                                 child: const Text(
@@ -1073,8 +1029,7 @@ class _Theme02LmsClassworkDetailPageState
                   runSpacing: 10,
                   alignment: WrapAlignment.center,
                   children: [
-                    if (provider.classWorkDetailsData[index].classworkreplyid ==
-                        '0')
+                    if (provider.classWorkDetailsData[index].classworkreplyid == '0')
                       // SizedBox(
                       //   height: 30,
                       //   width: 150,
@@ -1120,8 +1075,7 @@ class _Theme02LmsClassworkDetailPageState
                               context,
                               RouteDesign(
                                 route: Theme02McqEnteryPage(
-                                  mcqscheduleid:
-                                      '${provider.classWorkDetailsData[index].mcqscheduleid}',
+                                  mcqscheduleid: '${provider.classWorkDetailsData[index].mcqscheduleid}',
                                 ),
                               ),
                             );
@@ -1131,7 +1085,7 @@ class _Theme02LmsClassworkDetailPageState
                               color: AppColors.theme02buttonColor2,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 'MCQ Test',
                                 style: TextStyles.fontStyle5,
@@ -1158,8 +1112,7 @@ class _Theme02LmsClassworkDetailPageState
     final base64File = '${provider.lmsAttachmentDetailsData[index].imageBytes}';
     final fileBytes = base64Decode(base64File);
 
-    final actualname =
-        provider.lmsAttachmentDetailsData[index].actualname ?? '';
+    final actualname = provider.lmsAttachmentDetailsData[index].actualname ?? '';
     final fileExtension = actualname.split('.').last.toLowerCase();
 
     log('File Name: $actualname');
@@ -1237,7 +1190,7 @@ class _Theme02LmsClassworkDetailPageState
         ),
       );
     } else {
-      fileDisplayWidget = const Center(
+      fileDisplayWidget = Center(
         child: Text(
           'Unsupported file type',
           style: TextStyles.fontStyle3,
@@ -1299,7 +1252,7 @@ class _Theme02LmsClassworkDetailPageState
             style: TextStyles.fontStyle13,
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Text(
             ':',
             style: TextStyles.fontStyle13,
@@ -1321,13 +1274,11 @@ class _Theme02LmsClassworkDetailPageState
     final width = MediaQuery.of(context).size.width;
     final provider = ref.watch(lmsProvider);
 
-    final base64File =
-        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
+    final base64File = '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
     final fileBytes = base64Decode(base64File);
 
     // File name to determine type
-    final actualname =
-        provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
+    final actualname = provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
     final fileExtension = actualname.split('.').last.toLowerCase();
 
     // Log details (optional for debugging)
@@ -1349,7 +1300,7 @@ class _Theme02LmsClassworkDetailPageState
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => Theme01PDFViewPage(
+              builder: (_) => Theme07PDFViewPage(
                 pdfData: fileBytes,
                 fileName: actualname,
               ),
@@ -1383,16 +1334,16 @@ class _Theme02LmsClassworkDetailPageState
             'Excel viewing not supported. File downloaded.',
           );
         },
-        child: const Center(
+        child: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.table_chart,
                 color: Colors.green,
                 size: 24,
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 'Tap to download Excel',
                 style: TextStyles.fontStyle3,
@@ -1403,7 +1354,7 @@ class _Theme02LmsClassworkDetailPageState
       );
     } else {
       // Unsupported file type
-      fileDisplayWidget = const Center(
+      fileDisplayWidget = Center(
         child: Text(
           'Unsupported file type',
           style: TextStyles.fontStyle3,
@@ -1454,16 +1405,14 @@ class _Theme02LmsClassworkDetailPageState
                 Divider(color: AppColors.theme01primaryColor.withOpacity(0.5)),
                 _buildRow(
                   'Actual name :',
-                  '${provider.lmsStudentAttachmentDetailsData[index].actualname}' ==
-                          'null'
+                  '${provider.lmsStudentAttachmentDetailsData[index].actualname}' == 'null'
                       ? '-'
                       : '''${provider.lmsStudentAttachmentDetailsData[index].actualname}''',
                   width,
                 ),
                 _buildRow(
                   'File name :',
-                  '${provider.lmsStudentAttachmentDetailsData[index].filename}' ==
-                          'null'
+                  '${provider.lmsStudentAttachmentDetailsData[index].filename}' == 'null'
                       ? '-'
                       : '''${provider.lmsStudentAttachmentDetailsData[index].filename}''',
                   width,

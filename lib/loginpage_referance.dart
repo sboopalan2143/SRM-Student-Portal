@@ -38,7 +38,7 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                       ),
                       const SizedBox(height: 50),
                       Text(
-                        'STUDENT LOGIN',
+                        'SRM STUDENT LOGIN',
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 28,
@@ -54,7 +54,7 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                         ),
                         controller: nameController,
                         decoration: InputDecoration(
-                          prefixIcon:  const Icon(
+                          prefixIcon: const Icon(
                             Icons.person_4_sharp,
                             // color: themeProvider.isDarkMode
                             //     ? Colors.blue.shade200
@@ -97,14 +97,11 @@ class StudentLoginPageState extends State<StudentLoginPage> {
                           border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                              _obscureText ? Icons.visibility_off : Icons.visibility,
                             ),
                             onPressed: () {
                               setState(() {
-                                _obscureText =
-                                    !_obscureText; 
+                                _obscureText = !_obscureText;
                               });
                             },
                           ),

@@ -4,12 +4,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
 import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
@@ -104,7 +102,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
+          title: Text(
             'LMS Title',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
@@ -144,12 +142,16 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 100),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
                       child: Center(
                         child: Text(
                           'No List Added',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ),

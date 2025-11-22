@@ -91,7 +91,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'LMS Subject',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -141,10 +141,14 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -209,12 +213,12 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Staff Name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -235,12 +239,12 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Subject Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -261,12 +265,12 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Subject Code',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -288,12 +292,12 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Subjectdesc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -342,12 +346,12 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                         ),
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'view',
                       style: TextStyles.fontStyle13,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

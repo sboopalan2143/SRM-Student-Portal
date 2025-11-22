@@ -7,12 +7,12 @@ class AppIdVersion {
 
   static String iosId = '';
 
-  static String version = 'v 1.0.0';
+  static String version = 'V 1.0.0';
 }
 
 class Api {
-  static String mainUrl =
-      'https://mobileapp.erpsrm.com/srmstudentportal/StudentAndroid?wsdl/evarsitywebservice/StudentAndroid';
+  // static String mainUrl = 'http://uat.srmgroups.com/srmstudentportal/StudentAndroid?wsdl'; // UAT Server
+  static String mainUrl = 'https://erpsrm.com/srmstudentportal/StudentAndroid?wsdl'; // LIVE
 
   static String apiUrl = '$mainUrl/api/v1/';
 
@@ -36,8 +36,7 @@ class TokensManagement {
 
   static String phoneToken = '';
 
-  static final FirebaseMessaging _firebaseMessaging =
-      FirebaseMessaging.instance;
+  static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   static Future<void> setLoginDetails({
     required String studentId,
@@ -118,8 +117,7 @@ class TokensManagement {
     await sharedPreferences.clear();
   }
 
-  static Future<void> getPhoneToken() =>
-      _firebaseMessaging.getToken().then((token) => phoneToken = token ?? '');
+  static Future<void> getPhoneToken() => _firebaseMessaging.getToken().then((token) => phoneToken = token ?? '');
 }
 
 class KeyboardRule {

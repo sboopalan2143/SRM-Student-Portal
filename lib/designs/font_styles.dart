@@ -8,11 +8,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const noColorNoSizeFontStyle = TextStyle(
+  static TextStyle noColorNoSizeFontStyle = const TextStyle(
     fontWeight: FontWeight.bold,
   );
 
-  static const smallestNoColorFontStyle = TextStyle(
+  static TextStyle smallestNoColorFontStyle = const TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12,
   );
@@ -22,7 +22,7 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const smallerNoColorFontStyle = TextStyle(
+  static TextStyle smallerNoColorFontStyle = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
   );
@@ -51,90 +51,92 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-    static final theme07smallerPrimaryColorFontStyle = TextStyle(
+  static final theme07smallerPrimaryColorFontStyle = TextStyle(
     fontSize: 16,
     color: AppColors.theme07primaryColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const blackColorTitleFontStyle = TextStyle(
+  static TextStyle blackColorTitleFontStyle = const TextStyle(
     fontSize: 23,
     color: AppColors.blackColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const lessSmallerBlackColorFontStyle = TextStyle(
+  static TextStyle lessSmallerBlackColorFontStyle = const TextStyle(
     fontSize: 20,
     color: AppColors.blackColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallBlackColorFontStyle = TextStyle(
+  static TextStyle smallBlackColorFontStyle = const TextStyle(
     fontSize: 14,
+    fontWeight: FontWeight.bold,
     color: AppColors.blackColor,
     // fontWeight: FontWeight.bold,
   );
 
-  static const smallerBlackColorFontStyle = TextStyle(
+  static TextStyle smallerBlackColorFontStyle = const TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.bold,
     color: AppColors.blackColor,
     // fontWeight: FontWeight.bold,
   );
 
-  static const smallLightAshColorFontStyle = TextStyle(
+  static TextStyle smallLightAshColorFontStyle = const TextStyle(
     fontSize: 14,
     color: AppColors.lightAshColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallerLightAshColorFontStyle = TextStyle(
+  static TextStyle smallerLightAshColorFontStyle = const TextStyle(
     fontSize: 16,
     color: AppColors.lightAshColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const noSizeLightAshColorFontStyle = TextStyle(
+  static TextStyle noSizeLightAshColorFontStyle = const TextStyle(
     color: AppColors.lightAshColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallerSkyBlueColorFontStyle = TextStyle(
+  static TextStyle smallerSkyBlueColorFontStyle = const TextStyle(
     fontSize: 16,
     color: AppColors.skyBlueColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const greenColorFontStyle = TextStyle(
+  static TextStyle greenColorFontStyle = const TextStyle(
     fontSize: 16,
     color: AppColors.greenColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const redColorFontStyleastric = TextStyle(
+  static TextStyle redColorFontStyleastric = const TextStyle(
     fontSize: 12,
     color: AppColors.redColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const redColorFontStyle = TextStyle(
+  static TextStyle redColorFontStyle = const TextStyle(
     fontSize: 26,
     color: AppColors.redColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const alertContentStyle = TextStyle(
+  static TextStyle alertContentStyle = const TextStyle(
     color: AppColors.blackColor,
     fontSize: 14,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle = TextStyle(
+  static TextStyle fontStyle = const TextStyle(
     fontSize: 18,
     color: AppColors.blackColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle1 = TextStyle(
+  static TextStyle fontStyle1 = const TextStyle(
     fontSize: 18,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
@@ -158,55 +160,55 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle2 = TextStyle(
+  static TextStyle fontStyle2 = const TextStyle(
     fontSize: 14,
     color: AppColors.grey,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyletheme2 = TextStyle(
+  static TextStyle fontStyletheme2 = const TextStyle(
     fontSize: 14,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle3 = TextStyle(
+  static TextStyle fontStyle3 = const TextStyle(
     fontSize: 16,
-    color: AppColors.whiteColor,
+    color: Colors.white,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle20 = TextStyle(
+  static TextStyle fontStyle20 = const TextStyle(
     fontSize: 20,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle4 = TextStyle(
+  static TextStyle fontStyle4 = const TextStyle(
     fontSize: 18,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle5 = TextStyle(
+  static TextStyle fontStyle5 = const TextStyle(
     fontSize: 12,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle6 = TextStyle(
+  static TextStyle fontStyle6 = const TextStyle(
     fontSize: 18,
     color: AppColors.grey,
     fontWeight: FontWeight.w500,
   );
 
-  static const fontStyle7 = TextStyle(
+  static TextStyle fontStyle7 = const TextStyle(
     fontSize: 16,
     color: AppColors.grey,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle8 = TextStyle(
+  static TextStyle fontStyle8 = const TextStyle(
     fontSize: 16,
     color: AppColors.grey,
     fontWeight: FontWeight.w500,
@@ -218,31 +220,31 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle10 = TextStyle(
+  static TextStyle fontStyle10 = const TextStyle(
     fontSize: 12,
-    color: AppColors.grey,
     fontWeight: FontWeight.bold,
+    color: Colors.white,
   );
 
-  static const fontStyle10small = TextStyle(
+  static TextStyle fontStyle10small = const TextStyle(
     fontSize: 10,
-    color: AppColors.grey,
+    color: Colors.white,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle11 = TextStyle(
+  static TextStyle fontStyle11 = const TextStyle(
     fontSize: 10,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle12 = TextStyle(
+  static TextStyle fontStyle12 = const TextStyle(
     fontSize: 12,
     color: AppColors.grey3,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle13 = TextStyle(
+  static TextStyle fontStyle13 = const TextStyle(
     fontSize: 14,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,
@@ -254,31 +256,31 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle15 = TextStyle(
+  static TextStyle fontStyle15 = const TextStyle(
     fontSize: 12,
     color: AppColors.lightAshColor,
     fontWeight: FontWeight.w700,
   );
 
-  static const fontStyle16 = TextStyle(
+  static TextStyle fontStyle16 = const TextStyle(
     fontSize: 14,
     color: AppColors.grey,
     fontWeight: FontWeight.w500,
   );
 
-  static const fontStyle17 = TextStyle(
+  static TextStyle fontStyle17 = const TextStyle(
     fontSize: 14,
     color: AppColors.greenColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle18 = TextStyle(
+  static TextStyle fontStyle18 = const TextStyle(
     fontSize: 14,
     color: AppColors.redColor,
     fontWeight: FontWeight.bold,
   );
 
-  static const fontStyle19 = TextStyle(
+  static TextStyle fontStyle19 = const TextStyle(
     fontSize: 8,
     color: AppColors.whiteColor,
     fontWeight: FontWeight.bold,

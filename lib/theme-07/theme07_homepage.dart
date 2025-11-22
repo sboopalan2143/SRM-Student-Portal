@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,13 +41,13 @@ import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
 import 'package:sample/login/riverpod/login_state.dart';
 import 'package:sample/network/riverpod/network_state.dart';
-import 'package:sample/notification.dart';
-import 'package:sample/theme-07/mainscreens/fees/academy/academy_home_page.dart';
+import 'package:sample/theme-07/bottom_navbar.dart';
+import 'package:sample/theme-07/mainscreens/academy/academy_home_page.dart';
 import 'package:sample/theme-07/mainscreens/fees/fees_home_page.dart';
-import 'package:sample/theme-07/mainscreens/fees/grievance/grievance_homepage.dart';
-import 'package:sample/theme-07/mainscreens/fees/hostel/hostel_home_screen.dart';
-import 'package:sample/theme-07/mainscreens/fees/library/library_home_page.dart';
-import 'package:sample/theme-07/mainscreens/fees/transport/transport_register.dart';
+import 'package:sample/theme-07/mainscreens/grievance/grievance_homepage.dart';
+import 'package:sample/theme-07/mainscreens/hostel/hostel_home_screen.dart';
+import 'package:sample/theme-07/mainscreens/library/library_home_page.dart';
+import 'package:sample/theme-07/mainscreens/transport/transport_register.dart';
 import 'package:sample/theme-07/notification_homepage.dart';
 import 'package:sample/theme-07/theme07_change_password.dart';
 import 'package:sample/theme-07/theme07_profile_screen.dart';
@@ -61,19 +60,16 @@ class Theme07HomePage extends ConsumerStatefulWidget {
   ConsumerState createState() => _Theme07HomePageState();
 }
 
-class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
-    with WidgetsBindingObserver {
-
-
+class _Theme07HomePageState extends ConsumerState<Theme07HomePage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-
     if (state == AppLifecycleState.resumed) {
       SystemChrome.setSystemUIOverlayStyle(
         StatusBarNavigationBarDesigns.statusBarNavigationBarDesign,
       );
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -126,39 +122,30 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(overallattendanceProvider.notifier)
-          .getSubjectWiseOverallAttendanceDetails(
+      ref.read(overallattendanceProvider.notifier).getSubjectWiseOverallAttendanceDetails(
             ref.read(encryptionProvider.notifier),
           );
     });
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(feesProvider.notifier)
-            .getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
-        await ref
-            .read(feesProvider.notifier)
-            .getFeedDueDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFinanceDetailsApi(ref.read(encryptionProvider.notifier));
+        await ref.read(feesProvider.notifier).getFeedDueDetails(ref.read(encryptionProvider.notifier));
       },
     );
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(calendarProvider.notifier)
-            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getCalendarDetails(ref.read(encryptionProvider.notifier));
         await ref.read(calendarProvider.notifier).getHiveCalendar('');
       },
     );
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(DhasboardoverallattendanceProvider.notifier)
-            .getDhasboardOverallAttendanceDetails(
-                ref.read(encryptionProvider.notifier),);
+        await ref.read(DhasboardoverallattendanceProvider.notifier).getDhasboardOverallAttendanceDetails(
+              ref.read(encryptionProvider.notifier),
+            );
       },
     );
 
@@ -167,9 +154,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
         await ref.read(transportProvider.notifier).getTransportStatusDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportStatusHiveDetails('');
+        await ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
         await ref.read(transportProvider.notifier).getRouteIdDetails(
               ref.read(encryptionProvider.notifier),
             );
@@ -185,12 +170,8 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
         await ref.read(transportProvider.notifier).gettransportRegisterDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportHiveRegisterDetails('');
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportHiveAfterRegisterDetails('');
+        await ref.read(transportProvider.notifier).getTransportHiveRegisterDetails('');
+        await ref.read(transportProvider.notifier).getTransportHiveAfterRegisterDetails('');
       },
     );
 
@@ -217,9 +198,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
                 encryptionProvider.notifier,
               ),
             );
-        await ref
-            .read(attendanceProvider.notifier)
-            .getHiveAttendanceDetails('');
+        await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
       },
     );
 
@@ -238,21 +217,16 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
 
 //>>>Cummulative Attendance
 
-    final cummulativeAttendance =
-        await Hive.openBox<CumulativeAttendanceHiveData>(
+    final cummulativeAttendance = await Hive.openBox<CumulativeAttendanceHiveData>(
       'cumulativeattendance',
     );
     if (cummulativeAttendance.isEmpty) {
-      await ref
-          .read(cummulativeAttendanceProvider.notifier)
-          .getCummulativeAttendanceDetails(
+      await ref.read(cummulativeAttendanceProvider.notifier).getCummulativeAttendanceDetails(
             ref.read(
               encryptionProvider.notifier,
             ),
           );
-      await ref
-          .read(cummulativeAttendanceProvider.notifier)
-          .getHiveCummulativeDetails('');
+      await ref.read(cummulativeAttendanceProvider.notifier).getHiveCummulativeDetails('');
     }
     await cummulativeAttendance.close();
 
@@ -303,9 +277,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
 
     final subjects = await Hive.openBox<SubjectHiveData>('subjecthive');
     if (subjects.isEmpty) {
-      await ref
-          .read(subjectProvider.notifier)
-          .getSubjectDetails(ref.read(encryptionProvider.notifier));
+      await ref.read(subjectProvider.notifier).getSubjectDetails(ref.read(encryptionProvider.notifier));
       await ref.read(subjectProvider.notifier).getHiveSubjectDetails('');
     }
     await subjects.close();
@@ -319,9 +291,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
       await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
             ref.read(encryptionProvider.notifier),
           );
-      await ref
-          .read(grievanceProvider.notifier)
-          .getHiveGrievanceCategoryDetails('');
+      await ref.read(grievanceProvider.notifier).getHiveGrievanceCategoryDetails('');
     }
     await grievanceCategoryData.close();
 
@@ -332,9 +302,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
       await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
             ref.read(encryptionProvider.notifier),
           );
-      await ref
-          .read(grievanceProvider.notifier)
-          .getHiveGrievanceSubTypeDetails('');
+      await ref.read(grievanceProvider.notifier).getHiveGrievanceSubTypeDetails('');
     }
     await grievanceSubTypeData.close();
 
@@ -345,9 +313,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
       await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
             ref.read(encryptionProvider.notifier),
           );
-      await ref
-          .read(grievanceProvider.notifier)
-          .getHiveGrievanceTypeDetails('');
+      await ref.read(grievanceProvider.notifier).getHiveGrievanceTypeDetails('');
     }
     await grievanceTypeData.close();
   }
@@ -361,7 +327,6 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
   // }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   final ScrollController _listController = ScrollController();
   @override
@@ -391,573 +356,655 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
         }
       });
     return Scaffold(
-       key: _scaffoldKey,
-      backgroundColor: AppColors.theme07secondaryColor,
-      body: Stack(
-        children: [
-          SvgPicture.asset(
-            'assets/images/wavehome.svg',
-            fit: BoxFit.fill,
-            color: AppColors.theme07primaryColor,
-            width: double.infinity,
-            colorBlendMode: BlendMode.srcOut,
+      key: _scaffoldKey,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        elevation: 0,
+        title: const Text(
+          'Explore',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 20),
-                   Padding(
-                     padding: const EdgeInsets.all(10),
-                     child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          overflow: TextOverflow.clip,
+        ),
+        centerTitle: true,
+        actions: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              IconButton(
+                iconSize: 28,
+                color: AppColors.whiteColor,
+                icon: const Icon(Icons.notifications),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    RouteDesign(
+                      route: const Theme07NotificationHomePage(),
+                    ),
+                  );
+                },
+              ),
+              if (notificatioCountprovider.notificationCountData.isEmpty)
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 20,
+                      minHeight: 20,
+                    ),
+                    child: SizedBox(
+                      width: 5,
+                      child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (imageBytes == '' && imageBytes.isEmpty)
-                                const CircleAvatar(
-                                  radius: 25,
-                                  backgroundColor: AppColors.whiteColor,
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      'assets/images/profile.png',
-                                    ),
-                                    radius: 48,
-                                  ),
-                                ),
-                              if (imageBytes != '' && imageBytes.isNotEmpty)
-                                SizedBox(
-                                  height: 35,
-                                  width: 35,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Image.memory(
-                                      imageBytes,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                   Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              IconButton(
-                                                iconSize: 28,
-                                                color: AppColors.whiteColor,
-                                                icon: const Icon(Icons.notifications),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    RouteDesign(
-                                                      route: const Theme07NotificationHomePage(),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                              if (notificatioCountprovider
-                                                  .notificationCountData.isEmpty)
-                                                Positioned(
-                                                  right: 2,
-                                                  top: 2,
-                                                  child: Container(
-                                                    padding: const EdgeInsets.all(5),
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.red,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    constraints: const BoxConstraints(
-                                                      minWidth: 20,
-                                                      minHeight: 20,
-                                                    ),
-                                                    child:
-                     
-                                                    SizedBox(
-                                                      width: 5,
-                                                      child: Column(
-                                                        children: [
-                     
-                                                          if (notificatioCountprovider
-                                                              .notificationCountData
-                                                              .isNotEmpty)
-                                                            ListView.builder(
-                                                              itemCount:
-                                                              notificatioCountprovider
-                                                                  .notificationCountData
-                                                                  .length,
-                                                              controller: _listController,
-                                                              shrinkWrap: true,
-                                                              itemBuilder: (
-                                                                  BuildContext context,
-                                                                  int index,
-                                                                  ) {
-                                                                return notificationCountCardDesign(
-                                                                  index,
-                                                                );
-                                                              },
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                ],
-                              ),
-                               Row(
-                                children: [
-                                  Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                     IconButton(
-                                            onPressed: () {
-                                               _scaffoldKey.currentState?. openEndDrawer();
-                                            },
-                                            icon: const Icon(
-                                              Icons.menu,
-                                              size: 35,
-                                              color: AppColors.whiteColor,
-                                            ),
-                                          ),
-                                     
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              
-                            ],
-                          ),
+                          if (notificatioCountprovider.notificationCountData.isNotEmpty)
+                            ListView.builder(
+                              itemCount: notificatioCountprovider.notificationCountData.length,
+                              controller: _listController,
+                              shrinkWrap: true,
+                              itemBuilder: (
+                                BuildContext context,
+                                int index,
+                              ) {
+                                return notificationCountCardDesign(
+                                  index,
+                                );
+                              },
+                            ),
                         ],
                       ),
-                                       ),
-                   ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          // Stack(
+          //   clipBehavior: Clip.none,
+          //   children: [
+          //     IconButton(
+          //       onPressed: () {
+          //         _scaffoldKey.currentState?.openEndDrawer();
+          //       },
+          //       icon: const Icon(
+          //         Icons.menu,
+          //         size: 35,
+          //         color: AppColors.whiteColor,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(bottom: 60 + MediaQuery.of(context).padding.bottom),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // const SizedBox(height: 20),
+              // Column(
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.all(10),
+              //       child: Center(
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 if (imageBytes == '' && imageBytes.isEmpty)
+              //                   const CircleAvatar(
+              //                     radius: 25,
+              //                     backgroundColor: AppColors.whiteColor,
+              //                     child: CircleAvatar(
+              //                       backgroundImage: AssetImage(
+              //                         'assets/images/profile.png',
+              //                       ),
+              //                       radius: 48,
+              //                     ),
+              //                   ),
+              //                 if (imageBytes != '' && imageBytes.isNotEmpty)
+              //                   SizedBox(
+              //                     height: 35,
+              //                     width: 35,
+              //                     child: ClipRRect(
+              //                       borderRadius: BorderRadius.circular(50),
+              //                       child: Image.memory(
+              //                         imageBytes,
+              //                         fit: BoxFit.cover,
+              //                       ),
+              //                     ),
+              //                   ),
+              //               ],
+              //             ),
+              //             Row(
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     Stack(
+              //                       clipBehavior: Clip.none,
+              //                       children: [
+              //                         IconButton(
+              //                           iconSize: 28,
+              //                           color: AppColors.whiteColor,
+              //                           icon: const Icon(Icons.notifications),
+              //                           onPressed: () {
+              //                             Navigator.push(
+              //                               context,
+              //                               RouteDesign(
+              //                                 route: const Theme07NotificationHomePage(),
+              //                               ),
+              //                             );
+              //                           },
+              //                         ),
+              //                         if (notificatioCountprovider.notificationCountData.isEmpty)
+              //                           Positioned(
+              //                             right: 2,
+              //                             top: 2,
+              //                             child: Container(
+              //                               padding: const EdgeInsets.all(5),
+              //                               decoration: const BoxDecoration(
+              //                                 color: Colors.red,
+              //                                 shape: BoxShape.circle,
+              //                               ),
+              //                               constraints: const BoxConstraints(
+              //                                 minWidth: 20,
+              //                                 minHeight: 20,
+              //                               ),
+              //                               child: SizedBox(
+              //                                 width: 5,
+              //                                 child: Column(
+              //                                   children: [
+              //                                     if (notificatioCountprovider.notificationCountData.isNotEmpty)
+              //                                       ListView.builder(
+              //                                         itemCount:
+              //                                             notificatioCountprovider.notificationCountData.length,
+              //                                         controller: _listController,
+              //                                         shrinkWrap: true,
+              //                                         itemBuilder: (
+              //                                           BuildContext context,
+              //                                           int index,
+              //                                         ) {
+              //                                           return notificationCountCardDesign(
+              //                                             index,
+              //                                           );
+              //                                         },
+              //                                       ),
+              //                                   ],
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                           ),
+              //                       ],
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Row(
+              //                   children: [
+              //                     Stack(
+              //                       clipBehavior: Clip.none,
+              //                       children: [
+              //                         IconButton(
+              //                           onPressed: () {
+              //                             _scaffoldKey.currentState?.openEndDrawer();
+              //                           },
+              //                           icon: const Icon(
+              //                             Icons.menu,
+              //                             size: 35,
+              //                             color: AppColors.whiteColor,
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ],
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
 
-                    
-                   if ('${provider.profileDataHive.studentname}' != '') Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Hello, ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+              //     // T I T L E   B A R
+              //     if ('${provider.profileDataHive.studentname}' != '')
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           const Text(
+              //             'Hello, ',
+              //             style: TextStyle(
+              //               fontSize: 16,
+              //               fontWeight: FontWeight.bold,
+              //               color: AppColors.whiteColor,
+              //             ),
+              //           ),
+              //           Text(
+              //             '${provider.profileDataHive.studentname}' == ''
+              //                 ? ''
+              //                 : '${provider.profileDataHive.studentname}',
+              //             style: const TextStyle(
+              //               fontSize: 19,
+              //               fontWeight: FontWeight.bold,
+              //               color: AppColors.whiteColor,
+              //             ),
+              //           ),
+              //         ],
+              //       )
+              //     else
+              //       const Text(
+              //         '',
+              //         style: TextStyle(
+              //           fontSize: 22,
+              //           fontWeight: FontWeight.bold,
+              //           color: AppColors.whiteColor,
+              //         ),
+              //       ),
+              //     const SizedBox(
+              //       height: 10,
+              //     ),
+              //     const Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Text(
+              //           'Welcome to ',
+              //           style: TextStyle(
+              //             fontSize: 16,
+              //             fontWeight: FontWeight.bold,
+              //             color: AppColors.whiteColor,
+              //           ),
+              //         ),
+              //         Text(
+              //           'SRM Portal',
+              //           style: TextStyle(
+              //             fontSize: 16,
+              //             fontWeight: FontWeight.bold,
+              //             color: AppColors.whiteColor,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+
+              // const SizedBox(
+              //   height: 50,
+              // ),
+
+              // W I D G E T S
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    // R O W   1
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        // P R O F I L E   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07ProfilePage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/profile07.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Profile',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                        Text(
-                         '${provider.profileDataHive.studentname}' == ''
-                              ? ''
-                              : '${provider.profileDataHive.studentname}',
-                          style: const TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+
+                        // F E E S   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme007FeesPage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/fees.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Fee',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ],
-                    ) else const Text(
-                          '',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                   const SizedBox(height: 10,),
-                   const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Welcome to ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
-                          ),
-                        ),
-                        Text(
-                          'SRM Portal',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.whiteColor,
+
+                        // A C A D E M I C   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                ref.read(feesProvider.notifier).setFeesNavString('Online Trans');
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07AcademicsHomePage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/academics.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Academics',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.theme07secondaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(5),
-                          topLeft: Radius.circular(5),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            SizedBox(
-                              height: height * 0.025,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07ProfilePage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                            'assets/images/profile07.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Profile',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.06,
-                                ),
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme007FeesPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                            'assets/images/fees.png',
-                                            height: 40,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Fee',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.025,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      ref
-                                          .read(feesProvider.notifier)
-                                          .setFeesNavString('Online Trans');
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07AcademicsHomePage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                           'assets/images/academics.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Academics',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.06,
-                                ),
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07LibraryHomePage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                                'assets/images/library.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Library',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.025,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07HostelHomePage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                                 'assets/images/hostel.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Hostel',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                        // SizedBox(
-                                        //   height: height * 0.027,
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.06,
-                                ),
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07TransportRegisterPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                                   'assets/images/transport.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Transport',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.025,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: ()  {
 
-                                      Navigator.push(
-                                        context,
-                                        RouteDesign(
-                                          route: const Theme07GrievanceHomePage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                            'assets/images/grievances.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Grievances',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
+                    // R O W   2
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        // L I B R A R Y   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07LibraryHomePage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/library.png',
+                                      height: 40,
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.06,
-                                ),
-                                SizedBox(
-                                 height: 120,
-                                  width: width * 0.36,
-                                  child: ElevatedButton(
-                                    style: BorderBoxButtonDecorations.homePageButtonStyle,
-                                    onPressed: () {
-                                        Navigator.push(context, RouteDesign(route: const Theme07ChangePasswordPage()));
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: Image.asset(
-                                            'assets/images/changepassword07.png',
-                                            height: 50,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                           height: height * 0.008,
-                                        ),
-                                        Text(
-                                          'Password',
-                                          textAlign: TextAlign.center,
-                                          style: width > 400
-                                              ? TextStyles.smallBlackColorFontStyle
-                                              : TextStyles.smallerBlackColorFontStyle,
-                                        ),
-                                      ],
-                                    ),
+                                  SizedBox(
+                                    height: height * 0.008,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    'Library',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
                             ),
-                            SizedBox(
-                              height: height * 0.030,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+
+                        // H O S T E L   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07HostelHomePage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/hostel.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Hostel',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // T R A N S P O R T   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07TransportRegisterPage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/transport.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Transport',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // R O W   3
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        // G R I E V A N C E   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  RouteDesign(
+                                    route: const Theme07GrievanceHomePage(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/grievances.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Grievances',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // P A S S W O R D   W I D G E T
+                        Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27)),
+                          child: SizedBox(
+                            height: width * 0.29,
+                            width: width * 0.29,
+                            child: ElevatedButton(
+                              style: BorderBoxButtonDecorations.homePageButtonStyle,
+                              onPressed: () {
+                                Navigator.push(context, RouteDesign(route: const Theme07ChangePasswordPage()));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    child: Image.asset(
+                                      'assets/images/changepassword07.png',
+                                      height: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Text(
+                                    'Password',
+                                    textAlign: TextAlign.center,
+                                    style: width > 400
+                                        ? TextStyles.smallBlackColorFontStyle
+                                        : TextStyles.smallerBlackColorFontStyle,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // SizedBox for next widget
+                        SizedBox(width: width * 0.29),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-      endDrawer: const Theme07DrawerDesign(),
+      // endDrawer: const Theme07DrawerDesign(),
+      // bottomNavigationBar: const BottomBar(),
     );
   }
 
@@ -968,8 +1015,7 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
       child: Column(
         children: [
           Text(
-            '${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}' ==
-                'null'
+            '${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}' == 'null'
                 ? '-'
                 : '''${notificatioCountprovider.notificationCountData[index].unreadnotificationcount}''',
             style: const TextStyle(
@@ -982,7 +1028,6 @@ class _Theme07HomePageState extends ConsumerState<Theme07HomePage>
     );
   }
 
-  
   void _showToast(BuildContext context, String message, Color color) {
     showToast(
       message,

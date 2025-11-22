@@ -21,8 +21,7 @@ class GrievanceEntryPage extends ConsumerStatefulWidget {
   const GrievanceEntryPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _GrievanceEntryPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _GrievanceEntryPageState();
 }
 
 class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
@@ -36,23 +35,17 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
         await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceCategoryDetails('');
+        await ref.read(grievanceProvider.notifier).getHiveGrievanceCategoryDetails('');
 
         await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceSubTypeDetails('');
+        await ref.read(grievanceProvider.notifier).getHiveGrievanceSubTypeDetails('');
 
         await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(grievanceProvider.notifier)
-            .getHiveGrievanceTypeDetails('');
+        await ref.read(grievanceProvider.notifier).getHiveGrievanceTypeDetails('');
       },
     );
 
@@ -118,7 +111,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'GRIEVANCES ENTRY',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -154,7 +147,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Grievances Category',
                       style: TextStyles.fontStyle2,
                     ),
@@ -183,8 +176,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                         popupProps: const PopupProps.menu(
                           constraints: BoxConstraints(maxHeight: 250),
                         ),
-                        selectedItem:
-                            provider.selectedgrievanceCaregoryDataList,
+                        selectedItem: provider.selectedgrievanceCaregoryDataList,
                         onChanged: (value) {
                           readProvider.setValue(
                             value!,
@@ -207,7 +199,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Grievances Sub Type',
                       style: TextStyles.fontStyle2,
                     ),
@@ -242,8 +234,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                             value!,
                           );
                         },
-                        dropdownBuilder:
-                            (BuildContext context, grievencesSubtype) {
+                        dropdownBuilder: (BuildContext context, grievencesSubtype) {
                           return Text(
                             '''  ${grievencesSubtype?.grievancesubcategorydesc}''',
                             maxLines: 1,
@@ -260,7 +251,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Grievances Type',
                       style: TextStyles.fontStyle2,
                     ),
@@ -295,8 +286,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                             value!,
                           );
                         },
-                        dropdownBuilder:
-                            (BuildContext context, grievencestype) {
+                        dropdownBuilder: (BuildContext context, grievencestype) {
                           return Text(
                             '''  ${grievencestype?.grievancetype}''',
                             maxLines: 1,
@@ -311,7 +301,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Subject',
                       style: TextStyles.fontStyle2,
                     ),
@@ -329,10 +319,8 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                           filled: true,
                           fillColor: AppColors.secondaryColor,
                           contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
                     ),
@@ -342,7 +330,7 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Subject Description',
                       style: TextStyles.fontStyle2,
                     ),
@@ -360,10 +348,8 @@ class _GrievanceEntryPageState extends ConsumerState<GrievanceEntryPage> {
                           filled: true,
                           fillColor: AppColors.secondaryColor,
                           contentPadding: const EdgeInsets.all(10),
-                          enabledBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
-                          focusedBorder:
-                              BorderBoxButtonDecorations.loginTextFieldStyle,
+                          enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                          focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                         ),
                       ),
                     ),

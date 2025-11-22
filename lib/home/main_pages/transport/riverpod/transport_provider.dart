@@ -66,16 +66,14 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final transportStatusDataRes =
-          details['getTransportRegistrationStatusResponse']
-              as Map<String, dynamic>;
-      final returnData =
-          transportStatusDataRes['return'] as Map<String, dynamic>;
+      final transportStatusDataRes = details['getTransportRegistrationStatusResponse'] as Map<String, dynamic>;
+      final returnData = transportStatusDataRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('getTransportStatusDetails >>>>>>>> ${decryptedData.mapData}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         // var transportStatusData = state.transportStatusData;
-        // log('decrypted >>>>>>>> $decryptedData');
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
           log('length transaction >>>${listData.length}');
@@ -207,8 +205,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getRequestRoutes', data);
+    final response = await HttpService.sendSoapRequest('getRequestRoutes', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableTransport(
         successMessage: '',
@@ -229,11 +226,12 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final routeIDRes =
-          details['getRequestRoutesResponse'] as Map<String, dynamic>;
+      final routeIDRes = details['getRequestRoutesResponse'] as Map<String, dynamic>;
       final returnData = routeIDRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('getRouteIdDetails >>>>>>>> ${decryptedData.mapData}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         final box = await Hive.openBox<RouteDetailsHiveData>(
@@ -379,8 +377,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getRouteBoardingPoint', data);
+    final response = await HttpService.sendSoapRequest('getRouteBoardingPoint', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableTransport(
         successMessage: '',
@@ -401,14 +398,14 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final borderidRes =
-          details['getRouteBoardingPointResponse'] as Map<String, dynamic>;
+      final borderidRes = details['getRouteBoardingPointResponse'] as Map<String, dynamic>;
       final returnData = borderidRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('getBoardingIdDetails >>>>>>>>${decryptedData.mapData}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         // var boardingPointDataList = state.boardingPointDataList;
-        // log('decrypted >>>>>>>>$decryptedData');
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
           final box = await Hive.openBox<BoardingPointHiveData>(
@@ -527,14 +524,13 @@ class TrasportProvider extends StateNotifier<TransportState> {
   }
 
   Future<void> saveTransportstatusDetails(EncryptionProvider encrypt) async {
-    log(
-      '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.academicyearId.text}</academicyearid><boardingpointid>${state.boardingpointId.text}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList}</busrouteid><controllerid>${state.controllerId.text}</controllerid><officeid>${state.officeId.text}</officeid>',
-    );
     final data = encrypt.getEncryptedData(
-      '<studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.transportRegisterDetails!.academicyearid}</academicyearid><boardingpointid>${state.selectedBoardingPointDataList.busboardingpointid}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid><controllerid>${state.transportRegisterDetails!.controllerid}</controllerid><officeid>${state.transportRegisterDetails!.officeid}</officeid>',
+      'saveTransportstatusDetails: <studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.transportAfterRegisterDetails!.academicyearid}</academicyearid><boardingpointid>${state.selectedBoardingPointDataList.busboardingpointid}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid><controllerid>${state.transportAfterRegisterDetails!.controllerid}</controllerid><officeid>${state.transportAfterRegisterDetails!.officeid}</officeid>',
     );
-    final response =
-        await HttpService.sendSoapRequest('insertTransportRequest', data);
+    final response = await HttpService.sendSoapRequest('insertTransportRequest', data);
+    log(
+      'saveTransportstatusDetails: <studentid>${TokensManagement.studentId}</studentid><academicyearid>${state.transportAfterRegisterDetails!.academicyearid}</academicyearid><boardingpointid>${state.selectedBoardingPointDataList.busboardingpointid}</boardingpointid><busrouteid>${state.selectedRouteDetailsDataList.busrouteid}</busrouteid><controllerid>${state.transportAfterRegisterDetails!.controllerid}</controllerid><officeid>${state.transportAfterRegisterDetails!.officeid}</officeid>',
+    );
 
     if (response.$1 == 0) {
       state = NoNetworkAvailableTransport(
@@ -556,11 +552,11 @@ class TrasportProvider extends StateNotifier<TransportState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final saveTransportRes =
-          details['insertTransportRequestResponse'] as Map<String, dynamic>;
+      final saveTransportRes = details['insertTransportRequestResponse'] as Map<String, dynamic>;
       final returnData = saveTransportRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('saveTransportstatusDetails >>>>>>>> ${decryptedData.mapData}');
       log('Status >>>> ${decryptedData.mapData!['Status']}');
 
       if (decryptedData.mapData!['Status'] == 'Success') {
@@ -653,26 +649,24 @@ class TrasportProvider extends StateNotifier<TransportState> {
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
       final getTransportRegistrationStatusRes =
-          details['getTransportRegistrationStatusResponse']
-              as Map<String, dynamic>;
-      final returnData =
-          getTransportRegistrationStatusRes['return'] as Map<String, dynamic>;
+          details['getTransportRegistrationStatusResponse'] as Map<String, dynamic>;
+      final returnData = getTransportRegistrationStatusRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('Transport Register >>>>>>>> ${decryptedData.mapData}');
+      log('gettransportRegisterDetails >>>>>>>> ${decryptedData.mapData}');
 
       log('status>>>>${decryptedData.mapData!['Data'][0]['status']}');
       if (decryptedData.mapData!['Status'] == 'Success') {
         if (decryptedData.mapData!['Data'][0]['status'] == '0' &&
             decryptedData.mapData!['Data'][0]['regconfig'] == '1') {
-          final listData = decryptedData.mapData!['Data'][0] as List<dynamic>;
+          final listData = decryptedData.mapData!['Data'] as List<dynamic>;
           if (listData.isNotEmpty) {
-            final box = await Hive.openBox<TransportRegisterHiveData>(
-              'transportRegister',
+            final box = await Hive.openBox<TransportAfterRegisterHiveData>(
+              'transportAfterRegister',
             );
             if (box.isEmpty) {
               for (var i = 0; i < listData.length; i++) {
-                final parseData = TransportRegisterHiveData.fromJson(
+                final parseData = TransportAfterRegisterHiveData.fromJson(
                   listData[i] as Map<String, dynamic>,
                 );
                 log('dataparse>>>$parseData');
@@ -681,7 +675,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
             } else {
               await box.clear();
               for (var i = 0; i < listData.length; i++) {
-                final parseData = TransportRegisterHiveData.fromJson(
+                final parseData = TransportAfterRegisterHiveData.fromJson(
                   listData[i] as Map<String, dynamic>,
                 );
 
@@ -706,13 +700,11 @@ class TrasportProvider extends StateNotifier<TransportState> {
               selectedBoardingPointDataList: BoardingPointHiveData.empty,
               transportRegisterDetails: TransportRegisterHiveData.empty,
               transportStatusData: state.transportStatusData,
-              transportAfterRegisterDetails:
-                  TransportAfterRegisterHiveData.empty,
+              transportAfterRegisterDetails: TransportAfterRegisterHiveData.empty,
             );
           }
         } else {
-          final listData =
-              decryptedData.mapData!['Data'][0] as Map<String, dynamic>;
+          final listData = decryptedData.mapData!['Data'][0] as Map<String, dynamic>;
           if (listData.isNotEmpty) {
             final box = await Hive.openBox<TransportAfterRegisterHiveData>(
               'transportAfterRegister',
@@ -753,8 +745,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
               selectedBoardingPointDataList: BoardingPointHiveData.empty,
               transportRegisterDetails: TransportRegisterHiveData.empty,
               transportStatusData: state.transportStatusData,
-              transportAfterRegisterDetails:
-                  TransportAfterRegisterHiveData.empty,
+              transportAfterRegisterDetails: TransportAfterRegisterHiveData.empty,
             );
           }
         }
@@ -824,8 +815,7 @@ class TrasportProvider extends StateNotifier<TransportState> {
         ...box.values,
       ];
 
-      state = state.copyWith(
-          transportAfterRegisterDetails: transportAfterRegister[0]);
+      state = state.copyWith(transportAfterRegisterDetails: transportAfterRegister[0]);
       await box.close();
     } catch (e) {
       await getTransportStatusHiveDetails(search);

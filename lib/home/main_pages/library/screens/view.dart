@@ -71,7 +71,7 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'BOOK SEARCH',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -104,13 +104,13 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Text(
                         'Filter',
                         style: TextStyles.fontStyle2,
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         '*',
                         style: TextStyles.redColorFontStyleastric,
@@ -175,10 +175,14 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 5,
                           ),
-                          const Center(
+                          Center(
                             child: Text(
                               'No List Added Yet!',
-                              style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                             ),
                           ),
                         ],
@@ -232,12 +236,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Accession number',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -260,12 +264,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Author name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -287,12 +291,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Book Number',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -313,12 +317,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Publisher Name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -339,12 +343,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Title',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -365,12 +369,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Borrow',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -391,12 +395,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Classification Nmber',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -418,12 +422,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Department',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -444,12 +448,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Edition',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -470,12 +474,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Inhand',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -496,12 +500,12 @@ class _ViewLibraryPageState extends ConsumerState<ViewLibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Availability',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

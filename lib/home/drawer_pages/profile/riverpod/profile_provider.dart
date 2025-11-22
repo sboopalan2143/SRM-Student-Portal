@@ -44,8 +44,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getPersonalDetails', data);
+    final response = await HttpService.sendSoapRequest('getPersonalDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableProfile(
         successMessage: '',
@@ -54,26 +53,25 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final loginRes =
-          details['getPersonalDetailsResponse'] as Map<String, dynamic>;
+      final loginRes = details['getPersonalDetailsResponse'] as Map<String, dynamic>;
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
+      log('>>>>>>>>>>>>>> ${decryptedData.mapData}');
+
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
         if (listData.isNotEmpty) {
           final box = await Hive.openBox<ProfileHiveData>('profile');
           if (box.isEmpty) {
             for (var i = 0; i < listData.length; i++) {
-              final parseData =
-                  ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+              final parseData = ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
               await box.add(parseData);
             }
           } else {
             await box.clear();
             for (var i = 0; i < listData.length; i++) {
-              final parseData =
-                  ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
+              final parseData = ProfileHiveData.fromJson(listData[i] as Map<String, dynamic>);
               await box.add(parseData);
             }
           }

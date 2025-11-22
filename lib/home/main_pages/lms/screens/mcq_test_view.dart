@@ -114,7 +114,7 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Mcq Take Test',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -173,10 +173,14 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],
@@ -227,7 +231,7 @@ class _McqTestViewPageState extends ConsumerState<McqTestViewPage> {
                             color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(

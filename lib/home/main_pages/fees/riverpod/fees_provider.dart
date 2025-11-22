@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:sample/api_token_services/api_tokens_services.dart';
@@ -26,8 +28,7 @@ class FeesProvider extends StateNotifier<FeesState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getFinanceDetails', data);
+    final response = await HttpService.sendSoapRequest('getFinanceDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableFees(
         successMessage: '',
@@ -38,8 +39,7 @@ class FeesProvider extends StateNotifier<FeesState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final financeRes =
-          details['getFinanceDetailsResponse'] as Map<String, dynamic>;
+      final financeRes = details['getFinanceDetailsResponse'] as Map<String, dynamic>;
       final returnData = financeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -94,8 +94,7 @@ class FeesProvider extends StateNotifier<FeesState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = FeesError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['message']}''',
+          errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['message']}''',
           navFeesString: state.navFeesString,
           financeHiveData: <FinanceHiveData>[],
           feesDetailsData: state.feesDetailsData,
@@ -246,19 +245,20 @@ class FeesProvider extends StateNotifier<FeesState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getFeeDetailsResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getFeeDetailsResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
       // var feesDueData = decryptedData.mapData;
-      // log('feesDueData >>>>>>>>$feesDueData');
 //change model
       var feesDueData = <GetFeesData>[];
+      log('feesDueData >>>>>>>> $feesDueData');
+      // final feesDueDataResponse = FeesDueDetails.fromJson(decryptedData.mapData!);
+      // log('feesDueData >>>>>>>> $feesDueDataResponse');
+      log('feesDueData >>>>>>>> ${decryptedData.mapData}');
       try {
-        final feesDueDataResponse =
-            FeesDueDetails.fromJson(decryptedData.mapData!);
+        final feesDueDataResponse = FeesDueDetails.fromJson(decryptedData.mapData!);
 
         feesDueData = feesDueDataResponse.data!;
         state = state.copyWith(feesDetailsData: feesDueData);

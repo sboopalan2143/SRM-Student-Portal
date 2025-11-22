@@ -6,8 +6,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
 import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
-import 'package:sample/theme-02/mainscreens/grievances/grievance_entry_screen.dart';
-import 'package:sample/theme-06/mainscreens/grievances/grievance_entry_screen.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;
 
@@ -29,17 +27,17 @@ class ButtonDesign {
         ),
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: AppColors.theme07primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         shadowColor: Colors.transparent,
       ),
       onPressed: () async {
         if (text == 'Grievance Entry') {
-          await Navigator.push(
-            context,
-            RouteDesign(
-              route: const Theme06GrievanceEntryPage(),
-            ),
-          );
+          // await Navigator.push(
+          //   context,
+          //   RouteDesign(
+          //     route: const Theme06GrievanceEntryPage(),
+          //   ),
+          // );
         }
 
         if (text == 'Submit') {
@@ -56,48 +54,42 @@ class ButtonDesign {
               message: 'Description cannot be empty',
               context: context,
             );
-          } else if (provider
-                  .selectedgrievanceCaregoryDataList.grievancekcategoryid ==
-              '') {
+          } else if (provider.selectedgrievanceCaregoryDataList.grievancekcategoryid == '') {
             Alerts.errorAlert(
               message: 'Grievance Category is empty',
               context: context,
             );
-          } else if (provider
-                  .selectedgrievanceSubTypeDataList.grievancesubcategoryid ==
-              '') {
+          } else if (provider.selectedgrievanceCaregoryDataList.grievancekcategoryid == '28' &&
+              provider.selectedgrievanceSubTypeDataList.grievancesubcategoryid == '') {
             Alerts.errorAlert(
               message: 'Grievance SubType is empty',
               context: context,
             );
-          } else if (provider.selectedgrievanceTypeDataList.grievancetypeid ==
-              '') {
+          } else if (provider.selectedgrievanceTypeDataList.grievancetypeid == '') {
             Alerts.errorAlert(
               message: 'Grievance Type is empty',
               context: context,
             );
           } else {
-            await ref
-                .read(grievanceProvider.notifier)
-                .saveGrievanceDetails(ref.read(encryptionProvider.notifier));
+            await ref.read(grievanceProvider.notifier).saveGrievanceDetails(ref.read(encryptionProvider.notifier));
           }
 
-          if (watchprovider.confirmPassword.text == '') {
-            Alerts.errorAlert(
-              message: 'confirmPassword cannot be empty',
-              context: context,
-            );
-          } else if (watchprovider.currentPassword.text == '') {
-            Alerts.errorAlert(
-              message: 'currentPassword  cannot be empty',
-              context: context,
-            );
-          } else if (watchprovider.newPassword.text == '') {
-            Alerts.errorAlert(
-              message: 'newPassword  cannot be empty',
-              context: context,
-            );
-          }
+          // if (watchprovider.confirmPassword.text == '') {
+          //   Alerts.errorAlert(
+          //     message: 'confirmPassword cannot be empty',
+          //     context: context,
+          //   );
+          // } else if (watchprovider.currentPassword.text == '') {
+          //   Alerts.errorAlert(
+          //     message: 'currentPassword  cannot be empty',
+          //     context: context,
+          //   );
+          // } else if (watchprovider.newPassword.text == '') {
+          //   Alerts.errorAlert(
+          //     message: 'newPassword  cannot be empty',
+          //     context: context,
+          //   );
+          // }
         }
       },
       child: Text(

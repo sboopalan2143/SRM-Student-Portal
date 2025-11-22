@@ -411,7 +411,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Notification',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -466,7 +466,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                      const Center(
+                       Center(
                         child: Text(
                           'No List Added Yet!',
                           style: TextStyles.fontStyle1,
@@ -522,12 +522,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Notification Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -549,12 +549,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Notification Subject',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -576,12 +576,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Notification Category Desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -603,12 +603,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child:  Text(
                         'Notification Description',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                    const Text(
+                     Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),

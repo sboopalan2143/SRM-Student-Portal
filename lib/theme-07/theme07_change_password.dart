@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
@@ -14,9 +12,7 @@ class Theme07ChangePasswordPage extends ConsumerStatefulWidget {
   ConsumerState createState() => _Theme07ChangePasswordPageState();
 }
 
-class _Theme07ChangePasswordPageState
-    extends ConsumerState<Theme07ChangePasswordPage>
-    with WidgetsBindingObserver {
+class _Theme07ChangePasswordPageState extends ConsumerState<Theme07ChangePasswordPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(changePasswordProvider);
@@ -25,17 +21,8 @@ class _Theme07ChangePasswordPageState
       backgroundColor: AppColors.theme07secondaryColor,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.theme07primaryColor,
-                AppColors.theme07primaryColor,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-            ),
-          ),
+        child: ColoredBox(
+          color: Theme.of(context).colorScheme.tertiary,
           child: Stack(
             children: [
               AppBar(
@@ -52,7 +39,7 @@ class _Theme07ChangePasswordPageState
                 ),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: const Text(
+                title: Text(
                   'CHANGE PASSWORD',
                   style: TextStyles.fontStyle4,
                   overflow: TextOverflow.clip,
@@ -74,7 +61,7 @@ class _Theme07ChangePasswordPageState
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Current Password',
                     style: TextStyles.fontStyle2,
                   ),
@@ -96,10 +83,8 @@ class _Theme07ChangePasswordPageState
                         filled: true,
                         fillColor: AppColors.whiteColor,
                         contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                       ),
                     ),
                   ),
@@ -109,7 +94,7 @@ class _Theme07ChangePasswordPageState
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'New Password',
                     style: TextStyles.fontStyle2,
                   ),
@@ -131,10 +116,8 @@ class _Theme07ChangePasswordPageState
                         filled: true,
                         fillColor: AppColors.whiteColor,
                         contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                       ),
                     ),
                   ),
@@ -144,7 +127,7 @@ class _Theme07ChangePasswordPageState
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Confirm Password',
                     style: TextStyles.fontStyle2,
                   ),
@@ -166,10 +149,8 @@ class _Theme07ChangePasswordPageState
                         filled: true,
                         fillColor: AppColors.whiteColor,
                         contentPadding: const EdgeInsets.all(10),
-                        enabledBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
-                        focusedBorder:
-                            BorderBoxButtonDecorations.loginTextFieldStyle,
+                        enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                        focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                       ),
                     ),
                   ),
@@ -181,7 +162,6 @@ class _Theme07ChangePasswordPageState
                   Expanded(
                     child: ButtonDesign.buttonDesign(
                       'Save',
-                      AppColors.primaryColor,
                       context,
                       ref.read(mainProvider.notifier),
                       ref,

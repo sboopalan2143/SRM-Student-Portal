@@ -9,7 +9,6 @@ import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-06/mainscreens/lms/lms_get_answer_screen.dart';
 
 class Theme02McqTestViewPage extends ConsumerStatefulWidget {
   const Theme02McqTestViewPage({
@@ -119,7 +118,7 @@ class _Theme02McqTestViewPageState
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
+          title: Text(
             'Mcq Take Test',
             style: TextStyles.fontStyle4,
             overflow: TextOverflow.clip,
@@ -173,10 +172,14 @@ class _Theme02McqTestViewPageState
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -228,7 +231,7 @@ class _Theme02McqTestViewPageState
                             color: AppColors.theme02secondaryColor1,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(

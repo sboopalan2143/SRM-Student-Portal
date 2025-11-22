@@ -86,7 +86,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'MCQ Answer Screen',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -137,10 +137,14 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                     Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle6,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -194,12 +198,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -220,12 +224,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Answer id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -246,12 +250,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Question filename',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -273,12 +277,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Total marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -299,12 +303,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Your answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -325,12 +329,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Your marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -351,12 +355,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Your answervalid',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                 Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -378,12 +382,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Youranswer filename',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

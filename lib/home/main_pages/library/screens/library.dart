@@ -26,8 +26,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -88,7 +87,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'LIBRARY',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -101,14 +100,10 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(libraryProvider.notifier)
-                              .getLibraryMemberDetails(
+                          await ref.read(libraryProvider.notifier).getLibraryMemberDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(libraryProvider.notifier)
-                              .getLibraryMemberHiveData('');
+                          await ref.read(libraryProvider.notifier).getLibraryMemberHiveData('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -140,8 +135,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Center(
                   child: Column(
                     children: [
@@ -165,7 +159,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                               RouteDesign(route: const ViewLibraryPage()),
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             'Book Search',
                             style: TextStyles.fontStyle13,
                           ),
@@ -180,19 +174,21 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.libraryTransactionData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.libraryTransactionData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -242,12 +238,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Member Name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -255,8 +251,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].membername}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].membername}' == 'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membername}''',
                       style: TextStyles.fontStyle10,
@@ -269,12 +264,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Member Code',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -282,8 +277,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].membercode}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].membercode}' == 'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membercode}''',
                       style: TextStyles.fontStyle10,
@@ -296,12 +290,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Member Type',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -309,8 +303,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].membertype}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].membertype}' == 'null'
                           ? '-'
                           : '''${provider.libraryTransactionData[index].membertype}''',
                       style: TextStyles.fontStyle10,
@@ -323,12 +316,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -336,8 +329,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].status}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].status}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].status}',
                       style: TextStyles.fontStyle10,
@@ -350,12 +342,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Accession no',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -363,8 +355,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].accessionno}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].accessionno}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].accessionno}',
                       style: TextStyles.fontStyle10,
@@ -377,12 +368,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Due date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -390,8 +381,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].duedate}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].duedate}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].duedate}',
                       style: TextStyles.fontStyle10,
@@ -404,12 +394,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Fine amount',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -417,8 +407,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].fineamount}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].fineamount}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].fineamount}',
                       style: TextStyles.fontStyle10,
@@ -431,12 +420,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Issue date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -444,8 +433,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].issuedate}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].issuedate}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].issuedate}',
                       style: TextStyles.fontStyle10,
@@ -458,12 +446,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Policy name',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -471,8 +459,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].policyname}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].policyname}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].policyname}',
                       style: TextStyles.fontStyle10,
@@ -485,12 +472,12 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Return date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -498,8 +485,7 @@ class _LibraryPageState extends ConsumerState<LibraryPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.libraryTransactionData[index].returndate}' ==
-                              'null'
+                      '${provider.libraryTransactionData[index].returndate}' == 'null'
                           ? '-'
                           : '${provider.libraryTransactionData[index].returndate}',
                       style: TextStyles.fontStyle10,

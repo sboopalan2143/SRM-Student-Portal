@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:sample/designs/colors.dart';
 import 'package:sample/designs/font_styles.dart';
-import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_attachment_screen.dart';
 
 class Theme02PDFViewPage extends StatefulWidget {
   const Theme02PDFViewPage({

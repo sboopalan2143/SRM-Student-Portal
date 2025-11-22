@@ -75,11 +75,10 @@ class PDFViewScreenState extends ConsumerState<PDFViewScreen> {
           : widget.imageBytes != ''
               ? PDFView(
                   pdfData: widget.imageBytes,
-                  fitEachPage: true,
                   fitPolicy: FitPolicy.BOTH,
                   backgroundColor: Colors.grey[300],
                 )
-              : const Center(
+              : Center(
                   child: Text(
                     'No PDF available',
                     style: TextStyles.fontStyle10,

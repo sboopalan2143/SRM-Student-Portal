@@ -5,7 +5,7 @@ import 'package:sample/api_token_services/api_tokens_services.dart';
 import 'package:sample/api_token_services/http_services.dart';
 import 'package:sample/encryption/encryption_provider.dart';
 import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/lms/model/%E1%B8%B7ms_faculty_get_comment_model.dart';
+import 'package:sample/home/main_pages/lms/model/l%E2%95%A0%C3%BAms_faculty_get_comment_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
 import 'package:sample/home/main_pages/lms/model/lms_getStudentAttachment_Details.dart';
@@ -76,8 +76,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final libraryMemberRes =
-          details['getSubjectResponse'] as Map<String, dynamic>;
+      final libraryMemberRes = details['getSubjectResponse'] as Map<String, dynamic>;
       final returnData = libraryMemberRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -86,8 +85,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('decrypted>>>>>>>>$decryptedData');
 
       try {
-        final lmsSubjectDataResponse =
-            GetSubjectModel.fromJson(decryptedData.mapData!);
+        final lmsSubjectDataResponse = GetSubjectModel.fromJson(decryptedData.mapData!);
         lmsSubjectData = lmsSubjectDataResponse.data!;
         state = state.copyWith(lmsSubjectData: lmsSubjectData);
         if (lmsSubjectDataResponse.status == 'Success') {
@@ -102,14 +100,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (lmsSubjectDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${lmsSubjectDataResponse.status!}, ${lmsSubjectDataResponse.message!}''',
+            errorMessage: '''${lmsSubjectDataResponse.status!}, ${lmsSubjectDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -133,8 +129,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -213,11 +208,10 @@ class LmsProvider extends StateNotifier<LmsState> {
       final decryptedData = encrypt.getDecryptedData('$data');
 
       var lmsTitleData = state.lmsTitleData;
-      log('decrypted>>>>>>>>$decryptedData');
+      log('decrypted>>>>>>>>${decryptedData.mapData}');
 
       try {
-        final lmsTitleDataResponse =
-            GetTitleListModel.fromJson(decryptedData.mapData!);
+        final lmsTitleDataResponse = GetTitleListModel.fromJson(decryptedData.mapData!);
         lmsTitleData = lmsTitleDataResponse.data!;
         state = state.copyWith(lmsTitleData: lmsTitleData);
         if (lmsTitleDataResponse.status == 'Success') {
@@ -232,14 +226,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (lmsTitleDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${lmsTitleDataResponse.status!}, ${lmsTitleDataResponse.message!}''',
+            errorMessage: '''${lmsTitleDataResponse.status!}, ${lmsTitleDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -263,8 +255,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -315,8 +306,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     log(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getClassWorkDetails', data);
+    final response = await HttpService.sendSoapRequest('getClassWorkDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -341,17 +331,16 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes =
-          details['getClassWorkDetailsResponse'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getClassWorkDetailsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var classWorkDetailsData = state.classWorkDetailsData;
+      log(' decrypted Data >>>>>>>>${decryptedData.mapData}');
       log(' classWorkDetailsData>>>>>>>>$classWorkDetailsData');
 
       try {
-        final classWorkDetailsDataResponse =
-            GetClassWorkDetailsModel.fromJson(decryptedData.mapData!);
+        final classWorkDetailsDataResponse = GetClassWorkDetailsModel.fromJson(decryptedData.mapData!);
         classWorkDetailsData = classWorkDetailsDataResponse.data!;
         state = state.copyWith(classWorkDetailsData: classWorkDetailsData);
         if (classWorkDetailsDataResponse.status == 'Success') {
@@ -366,14 +355,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (classWorkDetailsDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${classWorkDetailsDataResponse.status!}, ${classWorkDetailsDataResponse.message!}''',
+            errorMessage: '''${classWorkDetailsDataResponse.status!}, ${classWorkDetailsDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -397,8 +384,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -446,8 +432,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><classworkid>$classworkid</classworkid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getAttachmentDetails', data);
+    final response = await HttpService.sendSoapRequest('getAttachmentDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -472,24 +457,21 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes =
-          details['getAttachmentDetailsResponse'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getAttachmentDetailsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
       var lmsAttachmentDetailsData = state.lmsAttachmentDetailsData;
       // log('Attachment data >>>>>>>>$data');
-      // log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
+      log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
 
       try {
-        final lmsAttachmentDetailsDataResponse =
-            GetAttachmentDetailsModel.fromJson(decryptedData.mapData!);
+        final lmsAttachmentDetailsDataResponse = GetAttachmentDetailsModel.fromJson(decryptedData.mapData!);
         lmsAttachmentDetailsData = lmsAttachmentDetailsDataResponse.data!;
         // log('attachment Details provider >>>>>${lmsAttachmentDetailsData[0].imageBytes}');
         // log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsAttachmentDetailsDataResponse.data}');
-        state =
-            state.copyWith(lmsAttachmentDetailsData: lmsAttachmentDetailsData);
+        state = state.copyWith(lmsAttachmentDetailsData: lmsAttachmentDetailsData);
         if (lmsAttachmentDetailsDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
@@ -508,8 +490,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -533,8 +514,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -582,8 +562,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><classworkreplyid>$classworkreplyid</classworkreplyid>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getStudentAttachmentDetails', data);
+    final response = await HttpService.sendSoapRequest('getStudentAttachmentDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -608,26 +587,22 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes = details['getStudentAttachmentDetailsResponse']
-          as Map<String, dynamic>;
+      final lmsTitleRes = details['getStudentAttachmentDetailsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
 
-      var lmsStudentAttachmentDetailsData =
-          state.lmsStudentAttachmentDetailsData;
+      var lmsStudentAttachmentDetailsData = state.lmsStudentAttachmentDetailsData;
       // log('Attachment data >>>>>>>>$data');
       log('decrypted att data >>>>>>>>${decryptedData.mapData!['Data']}');
 
       try {
         final lmsStudentAttachmentDetailsDataResponse =
             GetStudentAttachmentDetailsModel.fromJson(decryptedData.mapData!);
-        lmsStudentAttachmentDetailsData =
-            lmsStudentAttachmentDetailsDataResponse.data!;
+        lmsStudentAttachmentDetailsData = lmsStudentAttachmentDetailsDataResponse.data!;
         log('attachment Details provider >>>>>${lmsStudentAttachmentDetailsData[0].imageBytes}');
         log('attachment lmsAttachmentDetailsDataResponse >>>>>${lmsStudentAttachmentDetailsDataResponse.data}');
-        state = state.copyWith(
-            lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData);
+        state = state.copyWith(lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData);
         if (lmsStudentAttachmentDetailsDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
@@ -637,8 +612,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           //   officeid: TextEditingController(),
           //   filter: TextEditingController(),
           // );
-        } else if (lmsStudentAttachmentDetailsDataResponse.status !=
-            'Success') {
+        } else if (lmsStudentAttachmentDetailsDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
             errorMessage:
@@ -647,8 +621,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -672,8 +645,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -834,8 +806,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes =
-          details['getCommentsResponse'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getCommentsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -844,8 +815,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('decrypted>>>>>>>>$decryptedData');
 
       try {
-        final lmsCommentDetailsDataResponse =
-            GetCommentModel.fromJson(decryptedData.mapData!);
+        final lmsCommentDetailsDataResponse = GetCommentModel.fromJson(decryptedData.mapData!);
         lmsgetcommentData = lmsCommentDetailsDataResponse.data!;
         state = state.copyWith(lmsgetcommentData: lmsgetcommentData);
         if (lmsCommentDetailsDataResponse.status == 'Success') {
@@ -860,14 +830,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (lmsCommentDetailsDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${lmsCommentDetailsDataResponse.status!}, ${lmsCommentDetailsDataResponse.message!}''',
+            errorMessage: '''${lmsCommentDetailsDataResponse.status!}, ${lmsCommentDetailsDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -891,8 +859,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -964,8 +931,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes =
-          details['getCommentsResponse'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getCommentsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -974,11 +940,9 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('decrypted>>>>>>>>$decryptedData');
 
       try {
-        final lmsFacultyCommentDetailsDataResponse =
-            FacultyGetCommentModel.fromJson(decryptedData.mapData!);
+        final lmsFacultyCommentDetailsDataResponse = FacultyGetCommentModel.fromJson(decryptedData.mapData!);
         lmsfacultygetcommentData = lmsFacultyCommentDetailsDataResponse.data!;
-        state =
-            state.copyWith(lmsfacultygetcommentData: lmsfacultygetcommentData);
+        state = state.copyWith(lmsfacultygetcommentData: lmsfacultygetcommentData);
         if (lmsFacultyCommentDetailsDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
@@ -997,8 +961,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1022,8 +985,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1072,8 +1034,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     );
     log('<studentid>${TokensManagement.studentId}</studentid><StudentClsCmtId>$studentClsCmtId</StudentClsCmtId>');
 
-    final response =
-        await HttpService.sendSoapRequest('getReplyComments', data);
+    final response = await HttpService.sendSoapRequest('getReplyComments', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -1098,8 +1059,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsTitleRes =
-          details['getReplyCommentsResponse'] as Map<String, dynamic>;
+      final lmsTitleRes = details['getReplyCommentsResponse'] as Map<String, dynamic>;
       final returnData = lmsTitleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1108,8 +1068,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('reply provider data >>>>>>>>$data');
 
       try {
-        final lmsfacultCommentDetailsDataResponse =
-            ReplayFacultyComment.fromJson(decryptedData.mapData!);
+        final lmsfacultCommentDetailsDataResponse = ReplayFacultyComment.fromJson(decryptedData.mapData!);
         lmsReplayfacultycommentData = lmsfacultCommentDetailsDataResponse.data!;
         state = state.copyWith(
           lmsReplayfacultycommentData: lmsReplayfacultycommentData,
@@ -1132,8 +1091,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1157,8 +1115,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1209,8 +1166,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>',
     );
-    final response =
-        await HttpService.sendSoapRequest('SaveClassWorkReply', data);
+    final response = await HttpService.sendSoapRequest('SaveClassWorkReply', data);
     log('<studentid>${TokensManagement.studentId}</studentid><imageattachmentid>$imageattachmentid</imageattachmentid><classworkid>$classworkid</classworkid><classworkreplyid>$classworkreplyid</classworkreplyid><remarks>${state.remarks.text}</remarks><fieldrequirements>$fieldrequirements</fieldrequirements><action>${state.action.text}</action><imageattachments>$imagepath</imageattachments>');
     log('Save Attachment data>>> $data');
     if (response.$1 == 0) {
@@ -1237,8 +1193,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final commentRes =
-          details['SaveClassWorkReplyResponse'] as Map<String, dynamic>;
+      final commentRes = details['SaveClassWorkReplyResponse'] as Map<String, dynamic>;
       final returnData = commentRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1299,8 +1254,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getMCQExamScheduleDetails', data);
+    final response = await HttpService.sendSoapRequest('getMCQExamScheduleDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -1325,8 +1279,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsmcqsheduleRes =
-          details['getMCQExamScheduleDetailsResponse'] as Map<String, dynamic>;
+      final lmsmcqsheduleRes = details['getMCQExamScheduleDetailsResponse'] as Map<String, dynamic>;
       final returnData = lmsmcqsheduleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1336,8 +1289,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('mcq shedule data >>>>>>>>$data');
 
       try {
-        final mcqsheduleDataResponse =
-            McqSheduleModel.fromJson(decryptedData.mapData!);
+        final mcqsheduleDataResponse = McqSheduleModel.fromJson(decryptedData.mapData!);
         mcqSheduleData = mcqsheduleDataResponse.data!;
         state = state.copyWith(mcqSheduleData: mcqSheduleData);
         if (mcqsheduleDataResponse.status == 'Success') {
@@ -1352,14 +1304,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (mcqsheduleDataResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${mcqsheduleDataResponse.status!}, ${mcqsheduleDataResponse.message!}''',
+            errorMessage: '''${mcqsheduleDataResponse.status!}, ${mcqsheduleDataResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1383,8 +1333,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1438,8 +1387,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     log(
       '<studentid>${TokensManagement.studentId}</studentid><mcqtemplateid>$mcqtemplateid</mcqtemplateid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><subjectid>$subjectid</subjectid><noofquestions>$noofquestions</noofquestions>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getQuestionsandAnswers', data);
+    final response = await HttpService.sendSoapRequest('getQuestionsandAnswers', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsMember(
         successMessage: '',
@@ -1464,8 +1412,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsmcqsheduleRes =
-          details['getQuestionsandAnswersResponse'] as Map<String, dynamic>;
+      final lmsmcqsheduleRes = details['getQuestionsandAnswersResponse'] as Map<String, dynamic>;
       final returnData = lmsmcqsheduleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1475,11 +1422,9 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('mcq Question & Answer data >>>>>>>>$data');
 
       try {
-        final mcqQuestionandAnswerDataResponse =
-            McqQuestionandAnswerModel.fromJson(decryptedData.mapData!);
+        final mcqQuestionandAnswerDataResponse = McqQuestionandAnswerModel.fromJson(decryptedData.mapData!);
         mcqQuestionAndAnswerData = mcqQuestionandAnswerDataResponse.data!;
-        state =
-            state.copyWith(mcqQuestionAndAnswerData: mcqQuestionAndAnswerData);
+        state = state.copyWith(mcqQuestionAndAnswerData: mcqQuestionAndAnswerData);
         if (mcqQuestionandAnswerDataResponse.status == 'Success') {
           // state = LibraryTrancsactionStateSuccessful(
           //   successMessage: libraryTransactionDataResponse.status!,
@@ -1498,8 +1443,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1523,8 +1467,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1664,8 +1607,7 @@ class LmsProvider extends StateNotifier<LmsState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><answerdesc>$answerdesc</answerdesc><marksperquestion>$marksperquestion</marksperquestion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('saveMCQAnswerDetails', data);
+    final response = await HttpService.sendSoapRequest('saveMCQAnswerDetails', data);
     log('MCQ Body >>>  <studentid>${TokensManagement.studentId}</studentid><mcqscheduleid>$mcqscheduleid</mcqscheduleid><answerdesc>$answerdesc</answerdesc><marksperquestion>$marksperquestion</marksperquestion>');
     // log(' Sample Data >>> $data');
     if (response.$1 == 0) {
@@ -1692,8 +1634,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final grievanceSubTypeRes =
-          details['saveMCQAnswerDetailsResponse'] as Map<String, dynamic>;
+      final grievanceSubTypeRes = details['saveMCQAnswerDetailsResponse'] as Map<String, dynamic>;
       final returnData = grievanceSubTypeRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1701,8 +1642,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       try {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;
 
-        final mcqSubmitedDataList =
-            McqSubmitedData.fromJson(listData[0] as Map<String, dynamic>);
+        final mcqSubmitedDataList = McqSubmitedData.fromJson(listData[0] as Map<String, dynamic>);
         state = state.copyWith(mcqSubmitedData: mcqSubmitedDataList);
         log('MCQ data>>>>>>>>>>>${state.mcqSubmitedData.examid}');
         if (decryptedData.mapData!['Status'] == 'Success') {
@@ -1714,8 +1654,7 @@ class LmsProvider extends StateNotifier<LmsState> {
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1738,8 +1677,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1816,8 +1754,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final lmsmcqsheduleRes =
-          details['getViewAnswerResponse'] as Map<String, dynamic>;
+      final lmsmcqsheduleRes = details['getViewAnswerResponse'] as Map<String, dynamic>;
       final returnData = lmsmcqsheduleRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -1827,8 +1764,7 @@ class LmsProvider extends StateNotifier<LmsState> {
       log('mcq Answer data >>>>>>>>$data');
 
       try {
-        final mcqgetAnswerDetailsResponse =
-            GetMCQViewDetails.fromJson(decryptedData.mapData!);
+        final mcqgetAnswerDetailsResponse = GetMCQViewDetails.fromJson(decryptedData.mapData!);
         mcqgetAnswerDetails = mcqgetAnswerDetailsResponse.data!;
         state = state.copyWith(mcqgetAnswerDetails: mcqgetAnswerDetails);
         if (mcqgetAnswerDetailsResponse.status == 'Success') {
@@ -1843,14 +1779,12 @@ class LmsProvider extends StateNotifier<LmsState> {
         } else if (mcqgetAnswerDetailsResponse.status != 'Success') {
           state = LmsStateError(
             successMessage: '',
-            errorMessage:
-                '''${mcqgetAnswerDetailsResponse.status!}, ${mcqgetAnswerDetailsResponse.message!}''',
+            errorMessage: '''${mcqgetAnswerDetailsResponse.status!}, ${mcqgetAnswerDetailsResponse.message!}''',
             lmsSubjectData: state.lmsSubjectData,
             lmsTitleData: state.lmsTitleData,
             classWorkDetailsData: state.classWorkDetailsData,
             lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-            lmsStudentAttachmentDetailsData:
-                state.lmsStudentAttachmentDetailsData,
+            lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
             comment: TextEditingController(),
             lmsgetcommentData: state.lmsgetcommentData,
             lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,
@@ -1874,8 +1808,7 @@ class LmsProvider extends StateNotifier<LmsState> {
           lmsTitleData: state.lmsTitleData,
           classWorkDetailsData: state.classWorkDetailsData,
           lmsAttachmentDetailsData: state.lmsAttachmentDetailsData,
-          lmsStudentAttachmentDetailsData:
-              state.lmsStudentAttachmentDetailsData,
+          lmsStudentAttachmentDetailsData: state.lmsStudentAttachmentDetailsData,
           comment: TextEditingController(),
           lmsgetcommentData: state.lmsgetcommentData,
           lmsReplayfacultycommentData: state.lmsReplayfacultycommentData,

@@ -91,7 +91,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title:  Text(
                 'INTERNAL MARKS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -142,10 +142,14 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                   Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle6,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
@@ -198,12 +202,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Code',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -225,12 +229,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Subject',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -252,12 +256,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Mark',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -278,12 +282,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child:  Text(
                       'Max Marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

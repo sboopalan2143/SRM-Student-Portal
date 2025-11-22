@@ -19,8 +19,7 @@ class HourAttendancePage extends ConsumerStatefulWidget {
   const HourAttendancePage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _HourAttendancePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HourAttendancePageState();
 }
 
 class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
@@ -29,15 +28,12 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(hourwiseProvider.notifier)
-            .gethourwiseDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(hourwiseProvider.notifier).gethourwiseDetails(ref.read(encryptionProvider.notifier));
         await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
       },
     );
@@ -97,7 +93,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'HOURWISE ATTENDANCE',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -110,14 +106,10 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(hourwiseProvider.notifier)
-                              .gethourwiseDetails(
+                          await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(hourwiseProvider.notifier)
-                              .getHiveHourwise('');
+                          await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -146,7 +138,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                     children: [
                       SizedBox(
                         width: width / 6,
-                        child: const Text(
+                        child: Text(
                           'Date',
                           style: TextStyles.fontStyle16,
                         ),
@@ -154,7 +146,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 10),
                       SizedBox(
                         width: width / 11.5,
-                        child: const Text(
+                        child: Text(
                           '-',
                           style: TextStyles.fontStyle16,
                         ),
@@ -162,7 +154,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11.5,
-                        child: const Text(
+                        child: Text(
                           '1',
                           style: TextStyles.fontStyle16,
                         ),
@@ -170,7 +162,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11.5,
-                        child: const Text(
+                        child: Text(
                           '2',
                           style: TextStyles.fontStyle16,
                         ),
@@ -178,7 +170,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11.5,
-                        child: const Text(
+                        child: Text(
                           '3',
                           style: TextStyles.fontStyle16,
                         ),
@@ -186,7 +178,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11,
-                        child: const Text(
+                        child: Text(
                           '4',
                           style: TextStyles.fontStyle16,
                         ),
@@ -194,7 +186,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11,
-                        child: const Text(
+                        child: Text(
                           '5',
                           style: TextStyles.fontStyle16,
                         ),
@@ -202,7 +194,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                       const SizedBox(width: 5),
                       SizedBox(
                         width: width / 11,
-                        child: const Text(
+                        child: Text(
                           '6',
                           style: TextStyles.fontStyle16,
                         ),
@@ -216,25 +208,26 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.listHourWiseHiveData.isEmpty &&
-                provider is! HourwiseStateLoading)
+            else if (provider.listHourWiseHiveData.isEmpty && provider is! HourwiseStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
               ),
-            if (provider.listHourWiseHiveData.isNotEmpty)
-              const SizedBox(height: 5),
+            if (provider.listHourWiseHiveData.isNotEmpty) const SizedBox(height: 5),
             ListView.builder(
               padding: const EdgeInsets.all(5),
               itemCount: provider.listHourWiseHiveData.length,
@@ -276,7 +269,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           const SizedBox(width: 10),
                           SizedBox(
                             width: width / 11.5,
-                            child: const Text(
+                            child: Text(
                               '-',
                               style: TextStyles.fontStyle16,
                             ),
@@ -285,8 +278,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h1}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h1}' == 'null'
                                   ? '-'
                                   : '${provider.listHourWiseHiveData[index].h1}',
                               style: TextStyles.fontStyle16,
@@ -296,8 +288,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h2}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h2}' == 'null'
                                   ? '-'
                                   : '''${provider.listHourWiseHiveData[index].h2}''',
                               style: TextStyles.fontStyle16,
@@ -307,8 +298,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11.5,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h3}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h3}' == 'null'
                                   ? '-'
                                   : '''${provider.listHourWiseHiveData[index].h3}''',
                               style: TextStyles.fontStyle16,
@@ -318,8 +308,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h5}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h5}' == 'null'
                                   ? '-'
                                   : '''${provider.listHourWiseHiveData[index].h5}''',
                               style: TextStyles.fontStyle16,
@@ -329,8 +318,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h6}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h6}' == 'null'
                                   ? '-'
                                   : '''${provider.listHourWiseHiveData[index].h6}''',
                               style: TextStyles.fontStyle16,
@@ -340,8 +328,7 @@ class _HourAttendancePageState extends ConsumerState<HourAttendancePage> {
                           SizedBox(
                             width: width / 11,
                             child: Text(
-                              '${provider.listHourWiseHiveData[index].h7}' ==
-                                      'null'
+                              '${provider.listHourWiseHiveData[index].h7}' == 'null'
                                   ? '-'
                                   : '''${provider.listHourWiseHiveData[index].h7}''',
                               style: TextStyles.fontStyle16,

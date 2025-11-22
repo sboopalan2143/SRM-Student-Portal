@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/screens/register.dart';
 import 'package:sample/home/riverpod/main_provider.dart';
-import 'package:sample/theme-01/mainscreens/transport/transport_register.dart';
+import 'package:sample/theme-07/mainscreens/transport/transport_register.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -33,12 +32,10 @@ class ButtonDesign {
             context,
             RouteDesign(
               // route: const TransportRegisterPage(),
-              route: const Theme01TransportRegisterPage(),
+              route: const Theme07TransportRegisterPage(),
             ),
           );
-          await ref
-              .read(transportProvider.notifier)
-              .gettransportRegisterDetails(
+          await ref.read(transportProvider.notifier).gettransportRegisterDetails(
                 ref.read(encryptionProvider.notifier),
               );
           await ref.read(transportProvider.notifier).getRouteIdDetails(

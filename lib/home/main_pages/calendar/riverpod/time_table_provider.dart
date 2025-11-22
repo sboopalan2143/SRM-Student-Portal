@@ -25,8 +25,7 @@ class TimetableProvider extends StateNotifier<TimeTableState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getTimeTableSubjectsList', data);
+    final response = await HttpService.sendSoapRequest('getTimeTableSubjectsList', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableTimetable(
         successMessage: '',
@@ -35,17 +34,15 @@ class TimetableProvider extends StateNotifier<TimeTableState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getTimeTableSubjectsListResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getTimeTableSubjectsListResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var timeTableData = state.timeTableData;
-      log('timeTableData >>>>>>>>$timeTableData');
+      log('timeTableData >>>>>>>>${decryptedData.mapData}');
 //change model
       try {
-        final timeTableDataResponse =
-            TimeTableSubjectListModel.fromJson(decryptedData.mapData!);
+        final timeTableDataResponse = TimeTableSubjectListModel.fromJson(decryptedData.mapData!);
 
         timeTableData = timeTableDataResponse.data!;
         state = state.copyWith(timeTableData: timeTableData);

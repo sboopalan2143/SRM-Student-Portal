@@ -86,7 +86,7 @@ class _TransportTransactionPageState
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'TRANSPORT',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -178,10 +178,14 @@ class _TransportTransactionPageState
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 5,
                         ),
-                        const Center(
+                        Center(
                           child: Text(
                             'No List Added Yet!',
-                            style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                           ),
                         ),
                       ],
@@ -234,12 +238,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Office id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -260,12 +264,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Academicyear id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -289,12 +293,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Application fees',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -318,12 +322,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Regconfig',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -346,12 +350,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Transport status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -375,12 +379,12 @@ class _TransportTransactionPageState
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

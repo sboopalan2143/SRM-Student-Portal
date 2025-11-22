@@ -1,33 +1,31 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart' as pro;
 import 'package:sample/designs/_designs.dart';
 import 'package:sample/encryption/encryption_state.dart';
 import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
 import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
 import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
+import 'package:sample/theme/theme_provider.dart';
 
 class Theme07NotificationPage extends ConsumerStatefulWidget {
   const Theme07NotificationPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme07NotificationPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme07NotificationPageState();
 }
 
-class _Theme07NotificationPageState
-    extends ConsumerState<Theme07NotificationPage> {
+class _Theme07NotificationPageState extends ConsumerState<Theme07NotificationPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
-
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   @override
   void initState() {
@@ -51,53 +49,30 @@ class _Theme07NotificationPageState
       }
     });
     return Scaffold(
-      backgroundColor: AppColors.theme07secondaryColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/wave.svg',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              color: AppColors.primaryColor,
-              colorBlendMode: BlendMode.srcOut,
-            ),
-            AppBar(
-              flexibleSpace: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.theme07primaryColor,
-                      AppColors.theme07primaryColor,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: AppColors.whiteColor,
-                ),
-              ),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: const Text(
-                'NOTIFICATION',
-                style: TextStyles.fontStyle4,
-                overflow: TextOverflow.clip,
-              ),
-              centerTitle: true,
-            ),
-          ],
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            // WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   ref.read(notificationCountProvider.notifier).getNotificationCountDetails(
+            //         ref.read(encryptionProvider.notifier),
+            //       );
+            // });
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.whiteColor,
+          ),
         ),
+        title: Text(
+          'NOTIFICATION LIST',
+          style: TextStyles.fontStyle4,
+          overflow: TextOverflow.clip,
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -110,19 +85,21 @@ class _Theme07NotificationPageState
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.notificationData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.notificationData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -144,9 +121,17 @@ class _Theme07NotificationPageState
   }
 
   Widget cardDesign(int index) {
+    final themeProvider = pro.Provider.of<ThemeProvider>(context);
     final width = MediaQuery.of(context).size.width;
 
     final provider = ref.watch(notificationProvider);
+
+    // Utility function to check if the string contains HTML tags
+    bool isHtml(String input) {
+      final htmlRegex = RegExp('<[^>]+>');
+      return htmlRegex.hasMatch(input);
+    }
+
     return GestureDetector(
       onTap: () {
         // ref.read(lmsProvider.notifier).getLmsTitleDetails(
@@ -166,16 +151,8 @@ class _Theme07NotificationPageState
         padding: const EdgeInsets.only(bottom: 8),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: themeProvider.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade100,
             borderRadius: const BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -213,112 +190,167 @@ class _Theme07NotificationPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
+                      child: Text(
                         'Notification Subject',
-                        style: TextStyles.fontStyle10,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
-                      style: TextStyles.fontStyle10,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                     const SizedBox(width: 5),
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].notificationsubject}' ==
-                                'null'
+                        '${provider.notificationData[index].notificationsubject}' == 'null'
                             ? '-'
                             : '''${provider.notificationData[index].notificationsubject}''',
-                        style: TextStyles.fontStyle10,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
                 ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: Text(
+                //         'View Status',
+                //         style: TextStyle(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Theme.of(context).colorScheme.inverseSurface,
+                //         ),
+                //       ),
+                //     ),
+                //     Text(
+                //       ':',
+                //       style: TextStyle(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.bold,
+                //         color: Theme.of(context).colorScheme.inverseSurface,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 5),
+                //     SizedBox(
+                //       width: width / 2 - 60,
+                //       child: Text(
+                //         '${provider.notificationData[index].viewstatus}' == 'null'
+                //             ? '-'
+                //             : '''${provider.notificationData[index].viewstatus}''',
+                //         style: TextStyle(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Theme.of(context).colorScheme.inverseSurface,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child: const Text(
-                        'View Status',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].viewstatus}' ==
-                                'null'
-                            ? '-'
-                            : '''${provider.notificationData[index].viewstatus}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
                         'Notification Description',
-                        style: TextStyles.fontStyle10,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       ':',
-                      style: TextStyles.fontStyle10,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                     const SizedBox(width: 5),
                     SizedBox(
                       width: width / 2 - 60,
-                      child: Text(
-                        '${provider.notificationData[index].notificationdescription}' ==
-                                'null'
-                            ? '-'
-                            : '''${provider.notificationData[index].notificationdescription}''',
-                        style: TextStyles.fontStyle10,
-                      ),
+                      child: isHtml('${provider.notificationData[index].notificationdescription}')
+                          ? Html(
+                              data: provider.notificationData[index].notificationdescription == 'null'
+                                  ? '-'
+                                  : provider.notificationData[index].notificationdescription,
+                              style: {
+                                '*': Style(
+                                  fontSize: FontSize(12),
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).colorScheme.inverseSurface,
+                                ),
+                              },
+                            )
+                          : Text(
+                              '${provider.notificationData[index].notificationdescription}' == 'null'
+                                  ? '-'
+                                  : '${provider.notificationData[index].notificationdescription}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.inverseSurface,
+                              ),
+                            ),
                     ),
                   ],
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: width / 2 - 80,
-                      child: const Text(
-                        'Notification Category Description',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                    const Text(
-                      ':',
-                      style: TextStyles.fontStyle10,
-                    ),
-                    const SizedBox(width: 5),
-                    SizedBox(
-                      width: width / 2 - 60,
-                      child: Text(
-                        '${provider.notificationData[index].notificationcategorydesc}' ==
-                                'null'
-                            ? '-'
-                            : '''${provider.notificationData[index].notificationcategorydesc}''',
-                        style: TextStyles.fontStyle10,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     SizedBox(
+                //       width: width / 2 - 80,
+                //       child: Text(
+                //         'Notification Category Description',
+                //         style: TextStyle(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Theme.of(context).colorScheme.inverseSurface,
+                //         ),
+                //       ),
+                //     ),
+                //     Text(
+                //       ':',
+                //       style: TextStyle(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.bold,
+                //         color: Theme.of(context).colorScheme.inverseSurface,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 5),
+                //     SizedBox(
+                //       width: width / 2 - 60,
+                //       child: Text(
+                //         '${provider.notificationData[index].notificationcategorydesc}' == 'null'
+                //             ? '-'
+                //             : '''${provider.notificationData[index].notificationcategorydesc}''',
+                //         style: TextStyle(
+                //           fontSize: 12,
+                //           fontWeight: FontWeight.bold,
+                //           color: Theme.of(context).colorScheme.inverseSurface,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                const SizedBox(height: 10),
               ],
             ),
           ),

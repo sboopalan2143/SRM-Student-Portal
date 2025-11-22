@@ -102,7 +102,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'Comment Page',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -152,14 +152,18 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                 )
               else if (provider.lmsgetcommentData.isEmpty &&
                   provider is! LibraryTrancsactionStateLoading)
-                const Expanded(
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                          style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                         ),
                       ),
                     ],

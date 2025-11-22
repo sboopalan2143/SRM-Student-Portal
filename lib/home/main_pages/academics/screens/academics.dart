@@ -50,7 +50,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title:  Text(
                 'ACADEMICS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -332,7 +332,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 SizedBox(
                   height: height * 0.15,
                   width: width * 0.40,
-                  child: const Text(
+                  child:  Text(
                     '',
                     textAlign: TextAlign.center,
                     style: TextStyles.fontStyle6,

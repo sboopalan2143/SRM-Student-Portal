@@ -40,13 +40,12 @@ class HostelProvider extends StateNotifier<HostelState> {
   Future<void> getHostelDetails(EncryptionProvider encrypt) async {
     _setLoading();
     log(
-      'dataaaaaaaaa>>>>>>> <studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
+      'data >>>>>>> <studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getHostelDetails', data);
+    final response = await HttpService.sendSoapRequest('getHostelDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
         successMessage: '',
@@ -65,17 +64,14 @@ class HostelProvider extends StateNotifier<HostelState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final gethostelRes =
-          details['getHostelDetailsResponse'] as Map<String, dynamic>;
+      final gethostelRes = details['getHostelDetailsResponse'] as Map<String, dynamic>;
       final returnData = gethostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('hostel details>>>>${decryptedData.mapData}');
       // var gethostelData = <GetHostelHiveData>[];
       final listData = decryptedData.mapData!['Data'] as String;
-      final box = await Hive.openBox<GetHostelHiveData>(
-        'hostelData',
-      );
+      final box = await Hive.openBox<GetHostelHiveData>('hostelData');
+      log('hostel details>>>>${decryptedData.mapData}');
       if (box.isEmpty) {
         for (var i = 0; i < listData.length; i++) {
           final parseData = GetHostelHiveData.fromJson(
@@ -213,8 +209,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRegisterRes =
-          details['getRegisterResponse'] as Map<String, dynamic>;
+      final hostelRegisterRes = details['getRegisterResponse'] as Map<String, dynamic>;
       final returnData = hostelRegisterRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
 
@@ -557,8 +552,8 @@ class HostelProvider extends StateNotifier<HostelState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getHostelRegister', data);
+    final response = await HttpService.sendSoapRequest('getHostelRegister', data);
+    log('hostel respose code >>>>> ${response.$1}');
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
         successMessage: '',
@@ -577,22 +572,19 @@ class HostelProvider extends StateNotifier<HostelState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getHostelRegisterResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getHostelRegisterResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var hostelRegisterDetailsData = state.hostelRegisterDetails;
-      log('cgpaData >>>>>>>>$hostelRegisterDetailsData');
+      log('getHostelRegister >>>>>>>> ${decryptedData.mapData}');
+      // log('hostel >>>>>>>>$hostelRegisterDetailsData');
 //change model
       try {
-        final hostelRegisterDetailsDataResponse =
-            HostelRegisterModel.fromJson(decryptedData.mapData!);
+        final hostelRegisterDetailsDataResponse = HostelRegisterModel.fromJson(decryptedData.mapData!);
 
-        hostelRegisterDetailsData =
-            hostelRegisterDetailsDataResponse.data!.first;
-        state =
-            state.copyWith(hostelRegisterDetails: hostelRegisterDetailsData);
+        hostelRegisterDetailsData = hostelRegisterDetailsDataResponse.data!.first;
+        state = state.copyWith(hostelRegisterDetails: hostelRegisterDetailsData);
         if (hostelRegisterDetailsDataResponse.status == 'Success') {
           state = HostelStateSuccessful(
             successMessage: '',
@@ -841,8 +833,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       '<studentid>${TokensManagement.studentId}</studentid><fromdate>${state.fromDate.text}</fromdate><todate>${state.toDate.text}</todate><reason>${state.leaveReason.text}</reason>',
     );
 
-    final response =
-        await HttpService.sendSoapRequest('getStudentLeaveSave', data);
+    final response = await HttpService.sendSoapRequest('getStudentLeaveSave', data);
     log('student leave response>>>>${response}');
     if (response.$1 == 0) {
       state = NoNetworkAvailableHostel(
@@ -864,8 +855,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       log('enters 200');
       final details = response.$2['Body'] as Map<String, dynamic>;
       log('details>>$details');
-      final hostelRegisterRes =
-          details['getStudentLeaveSaveResponse'] as Map<String, dynamic>;
+      final hostelRegisterRes = details['getStudentLeaveSaveResponse'] as Map<String, dynamic>;
       log('reponse of student save data>>$hostelRegisterRes');
       final returnData = hostelRegisterRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
@@ -997,8 +987,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes = details['getHostelLeaveApplicationDetailsResponse']
-          as Map<String, dynamic>;
+      final hostelRes = details['getHostelLeaveApplicationDetailsResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');

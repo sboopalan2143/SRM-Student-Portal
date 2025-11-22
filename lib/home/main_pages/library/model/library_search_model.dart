@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 class BooksearchList {
   BooksearchList({this.status, this.message, this.data});
 
   BooksearchList.fromJson(Map<String, dynamic> json) {
+    log("json trans $json");
     status = json['Status'] as String?;
     message = json['Message'] as String?;
     if (json['Data'] != null) {

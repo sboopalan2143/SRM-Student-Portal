@@ -15,8 +15,7 @@ class ExamDetailsPage extends ConsumerStatefulWidget {
   const ExamDetailsPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ExamDetailsPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ExamDetailsPageState();
 }
 
 class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
@@ -25,8 +24,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -93,7 +91,7 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'EXAM DETAILS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -106,16 +104,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(examDetailsProvider.notifier)
-                              .getExamDetailsApi(
+                          await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
                                 ref.read(
                                   encryptionProvider.notifier,
                                 ),
                               );
-                          await ref
-                              .read(examDetailsProvider.notifier)
-                              .getHiveExamDetails('');
+                          await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -191,25 +185,26 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.examDetailsHiveData.isEmpty &&
-                provider is! ExamDetailsStateLoading)
+            else if (provider.examDetailsHiveData.isEmpty && provider is! ExamDetailsStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle6,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
               ),
-            if (provider.examDetailsHiveData.isNotEmpty)
-              const SizedBox(height: 5),
+            if (provider.examDetailsHiveData.isNotEmpty) const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
@@ -255,12 +250,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Subject Code',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -281,12 +276,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Subject Desc',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -307,12 +302,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Semester',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -333,12 +328,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Internal',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -359,12 +354,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'External',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -385,12 +380,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Grade',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -411,12 +406,12 @@ class _ExamDetailsPageState extends ConsumerState<ExamDetailsPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Credit',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

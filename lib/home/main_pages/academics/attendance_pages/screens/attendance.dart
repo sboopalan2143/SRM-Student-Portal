@@ -28,7 +28,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
 
   // static int refreshNum = 10;
   // Stream<int> counterStream =
-  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  //     Stream<int>.periodic( Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -38,9 +38,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 encryptionProvider.notifier,
               ),
             );
-        await ref
-            .read(attendanceProvider.notifier)
-            .getHiveAttendanceDetails('');
+        await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
       },
     );
 
@@ -95,7 +93,7 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'ATTENDANCE',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -108,16 +106,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(attendanceProvider.notifier)
-                              .getAttendanceDetails(
+                          await ref.read(attendanceProvider.notifier).getAttendanceDetails(
                                 ref.read(
                                   encryptionProvider.notifier,
                                 ),
                               );
-                          await ref
-                              .read(attendanceProvider.notifier)
-                              .getHiveAttendanceDetails('');
+                          await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -139,25 +133,26 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.attendancehiveData.isEmpty &&
-                provider is! AttendanceStateLoading)
+            else if (provider.attendancehiveData.isEmpty && provider is! AttendanceStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
               ),
-            if (provider.attendancehiveData.isNotEmpty)
-              const SizedBox(height: 5),
+            if (provider.attendancehiveData.isNotEmpty) const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
@@ -204,12 +199,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Code',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -230,12 +225,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Subject',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -256,12 +251,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Total Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -282,12 +277,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Present Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -308,12 +303,12 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Absent Hrs',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -334,20 +329,19 @@ class _AttendancePageState extends ConsumerState<AttendancePage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Percentage',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.attendancehiveData[index].presentpercentage}' ==
-                              ''
+                      '${provider.attendancehiveData[index].presentpercentage}' == ''
                           ? '-'
                           : '${provider.attendancehiveData[index].presentpercentage}',
                       style: TextStyles.fontStyle10,

@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   cupertino_icons:
   connectivity_plus:
-  google_fonts: ^4.0.1
+  # google_fonts: ^6.2.1
   flutter_riverpod:
   http:
   shared_preferences:
@@ -54,18 +54,29 @@ dependencies:
   percent_indicator:
   flutter_zoom_drawer:
   badges:
-  fl_chart:
+  fl_chart: ^0.71.0
   flutter_animate:
   table_calendar:
-  d_chart:
   graphic:
   pie_chart:
   flutter_launcher_icons: ^0.14.3
   persistent_bottom_nav_bar:
-  pdfx:
+  # pdfx:
   flutter_tts:
-  flutter_pdf_text:
+  # flutter_pdf_text:
   syncfusion_flutter_pdf:
+  provider: ^6.1.4
+  google_nav_bar: ^5.0.7
+  font_awesome_flutter: ^10.8.0
+  fluentui_icons: ^1.0.0
+  hive_flutter: ^1.1.0
+  animated_toggle_switch: ^0.8.4
+  async: ^2.12.0
+  syncfusion_flutter_datepicker: ^29.1.39
+  flutter_html: ^3.0.0-beta.2
+  iconsax_plus: 
+  iconsax:
+  custom_clippers:
 
 dev_dependencies:
   flutter_test:

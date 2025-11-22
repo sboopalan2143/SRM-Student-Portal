@@ -24,15 +24,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(calendarProvider.notifier)
-            .getCalendarDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(calendarProvider.notifier).getCalendarDetails(ref.read(encryptionProvider.notifier));
         await ref.read(calendarProvider.notifier).getHiveCalendar('');
       },
     );
@@ -84,7 +81,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'CALENDAR DETAILS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -97,14 +94,10 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(calendarProvider.notifier)
-                              .getCalendarDetails(
+                          await ref.read(calendarProvider.notifier).getCalendarDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(calendarProvider.notifier)
-                              .getHiveCalendar('');
+                          await ref.read(calendarProvider.notifier).getHiveCalendar('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -126,19 +119,21 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.calendarHiveData.isEmpty &&
-                provider is! CalendarStateLoading)
+            else if (provider.calendarHiveData.isEmpty && provider is! CalendarStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                  const Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
-                      style: TextStyles.fontStyle6,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                     ),
                   ),
                 ],
@@ -189,12 +184,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Date',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -215,12 +210,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Day',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -228,9 +223,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.calendarHiveData[index].day}' == ''
-                          ? '-'
-                          : '${provider.calendarHiveData[index].day}',
+                      '${provider.calendarHiveData[index].day}' == '' ? '-' : '${provider.calendarHiveData[index].day}',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
@@ -241,12 +234,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Day order',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -267,12 +260,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Day status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -293,12 +286,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Holiday status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -319,12 +312,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Remarks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -345,12 +338,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Semester',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -371,12 +364,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child: const Text(
+                    child: Text(
                       'Week day no',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

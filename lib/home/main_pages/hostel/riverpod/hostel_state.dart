@@ -9,8 +9,7 @@ import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hiv
 import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
 import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
 
-final hostelProvider =
-    StateNotifierProvider<HostelProvider, HostelState>((ref) {
+final hostelProvider = StateNotifierProvider<HostelProvider, HostelState>((ref) {
   return HostelProvider();
 });
 
@@ -38,7 +37,7 @@ class HostelState {
   final List<RoomTypeHiveData> roomTypeData;
   final RoomTypeHiveData selectedRoomTypeData;
   final HostelRegisterData hostelRegisterDetails;
-  final HostelAfterRegisterHiveData? hostelAfterRegisterDetails;
+  final HostelAfterRegisterHiveData hostelAfterRegisterDetails;
   final List<GetHostelHiveData> gethostelData;
   final TextEditingController fromDate;
   final TextEditingController toDate;
@@ -67,10 +66,8 @@ class HostelState {
         selectedHostelData: selectedHostelData ?? this.selectedHostelData,
         roomTypeData: roomTypeData ?? this.roomTypeData,
         selectedRoomTypeData: selectedRoomTypeData ?? this.selectedRoomTypeData,
-        hostelRegisterDetails:
-            hostelRegisterDetails ?? this.hostelRegisterDetails,
-        hostelAfterRegisterDetails:
-            hostelAfterRegisterDetails ?? this.hostelAfterRegisterDetails,
+        hostelRegisterDetails: hostelRegisterDetails ?? this.hostelRegisterDetails,
+        hostelAfterRegisterDetails: hostelAfterRegisterDetails ?? this.hostelAfterRegisterDetails,
         gethostelData: gethostelData ?? this.gethostelData,
         fromDate: fromDate ?? this.fromDate,
         toDate: toDate ?? this.toDate,

@@ -24,12 +24,12 @@ class LmsContentDetailsProvider extends StateNotifier<LmsContentDetailsState> {
     EncryptionProvider encrypt,
     String subjectid,
   ) async {
+    log('<subjectid>$subjectid</subjectid>');
     _setLoading();
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><subjectid>$subjectid</subjectid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getLMSContentDetails', data);
+    final response = await HttpService.sendSoapRequest('getLMSContentDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableLmsContentDetails(
         successMessage: '',
@@ -38,17 +38,15 @@ class LmsContentDetailsProvider extends StateNotifier<LmsContentDetailsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getLMSContentDetailsResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getLMSContentDetailsResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       var lmsContentData = state.lmsContentData;
-      log('lmsContentData >>>>>>>>$lmsContentData');
+      log('lmsContentData >>>>>>>>${decryptedData.mapData}');
 //change model
       try {
-        final lmsContentDataResponse =
-            LmsContentDetailsModel.fromJson(decryptedData.mapData!);
+        final lmsContentDataResponse = LmsContentDetailsModel.fromJson(decryptedData.mapData!);
 
         lmsContentData = lmsContentDataResponse.data!;
         state = state.copyWith(lmsContentData: lmsContentData);

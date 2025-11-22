@@ -84,7 +84,7 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 'GRIEVANCES',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -162,10 +162,14 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                    const Center(
+                     Center(
                       child: Text(
                         'No List Added Yet!',
-                        style: TextStyles.fontStyle1,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                      ),
                       ),
                     ),
                   ],
@@ -216,12 +220,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child:  Text(
                       'Grievance id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -243,12 +247,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Grievance category',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -270,12 +274,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Grievance desc',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -297,12 +301,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Grievance time',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -324,12 +328,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child:  Text(
                       'Grievance type',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -351,12 +355,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'subject',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -378,12 +382,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child: Text(
                       'Status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -404,12 +408,12 @@ class _GrievanceReportPageState extends ConsumerState<GrievanceReportPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 80,
-                    child: const Text(
+                    child:  Text(
                       'Active status',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                  const Text(
+                   Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),

@@ -1,17 +1,16 @@
 import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform;
+import 'package:flutter/foundation.dart' show TargetPlatform, defaultTargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/login/model/login_response_model.dart';
-import 'package:sample/login/riverpod/login_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/login/model/login_response_model.dart';
+import 'package:srmuh_std/login/riverpod/login_state.dart';
 
 class LoginProvider extends StateNotifier<LoginState> {
   LoginProvider() : super(LoginInitial());
@@ -19,12 +18,12 @@ class LoginProvider extends StateNotifier<LoginState> {
   void disposeState() => state = LoginInitial();
 
   void _setLoading() => state = LoginStateLoading(
-        successMessage: '',
-        errorMessage: '',
-        userName: state.userName,
-        password: state.password,
-        studentData: state.studentData,
-      );
+    successMessage: '',
+    errorMessage: '',
+    userName: state.userName,
+    password: state.password,
+    studentData: state.studentData,
+  );
 
   Future<void> getAppVersion() async {
     final deviceInfo = DeviceInfoPlugin();
@@ -67,10 +66,10 @@ class LoginProvider extends StateNotifier<LoginState> {
   Future<void> login(EncryptionProvider encrypt) async {
     _setLoading();
     log(
-      'body>>>>>>><username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
+      'body>>>>>>><username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     final data = encrypt.getEncryptedData(
-      '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>21f8</deviceid><accesstoken>fP</accesstoken>',
+      '<username>${state.userName.text}</username><password>${state.password.text}</password><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
     log('gets here');
     final response = await HttpService.sendSoapRequest('getStudentLogin', data);
@@ -85,16 +84,14 @@ class LoginProvider extends StateNotifier<LoginState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final loginRes =
-          details['getStudentLoginResponse'] as Map<String, dynamic>;
+      final loginRes = details['getStudentLoginResponse'] as Map<String, dynamic>;
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       log('login response >>>>> ${decryptedData.mapData}');
       var studentData = LoginData.empty;
       try {
-        final studentLoginDetails =
-            LoginResponseModel.fromJson(decryptedData.mapData!);
+        final studentLoginDetails = LoginResponseModel.fromJson(decryptedData.mapData!);
         studentData = studentLoginDetails.data![0];
         state = state.copyWith(studentData: studentData);
         log('SudentData >>>>> ${studentData.officeid}');

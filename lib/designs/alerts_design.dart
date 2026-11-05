@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sample/app_version_checker.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:srmuh_std/app_version_checker.dart';
+import 'package:srmuh_std/designs/_designs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Alerts {
@@ -12,19 +12,18 @@ class Alerts {
     final versionChecker = AppVersionChecker();
     versionChecker.checkUpdate().then(
       (value) {
-        if (value.newVersion != null &&
-            value.newVersion != value.currentVersion) {
+        if (value.newVersion != null && value.newVersion != value.currentVersion) {
           final alert = AlertDialog(
             shape: BorderBoxButtonDecorations.primaryRectangleBorder,
             title: Column(
               children: <Widget>[
                 Image.asset(
-                  'assets/images/app_icon.png',
+                  'assets/images/app-logo.png',
                   height: 100,
                   width: 100,
                 ),
                 const SizedBox(height: 20),
-                 Text(
+                Text(
                   'New version available. Please update and continue.',
                   style: TextStyles.alertContentStyle,
                   textAlign: TextAlign.center,

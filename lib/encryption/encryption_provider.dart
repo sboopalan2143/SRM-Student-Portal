@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hex/hex.dart';
-import 'package:sample/encryption/encryption_state.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
 
 class EncryptionProvider extends StateNotifier<EncryptionState> {
   EncryptionProvider() : super(EncryptionInitial());
@@ -62,7 +62,56 @@ class EncryptionProvider extends StateNotifier<EncryptionState> {
       stringData = strDecryptedData;
     }
 
-    return DecryptedData(mapData: mapData, stringData: stringData);
+    final decrypted = DecryptedData(mapData: mapData, stringData: stringData);
+    return getCleanedDecryptedData(decrypted);
+  }
+
+  DecryptedData getCleanedDecryptedData(DecryptedData decrypted) {
+    String? cleanedString;
+    Map<String, dynamic>? cleanedMap;
+
+    String cleanString(String value) {
+      String result = value;
+      // Keep replacing until no more encoded entities remain (handles double encoding)
+      while (result.contains('&amp;') /* ||
+          result.contains('&lt;') ||
+          result.contains('&gt;') ||
+          result.contains('&quot;') */ ) {
+        result = result.replaceAll('&amp;', ' & ')
+        /* .replaceAll('&lt;', '')
+            .replaceAll('&gt;', '')
+            .replaceAll('&quot;', '"') */
+        ;
+      }
+      return result;
+    }
+
+    // Recursively clean any value (String, Map, List)
+    dynamic cleanValue(dynamic value) {
+      if (value is String) {
+        return cleanString(value);
+      } else if (value is Map<String, dynamic>) {
+        return value.map((k, v) => MapEntry(k, cleanValue(v)));
+      } else if (value is List) {
+        return value.map((item) => cleanValue(item)).toList();
+      }
+      return value;
+    }
+
+    if (decrypted.stringData != null) {
+      cleanedString = cleanString(decrypted.stringData!);
+    }
+
+    if (decrypted.mapData != null) {
+      cleanedMap = decrypted.mapData!.map(
+        (key, value) => MapEntry(key, cleanValue(value)),
+      );
+    }
+
+    return DecryptedData(
+      mapData: cleanedMap ?? decrypted.mapData,
+      stringData: cleanedString ?? decrypted.stringData,
+    );
   }
 
   bool setKey(String keyString, String ivString) {

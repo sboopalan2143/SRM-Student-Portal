@@ -1,5 +1,5 @@
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:sample/home/drawer_pages/theme/screens/riverpod/theme_provider.dart';
+// import 'package:srmuh_std/home/drawer_pages/theme/screens/riverpod/theme_provider.dart';
 
 // final themeProvider =
 //     StateNotifierProvider<ThemeProvider, ThemeState>((ref) => ThemeProvider());

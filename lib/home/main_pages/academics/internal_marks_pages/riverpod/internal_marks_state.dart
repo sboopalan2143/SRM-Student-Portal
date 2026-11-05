@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_provider.dart';
 
-final internalMarksProvider =
-    StateNotifierProvider<InternalMarksProvider, InternalMarksState>((ref) {
+final internalMarksProvider = StateNotifierProvider<InternalMarksProvider, InternalMarksState>((ref) {
   return InternalMarksProvider();
 });
 

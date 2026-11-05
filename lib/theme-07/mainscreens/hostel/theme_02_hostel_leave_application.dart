@@ -4,21 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/widgets/button_design.dart';
 
 class Theme02LeaveApplicationPage extends ConsumerStatefulWidget {
   const Theme02LeaveApplicationPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LeaveApplicationPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LeaveApplicationPageState();
 }
 
-class _Theme02LeaveApplicationPageState
-    extends ConsumerState<Theme02LeaveApplicationPage> {
+class _Theme02LeaveApplicationPageState extends ConsumerState<Theme02LeaveApplicationPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
@@ -101,8 +99,7 @@ class _Theme02LeaveApplicationPageState
           ? Padding(
               padding: const EdgeInsets.only(top: 100),
               child: Center(
-                child:
-                    CircularProgressIndicators.primaryColorProgressIndication,
+                child: CircularProgressIndicators.primaryColorProgressIndication,
               ),
             )
           : provider.hostelLeaveData.isEmpty && provider is! HostelStateLoading
@@ -136,8 +133,7 @@ class _Theme02LeaveApplicationPageState
                                   ),
                                   height: 40,
                                   child: TextField(
-                                    onChanged: (value) =>
-                                        providerRead.setValue(),
+                                    onChanged: (value) => providerRead.setValue(),
                                     onTap: () async {
                                       final pickedDate = await showDatePicker(
                                         context: context,
@@ -148,9 +144,7 @@ class _Theme02LeaveApplicationPageState
                                       );
                                       if (pickedDate != null) {
                                         setState(() {
-                                          provider.fromDate.text =
-                                              DateFormat('MM-dd-yyyy')
-                                                  .format(pickedDate);
+                                          provider.fromDate.text = DateFormat('MM-dd-yyyy').format(pickedDate);
                                         });
                                       }
                                     },
@@ -159,15 +153,12 @@ class _Theme02LeaveApplicationPageState
                                     controller: provider.fromDate,
                                     decoration: InputDecoration(
                                       hintText: 'Select FromDate',
-                                      hintStyle: TextStyles
-                                          .smallLightAshColorFontStyle,
+                                      hintStyle: TextStyles.smallLightAshColorFontStyle,
                                       filled: true,
                                       fillColor: AppColors.whiteColor,
                                       contentPadding: const EdgeInsets.all(10),
-                                      enabledBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
-                                      focusedBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
+                                      enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                                      focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                                     ),
                                   ),
                                 ),
@@ -196,8 +187,7 @@ class _Theme02LeaveApplicationPageState
                                   ),
                                   height: 40,
                                   child: TextField(
-                                    onChanged: (value) =>
-                                        providerRead.setValue(),
+                                    onChanged: (value) => providerRead.setValue(),
                                     onTap: () async {
                                       final pickedDate = await showDatePicker(
                                         context: context,
@@ -208,9 +198,7 @@ class _Theme02LeaveApplicationPageState
                                       );
                                       if (pickedDate != null) {
                                         setState(() {
-                                          provider.toDate.text =
-                                              DateFormat('MM-dd-yyyy')
-                                                  .format(pickedDate);
+                                          provider.toDate.text = DateFormat('MM-dd-yyyy').format(pickedDate);
                                         });
                                       }
                                     },
@@ -219,15 +207,12 @@ class _Theme02LeaveApplicationPageState
                                     controller: provider.toDate,
                                     decoration: InputDecoration(
                                       hintText: 'Select ToDate',
-                                      hintStyle: TextStyles
-                                          .smallLightAshColorFontStyle,
+                                      hintStyle: TextStyles.smallLightAshColorFontStyle,
                                       filled: true,
                                       fillColor: AppColors.whiteColor,
                                       contentPadding: const EdgeInsets.all(10),
-                                      enabledBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
-                                      focusedBorder: BorderBoxButtonDecorations
-                                          .loginTextFieldStyle,
+                                      enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                                      focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                                     ),
                                   ),
                                 ),
@@ -259,10 +244,8 @@ class _Theme02LeaveApplicationPageState
                                 filled: true,
                                 fillColor: AppColors.whiteColor,
                                 contentPadding: const EdgeInsets.all(10),
-                                enabledBorder: BorderBoxButtonDecorations
-                                    .loginTextFieldStyle,
-                                focusedBorder: BorderBoxButtonDecorations
-                                    .loginTextFieldStyle,
+                                enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                                focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                               ),
                             ),
                           ),
@@ -363,8 +346,7 @@ class _Theme02LeaveApplicationPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '''${provider.hostelLeaveData[index].leavefromdate}''' ==
-                              ''
+                      '''${provider.hostelLeaveData[index].leavefromdate}''' == ''
                           ? '-'
                           : '''${provider.hostelLeaveData[index].leavefromdate}''',
                       style: TextStyles.fontStyle10,

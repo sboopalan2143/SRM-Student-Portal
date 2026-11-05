@@ -1,9 +1,10 @@
-
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:sample/designs/colors.dart';
-import 'package:sample/designs/font_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:srmuh_std/designs/colors.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07PDFViewPage extends StatefulWidget {
   const Theme07PDFViewPage({
@@ -47,8 +48,7 @@ class _Theme07PDFViewPageState extends State<Theme07PDFViewPage> {
               onPressed: () {
                 int pageNumber = int.tryParse(pageController.text) ?? 1;
                 if (pageNumber > 0 && pageNumber <= _totalPages) {
-                  _pdfController
-                      ?.setPage(pageNumber - 1); // Navigate to the page
+                  _pdfController?.setPage(pageNumber - 1); // Navigate to the page
                   Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +72,10 @@ class _Theme07PDFViewPageState extends State<Theme07PDFViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
+      backgroundColor: themeProvider.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade100,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -109,7 +112,8 @@ class _Theme07PDFViewPageState extends State<Theme07PDFViewPage> {
               icon: const Icon(Icons.search, color: Colors.white),
               onPressed: () {
                 _selectPage(
-                    context,); 
+                  context,
+                );
               },
             ),
             Padding(
@@ -138,8 +142,7 @@ class _Theme07PDFViewPageState extends State<Theme07PDFViewPage> {
             onPageChanged: (int? currentPage, int? totalPages) {
               setState(() {
                 _currentPage = currentPage ?? 0;
-                _isPageRead =
-                    _readPages.contains(_currentPage); // Update the read status
+                _isPageRead = _readPages.contains(_currentPage); // Update the read status
               });
             },
             onError: (error) {

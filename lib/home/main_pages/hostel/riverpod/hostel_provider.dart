@@ -1,19 +1,20 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_before_register_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_details_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/room_type_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
 
 class HostelProvider extends StateNotifier<HostelState> {
   HostelProvider() : super(HostelInitial());
@@ -21,22 +22,22 @@ class HostelProvider extends StateNotifier<HostelState> {
   void disposeState() => state = HostelInitial();
 
   void _setLoading() => state = HostelStateLoading(
-        successMessage: '',
-        errorMessage: '',
-        hostelData: <HostelHiveData>[],
-        selectedHostelData: HostelHiveData.empty,
-        roomTypeData: <RoomTypeHiveData>[],
-        selectedRoomTypeData: RoomTypeHiveData.empty,
-        hostelRegisterDetails: HostelRegisterData.empty,
-        hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
-        gethostelData: <GetHostelHiveData>[],
-        fromDate: TextEditingController(),
-        toDate: TextEditingController(),
-        leaveReason: TextEditingController(),
-        hostelLeaveData: <HostelLeaveHiveData>[],
-      );
+    successMessage: '',
+    errorMessage: '',
+    hostelData: <HostelHiveData>[],
+    selectedHostelData: HostelHiveData.empty,
+    roomTypeData: <RoomTypeHiveData>[],
+    selectedRoomTypeData: RoomTypeHiveData.empty,
+    hostelRegisterDetails: HostelRegisterData.empty,
+    hostelAfterRegisterDetails: HostelAfterRegisterHiveData.empty,
+    gethostelData: <GetHostelHiveData>[],
+    fromDate: TextEditingController(),
+    toDate: TextEditingController(),
+    leaveReason: TextEditingController(),
+    hostelLeaveData: <HostelLeaveHiveData>[],
+  );
 
-//not required
+  //not required
   Future<void> getHostelDetails(EncryptionProvider encrypt) async {
     _setLoading();
     log(
@@ -319,7 +320,25 @@ class HostelProvider extends StateNotifier<HostelState> {
       //   final hostelDataResponse = HostelModel.fromJson(decryptedData.mapData!);
       //   hostelData = hostelDataResponse.data!;
       //   state = state.copyWith(hostelData: hostelData);
-      final listData = decryptedData.mapData!['Data'] as List<dynamic>;
+      final dynamic rawData = decryptedData.mapData?['Data'];
+
+      List<dynamic> listData = [];
+
+      if (rawData is List<dynamic>) {
+        listData = rawData;
+      } else if (rawData is String) {
+        final trimmed = rawData.trim();
+        if (trimmed.isNotEmpty && trimmed != '[]') {
+          try {
+            final decoded = jsonDecode(trimmed);
+            if (decoded is List) {
+              listData = decoded;
+            }
+          } catch (_) {
+            // leave empty – it's an error response
+          }
+        }
+      } // else → keep empty list
       final box = await Hive.openBox<HostelHiveData>(
         'hostel',
       );
@@ -549,6 +568,7 @@ class HostelProvider extends StateNotifier<HostelState> {
 
   Future<void> getHostelRegisterDetails(EncryptionProvider encrypt) async {
     _setLoading();
+    log('<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>');
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><semesterid>${TokensManagement.semesterId}</semesterid>',
     );
@@ -579,7 +599,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       var hostelRegisterDetailsData = state.hostelRegisterDetails;
       log('getHostelRegister >>>>>>>> ${decryptedData.mapData}');
       // log('hostel >>>>>>>>$hostelRegisterDetailsData');
-//change model
+      //change model
       try {
         final hostelRegisterDetailsDataResponse = HostelRegisterModel.fromJson(decryptedData.mapData!);
 
@@ -1017,7 +1037,7 @@ class HostelProvider extends StateNotifier<HostelState> {
       await box.close();
       // var hostelLeaveData = <HostelLeaveData>[];
 
-//change model
+      //change model
       // try {
       //   final hostelLeaveResponse =
       //       HostelLeaveApplicationModel.fromJson(decryptedData.mapData!);

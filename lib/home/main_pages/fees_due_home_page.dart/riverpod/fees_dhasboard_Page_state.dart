@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/model/fees_due_home_page_model.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_provider.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/model/fees_due_home_page_model.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_provider.dart';
 
-final feesDhasboardProvider =
-    StateNotifierProvider<FeesDhasboardProvider, FeesDhasboardState>((ref) {
+final feesDhasboardProvider = StateNotifierProvider<FeesDhasboardProvider, FeesDhasboardState>((ref) {
   return FeesDhasboardProvider();
 });
 

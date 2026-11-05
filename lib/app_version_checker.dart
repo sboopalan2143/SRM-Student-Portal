@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls, unnecessary_await_in_return, no_default_cases
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:math' as math;
 import 'package:http/http.dart' as http;
@@ -41,10 +42,11 @@ class AppVersionChecker {
       return await _checkAppleStore(currentVersionName, packageName);
     } else {
       return AppCheckerResult(
-        currentVersionName,
-        null,
-        '',
-        'The target platform "${Platform.operatingSystem}" is not yet supported by this package.',
+        currentVersion: currentVersionName,
+        newVersion: null,
+        appURL: '',
+        errorMessage:
+            'The target platform "${Platform.operatingSystem}" is not yet supported by this package.',
       );
     }
   }
@@ -55,9 +57,11 @@ class AppVersionChecker {
   ) async {
     String? errorMsg;
     String? newVersion;
-    String? url;
-    final uri =
-        Uri.https('itunes.apple.com', '/lookup', {'bundleId': packageName});
+    String? appId;
+    String? appUrl;
+    final uri = Uri.https('itunes.apple.com', '/lookup', {
+      'bundleId': packageName,
+    });
     try {
       final response = await http.get(uri);
       if (response.statusCode != 200) {
@@ -66,22 +70,26 @@ class AppVersionChecker {
       } else {
         final jsonObj = jsonDecode(response.body) as Map<String, dynamic>;
         final results = jsonObj['results'] as List<dynamic>;
-        if (results.isEmpty) {
-          errorMsg =
-              "Can't find an app in the Apple Store with the id: $packageName";
-        } else {
-          newVersion = jsonObj['results'][0]['version'] as String?;
-          url = jsonObj['results'][0]['trackViewUrl'] as String?;
+        // log(results.toString());
+
+        if (results.isNotEmpty) {
+          final result = jsonObj['results'][0] as Map;
+          newVersion = result['version'] as String?;
+          // appUrl = result['artistViewUrl']?.toString(); // <-- trackId instead of URL
+          appId = result['trackId']?.toString(); // <-- trackId instead of URL
         }
       }
     } catch (e) {
       errorMsg = '$e';
+      log("Exception >>>> $e");
     }
+    log(appId.toString());
     return AppCheckerResult(
-      currentVersion,
-      newVersion,
-      url,
-      errorMsg,
+      currentVersion: currentVersion,
+      newVersion: newVersion,
+      // appURL: appUrl,
+      appId: appId, // now holds the numeric App Store ID e.g. "6762190668"
+      errorMessage: errorMsg,
     );
   }
 
@@ -103,19 +111,19 @@ class AppVersionChecker {
         errorMsg =
             "Can't find an app in the Google Play Store with the id: $packageName";
       } else {
-        newVersion = RegExp(r',\[\[\["([0-9,\.]*)"]],')
-            .firstMatch(response.body)!
-            .group(1);
+        newVersion = RegExp(
+          r',\[\[\["([0-9,\.]*)"]],',
+        ).firstMatch(response.body)!.group(1);
         url = uri.toString();
       }
     } catch (e) {
       errorMsg = '$e';
     }
     return AppCheckerResult(
-      currentVersion,
-      newVersion,
-      url,
-      errorMsg,
+      currentVersion: currentVersion,
+      newVersion: newVersion,
+      appURL: url,
+      errorMessage: errorMsg,
     );
   }
 }
@@ -143,20 +151,21 @@ Future<AppCheckerResult> _checkApkPureStore(
     errorMsg = '$e';
   }
   return AppCheckerResult(
-    currentVersion,
-    newVersion,
-    url,
-    errorMsg,
+    currentVersion: currentVersion,
+    newVersion: newVersion,
+    appURL: url,
+    errorMessage: errorMsg,
   );
 }
 
 class AppCheckerResult {
-  AppCheckerResult(
-    this.currentVersion,
+  AppCheckerResult({
+    required this.currentVersion,
     this.newVersion,
     this.appURL,
     this.errorMessage,
-  );
+    this.appId,
+  });
 
   /// return current app version
   final String currentVersion;
@@ -170,15 +179,22 @@ class AppCheckerResult {
   /// return error message if found else it will return `null`
   final String? errorMessage;
 
+  /// return the app url
+  final String? appId;
+
   /// return `true` if update is available
   bool get canUpdate =>
       _shouldUpdate(currentVersion, newVersion ?? currentVersion);
 
   bool _shouldUpdate(String versionA, String versionB) {
-    final versionNumbersA =
-        versionA.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-    final versionNumbersB =
-        versionB.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+    final versionNumbersA = versionA
+        .split('.')
+        .map((e) => int.tryParse(e) ?? 0)
+        .toList();
+    final versionNumbersB = versionB
+        .split('.')
+        .map((e) => int.tryParse(e) ?? 0)
+        .toList();
 
     final versionASize = versionNumbersA.length;
     final versionBSize = versionNumbersB.length;

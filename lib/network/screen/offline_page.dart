@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:srmuh_std/designs/_designs.dart';
 
 class OfflinePage extends ConsumerStatefulWidget {
   const OfflinePage({super.key});

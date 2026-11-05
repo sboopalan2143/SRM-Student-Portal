@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/sgpa/model/sgpa_model.dart';
-import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/sgpa/model/sgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/sgpa/riverpod/sgpa_state.dart';
 
 class SgpaProvider extends StateNotifier<SgpaState> {
   SgpaProvider() : super(SgpaInitial());
@@ -46,10 +46,7 @@ class SgpaProvider extends StateNotifier<SgpaState> {
         sgpaData = sgpaDataResponse.data!;
         state = state.copyWith(sgpaData: sgpaData);
         if (sgpaDataResponse.status == 'Success') {
-          state = SgpaSuccessFull(
-              successMessage: sgpaDataResponse.status!,
-              errorMessage: '',
-              sgpaData: state.sgpaData);
+          state = SgpaSuccessFull(successMessage: sgpaDataResponse.status!, errorMessage: '', sgpaData: state.sgpaData);
         } else if (sgpaDataResponse.status != 'Success') {
           state = SgpaError(
             successMessage: '',

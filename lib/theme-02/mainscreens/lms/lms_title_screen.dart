@@ -4,14 +4,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_comment_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_classwork_detail_screen.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_comment_screen.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_faculty_comment_screen.dart';
 
 class Theme02LmsTitlePage extends ConsumerStatefulWidget {
   const Theme02LmsTitlePage({
@@ -22,8 +22,7 @@ class Theme02LmsTitlePage extends ConsumerStatefulWidget {
   final String subjectID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsTitlePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsTitlePageState();
 }
 
 class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
@@ -32,8 +31,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -147,21 +145,19 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                       child: Center(
                         child: Text(
                           'No List Added',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 )
-              else if (provider.lmsTitleData.isEmpty &&
-                  provider is! LmsStateLoading)
+              else if (provider.lmsTitleData.isEmpty && provider is! LmsStateLoading)
                 Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               if (provider.lmsTitleData.isNotEmpty)
                 ListView.builder(
@@ -174,7 +170,6 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                 ),
             ],
           ),
-
         ),
       ),
     );
@@ -224,8 +219,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                     ),
                     Expanded(
                       child: Text(
-                        '${provider.lmsTitleData[index].classworktypedesc}' ==
-                                'null'
+                        '${provider.lmsTitleData[index].classworktypedesc}' == 'null'
                             ? '-'
                             : '${provider.lmsTitleData[index].classworktypedesc}',
                         style: TextStyle(
@@ -251,8 +245,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                     ),
                     Expanded(
                       child: Text(
-                        '${provider.lmsTitleData[index].classworktypedesc}' ==
-                                'null'
+                        '${provider.lmsTitleData[index].classworktypedesc}' == 'null'
                             ? '-'
                             : '${provider.lmsTitleData[index].title}',
                         style: const TextStyle(
@@ -280,8 +273,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                       '${provider.lmsTitleData[index].startdatetime}' == 'null'
                           ? '-'
                           : '${provider.lmsTitleData[index].startdatetime}',
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 16),
+                      style: const TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                   ],
                 ),
@@ -300,8 +292,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                       '${provider.lmsTitleData[index].enddatetime}' == 'null'
                           ? '-'
                           : '${provider.lmsTitleData[index].enddatetime}',
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 16),
+                      style: const TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                   ],
                 ),
@@ -315,9 +306,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                       label: 'View',
                       icon: Icons.visibility,
                       onTap: () async {
-                        await ref
-                            .read(lmsProvider.notifier)
-                            .getLmsClassWorkDetails(
+                        await ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
                               ref.read(encryptionProvider.notifier),
                               '${provider.lmsTitleData[index].classworkid}',
                             );
@@ -325,20 +314,14 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                           context,
                           RouteDesign(
                             route: Theme02LmsClassworkDetailPage(
-                              classworkID:
-                                  '${provider.lmsTitleData[index].classworkid}',
-                              classworkreplyid:
-                                  '${provider.classWorkDetailsData[index].classworkreplyid}',
-                              classWorkDetailclassworkID:
-                                  '${provider.classWorkDetailsData[index].classworkid}',
+                              classworkID: '${provider.lmsTitleData[index].classworkid}',
+                              classworkreplyid: '${provider.classWorkDetailsData[index].classworkreplyid}',
+                              classWorkDetailclassworkID: '${provider.classWorkDetailsData[index].classworkid}',
                               classWorkDetailclassworkreplyid:
                                   '${provider.classWorkDetailsData[index].classworkreplyid}',
-                              fieldrequirements:
-                                  '${provider.classWorkDetailsData[index].fieldrequirement}',
-                              imageattachmentid:
-                                  '${provider.classWorkDetailsData[index].stuimageattachmentid}',
-                              subjectID:
-                                  '${provider.lmsSubjectData[index].subjectid}',
+                              fieldrequirements: '${provider.classWorkDetailsData[index].fieldrequirement}',
+                              imageattachmentid: '${provider.classWorkDetailsData[index].stuimageattachmentid}',
+                              subjectID: '${provider.lmsSubjectData[index].subjectid}',
                             ),
                           ),
                         );
@@ -353,8 +336,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                             context,
                             RouteDesign(
                               route: Theme02LmsCommentScreen(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
+                                classworkID: '${provider.lmsTitleData[index].classworkid}',
                               ),
                             ),
                           );
@@ -369,8 +351,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                             context,
                             RouteDesign(
                               route: Theme02LmsFacultyCommentScreen(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
+                                classworkID: '${provider.lmsTitleData[index].classworkid}',
                               ),
                             ),
                           );
@@ -385,8 +366,7 @@ class _Theme02LmsTitlePageState extends ConsumerState<Theme02LmsTitlePage> {
                             context,
                             RouteDesign(
                               route: Theme02McqEnteryPage(
-                                mcqscheduleid:
-                                    '${provider.classWorkDetailsData[index].mcqscheduleid}',
+                                mcqscheduleid: '${provider.classWorkDetailsData[index].mcqscheduleid}',
                               ),
                             ),
                           );

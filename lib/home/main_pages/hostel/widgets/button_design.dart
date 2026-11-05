@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-07/mainscreens/hostel/hostel_registration_page.dart';
-import 'package:sample/theme-07/mainscreens/hostel/theme_02_hostel_leave_application.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/theme-07/mainscreens/hostel/hostel_registration_page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/hostel/theme_02_hostel_leave_application.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(
@@ -45,14 +45,10 @@ class ButtonDesign {
           );
         }
         if (text == 'Register') {
-          ref
-              .read(hostelProvider.notifier)
-              .hostelRegister(ref.read(encryptionProvider.notifier));
+          ref.read(hostelProvider.notifier).hostelRegister(ref.read(encryptionProvider.notifier));
         }
         if (text == 'Submit') {
-          ref
-              .read(hostelProvider.notifier)
-              .studentLeaveSubmit(ref.read(encryptionProvider.notifier));
+          ref.read(hostelProvider.notifier).studentLeaveSubmit(ref.read(encryptionProvider.notifier));
         }
       },
       child: FittedBox(

@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/theme-02/mainscreens/lms/mcq_entry%20page.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_pdf_pagetheme07.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/mcq_entry%20page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_pdf_pagetheme07.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07LmsClassworkDetailPage extends ConsumerStatefulWidget {
   const Theme07LmsClassworkDetailPage({
@@ -43,11 +43,15 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+      ref
+          .read(lmsProvider.notifier)
+          .getLmsClassWorkDetails(
             ref.read(encryptionProvider.notifier),
             widget.classworkID,
           );
-      ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+      ref
+          .read(lmsProvider.notifier)
+          .getLmsAttachmentDetails(
             ref.read(encryptionProvider.notifier),
             widget.classworkID,
           );
@@ -61,16 +65,13 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
   String sendData = '';
 
   Future<void> _pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-      allowMultiple: true,
-    );
+    final result = await FilePicker.pickFiles();
 
     if (result != null) {
       setState(() {
         // Extracting image paths and names
-        imagePaths = result.files.map((file) => file.path!).toList();
-        imageName = result.files.map((file) => file.name).toList();
+        imagePaths = result.map((file) => file.path!).toList();
+        imageName = result.map((file) => file.name).toList();
 
         // Reading file bytes
         imageBytes = imagePaths.map((path) {
@@ -107,9 +108,13 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(
-              context,
-            );
+            ref
+                .read(lmsProvider.notifier)
+                .getLmsTitleDetails(
+                  ref.read(encryptionProvider.notifier),
+                  widget.subjectID,
+                );
+            Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back_ios_new,
@@ -129,7 +134,9 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
               children: [
                 GestureDetector(
                   onTap: () {
-                    ref.read(lmsProvider.notifier).getLmscommentDetails(
+                    ref
+                        .read(lmsProvider.notifier)
+                        .getLmscommentDetails(
                           ref.read(encryptionProvider.notifier),
                           widget.classworkID,
                         );
@@ -160,11 +167,11 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -510,15 +517,15 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
                                             size: 50,
                                           )
                                         : image.endsWith('.xlsx') || image.endsWith('.xls')
-                                            ? Icon(
-                                                Icons.insert_drive_file,
-                                                color: AppColors.theme01secondaryColor4,
-                                                size: 50,
-                                              )
-                                            : Image.file(
-                                                File(image),
-                                                fit: BoxFit.cover,
-                                              ),
+                                        ? Icon(
+                                            Icons.insert_drive_file,
+                                            color: AppColors.theme01secondaryColor4,
+                                            size: 50,
+                                          )
+                                        : Image.file(
+                                            File(image),
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 );
                               }).toList(),
@@ -636,7 +643,9 @@ class _Theme07LmsClassworkDetailPageState extends ConsumerState<Theme07LmsClassw
                                 return; // Stop execution if both are empty
                               }
 
-                              ref.read(lmsProvider.notifier).saveClassWorkReplay(
+                              ref
+                                  .read(lmsProvider.notifier)
+                                  .saveClassWorkReplay(
                                     ref.read(encryptionProvider.notifier),
                                     provider.classWorkDetailsData.first.classworkid!,
                                     provider.classWorkDetailsData.first.stuimageattachmentid!,

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/circular_progress_indicators.dart';
-import 'package:sample/designs/colors.dart';
-import 'package:sample/designs/font_styles.dart';
-import 'package:sample/designs/loading_wrapper.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/circular_progress_indicators.dart';
+import 'package:srmuh_std/designs/colors.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
+import 'package:srmuh_std/designs/loading_wrapper.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07HourAttendancePage extends ConsumerStatefulWidget {
   const Theme07HourAttendancePage({super.key});

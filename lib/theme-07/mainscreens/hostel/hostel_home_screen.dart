@@ -4,13 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/theme-07/mainscreens/hostel/theme07_hostel_screen.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/model/profile_hive_model.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/theme-07/mainscreens/hostel/theme07_hostel_screen.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 import 'hostel_registration_page.dart';
 

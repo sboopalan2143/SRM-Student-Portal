@@ -8,12 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/pdf_view_page.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/pdf_view_page.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   const LmsStudentAttachmentDetailsDataPage({
@@ -24,19 +24,16 @@ class LmsStudentAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   final String classworkreplyid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      LmsStudentAttachmentDetailsDataPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => LmsStudentAttachmentDetailsDataPageState();
 }
 
-class LmsStudentAttachmentDetailsDataPageState
-    extends ConsumerState<LmsStudentAttachmentDetailsDataPage> {
+class LmsStudentAttachmentDetailsDataPageState extends ConsumerState<LmsStudentAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -119,9 +116,7 @@ class LmsStudentAttachmentDetailsDataPageState
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsStudentAttachmentDetails(
+                          ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 widget.classworkreplyid,
                               );
@@ -153,8 +148,7 @@ class LmsStudentAttachmentDetailsDataPageState
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: CircularProgressIndicators.primaryColorProgressIndication,
                     ),
                   )
                 else if (provider.lmsStudentAttachmentDetailsData.isEmpty &&
@@ -165,11 +159,11 @@ class LmsStudentAttachmentDetailsDataPageState
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -209,13 +203,11 @@ class LmsStudentAttachmentDetailsDataPageState
     // log('Student Model data>> ${provider.lmsStudentAttachmentDetailsData[index].imageBytes}');
 
     // Get base64 data and decode
-    final base64File =
-        '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
+    final base64File = '${provider.lmsStudentAttachmentDetailsData[index].imageBytes}';
     final fileBytes = base64Decode(base64File);
 
     // File name to determine type
-    final actualname =
-        provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
+    final actualname = provider.lmsStudentAttachmentDetailsData[index].actualname ?? '';
     final fileExtension = actualname.split('.').last.toLowerCase();
 
     // Log details (optional for debugging)
@@ -344,8 +336,7 @@ class LmsStudentAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsStudentAttachmentDetailsData[index].actualname}' ==
-                                ''
+                        '${provider.lmsStudentAttachmentDetailsData[index].actualname}' == ''
                             ? '-'
                             : '''${provider.lmsStudentAttachmentDetailsData[index].actualname}''',
                         style: TextStyles.fontStyle10,
@@ -371,8 +362,7 @@ class LmsStudentAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsStudentAttachmentDetailsData[index].filename}' ==
-                                ''
+                        '${provider.lmsStudentAttachmentDetailsData[index].filename}' == ''
                             ? '-'
                             : '${provider.lmsStudentAttachmentDetailsData[index].filename}',
                         style: TextStyles.fontStyle10,

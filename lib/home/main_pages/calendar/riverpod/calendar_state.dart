@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/calendar/model/calendar_hive_model.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/calendar_provider.dart';
+import 'package:srmuh_std/home/main_pages/calendar/model/calendar_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/calendar/riverpod/calendar_provider.dart';
 
-final calendarProvider =
-    StateNotifierProvider<CalendarProvider, CalendarState>((ref) {
+final calendarProvider = StateNotifierProvider<CalendarProvider, CalendarState>((ref) {
   return CalendarProvider();
 });
 
@@ -30,8 +29,7 @@ class CalendarState {
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
         calendarHiveData: calendarHiveData ?? this.calendarHiveData,
-        calendarCurrentDateData:
-            calendarCurrentDateData ?? this.calendarCurrentDateData,
+        calendarCurrentDateData: calendarCurrentDateData ?? this.calendarCurrentDateData,
       );
 }
 

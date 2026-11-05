@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
 
-final attendanceProvider =
-    StateNotifierProvider<AttendanceProvider, AttendanceState>((ref) {
+final attendanceProvider = StateNotifierProvider<AttendanceProvider, AttendanceState>((ref) {
   return AttendanceProvider();
 });
 

@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/riverpod/exam_details_provider.dart';
 
-final examDetailsProvider =
-    StateNotifierProvider<ExamDetailsProvider, ExamDetailsState>((ref) {
+final examDetailsProvider = StateNotifierProvider<ExamDetailsProvider, ExamDetailsState>((ref) {
   return ExamDetailsProvider();
 });
 

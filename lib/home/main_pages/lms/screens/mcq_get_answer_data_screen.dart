@@ -5,18 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class McqGetAnswerPage extends ConsumerStatefulWidget {
   const McqGetAnswerPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _McqGetAnswerPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _McqGetAnswerPageState();
 }
 
 class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
@@ -25,8 +24,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -99,9 +97,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .getMcqAnswerDetails(
+                          await ref.read(lmsProvider.notifier).getMcqAnswerDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
                         },
@@ -128,32 +124,28 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.mcqgetAnswerDetails.isEmpty &&
-                  provider is! ExamDetailsStateLoading)
+              else if (provider.mcqgetAnswerDetails.isEmpty && provider is! ExamDetailsStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                     Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              if (provider.mcqgetAnswerDetails.isNotEmpty)
-                const SizedBox(height: 5),
+              if (provider.mcqgetAnswerDetails.isNotEmpty) const SizedBox(height: 5),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: ListView.builder(
                   itemCount: provider.mcqgetAnswerDetails.length,
                   controller: _listController,
@@ -198,12 +190,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -224,12 +216,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Answer id',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -250,12 +242,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Question filename',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -263,8 +255,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.mcqgetAnswerDetails[index].questionfilename}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].questionfilename}' == ''
                           ? '-'
                           : '${provider.mcqgetAnswerDetails[index].questionfilename}',
                       style: TextStyles.fontStyle10,
@@ -277,12 +268,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Total marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -303,12 +294,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Your answer',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -329,12 +320,12 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Your marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -360,7 +351,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                 Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -368,8 +359,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.mcqgetAnswerDetails[index].youranswervalid}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].youranswervalid}' == ''
                           ? '-'
                           : '${provider.mcqgetAnswerDetails[index].youranswervalid}',
                       style: TextStyles.fontStyle10,
@@ -395,8 +385,7 @@ class _McqGetAnswerPageState extends ConsumerState<McqGetAnswerPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.mcqgetAnswerDetails[index].youranswerfilename}' ==
-                              ''
+                      '${provider.mcqgetAnswerDetails[index].youranswerfilename}' == ''
                           ? '-'
                           : '${provider.mcqgetAnswerDetails[index].youranswerfilename}',
                       style: TextStyles.fontStyle10,

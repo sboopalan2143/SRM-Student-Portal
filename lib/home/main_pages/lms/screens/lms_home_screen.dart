@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_title_screen.dart';
-import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_title_screen.dart';
+import 'package:srmuh_std/home/screen/home_page2.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class LmsHomePage extends ConsumerStatefulWidget {
   const LmsHomePage({super.key});
@@ -27,8 +27,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -132,23 +131,21 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsSubjectData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.lmsSubjectData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -278,8 +275,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsSubjectData[index].subjectcode}' ==
-                                'null'
+                        '${provider.lmsSubjectData[index].subjectcode}' == 'null'
                             ? '-'
                             : '''${provider.lmsSubjectData[index].subjectcode}''',
                         style: TextStyles.fontStyle10,
@@ -305,8 +301,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsSubjectData[index].subjectdesc}' ==
-                                'null'
+                        '${provider.lmsSubjectData[index].subjectdesc}' == 'null'
                             ? '-'
                             : '''${provider.lmsSubjectData[index].subjectdesc}''',
                         style: TextStyles.fontStyle10,
@@ -340,8 +335,7 @@ class _LmsHomePageState extends ConsumerState<LmsHomePage> {
                         context,
                         RouteDesign(
                           route: LmsTitlePage(
-                            subjectID:
-                                '${provider.lmsSubjectData[index].staffname}',
+                            subjectID: '${provider.lmsSubjectData[index].staffname}',
                           ),
                         ),
                       );

@@ -11,13 +11,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/pdf_view_page.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/pdf_view_page.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   const LmsAttachmentDetailsDataPage({
@@ -28,19 +28,16 @@ class LmsAttachmentDetailsDataPage extends ConsumerStatefulWidget {
   final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      LmsAttachmentDetailsDataPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => LmsAttachmentDetailsDataPageState();
 }
 
-class LmsAttachmentDetailsDataPageState
-    extends ConsumerState<LmsAttachmentDetailsDataPage> {
+class LmsAttachmentDetailsDataPageState extends ConsumerState<LmsAttachmentDetailsDataPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -129,9 +126,7 @@ class LmsAttachmentDetailsDataPageState
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsAttachmentDetails(
+                          ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 widget.classworkID,
                               );
@@ -163,12 +158,10 @@ class LmsAttachmentDetailsDataPageState
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: CircularProgressIndicators.primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.lmsAttachmentDetailsData.isEmpty &&
-                    provider is! LmsStateLoading)
+                else if (provider.lmsAttachmentDetailsData.isEmpty && provider is! LmsStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
@@ -342,8 +335,7 @@ class LmsAttachmentDetailsDataPageState
     final fileBytes = base64Decode(base64File);
 
     // File name to determine type
-    final actualname =
-        provider.lmsAttachmentDetailsData[index].actualname ?? '';
+    final actualname = provider.lmsAttachmentDetailsData[index].actualname ?? '';
     final fileExtension = actualname.split('.').last.toLowerCase();
 
     // Log details (optional for debugging)
@@ -544,12 +536,12 @@ class LmsAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Actual name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -557,8 +549,7 @@ class LmsAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsAttachmentDetailsData[index].actualname}' ==
-                                ''
+                        '${provider.lmsAttachmentDetailsData[index].actualname}' == ''
                             ? '-'
                             : '${provider.lmsAttachmentDetailsData[index].actualname}',
                         style: TextStyles.fontStyle10,
@@ -571,12 +562,12 @@ class LmsAttachmentDetailsDataPageState
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'File name',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -584,8 +575,7 @@ class LmsAttachmentDetailsDataPageState
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsAttachmentDetailsData[index].filename}' ==
-                                ''
+                        '${provider.lmsAttachmentDetailsData[index].filename}' == ''
                             ? '-'
                             : '${provider.lmsAttachmentDetailsData[index].filename}',
                         style: TextStyles.fontStyle10,

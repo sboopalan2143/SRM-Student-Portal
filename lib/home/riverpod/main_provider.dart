@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class MainProvider extends StateNotifier<MainState> {
   MainProvider() : super(SettingInitial());

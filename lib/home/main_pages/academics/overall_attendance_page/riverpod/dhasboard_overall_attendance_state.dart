@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/model/dhasboard_overall_attendance_model.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/model/overall_attendance_model.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_provider.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendanfe_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/riverpod/attendance_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/model/dhasboard_overall_attendance_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/model/overall_attendance_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendanfe_provider.dart';
 
-final DhasboardoverallattendanceProvider = StateNotifierProvider<
-    DhasboardOverallAttendanceProvider, DhasboardOverallAttendanceState>((ref) {
+final DhasboardoverallattendanceProvider =
+    StateNotifierProvider<DhasboardOverallAttendanceProvider, DhasboardOverallAttendanceState>((ref) {
   return DhasboardOverallAttendanceProvider();
 });
 
@@ -31,13 +31,11 @@ class DhasboardOverallAttendanceState {
       DhasboardOverallAttendanceState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        DhasboardOverallattendanceData: DhasboardOverallattendanceData ??
-            this.DhasboardOverallattendanceData,
+        DhasboardOverallattendanceData: DhasboardOverallattendanceData ?? this.DhasboardOverallattendanceData,
       );
 }
 
-class DhasboardOverallAttendanceInitial
-    extends DhasboardOverallAttendanceState {
+class DhasboardOverallAttendanceInitial extends DhasboardOverallAttendanceState {
   DhasboardOverallAttendanceInitial()
       : super(
           successMessage: '',
@@ -46,8 +44,7 @@ class DhasboardOverallAttendanceInitial
         );
 }
 
-class DhasboardOverallAttendanceStateLoading
-    extends DhasboardOverallAttendanceState {
+class DhasboardOverallAttendanceStateLoading extends DhasboardOverallAttendanceState {
   DhasboardOverallAttendanceStateLoading({
     required super.successMessage,
     required super.errorMessage,
@@ -55,8 +52,7 @@ class DhasboardOverallAttendanceStateLoading
   });
 }
 
-class DhasboardOverallAttendanceStateError
-    extends DhasboardOverallAttendanceState {
+class DhasboardOverallAttendanceStateError extends DhasboardOverallAttendanceState {
   const DhasboardOverallAttendanceStateError({
     required super.successMessage,
     required super.errorMessage,
@@ -64,8 +60,7 @@ class DhasboardOverallAttendanceStateError
   });
 }
 
-class DhasboardOverallAttendanceStateSuccessful
-    extends DhasboardOverallAttendanceState {
+class DhasboardOverallAttendanceStateSuccessful extends DhasboardOverallAttendanceState {
   const DhasboardOverallAttendanceStateSuccessful({
     required super.successMessage,
     required super.errorMessage,
@@ -73,8 +68,7 @@ class DhasboardOverallAttendanceStateSuccessful
   });
 }
 
-class NoNetworkAvailableDhasboardOverallAttendance
-    extends DhasboardOverallAttendanceState {
+class NoNetworkAvailableDhasboardOverallAttendance extends DhasboardOverallAttendanceState {
   const NoNetworkAvailableDhasboardOverallAttendance({
     required super.successMessage,
     required super.errorMessage,

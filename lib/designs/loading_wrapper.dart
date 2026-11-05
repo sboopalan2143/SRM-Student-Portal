@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:srmuh_std/designs/_designs.dart';
 
 class LoadingWrapper extends StatelessWidget {
   const LoadingWrapper({
@@ -21,12 +21,10 @@ class LoadingWrapper extends StatelessWidget {
             children: [
               ModalBarrier(
                 dismissible: false,
-                color:
-                    Theme.of(context).colorScheme.background.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.background.withOpacity(0.3),
               ),
               Center(
-                child:
-                    CircularProgressIndicators.primaryColorProgressIndication,
+                child: CircularProgressIndicators.primaryColorProgressIndication,
               ),
             ],
           ),

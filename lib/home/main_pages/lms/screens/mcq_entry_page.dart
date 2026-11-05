@@ -5,13 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_test_view.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/mcq_test_view.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class McqEnteryPage extends ConsumerStatefulWidget {
   const McqEnteryPage({
@@ -31,8 +31,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -108,9 +107,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsMcqSheduleDetails(
+                          ref.read(lmsProvider.notifier).getLmsMcqSheduleDetails(
                                 ref.read(encryptionProvider.notifier),
                                 widget.mcqscheduleid,
                               );
@@ -139,23 +136,21 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.mcqSheduleData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.mcqSheduleData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
-                   Center(
+                    Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -206,7 +201,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                 children: [
                   Text('MCQ Entry ', style: TextStyles.titleFontStyle),
                   const SizedBox(height: 20),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -223,7 +218,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
+                      Text(
                         'Last Submission Date : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -239,7 +234,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
+                      Text(
                         'Test : ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -253,7 +248,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
+                      Text(
                         'no of questions: ',
                         style: TextStyles.smallBlackColorFontStyle,
                       ),
@@ -264,7 +259,7 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                   BlinkText(
+                  BlinkText(
                     'New',
                     style: TextStyles.fontStyle6,
                     endColor: Colors.redAccent,
@@ -282,16 +277,11 @@ class _McqEnteryPageState extends ConsumerState<McqEnteryPage> {
                                 context,
                                 RouteDesign(
                                   route: McqTestViewPage(
-                                      mcqscheduleid:
-                                          '${provider.mcqSheduleData[index].scheduleid}',
-                                      mcqtemplateid:
-                                          '${provider.mcqSheduleData[index].mcqtemplateid}',
-                                      subjectid:
-                                          '${provider.mcqSheduleData[index].subjectid}',
-                                      noofquestions:
-                                          '${provider.mcqSheduleData[index].noofquestions}',
-                                      marksperquestion:
-                                          '${provider.mcqSheduleData[index].marksperquestions}'),
+                                      mcqscheduleid: '${provider.mcqSheduleData[index].scheduleid}',
+                                      mcqtemplateid: '${provider.mcqSheduleData[index].mcqtemplateid}',
+                                      subjectid: '${provider.mcqSheduleData[index].subjectid}',
+                                      noofquestions: '${provider.mcqSheduleData[index].noofquestions}',
+                                      marksperquestion: '${provider.mcqSheduleData[index].marksperquestions}'),
                                 ),
                               );
                             },

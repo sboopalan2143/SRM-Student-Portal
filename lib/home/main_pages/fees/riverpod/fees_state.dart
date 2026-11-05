@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
-import 'package:sample/home/main_pages/fees/model.dart/get_fees_details.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_provider.dart';
+import 'package:srmuh_std/home/main_pages/fees/model.dart/finance_response_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/fees/model.dart/get_fees_details.dart';
+import 'package:srmuh_std/home/main_pages/fees/riverpod/fees_provider.dart';
 
 final feesProvider = StateNotifierProvider<FeesProvider, FeesState>((ref) {
   return FeesProvider();

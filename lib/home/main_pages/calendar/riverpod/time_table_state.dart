@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/calendar/model/timetable_model.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/time_table_provider.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
+import 'package:srmuh_std/home/main_pages/calendar/model/timetable_model.dart';
+import 'package:srmuh_std/home/main_pages/calendar/riverpod/time_table_provider.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
 
-final timetableProvider =
-    StateNotifierProvider<TimetableProvider, TimeTableState>((ref) {
+final timetableProvider = StateNotifierProvider<TimetableProvider, TimeTableState>((ref) {
   return TimetableProvider();
 });
 

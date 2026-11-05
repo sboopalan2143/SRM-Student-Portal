@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
 
 class SubjectProvider extends StateNotifier<SubjectState> {
   SubjectProvider() : super(SubjectInitial());
@@ -87,8 +87,7 @@ class SubjectProvider extends StateNotifier<SubjectState> {
         } else if (decryptedData.mapData!['Status'] != 'Success') {
           state = SubjectStateError(
             successMessage: '',
-            errorMessage:
-                '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Status']}''',
+            errorMessage: '''${decryptedData.mapData!['Status']}, ${decryptedData.mapData!['Status']}''',
             subjectHiveData: <SubjectHiveData>[],
           );
         }

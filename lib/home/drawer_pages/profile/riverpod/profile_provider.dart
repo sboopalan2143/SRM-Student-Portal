@@ -4,12 +4,12 @@ import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/drawer_pages/profile/model/profile_hive_model.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/model/profile_hive_model.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/riverpod/profile_state.dart';
 
 class ProfileProvider extends StateNotifier<ProfileDetailsState> {
   ProfileProvider() : super(ProfileInitial());
@@ -17,10 +17,10 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
   void disposeState() => state = ProfileInitial();
 
   void _setLoading() => state = ProfileDetailsStateLoading(
-        successMessage: '',
-        errorMessage: '',
-        profileDataHive: ProfileHiveData.empty,
-      );
+    successMessage: '',
+    errorMessage: '',
+    profileDataHive: ProfileHiveData.empty,
+  );
 
   Uint8List hexToBytes(String text) {
     final data = Uint8List(0);
@@ -57,7 +57,7 @@ class ProfileProvider extends StateNotifier<ProfileDetailsState> {
       final returnData = loginRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
-      log('>>>>>>>>>>>>>> ${decryptedData.mapData}');
+      log('Profile Data >>>>>>>>>>>>>> ${decryptedData.mapData}');
 
       if (decryptedData.mapData!['Status'] == 'Success') {
         final listData = decryptedData.mapData!['Data'] as List<dynamic>;

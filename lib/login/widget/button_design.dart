@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
-import 'package:sample/login/riverpod/login_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/drawer_pages/change_password/riverpod/change_password_state.dart';
+import 'package:srmuh_std/home/riverpod/main_provider.dart';
+import 'package:srmuh_std/login/riverpod/login_state.dart';
 // import 'package:uuid/uuid.dart' show Uuid;
 
 class ButtonDesign {

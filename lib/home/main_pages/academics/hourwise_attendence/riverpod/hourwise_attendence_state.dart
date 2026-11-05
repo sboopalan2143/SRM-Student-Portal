@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_provider.dart';
 
-final hourwiseProvider =
-    StateNotifierProvider<HourwiseProvider, HourwiseState>((ref) {
+final hourwiseProvider = StateNotifierProvider<HourwiseProvider, HourwiseState>((ref) {
   return HourwiseProvider();
 });
 

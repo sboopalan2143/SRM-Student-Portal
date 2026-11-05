@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/network/riverpod/network_state.dart';
+import 'package:srmuh_std/network/riverpod/network_state.dart';
 
 class NetworkProvider extends StateNotifier<NetworkState> {
   NetworkProvider() : super(const NetworkInitial());

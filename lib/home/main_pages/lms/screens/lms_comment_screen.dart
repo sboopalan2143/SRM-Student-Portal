@@ -5,12 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class LmsCommentScreen extends ConsumerStatefulWidget {
   const LmsCommentScreen({
@@ -21,8 +21,7 @@ class LmsCommentScreen extends ConsumerStatefulWidget {
   final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LmsCommentScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LmsCommentScreenState();
 }
 
 class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
@@ -31,8 +30,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -146,12 +144,10 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsgetcommentData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.lmsgetcommentData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -159,11 +155,11 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -202,9 +198,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                               ref.read(encryptionProvider.notifier),
                               widget.classworkID,
                             );
-                        await ref
-                            .read(lmsProvider.notifier)
-                            .getLmscommentDetails(
+                        await ref.read(lmsProvider.notifier).getLmscommentDetails(
                               ref.read(encryptionProvider.notifier),
                               widget.classworkID,
                             );
@@ -255,8 +249,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
 
                       // Message Text
                       Text(
-                        '${provider.lmsgetcommentData[index].comments}' ==
-                                'null'
+                        '${provider.lmsgetcommentData[index].comments}' == 'null'
                             ? '-'
                             : '${provider.lmsgetcommentData[index].comments}',
                         style: TextStyles.lessSmallerBlackColorFontStyle,
@@ -268,12 +261,10 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
 
                 // Timestamp
                 Text(
-                  '${provider.lmsgetcommentData[index].commentdatetime}' ==
-                          'null'
+                  '${provider.lmsgetcommentData[index].commentdatetime}' == 'null'
                       ? 'Unknown time'
                       : '${provider.lmsgetcommentData[index].commentdatetime}',
-                  style:
-                      TextStyles.fontStyle10small.copyWith(color: Colors.grey),
+                  style: TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                 ),
 
                 // ListView.builder(
@@ -341,8 +332,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
                     children: [
                       // Sender's Name
                       Text(
-                        '${provider.lmsReplayfacultycommentData[index].replynames}' ==
-                                'null'
+                        '${provider.lmsReplayfacultycommentData[index].replynames}' == 'null'
                             ? '-'
                             : '${provider.lmsReplayfacultycommentData[index].replynames}',
                         style: TextStyles.fontStyle10,
@@ -351,8 +341,7 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
 
                       // Message Text
                       Text(
-                        '${provider.lmsReplayfacultycommentData[index].replycomments}' ==
-                                'null'
+                        '${provider.lmsReplayfacultycommentData[index].replycomments}' == 'null'
                             ? '-'
                             : '${provider.lmsReplayfacultycommentData[index].replycomments}',
                         style: TextStyles.lessSmallerBlackColorFontStyle,
@@ -364,12 +353,10 @@ class _LmsCommentScreenState extends ConsumerState<LmsCommentScreen> {
 
                 // Timestamp
                 Text(
-                  '${provider.lmsReplayfacultycommentData[index].replytime}' ==
-                          'null'
+                  '${provider.lmsReplayfacultycommentData[index].replytime}' == 'null'
                       ? 'Unknown time'
                       : '${provider.lmsReplayfacultycommentData[index].replytime}',
-                  style:
-                      TextStyles.fontStyle10small.copyWith(color: Colors.grey),
+                  style: TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                 ),
               ],
             ),

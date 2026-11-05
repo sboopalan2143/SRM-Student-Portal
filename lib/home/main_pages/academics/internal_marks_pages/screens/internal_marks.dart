@@ -5,18 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
-import 'package:sample/home/main_pages/academics/screens/academics.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/screens/academics.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class InternalMarksPage extends ConsumerStatefulWidget {
   const InternalMarksPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _InternalMarksPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _InternalMarksPageState();
 }
 
 class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
@@ -25,15 +24,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        await ref
-            .read(internalMarksProvider.notifier)
-            .getInternalMarksDetails(ref.read(encryptionProvider.notifier));
+        await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(ref.read(encryptionProvider.notifier));
         await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
       },
     );
@@ -91,7 +87,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title:  Text(
+              title: Text(
                 'INTERNAL MARKS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -104,14 +100,10 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(internalMarksProvider.notifier)
-                              .getInternalMarksDetails(
+                          await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(internalMarksProvider.notifier)
-                              .getHiveInternalMarks('');
+                          await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -133,16 +125,14 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.internalMarkHiveData.isEmpty &&
-                provider is! InternalMarksStateLoading)
+            else if (provider.internalMarkHiveData.isEmpty && provider is! InternalMarksStateLoading)
               Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height / 5),
-                   Center(
+                  Center(
                     child: Text(
                       'No List Added Yet!',
                       style: TextStyle(
@@ -154,8 +144,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   ),
                 ],
               ),
-            if (provider.internalMarkHiveData.isNotEmpty)
-              const SizedBox(height: 5),
+            if (provider.internalMarkHiveData.isNotEmpty) const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
@@ -202,12 +191,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Code',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -215,8 +204,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkHiveData[index].subjectcode}' ==
-                              ''
+                      '${provider.internalMarkHiveData[index].subjectcode}' == ''
                           ? '-'
                           : '${provider.internalMarkHiveData[index].subjectcode}',
                       style: TextStyles.fontStyle10,
@@ -229,12 +217,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Subject',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -242,8 +230,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkHiveData[index].subjectdesc}' ==
-                              ''
+                      '${provider.internalMarkHiveData[index].subjectdesc}' == ''
                           ? '-'
                           : '${provider.internalMarkHiveData[index].subjectdesc}',
                       style: TextStyles.fontStyle10,
@@ -256,12 +243,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Mark',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -282,12 +269,12 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                 children: [
                   SizedBox(
                     width: width / 2 - 100,
-                    child:  Text(
+                    child: Text(
                       'Max Marks',
                       style: TextStyles.fontStyle10,
                     ),
                   ),
-                   Text(
+                  Text(
                     ':',
                     style: TextStyles.fontStyle10,
                   ),
@@ -295,8 +282,7 @@ class _InternalMarksPageState extends ConsumerState<InternalMarksPage> {
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.internalMarkHiveData[index].sumofmaxmarks}' ==
-                              ''
+                      '${provider.internalMarkHiveData[index].sumofmaxmarks}' == ''
                           ? '-'
                           : '${provider.internalMarkHiveData[index].sumofmaxmarks}',
                       style: TextStyles.fontStyle10,

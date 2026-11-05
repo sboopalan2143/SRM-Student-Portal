@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
-import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07GrievanceFullDetailPage extends ConsumerStatefulWidget {
   const Theme07GrievanceFullDetailPage({super.key});
@@ -115,11 +115,11 @@ class _Theme07GrievanceFullDetailPageState extends ConsumerState<Theme07Grievanc
                     Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],

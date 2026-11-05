@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_classworkdetails.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_comment_screen.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_faclty_message.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_classworkdetails.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_comment_screen.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_faclty_message.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07LmsTitlePage extends ConsumerStatefulWidget {
   const Theme07LmsTitlePage({
@@ -41,7 +41,9 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(lmsProvider.notifier).getLmsTitleDetails(
+      await ref
+          .read(lmsProvider.notifier)
+          .getLmsTitleDetails(
             ref.read(encryptionProvider.notifier),
             widget.subjectID,
           );
@@ -67,6 +69,11 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
           backgroundColor: Theme.of(context).colorScheme.tertiary,
           leading: IconButton(
             onPressed: () {
+              ref
+                  .read(lmsProvider.notifier)
+                  .getLmsSubgetDetails(
+                    ref.read(encryptionProvider.notifier),
+                  );
               Navigator.pop(context);
             },
             icon: const Icon(
@@ -87,7 +94,9 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                      ref
+                          .read(lmsProvider.notifier)
+                          .getLmsTitleDetails(
                             ref.read(encryptionProvider.notifier),
                             widget.subjectID,
                           );
@@ -110,7 +119,6 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // const SizedBox(height: 20),
-
               if (provider is LmsStateLoading)
                 Center(
                   child: CircularProgressIndicators.theme07primaryColorProgressIndication,
@@ -124,11 +132,11 @@ class _Theme07LmsTitlePageState extends ConsumerState<Theme07LmsTitlePage> {
                       child: Center(
                         child: Text(
                           'No List Added',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ),

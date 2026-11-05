@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class Theme02LmsCommentScreen extends ConsumerStatefulWidget {
   const Theme02LmsCommentScreen({
@@ -18,19 +18,16 @@ class Theme02LmsCommentScreen extends ConsumerStatefulWidget {
   final String classworkID;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsCommentScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsCommentScreenState();
 }
 
-class _Theme02LmsCommentScreenState
-    extends ConsumerState<Theme02LmsCommentScreen> {
+class _Theme02LmsCommentScreenState extends ConsumerState<Theme02LmsCommentScreen> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -138,12 +135,10 @@ class _Theme02LmsCommentScreenState
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.lmsgetcommentData.isEmpty &&
-                provider is! LibraryTrancsactionStateLoading)
+            else if (provider.lmsgetcommentData.isEmpty && provider is! LibraryTrancsactionStateLoading)
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -151,11 +146,11 @@ class _Theme02LmsCommentScreenState
                     Center(
                       child: Text(
                         'No List Added ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -234,15 +229,13 @@ class _Theme02LmsCommentScreenState
   Widget chatCardDesign(int index) {
     final provider = ref.watch(lmsProvider);
     final commentData = provider.lmsgetcommentData[index];
-    final isYou = commentData.names ==
-        'You'; // Adjust this condition based on your logic.
+    final isYou = commentData.names == 'You'; // Adjust this condition based on your logic.
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment:
-            isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!isYou)
             CircleAvatar(
@@ -250,17 +243,14 @@ class _Theme02LmsCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 commentData.names?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
           if (!isYou) const SizedBox(width: 12),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: isYou
-                    ? AppColors.primaryColor.withOpacity(0.1)
-                    : Colors.grey.shade100,
+                color: isYou ? AppColors.primaryColor.withOpacity(0.1) : Colors.grey.shade100,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(12),
                   topRight: const Radius.circular(12),
@@ -319,8 +309,7 @@ class _Theme02LmsCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 commentData.names?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
         ],

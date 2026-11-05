@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/notification/model/notification_model.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/notification/model/notification_model.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_state.dart';
 
 class NotificationProvider extends StateNotifier<NotificationState> {
   NotificationProvider() : super(NotificationInitial());

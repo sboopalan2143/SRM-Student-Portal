@@ -9,14 +9,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_pdf_view_page.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_subject_screen.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_pdf_pagetheme07.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_entry_test_screen.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_pdf_view_page.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_subject_screen.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_pdf_pagetheme07.dart';
 
 class Theme02LmsClassworkDetailPage extends ConsumerStatefulWidget {
   const Theme02LmsClassworkDetailPage({
@@ -54,11 +54,15 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+        ref
+            .read(lmsProvider.notifier)
+            .getLmsClassWorkDetails(
               ref.read(encryptionProvider.notifier),
               widget.classworkID,
             );
-        ref.read(lmsProvider.notifier).getLmsStudentAttachmentDetails(
+        ref
+            .read(lmsProvider.notifier)
+            .getLmsStudentAttachmentDetails(
               ref.read(encryptionProvider.notifier),
               widget.classworkreplyid,
             );
@@ -73,11 +77,15 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(lmsProvider.notifier).getLmsClassWorkDetails(
+      ref
+          .read(lmsProvider.notifier)
+          .getLmsClassWorkDetails(
             ref.read(encryptionProvider.notifier),
             widget.classworkID,
           );
-      ref.read(lmsProvider.notifier).getLmsAttachmentDetails(
+      ref
+          .read(lmsProvider.notifier)
+          .getLmsAttachmentDetails(
             ref.read(encryptionProvider.notifier),
             widget.classworkID,
           );
@@ -91,16 +99,13 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
   String sendData = '';
 
   Future<void> _pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-      allowMultiple: true,
-    );
+    final result = await FilePicker.pickFiles();
 
     if (result != null) {
       setState(() {
         // Extracting image paths and names
-        imagePaths = result.files.map((file) => file.path!).toList();
-        imageName = result.files.map((file) => file.name).toList();
+        imagePaths = result.map((file) => file.path!).toList();
+        imageName = result.map((file) => file.name).toList();
 
         // Reading file bytes
         imageBytes = imagePaths.map((path) {
@@ -178,7 +183,9 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
                 children: [
                   GestureDetector(
                     onTap: () {
-                      ref.read(lmsProvider.notifier).getLmscommentDetails(
+                      ref
+                          .read(lmsProvider.notifier)
+                          .getLmscommentDetails(
                             ref.read(encryptionProvider.notifier),
                             widget.classworkID,
                           );
@@ -210,11 +217,11 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -622,7 +629,7 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     if (provider.lmsAttachmentDetailsData.isNotEmpty)
@@ -737,15 +744,15 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
                                                 size: 50,
                                               )
                                             : image.endsWith('.xlsx') || image.endsWith('.xls')
-                                                ? Icon(
-                                                    Icons.insert_drive_file,
-                                                    color: AppColors.theme01secondaryColor4,
-                                                    size: 50,
-                                                  )
-                                                : Image.file(
-                                                    File(image),
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                            ? Icon(
+                                                Icons.insert_drive_file,
+                                                color: AppColors.theme01secondaryColor4,
+                                                size: 50,
+                                              )
+                                            : Image.file(
+                                                File(image),
+                                                fit: BoxFit.cover,
+                                              ),
                                       ),
                                     );
                                   }).toList(),
@@ -903,7 +910,9 @@ class _Theme02LmsClassworkDetailPageState extends ConsumerState<Theme02LmsClassw
                                     return; // Stop execution if both are empty
                                   }
 
-                                  ref.read(lmsProvider.notifier).saveClassWorkReplay(
+                                  ref
+                                      .read(lmsProvider.notifier)
+                                      .saveClassWorkReplay(
                                         ref.read(encryptionProvider.notifier),
                                         widget.classWorkDetailclassworkID,
                                         widget.imageattachmentid,

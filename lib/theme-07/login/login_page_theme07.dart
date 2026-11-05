@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/login/widget/button_design.dart';
-import 'package:sample/network/riverpod/network_state.dart';
-import 'package:sample/theme-07/bottom_navbar.dart';
-import 'package:sample/theme-07/theme07_homepage.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/login/riverpod/login_state.dart';
+import 'package:srmuh_std/login/widget/button_design.dart';
+import 'package:srmuh_std/network/riverpod/network_state.dart';
+import 'package:srmuh_std/theme-07/bottom_navbar.dart';
+import 'package:srmuh_std/theme-07/theme07_homepage.dart';
 
 class Theme07LoginPage extends ConsumerStatefulWidget {
   const Theme07LoginPage({super.key});
@@ -93,6 +93,16 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage> with Widget
                       // ),
                       // const SizedBox(height: 50),
                       const Text(
+                        'SRM Group of\nEducational Institutions',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: Color.fromARGB(255, 10, 35, 81),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 50),
+                      const Text(
                         'SRM STUDENT LOGIN',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -109,7 +119,7 @@ class _Theme07LoginPageState extends ConsumerState<Theme07LoginPage> with Widget
                         ),
                         controller: provider.userName,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(
+                          prefixIcon: const FaIcon(
                             FontAwesomeIcons.userGraduate,
                             color: Color.fromARGB(255, 10, 35, 81),
                           ),

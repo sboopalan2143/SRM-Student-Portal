@@ -4,22 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/screens/transport.dart';
-import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/boarding_point_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/route_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/screens/transport.dart';
+import 'package:srmuh_std/home/main_pages/transport/widgets/button_design.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class TransportRegisterPage extends ConsumerStatefulWidget {
   const TransportRegisterPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _TransportRegisterPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TransportRegisterPageState();
 }
 
 class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
@@ -112,24 +111,16 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getRouteIdDetails(
+                        await ref.read(transportProvider.notifier).getRouteIdDetails(
                               ref.read(encryptionProvider.notifier),
                             );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getRouteIdHiveDetails(
+                        await ref.read(transportProvider.notifier).getRouteIdHiveDetails(
                               '',
                             );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getBoardingIdDetails(
+                        await ref.read(transportProvider.notifier).getBoardingIdDetails(
                               ref.read(encryptionProvider.notifier),
                             );
-                        await ref
-                            .read(transportProvider.notifier)
-                            .getBoardingPointHiveDetails(
+                        await ref.read(transportProvider.notifier).getBoardingPointHiveDetails(
                               '',
                             );
                       },
@@ -153,8 +144,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
           ],
         ),
       ),
-      body: provider.transportRegisterDetails!.regconfig == '1' &&
-              provider.transportRegisterDetails!.status == '0'
+      body: provider.transportRegisterDetails!.regconfig == '1' && provider.transportRegisterDetails!.status == '0'
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Column(
@@ -183,8 +173,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                             dropdownSearchDecoration: InputDecoration(
                               // border: BorderRadius.circular(10),
                               border: InputBorder.none,
-                              contentPadding:
-                                  EdgeInsets.only(bottom: 2, top: 2),
+                              contentPadding: EdgeInsets.only(bottom: 2, top: 2),
                             ),
                           ),
                           itemAsString: (item) => item.busroutename!,
@@ -199,8 +188,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                               ref.read(encryptionProvider.notifier),
                             );
                           },
-                          dropdownBuilder:
-                              (BuildContext context, routedetails) {
+                          dropdownBuilder: (BuildContext context, routedetails) {
                             return Text(
                               '''  ${routedetails?.busroutename}''',
                               maxLines: 1,
@@ -236,8 +224,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                             dropdownSearchDecoration: InputDecoration(
                               // border: BorderRadius.circular(10),
                               border: InputBorder.none,
-                              contentPadding:
-                                  EdgeInsets.only(bottom: 2, top: 2),
+                              contentPadding: EdgeInsets.only(bottom: 2, top: 2),
                             ),
                           ),
                           itemAsString: (item) => item.boardingpointname!,
@@ -318,8 +305,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.academicyearid}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.academicyearid}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.academicyearid}''',
                               style: TextStyles.fontStyle10,
@@ -345,8 +331,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.transportstatus}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.transportstatus}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.transportstatus}''',
                               style: TextStyles.fontStyle10,
@@ -372,8 +357,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.activestatus}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.activestatus}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.activestatus}''',
                               style: TextStyles.fontStyle10,
@@ -386,12 +370,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child:  Text(
+                            child: Text(
                               'Amount',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                           Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -399,8 +383,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.amount}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.amount}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.amount}''',
                               style: TextStyles.fontStyle10,
@@ -413,12 +396,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child:  Text(
+                            child: Text(
                               'Application fees',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                           Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -426,8 +409,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.applicationfee}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.applicationfee}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.applicationfee}''',
                               style: TextStyles.fontStyle10,
@@ -440,12 +422,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child:  Text(
+                            child: Text(
                               'Boardingpoint name',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                           Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -453,8 +435,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.boardingpointname}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.boardingpointname}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.boardingpointname}''',
                               style: TextStyles.fontStyle10,
@@ -467,12 +448,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child:  Text(
+                            child: Text(
                               'Busroute name',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                           Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -480,8 +461,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.busroutename}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.busroutename}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.busroutename}''',
                               style: TextStyles.fontStyle10,
@@ -494,12 +474,12 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                         children: [
                           SizedBox(
                             width: width / 2 - 80,
-                            child:  Text(
+                            child: Text(
                               'Controller id',
                               style: TextStyles.fontStyle10,
                             ),
                           ),
-                           Text(
+                          Text(
                             ':',
                             style: TextStyles.fontStyle10,
                           ),
@@ -507,8 +487,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.controllerid}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.controllerid}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.controllerid}''',
                               style: TextStyles.fontStyle10,
@@ -534,8 +513,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.officeid}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.officeid}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.officeid}''',
                               style: TextStyles.fontStyle10,
@@ -561,8 +539,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.regconfig}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.regconfig}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.regconfig}''',
                               style: TextStyles.fontStyle10,
@@ -588,8 +565,7 @@ class _TransportRegisterPageState extends ConsumerState<TransportRegisterPage> {
                           SizedBox(
                             width: width / 2 - 60,
                             child: Text(
-                              '''${provider.transportAfterRegisterDetails!.registrationdate}''' ==
-                                      ''
+                              '''${provider.transportAfterRegisterDetails!.registrationdate}''' == ''
                                   ? '-'
                                   : '''${provider.transportAfterRegisterDetails!.registrationdate}''',
                               style: TextStyles.fontStyle10,

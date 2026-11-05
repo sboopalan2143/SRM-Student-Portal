@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
-import 'package:sample/theme/theme_provider.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_count_state.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_state.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
+// import 'package:flutter_html/flutter_html.dart';
 
 class Theme07NotificationHomePage extends ConsumerStatefulWidget {
   const Theme07NotificationHomePage({super.key});
@@ -30,11 +30,15 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(notificationProvider.notifier).getNotificationDetails(
+      ref
+          .read(notificationProvider.notifier)
+          .getNotificationDetails(
             ref.read(encryptionProvider.notifier),
           );
 
-      ref.read(notificationCountProvider.notifier).getreadNotificationDetails(
+      ref
+          .read(notificationCountProvider.notifier)
+          .getreadNotificationDetails(
             ref.read(encryptionProvider.notifier),
           );
     });
@@ -51,7 +55,9 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
         leading: IconButton(
           onPressed: () {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              ref.read(notificationCountProvider.notifier).getNotificationCountDetails(
+              ref
+                  .read(notificationCountProvider.notifier)
+                  .getNotificationCountDetails(
                     ref.read(encryptionProvider.notifier),
                   );
             });
@@ -556,31 +562,31 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
                 const SizedBox(height: 8),
 
                 // Final HTML/Text Widget
-                if (isHtml(rawDescription))
-                  Html(
-                    data: cleanedDescription,
-                    style: {
-                      'body': Style(
-                        margin: Margins.zero,
-                        padding: HtmlPaddings.zero,
-                        fontSize: FontSize(15),
-                        lineHeight: LineHeight(1.7),
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
-                      'p': Style(margin: Margins.symmetric(vertical: 8)),
-                      'br': Style(height: Height(8)),
-                      'strong': Style(fontWeight: FontWeight.bold),
-                    },
-                  )
-                else
-                  Text(
-                    rawDescription == 'null' ? '-' : rawDescription,
-                    style: TextStyle(
-                      fontSize: 15,
-                      height: 1.7,
-                      color: Theme.of(context).colorScheme.inverseSurface,
-                    ),
+                // if (isHtml(rawDescription))
+                //   Html(
+                //     data: cleanedDescription,
+                //     style: {
+                //       'body': Style(
+                //         margin: Margins.zero,
+                //         padding: HtmlPaddings.zero,
+                //         fontSize: FontSize(15),
+                //         lineHeight: LineHeight(1.7),
+                //         color: Theme.of(context).colorScheme.inverseSurface,
+                //       ),
+                //       'p': Style(margin: Margins.symmetric(vertical: 8)),
+                //       'br': Style(height: Height(8)),
+                //       'strong': Style(fontWeight: FontWeight.bold),
+                //     },
+                //   )
+                // else
+                Text(
+                  rawDescription == 'null' ? '-' : rawDescription,
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 1.7,
+                    color: Theme.of(context).colorScheme.inverseSurface,
                   ),
+                ),
               ],
             ),
           ),
@@ -589,7 +595,7 @@ class _Theme07NotificationHomePageState extends ConsumerState<Theme07Notificatio
     );
   }
 
-// Helper widget for consistent styling
+  // Helper widget for consistent styling
   Widget _buildInfoRow(String label, String value) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

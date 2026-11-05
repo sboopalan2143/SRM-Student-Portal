@@ -3,9 +3,9 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:sample/theme/dark_theme.dart';
-import 'package:sample/theme/light_theme.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/theme/dark_theme.dart';
+import 'package:srmuh_std/theme/light_theme.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class ThemeSelectionPage extends StatefulWidget {
   const ThemeSelectionPage({super.key});

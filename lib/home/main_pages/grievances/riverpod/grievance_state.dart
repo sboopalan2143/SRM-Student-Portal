@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/studentwise_grievance_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/riverpod/grievance_provider.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/studentwise_grievance_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/riverpod/grievance_provider.dart';
 
-final grievanceProvider =
-    StateNotifierProvider<GrievanceProvider, GrievanceState>((ref) {
+final grievanceProvider = StateNotifierProvider<GrievanceProvider, GrievanceState>((ref) {
   return GrievanceProvider();
 });
 
@@ -61,22 +60,17 @@ class GrievanceState {
       GrievanceState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        grievanceCaregoryData:
-            grievanceCaregoryData ?? this.grievanceCaregoryData,
-        selectedgrievanceCaregoryDataList: selectedgrievanceCaregoryDataList ??
-            this.selectedgrievanceCaregoryDataList,
+        grievanceCaregoryData: grievanceCaregoryData ?? this.grievanceCaregoryData,
+        selectedgrievanceCaregoryDataList: selectedgrievanceCaregoryDataList ?? this.selectedgrievanceCaregoryDataList,
         grievanceSubType: grievanceSubType ?? this.grievanceSubType,
         grievanceType: grievanceType ?? this.grievanceType,
-        selectedgrievanceSubTypeDataList: selectedgrievanceSubTypeDataList ??
-            this.selectedgrievanceSubTypeDataList,
-        selectedgrievanceTypeDataList:
-            selectedgrievanceTypeDataList ?? this.selectedgrievanceTypeDataList,
+        selectedgrievanceSubTypeDataList: selectedgrievanceSubTypeDataList ?? this.selectedgrievanceSubTypeDataList,
+        selectedgrievanceTypeDataList: selectedgrievanceTypeDataList ?? this.selectedgrievanceTypeDataList,
         studentId: studentId ?? this.studentId,
         studentname: studentname ?? this.studentname,
         subject: subject ?? this.subject,
         description: description ?? this.description,
-        studentwisegrievanceData:
-            studentwisegrievanceData ?? this.studentwisegrievanceData,
+        studentwisegrievanceData: studentwisegrievanceData ?? this.studentwisegrievanceData,
       );
 }
 

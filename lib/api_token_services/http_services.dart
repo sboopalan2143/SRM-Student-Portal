@@ -2,8 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:http/http.dart';
-import 'package:logger/logger.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
 import 'package:xml/xml.dart';
 
 class HttpService {
@@ -11,8 +10,6 @@ class HttpService {
     String apiType,
     String encrptedData,
   ) async {
-    final logger = Logger();
-
     // Define the SOAP envelope as a string
     final soapRequest = '<?xml version="1.0" encoding="utf-8"?> '
         '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" '
@@ -54,7 +51,7 @@ class HttpService {
     //   return (0, {'message': '$e'});
     // }
     on SocketException {
-      logger.e(
+      log(
         'Url: ${Api.mainUrl}\n'
         'No Internet Connection',
       );

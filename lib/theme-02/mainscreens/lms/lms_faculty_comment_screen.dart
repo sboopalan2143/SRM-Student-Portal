@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class Theme02LmsFacultyCommentScreen extends ConsumerStatefulWidget {
   const Theme02LmsFacultyCommentScreen({
@@ -19,19 +19,16 @@ class Theme02LmsFacultyCommentScreen extends ConsumerStatefulWidget {
   // final String studentclassworkcommentid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsFacultyCommentScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsFacultyCommentScreenState();
 }
 
-class _Theme02LmsFacultyCommentScreenState
-    extends ConsumerState<Theme02LmsFacultyCommentScreen> {
+class _Theme02LmsFacultyCommentScreenState extends ConsumerState<Theme02LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   // Track the show replies state individually for each comment
   List<bool> showRepliesList = [];
@@ -66,8 +63,7 @@ class _Theme02LmsFacultyCommentScreenState
     final provider = ref.watch(lmsProvider);
 
     if (showRepliesList.length != provider.lmsfacultygetcommentData.length) {
-      showRepliesList =
-          List<bool>.filled(provider.lmsfacultygetcommentData.length, false);
+      showRepliesList = List<bool>.filled(provider.lmsfacultygetcommentData.length, false);
     }
 
     return Scaffold(
@@ -135,21 +131,19 @@ class _Theme02LmsFacultyCommentScreenState
               Padding(
                 padding: const EdgeInsets.only(top: 100),
                 child: Center(
-                  child:
-                      CircularProgressIndicators.primaryColorProgressIndication,
+                  child: CircularProgressIndicators.primaryColorProgressIndication,
                 ),
               )
-            else if (provider.lmsfacultygetcommentData.isEmpty &&
-                provider is! LibraryTrancsactionStateLoading)
+            else if (provider.lmsfacultygetcommentData.isEmpty && provider is! LibraryTrancsactionStateLoading)
               Expanded(
                 child: Center(
                   child: Text(
                     'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.inverseSurface,
+                    ),
                   ),
                 ),
               )
@@ -225,15 +219,13 @@ class _Theme02LmsFacultyCommentScreenState
   Widget facultychatCardDesign(int index) {
     final provider = ref.watch(lmsProvider);
     final commentData = provider.lmsfacultygetcommentData[index];
-    final isYou = commentData.names ==
-        'You'; // Adjust this condition based on your logic.
+    final isYou = commentData.names == 'You'; // Adjust this condition based on your logic.
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment:
-            isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!isYou)
             CircleAvatar(
@@ -241,8 +233,7 @@ class _Theme02LmsFacultyCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 commentData.names?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
           if (!isYou) const SizedBox(width: 12),
@@ -252,16 +243,12 @@ class _Theme02LmsFacultyCommentScreenState
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: isYou
-                        ? AppColors.primaryColor.withOpacity(0.1)
-                        : Colors.grey.shade100,
+                    color: isYou ? AppColors.primaryColor.withOpacity(0.1) : Colors.grey.shade100,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(12),
                       topRight: const Radius.circular(12),
-                      bottomLeft:
-                          isYou ? const Radius.circular(12) : Radius.zero,
-                      bottomRight:
-                          isYou ? Radius.zero : const Radius.circular(12),
+                      bottomLeft: isYou ? const Radius.circular(12) : Radius.zero,
+                      bottomRight: isYou ? Radius.zero : const Radius.circular(12),
                     ),
                     boxShadow: [
                       BoxShadow(
@@ -286,10 +273,8 @@ class _Theme02LmsFacultyCommentScreenState
                       if (!isYou) const SizedBox(height: 8),
                       Text(
                         commentData.comments ?? '-',
-                        style:
-                            TextStyles.lessSmallerBlackColorFontStyle.copyWith(
-                          color:
-                              isYou ? AppColors.primaryColor : Colors.black87,
+                        style: TextStyles.lessSmallerBlackColorFontStyle.copyWith(
+                          color: isYou ? AppColors.primaryColor : Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -313,9 +298,7 @@ class _Theme02LmsFacultyCommentScreenState
                       setState(() {
                         showRepliesList[index] = !showRepliesList[index];
                         if (showRepliesList[index]) {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsReplayFacultycommentDetails(
+                          ref.read(lmsProvider.notifier).getLmsReplayFacultycommentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 '${commentData.studentclassworkcommentid}',
                               );
@@ -349,8 +332,7 @@ class _Theme02LmsFacultyCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 commentData.names?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
         ],
@@ -367,8 +349,7 @@ class _Theme02LmsFacultyCommentScreenState
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment:
-            isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isYou ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!isYou)
             CircleAvatar(
@@ -376,17 +357,14 @@ class _Theme02LmsFacultyCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 replyData.replynames?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
           if (!isYou) const SizedBox(width: 12),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: isYou
-                    ? AppColors.primaryColor.withOpacity(0.1)
-                    : Colors.grey.shade100,
+                color: isYou ? AppColors.primaryColor.withOpacity(0.1) : Colors.grey.shade100,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(12),
                   topRight: const Radius.circular(12),
@@ -442,8 +420,7 @@ class _Theme02LmsFacultyCommentScreenState
               backgroundColor: Colors.grey.shade300,
               child: Text(
                 replyData.replynames?[0].toUpperCase() ?? '-',
-                style: TextStyles.fontStyle10
-                    .copyWith(color: AppColors.primaryColor),
+                style: TextStyles.fontStyle10.copyWith(color: AppColors.primaryColor),
               ),
             ),
         ],

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class LmsFacultyCommentScreen extends ConsumerStatefulWidget {
   const LmsFacultyCommentScreen({
@@ -22,19 +22,16 @@ class LmsFacultyCommentScreen extends ConsumerStatefulWidget {
   // final String studentclassworkcommentid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _LmsFacultyCommentScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LmsFacultyCommentScreenState();
 }
 
-class _LmsFacultyCommentScreenState
-    extends ConsumerState<LmsFacultyCommentScreen> {
+class _LmsFacultyCommentScreenState extends ConsumerState<LmsFacultyCommentScreen> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   // Track the show replies state individually for each comment
   List<bool> showRepliesList = [];
@@ -69,8 +66,7 @@ class _LmsFacultyCommentScreenState
     final provider = ref.watch(lmsProvider);
 
     if (showRepliesList.length != provider.lmsfacultygetcommentData.length) {
-      showRepliesList =
-          List<bool>.filled(provider.lmsfacultygetcommentData.length, false);
+      showRepliesList = List<bool>.filled(provider.lmsfacultygetcommentData.length, false);
     }
 
     return Scaffold(
@@ -109,9 +105,7 @@ class _LmsFacultyCommentScreenState
                   padding: const EdgeInsets.only(right: 20),
                   child: GestureDetector(
                     onTap: () {
-                      ref
-                          .read(lmsProvider.notifier)
-                          .getLmsFacultycommentDetails(
+                      ref.read(lmsProvider.notifier).getLmsFacultycommentDetails(
                             ref.read(encryptionProvider.notifier),
                             widget.classworkID,
                           );
@@ -140,12 +134,10 @@ class _LmsFacultyCommentScreenState
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsfacultygetcommentData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.lmsfacultygetcommentData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Expanded(
                   child: Center(
                     child: Text(
@@ -190,9 +182,7 @@ class _LmsFacultyCommentScreenState
                               ref.read(encryptionProvider.notifier),
                               widget.classworkID,
                             );
-                        await ref
-                            .read(lmsProvider.notifier)
-                            .getLmsFacultycommentDetails(
+                        await ref.read(lmsProvider.notifier).getLmsFacultycommentDetails(
                               ref.read(encryptionProvider.notifier),
                               widget.classworkID,
                             );
@@ -239,8 +229,7 @@ class _LmsFacultyCommentScreenState
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        provider.lmsfacultygetcommentData[index].comments ??
-                            '-',
+                        provider.lmsfacultygetcommentData[index].comments ?? '-',
                         style: TextStyles.lessSmallerBlackColorFontStyle,
                       ),
                     ],
@@ -248,10 +237,8 @@ class _LmsFacultyCommentScreenState
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  provider.lmsfacultygetcommentData[index].commentdatetime ??
-                      'Unknown time',
-                  style:
-                      TextStyles.fontStyle10small.copyWith(color: Colors.grey),
+                  provider.lmsfacultygetcommentData[index].commentdatetime ?? 'Unknown time',
+                  style: TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -260,9 +247,7 @@ class _LmsFacultyCommentScreenState
                       setState(() {
                         showRepliesList[index] = !showRepliesList[index];
                         if (showRepliesList[index]) {
-                          ref
-                              .read(lmsProvider.notifier)
-                              .getLmsReplayFacultycommentDetails(
+                          ref.read(lmsProvider.notifier).getLmsReplayFacultycommentDetails(
                                 ref.read(encryptionProvider.notifier),
                                 '${provider.lmsfacultygetcommentData[index].studentclassworkcommentid}',
                               );
@@ -319,16 +304,12 @@ class _LmsFacultyCommentScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          provider.lmsReplayfacultycommentData[index]
-                                  .replynames ??
-                              '',
+                          provider.lmsReplayfacultycommentData[index].replynames ?? '',
                           style: TextStyles.fontStyle10,
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          provider.lmsReplayfacultycommentData[index]
-                                  .replycomments ??
-                              '',
+                          provider.lmsReplayfacultycommentData[index].replycomments ?? '',
                           style: TextStyles.lessSmallerBlackColorFontStyle,
                         ),
                       ],
@@ -337,8 +318,7 @@ class _LmsFacultyCommentScreenState
                   const SizedBox(height: 4),
                   Text(
                     provider.lmsReplayfacultycommentData[index].replytime ?? '',
-                    style: TextStyles.fontStyle10small
-                        .copyWith(color: Colors.grey),
+                    style: TextStyles.fontStyle10small.copyWith(color: Colors.grey),
                   ),
                 ],
               ),

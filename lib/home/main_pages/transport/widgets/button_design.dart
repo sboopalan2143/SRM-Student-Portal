@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
-import 'package:sample/theme-07/mainscreens/transport/transport_register.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:srmuh_std/home/riverpod/main_provider.dart';
+import 'package:srmuh_std/theme-07/mainscreens/transport/transport_register.dart';
 
 class ButtonDesign {
   static Widget buttonDesign(

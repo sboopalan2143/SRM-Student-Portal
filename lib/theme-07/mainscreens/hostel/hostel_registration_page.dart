@@ -2,13 +2,13 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/room_type_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/widgets/button_design.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07RegistrationPage extends ConsumerStatefulWidget {
   const Theme07RegistrationPage({super.key});
@@ -163,7 +163,7 @@ class _Theme07RegistrationPageState extends ConsumerState<Theme07RegistrationPag
                     ),
                   ],
                 )
-              : (provider.hostelRegisterDetails.regconfig == '0' && provider.hostelRegisterDetails.status == '0')
+              : (provider.hostelRegisterDetails.regconfig == '0')
                   ? Center(
                       child: Text(
                         'Please Contact Admin Ofiice to Enable Registration',
@@ -174,14 +174,18 @@ class _Theme07RegistrationPageState extends ConsumerState<Theme07RegistrationPag
                         ),
                       ),
                     )
-                  : Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).colorScheme.primary,
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
     );
   }

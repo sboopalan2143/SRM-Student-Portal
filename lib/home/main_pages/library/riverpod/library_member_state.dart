@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/library/model/library_search_model.dart';
-import 'package:sample/home/main_pages/library/model/library_transaction_res_hive_model.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_provider.dart';
+import 'package:srmuh_std/home/main_pages/library/model/library_search_model.dart';
+import 'package:srmuh_std/home/main_pages/library/model/library_transaction_res_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_provider.dart';
 
-final libraryProvider =
-    StateNotifierProvider<LibraryTransactionProvider, LibraryTrancsactionState>(
-        (ref) {
+final libraryProvider = StateNotifierProvider<LibraryTransactionProvider, LibraryTrancsactionState>((ref) {
   return LibraryTransactionProvider();
 });
 
@@ -41,8 +39,7 @@ class LibraryTrancsactionState {
       LibraryTrancsactionState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        libraryTransactionData:
-            libraryTransactionData ?? this.libraryTransactionData,
+        libraryTransactionData: libraryTransactionData ?? this.libraryTransactionData,
         studentId: studentId ?? this.studentId,
         officeid: officeid ?? this.officeid,
         filter: filter ?? this.filter,

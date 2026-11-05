@@ -1,6 +1,6 @@
 // import 'dart:io';
 // import 'package:awesome_notifications/awesome_notifications.dart';
-// import 'package:sample/designs/_designs.dart';
+// import 'package:srmuh_std/designs/_designs.dart';
 
 // class AppNotification {
 //   static bool platformSupportsNotifications() =>

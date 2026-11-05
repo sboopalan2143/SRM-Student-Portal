@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "766027273515",
+    "firebase_url": "https://srmhstudentportal-default-rtdb.firebaseio.com",
+    "project_id": "srmhstudentportal",
+    "storage_bucket": "srmhstudentportal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766027273515:android:d8f0039fe9397f920e216e",
+        "android_client_info": {
+          "package_name": "com.srmuh.studentinformation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6TuRorz7flyWwXf04CvdbrAGE2TB4kqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766027273515:android:f152af1ad7e32b7b0e216e",
+        "android_client_info": {
+          "package_name": "com.srmuh.studentportal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6TuRorz7flyWwXf04CvdbrAGE2TB4kqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

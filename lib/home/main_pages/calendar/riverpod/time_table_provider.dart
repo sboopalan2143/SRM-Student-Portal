@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/calendar/model/timetable_model.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/time_table_state.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/calendar/model/timetable_model.dart';
+import 'package:srmuh_std/home/main_pages/calendar/riverpod/time_table_state.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_state.dart';
 
 class TimetableProvider extends StateNotifier<TimeTableState> {
   TimetableProvider() : super(TimetableInitial());

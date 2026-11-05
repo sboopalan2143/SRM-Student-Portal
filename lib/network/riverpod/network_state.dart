@@ -1,9 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/network/riverpod/network_provider.dart';
+import 'package:srmuh_std/network/riverpod/network_provider.dart';
 
-final networkProvider =
-    StateNotifierProvider<NetworkProvider, NetworkState>((ref) {
+final networkProvider = StateNotifierProvider<NetworkProvider, NetworkState>((ref) {
   return NetworkProvider();
 });
 

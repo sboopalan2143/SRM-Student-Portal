@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
 
 class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
   ExamDetailsProvider() : super(ExamDetailsInitial());
@@ -36,8 +36,7 @@ class ExamDetailsProvider extends StateNotifier<ExamDetailsState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final examDetailsRes =
-          details['getExamDetailsResponse'] as Map<String, dynamic>;
+      final examDetailsRes = details['getExamDetailsResponse'] as Map<String, dynamic>;
       final returnData = examDetailsRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');

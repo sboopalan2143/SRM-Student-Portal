@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
 
 final cgpaProvider = StateNotifierProvider<CgpaProvider, CgpaState>((ref) {
   return CgpaProvider();

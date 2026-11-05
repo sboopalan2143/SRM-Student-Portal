@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/riverpod/subjects_provider.dart';
 
-final subjectProvider =
-    StateNotifierProvider<SubjectProvider, SubjectState>((ref) {
+final subjectProvider = StateNotifierProvider<SubjectProvider, SubjectState>((ref) {
   return SubjectProvider();
 });
 

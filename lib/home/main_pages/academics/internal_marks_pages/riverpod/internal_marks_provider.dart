@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
 
 class InternalMarksProvider extends StateNotifier<InternalMarksState> {
   InternalMarksProvider() : super(InternalMarksInitial());
@@ -27,8 +27,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getInternalMarkDetails', data);
+    final response = await HttpService.sendSoapRequest('getInternalMarkDetails', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableInternalMarks(
         successMessage: '',
@@ -37,8 +36,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final internalMarksRes =
-          details['getInternalMarkDetailsResponse'] as Map<String, dynamic>;
+      final internalMarksRes = details['getInternalMarkDetailsResponse'] as Map<String, dynamic>;
       final returnData = internalMarksRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -91,8 +89,7 @@ class InternalMarksProvider extends StateNotifier<InternalMarksState> {
       } else if (decryptedData.mapData!['Status'] != 'Success') {
         state = InternalMarksStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']!}''',
+          errorMessage: '''${decryptedData.mapData!['Status']!}, ${decryptedData.mapData!['Status']!}''',
           internalMarkHiveData: state.internalMarkHiveData,
         );
       }

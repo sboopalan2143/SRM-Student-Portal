@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sample/designs/colors.dart';
-import 'package:sample/designs/font_styles.dart';
+import 'package:srmuh_std/designs/colors.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
 
 class PDFViewPage extends StatelessWidget {
   const PDFViewPage({

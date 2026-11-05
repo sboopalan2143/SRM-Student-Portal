@@ -1,15 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/transport/model/boarding_point_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/route_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_after_reg_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_after_register_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_register_hive_model.dart';
-import 'package:sample/home/main_pages/transport/model/transport_status_hive_model.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_provider.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/boarding_point_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/route_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/transport_after_reg_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/transport_after_register_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/transport_register_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/model/transport_status_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/transport/riverpod/transport_provider.dart';
 
-final transportProvider =
-    StateNotifierProvider<TrasportProvider, TransportState>((ref) {
+final transportProvider = StateNotifierProvider<TrasportProvider, TransportState>((ref) {
   return TrasportProvider();
 });
 
@@ -76,16 +75,11 @@ class TransportState {
         controllerId: controllerId ?? this.controllerId,
         officeId: officeId ?? this.officeId,
         routeDetailsDataList: routeDetailsDataList ?? this.routeDetailsDataList,
-        selectedRouteDetailsDataList:
-            selectedRouteDetailsDataList ?? this.selectedRouteDetailsDataList,
-        boardingPointDataList:
-            boardingPointDataList ?? this.boardingPointDataList,
-        selectedBoardingPointDataList:
-            selectedBoardingPointDataList ?? this.selectedBoardingPointDataList,
-        transportRegisterDetails:
-            transportRegisterDetails ?? this.transportRegisterDetails,
-        transportAfterRegisterDetails:
-            transportAfterRegisterDetails ?? this.transportAfterRegisterDetails,
+        selectedRouteDetailsDataList: selectedRouteDetailsDataList ?? this.selectedRouteDetailsDataList,
+        boardingPointDataList: boardingPointDataList ?? this.boardingPointDataList,
+        selectedBoardingPointDataList: selectedBoardingPointDataList ?? this.selectedBoardingPointDataList,
+        transportRegisterDetails: transportRegisterDetails ?? this.transportRegisterDetails,
+        transportAfterRegisterDetails: transportAfterRegisterDetails ?? this.transportAfterRegisterDetails,
       );
 }
 

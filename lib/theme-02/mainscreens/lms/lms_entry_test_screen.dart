@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_mcq_test_screen.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_mcq_test_screen.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class Theme02McqEnteryPage extends ConsumerStatefulWidget {
   const Theme02McqEnteryPage({
@@ -19,8 +19,7 @@ class Theme02McqEnteryPage extends ConsumerStatefulWidget {
   final String mcqscheduleid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02McqEnteryPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02McqEnteryPageState();
 }
 
 class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
@@ -29,8 +28,7 @@ class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -138,23 +136,21 @@ class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.mcqSheduleData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.mcqSheduleData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -272,8 +268,7 @@ class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
                   // Test Info
                   Row(
                     children: [
-                      Icon(Icons.book,
-                          color: AppColors.theme02buttonColor2, size: 18),
+                      Icon(Icons.book, color: AppColors.theme02buttonColor2, size: 18),
                       const SizedBox(width: 8),
                       Text(
                         'Test: ',
@@ -329,16 +324,11 @@ class _Theme02McqEnteryPageState extends ConsumerState<Theme02McqEnteryPage> {
                         context,
                         RouteDesign(
                           route: Theme02McqTestViewPage(
-                            mcqscheduleid:
-                                '${provider.mcqSheduleData[index].scheduleid}',
-                            mcqtemplateid:
-                                '${provider.mcqSheduleData[index].mcqtemplateid}',
-                            subjectid:
-                                '${provider.mcqSheduleData[index].subjectid}',
-                            noofquestions:
-                                '${provider.mcqSheduleData[index].noofquestions}',
-                            marksperquestion:
-                                '${provider.mcqSheduleData[index].marksperquestions}',
+                            mcqscheduleid: '${provider.mcqSheduleData[index].scheduleid}',
+                            mcqtemplateid: '${provider.mcqSheduleData[index].mcqtemplateid}',
+                            subjectid: '${provider.mcqSheduleData[index].subjectid}',
+                            noofquestions: '${provider.mcqSheduleData[index].noofquestions}',
+                            marksperquestion: '${provider.mcqSheduleData[index].marksperquestions}',
                           ),
                         ),
                       );

@@ -7,14 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_Faculty_comment_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_comment_screen.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_Faculty_comment_screen.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_classworkdetail_screen.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_comment_screen.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class LmsTitlePage extends ConsumerStatefulWidget {
   const LmsTitlePage({
@@ -34,8 +34,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -152,23 +151,21 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: CircularProgressIndicators.primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.lmsTitleData.isEmpty &&
-                    provider is! LibraryTrancsactionStateLoading)
+                else if (provider.lmsTitleData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                     Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -231,7 +228,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
             child: Column(
               children: [
                 if (provider.lmsTitleData[index].newwork != '0')
-                   BlinkText(
+                  BlinkText(
                     'New',
                     style: TextStyles.fontStyle6,
                     endColor: Colors.redAccent,
@@ -256,12 +253,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Start date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -269,8 +266,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].startdatetime}' ==
-                                'null'
+                        '${provider.lmsTitleData[index].startdatetime}' == 'null'
                             ? '-'
                             : '''${provider.lmsTitleData[index].startdatetime}''',
                         style: TextStyles.fontStyle10,
@@ -283,12 +279,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'End date time',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -335,12 +331,12 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Classwork type desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -348,8 +344,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.lmsTitleData[index].classworktypedesc}' ==
-                                'null'
+                        '${provider.lmsTitleData[index].classworktypedesc}' == 'null'
                             ? '-'
                             : '''${provider.lmsTitleData[index].classworktypedesc}''',
                         style: TextStyles.fontStyle10,
@@ -377,8 +372,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                             context,
                             RouteDesign(
                               route: LmsClassworkDetailPage(
-                                classworkID:
-                                    '${provider.lmsTitleData[index].classworkid}',
+                                classworkID: '${provider.lmsTitleData[index].classworkid}',
                               ),
                             ),
                           );
@@ -388,7 +382,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                             color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child:  Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Center(
@@ -415,8 +409,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                                 context,
                                 RouteDesign(
                                   route: LmsCommentScreen(
-                                    classworkID:
-                                        '${provider.lmsTitleData[index].classworkid}',
+                                    classworkID: '${provider.lmsTitleData[index].classworkid}',
                                   ),
                                 ),
                               );
@@ -426,7 +419,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child:  Column(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Center(
@@ -455,8 +448,7 @@ class _LmsTitlePageState extends ConsumerState<LmsTitlePage> {
                                   context,
                                   RouteDesign(
                                     route: LmsFacultyCommentScreen(
-                                      classworkID:
-                                          '${provider.lmsTitleData[index].classworkid}',
+                                      classworkID: '${provider.lmsTitleData[index].classworkid}',
                                       // studentclassworkcommentid:
                                       //     '${provider.lmsfacultygetcommentData[index].studentclassworkcommentid}',
                                     ),

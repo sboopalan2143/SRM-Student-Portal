@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/notification/model/notification_model.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_provider.dart';
+import 'package:srmuh_std/home/main_pages/notification/model/notification_model.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_provider.dart';
 
-final notificationProvider =
-    StateNotifierProvider<NotificationProvider, NotificationState>((ref) {
+final notificationProvider = StateNotifierProvider<NotificationProvider, NotificationState>((ref) {
   return NotificationProvider();
 });
 

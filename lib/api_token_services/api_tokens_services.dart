@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -117,7 +119,10 @@ class TokensManagement {
     await sharedPreferences.clear();
   }
 
-  static Future<void> getPhoneToken() => _firebaseMessaging.getToken().then((token) => phoneToken = token ?? '');
+  static Future<void> getPhoneToken() => _firebaseMessaging.getToken().then((token) {
+    phoneToken = token ?? '';
+    log("Token >>>> $phoneToken");
+  });
 }
 
 class KeyboardRule {

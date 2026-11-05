@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/circular_progress_indicators.dart';
-import 'package:sample/designs/colors.dart';
-import 'package:sample/designs/font_styles.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/circular_progress_indicators.dart';
+import 'package:srmuh_std/designs/colors.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07AttendancePage extends ConsumerStatefulWidget {
   const Theme07AttendancePage({super.key});

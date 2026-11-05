@@ -7,16 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_savework_replay_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/lms_student_attachment_screen.dart';
-import 'package:sample/home/main_pages/lms/screens/mcq_entry_page.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-// import 'package:sample/home/riverpod/main_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_attachmentdetail_screen.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_savework_replay_screen.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/lms_student_attachment_screen.dart';
+import 'package:srmuh_std/home/main_pages/lms/screens/mcq_entry_page.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class LmsClassworkDetailPage extends ConsumerStatefulWidget {
   const LmsClassworkDetailPage({
@@ -154,11 +154,11 @@ class _LmsClassworkDetailPageState extends ConsumerState<LmsClassworkDetailPage>
                       Center(
                         child: Text(
                           'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inverseSurface,
+                          ),
                         ),
                       ),
                     ],

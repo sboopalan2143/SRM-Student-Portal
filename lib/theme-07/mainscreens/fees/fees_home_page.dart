@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme007FeesPage extends ConsumerStatefulWidget {
   const Theme007FeesPage({super.key});

@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
 
 class Theme02LmsContentDetailsPage extends ConsumerStatefulWidget {
   const Theme02LmsContentDetailsPage({required this.subjectid, super.key});
@@ -13,19 +13,16 @@ class Theme02LmsContentDetailsPage extends ConsumerStatefulWidget {
   final String subjectid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsContentDetailsPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsContentDetailsPageState();
 }
 
-class _Theme02LmsContentDetailsPageState
-    extends ConsumerState<Theme02LmsContentDetailsPage> {
+class _Theme02LmsContentDetailsPageState extends ConsumerState<Theme02LmsContentDetailsPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -108,9 +105,7 @@ class _Theme02LmsContentDetailsPageState
                 children: [
                   GestureDetector(
                     onTap: () {
-                      ref
-                          .read(lmsContentDetailsProvider.notifier)
-                          .getLmsContentDetails(
+                      ref.read(lmsContentDetailsProvider.notifier).getLmsContentDetails(
                             ref.read(encryptionProvider.notifier),
                             widget.subjectid,
                           );
@@ -137,23 +132,21 @@ class _Theme02LmsContentDetailsPageState
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsContentData.isEmpty &&
-                  provider is! LmsStateLoading)
+              else if (provider.lmsContentData.isEmpty && provider is! LmsStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                       child: Text(
                         'No List Added',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -231,19 +224,29 @@ class _Theme02LmsContentDetailsPageState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoRow('Emp Name',
-                      provider.lmsContentData[index].employeefirstandmidname,),
-                  const SizedBox(height: 8),
-                  _infoRow('Upload Date',
-                      provider.lmsContentData[index].uploadeddate,),
+                  _infoRow(
+                    'Emp Name',
+                    provider.lmsContentData[index].employeefirstandmidname,
+                  ),
                   const SizedBox(height: 8),
                   _infoRow(
-                      'New Content', provider.lmsContentData[index].newcontent,),
+                    'Upload Date',
+                    provider.lmsContentData[index].uploadeddate,
+                  ),
                   const SizedBox(height: 8),
-                  _infoRow('Sharing Id',
-                      provider.lmsContentData[index].contentsharingid,),
-                  _infoRow('Description',
-                      provider.lmsContentData[index].description,),
+                  _infoRow(
+                    'New Content',
+                    provider.lmsContentData[index].newcontent,
+                  ),
+                  const SizedBox(height: 8),
+                  _infoRow(
+                    'Sharing Id',
+                    provider.lmsContentData[index].contentsharingid,
+                  ),
+                  _infoRow(
+                    'Description',
+                    provider.lmsContentData[index].description,
+                  ),
                   const SizedBox(height: 8),
                   _infoRow('Url', provider.lmsContentData[index].url),
                   const SizedBox(height: 8),

@@ -4,15 +4,15 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-// import 'package:sample/api_token_services/api_tokens_services.dart';
-// import 'package:sample/designs/_designs.dart';
-// import 'package:sample/encryption/encryption_state.dart';
-// import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
-// import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
-// import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-// import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
-// import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-// import 'package:sample/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+// import 'package:srmuh_std/designs/_designs.dart';
+// import 'package:srmuh_std/encryption/encryption_state.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/model/hostel_hive_model.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/model/room_type_hive_model.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/screens/hostel.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/widgets/button_design.dart';
+// import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 // class RegistrationPage extends ConsumerStatefulWidget {
 //   const RegistrationPage({super.key});

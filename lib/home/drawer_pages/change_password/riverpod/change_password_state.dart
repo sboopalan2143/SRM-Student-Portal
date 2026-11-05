@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_provider.dart';
+import 'package:srmuh_std/home/drawer_pages/change_password/riverpod/change_password_provider.dart';
 
-final changePasswordProvider =
-    StateNotifierProvider<ChangePasswordProvider, ChangePasswordState>((ref) {
+final changePasswordProvider = StateNotifierProvider<ChangePasswordProvider, ChangePasswordState>((ref) {
   return ChangePasswordProvider();
 });
 

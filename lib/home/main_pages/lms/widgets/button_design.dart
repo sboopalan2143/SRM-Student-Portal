@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_dynamic_calls
 import 'package:flutter/material.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/home/riverpod/main_provider.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;
 

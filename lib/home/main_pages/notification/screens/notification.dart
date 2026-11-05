@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_provider.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_provider.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 // class NotificationPage extends ConsumerStatefulWidget {
 //   const NotificationPage({super.key});
@@ -339,14 +339,13 @@ import 'package:sample/home/widgets/drawer_design.dart';
 //   }
 // }
 
-// import 'package:sample/home/riverpod/main_state.dart';
+// import 'package:srmuh_std/home/riverpod/main_state.dart';
 
 class NotificationPage extends ConsumerStatefulWidget {
   const NotificationPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _NotificationPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _NotificationPageState();
 }
 
 class _NotificationPageState extends ConsumerState<NotificationPage> {
@@ -355,8 +354,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -424,9 +422,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          ref
-                              .read(notificationProvider.notifier)
-                              .getNotificationDetails(
+                          ref.read(notificationProvider.notifier).getNotificationDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
                         },
@@ -457,16 +453,14 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
                     child: Center(
-                      child: CircularProgressIndicators
-                          .primaryColorProgressIndication,
+                      child: CircularProgressIndicators.primaryColorProgressIndication,
                     ),
                   )
-                else if (provider.notificationData.isEmpty &&
-                    provider is! NotificationLoading)
+                else if (provider.notificationData.isEmpty && provider is! NotificationLoading)
                   Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).size.height / 5),
-                       Center(
+                      Center(
                         child: Text(
                           'No List Added Yet!',
                           style: TextStyles.fontStyle1,
@@ -522,12 +516,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Notification Id',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -535,8 +529,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].notificationid}' ==
-                                'null'
+                        '${provider.notificationData[index].notificationid}' == 'null'
                             ? '-'
                             : '''${provider.notificationData[index].notificationid}''',
                         style: TextStyles.fontStyle10,
@@ -549,12 +542,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Notification Subject',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -562,8 +555,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].notificationsubject}' ==
-                                'null'
+                        '${provider.notificationData[index].notificationsubject}' == 'null'
                             ? '-'
                             : '${provider.notificationData[index].notificationsubject}',
                         style: TextStyles.fontStyle10,
@@ -576,12 +568,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Notification Category Desc',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -589,8 +581,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].notificationcategorydesc}' ==
-                                'null'
+                        '${provider.notificationData[index].notificationcategorydesc}' == 'null'
                             ? '-'
                             : '''${provider.notificationData[index].notificationcategorydesc}''',
                         style: TextStyles.fontStyle10,
@@ -603,12 +594,12 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                   children: [
                     SizedBox(
                       width: width / 2 - 80,
-                      child:  Text(
+                      child: Text(
                         'Notification Description',
                         style: TextStyles.fontStyle10,
                       ),
                     ),
-                     Text(
+                    Text(
                       ':',
                       style: TextStyles.fontStyle10,
                     ),
@@ -616,8 +607,7 @@ class _NotificationPageState extends ConsumerState<NotificationPage> {
                     SizedBox(
                       width: width / 2 - 60,
                       child: Text(
-                        '${provider.notificationData[index].notificationdescription}' ==
-                                'null'
+                        '${provider.notificationData[index].notificationdescription}' == 'null'
                             ? '-'
                             : '''${provider.notificationData[index].notificationdescription}''',
                         style: TextStyles.fontStyle10,

@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/designs/colors.dart';
-import 'package:sample/designs/font_styles.dart';
-import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/theme-07/dhasboard_07_page.dart';
-import 'package:sample/theme-07/login/login_page_theme07.dart';
-import 'package:sample/theme-07/theme07_homepage.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/designs/colors.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
+import 'package:srmuh_std/designs/navigation_style.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:srmuh_std/theme-07/dhasboard_07_page.dart';
+import 'package:srmuh_std/theme-07/login/login_page_theme07.dart';
+import 'package:srmuh_std/theme-07/theme07_homepage.dart';
 
 class Theme07DrawerDesign extends ConsumerStatefulWidget {
   const Theme07DrawerDesign({super.key});

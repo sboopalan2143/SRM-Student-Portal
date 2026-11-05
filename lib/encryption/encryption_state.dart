@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
 
-final encryptionProvider =
-    StateNotifierProvider<EncryptionProvider, EncryptionState>((ref) {
+final encryptionProvider = StateNotifierProvider<EncryptionProvider, EncryptionState>((ref) {
   return EncryptionProvider();
 });
 

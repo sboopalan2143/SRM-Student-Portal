@@ -2,15 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
 
-class CummulativeAttendanceProvider
-    extends StateNotifier<CummulativeAttendanceState> {
+class CummulativeAttendanceProvider extends StateNotifier<CummulativeAttendanceState> {
   CummulativeAttendanceProvider() : super(CummulativeAttendanceInitial());
 
   void disposeState() => state = CummulativeAttendanceInitial();
@@ -28,8 +27,7 @@ class CummulativeAttendanceProvider
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getCummulativeAttendance', data);
+    final response = await HttpService.sendSoapRequest('getCummulativeAttendance', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableCummulativeAttendance(
         successMessage: '',
@@ -38,10 +36,8 @@ class CummulativeAttendanceProvider
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final cummulativeAttendanceRes =
-          details['getCummulativeAttendanceResponse'] as Map<String, dynamic>;
-      final returnData =
-          cummulativeAttendanceRes['return'] as Map<String, dynamic>;
+      final cummulativeAttendanceRes = details['getCummulativeAttendanceResponse'] as Map<String, dynamic>;
+      final returnData = cummulativeAttendanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
       if (decryptedData.mapData!['Status'] == 'Success') {
@@ -98,8 +94,7 @@ class CummulativeAttendanceProvider
       } else if (decryptedData.mapData!['Message'] != 'Success') {
         state = CummulativeAttendanceStateError(
           successMessage: '',
-          errorMessage:
-              '''${decryptedData.mapData!['Message']}, ${decryptedData.mapData!['Message']}''',
+          errorMessage: '''${decryptedData.mapData!['Message']}, ${decryptedData.mapData!['Message']}''',
           cummulativeHiveAttendanceData: state.cummulativeHiveAttendanceData,
         );
       }

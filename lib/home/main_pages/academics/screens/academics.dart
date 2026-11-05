@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/screens/attendance.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/screens/exam_details.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/screens/subject_page.dart';
-import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/screens/attendance.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/screens/cumulative_attendance.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/screens/exam_details.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/screens/hourwise_page.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/screens/internal_marks.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/screens/subject_page.dart';
+import 'package:srmuh_std/home/screen/home_page2.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class AcademicsPage extends ConsumerStatefulWidget {
   const AcademicsPage({super.key});
@@ -50,7 +50,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title:  Text(
+              title: Text(
                 'ACADEMICS',
                 style: TextStyles.fontStyle4,
                 overflow: TextOverflow.clip,
@@ -91,9 +91,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor2,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
@@ -125,9 +123,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor1,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(BorderBoxButtonDecorations.homePageButtonStyle),
                     onPressed: () {
@@ -163,9 +159,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor3,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
@@ -198,9 +192,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor2,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
@@ -238,9 +230,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor1,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
@@ -273,9 +263,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.homepagecolor3,
-                      textStyle: width > 400
-                          ? TextStyles.fontStyle6
-                          : TextStyles.fontStyle8,
+                      textStyle: width > 400 ? TextStyles.fontStyle6 : TextStyles.fontStyle8,
                       elevation: 10,
                     ).merge(
                       BorderBoxButtonDecorations.homePageButtonStyle,
@@ -332,7 +320,7 @@ class _AcademicsPageState extends ConsumerState<AcademicsPage> {
                 SizedBox(
                   height: height * 0.15,
                   width: width * 0.40,
-                  child:  Text(
+                  child: Text(
                     '',
                     textAlign: TextAlign.center,
                     style: TextStyles.fontStyle6,

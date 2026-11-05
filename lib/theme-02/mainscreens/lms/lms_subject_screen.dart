@@ -3,21 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_content_details_screen.dart';
-import 'package:sample/theme-02/mainscreens/lms/lms_title_screen.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_content_details_screen.dart';
+import 'package:srmuh_std/theme-02/mainscreens/lms/lms_title_screen.dart';
 
 class Theme02LmsHomePage extends ConsumerStatefulWidget {
   const Theme02LmsHomePage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme02LmsHomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme02LmsHomePageState();
 }
 
 class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
@@ -26,8 +25,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   Future<void> _handleRefresh() async {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -134,23 +132,21 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.lmsSubjectData.isEmpty &&
-                  provider is! LmsStateLoading)
+              else if (provider.lmsSubjectData.isEmpty && provider is! LmsStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                       child: Text(
                         'No List Added',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -229,11 +225,9 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoRow(Icons.code, 'Course Code',
-                      provider.lmsSubjectData[index].subjectcode),
+                  _infoRow(Icons.code, 'Course Code', provider.lmsSubjectData[index].subjectcode),
                   const SizedBox(height: 8),
-                  _infoRow(Icons.person, 'Staff',
-                      provider.lmsSubjectData[index].staffname),
+                  _infoRow(Icons.person, 'Staff', provider.lmsSubjectData[index].staffname),
                 ],
               ),
             ),
@@ -261,8 +255,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                         context,
                         RouteDesign(
                           route: Theme02LmsTitlePage(
-                            subjectID:
-                                '${provider.lmsSubjectData[index].subjectid}',
+                            subjectID: '${provider.lmsSubjectData[index].subjectid}',
                           ),
                         ),
                       );
@@ -270,9 +263,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                     // icon: const Icon(Icons.book, color: Colors.white),
                     label: Text(
                       'Classwork Details',
-                      style: TextStyle(
-                          color: AppColors.theme02secondaryColor1,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: AppColors.theme02secondaryColor1, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -288,9 +279,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                       ),
                     ),
                     onPressed: () {
-                      ref
-                          .read(lmsContentDetailsProvider.notifier)
-                          .getLmsContentDetails(
+                      ref.read(lmsContentDetailsProvider.notifier).getLmsContentDetails(
                             ref.read(encryptionProvider.notifier),
                             '${provider.lmsSubjectData[index].subjectid}',
                           );
@@ -298,8 +287,7 @@ class _Theme02LmsHomePageState extends ConsumerState<Theme02LmsHomePage> {
                         context,
                         RouteDesign(
                           route: Theme02LmsContentDetailsPage(
-                            subjectid:
-                                '${provider.lmsSubjectData[index].subjectid}',
+                            subjectid: '${provider.lmsSubjectData[index].subjectid}',
                           ),
                         ),
                       );

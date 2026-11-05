@@ -1,4 +1,4 @@
-package com.srm.student.sample
+package com.srmuh.studentportal
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -13,57 +13,57 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart' as pro;
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/drawer_pages/change_password/riverpod/change_password_state.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
-import 'package:sample/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
-import 'package:sample/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
-import 'package:sample/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_state.dart';
-import 'package:sample/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
-import 'package:sample/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/calendar_state.dart';
-import 'package:sample/home/main_pages/calendar/riverpod/time_table_state.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
-import 'package:sample/home/main_pages/fees/riverpod/fees_state.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
-import 'package:sample/home/main_pages/grievances/riverpod/grievance_state.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_count_state.dart';
-import 'package:sample/home/main_pages/notification/riverpod/notification_state.dart';
-import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_state.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/main.dart';
-import 'package:sample/network/riverpod/network_state.dart';
-import 'package:sample/theme-07/bottom_navbar.dart';
-import 'package:sample/theme-07/login/login_page_theme07.dart';
-import 'package:sample/theme-07/mainscreens/academy/academy_home_page.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_content_details.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_homePage.dart';
-import 'package:sample/theme-07/mainscreens/academy/lms_title_page.dart';
-import 'package:sample/theme-07/mainscreens/academy/time_table_screen.dart';
-import 'package:sample/theme-07/mainscreens/fees/fees_home_page.dart';
-import 'package:sample/theme-07/mainscreens/grievance/grievance_homepage.dart';
-import 'package:sample/theme-07/notification_homepage.dart';
-import 'package:sample/theme-07/notification_page.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/drawer_pages/change_password/riverpod/change_password_state.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/model/exam_details_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/exam_details_pages/riverpod/exam_details_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/hourwise_model.dart/hourwise_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/hourwise_attendence/riverpod/hourwise_attendence_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/model/internal_mark_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/internal_marks_pages/riverpod/internal_marks_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/riverpod/dhasboard_overall_attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/overall_attendance_page/riverpod/overall_attendance_state.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/model/subject_responce_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/subject_pages/riverpod/subjects_state.dart';
+import 'package:srmuh_std/home/main_pages/calendar/riverpod/calendar_state.dart';
+import 'package:srmuh_std/home/main_pages/calendar/riverpod/time_table_state.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_state.dart';
+import 'package:srmuh_std/home/main_pages/fees/riverpod/fees_state.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_category_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_subtype_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/model.dart/grievance_type_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/grievances/riverpod/grievance_state.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_count_state.dart';
+import 'package:srmuh_std/home/main_pages/notification/riverpod/notification_state.dart';
+import 'package:srmuh_std/home/main_pages/sgpa/riverpod/sgpa_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/login/riverpod/login_state.dart';
+import 'package:srmuh_std/main.dart';
+import 'package:srmuh_std/network/riverpod/network_state.dart';
+import 'package:srmuh_std/theme-07/bottom_navbar.dart';
+import 'package:srmuh_std/theme-07/login/login_page_theme07.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/academy_home_page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_content_details.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_homePage.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/lms_title_page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/academy/time_table_screen.dart';
+import 'package:srmuh_std/theme-07/mainscreens/fees/fees_home_page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/grievance/grievance_homepage.dart';
+import 'package:srmuh_std/theme-07/notification_homepage.dart';
+import 'package:srmuh_std/theme-07/notification_page.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class Theme07dhasboardPage extends ConsumerStatefulWidget {
   const Theme07dhasboardPage({super.key});
@@ -75,12 +75,14 @@ class Theme07dhasboardPage extends ConsumerStatefulWidget {
 class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> with WidgetsBindingObserver {
   final _cancelableOperations = <CancelableOperation<void>>[];
   bool isHoliday = false;
+  late Uint8List imageBytes;
+  bool isRenderBytes = false;
 
   @override
   void initState() {
     super.initState();
     _initialProcess();
-    Alerts.checkForAppUpdate(context: context, forcefully: false);
+    Alerts.checkForAppUpdate(context: context, forcefully: true);
 
     Future.delayed(const Duration(milliseconds: 800), () {
       if (mounted) {
@@ -115,43 +117,59 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
         Future<void>.sync(() async {
           if (mounted) {
             // Profile
-            await ref.read(profileProvider.notifier).getProfileApi(
+            await ref
+                .read(profileProvider.notifier)
+                .getProfileApi(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(profileProvider.notifier).getProfileHive('');
 
             // Timetable
-            await ref.read(timetableProvider.notifier).getTimeTableDetails(
+            await ref
+                .read(timetableProvider.notifier)
+                .getTimeTableDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // LMS Courses
-            await ref.read(lmsProvider.notifier).getLmsSubgetDetails(
+            await ref
+                .read(lmsProvider.notifier)
+                .getLmsSubgetDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // CGPA
-            await ref.read(cgpaProvider.notifier).getCgpaDetails(
+            await ref
+                .read(cgpaProvider.notifier)
+                .getCgpaDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // SGPA
-            await ref.read(sgpaProvider.notifier).getSgpaDetails(
+            await ref
+                .read(sgpaProvider.notifier)
+                .getSgpaDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // Fees Dashboard
-            await ref.read(feesDhasboardProvider.notifier).getFeesDhasboardDetails(
+            await ref
+                .read(feesDhasboardProvider.notifier)
+                .getFeesDhasboardDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // Notification Count
-            await ref.read(notificationCountProvider.notifier).getNotificationCountDetails(
+            await ref
+                .read(notificationCountProvider.notifier)
+                .getNotificationCountDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // Overall Attendance
-            await ref.read(overallattendanceProvider.notifier).getSubjectWiseOverallAttendanceDetails(
+            await ref
+                .read(overallattendanceProvider.notifier)
+                .getSubjectWiseOverallAttendanceDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
@@ -164,24 +182,34 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
             await ref.read(calendarProvider.notifier).getHiveCalendar('');
 
             // Dashboard Overall Attendance
-            await ref.read(DhasboardoverallattendanceProvider.notifier).getDhasboardOverallAttendanceDetails(
+            await ref
+                .read(DhasboardoverallattendanceProvider.notifier)
+                .getDhasboardOverallAttendanceDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // Transport
-            await ref.read(transportProvider.notifier).getTransportStatusDetails(
+            await ref
+                .read(transportProvider.notifier)
+                .getTransportStatusDetails(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
-            await ref.read(transportProvider.notifier).getRouteIdDetails(
+            await ref
+                .read(transportProvider.notifier)
+                .getRouteIdDetails(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(transportProvider.notifier).getRouteIdHiveDetails('');
-            await ref.read(transportProvider.notifier).getBoardingIdDetails(
+            await ref
+                .read(transportProvider.notifier)
+                .getBoardingIdDetails(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(transportProvider.notifier).getBoardingPointHiveDetails('');
-            await ref.read(transportProvider.notifier).gettransportRegisterDetails(
+            await ref
+                .read(transportProvider.notifier)
+                .gettransportRegisterDetails(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(transportProvider.notifier).getTransportHiveRegisterDetails('');
@@ -191,12 +219,16 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
             await ref.read(hostelProvider.notifier).getHostelHiveDetails('');
 
             // Notification
-            await ref.read(notificationProvider.notifier).getNotificationDetails(
+            await ref
+                .read(notificationProvider.notifier)
+                .getNotificationDetails(
                   ref.read(encryptionProvider.notifier),
                 );
 
             // Attendance
-            await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+            await ref
+                .read(attendanceProvider.notifier)
+                .getAttendanceDetails(
                   ref.read(encryptionProvider.notifier),
                 );
             await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
@@ -209,7 +241,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
     // Hive operations
     final attendance = await Hive.openBox<AttendanceHiveData>('Attendance');
     if (attendance.isEmpty && mounted) {
-      await ref.read(attendanceProvider.notifier).getAttendanceDetails(
+      await ref
+          .read(attendanceProvider.notifier)
+          .getAttendanceDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(attendanceProvider.notifier).getHiveAttendanceDetails('');
@@ -218,7 +252,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final cummulativeAttendance = await Hive.openBox<CumulativeAttendanceHiveData>('cumulativeattendance');
     if (cummulativeAttendance.isEmpty && mounted) {
-      await ref.read(cummulativeAttendanceProvider.notifier).getCummulativeAttendanceDetails(
+      await ref
+          .read(cummulativeAttendanceProvider.notifier)
+          .getCummulativeAttendanceDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(cummulativeAttendanceProvider.notifier).getHiveCummulativeDetails('');
@@ -227,7 +263,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final examDetails = await Hive.openBox<ExamDetailsHiveData>('examDetails');
     if (examDetails.isEmpty && mounted) {
-      await ref.read(examDetailsProvider.notifier).getExamDetailsApi(
+      await ref
+          .read(examDetailsProvider.notifier)
+          .getExamDetailsApi(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(examDetailsProvider.notifier).getHiveExamDetails('');
@@ -236,7 +274,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final hourwiseAttendance = await Hive.openBox<HourwiseHiveData>('hourwisedata');
     if (hourwiseAttendance.isEmpty && mounted) {
-      await ref.read(hourwiseProvider.notifier).gethourwiseDetails(
+      await ref
+          .read(hourwiseProvider.notifier)
+          .gethourwiseDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(hourwiseProvider.notifier).getHiveHourwise('');
@@ -245,7 +285,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final internalMarks = await Hive.openBox<InternalMarkHiveData>('internalmarkdata');
     if (internalMarks.isEmpty && mounted) {
-      await ref.read(internalMarksProvider.notifier).getInternalMarksDetails(
+      await ref
+          .read(internalMarksProvider.notifier)
+          .getInternalMarksDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(internalMarksProvider.notifier).getHiveInternalMarks('');
@@ -261,7 +303,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final grievanceCategoryData = await Hive.openBox<GrievanceCategoryHiveData>('grievanceCategoryData');
     if (grievanceCategoryData.isEmpty && mounted) {
-      await ref.read(grievanceProvider.notifier).getGrievanceCategoryDetails(
+      await ref
+          .read(grievanceProvider.notifier)
+          .getGrievanceCategoryDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(grievanceProvider.notifier).getHiveGrievanceCategoryDetails('');
@@ -270,7 +314,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final grievanceSubTypeData = await Hive.openBox<GrievanceSubTypeHiveData>('grievanceSubTypeData');
     if (grievanceSubTypeData.isEmpty && mounted) {
-      await ref.read(grievanceProvider.notifier).getGrievanceSubTypeDetails(
+      await ref
+          .read(grievanceProvider.notifier)
+          .getGrievanceSubTypeDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(grievanceProvider.notifier).getHiveGrievanceSubTypeDetails('');
@@ -279,7 +325,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
     final grievanceTypeData = await Hive.openBox<GrievanceTypeHiveData>('grievanceTypeData');
     if (grievanceTypeData.isEmpty && mounted) {
-      await ref.read(grievanceProvider.notifier).getGrievanceTypeDetails(
+      await ref
+          .read(grievanceProvider.notifier)
+          .getGrievanceTypeDetails(
             ref.read(encryptionProvider.notifier),
           );
       await ref.read(grievanceProvider.notifier).getHiveGrievanceTypeDetails('');
@@ -369,6 +417,26 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
   @override
   Widget build(BuildContext context) {
+    final courseProvider = ref.watch(lmsProvider);
+    final provider = ref.watch(cgpaProvider);
+    final sgpaprovider = ref.watch(sgpaProvider);
+    final notificatioCountprovider = ref.watch(notificationCountProvider);
+    final feesdhasboardprovider = ref.watch(feesDhasboardProvider);
+    ref.watch(hostelProvider);
+    final calenderprovider = ref.watch(calendarProvider);
+
+    if (!isRenderBytes) {
+      log("Image");
+      final providerProfile = ref.watch(profileProvider);
+      final base64Image = '${providerProfile.profileDataHive.studentphoto}';
+      imageBytes = base64Decode(base64Image);
+      if (imageBytes.isNotEmpty && mounted) {
+        setState(() {
+          isRenderBytes = true;
+        });
+      }
+    }
+
     ref
       ..watch(attendanceProvider)
       ..listenManual(networkProvider, (previous, next) {
@@ -389,17 +457,6 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
           }
         }
       });
-
-    final providerProfile = ref.watch(profileProvider);
-    final courseProvider = ref.watch(lmsProvider);
-    final base64Image = '${providerProfile.profileDataHive.studentphoto}';
-    final imageBytes = base64Decode(base64Image);
-    final provider = ref.watch(cgpaProvider);
-    final sgpaprovider = ref.watch(sgpaProvider);
-    final notificatioCountprovider = ref.watch(notificationCountProvider);
-    final feesdhasboardprovider = ref.watch(feesDhasboardProvider);
-    ref.watch(hostelProvider);
-    final calenderprovider = ref.watch(calendarProvider);
 
     final themeProvider = pro.Provider.of<ThemeProvider>(context);
 
@@ -427,20 +484,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                if (imageBytes == '' || imageBytes.isEmpty)
-                                  CircleAvatar(
-                                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                                    radius: 25,
-                                    child: CircleAvatar(
-                                      backgroundColor: Theme.of(context).colorScheme.surface,
-                                      radius: 48,
-                                      child: Icon(
-                                        FontAwesomeIcons.userGraduate,
-                                        color: Theme.of(context).colorScheme.inverseSurface.withAlpha(180),
-                                      ),
-                                    ),
-                                  )
-                                else
+                                if (imageBytes != '' && imageBytes.isNotEmpty)
                                   SizedBox(
                                     height: 45,
                                     width: 45,
@@ -449,6 +493,19 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                       child: Image.memory(
                                         imageBytes,
                                         fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  CircleAvatar(
+                                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                                    radius: 25,
+                                    child: CircleAvatar(
+                                      backgroundColor: Theme.of(context).colorScheme.surface,
+                                      radius: 48,
+                                      child: FaIcon(
+                                        FontAwesomeIcons.userGraduate,
+                                        color: Theme.of(context).colorScheme.inverseSurface.withAlpha(180),
                                       ),
                                     ),
                                   ),
@@ -498,12 +555,13 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                                             notificatioCountprovider.notificationCountData.length,
                                                         // controller: _listController,
                                                         shrinkWrap: true,
-                                                        itemBuilder: (
-                                                          BuildContext context,
-                                                          int index,
-                                                        ) {
-                                                          return notificationCountCardDesign(index);
-                                                        },
+                                                        itemBuilder:
+                                                            (
+                                                              BuildContext context,
+                                                              int index,
+                                                            ) {
+                                                              return notificationCountCardDesign(index);
+                                                            },
                                                       ),
                                                   ],
                                                 ),
@@ -738,8 +796,10 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                               ),
                                             );
                                           case '/more':
-                                            pro.Provider.of<NavigationProvider>(context, listen: false)
-                                                .setSelectedIndex(1);
+                                            pro.Provider.of<NavigationProvider>(
+                                              context,
+                                              listen: false,
+                                            ).setSelectedIndex(1);
                                         }
                                       },
                                     ),
@@ -1111,12 +1171,13 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                         // controller: _listController,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (
-                                          BuildContext context,
-                                          int index,
-                                        ) {
-                                          return sgpacardDesign(index);
-                                        },
+                                        itemBuilder:
+                                            (
+                                              BuildContext context,
+                                              int index,
+                                            ) {
+                                              return sgpacardDesign(index);
+                                            },
                                       ),
                                   ],
                                 ),
@@ -1152,12 +1213,13 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                         // controller: _listController,
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (
-                                          BuildContext context,
-                                          int index,
-                                        ) {
-                                          return cgpacardDesign(index);
-                                        },
+                                        itemBuilder:
+                                            (
+                                              BuildContext context,
+                                              int index,
+                                            ) {
+                                              return cgpacardDesign(index);
+                                            },
                                       ),
                                   ],
                                 ),
@@ -1249,12 +1311,13 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                                     itemCount: feesdhasboardprovider.feesDueDhasboardData.length,
                                     // controller: _listController,
                                     shrinkWrap: true,
-                                    itemBuilder: (
-                                      BuildContext context,
-                                      int index,
-                                    ) {
-                                      return feesdhasboardcardDesign(index);
-                                    },
+                                    itemBuilder:
+                                        (
+                                          BuildContext context,
+                                          int index,
+                                        ) {
+                                          return feesdhasboardcardDesign(index);
+                                        },
                                   ),
                               ],
                             ),
@@ -1391,8 +1454,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                   ),
                   barGroups: List.generate(attendanceData.length, (i) {
                     final data = attendanceData[i];
-                    final percentage =
-                        data.presentpercentage == '' ? 0.0 : double.tryParse(data.presentpercentage!) ?? 0.0;
+                    final percentage = data.presentpercentage == ''
+                        ? 0.0
+                        : double.tryParse(data.presentpercentage!) ?? 0.0;
 
                     final color = percentage < 75 ? Colors.red : Colors.green;
 
@@ -1426,15 +1490,18 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
       return const Center(child: CircularProgressIndicator());
     }
 
-    final present = int.tryParse(
+    final present =
+        int.tryParse(
           provider.DhasboardOverallattendanceData.first.totalpresenthours ?? '0',
         ) ??
         0;
-    final absent = int.tryParse(
+    final absent =
+        int.tryParse(
           provider.DhasboardOverallattendanceData.first.absentcnt ?? '0',
         ) ??
         0;
-    final absentper = double.tryParse(
+    final absentper =
+        double.tryParse(
           provider.DhasboardOverallattendanceData.first.absentper ?? '0',
         ) ??
         0.0;
@@ -1478,7 +1545,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                       startDegreeOffset: 270,
                       sections: [
                         PieChartSectionData(
-                          color: presentPercentage <= 80 ? Colors.yellow : Colors.green,
+                          color: /* presentPercentage <= 80 ? Colors.yellow : */ Colors.green,
                           value: animateBars ? present.toDouble() : 100,
                           title: animateBars ? '${presentPercentage.toStringAsFixed(2)}%' : '100%',
                           radius: presentPercentage <= 25 ? 60 : 50,
@@ -1539,7 +1606,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                 Container(
                   width: 20,
                   height: 20,
-                  color: presentPercentage <= 80 ? Colors.yellow : Colors.green,
+                  color: /* presentPercentage <= 80 ? Colors.yellow : */ Colors.green,
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -1656,7 +1723,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                       ),
                     ),
                     onPressed: () {
-                      ref.read(lmsProvider.notifier).getLmsTitleDetails(
+                      ref
+                          .read(lmsProvider.notifier)
+                          .getLmsTitleDetails(
                             ref.read(encryptionProvider.notifier),
                             '${provider.lmsSubjectData[index].subjectid}',
                           );
@@ -1689,7 +1758,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                       ),
                     ),
                     onPressed: () {
-                      ref.read(lmsContentDetailsProvider.notifier).getLmsContentDetails(
+                      ref
+                          .read(lmsContentDetailsProvider.notifier)
+                          .getLmsContentDetails(
                             ref.read(encryptionProvider.notifier),
                             '${provider.lmsSubjectData[index].subjectid}',
                           );
@@ -1786,8 +1857,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
   Widget cgpacardDesign(int index) {
     final provider = ref.watch(cgpaProvider);
-    final acquiredCgpa =
-        provider.cgpaData[index].cgpa == null ? 0 : double.parse(provider.cgpaData[index].cgpa.toString());
+    final acquiredCgpa = provider.cgpaData[index].cgpa == null
+        ? 0
+        : double.parse(provider.cgpaData[index].cgpa.toString());
     const maxCgpa = 10;
     final percent = acquiredCgpa / maxCgpa;
 
@@ -1830,8 +1902,9 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
 
   Widget sgpacardDesign(int index) {
     final provider = ref.watch(sgpaProvider);
-    final acquiredSgpa =
-        provider.sgpaData[index].attrvalue == null ? 0 : double.parse(provider.sgpaData[index].attrvalue.toString());
+    final acquiredSgpa = provider.sgpaData[index].attrvalue == null
+        ? 0
+        : double.parse(provider.sgpaData[index].attrvalue.toString());
     const maxSgpa = 10;
     final percent = acquiredSgpa / maxSgpa;
 
@@ -1920,7 +1993,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
       onTap: () {
         Navigator.push(
           context,
-          RouteDesign(route: const Theme02NotificationPage()),
+          RouteDesign(route: const Theme07NotificationHomePage()),
         );
       },
       child: Container(
@@ -1947,7 +2020,7 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
               onTap: () {
                 Navigator.push(
                   context,
-                  RouteDesign(route: const Theme02NotificationPage()),
+                  RouteDesign(route: const Theme07NotificationHomePage()),
                 );
               },
               child: Container(
@@ -2211,8 +2284,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
               color: status == ClassStatus.ongoing
                   ? Colors.green.withOpacity(0.5)
                   : status == ClassStatus.upcoming
-                      ? Colors.blue.withOpacity(0.5)
-                      : Colors.grey.withOpacity(0.5),
+                  ? Colors.blue.withOpacity(0.5)
+                  : Colors.grey.withOpacity(0.5),
               width: 1.5,
             ),
           ),
@@ -2318,8 +2391,8 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                           color: status == ClassStatus.ongoing
                               ? Colors.green.withOpacity(0.2)
                               : status == ClassStatus.upcoming
-                                  ? Colors.blue.withOpacity(0.2)
-                                  : Colors.grey.withOpacity(0.2),
+                              ? Colors.blue.withOpacity(0.2)
+                              : Colors.grey.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Center(
@@ -2327,16 +2400,16 @@ class _Theme07dhasboardPageState extends ConsumerState<Theme07dhasboardPage> wit
                             status == ClassStatus.ongoing
                                 ? 'Ongoing'
                                 : status == ClassStatus.upcoming
-                                    ? 'Upcoming'
-                                    : 'Completed',
+                                ? 'Upcoming'
+                                : 'Completed',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: status == ClassStatus.ongoing
                                   ? Colors.green
                                   : status == ClassStatus.upcoming
-                                      ? Colors.blue
-                                      : Colors.grey,
+                                  ? Colors.blue
+                                  : Colors.grey,
                             ),
                           ),
                         ),

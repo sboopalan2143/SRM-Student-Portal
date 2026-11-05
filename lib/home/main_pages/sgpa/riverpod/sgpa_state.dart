@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/sgpa/model/sgpa_model.dart';
-import 'package:sample/home/main_pages/sgpa/riverpod/sgpa_provider.dart';
+import 'package:srmuh_std/home/main_pages/sgpa/model/sgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/sgpa/riverpod/sgpa_provider.dart';
 
 final sgpaProvider = StateNotifierProvider<SgpaProvider, SgpaState>((ref) {
   return SgpaProvider();

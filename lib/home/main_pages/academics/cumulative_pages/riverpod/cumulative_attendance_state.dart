@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_provider.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/model/cummulative_attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/cumulative_pages/riverpod/cumulative_attendance_provider.dart';
 
-final cummulativeAttendanceProvider = StateNotifierProvider<
-    CummulativeAttendanceProvider, CummulativeAttendanceState>((ref) {
+final cummulativeAttendanceProvider =
+    StateNotifierProvider<CummulativeAttendanceProvider, CummulativeAttendanceState>((ref) {
   return CummulativeAttendanceProvider();
 });
 
@@ -27,8 +27,7 @@ class CummulativeAttendanceState {
       CummulativeAttendanceState(
         successMessage: successMessage ?? this.successMessage,
         errorMessage: errorMessage ?? this.errorMessage,
-        cummulativeHiveAttendanceData:
-            cummulativeHiveAttendanceData ?? this.cummulativeHiveAttendanceData,
+        cummulativeHiveAttendanceData: cummulativeHiveAttendanceData ?? this.cummulativeHiveAttendanceData,
       );
 }
 
@@ -65,8 +64,7 @@ class CummulativeAttendanceStateSuccessful extends CummulativeAttendanceState {
   });
 }
 
-class NoNetworkAvailableCummulativeAttendance
-    extends CummulativeAttendanceState {
+class NoNetworkAvailableCummulativeAttendance extends CummulativeAttendanceState {
   NoNetworkAvailableCummulativeAttendance({
     required super.successMessage,
     required super.errorMessage,

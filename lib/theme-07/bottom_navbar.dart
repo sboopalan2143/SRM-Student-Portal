@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:sample/main.dart';
-import 'package:sample/theme-07/dhasboard_07_page.dart';
-import 'package:sample/theme-07/mainscreens/settings_page.dart';
-import 'package:sample/theme-07/theme07_explore.dart';
-import 'package:sample/theme-07/theme07_profile_screen.dart';
-import 'package:sample/theme/theme_provider.dart';
+import 'package:srmuh_std/main.dart';
+import 'package:srmuh_std/theme-07/dhasboard_07_page.dart';
+import 'package:srmuh_std/theme-07/mainscreens/settings_page.dart';
+import 'package:srmuh_std/theme-07/theme07_explore.dart';
+import 'package:srmuh_std/theme-07/theme07_profile_screen.dart';
+import 'package:srmuh_std/theme/theme_provider.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});

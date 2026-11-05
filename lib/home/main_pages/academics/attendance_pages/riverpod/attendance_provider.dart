@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
-import 'package:sample/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/model/attendance_hive.dart';
+import 'package:srmuh_std/home/main_pages/academics/attendance_pages/riverpod/attendance_state.dart';
 
 class AttendanceProvider extends StateNotifier<AttendanceState> {
   AttendanceProvider() : super(AttendanceInitial());
@@ -23,8 +23,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getSubjectwiseAttendance', data);
+    final response = await HttpService.sendSoapRequest('getSubjectwiseAttendance', data);
     if (response.$1 == 0) {
       state = const NoNetworkAvailableAttendance(
         successMessage: '',
@@ -33,8 +32,7 @@ class AttendanceProvider extends StateNotifier<AttendanceState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final attendanceRes =
-          details['getSubjectwiseAttendanceResponse'] as Map<String, dynamic>;
+      final attendanceRes = details['getSubjectwiseAttendanceResponse'] as Map<String, dynamic>;
       final returnData = attendanceRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');

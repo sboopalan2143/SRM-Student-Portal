@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample/designs/_designs.dart';
+import 'package:srmuh_std/designs/_designs.dart';
 
 class CircularProgressIndicators {
   static final primaryColorProgressIndication = SizedBox(
@@ -12,7 +12,7 @@ class CircularProgressIndicators {
     ),
   );
 
-    static final theme07primaryColorProgressIndication = SizedBox(
+  static final theme07primaryColorProgressIndication = SizedBox(
     height: 30,
     width: 30,
     child: CircularProgressIndicator(

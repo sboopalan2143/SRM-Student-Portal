@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/lms/model/l%E2%95%A0%C3%BAms_faculty_get_comment_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_classworkdetails_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_getStudentAttachment_Details.dart';
-import 'package:sample/home/main_pages/lms/model/lms_getSubject_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_get_comment_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_gettitle_model.dart';
-import 'package:sample/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
-import 'package:sample/home/main_pages/lms/model/mcq_get_question_and_answer_model.dart';
-import 'package:sample/home/main_pages/lms/model/mcq_get_view_list_model.dart';
-import 'package:sample/home/main_pages/lms/model/mcq_shedule-model.dart';
-import 'package:sample/home/main_pages/lms/model/mcq_submited_answer_model.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_provider.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/l%E2%95%A0%C3%BAms_faculty_get_comment_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_classworkdetails_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_getAttachmentDetails_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_getStudentAttachment_Details.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_getSubject_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_get_comment_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_gettitle_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/lms_replay_faculty_comment_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/mcq_get_question_and_answer_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/mcq_get_view_list_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/mcq_shedule-model.dart';
+import 'package:srmuh_std/home/main_pages/lms/model/mcq_submited_answer_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_provider.dart';
 
 final lmsProvider = StateNotifierProvider<LmsProvider, LmsState>((ref) {
   return LmsProvider();
@@ -88,22 +88,17 @@ class LmsState {
         lmsSubjectData: lmsSubjectData ?? this.lmsSubjectData,
         lmsTitleData: lmsTitleData ?? this.lmsTitleData,
         classWorkDetailsData: classWorkDetailsData ?? this.classWorkDetailsData,
-        lmsAttachmentDetailsData:
-            lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
-        lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData ??
-            this.lmsStudentAttachmentDetailsData,
+        lmsAttachmentDetailsData: lmsAttachmentDetailsData ?? this.lmsAttachmentDetailsData,
+        lmsStudentAttachmentDetailsData: lmsStudentAttachmentDetailsData ?? this.lmsStudentAttachmentDetailsData,
         comment: comment ?? this.comment,
         lmsgetcommentData: lmsgetcommentData ?? this.lmsgetcommentData,
-        lmsReplayfacultycommentData:
-            lmsReplayfacultycommentData ?? this.lmsReplayfacultycommentData,
-        lmsfacultygetcommentData:
-            lmsfacultygetcommentData ?? this.lmsfacultygetcommentData,
+        lmsReplayfacultycommentData: lmsReplayfacultycommentData ?? this.lmsReplayfacultycommentData,
+        lmsfacultygetcommentData: lmsfacultygetcommentData ?? this.lmsfacultygetcommentData,
         imagepath: imagepath ?? this.imagepath,
         remarks: remarks ?? this.remarks,
         action: action ?? this.action,
         mcqSheduleData: mcqSheduleData ?? this.mcqSheduleData,
-        mcqQuestionAndAnswerData:
-            mcqQuestionAndAnswerData ?? this.mcqQuestionAndAnswerData,
+        mcqQuestionAndAnswerData: mcqQuestionAndAnswerData ?? this.mcqQuestionAndAnswerData,
         answerdesc: answerdesc ?? this.answerdesc,
         mcqSubmitedData: mcqSubmitedData ?? this.mcqSubmitedData,
         mcqgetAnswerDetails: mcqgetAnswerDetails ?? this.mcqgetAnswerDetails,

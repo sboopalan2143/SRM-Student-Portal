@@ -2,9 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/theme-07/theme07_homepage.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/theme-07/theme07_homepage.dart';
+
 class Theme05Page extends ConsumerStatefulWidget {
   const Theme05Page({super.key});
 

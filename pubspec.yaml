@@ -1,9 +1,9 @@
-name: sample
+name: srmuh_std
 
-version: 1.0.0+1
+version: 1.0.1+6
 
 environment:
-  sdk: ">=3.2.1 <4.0.0"
+  sdk: ^3.11.4
 
 dependencies:
   flutter:
@@ -11,22 +11,19 @@ dependencies:
   cupertino_icons:
   connectivity_plus:
   # google_fonts: ^6.2.1
-  flutter_riverpod:
+  flutter_riverpod: ^2.6.0
   http:
   shared_preferences:
   intl:
   firebase_core:
-  firebase_auth:
-  firebase_analytics:
   firebase_messaging:
   cached_network_image:
   permission_handler:
   url_launcher:
   package_info_plus:
   device_info_plus:
-  logger:
   # awesome_notifications: ^0.8.2
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.2.4
   dropdown_search: ^5.0.5
   xml:
   encrypt:
@@ -54,12 +51,11 @@ dependencies:
   percent_indicator:
   flutter_zoom_drawer:
   badges:
-  fl_chart: ^0.71.0
+  fl_chart: ^1.2.0
   flutter_animate:
   table_calendar:
   graphic:
   pie_chart:
-  flutter_launcher_icons: ^0.14.3
   persistent_bottom_nav_bar:
   # pdfx:
   flutter_tts:
@@ -67,16 +63,18 @@ dependencies:
   syncfusion_flutter_pdf:
   provider: ^6.1.4
   google_nav_bar: ^5.0.7
-  font_awesome_flutter: ^10.8.0
-  fluentui_icons: ^1.0.0
+  font_awesome_flutter: ^11.0.0
+  # fluentui_icons: ^1.0.0
   hive_flutter: ^1.1.0
   animated_toggle_switch: ^0.8.4
   async: ^2.12.0
-  syncfusion_flutter_datepicker: ^29.1.39
-  flutter_html: ^3.0.0-beta.2
+  syncfusion_flutter_datepicker: ^33.1.47
+  # flutter_html: ^3.0.0
   iconsax_plus: 
   iconsax:
   custom_clippers:
+  in_app_update: ^5.0.0
+  store_redirect: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -86,22 +84,15 @@ dev_dependencies:
   change_app_package_name:
   hive_generator:
   build_runner:
-  icons_launcher:
+  flutter_launcher_icons: ^0.14.3
 
-# flutter pub run flutter_launcher_icons
-# flutter_icons:
-#   #  image_path: "assets/images/Asset365 splash screen.png"
-#   image_path: "assets/images/srmgrouplogo.png"
-#   android: "launcher_icon"
-#   ios:
-
-icons_launcher:
-  image_path: "assets/images/srmgrouplogo.png"
-  platforms:
-    android:
-      enable: true
-    ios:
-      enable: true
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/app-logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/app-logo-adaptive.png"
 
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:

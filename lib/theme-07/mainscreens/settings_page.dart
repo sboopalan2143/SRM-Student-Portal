@@ -1,13 +1,12 @@
-import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/designs/navigation_style.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/theme-07/login/login_page_theme07.dart';
-import 'package:sample/theme-07/theme07_change_password.dart';
-import 'package:sample/theme/theme_selection_page.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/designs/navigation_style.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/theme-07/login/login_page_theme07.dart';
+import 'package:srmuh_std/theme-07/theme07_change_password.dart';
+import 'package:srmuh_std/theme/theme_selection_page.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -81,7 +80,7 @@ class SettingsPage extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         iconTheme: const IconThemeData(color: Colors.white),
-        leading: const Icon(FluentSystemIcons.ic_fluent_settings_filled),
+        leading: const Icon(Icons.settings),
         title: const Text(
           'Settings',
           style: TextStyle(

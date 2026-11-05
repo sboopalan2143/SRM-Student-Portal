@@ -1,12 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
-import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20detail%20model/lms_content_details_model.dart';
-import 'package:sample/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_provider.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_provider.dart';
+import 'package:srmuh_std/home/main_pages/lms/lms%20content%20details/content%20detail%20model/lms_content_details_model.dart';
+import 'package:srmuh_std/home/main_pages/lms/lms%20content%20details/content%20details%20riverpod/lms_content_details_provider.dart';
 
-final lmsContentDetailsProvider =
-    StateNotifierProvider<LmsContentDetailsProvider, LmsContentDetailsState>(
-        (ref) {
+final lmsContentDetailsProvider = StateNotifierProvider<LmsContentDetailsProvider, LmsContentDetailsState>((ref) {
   return LmsContentDetailsProvider();
 });
 

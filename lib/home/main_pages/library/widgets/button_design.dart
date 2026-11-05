@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_dynamic_calls
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/riverpod/main_provider.dart';
 
 // import 'package:uuid/uuid.dart' show Uuid;
 
@@ -48,9 +48,7 @@ class ButtonDesign {
               context: context,
             );
           } else {
-            await ref
-                .read(libraryProvider.notifier)
-                .saveLibrartBookSearchDetails(
+            await ref.read(libraryProvider.notifier).saveLibrartBookSearchDetails(
                   ref.read(encryptionProvider.notifier),
                 );
           }

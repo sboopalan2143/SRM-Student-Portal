@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_before_register_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_details_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/model/room_type_hive_model.dart';
-import 'package:sample/home/main_pages/hostel/riverpod/hostel_provider.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_after_register_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_before_register_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_before_register_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_details_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/hostel_leave_application_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/model/room_type_hive_model.dart';
+import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_provider.dart';
 
 final hostelProvider = StateNotifierProvider<HostelProvider, HostelState>((ref) {
   return HostelProvider();

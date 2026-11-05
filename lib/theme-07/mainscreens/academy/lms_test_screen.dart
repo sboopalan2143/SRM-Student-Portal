@@ -3,11 +3,11 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/library/riverpod/library_member_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/library/riverpod/library_member_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class Theme07McqTestViewPage extends ConsumerStatefulWidget {
   const Theme07McqTestViewPage({
@@ -26,12 +26,10 @@ class Theme07McqTestViewPage extends ConsumerStatefulWidget {
   final String marksperquestion;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _Theme07McqTestViewPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _Theme07McqTestViewPageState();
 }
 
-class _Theme07McqTestViewPageState
-    extends ConsumerState<Theme07McqTestViewPage> {
+class _Theme07McqTestViewPageState extends ConsumerState<Theme07McqTestViewPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
@@ -42,9 +40,7 @@ class _Theme07McqTestViewPageState
   String singleString = '';
 
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
-
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   @override
   void initState() {
@@ -114,9 +110,7 @@ class _Theme07McqTestViewPageState
                 children: [
                   GestureDetector(
                     onTap: () {
-                      ref
-                          .read(lmsProvider.notifier)
-                          .getLmsMcqQuestionandAnswerDetails(
+                      ref.read(lmsProvider.notifier).getLmsMcqQuestionandAnswerDetails(
                             ref.read(encryptionProvider.notifier),
                             widget.mcqscheduleid,
                             widget.mcqtemplateid,
@@ -146,23 +140,21 @@ class _Theme07McqTestViewPageState
                 Padding(
                   padding: const EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicators
-                        .primaryColorProgressIndication,
+                    child: CircularProgressIndicators.primaryColorProgressIndication,
                   ),
                 )
-              else if (provider.mcqQuestionAndAnswerData.isEmpty &&
-                  provider is! LibraryTrancsactionStateLoading)
+              else if (provider.mcqQuestionAndAnswerData.isEmpty && provider is! LibraryTrancsactionStateLoading)
                 Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                       child: Text(
                         'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
                       ),
                     ),
                   ],
@@ -188,14 +180,10 @@ class _Theme07McqTestViewPageState
                       width: 150,
                       child: GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .getMcqAnswerDetails(
+                          await ref.read(lmsProvider.notifier).getMcqAnswerDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(lmsProvider.notifier)
-                              .saveMCQAnswerDetails(
+                          await ref.read(lmsProvider.notifier).saveMCQAnswerDetails(
                                 ref.read(encryptionProvider.notifier),
                                 widget.mcqscheduleid,
                                 singleString,

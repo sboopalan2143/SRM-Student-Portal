@@ -6,12 +6,12 @@
 // import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:intl/intl.dart';
 // import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-// import 'package:sample/designs/_designs.dart';
-// import 'package:sample/encryption/encryption_state.dart';
-// import 'package:sample/home/main_pages/hostel/riverpod/hostel_state.dart';
-// import 'package:sample/home/main_pages/hostel/screens/hostel.dart';
-// import 'package:sample/home/main_pages/hostel/widgets/button_design.dart';
-// import 'package:sample/home/widgets/drawer_design.dart';
+// import 'package:srmuh_std/designs/_designs.dart';
+// import 'package:srmuh_std/encryption/encryption_state.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/riverpod/hostel_state.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/screens/hostel.dart';
+// import 'package:srmuh_std/home/main_pages/hostel/widgets/button_design.dart';
+// import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 // class LeaveApplicationPage extends ConsumerStatefulWidget {
 //   const LeaveApplicationPage({super.key});

@@ -6,8 +6,8 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:sample/designs/font_styles.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/designs/font_styles.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
 
 class PDFViewScreen extends ConsumerStatefulWidget {
   const PDFViewScreen({
@@ -24,8 +24,7 @@ class PDFViewScreen extends ConsumerStatefulWidget {
 
 class PDFViewScreenState extends ConsumerState<PDFViewScreen> {
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   String? localFilePath;
   bool isLoading = true;

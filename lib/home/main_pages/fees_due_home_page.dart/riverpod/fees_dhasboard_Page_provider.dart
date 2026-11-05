@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/api_token_services/http_services.dart';
-import 'package:sample/encryption/encryption_provider.dart';
-import 'package:sample/encryption/model/error_model.dart';
-import 'package:sample/home/main_pages/cgpa/model/cgpa_model.dart';
-import 'package:sample/home/main_pages/cgpa/riverpod/cgpa_state.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/model/fees_due_home_page_model.dart';
-import 'package:sample/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/api_token_services/http_services.dart';
+import 'package:srmuh_std/encryption/encryption_provider.dart';
+import 'package:srmuh_std/encryption/model/error_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/model/cgpa_model.dart';
+import 'package:srmuh_std/home/main_pages/cgpa/riverpod/cgpa_state.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/model/fees_due_home_page_model.dart';
+import 'package:srmuh_std/home/main_pages/fees_due_home_page.dart/riverpod/fees_dhasboard_Page_state.dart';
 
 class FeesDhasboardProvider extends StateNotifier<FeesDhasboardState> {
   FeesDhasboardProvider() : super(FeesDhasboardInitial());
@@ -25,8 +25,7 @@ class FeesDhasboardProvider extends StateNotifier<FeesDhasboardState> {
     final data = encrypt.getEncryptedData(
       '<studentid>${TokensManagement.studentId}</studentid><deviceid>${TokensManagement.deviceId}</deviceid><accesstoken>${TokensManagement.phoneToken}</accesstoken><androidversion>${TokensManagement.androidVersion}</androidversion><model>${TokensManagement.model}</model><sdkversion>${TokensManagement.sdkVersion}</sdkversion><appversion>${TokensManagement.appVersion}</appversion>',
     );
-    final response =
-        await HttpService.sendSoapRequest('getStudentHomePageFeeDue', data);
+    final response = await HttpService.sendSoapRequest('getStudentHomePageFeeDue', data);
     if (response.$1 == 0) {
       state = NoNetworkAvailableFeesDhasboard(
         successMessage: '',
@@ -35,8 +34,7 @@ class FeesDhasboardProvider extends StateNotifier<FeesDhasboardState> {
       );
     } else if (response.$1 == 200) {
       final details = response.$2['Body'] as Map<String, dynamic>;
-      final hostelRes =
-          details['getStudentHomePageFeeDueResponse'] as Map<String, dynamic>;
+      final hostelRes = details['getStudentHomePageFeeDueResponse'] as Map<String, dynamic>;
       final returnData = hostelRes['return'] as Map<String, dynamic>;
       final data = returnData['#text'];
       final decryptedData = encrypt.getDecryptedData('$data');
@@ -44,8 +42,7 @@ class FeesDhasboardProvider extends StateNotifier<FeesDhasboardState> {
       log('feesDueDhasboardData >>>>>>>>$feesDueDhasboardData');
 //change model
       try {
-        final feesDueDhasboardDataResponse =
-            StudentHomePageFeeDueModel.fromJson(decryptedData.mapData!);
+        final feesDueDhasboardDataResponse = StudentHomePageFeeDueModel.fromJson(decryptedData.mapData!);
 
         feesDueDhasboardData = feesDueDhasboardDataResponse.data!;
         state = state.copyWith(feesDueDhasboardData: feesDueDhasboardData);

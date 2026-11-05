@@ -1,4 +1,4 @@
-// import 'package:sample/designs/_designs.dart';
+// import 'package:srmuh_std/designs/_designs.dart';
 // import 'package:flutter/material.dart';
 // import 'package:skeletons/skeletons.dart';
 

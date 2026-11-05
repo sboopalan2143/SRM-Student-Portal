@@ -1,58 +1,58 @@
-import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
-import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform, kIsWeb;
+// import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
+// import 'package:flutter/foundation.dart'
+//     show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
-class PlatformOptions {
-  static FirebaseOptions get currentPlatform {
-    if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
-    }
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return android;
-      case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.fuchsia:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for fuchsia - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-    }
-  }
+// class PlatformOptions {
+//   static FirebaseOptions get currentPlatform {
+//     if (kIsWeb) {
+//       throw UnsupportedError(
+//         'DefaultFirebaseOptions have not been configured for web - '
+//         'you can reconfigure this by running the FlutterFire CLI again.',
+//       );
+//     }
+//     switch (defaultTargetPlatform) {
+//       case TargetPlatform.android:
+//         return android;
+//       case TargetPlatform.iOS:
+//         return ios;
+//       case TargetPlatform.macOS:
+//         throw UnsupportedError(
+//           'DefaultFirebaseOptions have not been configured for macos - '
+//           'you can reconfigure this by running the FlutterFire CLI again.',
+//         );
+//       case TargetPlatform.windows:
+//         throw UnsupportedError(
+//           'DefaultFirebaseOptions have not been configured for windows - '
+//           'you can reconfigure this by running the FlutterFire CLI again.',
+//         );
+//       case TargetPlatform.linux:
+//         throw UnsupportedError(
+//           'DefaultFirebaseOptions have not been configured for linux - '
+//           'you can reconfigure this by running the FlutterFire CLI again.',
+//         );
+//       case TargetPlatform.fuchsia:
+//         throw UnsupportedError(
+//           'DefaultFirebaseOptions have not been configured for fuchsia - '
+//           'you can reconfigure this by running the FlutterFire CLI again.',
+//         );
+//     }
+//   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBaiv7VG0gsirmkt3Tumb4-PXXdALiP8sY',
-    appId: '1:822655759961:android:4400e54624f2c74a64a348',
-    messagingSenderId: '822655759961',
-    projectId: 'srm-student-portal-d1ae8',
-    storageBucket: 'srm-student-portal-d1ae8.appspot.com',
-  );
+//   static const FirebaseOptions android = FirebaseOptions(
+//     apiKey: 'AIzaSyBaiv7VG0gsirmkt3Tumb4-PXXdALiP8sY',
+//     appId: '1:822655759961:android:4400e54624f2c74a64a348',
+//     messagingSenderId: '822655759961',
+//     projectId: 'srm-student-portal-d1ae8',
+//     storageBucket: 'srm-student-portal-d1ae8.appspot.com',
+//   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: '',
-    appId: '',
-    messagingSenderId: '',
-    projectId: '',
-    storageBucket: '',
-    iosClientId: '',
-    iosBundleId: '',
-  );
-}
+//   static const FirebaseOptions ios = FirebaseOptions(
+//     apiKey: '',
+//     appId: '',
+//     messagingSenderId: '',
+//     projectId: '',
+//     storageBucket: '',
+//     iosClientId: '',
+//     iosBundleId: '',
+//   );
+// }

@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/api_token_services/api_tokens_services.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/drawer_pages/change_password/screen/change_password.dart';
-import 'package:sample/home/drawer_pages/profile/riverpod/profile_state.dart';
-import 'package:sample/home/drawer_pages/profile/screens/profile_page.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/theme-07/login/login_page_theme07.dart';
+import 'package:srmuh_std/api_token_services/api_tokens_services.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/home/drawer_pages/change_password/screen/change_password.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/riverpod/profile_state.dart';
+import 'package:srmuh_std/home/drawer_pages/profile/screens/profile_page.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/theme-07/login/login_page_theme07.dart';
 
 class DrawerDesign extends ConsumerStatefulWidget {
   const DrawerDesign({super.key});
@@ -72,9 +72,7 @@ class _DrawerDesignState extends ConsumerState<DrawerDesign> {
                           ),
                         ),
                       Text(
-                        TokensManagement.studentName == ''
-                            ? '-'
-                            : TokensManagement.studentName,
+                        TokensManagement.studentName == '' ? '-' : TokensManagement.studentName,
                         style: TextStyles.fontStyle3,
                       ),
                     ],

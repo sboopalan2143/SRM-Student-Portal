@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/home/riverpod/main_provider.dart';
+import 'package:srmuh_std/home/riverpod/main_provider.dart';
 
 final mainProvider = StateNotifierProvider<MainProvider, MainState>((ref) {
   return MainProvider();
@@ -37,13 +37,7 @@ class MainState {
 }
 
 class SettingInitial extends MainState {
-  SettingInitial()
-      : super(
-            successMessage: '',
-            errorMessage: '',
-            navString: '',
-            subNavString: '',
-            myCurrentIndex: 0);
+  SettingInitial() : super(successMessage: '', errorMessage: '', navString: '', subNavString: '', myCurrentIndex: 0);
 }
 
 class SettingLoading extends MainState {

@@ -6,24 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/transport/riverpod/transport_state.dart';
-import 'package:sample/home/main_pages/transport/widgets/button_design.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/riverpod/transport_state.dart';
+import 'package:srmuh_std/home/main_pages/transport/widgets/button_design.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/home/screen/home_page2.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class TransportTransactionPage extends ConsumerStatefulWidget {
   const TransportTransactionPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _TransportTransactionPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TransportTransactionPageState();
 }
 
-class _TransportTransactionPageState
-    extends ConsumerState<TransportTransactionPage> {
+class _TransportTransactionPageState extends ConsumerState<TransportTransactionPage> {
   final ScrollController _listController = ScrollController();
 
   // final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =  GlobalKey<LiquidPullToRefreshState>();
@@ -38,9 +36,7 @@ class _TransportTransactionPageState
         await ref.read(transportProvider.notifier).getTransportStatusDetails(
               ref.read(encryptionProvider.notifier),
             );
-        await ref
-            .read(transportProvider.notifier)
-            .getTransportStatusHiveDetails('');
+        await ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
       },
     );
 
@@ -113,14 +109,10 @@ class _TransportTransactionPageState
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          await ref
-                              .read(transportProvider.notifier)
-                              .getTransportStatusDetails(
+                          await ref.read(transportProvider.notifier).getTransportStatusDetails(
                                 ref.read(encryptionProvider.notifier),
                               );
-                          await ref
-                              .read(transportProvider.notifier)
-                              .getTransportStatusHiveDetails('');
+                          await ref.read(transportProvider.notifier).getTransportStatusHiveDetails('');
                         },
                         child: const Icon(
                           Icons.refresh,
@@ -167,12 +159,10 @@ class _TransportTransactionPageState
                     Padding(
                       padding: const EdgeInsets.only(top: 100),
                       child: Center(
-                        child: CircularProgressIndicators
-                            .primaryColorProgressIndication,
+                        child: CircularProgressIndicators.primaryColorProgressIndication,
                       ),
                     )
-                  else if (provider.transportStatusData.isEmpty &&
-                      provider is! TransportStateLoading)
+                  else if (provider.transportStatusData.isEmpty && provider is! TransportStateLoading)
                     Column(
                       children: [
                         SizedBox(
@@ -181,17 +171,16 @@ class _TransportTransactionPageState
                         Center(
                           child: Text(
                             'No List Added Yet!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.inverseSurface,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  if (provider.transportStatusData.isNotEmpty)
-                    const SizedBox(height: 5),
+                  if (provider.transportStatusData.isNotEmpty) const SizedBox(height: 5),
                   ListView.builder(
                     itemCount: provider.transportStatusData.length,
                     controller: _listController,
@@ -277,8 +266,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].academicyearid}' ==
-                              ''
+                      '${provider.transportStatusData[index].academicyearid}' == ''
                           ? '-'
                           : ''
                               '${provider.transportStatusData[index].academicyearid}'
@@ -306,8 +294,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].applicationfee}' ==
-                              ''
+                      '${provider.transportStatusData[index].applicationfee}' == ''
                           ? '-'
                           : ''
                               '${provider.transportStatusData[index].applicationfee}'
@@ -363,8 +350,7 @@ class _TransportTransactionPageState
                   SizedBox(
                     width: width / 2 - 60,
                     child: Text(
-                      '${provider.transportStatusData[index].transportstatus}' ==
-                              ''
+                      '${provider.transportStatusData[index].transportstatus}' == ''
                           ? '-'
                           : ''
                               '${provider.transportStatusData[index].transportstatus}'

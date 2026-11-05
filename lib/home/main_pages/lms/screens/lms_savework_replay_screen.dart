@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/encryption/encryption_state.dart';
-import 'package:sample/home/main_pages/lms/riverpod/lms_state.dart';
-import 'package:sample/home/widgets/drawer_design.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/encryption/encryption_state.dart';
+import 'package:srmuh_std/home/main_pages/lms/riverpod/lms_state.dart';
+import 'package:srmuh_std/home/widgets/drawer_design.dart';
 
 class LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
   const LmsSaveWorkReplayDetailsDataPage({
@@ -27,8 +27,7 @@ class LmsSaveWorkReplayDetailsDataPage extends ConsumerStatefulWidget {
   final String imageattachmentid;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      LmsSaveWorkReplayDetailsDataPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => LmsSaveWorkReplayDetailsDataPageState();
 }
 
 enum SampleItem {
@@ -37,11 +36,9 @@ enum SampleItem {
   itemThree,
 }
 
-class LmsSaveWorkReplayDetailsDataPageState
-    extends ConsumerState<LmsSaveWorkReplayDetailsDataPage> {
+class LmsSaveWorkReplayDetailsDataPageState extends ConsumerState<LmsSaveWorkReplayDetailsDataPage> {
   static int refreshNum = 10;
-  Stream<int> counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
+  Stream<int> counterStream = Stream<int>.periodic(const Duration(seconds: 1), (x) => refreshNum);
 
   @override
   void initState() {
@@ -56,10 +53,7 @@ class LmsSaveWorkReplayDetailsDataPageState
   String sendData = '';
 
   Future<void> _pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-      allowMultiple: true,
-    );
+    final result = await FilePicker.pickFiles();
 
     // if (result != null) {
     //   setState(() {
@@ -85,8 +79,8 @@ class LmsSaveWorkReplayDetailsDataPageState
     if (result != null) {
       setState(() {
         // Extracting image paths and names
-        imagePaths = result.files.map((file) => file.path!).toList();
-        imageName = result.files.map((file) => file.name).toList();
+        imagePaths = result.map((file) => file.path!).toList();
+        imageName = result.map((file) => file.name).toList();
 
         // Reading file bytes
         imageBytes = imagePaths.map((path) {
@@ -208,8 +202,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(color: Colors.grey),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
                               ),
                               child: SizedBox(
                                 width: 300,
@@ -241,17 +234,16 @@ class LmsSaveWorkReplayDetailsDataPageState
                                         color: Colors.red,
                                         size: 50,
                                       )
-                                    : image.endsWith('.xlsx') ||
-                                            image.endsWith('.xls')
-                                        ? const Icon(
-                                            Icons.insert_drive_file,
-                                            color: Colors.blue,
-                                            size: 50,
-                                          )
-                                        : Image.file(
-                                            File(image),
-                                            fit: BoxFit.cover,
-                                          ),
+                                    : image.endsWith('.xlsx') || image.endsWith('.xls')
+                                    ? const Icon(
+                                        Icons.insert_drive_file,
+                                        color: Colors.blue,
+                                        size: 50,
+                                      )
+                                    : Image.file(
+                                        File(image),
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                             );
                           }).toList(),
@@ -263,8 +255,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                           children: [
                             PopupMenuButton(
                               shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
                               ),
                               child: SizedBox(
                                 height: 40,
@@ -288,8 +279,7 @@ class LmsSaveWorkReplayDetailsDataPageState
                               onSelected: (value) {
                                 _pickFile();
                               },
-                              itemBuilder: (BuildContext context) =>
-                                  <PopupMenuEntry>[
+                              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                                 PopupMenuItem(
                                   child: Row(
                                     children: [
@@ -340,10 +330,8 @@ class LmsSaveWorkReplayDetailsDataPageState
                             filled: true,
                             fillColor: AppColors.secondaryColor,
                             contentPadding: const EdgeInsets.all(10),
-                            enabledBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
-                            focusedBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
                         ),
                       ),
@@ -370,10 +358,8 @@ class LmsSaveWorkReplayDetailsDataPageState
                             filled: true,
                             fillColor: AppColors.secondaryColor,
                             contentPadding: const EdgeInsets.all(10),
-                            enabledBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
-                            focusedBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
                         ),
                       ),
@@ -385,7 +371,9 @@ class LmsSaveWorkReplayDetailsDataPageState
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          ref.read(lmsProvider.notifier).saveClassWorkReplay(
+                          ref
+                              .read(lmsProvider.notifier)
+                              .saveClassWorkReplay(
                                 ref.read(encryptionProvider.notifier),
                                 widget.classworkID,
                                 widget.imageattachmentid,

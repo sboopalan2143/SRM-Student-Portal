@@ -4,13 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sample/designs/_designs.dart';
-import 'package:sample/home/riverpod/main_state.dart';
-import 'package:sample/home/screen/home_page2.dart';
-import 'package:sample/login/riverpod/login_state.dart';
-import 'package:sample/login/widget/button_design.dart';
-import 'package:sample/network/riverpod/network_state.dart';
-import 'package:sample/theme-07/theme07_homepage.dart';
+import 'package:srmuh_std/designs/_designs.dart';
+import 'package:srmuh_std/home/riverpod/main_state.dart';
+import 'package:srmuh_std/home/screen/home_page2.dart';
+import 'package:srmuh_std/login/riverpod/login_state.dart';
+import 'package:srmuh_std/login/widget/button_design.dart';
+import 'package:srmuh_std/network/riverpod/network_state.dart';
+import 'package:srmuh_std/theme-07/theme07_homepage.dart';
 
 import '../../home/screen/home_page.dart';
 
@@ -21,8 +21,7 @@ class LoginPage extends ConsumerStatefulWidget {
   ConsumerState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage>
-    with WidgetsBindingObserver {
+class _LoginPageState extends ConsumerState<LoginPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -131,10 +130,8 @@ class _LoginPageState extends ConsumerState<LoginPage>
                             filled: true,
                             fillColor: AppColors.secondaryColor,
                             contentPadding: const EdgeInsets.all(10),
-                            enabledBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
-                            focusedBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
                         ),
                       ),
@@ -166,10 +163,8 @@ class _LoginPageState extends ConsumerState<LoginPage>
                             filled: true,
                             fillColor: AppColors.secondaryColor,
                             contentPadding: const EdgeInsets.all(10),
-                            enabledBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
-                            focusedBorder:
-                                BorderBoxButtonDecorations.loginTextFieldStyle,
+                            enabledBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
+                            focusedBorder: BorderBoxButtonDecorations.loginTextFieldStyle,
                           ),
                         ),
                       ),

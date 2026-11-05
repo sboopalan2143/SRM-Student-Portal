@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample/designs/colors.dart';
+import 'package:srmuh_std/designs/colors.dart';
 
 class TermsAndConditions extends ConsumerStatefulWidget {
   const TermsAndConditions({super.key});
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _TermsAndConditionsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TermsAndConditionsState();
 }
 
 class _TermsAndConditionsState extends ConsumerState<TermsAndConditions> {

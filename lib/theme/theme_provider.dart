@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:sample/theme/dark_theme.dart';
-import 'package:sample/theme/light_theme.dart';
+import 'package:srmuh_std/theme/dark_theme.dart';
+import 'package:srmuh_std/theme/light_theme.dart';
 
 class ThemeProvider with ChangeNotifier, WidgetsBindingObserver {
   // Track the selected color family (default, orange, red, green)
